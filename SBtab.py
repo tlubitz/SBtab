@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 import re
+import copy
+import tablib
+from tablibIO import *
 
-allowed_types = ['Reaction', 'Compound', 'Enzyme', 'Compartment', 'QuantityType', 'Regulator', 'Gene']
+
 no_name_tables = []
 
 
@@ -62,14 +65,9 @@ class SBtabTable():
         '''
         self.filename = filename  # needed to be able to adress it from outside of the class for writing and reading stuff
 
-        # identification of seperator (tsv/csv) (self.separator)
-        if str(filename).endswith('.tsv'):
-            self.separator = '\t'
-        elif str(filename).endswith('.csv'):
-            self.separator = ';'
-        else:
-            raise SBtabError('The given file format is not supported: ' +
-                             filename + '. Please use ".tsv" or ".csv" instead')
+        # identification of seperator (tsv/csv/ods/xls)
+        if not str(filename).endswith('.tsv') or str(filename).endswith('.csv') or str(filename).endswith('.ods') or str(filename).endswith('.xls'):
+            raise SBtabError('The given file format is not supported: ' + filename + '. Please use ".tsv", ".csv", ".ods" or ".xls" instead.')
 
         # reading the whole spreadsheet in a list line by line (self.table_rows)
         # this is mainly done to exclude empty lines
@@ -238,15 +236,12 @@ class SBtabTable():
 
     def initializeColumns(self):
         '''
-        initializes the column indices
+        initialize columns for the SBtab table
         '''
-        if self.table_type in allowed_types:
-            typeFunction = 'self.initializeColumns' + self.table_type + '()'
-            eval(typeFunction)
-        else:
-            self.definitionTable()
-            # raise SBtabError('\''+ self.table_type+'\' is not a valid SBtab
-            # TableType.')
+        self.ini_columns = {}
+
+        for i, column in enumerate(self.column_names):
+                self.ini_columns[column] = i
 
     def changeValue(self, row, column, new):
         '''
@@ -258,301 +253,3 @@ class SBtabTable():
         '''
         write the python object into a SBtab file, tsv format
         '''
-
-    def initializeColumnsReaction(self):
-        '''
-        initialize specific columns for the SBtab type Reaction
-        '''
-        self.ini_columns = {}
-
-        for i, column in enumerate(self.column_names):
-            if column == '!Reaction':
-                self.ini_columns['!Reaction'] = i
-            elif column == '!Name':
-                self.ini_columns['!Name'] = i
-            elif column == '!SBMLReactionID':
-                self.ini_columns['!SBMLReactionID'] = i
-            elif column == '!SumFormula':
-                self.ini_columns['!SumFomula'] = i
-            elif column == '!Location':
-                self.ini_columns['!Location'] = i
-            elif column == '!Enzyme':
-                self.ini_columns['!Enzyme'] = i
-            elif column == '!KineticLaw':
-                self.ini_columns['!KineticLaw'] = i
-            elif column == '!Enzyme SBMLSpeciesID':
-                self.ini_columns['!Enzyme SMBLSpeciesID'] = i
-            elif column == '!Enzyme SBMLParameterID':
-                self.ini_columns['!Enzyme SBMLParameterID'] = i
-            elif column == '!MetabolicRegulators':
-                self.ini_columns['!MetabolicRegulators'] = i
-            elif column == '!BuildReaction':
-                self.ini_columns['!BuildReaction'] = i
-            elif column == '!BuildEnzyme':
-                self.ini_columns['!BuildEnzymes'] = i
-            elif column == '!Model':
-                self.ini_columns['Model'] = i
-            elif column == '!Pathway':
-                self.ini_columns['!Pathway'] = i
-            elif column == '!SubreactionOf':
-                self.ini_columns['SubreactionOf'] = i
-            elif column == '!IsComplete':
-                self.ini_columns['!IsComplete'] = i
-            elif column == '!IsReversible':
-                self.ini_columns['!IsReversible'] = i
-            elif column == '!IsInEquilibrium':
-                self.ini_columns['!IsInEquilibrium'] = i
-            elif column == '!IsExchangeReaction':
-                self.ini_columns['!IsExchangeReaction'] = i
-            elif column == '!Flux':
-                self.ini_columns['!Flux'] = i
-            elif column == '!IsNonEnzymatic':
-                self.ini_columns['!IsNonEnzymatic'] = i
-            elif column == '!Metabolic':
-                self.ini_columns['!Metabolic'] = i
-            elif column == '!Gene':
-                self.ini_columns['!Gene'] = i
-            elif column == '!Operon':
-                self.ini_columns['!Operon'] = i
-            elif column == '!Transcription':
-                self.ini_columns['!Transcription'] = i
-            elif column == '!Translation':
-                self.ini_columns['!Translation'] = i
-            elif column == '!BuildEnzymeProduction':
-                self.ini_columns['!BuildEnzymeProduction'] = i
-            elif column.startswith('!MiriamID'):
-                self.ini_columns['!MiriamID'] = i
-            elif column.rstrip():
-                self.ini_columns['unknown: ' + column.rstrip()] = i
-
-    def initializeColumnsCompound(self):
-        '''
-        initialize specific columns for the SBtab type Compound
-        '''
-        self.ini_columns = {}
-
-        for i, column in enumerate(self.column_names):
-            if column == '!Compound':
-                self.ini_columns['!Compound'] = i
-            elif column == '!Name':
-                self.ini_columns['!Name'] = i
-            elif column == '!SBMLSpeciesID':
-                self.ini_columns['!SBMLSpeciesID'] = i
-            elif column == '!SBMLSpeciestypeID':
-                self.ini_columns['!SBMLSpeciestypeID'] = i
-            elif column == '!Location':
-                self.ini_columns['!Location'] = i
-            elif column == '!Charge':
-                self.ini_columns['!Charge'] = i
-            elif column == '!Constant':
-                self.ini_columns['!Constant'] = i
-            elif column == '!State':
-                self.ini_columns['!State'] = i
-            elif column == '!CompoundSumFormula':
-                self.ini_columns['!CompundSumFormula'] = i
-            elif column == '!StructureFormula':
-                self.ini_columns['!StructureFormula'] = i
-            elif column == '!Mass':
-                self.ini_columns['!Mass'] = i
-            elif column == '!Component':
-                self.ini_columns['!Component'] = i
-            elif column == '!IsConstant':
-                self.ini_columns['!IsConstant'] = i
-            elif column == '!EnzymeRole':
-                self.ini_columns['!EnzymeRole'] = i
-            elif column == '!RegulatorRole':
-                self.ini_columns['!RegulatorRole'] = i
-            elif column.startswith('!MiriamID'):
-                self.ini_columns['!MiriamID'] = i
-            elif column.rstrip():
-                self.ini_columns['unknown: ' + column.rstrip()] = i
-
-    def initializeColumnsEnzyme(self):
-        '''
-        initialize specific columns for the SBtab type Enzyme
-        '''
-        self.ini_columns = {}
-
-        for i, column in enumerate(self.column_names):
-            if column == '!Enzyme':
-                self.ini_columns['!Enzyme'] = i
-            elif column == '!Name':
-                self.ini_columns['!Name'] = i
-            elif column == '!CatalysedReaction':
-                self.ini_columns['!CatalysedReaction'] = i
-            elif column == '!KineticLaw':
-                self.ini_columns['!KineticLaw'] = i
-            elif column == '!MetabolicRegulators':
-                self.ini_columns['!MetabolicRegulators'] = i
-            elif column == '!Gene':
-                self.ini_columns['!Gene'] = i
-            elif column == '!GeneBooleanFormula':
-                self.ini_columns['!GeneBooleanFomula'] = i
-            elif column.startswith('!MiriamID'):
-                self.ini_columns['!MiriamID'] = i
-            elif column.rstrip():
-                self.ini_columns['unknown: ' + column.rstrip()] = i
-
-    def initializeColumnsCompartment(self):
-        '''
-        initialize specific columns for the SBtab type Compartment
-        '''
-        self.ini_columns = {}
-
-        for i, column in enumerate(self.column_names):
-            if column == '!Compartment':
-                self.ini_columns['!Compartment'] = i
-            elif column == '!Name':
-                self.ini_columns['!Name'] = i
-            elif column == '!SBMLCompartmentID':
-                self.ini_columns['!SBMLCompartmentID'] = i
-            elif column == '!Size':
-                self.ini_columns['!Size'] = i
-            elif column == '!OuterCompartment':
-                self.ini_columns['!OuterCompartment'] = i
-            elif column == '!OuterCompartment SBMLCompartmentID':
-                self.ini_columns['!OuterCompartment SBMLCompartmentID'] = i
-            elif column.startswith('!MiriamID'):
-                self.ini_columns['!MiriamID'] = i
-            elif column.rstrip():
-                self.ini_columns['unknown: ' + column.rstrip()] = i
-
-    def initializeColumnsQuantityType(self):
-        '''
-        initialize specific columns for the SBtab type QuantityType
-        '''
-        self.ini_columns = {}
-
-        for i, column in enumerate(self.column_names):
-            if column == '!QuantityType':
-                self.ini_columns['!QuantityType'] = i
-            elif column == '!Quantity':
-                self.ini_columns['!Quantity'] = i
-            elif column == '!Name':
-                self.ini_columns['!Name'] = i
-            elif column == '!SBMLReactionID':
-                self.ini_columns['!SBMLReactionID'] = i
-            elif column == '!SBMLSpeciesID':
-                self.ini_columns['!SBMLSpeciesID'] = i
-            elif column == '!Median':
-                self.ini_columns['!Median'] = i
-            elif column == '!Mean':
-                self.ini_columns['!Mean'] = i
-            elif column == '!Value':
-                self.ini_columns['!Value'] = i
-            elif column == '!Std':
-                self.ini_columns['!Std'] = i
-            elif column == '!Unit':
-                self.ini_columns['!Unit'] = i
-            elif column == '!Provenance':
-                self.ini_columns['!Provenance'] = i
-            elif column == '!Type':
-                self.ini_columns['!Type'] = i
-            elif column == '!Source':
-                self.ini_columns['!Source'] = i
-            elif column == '!logMean':
-                self.ini_columns['!logMean'] = i
-            elif column == '!logStd':
-                self.ini_columns['!logStd'] = i
-            elif column == '!Minimum':
-                self.ini_columns['!Minimum'] = i
-            elif column == '!Maximum':
-                self.ini_columns['!Maximum'] = i
-            elif column == '!pH':
-                self.ini_columns['!pH'] = i
-            elif column == '!Temperature':
-                self.ini_columns['!Temperature'] = i
-            elif column == '!OrganismName':
-                self.ini_columns['!OrganismName'] = i
-            elif column == '!Time':
-                self.ini_columns['!Time'] = i
-            elif column == '!SampleName':
-                self.ini_columns['!SampleName'] = i
-            elif column == '!Condition':
-                self.ini_columns['!Condition'] = i
-            elif column == '!Scale':
-                self.ini_columns['!Scale'] = i
-            elif column.startswith('!MiriamID'):
-                self.ini_columns['!MiriamID'] = i
-            elif column.rstrip():
-                self.ini_columns['unknown: ' + column.rstrip()] = i
-
-    def initializeColumnsGene(self):
-        '''
-        initialize specific columns for the SBtab type Gene
-        '''
-        self.ini_columns = {}
-
-        for i, column in enumerate(self.column_names):
-            if column == '!Gene':
-                self.ini_columns['!Gene'] = i
-            elif column == '!Name':
-                self.ini_columns['!Name'] = i
-            elif column == '!GeneLocus':
-                self.ini_columns['!GeneLocus'] = i
-            elif column == '!GeneProduct':
-                self.ini_columns['!GeneProduct'] = i
-            elif column == '!GeneProduct SBMLSpeciesID':
-                self.ini_columns['!GeneProduct SBMLSpeciesID'] = i
-            elif column == '!Operon':
-                self.ini_columns['!Operon'] = i
-            elif column == '!Transcription':
-                self.ini_columns['!Transcription'] = i
-            elif column == '!Tranlation':
-                self.ini_columns['!Translation'] = i
-            elif column.startswith('!MiriamID'):
-                self.ini_columns['!MiriamID'] = i
-            elif column.rstrip():
-                self.ini_columns['unknown: ' + column.rstrip()] = i
-
-    def initializeColumnsRegulator(self):
-        '''
-        initialize specific columns for the SBtab type Regulator
-        '''
-        self.ini_columns = {}
-
-        for i, column in enumerate(self.column_names):
-            if column == '!Regulator':
-                self.ini_columns['!Regulator'] = i
-            elif column == '!Name':
-                self.ini_columns['!Name'] = i
-            elif column == '!State':
-                self.ini_columns['!State'] = i
-            elif column == '!Activity':
-                self.ini_columns['!Activity'] = i
-            elif column == '!Binding':
-                self.ini_columns['!Binding'] = i
-            elif column == '!TargetGene':
-                self.ini_columns['!TargetGene'] = i
-            elif column == '!TargetOperon':
-                self.ini_columns['!TargetOperon'] = i
-            elif column == '!TargetPromoter':
-                self.ini_columns['!TargetPromoter'] = i
-            elif column.startswith('!MiriamID'):
-                self.ini_columns['!MiriamID'] = i
-            elif column.rstrip():
-                self.ini_columns['unknown: ' + column.rstrip()] = i
-
-    def initializeColumnsNewTable(self):
-        '''
-        initialize specific columns for unknown SBtab types
-        '''
-        self.ini_columns = {}
-
-        for i, column in enumerate(self.column_names):
-            if column.rstrip():
-                self.ini_columns[column.rstrip()] = i
-
-    def checkColumns(self):
-        '''
-        checks whether the given column names are known (according to the specification)
-        '''
-        specific_columns = self.table_type + '_columns.keys()'
-        for column in self.column_names:
-            if column in eval(specific_columns):
-                pass
-            else:
-                print 'The column ', column, ' is unknown according to the SBtab specification.'
-
-    def definitionTable(self):
-        self.initializeColumnsNewTable()
