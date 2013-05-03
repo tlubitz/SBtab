@@ -8,40 +8,36 @@ from tablibIO import *
 no_name_tables = []
 
 
-def oneOrMany(sbtab_document):
+def oneOrMany(spreadsheet_file):
     '''
     this extra function is supposed to check whether there are one or many SBtabs in an SBtab document.
     it returns a list of SBtab strings
     '''
     sbtabs = []
-    rows = []
-    starts = []
 
-    # get starting points
-    for i, row in enumerate(sbtab_document):
-        rows.append(row)
-        if row.startswith('!!'):
-            starts.append(i)
-        elif re.search('TableType="([^"])*"', row):
-            starts.append(i)
-        elif re.search('Table="([^"])*"', row):
-            starts.append(i)
-    starts.append(i + 1)
-    end_of_file = i + 1
+    # copy file, one for iteration, one for cutting
+    sbtab_document = copy.deepcopy(spreadsheet_file)
+    # create new tablib object
+    sbtab = tablib.Dataset()
 
-    if len(starts) == 0:
-        return None
-    elif len(starts) == 1:
-        return sbtab_document
-    elif len(starts) > 1:
-        for i, start_point in enumerate(starts):
-            if start_point == end_of_file:
-                break
-            single_sbtab = []
-            for j in range(starts[i], starts[i + 1]):
-                single_sbtab.append(rows[j])
-            sbtabs.append(single_sbtab)
+    # cutting sbtab_document, write tablib objects in list
+    if len(spreadsheet_file) != 0:
+        for row in sbtab_document:
+            if len(sbtab) == 0:
+                sbtab.rpush(sbtab_document.lpop())
+            else:
+                print 'meep'
+                for entry in row:
+                    if entry.startswith('!!'):
+                        sbtabs.append(sbtab)
+                        sbtab = tablib.Dataset()
+                        sbtab.rpush(sbtab_document.lpop())
+                        break
+                    else:
+                        sbtab.rpush(sbtab_document.lpop())
+            sbtabs.append(sbtab)
 
+    # return list of tablib objects
     return sbtabs
 
 
@@ -55,7 +51,7 @@ class SBtabError(Exception):
 
 class SBtabTable():
     '''
-    SBtab Table (v9 02/13)
+    SBtab Table (v0 05/03/2013)
     '''
     def __init__(self, table, filename, table_type=None):
         '''
@@ -69,26 +65,17 @@ class SBtabTable():
         if not str(filename).endswith('.tsv') or str(filename).endswith('.csv') or str(filename).endswith('.ods') or str(filename).endswith('.xls'):
             raise SBtabError('The given file format is not supported: ' + filename + '. Please use ".tsv", ".csv", ".ods" or ".xls" instead.')
 
-        # reading the whole spreadsheet in a list line by line (self.table_rows)
-        # this is mainly done to exclude empty lines
-
-        self.table_rows = []
-        for row in table:
-            if not row.rstrip() == ['']:
-                self.table_rows.append(row)
-
-        # reading the header row (self: table_type, table_name, table_document,
-        # table_version, table_level)
+        # reading the header row (self: table_type, table_name, table_document, table_version, table_level)
         self.getHeaderRow()
         # reading the column names (initialize columns) (self.column_names)
         self.getColumns()
 
         # reading subcolumns (not obligate) (self.column_property_rows)
+        # TODO: needed anymore??
         try:
             self.getColumnProperties()
         except:
-            raise SBtabError(
-                'The specification row of the SBtab is invalid (see example files again).')
+            raise SBtabError('The specification row of the SBtab is invalid (see example files again).')
 
         # reading rows (self.value_rows)
         self.getRows()
@@ -126,23 +113,6 @@ class SBtabTable():
             self.value_by_first[row[0]] = row[1:]
         print self.value_by_first
 
-    def makeExMarks(self):
-        '''
-        if column names are given without exclamation marks (old format), add them automatically.
-        '''
-        new_rows = []
-        for row in self.table_rows:
-            if row.startswith('QuantityType'):
-                old_column_row = row.split(self.separator)
-                new_column_row = []
-                for item in old_column_row:
-                    new_column_row.append('!' + item)
-                new_rows.append(self.separator.join(new_column_row))
-            else:
-                new_rows.append(row)
-        self.table_rows = new_rows
-        # needed anymore??
-
     def getHeaderRow(self):
         '''
         extracts the !!-header row from the SBtab file and its information
@@ -152,19 +122,18 @@ class SBtabTable():
         global no_name_tables
         no_name_count = 0
 
-        for row in self.table_rows:
-            if row.startswith('!!'):
-                self.header_row = row
+        for row in table:
+            for entry in row:
+                if entry.startswith('!!'):
+                    self.header_row = row
 
         try:
-            self.table_type = re.search(
-                'TableType="([^"]*)"', self.header_row).group(1)
+            self.table_type = re.search('TableType="([^"]*)"', self.header_row).group(1)
         except:
             raise SBtabError('The TableType of the SBtab is not defined!')
 
         try:
-            self.table_name = re.search(
-                'Table="([^"]*)"', self.header_row).group(1)
+            self.table_name = re.search('Table="([^"]*)"', self.header_row).group(1)
         except:
             no_name_tables.append(self.table_type)
             for table_no_name in no_name_tables:
@@ -173,20 +142,17 @@ class SBtabTable():
             self.table_name = self.table_type.capitalize() + str(no_name_count)
 
         try:
-            self.table_document = re.search(
-                'Document="([^"]*)"', self.header_row).group(1)
+            self.table_document = re.search('Document="([^"]*)"', self.header_row).group(1)
         except:
             self.table_document = None
 
         try:
-            self.table_level = re.search(
-                'Level="([^"]*)"', self.header_row).group(1)
+            self.table_level = re.search('Level="([^"]*)"', self.header_row).group(1)
         except:
             self.table_level = None
 
         try:
-            self.table_version = re.search(
-                'Version="([^"]*)"', self.header_row).group(1)
+            self.table_version = re.search('Version="([^"]*)"', self.header_row).group(1)
         except:
             self.table_version = None
 
@@ -231,8 +197,7 @@ class SBtabTable():
         # insert value column if mandatory column was added
         if self.inserted_column == 1:
             for i, row in enumerate(self.value_rows):
-                row.insert(0, self.table_type[0].capitalize(
-                ) + self.table_type[- 1].lower() + str(i + 1))
+                row.insert(0, self.table_type[0].capitalize() + self.table_type[- 1].lower() + str(i + 1))
 
     def initializeColumns(self):
         '''
