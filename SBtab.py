@@ -22,20 +22,22 @@ def oneOrMany(spreadsheet_file):
 
     # cutting sbtab_document, write tablib objects in list
     if len(spreadsheet_file) != 0:
-        for row in sbtab_document:
+        for row in spreadsheet_file:
             if len(sbtab) == 0:
                 sbtab.rpush(sbtab_document.lpop())
+                print 'starttable'
             else:
-                print 'meep'
-                for entry in row:
+                for i, entry in enumerate(row):
                     if entry.startswith('!!'):
+                        print 'table'
                         sbtabs.append(sbtab)
                         sbtab = tablib.Dataset()
                         sbtab.rpush(sbtab_document.lpop())
                         break
-                    else:
+                    if len(row) == i + 1:
+                        print 'meep'
                         sbtab.rpush(sbtab_document.lpop())
-            sbtabs.append(sbtab)
+        sbtabs.append(sbtab)
 
     # return list of tablib objects
     return sbtabs
