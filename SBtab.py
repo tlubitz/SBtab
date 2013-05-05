@@ -82,12 +82,10 @@ class SBtabTable():
         # except:
         #     raise SBtabError('The specification row of the SBtab is invalid (see example files again).')
 
-        '''
         # reading rows (self.value_rows)
         self.getRows()
         # reading the position of the valid columns (self.ini_columns)
         self.initializeColumns()
-
         # read out the column values by column name
         print self.table_name
         for column in self.ini_columns:
@@ -118,7 +116,8 @@ class SBtabTable():
         for row in self.value_rows:
             self.value_by_first[row[0]] = row[1:]
         print self.value_by_first
-        '''
+
+        self.createSBtab('tsv')
 
     def getHeaderRow(self):
         '''
@@ -203,15 +202,15 @@ class SBtabTable():
         extract the rows of the SBtab
         '''
         self.value_rows = []
-        for row in self.table_rows:
-            split_row = row.split(self.separator)
-            if not row.startswith('!') and not row.startswith(' ') and not row == '':
-                # if len(split_row) == len(self.column_names):
-                self.value_rows.append(split_row)
+        for row in self.table:
+            for i, entry in enumerate(row):
+                if not entry.startswith('!'):
+                    if len(row) == i + 1:
+                        self.value_rows.append(list(row))
         # insert value column if mandatory column was added
-        if self.inserted_column == 1:
+        if self.inserted_column is True:
             for i, row in enumerate(self.value_rows):
-                row.insert(0, self.table_type[0].capitalize() + self.table_type[- 1].lower() + str(i + 1))
+                row.insert(0, self.table_type[0].upper() + self.table_type[- 1].lower() + str(i + 1))
 
     def initializeColumns(self):
         '''
@@ -228,7 +227,49 @@ class SBtabTable():
         '''
         pass
 
-    def createSBtab(self):
+    def createSBtab(self, format_type):
         '''
-        write the python object into a SBtab file, tsv format
+        write the python object into a SBtab file
         '''
+        sbtab_file = tablib.Dataset()
+        header = self.header_row.split(' ')
+
+        header = [x.strip(' ') for x in header]
+        self.column_names = [x.strip(' ') for x in self.column_names]
+        for row in self.value_rows:
+            for entry in row:
+                if not entry:
+                    entry = ''
+            row = [x.strip(' ') for x in row]
+
+        if len(self.column_names) < len(header):
+            dif = len(header) - len(self.column_names)
+            for i in range(dif - 1):
+                self.column_names = self.addEntry(self.column_names)
+        if len(self.column_names) > len(header):
+            dif = len(self.column_names) - len(header)
+            for i in range(dif - 1):
+                header = self.addEntry(header)
+
+        sbtab_file.lpush(header)
+        sbtab_file.lpush(self.column_names)
+        tablibIO.writeTSV(sbtab_file)
+
+    def addEntry(self, list_row):
+        '''
+        add empty entry at the end of a list
+        '''
+        row.append('')
+
+        return list_object
+
+    def delEntry(self, list_row):
+        '''
+        delete empty entry at the end of a list
+        '''
+        for entry in enumerate(list_row):
+            if len(list_row) == i + 1:
+                if entry == '':
+                    del row[i]
+
+        return list_object
