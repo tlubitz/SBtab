@@ -21,21 +21,20 @@ def oneOrMany(spreadsheet_file):
     sbtab = tablib.Dataset()
 
     # cutting sbtab_document, write tablib objects in list
-    if len(spreadsheet_file) != 0:
+    if len(spreadsheet_file) != 0:  # if file not empty
         for row in spreadsheet_file:
-            if len(sbtab) == 0:
+            if len(sbtab) == 0:  # if first line, append line w/o checking
                 sbtab.rpush(sbtab_document.lpop())
-                print 'starttable'
             else:
                 for i, entry in enumerate(row):
+                    # if header row (!!), write to new tablib object and store the last one
                     if entry.startswith('!!'):
-                        print 'table'
                         sbtabs.append(sbtab)
                         sbtab = tablib.Dataset()
                         sbtab.rpush(sbtab_document.lpop())
                         break
+                    # if not header row, append line to tablib object
                     if len(row) == i + 1:
-                        print 'meep'
                         sbtab.rpush(sbtab_document.lpop())
         sbtabs.append(sbtab)
 
@@ -62,23 +61,28 @@ class SBtabTable():
         @filename: string
         '''
         self.filename = filename  # needed to be able to adress it from outside of the class for writing and reading stuff
+        self.table = table
 
         # identification of seperator (tsv/csv/ods/xls)
-        if not str(filename).endswith('.tsv') or str(filename).endswith('.csv') or str(filename).endswith('.ods') or str(filename).endswith('.xls'):
+        if not (str(filename).endswith('.tsv') or str(filename).endswith('.csv') or str(filename).endswith('.ods') or str(filename).endswith('.xls')):
             raise SBtabError('The given file format is not supported: ' + filename + '. Please use ".tsv", ".csv", ".ods" or ".xls" instead.')
 
         # reading the header row (self: table_type, table_name, table_document, table_version, table_level)
         self.getHeaderRow()
+        if not self.header_row:
+            raise SBtabError('This is not a valid SBtab table, please use validator to check format!')
+
         # reading the column names (initialize columns) (self.column_names)
         self.getColumns()
 
         # reading subcolumns (not obligate) (self.column_property_rows)
         # TODO: needed anymore??
-        try:
-            self.getColumnProperties()
-        except:
-            raise SBtabError('The specification row of the SBtab is invalid (see example files again).')
+        # try:
+        #     self.getColumnProperties()
+        # except:
+        #     raise SBtabError('The specification row of the SBtab is invalid (see example files again).')
 
+        '''
         # reading rows (self.value_rows)
         self.getRows()
         # reading the position of the valid columns (self.ini_columns)
@@ -114,6 +118,7 @@ class SBtabTable():
         for row in self.value_rows:
             self.value_by_first[row[0]] = row[1:]
         print self.value_by_first
+        '''
 
     def getHeaderRow(self):
         '''
@@ -124,10 +129,16 @@ class SBtabTable():
         global no_name_tables
         no_name_count = 0
 
-        for row in table:
+        for row in self.table:
             for entry in row:
                 if entry.startswith('!!'):
                     self.header_row = row
+                    break
+
+        if not self.header_row:
+            return None
+        else:
+            self.header_row = ' '.join(self.header_row)
 
         try:
             self.table_type = re.search('TableType="([^"]*)"', self.header_row).group(1)
@@ -141,7 +152,7 @@ class SBtabTable():
             for table_no_name in no_name_tables:
                 if self.table_type == table_no_name:
                     no_name_count = no_name_count + 1
-            self.table_name = self.table_type.capitalize() + str(no_name_count)
+            self.table_name = self.table_type.capitalize() + '_' + str(no_name_count)
 
         try:
             self.table_document = re.search('Document="([^"]*)"', self.header_row).group(1)
@@ -162,29 +173,30 @@ class SBtabTable():
         '''
         extract the column names of the SBtab
         '''
-        # main_name = '!'+self.table_type.capitalize()
-        for row in self.table_rows:
-            if row.startswith('!') and not row.startswith('!!'):
-                self.column_names = row.split(self.separator)
-                break
+        for row in self.table:
+            for entry in row:
+                if entry.startswith('!') and not entry.startswith('!!'):
+                    self.column_names = list(row)
+                    break
 
         # insert mandatory first column if not existent
-        self.inserted_column = 0
-        if not self.column_names[0] == '!' + self.table_type.capitalize():
-            self.column_names.insert(0, '!' + self.table_type.capitalize())
-            self.inserted_column = 1
+        self.inserted_column = False
+        if not self.column_names[0].title() == '!' + self.table_type.title():
+            self.column_names.insert(0, '!' + self.table_type.title())
+            self.inserted_column = True
 
     def getColumnProperties(self):
         '''
         extract the subcolumns of the SBtab
         '''
-        main_name = '!' + self.table_type.capitalize()
+        # TODO: Needed??
+        main_name = '!' + self.table_type.title()
         self.column_property_rows = []
-        for row in self.table_rows:
-            if row.startswith('!') and not row.startswith(main_name) and not row.startswith('!!'):
-                self.column_property_rows.append(row.split(self.separator))
-            else:
-                break
+        for row in self.table:
+            for entry in row:
+                if entry.startswith('!') and not entry.startswith('!' + main_name) and not entry.startswith('!!'):
+                    self.column_property_rows = list(row)
+                    break
 
     def getRows(self):
         '''
