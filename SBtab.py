@@ -2,7 +2,7 @@
 import re
 import copy
 import tablib
-from tablibIO import *
+import tablibIO
 
 
 no_name_tables = []
@@ -76,6 +76,7 @@ class SBtabTable():
         self.getColumns()
 
         # reading subcolumns (not obligate) (self.column_property_rows)
+
         # TODO: needed anymore??
         # try:
         #     self.getColumnProperties()
@@ -86,38 +87,8 @@ class SBtabTable():
         self.getRows()
         # reading the position of the valid columns (self.ini_columns)
         self.initializeColumns()
-        # read out the column values by column name
-        print self.table_name
-        for column in self.ini_columns:
-            print 'Column: ' + column
-            print 'Position: ' + str(self.ini_columns[column])
-            print 'Values: '
-            for valcol in self.value_rows:
-                try:
-                    if valcol[self.ini_columns[column]].rstrip('\n') == '':
-                        valcol[self.ini_columns[column]] = None
-                        print 'None'
-                    elif valcol[self.ini_columns[column]].rstrip('\n') == '?':
-                        valcol[self.ini_columns[column]] = None
-                        print 'None'
-                    elif valcol[self.ini_columns[column]].rstrip('\n').lower() == 'na':
-                        valcol[self.ini_columns[column]] = None
-                        print 'None'
-                    elif valcol[self.ini_columns[column]].rstrip('\n').lower() == 'nan':
-                        valcol[self.ini_columns[column]] = None
-                        print 'None'
-                    else:
-                        print valcol[self.ini_columns[column]].rstrip('\n')
-                except:
-                    print 'None'
-
-        # read out the column values by first column
-        self.value_by_first = {}
-        for row in self.value_rows:
-            self.value_by_first[row[0]] = row[1:]
-        print self.value_by_first
-
-        self.createSBtab('tsv')
+        # write table in csv format, file name is table name
+        self.createSBtab('csv', self.table_name)
 
     def getHeaderRow(self):
         '''
@@ -204,7 +175,9 @@ class SBtabTable():
         self.value_rows = []
         for row in self.table:
             for i, entry in enumerate(row):
-                if not entry.startswith('!'):
+                if entry.startswith('!'):
+                    break
+                else:
                     if len(row) == i + 1:
                         self.value_rows.append(list(row))
         # insert value column if mandatory column was added
@@ -225,51 +198,53 @@ class SBtabTable():
         '''
         change single value in the SBtab
         '''
-        pass
+        self.value_rows[row - 1][column - 1] = new
 
-    def createSBtab(self, format_type):
+    def createSBtab(self, format_type, filename):
         '''
         write the python object into a SBtab file
         '''
+        sbtab_temp = []
         sbtab_file = tablib.Dataset()
         header = self.header_row.split(' ')
 
         header = [x.strip(' ') for x in header]
         self.column_names = [x.strip(' ') for x in self.column_names]
         for row in self.value_rows:
-            for entry in row:
-                if not entry:
-                    entry = ''
-            row = [x.strip(' ') for x in row]
+            try:
+                for entry in row:
+                    entry = entry.strip(' ')
+            except:
+                continue
 
-        if len(self.column_names) < len(header):
-            dif = len(header) - len(self.column_names)
-            for i in range(dif - 1):
-                self.column_names = self.addEntry(self.column_names)
-        if len(self.column_names) > len(header):
-            dif = len(self.column_names) - len(header)
-            for i in range(dif - 1):
-                header = self.addEntry(header)
+        sbtab_temp.append(header)
+        sbtab_temp.append(self.column_names)
+        for row in self.value_rows:
+            sbtab_temp.append(row)
 
-        sbtab_file.lpush(header)
-        sbtab_file.lpush(self.column_names)
-        tablibIO.writeTSV(sbtab_file)
+        longest = max([len(x) for x in sbtab_temp])
+        for row in sbtab_temp:
+            if len(row) < longest:
+                for i in range(longest - len(row)):
+                    row.append('')
+                sbtab_file.append(row)
+            else:
+                sbtab_file.append(row)
 
-    def addEntry(self, list_row):
-        '''
-        add empty entry at the end of a list
-        '''
-        row.append('')
+        for i, entry in enumerate(sbtab_file.get_col[len(sbtab_file[0]) - 1]):
+            if entry:
+                break
+            elif i == len(sbtab_file.get_col[len(sbtab_file[0]) - 1]) - 1:
+                for row in sbtab_file:
+                    del row[-1]
 
-        return list_object
-
-    def delEntry(self, list_row):
-        '''
-        delete empty entry at the end of a list
-        '''
-        for entry in enumerate(list_row):
-            if len(list_row) == i + 1:
-                if entry == '':
-                    del row[i]
-
-        return list_object
+        if format_type == 'tsv':
+            tablibIO.writeTSV(sbtab_file, self.table_name)
+        elif format_type == 'csv':
+            tablibIO.writeCSV(sbtab_file, self.table_name)
+        elif format_type == 'ods':
+            tablibIO.writeODS(sbtab_file, self.table_name)
+        elif format_type == 'xls':
+            tablibIO.writeXLS(sbtab_file, self.table_name)
+        else:
+            raise SBtabError('The given file format is not supported: ' + filename + '. Please use ".tsv", ".csv", ".ods" or ".xls" instead.')
