@@ -51,7 +51,7 @@ class SBtabError(Exception):
 
 class SBtabTable():
     '''
-    SBtab Table (v0 05/11/2013)
+    SBtab Table (v1 05/11/2013)
     '''
     def __init__(self, table, filename):
         '''
@@ -119,6 +119,9 @@ class SBtabTable():
             raise SBtabError('This is not a valid SBtab table, please use validator to check format!')
         else:
             self.header_row = ' '.join(self.header_row)
+
+        # replace double quotes by single quotes
+        self.header_row = self.header_row.replace('"', '\'')
 
         # save TableType, otherwise raise Error
         try:
@@ -227,6 +230,20 @@ class SBtabTable():
         @new string new entry
         '''
         self.value_rows[row - 1][column - 1] = new
+
+    def changeValueByName(self, row, column, new):
+        '''
+        change singe value in the SBtab by name of column and row
+
+        @row string name of entry in first column_names
+        @column string name of main column
+        @new string new entry
+        '''
+        col = self.ini_columns['!' + column]
+        for r in self.value_rows:
+            for entry in r:
+                if entry == row:
+                    r[col] = new
 
     def createSBtabDataset(self):
         '''
