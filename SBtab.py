@@ -288,6 +288,58 @@ class SBtabTable():
             else:
                 self.sbtab_dataset.append(row)
 
+    def addRow(self, row_list, position=None):
+        '''
+        add row to the table, if postion is None at the end
+
+        @row_list string list of entries
+        @position integer position of new row (0 = top)
+        '''
+        # empty column to fill up sbtab_dataset
+        empty_list = []
+
+        # if new row is to small, add empty entries to new row
+        if len(row_list) < len(self.sbtab_dataset.dict[0]):
+            for i in range(len(self.sbtab_dataset.dict[0]) - len(row_list)):
+                row_list.append('')
+        # if new row is to long, add empty entries to sbtab_dataset
+        elif len(row_list) > len(self.sbtab_dataset.dict[0]):
+            for i in range(len(self.sbtab_dataset.dict)):
+                empty_list.append('')
+            for i in range(len(row_list) - len(self.sbtab_dataset.dict[0])):
+                self.sbtab_dataset.rpush_col(empty_list)
+        # if no position is set, add new row to the end
+        if not position:
+            self.sbtab_dataset.rpush(row_list)
+        else:
+            self.sbtab_dataset.insert(position, row_list)
+
+    def addColumn(self, column_list, position=None):
+        '''
+        add column to the table, if position is None at the end
+
+        @column_list string list of entries
+        @position integer position of new column (0 = left)
+        '''
+        # empty column to fill up sbtab_dataset
+        empty_list = []
+
+        # if new column is to small, add empty entries to new column
+        if len(column_list) < len(self.sbtab_dataset.dict):
+            for i in range(len(self.sbtab_dataset.dict) - len(column_list)):
+                column_list.append('')
+        # if new column is to long, add empty entries to sbtab_dataset
+        elif len(column_list) > len(self.sbtab_dataset.dict):
+            for i in range(len(self.sbtab_dataset.dict)[0]):
+                empty_list.append('')
+            for i in range(len(column_list) - len(self.sbtab_dataset.dict[0])):
+                self.sbtab_dataset.rpush(empty_list)
+        # if no position is set, add new column to the end
+        if not position:
+            self.sbtab_dataset.rpush_col(column_list)
+        else:
+            self.sbtab_dataset.insert_col(position, column_list)
+
     def writeSBtab(self, format_type, filename, sbtab_dataset):
         '''
         write SBtab tablib object to file
