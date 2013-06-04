@@ -11,6 +11,8 @@ def oneOrMany(spreadsheet_file):
     '''
     this extra function is supposed to check whether there are one or many SBtabs in an SBtab document.
     it returns a list of SBtab strings
+    @param spreadsheet_file: file containing sbtabs
+    @type spreadsheet_file: tablib object 
     '''
     sbtabs = []
 
@@ -56,8 +58,10 @@ class SBtabTable():
     def __init__(self, table, filename):
         '''
         initialize the SBtab table
-        @table: tablib object
-        @filename: string
+        @param table: one sbtab
+        @type table: tablib object
+        @param filename: name of file that contains sbtab, with extension
+        @type filename: string
 
         Raise error if file format is invalid, only 'tsv', 'csv', 'ods' or 'xls'
         '''
@@ -225,9 +229,12 @@ class SBtabTable():
         '''
         change single value in the SBtab
 
-        @row int number of row
-        @column int number of column_names
-        @new string new entry
+        @param row: number of row to change
+        @type row: integer
+        @param column: number of column to change
+        @type column: integer
+        @param new: new entry
+        @type new: String
         '''
         self.value_rows[row - 1][column - 1] = new
 
@@ -235,9 +242,12 @@ class SBtabTable():
         '''
         change singe value in the SBtab by name of column and row
 
-        @row string name of entry in first column_names
-        @column string name of main column
-        @new string new entry
+        @param row: name of entry in first column
+        @type row: String
+        @param column: name in main column
+        @type column: String
+        @paran new: new entry
+        @type new: String
         '''
         col = self.ini_columns['!' + column]
         for r in self.value_rows:
@@ -292,8 +302,10 @@ class SBtabTable():
         '''
         add row to the table, if postion is None at the end
 
-        @row_list string list of entries
-        @position integer position of new row (0 = top)
+        @param row_list: entries in new row
+        @type row_list: list of Strings
+        @param position: position of new row in table
+        @type position: integer (0 = top)
         '''
         # empty column to fill up sbtab_dataset
         empty_list = []
@@ -318,8 +330,10 @@ class SBtabTable():
         '''
         add column to the table, if position is None at the end
 
-        @column_list string list of entries
-        @position integer position of new column (0 = left)
+        @param column_list: entries in new column
+        @type column_list: list of Strings
+        @param position: position of new column in table_name
+        @type position: integer (0 = left)
         '''
         # empty column to fill up sbtab_dataset
         empty_list = []
@@ -344,9 +358,12 @@ class SBtabTable():
         '''
         write SBtab tablib object to file
 
-        @format_type string spreadsheet format and file ending
-        @filename string file name without ending (will be created)
-        @sbtab_dataset tablib object sbtab table
+        @param format_type: spreadsheet format and extension for file
+        @type format_type: String
+        @param filename: filename without ending (will be created)
+        @type filename: String
+        @param sbtab_dataset: sbtab table
+        @type sbtab_dataset: tablib object
 
         Raise error if file format is invalid
         '''
