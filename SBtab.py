@@ -12,7 +12,7 @@ def oneOrMany(spreadsheet_file):
     this extra function is supposed to check whether there are one or many SBtabs in an SBtab document.
     it returns a list of SBtab strings
     @param spreadsheet_file: file containing sbtabs
-    @type spreadsheet_file: tablib object 
+    @type spreadsheet_file: tablib object
     '''
     sbtabs = []
 
