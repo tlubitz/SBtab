@@ -22,54 +22,12 @@ How to load tablib object:
 #!/usr/bin/env python
 import re
 import copy
+import sys
+sys.path.insert(0, './SBtab')
 import tablib
 import tablibIO
 
 tables_without_name = []
-
-
-def oneOrMany(spreadsheet_file):
-    """
-    Check whether there are one or many SBtabs in an SBtab document.
-    Return every SBtab table as single tablib object.
-
-    Parameters
-    ----------
-    spreadsheet_file : tablib object
-        Tablib object containing one or more SBtabs.
-
-    Returns
-    -------
-    sbtabs : list
-        List of tablib objects containing just one SBtab.
-    """
-    sbtabs = []
-
-    # Copy file, one for iteration, one for cutting
-    sbtab_document = copy.deepcopy(spreadsheet_file)
-    # Create new tablib object
-    sbtab = tablib.Dataset()
-
-    # Cut sbtab_document, write tablib objects in list
-    if len(spreadsheet_file) != 0:  # If file not empty
-        for row in spreadsheet_file:
-            if len(sbtab) == 0:  # If first line, append line w/o checking
-                sbtab.rpush(sbtab_document.lpop())
-            else:
-                for i, entry in enumerate(row):
-                    # If header row (!!), write to new tablib object and store the last one
-                    if entry.startswith('!!'):
-                        sbtabs.append(sbtab)
-                        sbtab = tablib.Dataset()
-                        sbtab.rpush(sbtab_document.lpop())
-                        break
-                    # If not header row, append line to tablib object
-                    if len(row) == i + 1:
-                        sbtab.rpush(sbtab_document.lpop())
-        sbtabs.append(sbtab)
-
-    # Return list of tablib objects
-    return sbtabs
 
 
 class SBtabError(Exception):
@@ -83,7 +41,7 @@ class SBtabError(Exception):
 
 class SBtabTable():
     """
-    SBtab Table (version 1.00 07/12/2013)
+    SBtab Table (version 0.1.0 07/12/2013)
     """
     def __init__(self, table, filename):
         """
@@ -101,22 +59,16 @@ class SBtabTable():
         Raise error if file format is invalid, only 'tsv', 'csv', 'ods' or 'xls' are supported.
         """
         self.filename = filename  # Needed to be able to adress it from outside of the class for writing and reading
-        self.table = table
-
         # Identification of file type (tsv/csv/ods/xls)
         if not (str(filename).endswith('.tsv') or str(filename).endswith('.csv') or str(filename).endswith('.ods') or str(filename).endswith('.xls')):
             raise SBtabError('The given file format is not supported: ' + filename + '. Please use ".tsv", ".csv", ".ods" or ".xls" instead.')
 
-        # Read the header row from table
-        self.header_row = self.getHeaderRow(self.table)
         # Read the table information from header row
-        self.table_type, self.table_name, self.table_document, self.table_level, self.table_version = self.getTableInformation(self.header_row)
-        # Read the columns of the table
-        columns, inserted_column = self.getColumns(self.table)
-        self.columns = columns.keys()
-        self.columns_dict = columns
-        # Read data rows
-        self.value_rows = self.getRows(table, self.table_type, inserted_column)
+        self.table_type, self.table_name, self.table_document, self.table_level, self.table_version = self.getTableInformation(table)
+
+        # Create list instance with new SBtab table
+        self.sbtab_listset = self.createSBtabListset(table)
+
         # Create tablib Dataset instance with new SBtab table
         self.sbtab_dataset = self.createSBtabDataset()
 
@@ -138,6 +90,7 @@ class SBtabTable():
         -----
         Raise error if no header row could be find in the table.
         """
+        header_row = None
         # Find header row
         for row in table:
             for entry in row:
@@ -156,14 +109,14 @@ class SBtabTable():
 
         return header_row
 
-    def getTableInformation(self, header_row):
+    def getTableInformation(self, table):
         """
         Read header row and store its information.
 
         Parameters
         ----------
-        header : str
-            Header row of the SBtab table.
+        table : tablib object
+            Containing one SBtab.
 
         Returns
         -------
@@ -188,6 +141,7 @@ class SBtabTable():
         # Initialise variables for unnamed table handling
         global tables_without_name
         no_name_counter = 0
+        header_row = self.getHeaderRow(table)
 
         # Save TableType, otherwise raise Error
         tt = re.search('TableType=\'([^\']*)\'', header_row)
@@ -357,6 +311,35 @@ class SBtabTable():
             if r[0] == row:
                 r[col] = new
 
+    def createSBtabListset(self, table):
+        """
+        Create a list object of the SBtab Python object.
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+        sbtab_listset : list object
+            List containing header, columns, value_rows.
+        """
+        # Read the header row from table
+        self.header_row = self.getHeaderRow(table)
+         # Read the columns of the table
+        columns, inserted_column = self.getColumns(table)
+        self.columns = columns.keys()
+        self.columns_dict = columns
+        # Read data rows
+        self.value_rows = self.getRows(table, self.table_type, inserted_column)
+
+        sbtab_listset = []
+
+        sbtab_listset.append(self.header_row)
+        sbtab_listset.append(self.columns)
+        sbtab_listset.append(self.value_rows)
+
+        return sbtab_listset
+
     def createSBtabDataset(self):
         """
         Create a tablib object of the SBtab Python object.
@@ -500,3 +483,56 @@ class SBtabTable():
             tablibIO.writeXLS(sbtab_dataset, self.table_name)
         else:
             raise SBtabError('The given file format is not supported: ' + filename + '. Please use ".tsv", ".csv", ".ods" or ".xls" instead.')
+
+    def duplicate(self):
+        """
+        Create a duplicate of the SBtab object.
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+        sbtab : SBtab object
+            Copy of the SBtab object
+        """
+        sbtab = copy.deepcopy(self)
+        return sbtab
+
+    def update(self):
+        """
+        Update the SBtab instance.
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+        """
+        # Create tablib Dataset instance with new SBtab table
+        self.sbtab_dataset = self.createSBtabDataset()
+        # Create list instance with new SBtab table
+        self.sbtab_listset = self.createSBtabListset(table)
+
+    def returnDict(self):
+        """
+        Create a dict instance of the SBtab table.
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+        sbtab_dicts : dict
+            Dictionary of dictionaries of the SBtab object.
+            Name - column name
+            Key - entry first row
+            Value - entry
+        """
+        sbtab_dicts = {}
+        for column_name in self.columns:
+            sbtab_dicts[column_name] = {}
+            for row in self.value_rows:
+                sbtab_dicts[column_name][row[0]] = row[self.columns_dict[column_name]]
+
+        return sbtab_dicts
