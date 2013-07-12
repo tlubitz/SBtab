@@ -2,6 +2,7 @@
 import SBtab
 import re
 
+'''
 allowed_types = ['Reaction', 'Compound', 'Enzyme', 'Compartment', 'QuantityType', 'Regulator', 'Gene', 'Quantity']
 reaction_columns = [
     '!Reaction', '!Name', '!SBMLReactionID', '!SumFormula', '!Location', '!Enzyme', '!KineticLaw', '!Enzyme SBMLSpeciesID', '!Enzyme SBMLParameterID', '!MetabolicRegulators', '!BuildReaction', '!BuildEnzyme', 'Model', '!Pathway', '!SubreactionOf', '!IsComplete', '!IsReversible', '!IsInEquilibrium',
@@ -40,6 +41,7 @@ allowed_urns = {'SBO': 'urn:miriam:obo.sbo',
                 'Gene Ontology': 'urn:miriam:obo.go',
                 'Taxonomy': 'taxonomy',
                 'SGD': 'sgd'}
+'''
 
 
 class SBtabError(Exception):
