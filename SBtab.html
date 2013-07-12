@@ -1,0 +1,326 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module SBtab</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>SBtab</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/jens/sbtabgit/SBtab/SBtab.py">/home/jens/sbtabgit/SBtab/SBtab.py</a></font></td></tr></table>
+    <p><tt>SBtab<br>
+=====<br>
+&nbsp;<br>
+Provides:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1.&nbsp;Automatic&nbsp;tranlations&nbsp;from&nbsp;SBtab&nbsp;to&nbsp;Python&nbsp;objects<br>
+&nbsp;&nbsp;&nbsp;&nbsp;2.&nbsp;Automatic&nbsp;verification&nbsp;of&nbsp;format&nbsp;and&nbsp;files<br>
+&nbsp;&nbsp;&nbsp;&nbsp;2.&nbsp;Easily&nbsp;callable&nbsp;and&nbsp;changeable&nbsp;entries&nbsp;in&nbsp;tables<br>
+&nbsp;<br>
+SBtab&nbsp;is&nbsp;a&nbsp;uniforming&nbsp;spreadsheet&nbsp;format&nbsp;and&nbsp;can&nbsp;be&nbsp;used&nbsp;to&nbsp;describe<br>
+biochemical&nbsp;models.&nbsp;Furthermore,&nbsp;it&nbsp;is&nbsp;a&nbsp;useful&nbsp;format&nbsp;to&nbsp;store&nbsp;information<br>
+...<br>
+bla&nbsp;bla&nbsp;description...<br>
+&nbsp;<br>
+How&nbsp;to&nbsp;use:<br>
+Shortly&nbsp;...<br>
+&nbsp;<br>
+How&nbsp;to&nbsp;load&nbsp;tablib&nbsp;object:</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="copy.html">copy</a><br>
+</td><td width="25%" valign=top><a href="re.html">re</a><br>
+</td><td width="25%" valign=top><a href="tablib.html">tablib</a><br>
+</td><td width="25%" valign=top><a href="tablibIO.html">tablibIO</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="SBtab.html#SBtabTable">SBtabTable</a>
+</font></dt><dt><font face="helvetica, arial"><a href="exceptions.html#Exception">exceptions.Exception</a>(<a href="exceptions.html#BaseException">exceptions.BaseException</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="SBtab.html#SBtabError">SBtabError</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="SBtabError">class <strong>SBtabError</strong></a>(<a href="exceptions.html#Exception">exceptions.Exception</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Base&nbsp;class&nbsp;for&nbsp;errors&nbsp;in&nbsp;the&nbsp;SBtab&nbsp;class.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="SBtab.html#SBtabError">SBtabError</a></dd>
+<dd><a href="exceptions.html#Exception">exceptions.Exception</a></dd>
+<dd><a href="exceptions.html#BaseException">exceptions.BaseException</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="SBtabError-__init__"><strong>__init__</strong></a>(self, message)</dt></dl>
+
+<dl><dt><a name="SBtabError-__str__"><strong>__str__</strong></a>(self)</dt></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="exceptions.html#Exception">exceptions.Exception</a>:<br>
+<dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of type object&gt;<dd><tt>T.<a href="#SBtabError-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;object&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
+
+<hr>
+Methods inherited from <a href="exceptions.html#BaseException">exceptions.BaseException</a>:<br>
+<dl><dt><a name="SBtabError-__delattr__"><strong>__delattr__</strong></a>(...)</dt><dd><tt>x.<a href="#SBtabError-__delattr__">__delattr__</a>('name')&nbsp;&lt;==&gt;&nbsp;del&nbsp;x.name</tt></dd></dl>
+
+<dl><dt><a name="SBtabError-__getattribute__"><strong>__getattribute__</strong></a>(...)</dt><dd><tt>x.<a href="#SBtabError-__getattribute__">__getattribute__</a>('name')&nbsp;&lt;==&gt;&nbsp;x.name</tt></dd></dl>
+
+<dl><dt><a name="SBtabError-__getitem__"><strong>__getitem__</strong></a>(...)</dt><dd><tt>x.<a href="#SBtabError-__getitem__">__getitem__</a>(y)&nbsp;&lt;==&gt;&nbsp;x[y]</tt></dd></dl>
+
+<dl><dt><a name="SBtabError-__getslice__"><strong>__getslice__</strong></a>(...)</dt><dd><tt>x.<a href="#SBtabError-__getslice__">__getslice__</a>(i,&nbsp;j)&nbsp;&lt;==&gt;&nbsp;x[i:j]<br>
+&nbsp;<br>
+Use&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
+
+<dl><dt><a name="SBtabError-__reduce__"><strong>__reduce__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="SBtabError-__repr__"><strong>__repr__</strong></a>(...)</dt><dd><tt>x.<a href="#SBtabError-__repr__">__repr__</a>()&nbsp;&lt;==&gt;&nbsp;repr(x)</tt></dd></dl>
+
+<dl><dt><a name="SBtabError-__setattr__"><strong>__setattr__</strong></a>(...)</dt><dd><tt>x.<a href="#SBtabError-__setattr__">__setattr__</a>('name',&nbsp;value)&nbsp;&lt;==&gt;&nbsp;x.name&nbsp;=&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="SBtabError-__setstate__"><strong>__setstate__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="SBtabError-__unicode__"><strong>__unicode__</strong></a>(...)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="exceptions.html#BaseException">exceptions.BaseException</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+</dl>
+<dl><dt><strong>args</strong></dt>
+</dl>
+<dl><dt><strong>message</strong></dt>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="SBtabTable">class <strong>SBtabTable</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>SBtab&nbsp;Table&nbsp;(version&nbsp;1.00&nbsp;07/12/2013)<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="SBtabTable-__init__"><strong>__init__</strong></a>(self, table, filename)</dt><dd><tt>Create&nbsp;SBtab&nbsp;Python&nbsp;object.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+table&nbsp;:&nbsp;tablib&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Containing&nbsp;one&nbsp;SBtab.<br>
+filename&nbsp;:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Filename&nbsp;with&nbsp;extension.<br>
+&nbsp;<br>
+Notes<br>
+-----<br>
+Raise&nbsp;error&nbsp;if&nbsp;file&nbsp;format&nbsp;is&nbsp;invalid,&nbsp;only&nbsp;'tsv',&nbsp;'csv',&nbsp;'ods'&nbsp;or&nbsp;'xls'&nbsp;are&nbsp;supported.</tt></dd></dl>
+
+<dl><dt><a name="SBtabTable-addColumn"><strong>addColumn</strong></a>(self, column_list, position<font color="#909090">=None</font>)</dt><dd><tt>Add&nbsp;column&nbsp;to&nbsp;the&nbsp;table,&nbsp;if&nbsp;position&nbsp;is&nbsp;None&nbsp;at&nbsp;the&nbsp;end&nbsp;of&nbsp;it.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+column_list&nbsp;:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;strings,&nbsp;containing&nbsp;the&nbsp;entries&nbsp;of&nbsp;the&nbsp;new&nbsp;column.<br>
+position&nbsp;:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Positino&nbsp;of&nbsp;new&nbsp;column&nbsp;in&nbsp;the&nbsp;table,&nbsp;0&nbsp;is&nbsp;left.</tt></dd></dl>
+
+<dl><dt><a name="SBtabTable-addRow"><strong>addRow</strong></a>(self, row_list, position<font color="#909090">=None</font>)</dt><dd><tt>Add&nbsp;row&nbsp;to&nbsp;the&nbsp;table,&nbsp;if&nbsp;postion&nbsp;is&nbsp;None&nbsp;at&nbsp;the&nbsp;end&nbsp;of&nbsp;it.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+row_list&nbsp;:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;strings,&nbsp;containing&nbsp;the&nbsp;entries&nbsp;of&nbsp;the&nbsp;new&nbsp;row.<br>
+position&nbsp;:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Position&nbsp;of&nbsp;new&nbsp;row&nbsp;in&nbsp;the&nbsp;table,&nbsp;0&nbsp;is&nbsp;on&nbsp;top.</tt></dd></dl>
+
+<dl><dt><a name="SBtabTable-changeValue"><strong>changeValue</strong></a>(self, row, column, new)</dt><dd><tt>Change&nbsp;single&nbsp;value&nbsp;in&nbsp;the&nbsp;SBtab&nbsp;table&nbsp;by&nbsp;position&nbsp;in&nbsp;the&nbsp;table.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+row&nbsp;:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Number&nbsp;of&nbsp;row&nbsp;in&nbsp;the&nbsp;table.<br>
+column&nbsp;:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Number&nbsp;of&nbsp;column&nbsp;in&nbsp;the&nbsp;table.<br>
+new&nbsp;:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;New&nbsp;entry.<br>
+&nbsp;<br>
+Return<br>
+------<br>
+&nbsp;<br>
+Notes<br>
+-----<br>
+Old&nbsp;value&nbsp;will&nbsp;be&nbsp;overwritten.</tt></dd></dl>
+
+<dl><dt><a name="SBtabTable-changeValueByName"><strong>changeValueByName</strong></a>(self, row, column, new)</dt><dd><tt>Change&nbsp;singe&nbsp;value&nbsp;in&nbsp;the&nbsp;SBtab&nbsp;by&nbsp;name&nbsp;of&nbsp;column&nbsp;and&nbsp;row<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+row&nbsp;:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Name&nbsp;of&nbsp;the&nbsp;first&nbsp;entry&nbsp;in&nbsp;row<br>
+column&nbsp;:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Name&nbsp;of&nbsp;the&nbsp;column&nbsp;(without&nbsp;'!')<br>
+new&nbsp;:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;New&nbsp;entry.</tt></dd></dl>
+
+<dl><dt><a name="SBtabTable-createSBtabDataset"><strong>createSBtabDataset</strong></a>(self)</dt><dd><tt>Create&nbsp;a&nbsp;tablib&nbsp;object&nbsp;of&nbsp;the&nbsp;SBtab&nbsp;Python&nbsp;object.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+sbtab_dataset&nbsp;:&nbsp;tablib&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Tablib&nbsp;dataset&nbsp;of&nbsp;the&nbsp;SBtab&nbsp;Python&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="SBtabTable-getColumns"><strong>getColumns</strong></a>(self, table)</dt><dd><tt>Extract&nbsp;the&nbsp;column&nbsp;names&nbsp;of&nbsp;the&nbsp;table,&nbsp;add&nbsp;first&nbsp;column&nbsp;name&nbsp;if&nbsp;necessary.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+table&nbsp;:&nbsp;tablib&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Containing&nbsp;one&nbsp;SBtab.<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+columns&nbsp;:&nbsp;dict<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;of&nbsp;colunm&nbsp;names&nbsp;(str)&nbsp;as&nbsp;key&nbsp;and&nbsp;position&nbsp;(int)&nbsp;as&nbsp;value.<br>
+inserted_column&nbsp;:&nbsp;Boolean<br>
+&nbsp;&nbsp;&nbsp;&nbsp;True,&nbsp;if&nbsp;mandatory&nbsp;first&nbsp;column&nbsp;was&nbsp;set&nbsp;automatically.<br>
+&nbsp;<br>
+Notes<br>
+-----<br>
+First&nbsp;entry&nbsp;has&nbsp;to&nbsp;be&nbsp;the&nbsp;table&nbsp;type.<br>
+Adds&nbsp;first&nbsp;entry&nbsp;in&nbsp;the&nbsp;list,&nbsp;if&nbsp;it&nbsp;corresponds&nbsp;not&nbsp;with&nbsp;the&nbsp;table&nbsp;type.<br>
+See&nbsp;specification&nbsp;for&nbsp;further&nbsp;informations.</tt></dd></dl>
+
+<dl><dt><a name="SBtabTable-getHeaderRow"><strong>getHeaderRow</strong></a>(self, table)</dt><dd><tt>Extract&nbsp;the&nbsp;!!-header&nbsp;row&nbsp;from&nbsp;the&nbsp;SBtab&nbsp;file.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+table&nbsp;:&nbsp;tablib&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Containing&nbsp;one&nbsp;SBtab.<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+header_row&nbsp;:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;!!-headre&nbsp;row&nbsp;of&nbsp;SBtab&nbsp;table.<br>
+&nbsp;<br>
+Notes<br>
+-----<br>
+Raise&nbsp;error&nbsp;if&nbsp;no&nbsp;header&nbsp;row&nbsp;could&nbsp;be&nbsp;find&nbsp;in&nbsp;the&nbsp;table.</tt></dd></dl>
+
+<dl><dt><a name="SBtabTable-getRows"><strong>getRows</strong></a>(self, table, table_type<font color="#909090">='table'</font>, inserted<font color="#909090">=False</font>)</dt><dd><tt>Extract&nbsp;the&nbsp;rows&nbsp;of&nbsp;the&nbsp;SBtab,&nbsp;add&nbsp;first&nbsp;column&nbsp;if&nbsp;necessary.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+table&nbsp;:&nbsp;tablib&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Containing&nbsp;one&nbsp;SBtab.<br>
+table_type&nbsp;:&nbsp;str&nbsp;(default&nbsp;'table')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Table&nbsp;type&nbsp;of&nbsp;the&nbsp;SBtab&nbsp;table.<br>
+inserted&nbsp;:&nbsp;Boolean<br>
+&nbsp;&nbsp;&nbsp;&nbsp;True,&nbsp;if&nbsp;mandatory&nbsp;first&nbsp;column&nbsp;was&nbsp;set&nbsp;automatically.<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+value_rows&nbsp;:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;containing&nbsp;the&nbsp;entries&nbsp;of&nbsp;the&nbsp;SBtab&nbsp;table.<br>
+&nbsp;<br>
+Notes<br>
+-----<br>
+If&nbsp;first&nbsp;column&nbsp;was&nbsp;set&nbsp;automatically,&nbsp;"inserted"&nbsp;is&nbsp;set&nbsp;to&nbsp;True.<br>
+The&nbsp;entries&nbsp;in&nbsp;the&nbsp;first&nbsp;column&nbsp;are&nbsp;then&nbsp;an&nbsp;abbreviation&nbsp;of&nbsp;the&nbsp;table&nbsp;type<br>
+and&nbsp;the&nbsp;number&nbsp;of&nbsp;the&nbsp;current&nbsp;row.<br>
+See&nbsp;specification&nbsp;for&nbsp;further&nbsp;informations.</tt></dd></dl>
+
+<dl><dt><a name="SBtabTable-getTableInformation"><strong>getTableInformation</strong></a>(self, header_row)</dt><dd><tt>Read&nbsp;header&nbsp;row&nbsp;and&nbsp;store&nbsp;its&nbsp;information.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+header&nbsp;:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Header&nbsp;row&nbsp;of&nbsp;the&nbsp;SBtab&nbsp;table.<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+table_type&nbsp;:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Table&nbsp;type&nbsp;of&nbsp;the&nbsp;SBtab&nbsp;table.<br>
+table_name&nbsp;:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Name&nbsp;of&nbsp;the&nbsp;SBtab&nbsp;table.<br>
+table_document&nbsp;:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Document&nbsp;type&nbsp;of&nbsp;SBtab&nbsp;table.<br>
+table_level&nbsp;:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Level&nbsp;of&nbsp;SBtab&nbsp;table.<br>
+table_version&nbsp;:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Version&nbsp;of&nbsp;the&nbsp;SBtab&nbsp;table.<br>
+&nbsp;<br>
+Notes<br>
+-----<br>
+If&nbsp;no&nbsp;name&nbsp;was&nbsp;set,&nbsp;name&nbsp;equals&nbsp;table_type&nbsp;and&nbsp;number&nbsp;of&nbsp;occurences&nbsp;of&nbsp;unnamed<br>
+tables&nbsp;of&nbsp;same&nbsp;type.<br>
+Raise&nbsp;error&nbsp;if&nbsp;no&nbsp;table&nbsp;type&nbsp;is&nbsp;defined.</tt></dd></dl>
+
+<dl><dt><a name="SBtabTable-writeSBtab"><strong>writeSBtab</strong></a>(self, format_type, filename, sbtab_dataset)</dt><dd><tt>Write&nbsp;SBtab&nbsp;tablib&nbsp;object&nbsp;to&nbsp;file.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+format_type&nbsp;:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;File&nbsp;extension&nbsp;of&nbsp;the&nbsp;SBtab&nbsp;file.&nbsp;('tsv',&nbsp;'csv',&nbsp;'ods',&nbsp;'xls')<br>
+filename&nbsp;:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Filename&nbsp;of&nbsp;the&nbsp;SBtab&nbsp;file&nbsp;without&nbsp;extension.<br>
+sbtab_dataset&nbsp;:&nbsp;tablib&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Tablib&nbsp;object&nbsp;of&nbsp;the&nbsp;SBtab&nbsp;table<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+&nbsp;<br>
+Notes<br>
+-----<br>
+Raise&nbsp;error&nbsp;if&nbsp;file&nbsp;format&nbsp;is&nbsp;invalid.</tt></dd></dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-oneOrMany"><strong>oneOrMany</strong></a>(spreadsheet_file)</dt><dd><tt>Check&nbsp;whether&nbsp;there&nbsp;are&nbsp;one&nbsp;or&nbsp;many&nbsp;SBtabs&nbsp;in&nbsp;an&nbsp;SBtab&nbsp;document.<br>
+Return&nbsp;every&nbsp;SBtab&nbsp;table&nbsp;as&nbsp;single&nbsp;tablib&nbsp;object.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+spreadsheet_file&nbsp;:&nbsp;tablib&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Tablib&nbsp;object&nbsp;containing&nbsp;one&nbsp;or&nbsp;more&nbsp;SBtabs.<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+sbtabs&nbsp;:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;tablib&nbsp;objects&nbsp;containing&nbsp;just&nbsp;one&nbsp;SBtab.</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>tables_without_name</strong> = []</td></tr></table>
+</body></html>
