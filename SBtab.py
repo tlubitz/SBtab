@@ -62,15 +62,31 @@ class SBtabTable():
         # Identification of file type (tsv/csv/ods/xls)
         if not (str(filename).endswith('.tsv') or str(filename).endswith('.csv') or str(filename).endswith('.ods') or str(filename).endswith('.xls')):
             raise SBtabError('The given file format is not supported: ' + filename + '. Please use ".tsv", ".csv", ".ods" or ".xls" instead.')
+    
+        self.initializeTable(table)
+
+    def initializeTable(self, table):
+        """
+        Load table informations and class variables.
+
+        Parameters
+        ----------
+        table : tablib object
+            Containing one SBtab.
+        """
+        # Read the header row from table
+        self.header_row = self.getHeaderRow(table)
 
         # Read the table information from header row
         self.table_type, self.table_name, self.table_document, self.table_level, self.table_version = self.getTableInformation(table)
 
-        # Create list instance with new SBtab table
-        self.sbtab_listset = self.createSBtabListset(table)
+        # Read the columns of the table
+        self.columns, self.columns_dict, inserted_column = self.getColumns(table)
 
-        # Create tablib Dataset instance with new SBtab table
-        self.sbtab_dataset = self.createSBtabDataset()
+        # Read data rows
+        self.value_rows = self.getRows(table, self.table_type, inserted_column)
+
+        self.update()
 
     def getHeaderRow(self, table):
         """
@@ -94,7 +110,7 @@ class SBtabTable():
         # Find header row
         for row in table:
             for entry in row:
-                if entry.startswith('!!'):
+                if str(entry).startswith('!!'):
                     header_row = row
                     break
 
@@ -106,8 +122,17 @@ class SBtabTable():
 
         # Replace double quotes by single quotes
         header_row = header_row.replace('"', '\'')
+        # Split header row
+        header_row = header_row.split(' ')
+        # Delete spaces in header row
+        while '' in header_row:
+            header_row.remove('') 
+        header = ""
+        for x in header_row[:-1]:
+            header += x + ' '
+        header += header_row[-1]
 
-        return header_row
+        return header
 
     def getTableInformation(self, table):
         """
@@ -160,6 +185,7 @@ class SBtabTable():
                 if table_type == table_no_name:
                     no_name_counter = no_name_counter + 1
             table_name = table_type.capitalize() + '_' + str(no_name_counter)
+            self.header_row += " Table='" + table_name +"'"
 
         # Save TableDocument, otherwise return None
         td = re.search('Document=\'([^\']*)\'', header_row)
@@ -209,7 +235,7 @@ class SBtabTable():
         # Save list of main column
         for row in table:
             for entry in row:
-                if entry.startswith('!') and not entry.startswith('!!'):
+                if str(entry).startswith('!') and not str(entry).startswith('!!'):
                     column_names = list(row)
                     break
 
@@ -224,7 +250,7 @@ class SBtabTable():
         for i, column in enumerate(column_names):
             columns[column] = i
 
-        return columns, inserted_column
+        return column_names, columns, inserted_column
 
     def getRows(self, table, table_type='table', inserted=False):
         """
@@ -255,7 +281,7 @@ class SBtabTable():
         value_rows = []
         for row in table:
             for i, entry in enumerate(row):
-                if entry.startswith('!'):
+                if str(entry).startswith('!'):
                     break
                 else:
                     if len(row) == i + 1:
@@ -293,6 +319,9 @@ class SBtabTable():
         """
         self.value_rows[row - 1][column - 1] = new
 
+        # Update object
+        self.update()
+
     def changeValueByName(self, row, column, new):
         """
         Change singe value in the SBtab by name of column and row
@@ -311,7 +340,10 @@ class SBtabTable():
             if r[0] == row:
                 r[col] = new
 
-    def createSBtabListset(self, table):
+        # Update object
+        self.update()
+
+    def createList(self):
         """
         Create a list object of the SBtab Python object.
 
@@ -320,27 +352,18 @@ class SBtabTable():
 
         Returns
         -------
-        sbtab_listset : list object
+        sbtab_list : list object
             List containing header, columns, value_rows.
         """
-        # Read the header row from table
-        self.header_row = self.getHeaderRow(table)
-         # Read the columns of the table
-        columns, inserted_column = self.getColumns(table)
-        self.columns = columns.keys()
-        self.columns_dict = columns
-        # Read data rows
-        self.value_rows = self.getRows(table, self.table_type, inserted_column)
+        sbtab_list = []
 
-        sbtab_listset = []
+        sbtab_list.append(self.header_row)
+        sbtab_list.append(self.columns)
+        sbtab_list.append(self.value_rows)
 
-        sbtab_listset.append(self.header_row)
-        sbtab_listset.append(self.columns)
-        sbtab_listset.append(self.value_rows)
+        return sbtab_list
 
-        return sbtab_listset
-
-    def createSBtabDataset(self):
+    def createDataset(self):
         """
         Create a tablib object of the SBtab Python object.
 
@@ -389,8 +412,9 @@ class SBtabTable():
             else:
                 sbtab_dataset.append(row)
 
+        # Save as tablib header as additional information
         sbtab_dataset.header = header
-
+        
         return sbtab_dataset
 
     def addRow(self, row_list, position=None):
@@ -413,7 +437,7 @@ class SBtabTable():
                 row_list.append('')
         # If new row is too long, add empty entries to sbtab_dataset
         elif len(row_list) > len(self.sbtab_dataset.dict[0]):
-            for i in range(len(self.sbtab_dataset.dict)):
+            for i in range(len(self.sbtab_dataset.dict[0])):
                 empty_list.append('')
             for i in range(len(row_list) - len(self.sbtab_dataset.dict[0])):
                 self.sbtab_dataset.rpush_col(empty_list)
@@ -422,6 +446,9 @@ class SBtabTable():
             self.sbtab_dataset.rpush(row_list)
         else:
             self.sbtab_dataset.insert(position, row_list)
+
+        # Update object
+        self.initializeTable(self.sbtab_dataset)
 
     def addColumn(self, column_list, position=None):
         """
@@ -432,26 +459,36 @@ class SBtabTable():
         column_list : list
             List of strings, containing the entries of the new column.
         position : int
-            Positino of new column in the table, 0 is left.
+            Positino of new column in the table, 0 is right.
         """
         # Empty column to fill up sbtab_dataset with ''
         empty_list = []
 
         # If new column is to small, add empty entries to new column
-        if len(column_list) < len(self.sbtab_dataset.dict):
-            for i in range(len(self.sbtab_dataset.dict) - len(column_list)):
+        if len(column_list) < (len(self.sbtab_dataset.dict)-1):
+            for i in range((len(self.sbtab_dataset.dict) - 1) - len(column_list)):
                 column_list.append('')
         # If new column is to long, add empty entries to sbtab_dataset
-        elif len(column_list) > len(self.sbtab_dataset.dict):
-            for i in range(len(self.sbtab_dataset.dict)[0]):
+        elif len(column_list) > (len(self.sbtab_dataset.dict) - 1):
+            for i in range(len(self.sbtab_dataset.dict[0])):
                 empty_list.append('')
-            for i in range(len(column_list) - len(self.sbtab_dataset.dict[0])):
-                self.sbtab_dataset.rpush(empty_list)
+            for i in range(len(column_list) - (len(self.sbtab_dataset.dict) -1)):
+                self.value_rows.append(empty_list)
+                empty_list = copy.deepcopy(empty_list)
+
         # If no position is set, add new column to the end
         if not position:
-            self.sbtab_dataset.rpush_col(column_list)
+            for i, row in enumerate(self.value_rows):
+                row.append(column_list[i+1])
+            self.columns_dict[column_list[0]] = len(self.columns)
+            self.columns = self.columns_dict.keys()
         else:
-            self.sbtab_dataset.insert_col(position, column_list)
+            for i, row in enumerate(self.value_rows):
+                row.insert(position - 1, column_list[i + 1])
+            self.columns_dict[column_list[0]] = position - 1
+            self.columns = self.columns_dict.keys()
+        # Update object
+        self.update()
 
     def writeSBtab(self, format_type, filename, sbtab_dataset):
         """
@@ -510,11 +547,11 @@ class SBtabTable():
         -------
         """
         # Create tablib Dataset instance with new SBtab table
-        self.sbtab_dataset = self.createSBtabDataset()
+        self.sbtab_dataset = self.createDataset()
         # Create list instance with new SBtab table
-        self.sbtab_listset = self.createSBtabListset(table)
+        self.sbtab_list = self.createList()
 
-    def returnDict(self):
+    def createDict(self):
         """
         Create a dict instance of the SBtab table.
 
