@@ -1,4 +1,4 @@
-'!!SbtabLevel=''1''','!Version=''0.1''','!Document=''Allowed_types''','!TableType=''Definition''',,,,,
+!!Sbtab,Level='1',!Version='0.1',!Document='Transposed',!TableType='Definition',Table='Allowed_types',,,
 !Reaction,!Compound,!Enzyme,!Compartment,!QuantityType,!Regulator,!Gene,!Quantity,!Urns
 Reaction,Compound,Enzyme,Compartment,QuantityType,Regulator,Gene,,SBO:urn:miriam:obo.sbo
 Name,Name,Name,Name,Quantity,Name,Name,,CheBI:urn:miriam:obo.chebi

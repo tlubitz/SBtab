@@ -17,6 +17,10 @@ Shortly ...
 
 How to load tablib object:
 
+
+TODO:
+Definition table!?
+Transposed table!?
 """
 
 #!/usr/bin/env python
@@ -399,8 +403,9 @@ class SBtabTable():
 
         # Delete all empty entries at the end of the rows
         for row in sbtab_temp:
-            while not row[-1]:
-                del row[-1]
+            if len(row) > 1:
+                while not row[-1]:
+                    del row[-1]
 
         # Make all rows the same length
         longest = max([len(x) for x in sbtab_temp])
@@ -490,7 +495,7 @@ class SBtabTable():
         # Update object
         self.update()
 
-    def writeSBtab(self, format_type, filename, sbtab_dataset):
+    def writeSBtab(self, format_type, filename):
         """
         Write SBtab tablib object to file.
 
@@ -511,13 +516,13 @@ class SBtabTable():
         Raise error if file format is invalid.
         """
         if format_type == 'tsv':
-            tablibIO.writeTSV(sbtab_dataset, self.table_name)
+            tablibIO.writeTSV(self.sbtab_dataset, self.table_name)
         elif format_type == 'csv':
-            tablibIO.writeCSV(sbtab_dataset, self.table_name)
+            tablibIO.writeCSV(self.sbtab_dataset, self.table_name)
         elif format_type == 'ods':
-            tablibIO.writeODS(sbtab_dataset, self.table_name)
+            tablibIO.writeODS(self.sbtab_dataset, self.table_name)
         elif format_type == 'xls':
-            tablibIO.writeXLS(sbtab_dataset, self.table_name)
+            tablibIO.writeXLS(self.sbtab_dataset, self.table_name)
         else:
             raise SBtabError('The given file format is not supported: ' + filename + '. Please use ".tsv", ".csv", ".ods" or ".xls" instead.')
 
@@ -573,3 +578,40 @@ class SBtabTable():
                 sbtab_dicts[column_name][row[0]] = row[self.columns_dict[column_name]]
 
         return sbtab_dicts
+
+    def transposeTable(self):
+        """
+        Transpose SBtab table.
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+        """
+        trans_columns = []
+        trans_columns_dict = {}
+        trans_value_rows = []
+
+        columns = self.columns
+        columns_dict = self.columns_dict
+        value_rows = self.value_rows
+
+        trans_columns.append(columns.pop(0))
+
+        for column in columns:
+                trans_value_rows.append([column])
+
+        for row in value_rows:
+            trans_columns.append(row.pop(0))
+            for i, entry in enumerate(row):
+                trans_value_rows[i].append(entry)
+
+        for i, column in enumerate(trans_columns):
+            trans_columns_dict[column] = i
+
+        self.columns = trans_columns
+        self.columns_dict = trans_columns_dict
+        self.value_rows = trans_value_rows
+
+        self.update()
