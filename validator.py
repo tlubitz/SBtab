@@ -50,7 +50,7 @@ class ValidateTable:
         self.filename = sbtab_name
 
         # check file format and header row
-        self.validateTableFormat()
+        self.checkTableFormat()
 
         # try creating SBtab instance
         try:
@@ -59,7 +59,7 @@ class ValidateTable:
             raise SBtabError('The Parser can not work with this file!')
 
         # check SBtab object for validity
-        self.validateTable()
+        self.checkTable()
 
         # print warnings
         if len(self.warnings) > 0:
@@ -67,7 +67,7 @@ class ValidateTable:
         else:
             print 'No warnings detected!'
 
-    def validateTableFormat(self):
+    def checkTableFormat(self):
         """
         Validate format of SBtab file, check file format and header row.
         """
@@ -115,7 +115,7 @@ class ValidateTable:
                 self.warnings += 'The main column row of the table does not start with "!": ' + \
                     columns + '\n'
 
-    def validateTable(self):
+    def checkTable(self):
         """
         Validate the table type and mandatory format of the SBtab.
         """
