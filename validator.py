@@ -3,6 +3,7 @@ import SBtab
 import tablibIO
 import re
 
+
 class SBtabError(Exception):
     def __init__(self, message):
         self.message = message
@@ -10,7 +11,8 @@ class SBtabError(Exception):
     def __str__(self):
         return self.message
 
-class Validator:
+
+class ValidateTable:
     """
     Validator (version 0.1.0 07/12/2013)
     Check SBtab file and SBtab object.
@@ -26,39 +28,46 @@ class Validator:
         name : str
             File path of the Sbtab file
         """
+        # import definitions from definition table
+        try:
+            definition_table = tablibIO.importSet('./definitions/Definitions.csv')
+            definitions = SBtab.SBtabTable(definition_table, './definitions/Definitions.csv')
+            # transpose table
+            definitions.transposeTable()
+            # ignore header and main column
+            self.definitions = definitions.sbtab_dataset.dict[2:]
+            # remove empty entries
+            for definition in self.definitions:
+                while '' in definition:
+                    definition.remove('')
+        except:
+            raise SBtabError('Definition table could not be find, check file path! See specifications for further information.')
 
-        definition_table = tablibIO.importSet('./definitions/Definitions.csv')
-        definitions = SBtab.SBtabTable(definition_table, './definitions/Definitions.csv')
-        definitions.transposeTable()
-        self.definitions = definitions.sbtab_dataset.dict[2:]
-
-        for definition in self.definitions:
-            while '' in definition:
-                definition.remove('')
-
+        # initialize warning string
         self.warnings = ''
+        # define self variables
         self.table = sbtab_table
         self.filename = sbtab_name
 
         # check file format and header row
-        self.validateFile()
+        self.validateTableFormat()
 
+        # try creating SBtab instance
         try:
             self.sbtab = SBtab.SBtabTable(self.table, self.filename)
         except:
-            self.warnings += 'The Parser can not work with this file!'
-            pass
+            raise SBtabError('The Parser can not work with this file!')
 
         # check SBtab object for validity
-        self.validate()
+        self.validateTable()
 
+        # print warnings
         if len(self.warnings) > 0:
             print self.warnings
-                    # raise SBtabError(self.warnings)? why?
         else:
             print 'No warnings detected!'
 
-    def validateFile(self):
+    def validateTableFormat(self):
         """
         Validate format of SBtab file, check file format and header row.
         """
@@ -102,7 +111,7 @@ class Validator:
                 self.warnings += 'The main column row of the table does not start with "!": ' + \
                     columns + '\n'
 
-    def validate(self):
+    def validateTable(self):
         """
         Validate the table type and mandatory format of the SBtab.
         """
@@ -154,4 +163,48 @@ class Validator:
                     str(row) + '.\n'
                 # raise SBtabError('An identifier for a data row must not
                 # include ":" or ".": \n'+str(row))
-   
+
+
+class ValidateFile:
+    """
+    Validate file and check for valid format.
+
+    Notes
+    -----
+    sbtab_file = open("filepath", "rb")
+    """
+    def __init__(self, sbtab_file, filename):
+        # initialize warning string
+        self.warnings = ""
+
+        self.file = sbtab_file
+        self.filename = filename
+
+        self.validateExtension(self.filename)
+        self.validateFile(self.file)
+
+        # print warnings
+        if len(self.warnings) > 0:
+            print self.warnings
+        else:
+            print 'No warnings detected!'
+
+    def validateExtension(self, filename):
+        if not (str(filename).endswith('.tsv') or str(filename).endswith('.csv') or str(filename).endswith('.ods') or str(filename).endswith('.xls')):
+            self.warinings += 'The given file format is not supported: ' + filename + '. Please use ".tsv", ".csv", ".ods" or ".xls" instead.\n'
+
+    def validateFile(self, sbtab_file):
+        """
+        Validate file format and check for possible problems.
+        """
+        rows = []
+        for line in sbtab_file:
+            rows.append(line)
+
+        length = len(rows[0])
+        for i, row in enumerate(rows):
+            if not row:
+                self.warnings += 'The file contains an empty row in line ' + str(i) + '\n Will be ignored. \n'
+            if not len(row) == length:
+                self.warnings += 'The lengths of the rows are not identical.\n Will be adjusted automatically. \n'
+            length = len(row)

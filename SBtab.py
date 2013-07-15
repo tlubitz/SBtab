@@ -66,7 +66,7 @@ class SBtabTable():
         # Identification of file type (tsv/csv/ods/xls)
         if not (str(filename).endswith('.tsv') or str(filename).endswith('.csv') or str(filename).endswith('.ods') or str(filename).endswith('.xls')):
             raise SBtabError('The given file format is not supported: ' + filename + '. Please use ".tsv", ".csv", ".ods" or ".xls" instead.')
-    
+
         self.initializeTable(table)
 
     def initializeTable(self, table):
@@ -419,7 +419,7 @@ class SBtabTable():
 
         # Save as tablib header as additional information
         sbtab_dataset.header = header
-        
+
         return sbtab_dataset
 
     def addRow(self, row_list, position=None):
@@ -495,7 +495,7 @@ class SBtabTable():
         # Update object
         self.update()
 
-    def writeSBtab(self, format_type, filename):
+    def writeSBtab(self, format_type, filename=None):
         """
         Write SBtab tablib object to file.
 
@@ -504,7 +504,7 @@ class SBtabTable():
         format_type : str
             File extension of the SBtab file. ('tsv', 'csv', 'ods', 'xls')
         filename : str
-            Filename of the SBtab file without extension.
+            Filename of the SBtab file without extension. Default is table name.
         sbtab_dataset : tablib object
             Tablib object of the SBtab table
 
@@ -515,16 +515,18 @@ class SBtabTable():
         -----
         Raise error if file format is invalid.
         """
+        if not filename:
+            filename = self.table_name
         if format_type == 'tsv':
-            tablibIO.writeTSV(self.sbtab_dataset, self.table_name)
+            tablibIO.writeTSV(self.sbtab_dataset, filename)
         elif format_type == 'csv':
-            tablibIO.writeCSV(self.sbtab_dataset, self.table_name)
+            tablibIO.writeCSV(self.sbtab_dataset, filename)
         elif format_type == 'ods':
-            tablibIO.writeODS(self.sbtab_dataset, self.table_name)
+            tablibIO.writeODS(self.sbtab_dataset, filename)
         elif format_type == 'xls':
-            tablibIO.writeXLS(self.sbtab_dataset, self.table_name)
+            tablibIO.writeXLS(self.sbtab_dataset, filename)
         else:
-            raise SBtabError('The given file format is not supported: ' + filename + '. Please use ".tsv", ".csv", ".ods" or ".xls" instead.')
+            raise SBtabError('The given file format is not supported: ' + format_type + '. Please use ".tsv", ".csv", ".ods" or ".xls" instead.')
 
     def duplicate(self):
         """
@@ -594,7 +596,6 @@ class SBtabTable():
         trans_value_rows = []
 
         columns = self.columns
-        columns_dict = self.columns_dict
         value_rows = self.value_rows
 
         trans_columns.append(columns.pop(0))
