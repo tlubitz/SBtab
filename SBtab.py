@@ -16,11 +16,6 @@ How to use:
 Shortly ...
 
 How to load tablib object:
-
-
-TODO:
-Definition table!?
-Transposed table!?
 """
 
 #!/usr/bin/env python
@@ -63,43 +58,45 @@ class SBtabTable():
         Raise error if file format is invalid, only 'tsv', 'csv', 'ods' or 'xls' are supported.
         """
         self.filename = filename  # Needed to be able to adress it from outside of the class for writing and reading
+        self.table = table
+
+        # Delete tablib header to avoid complications
+        if self.table.headers:
+            self.table.headers = None
+
         # Identification of file type (tsv/csv/ods/xls)
         if not (str(filename).endswith('.tsv') or str(filename).endswith('.csv') or str(filename).endswith('.ods') or str(filename).endswith('.xls')):
             raise SBtabError('The given file format is not supported: ' + filename + '. Please use ".tsv", ".csv", ".ods" or ".xls" instead.')
 
-        self.initializeTable(table)
+        self.initializeTable()
 
-    def initializeTable(self, table):
+    def initializeTable(self):
         """
         Load table informations and class variables.
 
         Parameters
         ----------
-        table : tablib object
-            Containing one SBtab.
         """
         # Read the header row from table
-        self.header_row = self.getHeaderRow(table)
+        self.header_row = self.getHeaderRow()
 
         # Read the table information from header row
-        self.table_type, self.table_name, self.table_document, self.table_level, self.table_version = self.getTableInformation(table)
+        self.table_type, self.table_name, self.table_document, self.table_level, self.table_version = self.getTableInformation()
 
         # Read the columns of the table
-        self.columns, self.columns_dict, inserted_column = self.getColumns(table)
+        self.columns, self.columns_dict, inserted_column = self.getColumns()
 
         # Read data rows
-        self.value_rows = self.getRows(table, self.table_type, inserted_column)
+        self.value_rows = self.getRows(self.table_type, inserted_column)
 
         self.update()
 
-    def getHeaderRow(self, table):
+    def getHeaderRow(self):
         """
         Extract the !!-header row from the SBtab file.
 
         Parameters
         ----------
-        table : tablib object
-            Containing one SBtab.
 
         Returns
         -------
@@ -112,7 +109,7 @@ class SBtabTable():
         """
         header_row = None
         # Find header row
-        for row in table:
+        for row in self.table:
             for entry in row:
                 if str(entry).startswith('!!'):
                     header_row = row
@@ -130,7 +127,7 @@ class SBtabTable():
         header_row = header_row.split(' ')
         # Delete spaces in header row
         while '' in header_row:
-            header_row.remove('') 
+            header_row.remove('')
         header = ""
         for x in header_row[:-1]:
             header += x + ' '
@@ -138,7 +135,7 @@ class SBtabTable():
 
         return header
 
-    def getTableInformation(self, table):
+    def getTableInformation(self):
         """
         Read header row and store its information.
 
@@ -170,7 +167,7 @@ class SBtabTable():
         # Initialise variables for unnamed table handling
         global tables_without_name
         no_name_counter = 0
-        header_row = self.getHeaderRow(table)
+        header_row = self.getHeaderRow()
 
         # Save TableType, otherwise raise Error
         tt = re.search('TableType=\'([^\']*)\'', header_row)
@@ -189,7 +186,7 @@ class SBtabTable():
                 if table_type == table_no_name:
                     no_name_counter = no_name_counter + 1
             table_name = table_type.capitalize() + '_' + str(no_name_counter)
-            self.header_row += " Table='" + table_name +"'"
+            self.header_row += " Table='" + table_name + "'"
 
         # Save TableDocument, otherwise return None
         td = re.search('Document=\'([^\']*)\'', header_row)
@@ -214,7 +211,7 @@ class SBtabTable():
 
         return table_type, table_name, table_document, table_level, table_version
 
-    def getColumns(self, table):
+    def getColumns(self):
         """
         Extract the column names of the table, add first column name if necessary.
 
@@ -237,7 +234,7 @@ class SBtabTable():
         See specification for further informations.
         """
         # Save list of main column
-        for row in table:
+        for row in self.table:
             for entry in row:
                 if str(entry).startswith('!') and not str(entry).startswith('!!'):
                     column_names = list(row)
@@ -256,7 +253,7 @@ class SBtabTable():
 
         return column_names, columns, inserted_column
 
-    def getRows(self, table, table_type='table', inserted=False):
+    def getRows(self, table_type='table', inserted=False):
         """
         Extract the rows of the SBtab, add first column if necessary.
 
@@ -283,7 +280,7 @@ class SBtabTable():
         """
         # Add row to value_rows if row doesn't contain entries starting with '!'
         value_rows = []
-        for row in table:
+        for row in self.table:
             for i, entry in enumerate(row):
                 if str(entry).startswith('!'):
                     break
@@ -326,7 +323,7 @@ class SBtabTable():
         # Update object
         self.update()
 
-    def changeValueByName(self, row, column, new):
+    def changeValueByName(self, name, column, new):
         """
         Change singe value in the SBtab by name of column and row
 
@@ -341,7 +338,7 @@ class SBtabTable():
         """
         col = self.columns_dict['!' + column]
         for r in self.value_rows:
-            if r[0] == row:
+            if r[0] == name:
                 r[col] = new
 
         # Update object
@@ -417,9 +414,6 @@ class SBtabTable():
             else:
                 sbtab_dataset.append(row)
 
-        # Save as tablib header as additional information
-        sbtab_dataset.header = header
-
         return sbtab_dataset
 
     def addRow(self, row_list, position=None):
@@ -447,13 +441,14 @@ class SBtabTable():
             for i in range(len(row_list) - len(self.sbtab_dataset.dict[0])):
                 self.sbtab_dataset.rpush_col(empty_list)
         # If no position is set, add new row to the end
-        if not position:
+        if position is None:
             self.sbtab_dataset.rpush(row_list)
         else:
             self.sbtab_dataset.insert(position, row_list)
 
         # Update object
-        self.initializeTable(self.sbtab_dataset)
+        self.table = self.sbtab_dataset
+        self.initializeTable()
 
     def addColumn(self, column_list, position=None):
         """
@@ -477,7 +472,7 @@ class SBtabTable():
         elif len(column_list) > (len(self.sbtab_dataset.dict) - 1):
             for i in range(len(self.sbtab_dataset.dict[0])):
                 empty_list.append('')
-            for i in range(len(column_list) - (len(self.sbtab_dataset.dict) -1)):
+            for i in range(len(column_list) - (len(self.sbtab_dataset.dict) - 1)):
                 self.value_rows.append(empty_list)
                 empty_list = copy.deepcopy(empty_list)
 
@@ -591,26 +586,33 @@ class SBtabTable():
         Returns
         -------
         """
+        # Initialize new table data
         trans_columns = []
         trans_columns_dict = {}
         trans_value_rows = []
 
+        # Save old table data
         columns = self.columns
         value_rows = self.value_rows
 
+        # Append first entry to new column
         trans_columns.append(columns.pop(0))
 
+        # Set new rows
         for column in columns:
                 trans_value_rows.append([column])
 
+        # Set new values in tables
         for row in value_rows:
             trans_columns.append(row.pop(0))
             for i, entry in enumerate(row):
                 trans_value_rows[i].append(entry)
 
+        # Write new columns dict
         for i, column in enumerate(trans_columns):
             trans_columns_dict[column] = i
 
+        # Overwrite old table data
         self.columns = trans_columns
         self.columns_dict = trans_columns_dict
         self.value_rows = trans_value_rows

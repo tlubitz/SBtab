@@ -71,6 +71,10 @@ class ValidateTable:
         """
         Validate format of SBtab file, check file format and header row.
         """
+        # Check tablib header
+        if self.table.headers:
+            self.warnings += 'Tablib header is set, will be removed. This feature is not supported.'
+            self.table.headers = None
         # save table rows in variable
         self.rows_file = self.table.dict
 
@@ -122,8 +126,7 @@ class ValidateTable:
                 self.definitions = table
                 break
             else:
-                self.warnings += 'The SBtab file has an invalid TableType in its header: ' + \
-                self.sbtab.table_type + '.\n'
+                self.warnings += 'The SBtab file has an invalid TableType in its header: ' + self.sbtab.table_type + '.\n'
 
         # 2nd: check the important first column
         first_column = '!' + self.sbtab.table_type
@@ -191,7 +194,7 @@ class ValidateFile:
 
     def validateExtension(self, filename):
         if not (str(filename).endswith('.tsv') or str(filename).endswith('.csv') or str(filename).endswith('.ods') or str(filename).endswith('.xls')):
-            self.warinings += 'The given file format is not supported: ' + filename + '. Please use ".tsv", ".csv", ".ods" or ".xls" instead.\n'
+            self.warnings += 'The given file format is not supported: ' + filename + '. Please use ".tsv", ".csv", ".ods" or ".xls" instead.\n'
 
     def validateFile(self, sbtab_file):
         """
