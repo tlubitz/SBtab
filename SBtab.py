@@ -573,6 +573,69 @@ class SBtabTable():
             sbtab_dicts[column_name] = {}
             for row in self.value_rows:
                 sbtab_dicts[column_name][row[0]] = row[self.columns_dict[column_name]]
+        return sbtab_dicts
+
+    def createWCMDict(self):
+        """
+        Create a WCM dict instance of the SBtab table.
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+        sbtab_dicts : dict
+            Dictionary of dictionaries of the SBtab object.
+            Name - WCM name
+            Key - species, compartment or parameter
+            Value - entry
+        """
+        sbtab_dicts = {}
+        for column_name in self.columns[1:]:
+            if column_name:
+                if self.table_type == 'WCM-Species':
+                    if column_name == '!Species':
+                        WCM_name = 'vars'
+                    elif column_name == '!Annotation':
+                        WCM_name = 'sp_annotations'
+                    elif column_name == '!Compartment':
+                        WCM_name = 'sp_compartment'
+                    elif column_name == '!InitialValue':
+                        WCM_name = 'initvars'
+                    elif column_name == '!ODE':
+                        WCM_name = 'odes'
+                    else:
+                        WCM_name = column_name
+                elif self.table_type == 'WCM-Compartment':
+                    if column_name == '!Annotation':
+                        WCM_name = 'com_annotations'
+                    else:
+                        WCM_name = column_name
+                elif self.table_type == 'WCM-Parameter':
+                    if column_name == '!Parameter':
+                        WCM_name = 'pars'
+                    elif column_name == '!InitialValue':
+                        WCM_name = 'initpars'
+                    else:
+                        WCM_name = column_name
+                elif self.table_type == 'WCM-SolverInfo':
+                    WCM_name = column_name.strip('!')
+                    WCM_name = WCM_name.lower()
+                    sbtab_dicts[WCM_name] = self.value_rows[0][self.columns_dict[column_name]]
+                    continue
+                else:
+                    print 'aga'
+                    WCM_name = column_name
+
+                sbtab_dicts[WCM_name] = {}
+                for row in self.value_rows:
+                    sbtab_dicts[WCM_name][row[1]] = row[self.columns_dict[column_name]]
+        if self.table_type == 'WCM-Species':
+            sbtab_dicts['vars'] = sbtab_dicts['vars'].keys()
+        if self.table_type == 'WCM-Compartment':
+            del sbtab_dicts['!Compartment']
+        if self.table_type == 'WCM-Parameter':
+            sbtab_dicts['pars'] = sbtab_dicts['pars'].keys()
 
         return sbtab_dicts
 
