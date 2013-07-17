@@ -624,7 +624,6 @@ class SBtabTable():
                     sbtab_dicts[WCM_name] = self.value_rows[0][self.columns_dict[column_name]]
                     continue
                 else:
-                    print 'aga'
                     WCM_name = column_name
 
                 sbtab_dicts[WCM_name] = {}
