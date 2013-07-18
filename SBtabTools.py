@@ -219,7 +219,7 @@ def WCM_Export(modules_list):
     tablename = name + '_solv.' + extension
     sbtab_solver = createDataset(header, columns, value_rows, tablename)
 
-    folder = './sbtab/'
+    folder = './sbtabs/'
     filename = folder + name
 
     sbtab_species.writeSBtab(extension, filename + '_sp')
@@ -371,7 +371,7 @@ def WCM_module(WCM_module):
     tablename = name + '_solv.' + extension
     sbtab_solver = createDataset(header, columns, value_rows, tablename)
 
-    folder = './sbtab/'
+    folder = './sbtabs/'
     filename = folder + name
     sbtab_species.writeSBtab(extension, filename + '_sp')
     sbtab_compartments.writeSBtab(extension, filename + '_com')
@@ -422,7 +422,7 @@ def WCM_timecourse(timecourses, trange):
     filename = name + '_tc.' + extension
     sbtab_timecourse = createDataset(header, columns, value_rows, filename)
 
-    folder = './sbtab/'
+    folder = './sbtabs/'
     filename = folder + name + '_tc'
 
     sbtab_timecourse.writeSBtab(extension, filename)
@@ -471,7 +471,7 @@ def WCM_module_timecourses(WCM_module):
     filename = name + '_tc.' + extension
     sbtab_timecourse = createDataset(header, columns, value_rows, filename)
 
-    folder = './sbtab/'
+    folder = './sbtabs/'
     filename = folder + name + '_tc'
     sbtab_timecourse.writeSBtab(extension, filename)
 
@@ -494,7 +494,7 @@ def WCM_initialValueTable(WCM_instance):
     sbtab_state_vec : SBtab object
     """
     extension = 'xls'
-    folder = './sbtab/'
+    folder = './sbtabs/'
     filename = folder + 'WCM-initialValue'
     filepath = filename + '.' + extension
     if not os.path.isfile(filepath):
@@ -607,4 +607,26 @@ def createDataset(header_row, columns, value_rows, filename):
     sbtab_dataset.header = header
 
     sbtab = SBtab.SBtabTable(sbtab_dataset, filename)
+    return sbtab
+
+
+def openSbtab(filepath):
+    """
+    Open SBtab from file. Return SBtab object.
+
+    Parameters
+    ----------
+    filepath : str
+        Path of the spread sheet file.
+
+    Returns
+    -------
+    sbtab : SBtab object
+        SBtab object of the table
+    """
+    if not os.path.isfile(filepath):
+        return None
+
+    dataset = tablibIO.importSet(filepath)
+    sbtab = SBtab.SBtabTable(dataset, filepath)
     return sbtab
