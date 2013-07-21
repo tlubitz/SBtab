@@ -1,29 +1,32 @@
-!!Sbtab,Level='1',!Version='0.1',!Document='Transposed',!TableType='Definition',Table='Allowed_types',,,
-!Reaction,!Compound,!Enzyme,!Compartment,!QuantityType,!Regulator,!Gene,!Quantity,!Urns
-Reaction,Compound,Enzyme,Compartment,QuantityType,Regulator,Gene,,SBO:urn:miriam:obo.sbo
-Name,Name,Name,Name,Quantity,Name,Name,,CheBI:urn:miriam:obo.chebi
-SBMLReactionID,SBMLSpeciesID,CatalysedReaction,SBMLCompartmentID,Name,State,GeneLocus,,Enzymenomenclature:ec-code
-SumFormula,SBMLSpeciestypeID,KineticLaw,Size,SBMLReactionID,Activity,GeneProduct,,KEGGCompound:urn:miriam:kegg.compound
-Location,Location,MetabolicRegulators,OuterCompartment,SBMLSpeciesID,Binding,GeneProductSBMLSpeciesID,,KEGGReaction:urn:miriam:kegg.reaction
-Enzyme,Charge,Gene,OuterCompartmentSBMLCompartmentID,Median,TargetGene,Operon,,UniProt:uniprot
-KineticLaw,Constant,GeneBooleanFormula,,Mean,TargetOperon,Transcription,,GeneOntology:urn:miriam:obo.go
-EnzymeSBMLSpeciesID,State,,,Value,TargetPromoter,Translation],,Taxonomy:taxonomy
-EnzymeSBMLParameterID,StructureFormula,,,Std,,,,SGD:sgd
-MetabolicRegulators,Mass,,,Unit,,,,
-BuildReaction,Component,,,Provenance,,,,
-BuildEnzyme,IsConstant,,,Type,,,,
-Model,EnzymeRole,,,Source,,,,
-Pathway,RegulatorRole,,,logMean,,,,
-SubreactionOf,CompoundSumFormula,,,logStd,,,,
-IsComplete,,,,Minimum,,,,
-IsReversible,,,,Maximum,,,,
-IsInEquilibrium,,,,pH,,,,
-Flux,,,,Temperature,,,,
-IsNonEnzymatic,,,,OrganismName,,,,
-Metabolic,,,,Time,,,,
-Gene,,,,SampleName,,,,
-Operon,,,,Condition,,,,
-Transcription,,,,Scale,,,,
-Translation,,,,,,,,
-BuildEnzymeProduction,,,,,,,,
-IsExchangeReaction,,,,,,,,
+!!Sbtab	Level='1'	!Version='0.1'	!Document='Transposed'	!TableType='Definition'	Table='Allowed_types'		
+!Reaction	!Compound	!Enzyme	!Compartment	!Quantity	!Regulator	!Gene	!Relationship
+Comment	Comment	Comment	Comment	Comment	Comment	Comment	Comment
+ReferenceName	ReferenceName	ReferenceName	ReferenceName	ReferenceName	ReferenceName	ReferenceName	ReferenceName
+ReferencePubMed	ReferencePubMed	ReferencePubMed	ReferencePubMed	ReferencePubMed	ReferencePubMed	ReferencePubMed	ReferencePubMed
+ReferenceDOI	ReferenceDOI	ReferenceDOI	ReferenceDOI	ReferenceDOI	ReferenceDOI	ReferenceDOI	ReferenceDOI
+Description	Description	Description	Description	Description	Description	Description	Description
+Name	Name	Name	Name	Name	Name	Name	Relationship
+MiriamAnnotations	MiriamAnnotations	MiriamAnnotations	MiriamAnnotations	MiriamAnnotations	MiriamAnnotations	MiriamAnnotations	
+Type	Type	Type	Type	Type	Type	Type	
+Reaction	Compound	Enzyme	Compartment	Quantity	Regulator	Gene	
+SBMLReactionID	SBMLSpeciesID	CatalysedReaction	SBMLCompartmentID	QuantityType	State	GeneLocus	
+SumFormula	SBMLSpeciestypeID	KineticLaw	OuterCompartment	SBMLParameterID	TargetGene	GeneProduct	
+Location	Location	Gene	OuterCompartmentSBMLCompartmentID	Unit	TargetOperon	GeneProductSBMLSpeciesID	
+Enzyme	State		Size	Scale	TargetPromoter	Operon	
+Model	CompoundSumFormula			Condition			
+Pathway	StructureFormula			pH			
+SubreactionOf	Charge			Temperature			
+IsComplete	Mass			Location			
+IsReversible	IsConstant			SBMLCompartmentID			
+IsInEquilibrium	EnzymeRole			Compound			
+IsExchangeReaction	RegulatorRole			CompoundSBMLSpeciesID			
+Flux				Reaction			
+IsNonEnzymatic				ReactionSBMLReactionID			
+KineticLaw				Enyzme			
+Gene				EnyzmeSBMLSpeciesID			
+Operon				EnyzmeSBMLParameterID			
+EnzymeSBMLSpeciesID				Gene			
+EnzymeSBMLParameterID				Organism			
+BuildReaction							
+BuildEnzyme							
+BuildEnzymeProduction							
