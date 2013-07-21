@@ -34,7 +34,7 @@ class ValidateTable:
             # transpose table
             definitions.transposeTable()
             # ignore header and main column
-            self.definitions = definitions.sbtab_dataset.dict[2:]
+            self.definitions = definitions.table.dict[2:]
             # remove empty entries
             for definition in self.definitions:
                 while '' in definition:
@@ -140,7 +140,7 @@ class ValidateTable:
             for column in self.sbtab.columns:
                 if not column in self.definitions and not column.startswith('!MiriamID'):
                     self.warnings += 'The SBtab file has an unknown column: ' + \
-                        column + '.\n'
+                        column + '.\n \t Please use only supported column types! For this table:\n \t' + str(self.definitions[:])
 
             if not self.sbtab.columns_dict[self.definitions[0]] == 0:
                 self.warnings += 'The SBtab primary column is at a wrong position.\n'

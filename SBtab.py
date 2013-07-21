@@ -454,6 +454,25 @@ class SBtabTable():
         self.table = sbtab_dataset
         self.initializeTable()
 
+    def removeRow(self, position):
+        """
+        Remove row from the table
+
+        Parameters
+        ----------
+        position : int
+            Position of row to be removed. Starting with 1.
+        """
+
+        # Create temporary work copy
+        sbtab_dataset = self.table
+
+        del sbtab_dataset[position + 1]
+
+        # Update object
+        self.table = sbtab_dataset
+        self.initializeTable()
+
     def addColumn(self, column_list, position=None):
         """
         Add column to the table, if position is None at the end of it.
@@ -492,6 +511,25 @@ class SBtabTable():
                 row.insert(position - 1, column_list[i + 1])
             self.columns_dict[column_list[0]] = position - 1
             self.columns = self.columns_dict.keys()
+
+        # Update object
+        self.update()
+
+    def removeColumn(self, position):
+        """
+        Remove column from the table.
+
+        Parameters
+        ----------
+        position : int
+            Position of column to be removed. Sarting with 1.
+        """
+        # Remove entries on position
+        for row in self.value_rows:
+            del row[position + 1]
+        for column in self.columns_dict.keys():
+            if self.columns_dict[column] == position - 1
+            del self.columns_dict[column]
 
         # Update object
         self.update()
