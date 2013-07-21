@@ -5,6 +5,7 @@ SBtab Tools
 These functions can be used to facilitate the use of SBtab. 
 They can be called from outside to create a SBtab instance.
 """
+
 import tablib
 import copy
 import SBtab

@@ -261,17 +261,26 @@ class SBtabTable():
         The entries in the first column are then an abbreviation of the table type
         and the number of the current row. The abbreviation is set using the first and the last
         character of the table type.
+        This function removes comment lines and stores them in a list.
         See specification for further informations.
         """
-        # Add row to value rows if row doesn't contain entries starting with '!'
+        # Add row to list value_rows if row doesn't contain entries starting with '!'
         value_rows = []
+
+        # Add to comments, if row starts with '%'
+        self.comments = []
+
         for row in self.table:
             for i, entry in enumerate(row):
                 if str(entry).startswith('!'):
                     break
+                elif str(entry).startswith('%'):
+                    self.comments.append(list(row))
+                    break
                 else:
                     if len(row) == i + 1:
                         value_rows.append(list(row))
+
         # Insert value column if mandatory column was added automatically
         if inserted:
             if table_type == 'table':

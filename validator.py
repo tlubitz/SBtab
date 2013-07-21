@@ -3,7 +3,6 @@ import SBtab
 import tablibIO
 import re
 
-
 class SBtabError(Exception):
     def __init__(self, message):
         self.message = message
@@ -90,10 +89,10 @@ class ValidateTable:
         # check for valid header row
         if not header.startswith('!!'):
             self.warnings += 'The header row of the table does not start with "!!SBtab": ' + \
-                header + '\n'
+                header + '\n \t This will cause an error! \n'
         if not re.search('TableType="([^"])*"', header):
             self.warnings += 'The table type of the SBtab is not defined. Line: ' + \
-                header + '\n'
+                header + '\n \t This will cause an error! \n'
         if not re.search('Table="([^"])*"', header):
             self.warnings += 'The name of the SBtab table is not defined. Line: ' + \
                 header + '\n'
@@ -174,7 +173,7 @@ class ValidateFile:
 
     Notes
     -----
-    sbtab_file = open("filepath", "rb")
+    To open a file: sbtab_file = open("filepath", "rb")
     """
     def __init__(self, sbtab_file, filename):
         # initialize warning string
@@ -193,6 +192,9 @@ class ValidateFile:
             print 'No warnings detected!'
 
     def validateExtension(self, filename):
+        """
+        Check the extension of the file for invalid formats.
+        """
         if not (str(filename).endswith('.tsv') or str(filename).endswith('.csv') or str(filename).endswith('.ods') or str(filename).endswith('.xls')):
             self.warnings += 'The given file format is not supported: ' + filename + '. Please use ".tsv", ".csv", ".ods" or ".xls" instead.\n'
 
