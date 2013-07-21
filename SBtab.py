@@ -528,8 +528,8 @@ class SBtabTable():
         for row in self.value_rows:
             del row[position + 1]
         for column in self.columns_dict.keys():
-            if self.columns_dict[column] == position - 1
-            del self.columns_dict[column]
+            if self.columns_dict[column] == position - 1:
+                del self.columns_dict[column]
 
         # Update object
         self.update()

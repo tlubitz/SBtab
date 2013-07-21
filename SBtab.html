@@ -279,6 +279,7 @@ If&nbsp;first&nbsp;column&nbsp;was&nbsp;set&nbsp;automatically,&nbsp;"inserted"&
 The&nbsp;entries&nbsp;in&nbsp;the&nbsp;first&nbsp;column&nbsp;are&nbsp;then&nbsp;an&nbsp;abbreviation&nbsp;of&nbsp;the&nbsp;table&nbsp;type<br>
 and&nbsp;the&nbsp;number&nbsp;of&nbsp;the&nbsp;current&nbsp;row.&nbsp;The&nbsp;abbreviation&nbsp;is&nbsp;set&nbsp;using&nbsp;the&nbsp;first&nbsp;and&nbsp;the&nbsp;last<br>
 character&nbsp;of&nbsp;the&nbsp;table&nbsp;type.<br>
+This&nbsp;function&nbsp;removes&nbsp;comment&nbsp;lines&nbsp;and&nbsp;stores&nbsp;them&nbsp;in&nbsp;a&nbsp;list.<br>
 See&nbsp;specification&nbsp;for&nbsp;further&nbsp;informations.</tt></dd></dl>
 
 <dl><dt><a name="SBtabTable-getTableInformation"><strong>getTableInformation</strong></a>(self)</dt><dd><tt>Read&nbsp;column&nbsp;type&nbsp;row&nbsp;and&nbsp;store&nbsp;its&nbsp;information.<br>
@@ -303,6 +304,20 @@ tables&nbsp;of&nbsp;same&nbsp;type.<br>
 Raise&nbsp;error&nbsp;if&nbsp;no&nbsp;table&nbsp;type&nbsp;is&nbsp;defined.</tt></dd></dl>
 
 <dl><dt><a name="SBtabTable-initializeTable"><strong>initializeTable</strong></a>(self)</dt><dd><tt>Load&nbsp;table&nbsp;informations&nbsp;and&nbsp;class&nbsp;variables.</tt></dd></dl>
+
+<dl><dt><a name="SBtabTable-removeColumn"><strong>removeColumn</strong></a>(self, position)</dt><dd><tt>Remove&nbsp;column&nbsp;from&nbsp;the&nbsp;table.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+position&nbsp;:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Position&nbsp;of&nbsp;column&nbsp;to&nbsp;be&nbsp;removed.&nbsp;Sarting&nbsp;with&nbsp;1.</tt></dd></dl>
+
+<dl><dt><a name="SBtabTable-removeRow"><strong>removeRow</strong></a>(self, position)</dt><dd><tt>Remove&nbsp;row&nbsp;from&nbsp;the&nbsp;table<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+position&nbsp;:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Position&nbsp;of&nbsp;row&nbsp;to&nbsp;be&nbsp;removed.&nbsp;Starting&nbsp;with&nbsp;1.</tt></dd></dl>
 
 <dl><dt><a name="SBtabTable-transposeTable"><strong>transposeTable</strong></a>(self)</dt><dd><tt>Transpose&nbsp;SBtab&nbsp;table.&nbsp;Switch&nbsp;columns&nbsp;and&nbsp;rows.<br>
 &nbsp;<br>
