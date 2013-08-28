@@ -1,0 +1,1167 @@
+\documentclass[a4paper]{article} 
+
+\usepackage{epsfig}
+\usepackage{color}
+\usepackage{graphicx}
+
+\definecolor{orange}{rgb}{1,0.5,0}
+\definecolor{lila}{rgb}{0.8,0,0.5}
+\definecolor{lightblue}{rgb}{0,0.5,1}
+\definecolor{darkgreen}{rgb}{0,0.6,0.3}
+
+\usepackage{amsmath,amsfonts,amssymb} % use AMS material
+\usepackage{setspace} %\doublespacing
+
+\newcommand{\la}[1]{}
+\newcommand{\co}[1]{{\em{\color{orange}#1}}}
+\newcommand{\coout}[1]{}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+\newcommand{\tab}[1]{{\texttt{\color{red} #1}}}
+\newcommand{\col}[1]{\texttt{\color{blue} #1}}
+\newcommand{\defext}[1] {\texttt{\color{lightblue} #1}}
+\newcommand{\defint}[1] {\texttt{\color{darkgreen} #1}}
+\newcommand{\nick}[1] {\texttt{\color{lila} #1}}
+
+\input{mymathdefinitions.tex}
+\input{mysettings.tex}
+
+\renewcommand{\headsep}{-1cm}
+\renewcommand{\textheight}{25cm}
+
+
+% ------------------------------------------------------------------
+
+\begin{document}
+
+\title{SBtab: Standardised data tables  for Systems Biology}
+
+\author{Wolfram Liebermeister, Timo Lubitz and Jens Hahn}
+\date{}
+
+\maketitle
+
+\begin{abstract}
+  Data tables in the form of spreadsheet or delimited text files are
+  the most popular data format in Systems Biology. However, they are
+  often not sufficiently structured and they lack clear naming
+  conventions that are required for modelling.  The SBtab format is an
+  attempt to establish an easy-to-use format that is both flexible and
+  clearly structured.  It comprises defined table types for different
+  kinds of data; syntax rules for usage of names, shortnames, and
+  database identifiers used for annotation; 
+  and standardised formulae for reaction stoichiometries. 
+  Furthermore, SBtab enables the user to easily define and use own table types to adjust
+  SBtab to different types of information.
+  Predefined table types can be used to define biochemical network
+  models and the biochemical constants therein. 
+\end{abstract}
+
+\section{Introduction} 
+
+Spreadsheets and delimited text tables are the most popular data
+formats for biological data.  They are easy to use and can hold
+various types of data.  Tables can not only store omics data, but also
+metabolic network models described by lists of biochemical reactions.
+However, when tables are exchanged within scientific collaborations
+and used as a basis for modelling, modellers usually prefer tables
+that can be processed automatically, and the flexibility of
+spreadsheets can become a disadvantage.  If table structures and
+nomenclature vary from case to case, tables become difficult to parse
+and each file may require a new parser. Furthermore, different naming
+conventions -- for instance, for biochemical compounds -- make it
+hard to combine data, for instance a metabolic network model and omics
+data set produced by different researchers.  Therefore, rules for
+structuring tables and for consistent naming and annotations can make
+tables much more useful as exchange formats in Systems Biology
+collaborations and for usage in software tools.  In the following, we
+propose a set of conventions for data tables, called the SBtab format,
+that are supposed to make tables easier and safer to work with.  We
+start with a couple of use cases and then continue with a more formal
+specification of the format.
+
+\paragraph{Use case 1: A stoichiometric metabolic model} 
+A stoichiometric metabolic model can be defined by a list of
+biochemical reaction formulae, specifying the substrates, products,
+and their stoichiometric coefficients.  Such reactions can be listed
+in a single column of a spreadsheet. In practice, however, additional
+information may be provided: each reaction can have a number or
+identifier (defined only within the model) and can be linked to an
+entry in the database KEGG Reaction \cite{KEGG}.  Furthermore,
+reactions may be catalysed by enzymes and therefore be related to
+certain genes.  All information could be stored in the following
+table:
+
+\begin{center} {\tt {\small
+      \begin{tabular}{|l|l|l|l|}
+        \hline
+        Reaction & Sum formula & KEGG ID & Gene\\ \hline
+        R1 & ATP  + F6P <=> ADP + F16P &R00658 & pfk    \\ \hline
+        R2 & F16P + H2O <=> F6P + Pi   &R01015 & fbp   \\ \hline
+      \end{tabular}}\ \\[5mm]
+  }
+\end{center}
+
+where \texttt{ATP}, \texttt{F6P}, \texttt{ADP}, \texttt{F16P},
+\texttt{H2O}, and \texttt{Pi} are shortnames for metabolites to be
+used in the model.  Although the information is complete and
+unambigous, the parser still has to recognise that the columns
+\texttt{Sum formula} and \texttt{KEGG ID} contain reaction formulae
+and identifiers in certain formats. If the column names and the syntax
+of the reaction formulae vary from table to table (e.g., \texttt{<->}
+is used instead of \texttt{<=>}), parsing becomes tedious.  In the
+SBtab format, the table would look a little more complicated, but is
+easy to parse automatically:
+
+\begin{center} {\tt \small {
+      \begin{tabular}{|l|l|l|l|}
+        \hline 
+        \tab{!!SBtab} & \tab{TableName='Reaction'}& \tab{TableType='Reaction'}&\\
+        \hline\hline
+        \col{!Reaction} & \col{!SumFormula} &\col{!MiriamID}::\defext{urn:miriam:kegg.reaction} &   \col{!GeneName}\\ \hline
+        \nick{R1} & \nick{ATP} + \nick{F6P} <=> \nick{ADP} + \nick{F16P} &R00658                 &   pfk \\ \hline
+        \nick{R2} & \nick{F16P} + \nick{H2O} <=> \nick{F6P} + \nick{Pi}  &R01015                 &   fbp \\ \hline
+      \end{tabular}}\ \\[5mm]
+  }
+\end{center}
+
+Different types of information are highlighted by colours (which are
+not part of the SBtab format). The SBtab table differs from the
+original table in several ways: the first line (starting with
+\texttt{!!})  declares that the table is an SBtab table of the type
+\tab{Reaction} and therefore supposed to satisfy syntactic rules for
+this table type. The following line contains the column headers.  They
+start with the \texttt{!} character (and are highlighted here in
+blue), emphasising that they were not chosen ad hoc by the user, but
+stem from a controlled vocabulary. The predefined column headers do
+not contain whitespaces.  The header \texttt{KEGG ID} has been
+replaced by the term
+\col{!MiriamID}\texttt{::}\defext{urn:miriam:kegg.reaction}.  This
+looks complicated, but it directly allows parsers to use a web service
+(the MIRIAM resources \cite{laibe2007miriam}) to look up the KEGG
+database, and since Miriam IDs are guaranteed to remain stable in
+time, this will even work if the KEGG database itself changes its URL
+address on the internet.  The expression
+\defext{urn:miriam:kegg.reaction} is defined by the MIRIAM resources
+and used within SBtab.  The syntax of the reaction formulae is also
+uniquely defined. In particular, the shortnames of metabolites (marked
+in magenta) must not contain any whitespaces or special characters,
+which again simplifies parsing and maybe as variable names in software
+tools.  The meaning of these shortnames has to be defined by the user.
+This can be achieved by providing standard names or database
+identifiers in a second table of type \tab{Compound}:
+
+\begin{center} {\tt \small
+    \begin{tabular}{|l|l|l|}
+\hline
+    \tab{!!SBtab} & \tab{TableName='Compound'} & \tab{TableType='Compound'} \\
+      \hline\hline
+      \col{!Compound}&\col{!Name} & \col{!MiriamID}::\defext{urn:miriam:kegg.compound}\\
+      \hline
+      \nick{F6P} & Fructose-6-phosphate      & C05345 \\ \hline
+      \nick{ATP} & ATP                       & C00002 \\ \hline
+      \nick{ADP} & ADP                       & C00008 \\ \hline
+      \nick{F16P}& Fructose-1,6-bisphosphate & C00354 \\ \hline
+      \nick{H2O} & Water                     & C00001 \\ \hline
+      \nick{Pi}  & Inorganic phosphate       & C00009 \\ \hline
+      \nick{PEP} & Phosphoenolpyruvate       & C00074 \\ \hline
+      \nick{AMP} & AMP                       & C00020 \\
+      \hline
+\end{tabular}
+}
+\end{center}
+
+Both tables together form a document describing a model.  In practice,
+they can be stored as separate files, as separate sheets in a
+spreadsheet file, or as parts of a single table. The following example
+contains all necessary information to build a structural metabolic
+model in the SBML (Systems Biology Markup Language) format
+\cite{hfsb:03}:
+
+{\tt \small
+\begin{center}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\tab{!!SBtab} & \tab{TableName='Reaction'} & \tab{TableType='Reaction'} & \\
+\hline\hline
+\col{!Reaction} & \col{!SumFormula}            &\col{!MiriamID}::\defext{urn:miriam:kegg.reaction} &\col{!SBML:reaction:id} \\ \hline 
+\nick{R1}       & \nick{ATP} + \nick{F6P} <=> \nick{ADP}  + \nick{F16P} &R00658  &r1       \\ \hline
+\nick{R2}       & \nick{F16P} + \nick{H2O} <=> \nick{F6P} + \nick{Pi}  &R01015 &r2        \\ \hline\hline
+\tab{!!SBtab} & \tab{TableName='Compound'} & \tab{TableType='Compound'} & \\
+\hline\hline
+\col{!Compound}&\col{!Name} & \col{!MiriamID}::\defext{urn:miriam:kegg.compound}&\col{!SBML:species:id}\\
+\hline
+\nick{F6P} & Fructose-6-phosphate      & C05345 &f6p \\ \hline
+\nick{ATP} & ATP                       & C00002 &atp \\ \hline
+\nick{ADP} & ADP                       & C00008 &adp \\ \hline
+... & ... & ...                       & ... \\
+\hline
+\end{tabular}
+\end{center}
+}
+
+Here, we have added new identifiers (in the columns \col{SBML:reaction:id}
+and \col{SBML:species:id}) that replace the entries of \tab{Reaction}
+and \tab{Compound} when the tables are translated into SBML. This is
+necessary if the original shortnames do not comply with SBML's rules
+for element identifiers.
+
+
+\paragraph{Use case 2: Kinetic constants} In a second example, we
+specify numerical parameters, for example the kinetic constants and
+metabolite concentrations that appear in a kinetic model. Each
+quantity can be related to a compound (e.g., a concentration), to a
+reaction (e.g., an equilibrium constant), or to several biological
+items (e.g., an enzyme and a compound, in the case of Michaelis-Menten
+constants). As in the previous example, these items can be specified
+by unique identifiers, e.g., KEGG compound or reaction identifiers.
+Furthermore, each quantity has a value and a physical unit.  In the
+SBtab format, we arrange this information in a table of type
+\tab{Quantity}. Each row contains all  information about
+one of the quantities:
+
+{\tt \tiny
+  \begin{center}
+    \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|ll}
+      \hline
+      \tab{!!SBtab} & \tab{TableName='Quantity'} & \tab{TableType='Quantity'} & & & \\\hline\hline
+      \col{!Quantity} &   \col{!QuantityType} &  \col{!MiriamID:Reaction::}\defext{urn:miriam:kegg.reaction} & \col{!MiriamID:Compound::}\defext{urn:miriam:kegg.compound} &\defint{!Value} &\col{!Unit} \\ \hline
+      \nick{keq\_R1}& \defext{equilibrium constant}      &  R01061 &        & 0.156 & \defext{1 }\\ \hline
+      \nick{kmc\_R1\_C1}& \defext{Michaelis constant}        &  R01061 & C00003 & 0.96  & \defext{mM}\\ \hline
+      \nick{kic\_R1\_C1}& \defext{inhibition constant}       &  R01070 & C00111 & 0.13  & \defext{mM}\\ \hline
+      \nick{con\_C1}& \defext{concentration}             &         & C00118 & 0.203 & \defext{mM}\\ \hline
+      ... &   ... &   ... &   ... &   ... &  ...  \\ \hline
+    \end{tabular}
+  \end{center}
+}
+
+The first two columns specify a name and a type for each quantity.
+The quantity types (\defext{substrate catalytic rate constant},
+\defext{equilibrium constant} etc, marked in cyan) are not chosen
+ad hoc, but stem from the Systems Biology Ontology (SBO). This ensures
+a unique spelling and allows software to look up definitions and
+further information at the SBO web services. The biological items (in
+this case, reactions, compounds, or both) are specified in the
+following two columns. Unnecessary fields remain empty. The column
+name \defint{Value} is defined for SBtab -- like some other
+mathematical terms -- and is therefore marked in light blue (arbitrary
+values in this example \coout{use realistic values!}). Units names
+are defined like in SBML (see below).  If the table is used together
+with a metabolic model, we can compound and reaction identifiers from
+the model instead of the MIRIAM annotations. In this case, the table
+would look like this:
+
+\begin{center} {\tt \small
+    \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|ll}
+      \hline 
+      \tab{!!SBtab} & \tab{TableName='Quantity'} & \tab{TableType='Quantity'} & & \\
+      \hline\hline
+      \col{!QuantityType} &  \col{!SBML:reaction:id} & \col{!SBML:species:id} &\defint{!Value} &\col{!Unit} \\ \hline
+      \defext{equilibrium constant}      &  r1 &        & 0.156 & \defext{1 }\\ \hline
+      \defext{Michaelis constant}        &  r1 & atp & 0.96  & \defext{mM}\\ \hline
+      \defext{inhibition constant}       &  r1 & atp & 0.13  & \defext{mM}\\ \hline
+      \defext{concentration}             &         & atp & 1.5 & \defext{mM}\\ \hline
+  ... &   ... &   ... &   ... & ...   \\ \hline
+\end{tabular}
+}
+\end{center}
+
+This table, together with a stoichiometric model and a choice of
+standard rate laws (like the modular rate laws \cite{liuk:10})
+completely defines a kinetic metabolic model.
+
+
+\section{The SBtab format}
+\label{chapter2}
+
+\subsection{Overview}
+
+SBtab comprises a list of conventions about the structure,
+nomenclature, syntax, and annotations in tables describing biochemical
+network models, kinetic parameters, and dynamic data:
+\begin{enumerate}
+\item General rules for the \textbf{structure of tables} and the \textbf{syntax} used in  table fields.
+\item A list of defined \textbf{table types} for different kinds of
+  information, each with possible \textbf{columns} with defined names
+  and data types (see Table \ref{tab:tabletypes}; An overview of all
+  predefined table types and their possible columns is given in the
+  appendix).
+\item A \textbf{syntax for biochemical element annotations} pointing to  databases
+  or ontologies.
+\item Rules for usage of \textbf{names}, \textbf{shortnames}, and \textbf{database identifiers}
+  used for annotation.
+\item \textbf{Naming rules for biochemical  quantities} (to specify the  quantities,
+  physical units, and mathematical terms, like \defint{Mean} for mean values).
+\item A syntax for \textbf{formulae describing reaction stoichiometries}. \la{simple kinetics, and regulation.}
+\item The possibility to \textbf{extend the format} by declaring new column or table types.  
+\end{enumerate}
+While the SBtab rules can be used to structure various kinds of
+information, the current version of SBtab is tailored for the
+following kinds of data: (i) structure of biochemical network models;
+(ii) biochemical quantities appearing in these models. \la{; (iii) omics
+data.} This is reflected by the specific table types defined below.
+
+
+This specification for SBtab (version 0.1.0) introduces the general SBtab rules as well as
+specific formats and conventions for different use cases (see Section
+\ref{chapter2}).  It defines the different types of SBtab tables (see
+Section \ref{chapter3}) and explains the syntax of reaction \la{and
+regulation} formulae in the SBtab format (see Section \ref{chapter4}).
+Finally, the specification references the available online tools for
+the handling of SBtab files (see Section \ref{chapter5}) and includes
+an overview of all available SBtab table types in appendix
+\ref{appendixA}. Appendix \ref{appendixB} lists controlled
+vocabularies and database resources recommended to be used within
+SBtab.
+
+In the examples, elements of SBtab are highlighted in colours.  This
+is just for convenience and is not a part of the SBtab format.
+\tab{Table types} and \col{Column types} are defined by the SBtab
+format are listed in Table
+\ref{tab:tabletypes}.  \nick{Shortnames} are chosen arbitrarily; each
+of them needs to be defined by a row in one of the tables.  Shortnames
+have to be unique and consistent within a document, but can differ
+between documents.  \defint{Reserved names} are predefined in SBtab
+for recurrent expressions like ``mean value''.  \defext{Official
+  names}, like for instance, the names used for databases, are defined
+by some other authority.  \texttt{Free text} and other text including
+database IDs, numerical values, mathematical brackets and operators.
+
+\subsection{SBtab documents}
+
+An SBtab document consists of several tables that refer to the same
+model or related data sets. It may contain several tables of the same
+table type, but the table names must be unique.  All tables must use a
+common list of shortnames.  For instance, if a \tab{Compound}\, table
+contains the column \col{!Compound}, the elements from this column
+define the compound shortnames used in the other tables.  Several
+tables in a document may have the same type, but not the same table
+name (attribute \tab{TableName}).  If a document is stored in a
+spreadsheet file, the tables should be called according to their table
+name.  In delimited text tables (e.g.~.csv), there are two
+possibilities to store a document: (i) can be stored in several files
+with the filenames
+\emph{basename}\texttt{\_}\emph{tablename}.\emph{extension};
+(ii) A document containing several tables can be stored in a single 
+table file. In this case, a declaration row (starting with ``!!'')  
+has to precede each of the tables and tables are concatenated vertically.
+
+To interpret a single table, other tables (e.g., describing
+shortnames) may be required.  If a table does not require any other
+tables, we call it ``semantically complete''. A document is
+semantically complete if all names are defined, i.e., no additional
+information is required to interpret its contents.  If a single table
+or a document are not complete, the undefined names have to be known
+by the software, and an exchange with other software tools is likely
+to fail.  \la{Different IDs or names for the same elements have to
+ agree, otherwise the parser will throw an error.} 
+If a table or
+document does not contain information implying that two elements
+describe identical things, they should be treated as different.
+
+
+\subsection{Names of biochemical elements}
+
+\paragraph{Names and identifiers of model elements}
+In the following, compounds, enzymes, genes, genetic regulators, and
+compartments will be called ``biochemical entities''. ``Biochemical
+elements'' comprises, in addition, reactions and biochemical
+quantities.  Biochemical elements can be described by shortnames,
+official names, or database identifiers (IDs). The shortnames have to
+be declared within the SBtab document and have to satisfy certain
+syntactic rules. Each table contains a column of the same name
+containing the shortnames, i.e., arbitrary names used in a data set or
+model. Shortnames must be unique, i.e., declared only once in a
+document; they may not contain spaces or the special characters ``:'',
+``.'' and may not start with the characters ``+'', ``-'', or ``\%''.
+In columns containing database IDs, the database is specified in the
+column name (\col{!MiriamID}::\emph{MiriamID}) by a name (to be used
+in column names, IDs etc) and an URI.  We suggest to use preferably
+the databases listed in the Miriam file (see Table
+\ref{tab:databases}).  \la{Other databases can be declared in a table
+  of type \tab{AnnotationResource}.} If an element is characterised
+redundantly (e.g., reaction catalysed by an enzyme is given by both
+shortname and ID), the information derived from the shortname (i.e.,
+the ID listed in the \tab{Reaction} table) has higher priority.
+
+\paragraph{Naming and specification of biological entities}
+Tables of the types \tab{Compound}, \tab{Enzyme}, \tab{Gene},
+\tab{Regulator}, or \tab{Compartment} are called ``entity tables''.
+The identity of the entities can be
+ declared by columns of type
+\begin{itemize}
+\item \col{!Name} contains  official names (good practice: use names from
+  suggested databases).  To declare a database in which the name is
+  used, it can also be written as \emph{DB}:\emph{name}. Several
+  names can be listed in one field, separated by ``$|$''.
+\item \col{!MiriamID}::\emph{MiriamID} contains IDs from a specified database.
+  Annotations with database IDs follow the MIRIAM scheme (qualifier,
+  resource, ID). Databases listed in the MIRIAM resources
+  \cite{MIRIAM} are denoted in formuale by the name as given by the MIRIAM URN
+  string.
+\end{itemize}
+
+\paragraph{Localised compounds}
+If a compound, enzyme, or genetic regulator is localised in a
+compartment, the corresponding localised entity can be denoted by
+\emph{compound}\texttt{[}\emph{compartment}\texttt{]} with square
+brackets, where \emph{compound} and \emph{compartment} refer to the
+shortnames or IDs of the compound and the compartment used in the
+model.  If a model contains several compartments, tools should treat
+the first compartment in the \tab{Compartment} table as the standard
+compartment to be used by default for all compounds that are not
+explicitly assigned to compartments.
+
+
+\subsection{Biochemical elements can be annotated with standard identifiers}
+The rows of a table are annotated with annotations listed in special
+identifier columns. \la{There are two types of identifier columns:
+
+1.} A MiriamID column contains annotations of the same MIRIAM data type
+(web resource), at most one annotation per element, and without
+qualifiers.  The column item and the referenced ID are assumed to be
+linked by an ``is'' relationship (and not, for instance, ``version
+of'', which also exists in SBML annotations). A table can contain
+several MiriamID columns, which must refer to different data
+resources.
+
+{\tt
+  \begin{center}
+    \begin{tabular}{|l|l|l|l|l|}
+      \hline
+      \tab{!!SBtab} & \tab{TableName='Compound'} & \tab{TableType='Compound'} & \\ \hline\hline
+      \col{!Compound} & \col{!MiriamID}::\defext{urn:miriam:obo.chebi}& \col{!MiriamID}::\defext{urn:miriam:kegg.compound}&  ...  \\ 
+      \hline
+      \nick{water} & CHEBI:15377 & C00001  & ...\\\hline
+      \nick{ATP}  & CHEBI:15422 & C00002  & ...\\\hline
+      \nick{phosphate} & CHEBI:18367 & & ...\\\hline
+    \end{tabular}
+  \end{center}
+}
+
+To translate an element like \texttt{CHEBI:16865} into a valid MIRIAM
+URN, the Miriam URI in the header (e.g.,
+\defext{urn:miriam:obo.chebi}) is concatenated with the column item,
+separated by a colon\footnote{The elements from the column have to be
+translated into a URN-encoded form (as described in the URN
+specification): for instance, the colon in the identifier
+\texttt{CHEBI:16865} has to be replaced by the string
+``\texttt{\%3A}'' to create the URN
+\texttt{urn:miriam:obo.chebi:CHEBI\%3A16865}.}.
+
+
+\subsection{Syntax for reaction \la{and regulation} formulae}
+\label{chapter4}
+
+Chemical reactions can be described by reaction formulae (specifying
+the reactants, their stoichiometric coefficients, and possibly their
+localisation).
+
+\textbf{Reaction formulae} (column \col{!SumFormula} in table
+  \tab{Reaction}).  The reaction arrow is denoted by \texttt{<=>}.
+  Stoichiometric coefficients of 1 are omitted; general stoichiometric
+  coefficients given by letters (e.g., \texttt{n}) are not allowed.
+  Substrates and products are given by shortnames, which  must be defined 
+  in a \tab{Compound} table.
+  The order of substrates and the order of products are arbitrary;
+  however, comparison of formulae is eased by using an
+  alphabetical order. The localisation in compartments can be denoted as follows:
+
+\begin{itemize}
+\item Reaction in the default compartment: \texttt{\nick{A} + 2 \nick{B} <=> \nick{C} + \nick{D}}
+\item Transport reaction: \texttt{\nick{A}[\nick{comp1}] + 2 \nick{B}[\nick{comp1}] <=> \nick{C}[\nick{comp2}] + \nick{D}[\nick{comp2}]}
+\end{itemize}
+
+In the example, \nick{A}, \nick{B}, \nick{C}, and \nick{D} are
+compound shortnames, and \nick{comp1} and \nick{comp2} are compartment
+shortnames.  
+
+
+\subsection{Summary of SBtab rules}
+
+SBtab implements the following conventions.
+\begin{itemize}
+\item \textbf{Shortnames} Model elements (e.g. compounds) are often
+  referred to by shortnames which are
+  defined in the corresponding table (e.g. \tab{Compound} for
+  compounds) \la{or in the table \tab{Name} (for any kind of elements,
+  properties, etc).}  Shortnames must be unique within an SBtab
+  document.
+  The first column of each table shares the name of the table type
+  (e.g., column \col{Compound} in table type \tab{Compound}) and
+  contains shortnames, which serve as primary keys for this table and must therefore be unique.
+\item \textbf{Order of columns} While the allowed column types depend
+  on the table type, their order is in most cases arbitrary. It is
+  good practice to put the most important columns to the left.  
+\item \textbf{Characters} The table fields contain only plain text.
+  \la{Special symbols like Greek letters are ignored.} 
+  The format is case-sensitive, but the choice of fonts (bold, italic) 
+  does not play a role.
+\item \textbf{Table types} The table types and their possible columns
+  are defined in  appendix \ref{appendixA}.  
+  Column names may not contain any special characters or white spaces (parsers should
+  ignore these characters). 
+\item \textbf{Comment lines} Table lines starting with a ``\%''
+  character contain comments and are ignored during parsing.
+\item \textbf{Comments and references} Additional information about
+  table elements is stored in the optional columns \col{!Comment},
+  \col{!Reference}, \col{!ReferencePubMed} and \col{!ReferenceDOI},
+  which can appear in all tables.
+\item \textbf{Unrecognised table or columns} Columns with unknown
+  headers (not starting with \col{!}) and unrecognised header startgin with
+  \col{!} may appear in SBtab tables, they can be used, but
+  are not supported by the parser. The use of undefined columns is inadviseable.  
+\item \textbf{Declaration line} The first line, starting with
+  ``!!SBtab'' must declare at least the properties: \tab{TableType},
+  \tab{TableName}, and possibly the properties \tab{Version}, \tab{Level} and \tab{Document}. 
+  The entries can be separated by whitespaces or be given in separate fields.
+\item \textbf{Identifiers}  Identifiers for compounds, compartments etc.~can be specified in
+  columns with a header
+  ``\emph{ElementType}\col{ MiriamID}::\emph{DB}'').  
+\la{\item \textbf{Qualifiers} SBtab supports the qualifiers (like ``Is'',
+  ``VersionOf'') defined in the MIRIAM resources \cite{bioqualifiers}.
+  They can be used within table cells (in the syntax ``\emph{qualifier} \emph{MiriamID}''.}
+\la{\item \textbf{Lists within table fields}  Some table fields may contain several entries of the same type
+  (e.g., several alternative names for the same substance) separated by
+  the ``$|$'' character.}
+\item \textbf{Missing elements} If an element is missing, the table
+  field is left empty.  Missing numerical values can be indicated by
+  non-numerical elements like \texttt{?} or \texttt{na} (for ``not
+  available'').  Mandatory fields must not by empty.
+\item \textbf{Formulae} Reaction formulae \la{and formulae describing
+ biochemical regulations} must be written in a special format explained
+ below.  
+\item \textbf{Physical units} In SBtab, it is recommended to use the
+  units listed in the SBML specification (see
+  {sbml.org/Documents/Specifications})\footnote{The following units
+    are supported by SBML: {\tt ampere, gram, katal, metre, second,
+      watt, becquerel, gray, kelvin, mole, siemens, weber, candela,
+      henry, kilogram, newton, sievert, coulomb, hertz, Litre, ohm,
+      steradian, dimensionless, item, lumen, pascal, tesla, farad,
+      joule, Lux, radian}. Orders of magnitude can be denoted by {\tt
+      k, M, c, m, mu, n, p, f} for Kilo, Mega, Centi, Milli, Micro,
+    Nano, Pico, Femto.  If a parameter is dimensionless, it has to be
+    annotated as {\tt dimensionless}.}.
+\item \textbf{Reserved names} In the SBtab format, there are reserved
+names for (i)  table types
+(marked in \tab{red} in this document); (ii) column names (marked in
+\col{blue})
+(iii) types of biological elements (see table \ref{tab:objects}); and
+(iv) types of biochemical quantities or mathematical terms (e.g.,
+\defint{Mean}) for them (marked in \defint{green}, see Table
+\ref{tab:quantities}), and physical units.
+\end{itemize}
+
+ \begin{table}[h!]
+   \begin{center}
+     \begin{tabular}{|l|l|l|}
+       \hline
+       Name & Contents & Usage  \\
+       \hline
+       \tab{Compound}   & Names, IDs, properties of compounds & model structure \\
+       \tab{Enzyme}     & Names, properties of enzymes        & model structure \\
+       \tab{Gene}       & Names, properties of genes          & model structure \\
+       \tab{Regulator} & Names, properties of gene regulators & model structure \\
+       \tab{Compartment} & Names and IDs of compartments      & model structure \\
+       \tab{Reaction} &   Chemical reactions                  & model structure	\\
+       \tab{Quantity} & Individual data for model parameters & quantitative data \\
+       \tab{Relationship} & Relations between different compounds & model structure\\
+	   \tab{Definition}   & Define custom column types, etc. & customise SBtab \\
+       \hline
+     \end{tabular}
+   \end{center}
+   \caption{Overview of table types in the SBtab format. \label{tab:tabletypes}}
+ \end{table}
+
+
+\section{Predefined table types in SBtab}
+\label{chapter3}
+SBtab has a number of predefined table types that can hold different
+kinds of data. Each table type has a number of mandatory or optional
+columns with specific properties. An overview is given in Table
+\ref{tab:tabletypes}.  The table types \tab{Compound}, \tab{Enzyme},
+\tab{Gene}, \tab{Regulator}, \tab{Compartment}, and \tab{Reaction}
+describe model structures, the table types \tab{Quantity} and
+\tab{Relationship} \la{, \tab{OmicsDataRow}, and \tab{OmicsDataColumn}} are
+used for quantitative data.
+
+
+\subsection{Tables for biochemical network structures}
+
+As in the example in use case 1 (in the introduction section), biochemical 
+networks consist of biochemical entities (e.g., metabolites or proteins) 
+and reactions or interactions between them. The tables describing these 
+entities (table types \tab{Reaction}, \tab{Compound}, \tab{Compartment}, 
+\tab{Enzyme}, \tab{Regulator}, and \tab{Gene}) have to satisfy the following 
+rules.
+
+\begin{itemize}
+
+\item \textbf{Entities} In tables describing biochemical entities
+  (\tab{Compound}, \tab{Enzyme}, ...), each row has to contain (i) a
+  shortname as the primary key (in the column \col{!Compound},
+  \col{!Enzyme}, etc) and (ii) at least one entry specifying the
+  entity, like \col{!Name} or \col{!MiriamID}:\emph{DB}.  If a column
+  shares the type of the table (e.g., a Compound column in a Compound
+  table), it can be considered a primary key, that is, its elements
+  should be unique and it should appear as the first column in the
+  table.  Optional columns - which may depend on the kinds of entities
+  - are listed in Table \ref{tab:columnsentities}.
+
+\item \textbf{Reactions}
+A \tab{Reaction} table lists chemical reactions, possibly with
+information about the corresponding enzymes, their kinetic laws, and
+their genetic regulation. It must contain at least one of the
+following columns: \col{!SumFormula},  \col{!SumFormulaJSON},\col{!MiriamID}:\emph{DB};  optional
+columns are listed in Table \ref{tab:columnsreactions}. For an
+example, see use case 1 in the introduction.
+
+\item 
+\textbf{Enzymes, genes, and regulators}
+The connection between chemical reactions, the enzymes catalysing the
+reactions, and the genes coding for the enzymes can be complicated,
+but in many cases, there is a one-to-one relationship. In SBtab, there
+are different ways to express this relationship.  Information about
+enzymes or genes and their regulation can be stored in a
+\tab{Reaction} table if there is a one-to-one relationship between
+reactions, enzymes, and possibly genes.  Otherwise, it is stored in
+separate tables \tab{Enzyme} and \tab{Gene} and the tables are
+interlinked \emph{via} the columns
+\col{!Enzyme} (in table \tab{Reaction}) and
+\col{!Gene} (in table \tab{Enzyme}) or
+\col{!TargetReaction} (in an \tab{Enzyme}
+table) and \col{!GeneProduct} (in a \tab{Gene}
+table). 
+
+\end{itemize}
+
+\paragraph{Conversion to SBML models} Reaction and Compound tables
+can be translated into SBML (Systems Biology Markup Language).
+Compound correspond to \texttt{species} in SBML. By default, the entries in
+the \col{Compound} and \col{Reaction} columns are translated into \texttt{id}
+attributes of the SBML elements. They can be overridden by SBML IDs
+directly specified within SBtab in the columns \col{SBML:reaction:id},
+\col{SBML:species:id}, \col{SBMLparameterID}, etc. 
+
+
+\subsection{Tables for biochemical quantities}
+
+Numerical data can be stored in two \la{four} different table types.
+Tables of type \tab{Quantity} describe individual physical or
+biochemical quantities, for instance, kinetic parameters in a network
+model.  These quantities can be linked to one entity, one reaction or
+enzyme, or both. 
+
+Tables of type \tab{Quantity} describe single physical or biochemical
+quantities (e.g., individual kinetic constants). 
+A quantity is defined by a type, a unit, possibly
+biochemical entities to which it refers, possibly a localisation, and
+possibly experimental or physical conditions. The columns contain the
+defining properties (e.g. unit, conditions, etc.)  and their values.
+Quantities can refer to a compound, an enzyme or reaction, or a
+combination of them. For instance, a concentration refers to a
+substance, while a $k^{\rm M}$ value refers to a metabolite and an
+enzyme. If there is a one-to-one relationship between reactions and
+enzymes, the $k^{\rm M}$ value can also be assigned to a
+compound/reaction pair or a compound/enzyme pair.  Let us consider
+again use case 2:\\
+
+{\tt \scriptsize
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+\hline
+ \tab{!!SBtab}	& \tab{TableName='Quantity'} & \tab{TableType='Quantity'} & & & \\ \hline\hline
+\tab{!Quantity} &  \col{!QuantityType} 	&  \col{!MiriamID:Reaction}::...\defext{reaction} & \col{!MiriamID:Compound}:...\defext{compound} &\defint{!Value} &\col{!Unit} \\ \hline\hline
+\nick{kcrf\_R1} & \defext{substrate catalytic rate constant}   	&  R01061 &       & 200.0 & 1/s\\ \hline
+\nick{keq\_R1} 	& \defext{equilibrium constant}      &  R01061 &        & 0.0984	& 1 \\ \hline
+\nick{keq\_R2} 	& \defext{equilibrium constant}      &  R01061 &        & 0.156	 	& 1 \\ \hline
+\nick{kmc\_R1\_C1} & \defext{Michaelis constant}     &  R01061 & C00003 & 0.96  	& mM\\ \hline
+\nick{kic\_R1\_C1} & \defext{inhibition constant}    &  R01070 & C00111 & 0.13  	& mM\\ \hline
+\nick{con\_C1} 	& \defext{concentration}             &         & C00118 & 0.203 	& mM\\ \hline
+\end{tabular}
+}
+
+The abbreviation ``...'' in the URN is just for ease of reading; in an
+SBtab file, URNs have to be written in full length.  To specify the
+parameters of a model, we need to refer to \col{Reaction} and
+\col{Compound} elements by shortnames rather
+than by database IDs. In this form, the above example  could become\\
+
+ {\tt \small
+    \begin{tabular}{|l|l|l|l|l|l|}
+\hline
+    \tab{!!SBtab} & \tab{TableName='Quantity'} & \tab{TableType='Quantity'} & & & \\
+      \hline\hline
+      \col{!Quantity} &  \col{!MiriamID}::\defext{urn:miriam:obo.sbo}&  \col{!Reaction} & \col{!Compound} &\defint{!Value}  &\col{!Unit} \\ \hline
+      \nick{kcrf\_R1} &  SBO:0000320 &  R1 &        & 200.0  & 1/s\\ \hline
+      \nick{keq\_R1}   &  SBO:0000281 &  R1 &        & 0.0984 & 1 \\ \hline
+      \nick{kmc\_R1\_C1} &  SBO:0000027 &  R1 & C1 & 0.96   & 1 \\ \hline
+      \nick{kic\_R1\_C2} &  SBO:0000261 &  R1 & C2 & 0.13   & mM\\ \hline
+      \nick{con\_C3}  &  SBO:0000196 &     & C3 & 0.203  & mM\\
+      \hline                                                                               
+\end{tabular}
+}
+
+This example also shows that quantity types can be specified in a
+column \col{!QuantityType MiriamID}::\defext{urn:miriam:obo.sbo} by
+identifiers from the Systems Biology Ontology (SBO).  The entries of
+\tab{Quantity} tables can be inserted into SBML models and extracted
+from them. By default, SBtab quantities referring to a reaction will
+be translated into local parameters in SBML, while other quantities
+will become global parameters. The element of the \col{Quantity}
+column will be used as SBML element ID unless it is overridden by the
+(optional) column \col{SBMLparameterID}. For the naming of kinetic
+constants, see the conventions given in the supplementary file of
+\cite{liuk:10}, supplementary material Table A.5.  Quantities that
+describe initial species amounts, initial species concentrations, or
+compartment sizes will be translated into the corresponding element
+attributes.  A \tab{Quantity} table can also store state-dependent
+quantities like concentrations, expression levels, or fluxes like in
+the following example.
+
+\begin{center} {\tt \small
+    \begin{tabular}{|l|l|l|l|l|l|l|}
+      \hline
+    \tab{!!SBtab} & \tab{TableName='Quantity'} & \tab{TableType='Quantity'}& & & \\
+\hline\hline
+      \col{!Quantity}    &\col{!MiriamID::}... & !Condition & \col{!Compound} &\defint{!Value}  &\col{!Unit} \\ \hline
+      \nick{con\_C1\_wt}    &  SBO:0000196 & wild type & C1 & 0.2  & mM\\ \hline
+      \nick{con\_C2\_wt}    &  SBO:0000196 & wild type & C2 & 1    & mM\\\hline
+      \nick{con\_C3\_wt}    &  SBO:0000196 & wild type & C3 & 0.1  & mM\\\hline
+      \nick{con\_C1\_mu}    &  SBO:0000196 & mutant    & C1 & 0.1  & mM\\\hline
+      \nick{con\_C2\_mu}    &  SBO:0000196 & mutant    & C2 & 0.5  & mM\\\hline
+      \nick{con\_C3\_mu}    &  SBO:0000196 & mutant    & C3 & 0.1  & mM\\\hline
+\end{tabular}
+}
+\end{center}
+
+
+\section{SBtab online tools}
+\label{chapter5}
+
+To simplify and encourage the usage of SBtab, we provide several
+online tools at \texttt{www.semanticsbml.org/SBtab/}.\coout{They are
+  integrated in the collection of online services for SBML models,
+  semanticSBML 2.0 (www.semanticsbml.org/semanticSBML), and comprise}
+\begin{enumerate} 
+\item \textbf{An online validator of SBtab files.} An online validator
+  tool checks the validity of SBtab files (in .csv or Excel format)
+  and instructs the user how to fix problems.  Validation is based on
+  the known column types \la{(predefined declaration table accessible
+    for each SBtab version and/or column table in the SBtab
+    document)}.  The following validation rules are applied:
+\begin{enumerate}
+\item The table type and name must either be declared in the
+  declaration line. The declaration line is checked for syntax.
+  A declaration line and a table type definition is mandatory for the 
+  functionality of SBtab. If the attribute \tab{TableName} is missing, it will
+  set automatically using the \tab{TableType} followed by a number.
+\item Check the first column, is it consistent with the table type?
+  Are all columns declared for this table type? If not, issue a warning and print 
+  a list of all possible column types.
+\item Check file for compatibility with tablib. 
+\end{enumerate}
+
+\item \textbf{An online parser for SBtab.} The SBtab parser uses tablib \footnote{http://docs.python-tablib.org/en/latest/} to import the SBtab file.\\
+The parser itself has different functions to edit the data and to use it in 
+Python directly:
+\begin{enumerate}
+\item Read table information (type, name, etc...) from the table.
+\item Addition of rows and columns to the SBtab table.
+\item Editing and export of the table content in rows, columns and single entries. 
+The export as Python dictionary is also provided to ensure the best possible access to the data.
+\item Switching of columns and rows (transpose) of the table. As some data is
+stored more convenient in a transposed spread sheet, some tables need to be 
+transposed to have better access to its content. 
+\end{enumerate}
+
+\item \textbf{An online converter of SBtab files into SBML files.}  An
+  SBtab document can be converted into a valid SBML model.  The SBtab
+  file needs to contain a table of the type \tab{Reaction}; other tables
+  can provide additional information for the SBML model (e.g.
+  \tab{Compound}, \tab{Enzyme}, or \tab{Compartment}).
+\item \textbf{An online converter of SBML files into SBtab files.} A
+  model in SBML format can be converted into an SBtab document
+  containing various types of tables (e.g. \tab{Reaction}, \tab{Compound},
+  \tab{Compartment}, \tab{Enzyme}, and possibly \tab{Quantity}).
+\end{enumerate}
+
+
+\section*{Acknowledgements}
+The authors thank Hans-Michael Kaltenbach, Dirk Wiesenthal, Jannis
+Uhlendorf, Anne Goelzer, J\"org B\"uscher, Avi Flamholz and Phillipp Schmidt for
+contributing to this proposal. This work was funded within the
+BaSysBio project.
+
+\bibliographystyle{unsrt}
+\bibliography{/home/wolfram/latex/bibtex/biology}
+
+\clearpage
+
+\begin{appendix}
+
+\section{Overview of table types}
+\label{appendixA}
+
+\coout{add SBMLSpeciesID wherever needed}
+\coout{mark columns as * mandatory x recommended o optional . none}
+
+\begin{table}[h!]
+\textbf{All table types}\\
+\begin{tabular}{|l|l|l|l|}
+\hline 
+Name & Format & Type & Content \\
+\hline
+  \col{!Description}    & text & string & Description of the row element\\
+  \col{!Comment}        & text & string & Comment\\
+  \col{!ReferenceName}  & text & string & Reference title, authors, etc.~(as free text)\\
+  \col{!ReferencePubMed}& text & string & Reference PubMed ID\\
+  \col{!ReferenceDOI}   & text & string & Reference DOI\\
+  \hline 
+\end{tabular}
+\caption{Columns that can appear in all tables}
+\label{tab:columnsalltables}
+\end{table}
+
+\begin{table}[h!]
+{\small\textbf{All entity and reaction tables} \\
+\begin{tabular}{|l|l|l|l|}
+\hline
+Name & Type & Format & Content \\
+\hline
+  \col{!Name}       				& text 			& string 	& Entity name \\
+  \col{!MiriamID}::\emph{MiriamURN} & resource ID 	& string	& Entity ID \\
+  \col{!MiriamAnnotations} 			& annotation 	& JSON string 	& Entity ID \\
+  \col{!Type}					 	& shortname 	& string	& Biochemical type of entity (examples see Table \ref{tab:objects})\\
+\hline
+\end{tabular}
+\caption{Columns that can appear in all entity and reaction tables.}
+\label{tab:columnsalltables}
+}
+\end{table}
+
+\begin{table}[h!]
+\tab{Compound}\\
+\begin{tabular}{|l|l|l|l|}
+\hline
+Name & Type & Format & Content \\
+\hline
+  \col{!Compound}   			& shortname 		& string 		& Compound shortname\\
+  \col{!SBML:species:id}   		& SBML element ID	& string		& SBML Species ID of the entity \\
+  \col{!SBML:speciestype:id}	& SBML element ID 	& string		& SBML SpeciesType ID of the entity \\
+  \col{!Location} 				& shortname 		& string 		& Compartment for localised entities\\
+  \col{!State}    				& shortname 		& string		& State of the entity \\
+  \col{!CompoundSumFormula}     & text 				& string 		& Chemical sum formula \\
+  \col{!StructureFormula} 		& text 				& string 		& Chemical structure formula \\
+  \col{!Charge}  				& number 			& integer		& Electrical charge number \\
+  \col{!Mass}					& number 			& float 		& Molecular mass \\
+  \col{!Unit} 					& text 				& string 		& Physical unit\\
+  \col{!IsConstant}       		& Boolean 			& True, False 	& Substance with fixed concentrations\\
+  \col{!EnzymeRole}  	  		& shortname 		& string		& Enzymatic activity \\
+  \col{!RegulatorRole}  	 	& shortname 		& string		& Regulatory activity \\
+\hline
+\end{tabular}
+\caption{Columns that can appear in \tab{Compound} tables}
+\label{tab:columnsalltables}
+\end{table}
+
+\begin{table}[h!]
+\tab{Enzyme}\\
+\begin{tabular}{|l|l|l|l|}
+  \hline
+  Name & Type & Format & Content \\
+  \hline
+  \col{!Enzyme} 			& shortname & string & Enzyme shortname\\
+  \col{!CatalysedReaction}	& shortname & string & Catalysed reaction \\
+  \col{!KineticLaw} 		& shortname & string & Catalysed reaction \\
+  \col{!Gene}  				& shortname & string & Gene coding for enzyme\\
+  \hline
+\end{tabular}
+\caption{Columns that can appear in \tab{Enzyme} tables}
+\label{tab:columnsentities1}
+\end{table}
+
+\begin{table}
+{\small
+  \tab{Gene} \\ 
+\begin{tabular}{|l|l|l|l|}
+  \hline
+  Name & Type & Format & Content \\
+\hline
+  \col{!Gene} 		& shortname 	& string	& Gene shortname\\
+  \col{!GeneLocus} 	& string 		& string 	& Locus name\\
+  \col{!GeneProduct}& shortname 		& string & Gene product \\
+  \col{!GeneProduct SBML:species:id} 	& SBML element ID 	& string & SBML ID of protein \\
+  \col{!Operon}  	& shortname 		& string & Operon in which gene is located\\
+\hline
+\end{tabular}}
+\caption{Columns that can appear in \tab{Gene} tables}
+\label{tab:columnsalltables}
+\end{table}
+
+\begin{table}[h!]
+  \tab{Regulator} \\
+\begin{tabular}{|l|l|l|l|}
+ \hline
+  Name & Type & Format & Content \\
+  \hline
+  \col{!Regulator} 		& shortname & string & Regulator shortname\\
+  \col{!State} 			& shortname & string & State of the regulator \\
+  \col{!TargetGene}  	& shortname & string & Target gene\\
+  \col{!TargetOperon}  	& shortname & string & Target operon\\
+  \col{!TargetPromoter} & shortname & string & Target promoter\\
+\hline
+\end{tabular}
+\caption{Columns that can appear in \tab{Regulator} tables}
+\label{tab:columnsalltables}
+\end{table}
+
+\begin{table}[h!]
+  \tab{Compartment} \\
+  \begin{tabular}{|l|l|l|l|}
+    \hline
+    Name & Type & Format & Content \\
+    \hline
+    \col{!Compartment} 				& shortname 		& string & Compartment shortname\\
+    \col{!SBML:compartment:id}   	& SBML element ID 	& string & SBML Compartment ID \\
+    \col{!OuterCompartment} 		& shortname 		& string & Surrounding compartment \\
+    \col{!SBML:OuterCompartment:compartment:id} & SBML element ID & string & Surrounding compartment \\
+    \col{!Size} 					& number 			& float  & Compartment size \\
+    \col{!Unit} 					& text 				& string & Physical unit\\
+    \hline
+  \end{tabular}
+\caption{Columns that can appear in \tab{Compartment} tables}
+\label{tab:columnsalltables}
+\end{table}
+
+\begin{table}[h!]
+\label{tab:columnsentities}
+\end{table}
+
+\begin{table}
+  \tab{Reaction} \\
+\begin{tabular}{|l|l|l|l|}
+  \hline
+  Name & Type & Format & Content \\
+  \hline
+  \col{!Reaction}       	& shortname 		& string & Reaction shortname \\
+  \col{!SBML:reaction:id}   & SBML element ID 	& string & SBML Reaction ID \\
+  \col{!SumFormula} 		& SumFormula formula & string & Reaction sum formula \\
+  \hline
+  \col{!Location}   		& shortname & string & Compartment for localised reaction\\
+  \col{!Enzyme}  			& shortname & Fstring & Enzyme catalysing the reaction \\
+  \col{!Model}   			& text 		& string & Model(s) in which reaction is involved \\
+  \col{!Pathway}  			& text 		& string & Pathway(s) in which reaction is involved \\
+  \col{!SubreactionOf} 		& shortname & string & Mark as subreaction of a (lumped) reaction\\
+  \hline
+  \col{!IsComplete}    		& Boolean & True, False & Reaction formula includes all cofactors etc\\
+  \col{!IsReversible}  		& Boolean & True, False & Reaction should be treated as irreversible\\
+  \col{!IsInEquilibrium}    & Boolean & True, False & Reaction approximately in equilibrium\\
+  \col{!IsExchangeReaction} & Boolean & True, False & Some reactants are left out \\ 
+  \hline
+  \col{!Flux} 				& number    & float & Metabolic flux through the reaction  \\
+  \col{!IsNonEnzymatic} 	& Boolean   & True, False & Non-catalysed reaction \\
+  \col{!KineticLaw}   		& shortname & string 	& see table type \tab{Enzyme} \\
+  \col{!Gene} 				& shortname & string 	& see table type \tab{Enzyme} \\
+  \col{!Operon}  			& shortname & string 	& see table type \tab{Gene}\\
+  \hline
+  \col{!Enzyme SBML:species:id}    		& SBML element  ID &string & SBML ID of enzyme   \\
+  \col{!Enzyme SBML:parameter:id}    	& SBML element  ID &string & SBML ID of enzyme   \\
+  \col{!BuildReaction}$^{M}$         	& Boolean &  True, False &  Consider the reaction in SBML model\\
+  \col{!BuildEnzyme}$^{M}$           	& Boolean &  True, False & Include enzyme  in SBML model\\
+  \col{!BuildEnzymeProduction}$^{M}$ 	& Boolean &  True, False & Describe enzyme production in SBML model\\
+  \hline
+\end{tabular}
+
+\caption{Columns in tables of type \tab{Reaction}.  The lower section lists, again,  column types from Table \ref{tab:columnsentities}.}
+\label{tab:columnsreactions}
+\end{table}
+
+\begin{table}
+  \tab{Relationship} \\
+\begin{tabular}{|l|l|l|l|}
+  \hline
+  Name & Type & Format & Content \\
+  \hline
+  \col{!Relationship}   & shortname & string 		& Type of quantitative relationship\\
+  \col{!From}  			& shortname & string 		& Element at beginning of arrow \\
+  \col{!To}    			& shortname & string 		& Element at arrowhead\\
+  \col{!IsSymmetric}    & Boolean 	& True, False 	& Flag indicating non-symmetric relationships \\ 
+  \col{!Value}:\emph{QuantityType} & number  & float & Numerical value assigned to the relationship \\ 
+  \hline
+\end{tabular}
+\caption{Columns that can appear in \tab{Relationship} tables.}
+\label{tab:columnsrelations}
+\end{table}
+
+\begin{table}
+\tab{Quantity} \\
+\begin{tabular}{|l|l|l|l|}
+\hline
+  Name & Type & Format & Content \\
+  \hline
+  \col{!Quantity}  		& shortname & string & Quantity / SBML parameter ID \\
+  \col{!QuantityType}   & shortname & string & Quantity type (e.g., from SBO) \\
+  \emph{ValueType}  	& ValueType & string & Mathematical Term from table \ref{tab:quantityvaluetype} (Mean, Std,...)\\
+  \col{!SBML:parameter:id}   	  & SBML element ID &  string & Parameter ID in SBML file \\
+  \col{!Unit} 			& text 		& string & Physical unit\\
+  \col{!Scale} 			& text 		& string & Scale (e.g., logarithm, see Table  \ref{tab:scale}) \\
+  \col{!Condition} 		& text 		& string & experimental condition name (free text)\\
+  \col{!pH} 			& number 	& float  & pH value in measurement\\
+  \col{!Temperature} 	& number 	& float  & Temperature in measurement\\
+  \col{!Location}     	& shortname & string & Compartment  \\
+  \col{!SBML:compartment:id}      &  SBML element ID & string& SBML ID of compartment`  \\
+  \col{!Compound}      	& shortname & string & Related compound  \\
+  \col{!MiriamID:Compound}::\emph{MiriamURN} & resource ID &string & Compound ID \\
+  \col{!SBML:Compound:species:id} &  SBML element ID & string & SBML ID of compound  \\
+  \col{!Reaction}   	& shortname & string & Related reaction  \\
+  \col{!MiriamID:Reaction}::\emph{MiriamURN} & resource ID & string & Reaction ID \\
+  \col{!SBML:reaction:id}         & SBML element ID & string & SBML ID of reaction  \\
+  \col{!Enzyme}    		& shortname & string & Related enzyme  \\
+  \col{!SBML:Enzyme:species:id}   & SBML element  ID & string & SBML ID of enzyme  \\
+  \col{!SBML:Enzyme:parameter:id} & SBML element  ID & string& SBML ID of enzyme  \\
+  \col{!MiriamID:Enzyme}::\emph{MiriamURN} & resource ID & string & Enzyme ID \\
+  \col{!Gene}      		& shortname & string & Related gene  \\
+  \col{!Organism}   	& shortname & string & Organism \\
+\hline
+\end{tabular}
+\caption{Columns for numerical values and experimental conditions in tables of type 
+\tab{Quantity}.}
+\label{tab:columnsquantity}
+\end{table}
+
+\clearpage
+
+\section{Controlled vocabularies and database resources}
+\label{appendixB}
+
+
+\begin{table}[h!]
+  \begin{center}
+    \begin{tabular}{|l|l|l|l|}
+      \hline
+      ValueType       & Type  & Format &  Meaning\\
+      \hline                            
+      \defint{Value} & number & float & Simple value  \\
+      \defint{Mean}  & number & float & Algebraic mean  \\
+      \defint{Std}   & number & float $>0$ & Standard deviation  \\
+      \defint{Min}   & number & float & Lower bound \\
+      \defint{Max}   & number & float & Upper bound  \\
+      \defint{Median}& number & float & Median  \\
+      \defint{GeometricMean}& number & float & Geometric mean  \\
+      \defint{Sign}  & sign & +,-,0 & Sign  \\
+      \defint{ProbDist} & Free text & string & Probability distribution: \\
+      \hline
+    \end{tabular}\hspace{5mm}
+    \begin{tabular}{|l|l|l|l|}
+      \hline
+      Scale  &  Meaning\\
+      \hline              
+      \defint{Lin}   & Linear scale (no transformation)  \\
+      \defint{Ln}    & Natural logarithm  \\
+      \defint{Log2}  & Dual logarithm  \\
+      \defint{Log10} & Decadic logarithm \\
+      \hline
+    \end{tabular}
+  \end{center}
+  \caption{Left: Quantity mathematical terms recommended for use in SBtab. 
+    Names of probability distributions can be, for instance, 
+    \texttt{Normal, Uniform, LogNormal}. Right:Mathematical scales used for data.}
+\label{tab:quantityvaluetype}
+\end{table}
+
+
+\begin{table}[h!]
+  \begin{center}
+{\small
+    \begin{tabular}{|l|l|l|l|}
+\hline
+  Database & MIRIAM URN           & Contents & URI \\
+\hline
+  SBO                 &  \defext{urn:miriam:obo.sbo}       & Quantities, rate laws               & www.ebi.ac.uk/sbo/ \\
+  CheBI               &  \defext{urn:miriam:obo.chebi}     & Metabolites    & www.ebi.ac.uk/chebi/ \\
+  Enzyme nomenclature &  \defext{ec-code}       & Enzymes        & www.ebi.ac.uk/IntEnz/ \\ 
+  KEGG Compound       &  \defext{urn:miriam:kegg.compound} & Compounds & www.genome.jp/KEGG/ \\
+  KEGG Reaction       &  \defext{urn:miriam:kegg.reaction} & Reactions & www.genome.jp/KEGG/ \\
+  UniProt             &  \defext{uniprot}       & Proteins       & www.uniprot.org/  \\
+  Gene Ontology       &  \defext{urn:miriam:obo.go}        & Compartments   & www.geneontology.org/ \\
+  Taxonomy            &  \defext{taxonomy}      &  Organisms     & www.ncbi.nlm.nih.gov/Taxonomy/ \\
+  SGD                 &  \defext{sgd}           & Yeast proteins & www.yeastgenome.org/ \\
+\hline
+\end{tabular}}
+\end{center}
+\caption{A selection of databases to be used in SBtab. For the complete list, 
+  see the  MIRIAM resources. \la{Additional resources can be defined in a \tab{AnnotationResource} table.}}
+ \label{tab:databases}
+\end{table}
+
+
+\begin{table}[h!]
+  \begin{center} \small
+    \begin{tabular}{|l|l|l|l|l|}
+      \hline
+      Name & SBO term & Default unit & Entities & Prefix \\
+      \hline
+      \defext{standard Gibbs energy of formation} &  SBO:0000582  & kJ/mol & Compound & \texttt{scp}\\
+      \defext{equilibrium constant}       &  SBO:0000281  &           & Reaction & \texttt{keq} \\
+      \defext{forward maximal velocity}   &  SBO:0000324            & mMol/s & Enzymatic Reaction & \texttt{vmaf} \\
+      \defext{reverse maximal velocity}  & SBO:0000325  & mMol/s& Enzymatic Reaction & \texttt{vmar} \\
+      \defext{substrate catalytic rate constant}      & SBO:0000321     & 1/s       & Enzymatic Reaction & \texttt{kcrf} \\
+      \defext{product catalytic rate constant}     & SBO:0000320 & 1/s      & Enzymatic Reaction & \texttt{kcrr} \\
+      \defext{Michaelis constant}         &  SBO:0000027  & mM    & Enzyme, Compound & \texttt{kmc} \\
+      \defext{inhibitory constant}        &  SBO:0000261 & mM       & Enzyme, Compound & \texttt{kic} \\
+      \defext{activition constant}        &  SBO:0000363  & mM       & Enzyme, Compound & \texttt{kac} \\
+      \defext{Hill constant}              &  SBO:0000190  & dimensionless   & Compound, Reaction & \texttt{hco} \\ 
+      \hline                                             
+      \defext{pH}                           &  SBO:0000304  & dimensionless & Location  &  \\
+      \defext{concentration}                &  SBO:0000196  & mM       & Compound  & \texttt{con} \\
+      \defext{biochemical potential}           & SBO:0000303 & kJ/mol   & Compound &  \\
+      \defext{standard biochemical potential}           & SBO:0000463 & kJ/mol   & Compound & \texttt{scp} \\
+      \hline
+    \end{tabular}
+  \end{center}
+  \caption{A selection of quantity types to be used in SBtab in table types 
+    \tab{Quantity}.
+    The unit of  equilibrium constants depends on the reaction stoichiometry. 
+    More quantities can be found in the Systems Biology Ontology.}
+\label{tab:quantities}
+\end{table}
+
+\begin{table}[h!]
+  \begin{center}
+{\small
+  \begin{tabular}{|l|l|l|}
+      \hline
+      \textbf{Physical entity types} &             \\ \hline
+      \defext{protein complex       }& SBO:0000297 \\
+      \defext{messenger RNA         }& SBO:0000278 \\
+      \defext{ribonucleic acid      }& SBO:0000250 \\
+      \defext{deoxyribonucleic acid} & SBO:0000251 \\
+      \defext{polypeptide chain     }& SBO:0000252 \\
+      \defext{polysaccharide        }& SBO:0000249 \\
+      \defext{metabolite            }& SBO:0000299 \\
+      \defext{macromolecular complex}& SBO:0000296 \\
+	  \hline
+    \end{tabular}\hspace{5mm}
+  \begin{tabular}{|l|l|l|}
+      \hline
+      \textbf{Compartments} &             \\ \hline
+      \defext{cell }  & GO:0005623  \\
+      \defext{extracellular space }  & GO:0005615  \\
+      \defext{membrane            }  & GO:0001602  \\
+      \defext{cytosol             }  & GO:0005829  \\
+      \defext{nucleus             }  & GO:0005634  \\
+      \defext{mitochondrion       }  & GO:0005739  \\  
+      \hline
+\hline
+    \end{tabular}
+}
+  \end{center}
+\caption{Examples of biochemical entity types (with Systems Biology Ontology identifiers) and 
+cell compartments (with Gene Ontology identifiers).}
+\label{tab:objects}
+\end{table}
+ 
+\end{appendix}
+
+\end{document}

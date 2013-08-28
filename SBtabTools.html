@@ -1,0 +1,80 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module SBtabTools</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>SBtabTools</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/hahn/SBtab/SBtab/SBtabTools.py">/home/hahn/SBtab/SBtab/SBtabTools.py</a></font></td></tr></table>
+    <p><tt>SBtab&nbsp;Tools<br>
+===========<br>
+&nbsp;<br>
+These&nbsp;functions&nbsp;can&nbsp;be&nbsp;used&nbsp;to&nbsp;facilitate&nbsp;the&nbsp;use&nbsp;of&nbsp;SBtab.&nbsp;<br>
+They&nbsp;can&nbsp;be&nbsp;called&nbsp;from&nbsp;outside&nbsp;to&nbsp;create&nbsp;a&nbsp;SBtab&nbsp;instance.</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="SBtab.html">SBtab</a><br>
+<a href="copy.html">copy</a><br>
+</td><td width="25%" valign=top><a href="os.html">os</a><br>
+<a href="tablib.html">tablib</a><br>
+</td><td width="25%" valign=top><a href="tablibIO.html">tablibIO</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-createDataset"><strong>createDataset</strong></a>(header_row, columns, value_rows, filename)</dt><dd><tt>Create&nbsp;a&nbsp;SBtab&nbsp;object&nbsp;by&nbsp;merging&nbsp;a&nbsp;header,&nbsp;a&nbsp;main&nbsp;column&nbsp;row&nbsp;and&nbsp;the&nbsp;value&nbsp;rows.&nbsp;<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+header_row&nbsp;:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;of&nbsp;the&nbsp;header&nbsp;row.<br>
+columns:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;strings,&nbsp;name&nbsp;of&nbsp;the&nbsp;columns.<br>
+value_rows&nbsp;:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;lists&nbsp;containing&nbsp;the&nbsp;different&nbsp;rows&nbsp;of&nbsp;the&nbsp;table.<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+sbtab&nbsp;:&nbsp;SBtab&nbsp;instance<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBtab&nbsp;object&nbsp;of&nbsp;the&nbsp;table.<br>
+&nbsp;<br>
+Notes<br>
+-----<br>
+First&nbsp;entry&nbsp;in&nbsp;columns&nbsp;should&nbsp;be&nbsp;consistent&nbsp;with&nbsp;table&nbsp;type.<br>
+Otherwise&nbsp;the&nbsp;SBtab&nbsp;object&nbsp;will&nbsp;have&nbsp;a&nbsp;automatically&nbsp;added&nbsp;column.</tt></dd></dl>
+ <dl><dt><a name="-oneOrMany"><strong>oneOrMany</strong></a>(spreadsheet_file)</dt><dd><tt>Check&nbsp;for&nbsp;multiple&nbsp;tables&nbsp;and&nbsp;cut&nbsp;them&nbsp;into&nbsp;different&nbsp;tablib&nbsp;object.<br>
+Return&nbsp;a&nbsp;list&nbsp;of&nbsp;tablib&nbsp;object.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+spreadsheet_file&nbsp;:&nbsp;tablib&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Tablib&nbsp;object&nbsp;of&nbsp;the&nbsp;whole&nbsp;table.<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+sbtabs&nbsp;:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;single&nbsp;tablib&nbsp;objects.</tt></dd></dl>
+ <dl><dt><a name="-openSbtab"><strong>openSbtab</strong></a>(filepath)</dt><dd><tt>Open&nbsp;SBtab&nbsp;from&nbsp;file.&nbsp;Return&nbsp;SBtab&nbsp;object.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+filepath&nbsp;:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Path&nbsp;of&nbsp;the&nbsp;spread&nbsp;sheet&nbsp;file.<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+sbtab&nbsp;:&nbsp;SBtab&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBtab&nbsp;object&nbsp;of&nbsp;the&nbsp;table</tt></dd></dl>
+</td></tr></table>
+</body></html>
