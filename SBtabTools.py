@@ -457,7 +457,6 @@ def WCM_module_timecourses(WCM_module):
     columns = []
     columns.append('!WCM-Timecourses')
     columns.append('!Species')
-    columns.append('!Compartments')
     trange = [str(x) for x in WCM_module.trange]
     columns = columns + trange
     # Set value rows
