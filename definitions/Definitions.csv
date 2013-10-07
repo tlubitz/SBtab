@@ -9,7 +9,7 @@ Name	Name	Name	Name	Name	Name	Name	Relationship
 MiriamAnnotations	MiriamAnnotations	MiriamAnnotations	MiriamAnnotations	MiriamAnnotations	MiriamAnnotations	MiriamAnnotations	
 Type	Type	Type	Type	Type	Type	Type	
 Reaction	Compound	Enzyme	Compartment	Quantity	Regulator	Gene	
-SBMLReactionID	SBML:species:id	CatalysedReaction	SBML:compartment:id	QuantityType	State	GeneLocus	
+SBML:reaction:id	SBML:species:id	CatalysedReaction	SBML:compartment:id	QuantityType	State	GeneLocus	
 SumFormula	SBML:speciestype:id	KineticLaw	OuterCompartment	SBML:parameter:id	TargetGene	GeneProduct	
 Location	Location	Gene	OuterCompartment:SBML:compartment:id	Unit	TargetOperon	GeneProduct:SBML:species:id	
 Enzyme	State		Size	Scale	TargetPromoter	Operon	
