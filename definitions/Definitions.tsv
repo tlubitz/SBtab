@@ -1,0 +1,32 @@
+!!Sbtab	Level='1'	!Version='0.1'	!Document='Transposed'	!TableType='Definition'	Table='Allowed_types'		
+!Reaction	!Compound	!Enzyme	!Compartment	!Quantity	!Regulator	!Gene	!Relationship
+Comment	Comment	Comment	Comment	Comment	Comment	Comment	Comment
+ReferenceName	ReferenceName	ReferenceName	ReferenceName	ReferenceName	ReferenceName	ReferenceName	ReferenceName
+ReferencePubMed	ReferencePubMed	ReferencePubMed	ReferencePubMed	ReferencePubMed	ReferencePubMed	ReferencePubMed	ReferencePubMed
+ReferenceDOI	ReferenceDOI	ReferenceDOI	ReferenceDOI	ReferenceDOI	ReferenceDOI	ReferenceDOI	ReferenceDOI
+Description	Description	Description	Description	Description	Description	Description	Description
+Name	Name	Name	Name	Name	Name	Name	Relationship
+MiriamAnnotations	MiriamAnnotations	MiriamAnnotations	MiriamAnnotations	MiriamAnnotations	MiriamAnnotations	MiriamAnnotations	
+Type	Type	Type	Type	Type	Type	Type	
+Reaction	Compound	Enzyme	Compartment	Quantity	Regulator	Gene	
+SBML:reaction:id	SBML:species:id	CatalysedReaction	SBML:compartment:id	QuantityType	State	GeneLocus	
+SumFormula	SBML:speciestype:id	KineticLaw	OuterCompartment	SBML:parameter:id	TargetGene	GeneProduct	
+Location	Location	Gene	OuterCompartment:SBML:compartment:id	Unit	TargetOperon	GeneProduct:SBML:species:id	
+Enzyme	State		Size	Scale	TargetPromoter	Operon	
+Model	CompoundSumFormula			Condition			
+Pathway	StructureFormula			pH			
+SubreactionOf	Charge			Temperature			
+IsComplete	Mass			Location			
+IsReversible	IsConstant			SBML:compartment:id			
+IsInEquilibrium	EnzymeRole			Compound			
+IsExchangeReaction	RegulatorRole			Compound:SBML:species:id			
+Flux				Reaction			
+IsNonEnzymatic				Reaction:SBML:reaction:id			
+KineticLaw				Enyzme			
+Gene				Enyzme:SBML:species:id			
+Operon				Enyzme:SBML:parameter:id			
+Enzyme:SBML:species:id				Gene			
+Enzyme:SBML:parameter:id				Organism			
+BuildReaction							
+BuildEnzyme							
+BuildEnzymeProduction							
