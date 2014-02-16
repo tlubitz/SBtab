@@ -84,6 +84,9 @@ class SBtabTable():
         # Read data rows
         self.value_rows = self.getRows(self.table_type, inserted_column)
 
+        # Automatically fill sloppy columns (only one entry meets same entry in all fields) 
+        self.sloppyColumn()
+
         # Update the list and tablib object
         self.update()
 
@@ -224,6 +227,8 @@ class SBtabTable():
             for entry in row:
                 if str(entry).startswith('!') and not str(entry).startswith('!!'):
                     column_names = list(row)
+                    while '' in column_names:
+                        column_names.remove('')
                     break
         # Insert mandatory first column if not existent
         inserted_column = False
@@ -392,7 +397,8 @@ class SBtabTable():
 
         # Add header, main column and data rows to temporary list object
         sbtab_temp.append(header)
-        sbtab_temp.append(self.columns)
+        columns = copy.deepcopy(self.columns)
+        sbtab_temp.append(columns)
         for row in self.value_rows:
             sbtab_temp.append(row)
 
@@ -590,8 +596,10 @@ class SBtabTable():
         """
         # Create tablib Dataset instance with new SBtab table
         self.table = self.createDataset()
+
         # Create list instance with new SBtab table
         self.sbtab_list = self.createList()
+
 
     def createSBtabDict(self):
         """
@@ -664,3 +672,15 @@ class SBtabTable():
         self.value_rows = trans_value_rows
 
         self.update()
+
+    def sloppyColumn(self):
+        """
+        Automatically fill column, if only one entry in the column, put the same 
+        entry in the complete column.
+        """
+        for i, entry in enumerate(self.value_rows[0]):
+            column = [column[i] for column in self.value_rows]
+            column_stripped = [val for val in column if val != '']
+            if len(column_stripped) == 1:
+                for row in self.value_rows:
+                    row[i] = column_stripped[0]

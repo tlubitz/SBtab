@@ -1,6 +1,6 @@
 !!Sbtab	Level='1'	!Version='0.1'	!Document='Transposed'	!TableType='Definition'	!Table='Allowed_types'
 !TableType	!Column	!Format
-Reaction	Comment				
+Reaction	Comment	Text			
 Reaction	ReferenceName				
 Reaction	ReferencePubMed				
 Reaction	ReferenceDOI				

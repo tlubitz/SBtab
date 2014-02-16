@@ -155,8 +155,8 @@ class ValidateTable:
                     self.warnings += 'An identifier for a data row must not begin with "+" or "-": \n' + \
                         str(row) + '.\n'
                 # check the rows for entries containing . or : 
-                if ':' in list(row[self.sbtab.columns_dict[column]]) or '.' in list(row[self.sbtab.columns_dict[column]]):
-                    self.warnings += 'An identifier for a data row must not include ":" or ".": \n' + \
+                if ',' in list(row[self.sbtab.columns_dict[column]]):
+                    self.warnings += 'An identifier for a data row must not include ".": \n' + \
                         str(row) + '.\n'
                     # raise SBtabError('An identifier for a data row must not
                     # include ":" or ".": \n'+str(row))
