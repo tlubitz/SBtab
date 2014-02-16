@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import SBtab
 import tablibIO
+import SBtabDefinition
 import re
 
 class SBtabError(Exception):
@@ -13,10 +14,10 @@ class SBtabError(Exception):
 
 class ValidateTable:
     """
-    Validator (version 0.1.0 07/12/2013)
+    Validator (version 0.2.0 15/02/2014)
     Check SBtab file and SBtab object.
     """
-    def __init__(self, sbtab_table, sbtab_name):
+    def __init__(self, table, sbtab_name):
         """
         Initialize validator and start check for file and table format.
 
@@ -24,28 +25,28 @@ class ValidateTable:
         ----------
         table : tablib object
             Tablib object of the Sbtab file
-        name : str
+        sbtab_name : str
             File path of the Sbtab file
         """
         # import definitions from definition table
         try:
-            definition_table = tablibIO.importSet('./definitions/Definitions.csv')
-            definitions = SBtab.SBtabTable(definition_table, './definitions/Definitions.csv')
-            # transpose table
-            definitions.transposeTable()
+            definition_table = tablibIO.importSet('./definitions/Definitions.tsv')
+            definition_sbtab = SBtab.SBtabTable(definition_table, './definitions/Definitions.tsv')
             # ignore header and main column
-            self.definitions = definitions.table.dict[2:]
-            # remove empty entries
-            for definition in self.definitions:
-                while '' in definition:
-                    definition.remove('')
+            self.definitions = definition_sbtab.sbtab_list
         except:
             raise SBtabError('Definition table could not be find, check file path! See specifications for further information.')
 
+        # create set of valid table types
+        self.allowed_table_types = list(set([row[1] for row in self.definitions[2:][0]]))
+        # create dict of valid column names per table type
+        self.allowed_columns = {}
+        for table_type in self.allowed_table_types:
+            self.allowed_columns[table_type] = [row[2] for row in self.definitions[2:][0] if row[1] == table_type]
         # initialize warning string
         self.warnings = ''
         # define self variables
-        self.table = sbtab_table
+        self.table = table
         self.filename = sbtab_name
 
         # check file format and header row
@@ -55,6 +56,7 @@ class ValidateTable:
         try:
             self.sbtab = SBtab.SBtabTable(self.table, self.filename)
         except:
+            print self.warnings
             raise SBtabError('The Parser can not work with this file!')
 
         # check SBtab object for validity
@@ -90,10 +92,10 @@ class ValidateTable:
         if not header.startswith('!!'):
             self.warnings += 'The header row of the table does not start with "!!SBtab": ' + \
                 header + '\n \t This will cause an error! \n'
-        if not re.search('TableType="([^"])*"', header):
+        if not re.search("!TableType='([^'])*'", header):
             self.warnings += 'The table type of the SBtab is not defined. Line: ' + \
                 header + '\n \t This will cause an error! \n'
-        if not re.search('Table="([^"])*"', header):
+        if not re.search("!Table='([^'])*'", header):
             self.warnings += 'The name of the SBtab table is not defined. Line: ' + \
                 header + '\n'
 
@@ -118,14 +120,12 @@ class ValidateTable:
         """
         Validate the table type and mandatory format of the SBtab.
         """
+        column_check = True
         # general stuff
         # 1st: check validity of table_type and save table type for later tests
-        for table in self.definitions:
-            if '!' + self.sbtab.table_type == table[0]:
-                self.definitions = table
-                break
-            else:
-                self.warnings += 'The SBtab file has an invalid TableType in its header: ' + self.sbtab.table_type + '.\n'
+        if not '!' + self.sbtab.table_type in self.allowed_table_types:
+            self.warnings += 'The SBtab file has an invalid TableType in its header: ' + self.sbtab.table_type + '.\n'
+            column_check = False
 
         # 2nd: check the important first column
         first_column = '!' + self.sbtab.table_type
@@ -134,38 +134,32 @@ class ValidateTable:
                 self.sbtab.table_type + 'and will be filled automatically.\n'
 
         # 3rd: check the validity of the given column names
-        for i, column in enumerate(self.definitions[1:]):
-            self.definitions[i] = '!' + column
-        try:
+        if column_check:
             for column in self.sbtab.columns:
-                if not column in self.definitions and not column.startswith('!MiriamID'):
+                if not column.replace('!', '') in self.allowed_columns[self.sbtab.table_type] and not column.startswith('!MiriamID'):
                     self.warnings += 'The SBtab file has an unknown column: ' + \
-                        column + '.\n \t Please use only supported column types! For this table:\n \t' + str(self.definitions[:])
-
-            if not self.sbtab.columns_dict[self.definitions[0]] == 0:
+                        column + '.\n \t Please use only supported column types!'
+            if not self.sbtab.columns_dict['!' + self.sbtab.table_type] == 0:
                 self.warnings += 'The SBtab primary column is at a wrong position.\n'
-        except:
-            self.warnings += 'The SBtab TableType is "unknown", therefor the main columns can not be checked! \n'
+        else:
+            self.warnings += 'The SBtab TableType is "unknown", therefore the main columns can not be checked! \n'
 
         # 4th: check the length of the different rows
         for row in self.sbtab.value_rows:
-                # check the content of the main column (first one)
-            if row[self.sbtab.columns_dict[self.definitions[0]]] == '':
-                self.warnings += 'The SBtab includes a row with an undefined identifier in the main row: \n' + \
-                    str(row) + '.\n'
-                # raise SBtabError('The SBtab includes a row with an undefined
-                # identifier in the main row: \n'+str(row))
-            elif row[self.sbtab.columns_dict[self.definitions[0]]].startswith('+') or row[self.sbtab.columns_dict[self.definitions[0]]].startswith('-'):
-                self.warnings += 'An identifier for a data row must not begin with "+" or "-": \n' + \
-                    str(row) + '.\n'
-                # raise SBtabError('An identifier for a data row must not begin
-                # with "+" or "-": \n'+str(row))
-            if ':' in row[self.sbtab.columns_dict[self.definitions[0]]] or '.' in row[self.sbtab.columns_dict[self.definitions[0]]]:
-                self.warnings += 'An identifier for a data row must not include ":" or ".": \n' + \
-                    str(row) + '.\n'
-                # raise SBtabError('An identifier for a data row must not
-                # include ":" or ".": \n'+str(row))
-
+            # check the content of the main column (first one) for empty entries
+            if row[self.sbtab.columns_dict['!' + self.sbtab.table_type]] == '':
+                self.warnings += 'The SBtab includes a row with an undefined identifier in the row: \n' + str(row) + '.\n'
+            for column in self.sbtab.columns:
+                # check the rows for entries starting with + or -
+                if row[self.sbtab.columns_dict[column]].startswith('+') or row[self.sbtab.columns_dict[column]].startswith('-'):
+                    self.warnings += 'An identifier for a data row must not begin with "+" or "-": \n' + \
+                        str(row) + '.\n'
+                # check the rows for entries containing . or : 
+                if ':' in list(row[self.sbtab.columns_dict[column]]) or '.' in list(row[self.sbtab.columns_dict[column]]):
+                    self.warnings += 'An identifier for a data row must not include ":" or ".": \n' + \
+                        str(row) + '.\n'
+                    # raise SBtabError('An identifier for a data row must not
+                    # include ":" or ".": \n'+str(row))
 
 class ValidateFile:
     """

@@ -58,7 +58,7 @@ def oneOrMany(spreadsheet_file):
     return sbtabs
 
 
-def openSbtab(filepath):
+def openSBtab(filepath):
     """
     Open SBtab from file. Return SBtab object.
 
@@ -146,26 +146,4 @@ def createDataset(header_row, columns, value_rows, filename):
 
     # Create SBtab object from tablib dataset
     sbtab = SBtab.SBtabTable(sbtab_dataset, filename)
-    return sbtab
-
-
-def openSbtab(filepath):
-    """
-    Open SBtab from file. Return SBtab object.
-
-    Parameters
-    ----------
-    filepath : str
-        Path of the spread sheet file.
-
-    Returns
-    -------
-    sbtab : SBtab object
-        SBtab object of the table
-    """
-    if not os.path.isfile(filepath):
-        return None
-
-    dataset = tablibIO.importSet(filepath)
-    sbtab = SBtab.SBtabTable(dataset, filepath)
     return sbtab

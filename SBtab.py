@@ -225,7 +225,6 @@ class SBtabTable():
                 if str(entry).startswith('!') and not str(entry).startswith('!!'):
                     column_names = list(row)
                     break
-
         # Insert mandatory first column if not existent
         inserted_column = False
         if not column_names[0].title() == '!' + self.table_type.title():
@@ -613,6 +612,8 @@ class SBtabTable():
         """
         sbtab_dicts = {}
         for column_name in self.columns:
+            if column_name == '':  # TODO: not tested 
+                continue
             sbtab_dicts[column_name] = {}
             for row in self.value_rows:
                 sbtab_dicts[column_name][row[0]] = row[self.columns_dict[column_name]]

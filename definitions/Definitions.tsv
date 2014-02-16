@@ -1,32 +1,136 @@
-!!Sbtab	Level='1'	!Version='0.1'	!Document='Transposed'	!TableType='Definition'	Table='Allowed_types'		
-!Reaction	!Compound	!Enzyme	!Compartment	!Quantity	!Regulator	!Gene	!Relationship
-Comment	Comment	Comment	Comment	Comment	Comment	Comment	Comment
-ReferenceName	ReferenceName	ReferenceName	ReferenceName	ReferenceName	ReferenceName	ReferenceName	ReferenceName
-ReferencePubMed	ReferencePubMed	ReferencePubMed	ReferencePubMed	ReferencePubMed	ReferencePubMed	ReferencePubMed	ReferencePubMed
-ReferenceDOI	ReferenceDOI	ReferenceDOI	ReferenceDOI	ReferenceDOI	ReferenceDOI	ReferenceDOI	ReferenceDOI
-Description	Description	Description	Description	Description	Description	Description	Description
-Name	Name	Name	Name	Name	Name	Name	Relationship
-MiriamAnnotations	MiriamAnnotations	MiriamAnnotations	MiriamAnnotations	MiriamAnnotations	MiriamAnnotations	MiriamAnnotations	
-Type	Type	Type	Type	Type	Type	Type	
-Reaction	Compound	Enzyme	Compartment	Quantity	Regulator	Gene	
-SBML:reaction:id	SBML:species:id	CatalysedReaction	SBML:compartment:id	QuantityType	State	GeneLocus	
-SumFormula	SBML:speciestype:id	KineticLaw	OuterCompartment	SBML:parameter:id	TargetGene	GeneProduct	
-Location	Location	Gene	OuterCompartment:SBML:compartment:id	Unit	TargetOperon	GeneProduct:SBML:species:id	
-Enzyme	State		Size	Scale	TargetPromoter	Operon	
-Model	CompoundSumFormula			Condition			
-Pathway	StructureFormula			pH			
-SubreactionOf	Charge			Temperature			
-IsComplete	Mass			Location			
-IsReversible	IsConstant			SBML:compartment:id			
-IsInEquilibrium	EnzymeRole			Compound			
-IsExchangeReaction	RegulatorRole			Compound:SBML:species:id			
-Flux				Reaction			
-IsNonEnzymatic				Reaction:SBML:reaction:id			
-KineticLaw				Enyzme			
-Gene				Enyzme:SBML:species:id			
-Operon				Enyzme:SBML:parameter:id			
-Enzyme:SBML:species:id				Gene			
-Enzyme:SBML:parameter:id				Organism			
-BuildReaction							
-BuildEnzyme							
-BuildEnzymeProduction							
+!!Sbtab	Level='1'	!Version='0.1'	!Document='Transposed'	!TableType='Definition'	!Table='Allowed_types'
+!TableType	!Column	!Format
+Reaction	Comment				
+Reaction	ReferenceName				
+Reaction	ReferencePubMed				
+Reaction	ReferenceDOI				
+Reaction	Description				
+Reaction	Name				
+Reaction	MiriamAnnotations				
+Reaction	Type				
+Reaction	Reaction				
+Reaction	SBML:reaction:id				
+Reaction	SumFormula				
+Reaction	Location				
+Reaction	Enzyme				
+Reaction	Model				
+Reaction	Pathway				
+Reaction	SubreactionOf				
+Reaction	IsComplete				
+Reaction	IsReversible				
+Reaction	IsInEquilibrium				
+Reaction	IsExchangeReaction				
+Reaction	Flux				
+Reaction	IsNonEnzymatic				
+Reaction	KineticLaw				
+Reaction	Gene				
+Reaction	Operon				
+Reaction	Enzyme:SBML:species:id				
+Reaction	Enzyme:SBML:parameter:id				
+Reaction	BuildReaction				
+Reaction	BuildEnzyme				
+Reaction	BuildEnzymeProduction				
+Compound	Comment				
+Compound	ReferenceName				
+Compound	ReferencePubMed				
+Compound	ReferenceDOI				
+Compound	Description				
+Compound	Name				
+Compound	MiriamAnnotations				
+Compound	Type				
+Compound	Compound				
+Compound	SBML:species:id				
+Compound	SBML:speciestype:id				
+Compound	Location				
+Compound	State				
+Compound	CompoundSumFormula				
+Compound	StructureFormula				
+Compound	Charge				
+Compound	Mass				
+Compound	IsConstant				
+Compound	EnzymeRole				
+Compound	RegulatorRole				
+Enzyme	Comment				
+Enzyme	ReferenceName				
+Enzyme	ReferencePubMed				
+Enzyme	ReferenceDOI				
+Enzyme	Description				
+Enzyme	Name				
+Enzyme	MiriamAnnotations				
+Enzyme	Type				
+Enzyme	Enzyme				
+Enzyme	CatalysedReaction				
+Enzyme	KineticLaw				
+Enzyme	Gene				
+Compartment	Comment				
+Compartment	ReferenceName				
+Compartment	ReferencePubMed				
+Compartment	ReferenceDOI				
+Compartment	Description				
+Compartment	Name				
+Compartment	MiriamAnnotations				
+Compartment	Type				
+Compartment	Compartment				
+Compartment	SBML:compartment:id				
+Compartment	OuterCompartment				
+Compartment	OuterCompartment:SBML:compartment:id				
+Compartment	Size				
+Quantity	Comment				
+Quantity	ReferenceName				
+Quantity	ReferencePubMed				
+Quantity	ReferenceDOI				
+Quantity	Description				
+Quantity	Name				
+Quantity	MiriamAnnotations				
+Quantity	Type				
+Quantity	Quantity				
+Quantity	QuantityType				
+Quantity	SBML:parameter:id				
+Quantity	Unit				
+Quantity	Scale				
+Quantity	Condition				
+Quantity	pH				
+Quantity	Temperature				
+Quantity	Location				
+Quantity	SBML:compartment:id				
+Quantity	Compound				
+Quantity	Compound:SBML:species:id				
+Quantity	Reaction				
+Quantity	Reaction:SBML:reaction:id				
+Quantity	Enyzme				
+Quantity	Enyzme:SBML:species:id				
+Quantity	Enyzme:SBML:parameter:id				
+Quantity	Gene				
+Quantity	Organism				
+Regulator	Comment				
+Regulator	ReferenceName				
+Regulator	ReferencePubMed				
+Regulator	ReferenceDOI				
+Regulator	Description				
+Regulator	Name				
+Regulator	MiriamAnnotations				
+Regulator	Type				
+Regulator	Regulator				
+Regulator	State				
+Regulator	TargetGene				
+Regulator	TargetOperon				
+Regulator	TargetPromoter				
+Gene	Comment				
+Gene	ReferenceName				
+Gene	ReferencePubMed				
+Gene	ReferenceDOI				
+Gene	Description				
+Gene	Name				
+Gene	MiriamAnnotations				
+Gene	Type				
+Gene	Gene				
+Gene	GeneLocus				
+Gene	GeneProduct				
+Gene	GeneProduct:SBML:species:id				
+Gene	Operon				
+Relationship	Comment				
+Relationship	ReferenceName				
+Relationship	ReferencePubMed				
+Relationship	ReferenceDOI				
+Relationship	Description				
+Relationship	Relationship				
