@@ -1,4 +1,4 @@
-!!Sbtab	Level='1'	!Version='0.1'	!Document='Transposed'	!TableType='Definition'	!Table='Allowed_types'
+!!Sbtab	Level='1'	Version='0.1'	Document='Transposed'	TableType='Definition'	Table='Allowed_types'
 !TableType	!Column	!Format
 Reaction	Comment	Text			
 Reaction	ReferenceName				

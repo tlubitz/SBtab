@@ -84,8 +84,8 @@ class SBtabTable():
         # Read data rows
         self.value_rows = self.getRows(self.table_type, inserted_column)
 
-        # Automatically fill sloppy columns (only one entry meets same entry in all fields) 
-        self.sloppyColumn()
+        # Automatically fill lazy columns (only one entry meets same entry in all fields) 
+        self.lazyColumn()
 
         # Update the list and tablib object
         self.update()
@@ -341,7 +341,7 @@ class SBtabTable():
 
         Be aware, if mandatory column was set, name would be the entry in the new column!
         """
-        col = self.columns_dict['!' + column]
+        col = self.columns_dict['!' + column_name]
         for r in self.value_rows:
             if r[0] == name:
                 r[col] = new
@@ -487,21 +487,24 @@ class SBtabTable():
         column_list : list
             List of strings, containing the entries of the new column.
         position : int
-            Positino of new column in the table, 0 is right.
+            Position of new column in the table, 0 is right.
         """
         # Empty column to fill up sbtab_dataset with ''
         empty_list = []
 
+        # Create temporary work copy
+        sbtab_dataset = self.table
+
         # If new column is to small, add empty entries to new column
-        if len(column_list) < (len(self.sbtab_dataset.dict)-1):
-            for i in range((len(self.sbtab_dataset.dict) - 1) - len(column_list)):
+        if len(column_list) < (len(sbtab_dataset.dict)-1):
+            for i in range((len(sbtab_dataset.dict) - 1) - len(column_list)):
                 column_list.append('')
 
         # If new column is to long, add empty entries to sbtab_dataset
-        elif len(column_list) > (len(self.sbtab_dataset.dict) - 1):
-            for i in range(len(self.sbtab_dataset.dict[0])):
+        elif len(column_list) > (len(sbtab_dataset.dict) - 1):
+            for i in range(len(sbtab_dataset.dict[0])):
                 empty_list.append('')
-            for i in range(len(column_list) - (len(self.sbtab_dataset.dict) - 1)):
+            for i in range(len(column_list) - (len(sbtab_dataset.dict) - 1)):
                 self.value_rows.append(empty_list)
                 empty_list = copy.deepcopy(empty_list)
 
@@ -673,7 +676,7 @@ class SBtabTable():
 
         self.update()
 
-    def sloppyColumn(self):
+    def lazyColumn(self):
         """
         Automatically fill column, if only one entry in the column, put the same 
         entry in the complete column.
@@ -684,3 +687,23 @@ class SBtabTable():
             if len(column_stripped) == 1:
                 for row in self.value_rows:
                     row[i] = column_stripped[0]
+
+    def autoColumn(self):
+        """
+        Add new column, when introduced as !XX = 'xx' in the header row.
+        """
+        lines = len(self.value_rows)
+        header_row = self.header_row.rsplit()
+        for entry in header_row:
+            if entry.startswith('!') and not entry.startswith('!!'):
+                column_name = re.search('!([^\']*)=\'', entry)
+                if column_name:
+                    column_name = column_name.group(1)
+                column_entry = re.search('=\'([^\']*)\'', entry)
+                if column_entry:
+                    column_entry = column_entry.group(1)
+        column = [column_name]
+        for x in range(lines):
+            column.append(column_entry)
+
+        self.addColumn(column)
