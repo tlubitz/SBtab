@@ -326,7 +326,7 @@ class SBtabTable():
         ----------
         row : str
             Name of the entry in the first column.
-        column : str
+        column_name : str
             Name of the column (without '!')
         new : str
             New entry.
@@ -509,16 +509,14 @@ class SBtabTable():
                 empty_list = copy.deepcopy(empty_list)
 
         # If no position is set, add new column to the end
+        # Find first empty column
         if not position:
-            for i, row in enumerate(self.value_rows):
-                row.append(column_list[i+1])
-            self.columns_dict[column_list[0]] = len(self.columns)
-            self.columns = self.columns_dict.keys()
-        else:
-            for i, row in enumerate(self.value_rows):
-                row.insert(position - 1, column_list[i + 1])
-            self.columns_dict[column_list[0]] = position - 1
-            self.columns = self.columns_dict.keys()
+            position = max(self.columns_dict.values()) + 2
+    
+        for i, row in enumerate(self.value_rows):
+            row.insert(position - 1, column_list[i + 1])
+        self.columns_dict[column_list[0]] = position - 1
+        self.columns.append(column_list[0])
 
         # Update object
         self.update()
@@ -702,7 +700,7 @@ class SBtabTable():
                 column_entry = re.search('=\'([^\']*)\'', entry)
                 if column_entry:
                     column_entry = column_entry.group(1)
-        column = [column_name]
+        column = ['!' + column_name]
         for x in range(lines):
             column.append(column_entry)
 
