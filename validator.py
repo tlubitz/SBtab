@@ -28,10 +28,11 @@ class ValidateTable:
         sbtab_name : str
             File path of the Sbtab file
         """
+        definition_table_path = './definitions/Definitions.tsv'
         # import definitions from definition table
         try:
-            definition_table = tablibIO.importSet('./definitions/Definitions.tsv')
-            definition_sbtab = SBtab.SBtabTable(definition_table, './definitions/Definitions.tsv')
+            definition_table = tablibIO.importSet(definition_table_path)
+            definition_sbtab = SBtab.SBtabTable(definition_table, definition_table_path)
             # ignore header and main column
             self.definitions = definition_sbtab.sbtab_list
         except:
