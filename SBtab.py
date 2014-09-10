@@ -5,7 +5,7 @@ SBtab
 Provides:
     1. Automatic tranlations from SBtab file to Python objects
     2. Automatic verification of format and files
-    2. Easily callable and changeable entries in tables
+    3. Easily callable and changeable entries in tables
 
 SBtab is a uniforming spreadsheet format and designed for the use in
 Systems Biology. Furthermore, it is a useful format to import stored information
@@ -43,7 +43,7 @@ class SBtabError(Exception):
 
 class SBtabTable():
     """
-    SBtabTable (version 0.1.0 07/12/2013)
+    SBtabTable (version 0.8.0 10/09/2014)
     """
     def __init__(self, table, filename):
         """
