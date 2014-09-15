@@ -5,7 +5,7 @@ SBtab
 Provides:
     1. Automatic tranlations from SBtab file to Python objects
     2. Automatic verification of format and files
-    2. Easily callable and changeable entries in tables
+    3. Easily callable and changeable entries in tables
 
 SBtab is a uniforming spreadsheet format and designed for the use in
 Systems Biology. Furthermore, it is a useful format to import stored information
@@ -43,7 +43,7 @@ class SBtabError(Exception):
 
 class SBtabTable():
     """
-    SBtabTable (version 0.1.0 07/12/2013)
+    SBtabTable (version 0.8.0 15/09/2013)
     """
     def __init__(self, table, filename):
         """
@@ -83,6 +83,9 @@ class SBtabTable():
 
         # Read data rows
         self.value_rows = self.getRows(self.table_type, inserted_column)
+
+        # Automatically fill lazy columns (only one entry meets same entry in all fields)
+        self.lazyColumn()
 
         # Update the list and tablib object
         self.update()
@@ -483,11 +486,13 @@ class SBtabTable():
         column_list : list
             List of strings, containing the entries of the new column.
         position : int
-            Positino of new column in the table, 0 is right.
+            Position of new column in the table, 0 is right.
         """
         # Empty column to fill up sbtab_dataset with ''
         empty_list = []
 
+        self.sbtab_dataset = self.table
+        
         # If new column is to small, add empty entries to new column
         if len(column_list) < (len(self.sbtab_dataset.dict)-1):
             for i in range((len(self.sbtab_dataset.dict) - 1) - len(column_list)):
@@ -664,3 +669,35 @@ class SBtabTable():
         self.value_rows = trans_value_rows
 
         self.update()
+
+
+    def lazyColumn(self):
+        """
+        Automatically fill column, if only one entry in the column, put the same entry in the complete column.
+        """
+        for i, entry in enumerate(self.value_rows[0]):
+            column = [column[i] for column in self.value_rows]
+            column_stripped = [val for val in column if val != '']
+            if len(column_stripped) == 1:
+                for row in self.value_rows:
+                    row[i] = column_stripped[0]
+
+    def autoColumn(self):
+        """
+        Add new column, when introduced as !XX = 'xx' in the header row.
+        """
+        lines = len(self.value_rows)
+        header_row = self.header_row.rsplit()
+        for entry in header_row:
+            if entry.startswith('!') and not entry.startswith('!!'):
+                column_name = re.search('!([^\']*)=\'', entry)
+                if column_name:
+                    column_name = column_name.group(1)
+                column_entry = re.search('=\'([^\']*)\'', entry)
+                if column_entry:
+                    column_entry = column_entry.group(1)
+        column = ['!' + column_name]
+        for x in range(lines):
+            column.append(column_entry)
+
+        self.addColumn(column)
