@@ -19,6 +19,20 @@ try:
 except:
     tablib.Databook.sheets = sheets
 
+def importSetNew(sbtabfile,filename):
+    mimetypes.init()
+    file_mimetype = mimetypes.guess_type(filename)[0]
+    if file_mimetype == 'text/csv':
+        return haveTSV(sbtabfile, 'c')
+    elif file_mimetype == 'text/tab-separated-values':
+        return haveTSV(sbtabfile, 't')
+    elif file_mimetype == 'text/tsv':
+        return haveTSV(sbtabfile, 't')    
+    elif file_mimetype == 'application/vnd.ms-excel' or file_mimetype == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+        return haveXLS(sbtabfile, False, True)
+    else:
+        return None
+        #raise TypeError("%s is not in a supported format" % fpath)
 
 def importSet(fpath):
     if not os.path.isfile(fpath):
@@ -29,6 +43,8 @@ def importSet(fpath):
         return loadCSV(fpath, False)  # True says it has headers
     elif file_mimetype == 'text/tab-separated-values':
         return loadTSV(fpath, False)
+    elif file_mimetype == 'text/tsv':
+        return loadTSV(fpath, False)    
     elif file_mimetype == 'application/vnd.oasis.opendocument.spreadsheet':
         return loadODS(fpath, False, True)  # Second flag is for set import only
     elif file_mimetype == 'application/vnd.ms-excel' or file_mimetype == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
@@ -55,7 +71,7 @@ def loadCSV(fpath, headers):
     in_stream = csvfile.read()
     csvfile.close()
     dset = tablib.Dataset()
-    rows = csv.reader(in_stream.splitlines())
+    rows = csv.reader(in_stream.splitlines(), quotechar='"')
     for i, row in enumerate(rows):
         if (i == 0) and (headers):
             dset.headers = row
@@ -63,13 +79,67 @@ def loadCSV(fpath, headers):
             dset.append(row)
     return dset
 
+def haveCSV(csvfile,headers):
+    '''
+    not needed anymore?
+    '''
+    #csvfile = open(fpath, 'r')
+    in_stream = csvfile
+    #csvfile.close()
+    dset = tablib.Dataset()
+    rows = csv.reader(in_stream.splitlines(), delimiter=',',quotechar='"')
+    try:
+        longest = max([len(x) for x in rows])
+    except:
+        raise TypeError("File is empty!")
+    for i, row in enumerate(rows):
+        # Skip empty rows
+        if not row:
+            continue
+        if len(row) < longest:
+            for i in range(longest - len(row)):
+                row.append('')  # ro
+        if (i == 0) and (headers):
+            dset.headers = row
+        else:
+            dset.append(row)
+
+    return dset
+
+def haveTSV(tsvfile,headers=False):
+    in_stream = tsvfile     #.read()
+    #tsvfile.close()
+
+    dset = tablib.Dataset()
+    if headers == 't':
+        rows = list(csv.reader(in_stream.splitlines(), delimiter='\t', quotechar='"'))
+    elif headers == 'c':
+        rows = list(csv.reader(in_stream.splitlines(), delimiter=',', quotechar='"'))
+
+    try:
+        longest = max([len(x) for x in rows])
+    except:
+        raise TypeError("File is empty!")
+    for i, row in enumerate(rows):
+        # Skip empty rows
+        if not row:
+            continue
+        if len(row) < longest:
+            for i in range(longest - len(row)):
+                row.append('')  # ro
+        #if (i == 0) and (headers):
+        #    dset.headers = row
+        #else:
+        dset.append(row)
+
+    return dset 
 
 def loadTSV(fpath, headers):
     tsvfile = open(fpath, 'r')
     in_stream = tsvfile.read()
     tsvfile.close()
     dset = tablib.Dataset()
-    rows = list(csv.reader(in_stream.splitlines(), delimiter='\t'))
+    rows = list(csv.reader(in_stream.splitlines(), delimiter='\t', quotechar='"'))
     try:
         longest = max([len(x) for x in rows])
     except:
@@ -87,6 +157,24 @@ def loadTSV(fpath, headers):
             dset.append(row)
     return dset
 
+def haveXLS(file,headers,set_only):
+    dbook = tablib.Databook()
+    #f = open(fpath, 'rb')
+    xl = xlrd.open_workbook(file_contents=file)
+    for sheetname in xl.sheet_names():
+        dset = tablib.Dataset()
+        dset.title = sheetname
+        sheet = xl.sheet_by_name(sheetname)
+        for row in range(sheet.nrows):
+            if (row == 0) and (headers):
+                dset.headers = sheet.row_values(row)
+            else:
+                dset.append(sheet.row_values(row))
+        dbook.add_sheet(dset)
+    if set_only:
+        return dbook.sheets()[0]
+    else:
+        return dbook   
 
 def loadXLS(fpath, headers, set_only):
     dbook = tablib.Databook()
@@ -110,21 +198,6 @@ def loadXLS(fpath, headers, set_only):
 
 def loadODS(fpath, headers, set_only):
     class ODSReader():
-        # Copyright 2011 Marco Conti
-
-        # Licensed under the Apache License, Version 2.0 (the "License");
-        # you may not use this file except in compliance with the License.
-        # You may obtain a copy of the License at
-
-        #   http://www.apache.org/licenses/LICENSE-2.0
-
-        # Unless required by applicable law or agreed to in writing, software
-        # distributed under the License is distributed on an "AS IS" BASIS,
-        # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-        # See the License for the specific language governing permissions and
-        # limitations under the License.
-
-        # Thanks to grt for the fixes
 
         # loads the file
         def __init__(self, file):
