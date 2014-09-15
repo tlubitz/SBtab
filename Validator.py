@@ -1,3 +1,11 @@
+"""
+Validator
+=========
+
+The validator checks SBtab files and tables for incorrect entries and possible 
+error sources. Therefore, it helps the user to create valid SBtab tables. 
+"""
+
 #!/usr/bin/env python
 import SBtab
 import tablibIO
@@ -14,7 +22,7 @@ class SBtabError(Exception):
 
 class ValidateTable:
     """
-    Validator (version 0.2.0 15/02/2014)
+    Validator (version 0.8.0 15/09/2014)
     Check SBtab file and SBtab object.
     """
     def __init__(self, table, sbtab_name, def_table=None, def_name=None):
@@ -29,29 +37,30 @@ class ValidateTable:
             File path of the Sbtab file
         """
         # import definitions from definition table
-        if def_table:  # user provided a custom definition file; let's see how that's working out
-            definition_table = tablibIO.importSetNew(def_table,def_name)
-            definition_sbtab = SBtab.SBtabTable(definition_table, def_name)
-            self.definitions = definition_sbtab.sbtab_list
-        else: # no definition table is provided, so use the default one
-            pass
+        #if def_table:  # user provided a custom definition file; let's see how that's working out
+        #    definition_table = tablibIO.importSetNew(def_table,def_name)
+        #    definition_sbtab = SBtab.SBtabTable(definition_table, def_name)
+        #    self.definitions = definition_sbtab.sbtab_list
+        #else: # no definition table is provided, so use the default one
+        #    pass
 
-        #    try:
-        #        definition_table = tablibIO.importSet('./definitions/definitions.tsv')
-        #        definition_sbtab = SBtab.SBtabTable(definition_table, './definitions/definitions.tsv')
-        #        # ignore header and main column
-        #        self.definitions = definition_sbtab.sbtab_list
-        #    except:
-        #        raise SBtabError('Definition table could not be found, check file path! See specifications for further information.')
+            try:
+                definition_table = tablibIO.importSet('./definitions/definitions.tsv')
+                definition_sbtab = SBtab.SBtabTable(definition_table, './definitions/definitions.tsv')
+                # ignore header and main column
+                self.definitions = definition_sbtab.sbtab_list
+            except:
+                raise SBtabError('Definition table could not be found, check file path! See specifications for further information.')
 
         # create set of valid table types
-        self.allowed_table_types = ['Reaction', 'Gene', 'Relationship', 'Regulator', 'Enzyme', 'Compound', 'Compartment', 'Quantity']
-        #self.allowed_table_types = list(set([row[1] for row in self.definitions[2:][0]]))
+        self.allowed_table_types = list(set([row[1] for row in self.definitions[2:][0]]))
+        #self.allowed_table_types = ['Reaction', 'Gene', 'Relationship', 'Regulator', 'Enzyme', 'Compound', 'Compartment', 'Quantity']
+        
         # create dict of valid column names per table type
-        #self.allowed_columns = {}
-        #for table_type in self.allowed_table_types:
-        #    self.allowed_columns[table_type] = [row[2] for row in self.definitions[2:][0] if row[1] == table_type]
-        self.allowed_columns = {'Reaction': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Name', 'MiriamAnnotations', 'Type', 'Reaction', 'SBML:reaction:id', 'SumFormula', 'Location', 'Enzyme', 'Model', 'Pathway', 'SubreactionOf', 'IsComplete', 'IsReversible', 'IsInEquilibrium', 'IsExchangeReaction', 'Flux', 'IsNonEnzymatic', 'KineticLaw', 'Gene', 'Operon', 'Enzyme:SBML:species:id', 'Enzyme:SBML:parameter:id', 'BuildReaction', 'BuildEnzyme', 'BuildEnzymeProduction', 'SBOTerm', 'Modifier'], 'Compartment': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Name', 'MiriamAnnotations', 'Type', 'Compartment', 'SBML:compartment:id', 'OuterCompartment', 'OuterCompartment:SBML:compartment:id', 'Size', 'SBOTerm'], 'Relationship': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Relationship', 'SBOTerm'], 'Regulator': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Name', 'MiriamAnnotations', 'Type', 'Regulator', 'State', 'TargetGene', 'TargetOperon', 'TargetPromoter', 'SBOTerm'], 'Enzyme': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Name', 'MiriamAnnotations', 'Type', 'Enzyme', 'CatalysedReaction', 'KineticLaw', 'Gene', 'SBOTerm'], 'Compound': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Name', 'MiriamAnnotations', 'Type', 'Compound', 'SBML:species:id', 'SBML:speciestype:id', 'Location', 'State', 'CompoundSumFormula', 'StructureFormula', 'Charge', 'Mass', 'Constant', 'EnzymeRole', 'RegulatorRole', 'SBOTerm', 'SpeciesType', 'InitialConcentration'], 'Gene': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Name', 'MiriamAnnotations', 'Type', 'Gene', 'GeneLocus', 'GeneProduct', 'GeneProduct:SBML:species:id', 'Operon'], 'Quantity': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Name', 'MiriamAnnotations', 'Type', 'Quantity', 'QuantityType', 'SBML:parameter:id', 'Unit', 'Scale', 'Condition', 'pH', 'Temperature', 'Location', 'SBML:compartment:id', 'Compound', 'Compound:SBML:species:id', 'Reaction', 'Reaction:SBML:reaction:id', 'Enyzme', 'Enyzme:SBML:species:id', 'Enyzme:SBML:parameter:id', 'Gene', 'Organism']}
+        self.allowed_columns = {}
+        for table_type in self.allowed_table_types:
+            self.allowed_columns[table_type] = [row[2] for row in self.definitions[2:][0] if row[1] == table_type]
+        #self.allowed_columns = {'Reaction': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Name', 'MiriamAnnotations', 'Type', 'Reaction', 'SBML:reaction:id', 'SumFormula', 'Location', 'Enzyme', 'Model', 'Pathway', 'SubreactionOf', 'IsComplete', 'IsReversible', 'IsInEquilibrium', 'IsExchangeReaction', 'Flux', 'IsNonEnzymatic', 'KineticLaw', 'Gene', 'Operon', 'Enzyme:SBML:species:id', 'Enzyme:SBML:parameter:id', 'BuildReaction', 'BuildEnzyme', 'BuildEnzymeProduction', 'SBOTerm', 'Modifier'], 'Compartment': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Name', 'MiriamAnnotations', 'Type', 'Compartment', 'SBML:compartment:id', 'OuterCompartment', 'OuterCompartment:SBML:compartment:id', 'Size', 'SBOTerm'], 'Relationship': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Relationship', 'SBOTerm'], 'Regulator': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Name', 'MiriamAnnotations', 'Type', 'Regulator', 'State', 'TargetGene', 'TargetOperon', 'TargetPromoter', 'SBOTerm'], 'Enzyme': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Name', 'MiriamAnnotations', 'Type', 'Enzyme', 'CatalysedReaction', 'KineticLaw', 'Gene', 'SBOTerm'], 'Compound': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Name', 'MiriamAnnotations', 'Type', 'Compound', 'SBML:species:id', 'SBML:speciestype:id', 'Location', 'State', 'CompoundSumFormula', 'StructureFormula', 'Charge', 'Mass', 'Constant', 'EnzymeRole', 'RegulatorRole', 'SBOTerm', 'SpeciesType', 'InitialConcentration'], 'Gene': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Name', 'MiriamAnnotations', 'Type', 'Gene', 'GeneLocus', 'GeneProduct', 'GeneProduct:SBML:species:id', 'Operon'], 'Quantity': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Name', 'MiriamAnnotations', 'Type', 'Quantity', 'QuantityType', 'SBML:parameter:id', 'Unit', 'Scale', 'Condition', 'pH', 'Temperature', 'Location', 'SBML:compartment:id', 'Compound', 'Compound:SBML:species:id', 'Reaction', 'Reaction:SBML:reaction:id', 'Enyzme', 'Enyzme:SBML:species:id', 'Enyzme:SBML:parameter:id', 'Gene', 'Organism']}
         # initialize warning string
         self.warnings = []
         # define self variables
@@ -62,10 +71,10 @@ class ValidateTable:
         self.checkTableFormat()
 
         # try creating SBtab instance
-        #try:
-        self.sbtab = SBtab.SBtabTable(self.table, self.filename)
-        #except:
-        #    raise SBtabError('The Parser cannot work with this file!')
+        try:
+            self.sbtab = SBtab.SBtabTable(self.table, self.filename)
+        except:
+            raise SBtabError('The Parser cannot work with this file!')
 
         # remove empty column headers
         f_columns = []
