@@ -1,0 +1,10 @@
+!!SBtab TableType='Compound'
+!Compound	!Name	!MiriamID::urn:miriam:kegg.compound
+F6P	Fructose-6-phosphate	C05345
+ATP	ATP	C00002
+ADP	ADP	C00008
+F16P	Fructose-1,6-bisphosphate	C00354
+H2O	Water	C00001
+Pi	Inorganic phosphate	C00009
+PEP	Phosphoenolpyruvate	C00074
+AMP	AMP	C00020

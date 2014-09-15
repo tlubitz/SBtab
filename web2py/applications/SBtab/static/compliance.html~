@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>SBtab - Standardised data tables for Systems Biology</title>
+    <link rel="stylesheet" type="text/css" href="css/sbtab.css">
+  </head>
+
+  <body>
+
+    <h2>SBtab - Standardised data tables for Systems Biology</h2>
+
+    <h3>How to make tables SBtab-compliant?</h3>
+
+    <p style="width:700;">SBtab tables are normal data tables
+    (spreadsheets or delimited text files), but to enable an easy
+    exchange of data, the tables themselves, in particular column
+    titles, need to respect certain rules. You can make your own table
+      files SBtab-compliant by a  number of small changes.</p>
+
+    <p style="width:700;"> <strong>To make a single table SBtab-compliant</strong>
+    </p><ol type="circle">
+      <li>Choose an SBtab table type appropriate  for your table (for a list, see the SBtab specification).</li> 
+      <li>Insert a declaration line (starting with "!!SBtab") as the 
+first line of your table and declare the table type by an attribute 
+"TableType='...'" in the same line.</li>
+      <li>The name of the first column name must match the table name, 
+but start with a "!". For instance, after declaring 
+"TableType='Compound'", the first column name will be "!Compound".</li>
+<li> The elements in this first column serve as shortnames, to be 
+referenced in other tables, and  must therefore be unique (e.g., unique 
+gene names).</li>
+      <li>Choose which other columns of your table should be 
+SBtab-compliant. For each of them,  use a standard column name, starting
+ with "!", existing the chosen table type (for a list, see the SBtab 
+specification); and  make sure that the data match the column type 
+(e.g., "!Value" columns must contain numbers; see the SBtab 
+specification). </li>
+      <li>In columns containing biological  annotations (e.g., database 
+identifiers for chemical compounds), use column names as described in 
+the  SBtab specification. </li>
+    </ol>
+<p></p>
+
+    <p style="width:700;"><strong>To make a spreadsheet file (or several tables) SBtab-compliant</strong>
+    </p><ol type="circle">
+      <li>Make sure that all tables are SBtab-compliant</li>
+      <li>Make sure that shortnames are consistently used throughout the tables</li>
+      <li>Declare  the common document name in the declaration line of each table</li>
+    </ol>
+<p></p>
+
+    <p>To check your SBtab files for correct syntax, 
+	use the <a href="../default/validator">online validator</a>. </p>
+
+    <p><a href="introduction.html">Back to main page</a></p><hr>
+
+
+</body></html>
