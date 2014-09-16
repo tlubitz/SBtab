@@ -1,0 +1,799 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>SBtab &mdash; SBtab 0.8 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="SBtab 0.8 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">SBtab 0.8 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for SBtab</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">SBtab</span>
+<span class="sd">=====</span>
+
+<span class="sd">Provides:</span>
+<span class="sd">    1. Automatic tranlations from SBtab file to Python objects</span>
+<span class="sd">    2. Automatic verification of format and files</span>
+<span class="sd">    3. Easily callable and changeable entries in tables</span>
+
+<span class="sd">SBtab is a uniforming spreadsheet format and designed for the use in</span>
+<span class="sd">Systems Biology. Furthermore, it is a useful format to import stored information</span>
+<span class="sd">into Python to process and edit it.</span>
+
+<span class="sd">Furthermore, new table types can be easily defined and used directly via the definition table.</span>
+
+
+<span class="sd">How to load tablib object:</span>
+<span class="sd">Use &quot;SBtabTools.openSBtab(filepath)&quot; to create SBtab Python object.</span>
+<span class="sd">Attention: Only &#39;tsv&#39;, &#39;csv&#39;, &#39;ods&#39; and &#39;xls&#39; are supported.</span>
+
+<span class="sd">See specification for further informations.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c">#!/usr/bin/env python</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">&#39;./SBtab&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">tablib</span>
+<span class="kn">import</span> <span class="nn">tablibIO</span>
+
+<span class="n">tables_without_name</span> <span class="o">=</span> <span class="p">[]</span>
+
+
+<div class="viewcode-block" id="SBtabError"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabError">[docs]</a><span class="k">class</span> <span class="nc">SBtabError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Base class for errors in the SBtab class.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">message</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">message</span>
+
+</div>
+<div class="viewcode-block" id="SBtabTable"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable">[docs]</a><span class="k">class</span> <span class="nc">SBtabTable</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    SBtabTable (version 0.8.0 10/09/2014)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="SBtabTable.__init__"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create SBtab Python object from tablib object.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        table : tablib object</span>
+<span class="sd">            Containing one SBtab.</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            Filename with extension.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># Needed to be able to adress it from outside of the class for writing and reading</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>
+        <span class="c"># Tablib object as loaded</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span> <span class="o">=</span> <span class="n">table</span>
+
+        <span class="c"># Delete tablib header to avoid complications</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">headers</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="c"># Create all necessary variables</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initializeTable</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="SBtabTable.initializeTable"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.initializeTable">[docs]</a>    <span class="k">def</span> <span class="nf">initializeTable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load table informations and class variables.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># Read the header row from table</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">header_row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getHeaderRow</span><span class="p">()</span>
+
+        <span class="c"># Read the table information from header row</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">table_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">table_document</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">table_level</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">table_version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getTableInformation</span><span class="p">()</span>
+
+        <span class="c"># Read the columns of the table</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns_dict</span><span class="p">,</span> <span class="n">inserted_column</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getColumns</span><span class="p">()</span>
+
+        <span class="c"># Read data rows</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value_rows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getRows</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table_type</span><span class="p">,</span> <span class="n">inserted_column</span><span class="p">)</span>
+
+        <span class="c"># Automatically fill lazy columns (only one entry meets same entry in all fields) </span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lazyColumn</span><span class="p">()</span>
+
+        <span class="c"># Update the list and tablib object</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="SBtabTable.getHeaderRow"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.getHeaderRow">[docs]</a>    <span class="k">def</span> <span class="nf">getHeaderRow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extract the !!-header row from the SBtab file.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        header_row : str</span>
+<span class="sd">            !!-header row of SBtab table as string.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        Raise error if no header row could be find in the table.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">header_row</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="c"># Find header row</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;!!&#39;</span><span class="p">):</span>
+                    <span class="n">header_row</span> <span class="o">=</span> <span class="n">row</span>
+                    <span class="k">break</span>
+
+        <span class="c"># Save string or raise error</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">header_row</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">SBtabError</span><span class="p">(</span><span class="s">&#39;This is not a valid SBtab table, please use validator to check format or have a look in the specification!&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">header_row</span> <span class="o">=</span> <span class="s">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">header_row</span><span class="p">)</span>
+
+        <span class="c"># Replace double quotes by single quotes</span>
+        <span class="n">header_row</span> <span class="o">=</span> <span class="n">header_row</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;&quot;&#39;</span><span class="p">,</span> <span class="s">&#39;</span><span class="se">\&#39;</span><span class="s">&#39;</span><span class="p">)</span>
+
+        <span class="c"># Split header row</span>
+        <span class="n">header_row</span> <span class="o">=</span> <span class="n">header_row</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">)</span>
+        
+        <span class="c"># Delete spaces in header row</span>
+        <span class="k">while</span> <span class="s">&#39;&#39;</span> <span class="ow">in</span> <span class="n">header_row</span><span class="p">:</span>
+            <span class="n">header_row</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">header_row</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">header</span> <span class="o">+=</span> <span class="n">x</span> <span class="o">+</span> <span class="s">&#39; &#39;</span>
+        <span class="n">header</span> <span class="o">+=</span> <span class="n">header_row</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c"># return header row</span>
+        <span class="k">return</span> <span class="n">header</span>
+</div>
+<div class="viewcode-block" id="SBtabTable.getTableInformation"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.getTableInformation">[docs]</a>    <span class="k">def</span> <span class="nf">getTableInformation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Read column type row and store its information.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        table_type : str</span>
+<span class="sd">            Table type of the SBtab table.</span>
+<span class="sd">        table_name : str</span>
+<span class="sd">            Name of the SBtab table.</span>
+<span class="sd">        table_document : str</span>
+<span class="sd">            Document type of SBtab table.</span>
+<span class="sd">        table_level : str</span>
+<span class="sd">            Level of SBtab table.</span>
+<span class="sd">        table_version : str</span>
+<span class="sd">            Version of the SBtab table.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        If no name was set, name equals table_type and number of occurences of unnamed</span>
+<span class="sd">        tables of same type.</span>
+<span class="sd">        Raise error if no table type is defined.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c"># Initialize variables for unnamed table handling</span>
+        <span class="k">global</span> <span class="n">tables_without_name</span>
+        <span class="n">no_name_counter</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">header_row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getHeaderRow</span><span class="p">()</span>
+
+        <span class="c"># Save table type, otherwise raise error</span>
+        <span class="n">tt</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&#39;TableType=</span><span class="se">\&#39;</span><span class="s">([^</span><span class="se">\&#39;</span><span class="s">]*)</span><span class="se">\&#39;</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">header_row</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">tt</span><span class="p">:</span>
+            <span class="n">table_type</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">SBtabError</span><span class="p">(</span><span class="s">&#39;The TableType of the SBtab is not defined!&#39;</span><span class="p">)</span>
+
+        <span class="c"># Save table name, otherwise give name with number of unnamed tables</span>
+        <span class="n">tn</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&#39;Table=</span><span class="se">\&#39;</span><span class="s">([^</span><span class="se">\&#39;</span><span class="s">]*)</span><span class="se">\&#39;</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">header_row</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">tn</span><span class="p">:</span>
+            <span class="n">table_name</span> <span class="o">=</span> <span class="n">tn</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tables_without_name</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">table_type</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">table_no_name</span> <span class="ow">in</span> <span class="n">tables_without_name</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">table_type</span> <span class="o">==</span> <span class="n">table_no_name</span><span class="p">:</span>
+                    <span class="n">no_name_counter</span> <span class="o">=</span> <span class="n">no_name_counter</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">table_name</span> <span class="o">=</span> <span class="n">table_type</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span> <span class="o">+</span> <span class="s">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">no_name_counter</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">header_row</span> <span class="o">+=</span> <span class="s">&quot; Table=&#39;&quot;</span> <span class="o">+</span> <span class="n">table_name</span> <span class="o">+</span> <span class="s">&quot;&#39;&quot;</span>
+
+        <span class="c"># Save table document, otherwise return None</span>
+        <span class="n">td</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&#39;Document=</span><span class="se">\&#39;</span><span class="s">([^</span><span class="se">\&#39;</span><span class="s">]*)</span><span class="se">\&#39;</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">header_row</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">td</span><span class="p">:</span>
+            <span class="n">table_document</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">table_document</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="c"># save table level, otherwise return None</span>
+        <span class="n">tl</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&#39;Level=</span><span class="se">\&#39;</span><span class="s">([^</span><span class="se">\&#39;</span><span class="s">]*)</span><span class="se">\&#39;</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">header_row</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">tl</span><span class="p">:</span>
+            <span class="n">table_level</span> <span class="o">=</span> <span class="n">tl</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">table_level</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="c"># save table version, otherwise return None</span>
+        <span class="n">tv</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&#39;Version=</span><span class="se">\&#39;</span><span class="s">([^</span><span class="se">\&#39;</span><span class="s">]*)</span><span class="se">\&#39;</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">header_row</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">tv</span><span class="p">:</span>
+            <span class="n">table_version</span> <span class="o">=</span> <span class="n">tv</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">table_version</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="k">return</span> <span class="n">table_type</span><span class="p">,</span> <span class="n">table_name</span><span class="p">,</span> <span class="n">table_document</span><span class="p">,</span> <span class="n">table_level</span><span class="p">,</span> <span class="n">table_version</span>
+</div>
+<div class="viewcode-block" id="SBtabTable.getColumns"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.getColumns">[docs]</a>    <span class="k">def</span> <span class="nf">getColumns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extract the column names of the table, add mandatory first column name if necessary.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        columns : dict</span>
+<span class="sd">            dict of colunm names (str) as key and position (int) as value.</span>
+<span class="sd">        inserted_column : Boolean</span>
+<span class="sd">            True, if mandatory first column was set automatically.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        First entry has to be the table type.</span>
+<span class="sd">        Adds first entry in the list, if it doesn&#39;t correspond with the table type.</span>
+<span class="sd">        See specification for further informations.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># Save list of main columns</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;!&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">str</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;!!&#39;</span><span class="p">):</span>
+                    <span class="n">column_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+                    <span class="k">while</span> <span class="s">&#39;&#39;</span> <span class="ow">in</span> <span class="n">column_names</span><span class="p">:</span>
+                        <span class="n">column_names</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+                    <span class="k">break</span>
+        <span class="c"># Insert mandatory first column if not existent</span>
+        <span class="n">inserted_column</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">column_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">title</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;!&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">table_type</span><span class="o">.</span><span class="n">title</span><span class="p">():</span>
+            <span class="n">column_names</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">&#39;!&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">table_type</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+            <span class="n">inserted_column</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="c"># Get column positions</span>
+        <span class="n">columns</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">column</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">column_names</span><span class="p">):</span>
+            <span class="n">columns</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+
+        <span class="k">return</span> <span class="n">column_names</span><span class="p">,</span> <span class="n">columns</span><span class="p">,</span> <span class="n">inserted_column</span>
+</div>
+<div class="viewcode-block" id="SBtabTable.getRows"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.getRows">[docs]</a>    <span class="k">def</span> <span class="nf">getRows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_type</span><span class="o">=</span><span class="s">&#39;table&#39;</span><span class="p">,</span> <span class="n">inserted</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extract the rows of the SBtab, add first column if necessary.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        table_type : str (default &#39;table&#39;)</span>
+<span class="sd">            Table type of the SBtab table. Only necessary, if first column was set automatically.</span>
+<span class="sd">        inserted : Boolean</span>
+<span class="sd">            True, if mandatory first column was set automatically.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        value_rows : list</span>
+<span class="sd">            List containing the entries of the SBtab table as string.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        If first column was set automatically, &quot;inserted&quot; is set to True.</span>
+<span class="sd">        The entries in the first column are then an abbreviation of the table type</span>
+<span class="sd">        and the number of the current row. The abbreviation is set using the first and the last</span>
+<span class="sd">        character of the table type.</span>
+<span class="sd">        This function removes comment lines and stores them in a list.</span>
+<span class="sd">        See specification for further informations.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># Add row to list value_rows if row doesn&#39;t contain entries starting with &#39;!&#39;</span>
+        <span class="n">value_rows</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c"># Add to comments, if row starts with &#39;%&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comments</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">entry</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;!&#39;</span><span class="p">):</span>
+                    <span class="k">break</span>
+                <span class="k">elif</span> <span class="nb">str</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;%&#39;</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">comments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">row</span><span class="p">))</span>
+                    <span class="k">break</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">==</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="n">value_rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">row</span><span class="p">))</span>
+
+        <span class="c"># Insert value column if mandatory column was added automatically</span>
+        <span class="k">if</span> <span class="n">inserted</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">table_type</span> <span class="o">==</span> <span class="s">&#39;table&#39;</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">value_rows</span><span class="p">):</span>
+                    <span class="n">row</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">&#39;TableRow_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">value_rows</span><span class="p">):</span>
+                    <span class="n">row</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">table_type</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">+</span> <span class="n">table_type</span><span class="p">[</span><span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">value_rows</span>
+</div>
+<div class="viewcode-block" id="SBtabTable.changeValue"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.changeValue">[docs]</a>    <span class="k">def</span> <span class="nf">changeValue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">new</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Change single value in the SBtab table by position in the table.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        row : int</span>
+<span class="sd">            Number of row in the table. First row is number 1.</span>
+<span class="sd">        column : int</span>
+<span class="sd">            Number of column in the table. First column is number 1.</span>
+<span class="sd">        new : str</span>
+<span class="sd">            New entry.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        Old value will be overwritten.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value_rows</span><span class="p">[</span><span class="n">row</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">column</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">new</span>
+
+        <span class="c"># Update object</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="SBtabTable.changeValueByName"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.changeValueByName">[docs]</a>    <span class="k">def</span> <span class="nf">changeValueByName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">column_name</span><span class="p">,</span> <span class="n">new</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Change singe value in the SBtab by name of column and of the first row entry.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        row : str</span>
+<span class="sd">            Name of the entry in the first column.</span>
+<span class="sd">        column_name : str</span>
+<span class="sd">            Name of the column (without &#39;!&#39;)</span>
+<span class="sd">        new : str</span>
+<span class="sd">            New entry.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        Example:</span>
+<span class="sd">        name : &#39;Rn_4&#39; </span>
+<span class="sd">        column_name : &#39;Gene&#39;</span>
+
+<span class="sd">        Change entry in the column &#39;Gene&#39; for Reaction 4.</span>
+
+<span class="sd">        Be aware, if mandatory column was set, name would be the entry in the new column!</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">col</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns_dict</span><span class="p">[</span><span class="s">&#39;!&#39;</span> <span class="o">+</span> <span class="n">column_name</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_rows</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
+                <span class="n">r</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">new</span>
+
+        <span class="c"># Update object</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="SBtabTable.createList"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.createList">[docs]</a>    <span class="k">def</span> <span class="nf">createList</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a list object of the SBtab Python object.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        sbtab_list : list object</span>
+<span class="sd">            List containing header, columns, value_rows.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># Create new list</span>
+        <span class="n">sbtab_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c"># Append the parts header row, main column row and value rows to the list</span>
+        <span class="n">sbtab_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">header_row</span><span class="p">)</span>
+        <span class="n">sbtab_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+        <span class="n">sbtab_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value_rows</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">sbtab_list</span>
+</div>
+<div class="viewcode-block" id="SBtabTable.createDataset"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.createDataset">[docs]</a>    <span class="k">def</span> <span class="nf">createDataset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a tablib object of the SBtab Python object.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        sbtab_dataset : tablib object</span>
+<span class="sd">            Tablib dataset of the SBtab Python object.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># Initialize empty variables for conversion</span>
+        <span class="n">sbtab_temp</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">sbtab_dataset</span> <span class="o">=</span> <span class="n">tablib</span><span class="o">.</span><span class="n">Dataset</span><span class="p">()</span>
+
+        <span class="c"># Create list of header</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">header_row</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">)</span>
+
+        <span class="c"># Delete spaces in header, main column and data rows</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">header</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_rows</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+                    <span class="n">entry</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+        <span class="c"># Add header, main column and data rows to temporary list object</span>
+        <span class="n">sbtab_temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">header</span><span class="p">)</span>
+        <span class="n">columns</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+        <span class="n">sbtab_temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_rows</span><span class="p">:</span>
+            <span class="n">sbtab_temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+        <span class="c"># Delete all empty entries at the end of the rows</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">sbtab_temp</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">while</span> <span class="ow">not</span> <span class="n">row</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="k">del</span> <span class="n">row</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c"># Make all rows the same length</span>
+        <span class="n">longest</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sbtab_temp</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">sbtab_temp</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">longest</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">longest</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="p">)):</span>
+                    <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+                <span class="n">sbtab_dataset</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">sbtab_dataset</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">sbtab_dataset</span>
+</div>
+<div class="viewcode-block" id="SBtabTable.addRow"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.addRow">[docs]</a>    <span class="k">def</span> <span class="nf">addRow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_list</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add row to the table, if postion is None at the end of it.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        row_list : list</span>
+<span class="sd">            List of strings, containing the entries of the new row.</span>
+<span class="sd">        position : int</span>
+<span class="sd">            Position of new row in the table, 0 is on top.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># Empty column to fill up sbtab_dataset with &#39;&#39;</span>
+        <span class="n">empty_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c"># Create temporary work copy</span>
+        <span class="n">sbtab_dataset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span>
+
+        <span class="c"># If new row is to small, add empty entries to new row</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">row_list</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">sbtab_dataset</span><span class="o">.</span><span class="n">dict</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sbtab_dataset</span><span class="o">.</span><span class="n">dict</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">row_list</span><span class="p">)):</span>
+                <span class="n">row_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+
+        <span class="c"># If new row is too long, add empty entries to sbtab_dataset</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">row_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">sbtab_dataset</span><span class="o">.</span><span class="n">dict</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sbtab_dataset</span><span class="o">.</span><span class="n">dict</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+                <span class="n">empty_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">row_list</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">sbtab_dataset</span><span class="o">.</span><span class="n">dict</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+                <span class="n">sbtab_dataset</span><span class="o">.</span><span class="n">rpush_col</span><span class="p">(</span><span class="n">empty_list</span><span class="p">)</span>
+
+        <span class="c"># If no position is set, add new row to the end</span>
+        <span class="k">if</span> <span class="n">position</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">sbtab_dataset</span><span class="o">.</span><span class="n">rpush</span><span class="p">(</span><span class="n">row_list</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sbtab_dataset</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">row_list</span><span class="p">)</span>
+
+        <span class="c"># Update object</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span> <span class="o">=</span> <span class="n">sbtab_dataset</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initializeTable</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="SBtabTable.removeRow"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.removeRow">[docs]</a>    <span class="k">def</span> <span class="nf">removeRow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove row from the table</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        position : int</span>
+<span class="sd">            Position of row to be removed. Starting with 1.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c"># Create temporary work copy</span>
+        <span class="n">sbtab_dataset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span>
+
+        <span class="k">del</span> <span class="n">sbtab_dataset</span><span class="p">[</span><span class="n">position</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+
+        <span class="c"># Update object</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span> <span class="o">=</span> <span class="n">sbtab_dataset</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initializeTable</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="SBtabTable.addColumn"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.addColumn">[docs]</a>    <span class="k">def</span> <span class="nf">addColumn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column_list</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add column to the table, if position is None at the end of it.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        column_list : list</span>
+<span class="sd">            List of strings, containing the entries of the new column.</span>
+<span class="sd">        position : int</span>
+<span class="sd">            Position of new column in the table, 0 is right.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># Empty column to fill up sbtab_dataset with &#39;&#39;</span>
+        <span class="n">empty_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c"># Create temporary work copy</span>
+        <span class="n">sbtab_dataset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span>
+
+        <span class="c"># If new column is to small, add empty entries to new column</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">column_list</span><span class="p">)</span> <span class="o">&lt;</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sbtab_dataset</span><span class="o">.</span><span class="n">dict</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">sbtab_dataset</span><span class="o">.</span><span class="n">dict</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">column_list</span><span class="p">)):</span>
+                <span class="n">column_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+
+        <span class="c"># If new column is to long, add empty entries to sbtab_dataset</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">column_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sbtab_dataset</span><span class="o">.</span><span class="n">dict</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sbtab_dataset</span><span class="o">.</span><span class="n">dict</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+                <span class="n">empty_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">column_list</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sbtab_dataset</span><span class="o">.</span><span class="n">dict</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">value_rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">empty_list</span><span class="p">)</span>
+                <span class="n">empty_list</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">empty_list</span><span class="p">)</span>
+
+        <span class="c"># If no position is set, add new column to the end</span>
+        <span class="c"># Find first empty column</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">position</span><span class="p">:</span>
+            <span class="n">position</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columns_dict</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">+</span> <span class="mi">2</span>
+    
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value_rows</span><span class="p">):</span>
+            <span class="n">row</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">position</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">column_list</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columns_dict</span><span class="p">[</span><span class="n">column_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">position</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">column_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="c"># Update object</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="SBtabTable.removeColumn"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.removeColumn">[docs]</a>    <span class="k">def</span> <span class="nf">removeColumn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove column from the table.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        position : int</span>
+<span class="sd">            Position of column to be removed. Sarting with 1.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># Remove entries on position</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_rows</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">row</span><span class="p">[</span><span class="n">position</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns_dict</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">==</span> <span class="n">position</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns_dict</span><span class="p">[</span><span class="n">column</span><span class="p">]</span>
+
+        <span class="c"># Update object</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="SBtabTable.writeSBtab"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.writeSBtab">[docs]</a>    <span class="k">def</span> <span class="nf">writeSBtab</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">format_type</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Write SBtab tablib object to file.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        format_type : str</span>
+<span class="sd">            File extension of the SBtab file. (&#39;tsv&#39;, &#39;csv&#39;, &#39;ods&#39;, &#39;xls&#39;)</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            Filename of the SBtab file without extension. Default is filename.</span>
+<span class="sd">        sbtab_dataset : tablib object</span>
+<span class="sd">            Tablib object of the SBtab table</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        Default value for filename is the filename as given with the SBtab object.</span>
+<span class="sd">        Raise error if file format is invalid.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">filename</span><span class="p">:</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span>
+        <span class="k">if</span> <span class="n">format_type</span> <span class="o">==</span> <span class="s">&#39;tsv&#39;</span><span class="p">:</span>
+            <span class="n">tablibIO</span><span class="o">.</span><span class="n">writeTSV</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sbtab_dataset</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">format_type</span> <span class="o">==</span> <span class="s">&#39;csv&#39;</span><span class="p">:</span>
+            <span class="n">tablibIO</span><span class="o">.</span><span class="n">writeCSV</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sbtab_dataset</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">format_type</span> <span class="o">==</span> <span class="s">&#39;ods&#39;</span><span class="p">:</span>
+            <span class="n">tablibIO</span><span class="o">.</span><span class="n">writeODS</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sbtab_dataset</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">format_type</span> <span class="o">==</span> <span class="s">&#39;xls&#39;</span><span class="p">:</span>
+            <span class="n">tablibIO</span><span class="o">.</span><span class="n">writeXLS</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sbtab_dataset</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">SBtabError</span><span class="p">(</span><span class="s">&#39;The given file format is not supported: &#39;</span> <span class="o">+</span> <span class="n">format_type</span> <span class="o">+</span> <span class="s">&#39;. Please use &quot;.tsv&quot;, &quot;.csv&quot;, &quot;.ods&quot; or &quot;.xls&quot; instead.&#39;</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="SBtabTable.duplicate"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.duplicate">[docs]</a>    <span class="k">def</span> <span class="nf">duplicate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a copy of the SBtab object.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        sbtab : SBtab object</span>
+<span class="sd">            Copy of the SBtab object</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        Copy is a deepcopy, see Pyton API for further informations.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sbtab</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">sbtab</span>
+</div>
+<div class="viewcode-block" id="SBtabTable.update"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update the SBtab instance, list object and tablib dataset.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># Create tablib Dataset instance with new SBtab table</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">createDataset</span><span class="p">()</span>
+
+        <span class="c"># Create list instance with new SBtab table</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sbtab_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">createList</span><span class="p">()</span>
+
+</div>
+<div class="viewcode-block" id="SBtabTable.createSBtabDict"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.createSBtabDict">[docs]</a>    <span class="k">def</span> <span class="nf">createSBtabDict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a dict instance of the SBtab table.</span>
+<span class="sd">        Keys are the column names, values are dicts. These contain the entries of the table.</span>
+<span class="sd">        Keys are the entries in the first column, values are the current entries in the certain column.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        sbtab_dicts : dict</span>
+<span class="sd">            Dictionary of dictionaries of the SBtab object.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        Name - column name</span>
+<span class="sd">        Key - entry first row</span>
+<span class="sd">        Value - entry</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sbtab_dicts</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">column_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">column_name</span> <span class="o">==</span> <span class="s">&#39;&#39;</span><span class="p">:</span>  <span class="c"># TODO: not tested </span>
+                <span class="k">continue</span>
+            <span class="n">sbtab_dicts</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_rows</span><span class="p">:</span>
+                <span class="n">sbtab_dicts</span><span class="p">[</span><span class="n">column_name</span><span class="p">][</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">columns_dict</span><span class="p">[</span><span class="n">column_name</span><span class="p">]]</span>
+
+        <span class="k">return</span> <span class="n">sbtab_dicts</span>
+</div>
+<div class="viewcode-block" id="SBtabTable.transposeTable"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.transposeTable">[docs]</a>    <span class="k">def</span> <span class="nf">transposeTable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Transpose SBtab table. Switch columns and rows.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        Some tables need to store the data in the columns, not in rows. This function enables</span>
+<span class="sd">        the user to use the same dictionaries features of SBtab without formatting the file</span>
+<span class="sd">        by hand.</span>
+
+<span class="sd">        This is necessary to read the definition table for example.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># Initialize new table data</span>
+        <span class="n">trans_columns</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">trans_columns_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">trans_value_rows</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c"># Save old table data</span>
+        <span class="n">columns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span>
+        <span class="n">value_rows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_rows</span>
+
+        <span class="c"># Append first entry to new column</span>
+        <span class="n">trans_columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">columns</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+
+        <span class="c"># Set new rows</span>
+        <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">:</span>
+                <span class="n">trans_value_rows</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">column</span><span class="p">])</span>
+
+        <span class="c"># Set new values in tables</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">value_rows</span><span class="p">:</span>
+            <span class="n">trans_columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">entry</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+                <span class="n">trans_value_rows</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+
+        <span class="c"># Write new columns dict</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">column</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">trans_columns</span><span class="p">):</span>
+            <span class="n">trans_columns_dict</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+
+        <span class="c"># Overwrite old table data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">trans_columns</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columns_dict</span> <span class="o">=</span> <span class="n">trans_columns_dict</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value_rows</span> <span class="o">=</span> <span class="n">trans_value_rows</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="SBtabTable.lazyColumn"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.lazyColumn">[docs]</a>    <span class="k">def</span> <span class="nf">lazyColumn</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Automatically fill column, if only one entry in the column, put the same </span>
+<span class="sd">        entry in the complete column.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">entry</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value_rows</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">column</span> <span class="o">=</span> <span class="p">[</span><span class="n">column</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_rows</span><span class="p">]</span>
+            <span class="n">column_stripped</span> <span class="o">=</span> <span class="p">[</span><span class="n">val</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">column</span> <span class="k">if</span> <span class="n">val</span> <span class="o">!=</span> <span class="s">&#39;&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">column_stripped</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_rows</span><span class="p">:</span>
+                    <span class="n">row</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">column_stripped</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="SBtabTable.autoColumn"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.autoColumn">[docs]</a>    <span class="k">def</span> <span class="nf">autoColumn</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add new column, when introduced as !XX = &#39;xx&#39; in the header row.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value_rows</span><span class="p">)</span>
+        <span class="n">header_row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">header_row</span><span class="o">.</span><span class="n">rsplit</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">header_row</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">entry</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;!&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">entry</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;!!&#39;</span><span class="p">):</span>
+                <span class="n">column_name</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&#39;!([^</span><span class="se">\&#39;</span><span class="s">]*)=</span><span class="se">\&#39;</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">entry</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">column_name</span><span class="p">:</span>
+                    <span class="n">column_name</span> <span class="o">=</span> <span class="n">column_name</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">column_entry</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&#39;=</span><span class="se">\&#39;</span><span class="s">([^</span><span class="se">\&#39;</span><span class="s">]*)</span><span class="se">\&#39;</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">entry</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">column_entry</span><span class="p">:</span>
+                    <span class="n">column_entry</span> <span class="o">=</span> <span class="n">column_entry</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">column</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;!&#39;</span> <span class="o">+</span> <span class="n">column_name</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
+            <span class="n">column</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">column_entry</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">addColumn</span><span class="p">(</span><span class="n">column</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">SBtab 0.8 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Wolfram Liebermeister, Timo Lubitz, Jens Hahn.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

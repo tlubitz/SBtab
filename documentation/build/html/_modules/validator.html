@@ -1,0 +1,310 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>validator &mdash; SBtab 0.8 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="SBtab 0.8 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">SBtab 0.8 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for validator</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Validator</span>
+<span class="sd">=========</span>
+
+<span class="sd">The validator checks SBtab files and tables for incorrect entries and possible </span>
+<span class="sd">error sources. Therefore, it helps the user to create valid SBtab tables. </span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c">#!/usr/bin/env python</span>
+<span class="kn">import</span> <span class="nn">SBtab</span>
+<span class="kn">import</span> <span class="nn">tablibIO</span>
+<span class="c">#import SBtabDefinition</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<div class="viewcode-block" id="SBtabError"><a class="viewcode-back" href="../validator.html#validator.SBtabError">[docs]</a><span class="k">class</span> <span class="nc">SBtabError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">message</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">message</span>
+
+</div>
+<div class="viewcode-block" id="ValidateTable"><a class="viewcode-back" href="../validator.html#validator.ValidateTable">[docs]</a><span class="k">class</span> <span class="nc">ValidateTable</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Validator (version 0.3.0 10/09/2014)</span>
+<span class="sd">    Check SBtab file and SBtab object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ValidateTable.__init__"><a class="viewcode-back" href="../validator.html#validator.ValidateTable.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">sbtab_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize validator and start check for file and table format.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        table : tablib object</span>
+<span class="sd">            Tablib object of the Sbtab file</span>
+<span class="sd">        sbtab_name : str</span>
+<span class="sd">            File path of the Sbtab file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">definition_table_path</span> <span class="o">=</span> <span class="s">&#39;./definitions/Definitions.tsv&#39;</span>
+        <span class="c"># import definitions from definition table</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">definition_table</span> <span class="o">=</span> <span class="n">tablibIO</span><span class="o">.</span><span class="n">importSet</span><span class="p">(</span><span class="n">definition_table_path</span><span class="p">)</span>
+            <span class="n">definition_sbtab</span> <span class="o">=</span> <span class="n">SBtab</span><span class="o">.</span><span class="n">SBtabTable</span><span class="p">(</span><span class="n">definition_table</span><span class="p">,</span> <span class="n">definition_table_path</span><span class="p">)</span>
+            <span class="c"># ignore header and main column</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">definitions</span> <span class="o">=</span> <span class="n">definition_sbtab</span><span class="o">.</span><span class="n">sbtab_list</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">SBtabError</span><span class="p">(</span><span class="s">&#39;Definition table could not be find, check file path! See specifications for further information.&#39;</span><span class="p">)</span>
+
+        <span class="c"># create set of valid table types</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">allowed_table_types</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">definitions</span><span class="p">[</span><span class="mi">2</span><span class="p">:][</span><span class="mi">0</span><span class="p">]]))</span>
+        <span class="c"># create dict of valid column names per table type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">allowed_columns</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">table_type</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">allowed_table_types</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">allowed_columns</span><span class="p">[</span><span class="n">table_type</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">definitions</span><span class="p">[</span><span class="mi">2</span><span class="p">:][</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">table_type</span><span class="p">]</span>
+        <span class="c"># initialize warning string</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+        <span class="c"># define self variables</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span> <span class="o">=</span> <span class="n">table</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">sbtab_name</span>
+
+        <span class="c"># check file format and header row</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">checkTableFormat</span><span class="p">()</span>
+
+        <span class="c"># try creating SBtab instance</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sbtab</span> <span class="o">=</span> <span class="n">SBtab</span><span class="o">.</span><span class="n">SBtabTable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">print</span> <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span>
+            <span class="k">raise</span> <span class="n">SBtabError</span><span class="p">(</span><span class="s">&#39;The Parser can not work with this file!&#39;</span><span class="p">)</span>
+
+        <span class="c"># check SBtab object for validity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">checkTable</span><span class="p">()</span>
+
+        <span class="c"># print warnings</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">warnings</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">print</span> <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s">&#39;No warnings detected!&#39;</span>
+</div>
+<div class="viewcode-block" id="ValidateTable.checkTableFormat"><a class="viewcode-back" href="../validator.html#validator.ValidateTable.checkTableFormat">[docs]</a>    <span class="k">def</span> <span class="nf">checkTableFormat</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Validate format of SBtab file, check file format and header row.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># Check tablib header</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">headers</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span> <span class="o">+=</span> <span class="s">&#39;Tablib header is set, will be removed. This feature is not supported.&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="c"># save table rows in variable</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rows_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">dict</span>
+
+        <span class="c"># save header row</span>
+        <span class="n">header_row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rows_file</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">while</span> <span class="s">&#39;&#39;</span> <span class="ow">in</span> <span class="n">header_row</span><span class="p">:</span>
+            <span class="n">header_row</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">header_row</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">header</span> <span class="o">+=</span> <span class="n">x</span> <span class="o">+</span> <span class="s">&#39; &#39;</span>
+        <span class="n">header</span> <span class="o">+=</span> <span class="n">header_row</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c"># check for valid header row</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">header</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;!!&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span> <span class="o">+=</span> <span class="s">&#39;The header row of the table does not start with &quot;!!SBtab&quot;: &#39;</span> <span class="o">+</span> \
+                <span class="n">header</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s"> </span><span class="se">\t</span><span class="s"> This will cause an error! </span><span class="se">\n</span><span class="s">&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&quot;!TableType=&#39;([^&#39;])*&#39;&quot;</span><span class="p">,</span> <span class="n">header</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span> <span class="o">+=</span> <span class="s">&#39;The table type of the SBtab is not defined. Line: &#39;</span> <span class="o">+</span> \
+                <span class="n">header</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s"> </span><span class="se">\t</span><span class="s"> This will cause an error! </span><span class="se">\n</span><span class="s">&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&quot;!Table=&#39;([^&#39;])*&#39;&quot;</span><span class="p">,</span> <span class="n">header</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span> <span class="o">+=</span> <span class="s">&#39;The name of the SBtab table is not defined. Line: &#39;</span> <span class="o">+</span> \
+                <span class="n">header</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
+
+        <span class="c"># check for possible table content and main columns</span>
+        <span class="n">columns_row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rows_file</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">columns</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">columns_row</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">columns</span> <span class="o">+=</span> <span class="n">x</span> <span class="o">+</span> <span class="s">&#39; &#39;</span>
+        <span class="n">columns</span> <span class="o">+=</span> <span class="n">columns_row</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="c"># check length of table</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rows_file</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span> <span class="o">+=</span> <span class="s">&#39;The table contains no information: &#39;</span> <span class="o">+</span> \
+                <span class="n">header</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">main_column_count</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="c"># checks for existing main column</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">columns</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;!&#39;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span> <span class="o">+=</span> <span class="s">&#39;The main column row of the table does not start with &quot;!&quot;: &#39;</span> <span class="o">+</span> \
+                    <span class="n">columns</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
+</div>
+<div class="viewcode-block" id="ValidateTable.checkTable"><a class="viewcode-back" href="../validator.html#validator.ValidateTable.checkTable">[docs]</a>    <span class="k">def</span> <span class="nf">checkTable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Validate the table type and mandatory format of the SBtab.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">column_check</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="c"># general stuff</span>
+        <span class="c"># 1st: check validity of table_type and save table type for later tests</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="s">&#39;!&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">sbtab</span><span class="o">.</span><span class="n">table_type</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">allowed_table_types</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span> <span class="o">+=</span> <span class="s">&#39;The SBtab file has an invalid TableType in its header: &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">sbtab</span><span class="o">.</span><span class="n">table_type</span> <span class="o">+</span> <span class="s">&#39;.</span><span class="se">\n</span><span class="s">&#39;</span>
+            <span class="n">column_check</span> <span class="o">=</span> <span class="bp">False</span>
+
+        <span class="c"># 2nd: check the important first column</span>
+        <span class="n">first_column</span> <span class="o">=</span> <span class="s">&#39;!&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">sbtab</span><span class="o">.</span><span class="n">table_type</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">rows_file</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">first_column</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span> <span class="o">+=</span> <span class="s">&#39;The first column of the file does not correspond with the given TableType &#39;</span> <span class="o">+</span> \
+                <span class="bp">self</span><span class="o">.</span><span class="n">sbtab</span><span class="o">.</span><span class="n">table_type</span> <span class="o">+</span> <span class="s">&#39;and will be filled automatically.</span><span class="se">\n</span><span class="s">&#39;</span>
+
+        <span class="c"># 3rd: check the validity of the given column names</span>
+        <span class="k">if</span> <span class="n">column_check</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sbtab</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">column</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;!&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">allowed_columns</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sbtab</span><span class="o">.</span><span class="n">table_type</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">column</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;!MiriamID&#39;</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span> <span class="o">+=</span> <span class="s">&#39;The SBtab file has an unknown column: &#39;</span> <span class="o">+</span> \
+                        <span class="n">column</span> <span class="o">+</span> <span class="s">&#39;.</span><span class="se">\n</span><span class="s"> </span><span class="se">\t</span><span class="s"> Please use only supported column types!&#39;</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">sbtab</span><span class="o">.</span><span class="n">columns_dict</span><span class="p">[</span><span class="s">&#39;!&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">sbtab</span><span class="o">.</span><span class="n">table_type</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span> <span class="o">+=</span> <span class="s">&#39;The SBtab primary column is at a wrong position.</span><span class="se">\n</span><span class="s">&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span> <span class="o">+=</span> <span class="s">&#39;The SBtab TableType is &quot;unknown&quot;, therefore the main columns can not be checked! </span><span class="se">\n</span><span class="s">&#39;</span>
+
+        <span class="c"># 4th: check the length of the different rows</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sbtab</span><span class="o">.</span><span class="n">value_rows</span><span class="p">:</span>
+            <span class="c"># check the content of the main column (first one) for empty entries</span>
+            <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sbtab</span><span class="o">.</span><span class="n">columns_dict</span><span class="p">[</span><span class="s">&#39;!&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">sbtab</span><span class="o">.</span><span class="n">table_type</span><span class="p">]]</span> <span class="o">==</span> <span class="s">&#39;&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span> <span class="o">+=</span> <span class="s">&#39;The SBtab includes a row with an undefined identifier in the row: </span><span class="se">\n</span><span class="s">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;.</span><span class="se">\n</span><span class="s">&#39;</span>
+            <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sbtab</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+                <span class="c"># check the rows for entries starting with + or -</span>
+                <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sbtab</span><span class="o">.</span><span class="n">columns_dict</span><span class="p">[</span><span class="n">column</span><span class="p">]]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;+&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">row</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sbtab</span><span class="o">.</span><span class="n">columns_dict</span><span class="p">[</span><span class="n">column</span><span class="p">]]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;-&#39;</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span> <span class="o">+=</span> <span class="s">&#39;An identifier for a data row must not begin with &quot;+&quot; or &quot;-&quot;: </span><span class="se">\n</span><span class="s">&#39;</span> <span class="o">+</span> \
+                        <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;.</span><span class="se">\n</span><span class="s">&#39;</span>
+                <span class="c"># check the rows for entries containing . or : </span>
+                <span class="k">if</span> <span class="s">&#39;,&#39;</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sbtab</span><span class="o">.</span><span class="n">columns_dict</span><span class="p">[</span><span class="n">column</span><span class="p">]]):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span> <span class="o">+=</span> <span class="s">&#39;An identifier for a data row must not include &quot;.&quot;: </span><span class="se">\n</span><span class="s">&#39;</span> <span class="o">+</span> \
+                        <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;.</span><span class="se">\n</span><span class="s">&#39;</span>
+                    <span class="c"># raise SBtabError(&#39;An identifier for a data row must not</span>
+                    <span class="c"># include &quot;:&quot; or &quot;.&quot;: \n&#39;+str(row))</span>
+</div></div>
+<div class="viewcode-block" id="ValidateFile"><a class="viewcode-back" href="../validator.html#validator.ValidateFile">[docs]</a><span class="k">class</span> <span class="nc">ValidateFile</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Validate file and check for valid format.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    To open a file: sbtab_file = open(&quot;filepath&quot;, &quot;rb&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sbtab_file</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="c"># initialize warning string</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="n">sbtab_file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">validateExtension</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">validateFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">)</span>
+
+        <span class="c"># print warnings</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">warnings</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">print</span> <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s">&#39;No warnings detected!&#39;</span>
+
+<div class="viewcode-block" id="ValidateFile.validateExtension"><a class="viewcode-back" href="../validator.html#validator.ValidateFile.validateExtension">[docs]</a>    <span class="k">def</span> <span class="nf">validateExtension</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check the extension of the file for invalid formats.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&#39;.tsv&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">str</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&#39;.csv&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">str</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&#39;.ods&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">str</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&#39;.xls&#39;</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span> <span class="o">+=</span> <span class="s">&#39;The given file format is not supported: &#39;</span> <span class="o">+</span> <span class="n">filename</span> <span class="o">+</span> <span class="s">&#39;. Please use &quot;.tsv&quot;, &quot;.csv&quot;, &quot;.ods&quot; or &quot;.xls&quot; instead.</span><span class="se">\n</span><span class="s">&#39;</span>
+</div>
+<div class="viewcode-block" id="ValidateFile.validateFile"><a class="viewcode-back" href="../validator.html#validator.ValidateFile.validateFile">[docs]</a>    <span class="k">def</span> <span class="nf">validateFile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sbtab_file</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Validate file format and check for possible problems.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">sbtab_file</span><span class="p">:</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+        <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rows</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">row</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span> <span class="o">+=</span> <span class="s">&#39;The file contains an empty row in line &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s"> Will be ignored. </span><span class="se">\n</span><span class="s">&#39;</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">==</span> <span class="n">length</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span> <span class="o">+=</span> <span class="s">&#39;The lengths of the rows are not identical.</span><span class="se">\n</span><span class="s"> Will be adjusted automatically. </span><span class="se">\n</span><span class="s">&#39;</span>
+            <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">SBtab 0.8 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Wolfram Liebermeister, Timo Lubitz, Jens Hahn.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

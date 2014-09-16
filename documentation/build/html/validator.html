@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Validator &mdash; SBtab 0.8 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="SBtab 0.8 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">SBtab 0.8 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <span class="target" id="module-validator"></span><div class="section" id="validator">
+<h1>Validator<a class="headerlink" href="#validator" title="Permalink to this headline">¶</a></h1>
+<p>The validator checks SBtab files and tables for incorrect entries and possible 
+error sources. Therefore, it helps the user to create valid SBtab tables.</p>
+</div>
+<dl class="exception">
+<dt id="validator.SBtabError">
+<em class="property">exception </em><tt class="descclassname">validator.</tt><tt class="descname">SBtabError</tt><big>(</big><em>message</em><big>)</big><a class="headerlink" href="#validator.SBtabError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="validator.ValidateFile">
+<em class="property">class </em><tt class="descclassname">validator.</tt><tt class="descname">ValidateFile</tt><big>(</big><em>sbtab_file</em>, <em>filename</em><big>)</big><a class="headerlink" href="#validator.ValidateFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate file and check for valid format.</p>
+<p class="rubric">Notes</p>
+<p>To open a file: sbtab_file = open(&#8220;filepath&#8221;, &#8220;rb&#8221;)</p>
+<p class="rubric">Methods</p>
+<dl class="method">
+<dt id="validator.ValidateFile.validateExtension">
+<tt class="descname">validateExtension</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#validator.ValidateFile.validateExtension" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check the extension of the file for invalid formats.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="validator.ValidateFile.validateFile">
+<tt class="descname">validateFile</tt><big>(</big><em>sbtab_file</em><big>)</big><a class="headerlink" href="#validator.ValidateFile.validateFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate file format and check for possible problems.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="validator.ValidateTable">
+<em class="property">class </em><tt class="descclassname">validator.</tt><tt class="descname">ValidateTable</tt><big>(</big><em>table</em>, <em>sbtab_name</em><big>)</big><a class="headerlink" href="#validator.ValidateTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validator (version 0.3.0 10/09/2014)
+Check SBtab file and SBtab object.</p>
+<p class="rubric">Methods</p>
+<dl class="method">
+<dt id="validator.ValidateTable.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>table</em>, <em>sbtab_name</em><big>)</big><a class="headerlink" href="#validator.ValidateTable.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize validator and start check for file and table format.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>table</strong> : tablib object</p>
+<blockquote>
+<div><p>Tablib object of the Sbtab file</p>
+</div></blockquote>
+<p><strong>sbtab_name</strong> : str</p>
+<blockquote class="last">
+<div><p>File path of the Sbtab file</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="validator.ValidateTable.checkTable">
+<tt class="descname">checkTable</tt><big>(</big><big>)</big><a class="headerlink" href="#validator.ValidateTable.checkTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate the table type and mandatory format of the SBtab.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="validator.ValidateTable.checkTableFormat">
+<tt class="descname">checkTableFormat</tt><big>(</big><big>)</big><a class="headerlink" href="#validator.ValidateTable.checkTableFormat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate format of SBtab file, check file format and header row.</p>
+</dd></dl>
+
+</dd></dl>
+
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/validator.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">SBtab 0.8 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Wolfram Liebermeister, Timo Lubitz, Jens Hahn.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
