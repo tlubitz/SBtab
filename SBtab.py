@@ -491,18 +491,18 @@ class SBtabTable():
         # Empty column to fill up sbtab_dataset with ''
         empty_list = []
 
-        self.sbtab_dataset = self.table
+        sbtab_dataset = self.table
         
         # If new column is to small, add empty entries to new column
-        if len(column_list) < (len(self.sbtab_dataset.dict)-1):
-            for i in range((len(self.sbtab_dataset.dict) - 1) - len(column_list)):
+        if len(column_list) < (len(sbtab_dataset.dict)-1):
+            for i in range((len(sbtab_dataset.dict) - 1) - len(column_list)):
                 column_list.append('')
 
         # If new column is to long, add empty entries to sbtab_dataset
-        elif len(column_list) > (len(self.sbtab_dataset.dict) - 1):
-            for i in range(len(self.sbtab_dataset.dict[0])):
+        elif len(column_list) > (len(sbtab_dataset.dict) - 1):
+            for i in range(len(sbtab_dataset.dict[0])):
                 empty_list.append('')
-            for i in range(len(column_list) - (len(self.sbtab_dataset.dict) - 1)):
+            for i in range(len(column_list) - (len(sbtab_dataset.dict) - 1)):
                 self.value_rows.append(empty_list)
                 empty_list = copy.deepcopy(empty_list)
 
@@ -561,13 +561,13 @@ class SBtabTable():
         if not filename:
             filename = self.filename
         if format_type == 'tsv':
-            tablibIO.writeTSV(self.sbtab_dataset, filename)
+            tablibIO.writeTSV(self.table, filename)
         elif format_type == 'csv':
-            tablibIO.writeCSV(self.sbtab_dataset, filename)
+            tablibIO.writeCSV(self.table, filename)
         elif format_type == 'ods':
-            tablibIO.writeODS(self.sbtab_dataset, filename)
+            tablibIO.writeODS(self.table, filename)
         elif format_type == 'xls':
-            tablibIO.writeXLS(self.sbtab_dataset, filename)
+            tablibIO.writeXLS(self.table, filename)
         else:
             raise SBtabError('The given file format is not supported: ' + format_type + '. Please use ".tsv", ".csv", ".ods" or ".xls" instead.')
 
