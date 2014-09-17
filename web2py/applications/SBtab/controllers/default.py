@@ -325,6 +325,48 @@ def downloader_sbml():
                    **{'Content-Type':'text/xml',
                       'Content-Disposition':attachment + ';'})
 
+def show_sbtab():
+    '''
+    displays a given SBtab file
+    '''
+    file_name = session.sbtab_filenames[int(request.args(0))]
+    if file_name.endswith('.tsv') or file_name.endswith('.csv'):
+        delimiter = '\t'
+    else: return None
+    
+    ugly_sbtab = session.sbtabs[int(request.args(0))].split('\n')
+    nice_sbtab = '<p><h2><b>'+session.sbtab_filenames[int(request.args(0))]+'</b></h2></p>'
+
+    nice_sbtab += '<a style="background-color:#A4A4A4">'+ugly_sbtab[0]+'</a><br>'
+
+    nice_sbtab += '<table>'
+    for row in ugly_sbtab[1:]:
+        if row.startswith('!'): nice_sbtab += '<tr bgcolor="#BDBDBD">'
+        else: nice_sbtab += '<tr>'
+        for thing in row.split(delimiter):
+            new_row = '<td>'+thing+'</\td>'
+            print new_row
+            nice_sbtab += new_row
+        nice_sbtab += '</tr>'
+    nice_sbtab += '</table>'
+    
+    return nice_sbtab
+
+def show_sbml():
+    '''
+    displays a given SBML file
+    '''
+    new_sbml = '<xmp>'
+    old_sbml = session.sbmls[int(request.args(0))].split('\n')
+
+    for row in old_sbml:
+        new_sbml += row
+
+    new_sbml += '</xmp>'
+        
+    return new_sbml
+
+
 def user():
     """
     exposes:
