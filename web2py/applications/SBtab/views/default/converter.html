@@ -1,26 +1,41 @@
 {{extend 'layout2.html'}}
-<p>If you have troubles using the SBtab/SBML conversion, please consult our short <a href="/static/files/converter_manual.pdf">manual</a>.</p>
+<p>Information on how to use the SBtab <-> SBML converter can be found in the <a href="/static/files/converter_manual.pdf">manual</a>.</p>
+<hr>
+<h1>Convert SBtab file/s to SBML file</h1>
 
 {{=UPL_FORML}}
+
+
 {{if NAME_LIST_SBTAB:}}
+{{reaction = False}}
 
 {{displayedf = []}}
 {{displayedg = []}}
 <hr>
 <table>
   {{for pos2,g in enumerate(DOC_NAMES):}}
-  {{reaction = False}}
+  {{for pos,f in enumerate(NAME_LIST_SBTAB):}}
+  {{if NAME2DOC[f] == g:}}
+  {{if TYPES[pos].capitalize() == 'Reaction':}}
+  {{reaction = True}}
+  {{pass}}
+  {{pass}}
+  {{pass}}
+
     {{if not g in displayedg:}}
     <td>
-      SBtab files that belong to the document
+      SBtab document
       <b>{{=g}}</b>
+      {{if DOC_NAMES.count(g)>1:}}
+      <td><form> <button type="submit" value="{{=pos2}}" name="convert_all_button">Convert to SBML</button> </form> </td>
+      {{pass}}
     </td>
     {{for pos,f in enumerate(NAME_LIST_SBTAB):}}
     {{if NAME2DOC[f] == g:}}
 	    <tr>
 	      <td>
 		&bull;
-		{{=f}}
+		<a href="/default/show_sbtab/{{=str(pos)}}" target="_new"> {{=f}} </a>
 	      </td>
 	      {{if TYPES[pos].capitalize() == 'Reaction':}}
 	      {{reaction = True}}
@@ -35,15 +50,7 @@
 {{pass}}
 {{pass}}
 {{pass}}
-{{if reaction and DOC_NAMES.count(g)>1:}}
-  <td> <form> <button type="submit" value="{{=pos2}}" name="convert_all_button">Convert whole document to SBML</button> </form> </td> </tr>
-{{else:}}
-  </tr>
-  
-
-
-
-{{pass}}
+</tr>
 {{pass}}
 </table>
 {{else:}}
@@ -55,15 +62,17 @@ No SBtab files uploaded.
 {{pass}}
 
 
-<hr>
+<hr><hr>
+<br><br><br><br>
 
+<h1>Convert SBML file to SBtab files</h1>
 {{=UPL_FORMR}}
 {{if NAME_LIST_SBML:}}
 <hr>
 <table>
 {{for pos,f in enumerate(NAME_LIST_SBML):}} 
   <tr> 
-    <td>{{=f}}</td> 
+    <td><a href="/default/show_sbml/{{=str(pos)}}" target="_new"> {{=f}}</td> 
     <td> <form> <button type="submit" value="{{=pos}}" name="c2sbtab_button">Convert to SBtab</button> </form> </td>
     <td> <form> <button type="submit" value="{{=pos}}" name="erase_sbml_button">Remove</button> </form> </td>
     <td> <form> <button type="submit" value="{{=pos}}" name="dl_sbml_button">Download</button> </form> </td>
