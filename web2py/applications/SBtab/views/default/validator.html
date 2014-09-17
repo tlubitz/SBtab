@@ -1,5 +1,5 @@
 {{extend 'layout2.html'}}
-<p>If you have troubles using the SBtab validator, please consult our short <a href="/static/files/validator_manual.pdf">manual</a>.</p>
+<p>Information on the SBtab validator can be found in the <a href="/static/files/validator_manual.pdf">manual</a>.</p>
 
 {{=UPL_FORM}}
 
@@ -21,20 +21,11 @@
 	    <tr>
 	      <td>
 		&bull;
-		  <!--<a onclick='help_click(help1, 'string')'>-->{{=f}}</a>  <!--<div id="help1"></div> -->
+		  <a href="/default/show_sbtab/{{=str(pos)}}"> {{=f}} </a>
 	      </td>
 	      <td> <form> <button type="submit" value="{{=pos}}" name="validate_button">Validate</button> </form> </td>
 	      <td> <form> <button type="submit" value="{{=pos}}" name="erase_button">Remove</button> </form> </td>
 	    </tr>
-	    <!--	      <a onclick='help_click(help1, "Additional text for title 1")'>Blablabla</a> Title 1 <div id="help1"></div>
-
-	    <div class="click" onclick="help_click(help1)" style="margin-left:10px;color:red;display:inline;">Quick overview of SBtab format</div>. 
-	    <div id="help1" style="width:700px;display:none">
-	      <h2>SBtab files</h2>
-	    </div> -->
-
-
-
 
 {{displayedf.append(f)}}
 {{displayedg.append(g)}}
