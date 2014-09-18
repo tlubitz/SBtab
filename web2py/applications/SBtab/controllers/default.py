@@ -8,14 +8,14 @@
 ## - download is for downloading files uploaded in the db (does streaming)
 ## - call exposes all registered services (none by default)
 #########################################################################
-#import tablib
+import tablib
 import tablibIO
 import validatorSBtab
 import sbml2sbtab
 import sbtab2sbml
 import libsbml
 import splitTabs
-
+import tablib.packages.xlrd as xlrd
 
 def index():
     session.ex_warning = None
@@ -268,8 +268,6 @@ def converter():
                     session.sbtab_docnames.append(session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml'))
                     session.sbtab_types.append(SBtab[1])
                     session.name2doc[session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')+'_'+SBtab[1]+'_SBtab.tsv'] = session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')
-            #print session.sbtabs
-            #print session.sbtab_types
             #redirect(URL(''))
         except:
             session.ex_warning = 'The SBML file could not be converted to SBtab. Please check whether your SBML file is valid.'
@@ -325,6 +323,42 @@ def downloader_sbml():
                    **{'Content-Type':'text/xml',
                       'Content-Disposition':attachment + ';'})
 
+def show_sbtab_xls():
+    '''
+    displays xls SBtab file
+    '''
+    file_name = session.sbtab_filenames[int(request.args(0))]
+    xls_sbtab = session.sbtabs[int(request.args(0))]
+
+    nice_sbtab = '<p><h2><b>'+file_name+'</b></h2></p>'
+
+    dbook = tablib.Databook()
+    xl = xlrd.open_workbook(file_contents=xls_sbtab)
+
+    for sheetname in xl.sheet_names():
+        dset = tablib.Dataset()
+        dset.title = sheetname
+        sheet = xl.sheet_by_name(sheetname)
+        for row in range(sheet.nrows):
+            if row == 0:
+                new_row = ''
+                for thing in sheet.row_values(row):
+                    if not thing == '': new_row += thing
+                nice_sbtab += '<a style="background-color:#A4A4A4">'+new_row+'</a><br>'
+                nice_sbtab += '<table>'
+            elif row == 1:
+                new_row = ''
+                for thing in sheet.row_values(row):
+                    if not thing == '': new_row += '<td>'+thing+'</td>'
+                nice_sbtab += '<tr bgcolor="#BDBDBD">'+new_row+'</tr>'
+            else:
+                new_row = ''
+                for thing in sheet.row_values(row):
+                    new_row += '<td>'+thing+'</td>'
+                nice_sbtab += '<tr>'+new_row+'</tr>'
+                    
+    return nice_sbtab    
+
 def show_sbtab():
     '''
     displays a given SBtab file
@@ -332,7 +366,7 @@ def show_sbtab():
     file_name = session.sbtab_filenames[int(request.args(0))]
     if file_name.endswith('.tsv') or file_name.endswith('.csv'):
         delimiter = '\t'
-    else: return None
+    else: return show_sbtab_xls()
     
     ugly_sbtab = session.sbtabs[int(request.args(0))].split('\n')
     nice_sbtab = '<p><h2><b>'+session.sbtab_filenames[int(request.args(0))]+'</b></h2></p>'
@@ -345,7 +379,6 @@ def show_sbtab():
         else: nice_sbtab += '<tr>'
         for thing in row.split(delimiter):
             new_row = '<td>'+thing+'</\td>'
-            print new_row
             nice_sbtab += new_row
         nice_sbtab += '</tr>'
     nice_sbtab += '</table>'
@@ -360,7 +393,7 @@ def show_sbml():
     old_sbml = session.sbmls[int(request.args(0))].split('\n')
 
     for row in old_sbml:
-        new_sbml += row
+        new_sbml += row + '\n'
 
     new_sbml += '</xmp>'
         
