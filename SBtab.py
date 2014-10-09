@@ -673,7 +673,7 @@ class SBtabTable():
 
     def lazyColumn(self):
         """
-        Automatically fill column, if only one entry in the column, put the same entry in the complete column.
+        If only one entry in the column, automatically fill column, put the same entry in the complete column.
         """
         for i, entry in enumerate(self.value_rows[0]):
             column = [column[i] for column in self.value_rows]
@@ -684,7 +684,7 @@ class SBtabTable():
 
     def autoColumn(self):
         """
-        Add new column, when introduced as !XX = 'xx' in the header row.
+        Add new column '!XX' with entries 'xx' in all rows, when introduced as !XX = 'xx' in the header row.
         """
         lines = len(self.value_rows)
         header_row = self.header_row.rsplit()
