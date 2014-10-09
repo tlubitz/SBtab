@@ -81,7 +81,7 @@ Attention: Only &#8216;tsv&#8217;, &#8216;csv&#8217;, &#8216;ods&#8217; and &#82
 <dl class="class">
 <dt id="SBtab.SBtabTable">
 <em class="property">class </em><tt class="descclassname">SBtab.</tt><tt class="descname">SBtabTable</tt><big>(</big><em>table</em>, <em>filename</em><big>)</big><a class="reference internal" href="_modules/SBtab.html#SBtabTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtab.SBtabTable" title="Permalink to this definition">¶</a></dt>
-<dd><p>SBtabTable (version 0.8.0 10/09/2014)</p>
+<dd><p>SBtabTable (version 0.8.0 15/09/2013)</p>
 <p class="rubric">Methods</p>
 <dl class="method">
 <dt id="SBtab.SBtabTable.__init__">
@@ -152,7 +152,7 @@ Attention: Only &#8216;tsv&#8217;, &#8216;csv&#8217;, &#8216;ods&#8217; and &#82
 <dl class="method">
 <dt id="SBtab.SBtabTable.autoColumn">
 <tt class="descname">autoColumn</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SBtab.html#SBtabTable.autoColumn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtab.SBtabTable.autoColumn" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add new column, when introduced as !XX = &#8216;xx&#8217; in the header row.</p>
+<dd><p>Add new column &#8216;!XX&#8217; with entries &#8216;xx&#8217; in all rows, when introduced as !XX = &#8216;xx&#8217; in the header row.</p>
 </dd></dl>
 
 <dl class="method">
@@ -195,7 +195,7 @@ Attention: Only &#8216;tsv&#8217;, &#8216;csv&#8217;, &#8216;ods&#8217; and &#82
 <blockquote>
 <div><p>Name of the entry in the first column.</p>
 </div></blockquote>
-<p><strong>column_name</strong> : str</p>
+<p><strong>column</strong> : str</p>
 <blockquote>
 <div><p>Name of the column (without &#8216;!&#8217;)</p>
 </div></blockquote>
@@ -423,8 +423,7 @@ Raise error if no table type is defined.</p>
 <dl class="method">
 <dt id="SBtab.SBtabTable.lazyColumn">
 <tt class="descname">lazyColumn</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SBtab.html#SBtabTable.lazyColumn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtab.SBtabTable.lazyColumn" title="Permalink to this definition">¶</a></dt>
-<dd><p>Automatically fill column, if only one entry in the column, put the same 
-entry in the complete column.</p>
+<dd><p>If only one entry in the column, automatically fill column, put the same entry in the complete column.</p>
 </dd></dl>
 
 <dl class="method">
