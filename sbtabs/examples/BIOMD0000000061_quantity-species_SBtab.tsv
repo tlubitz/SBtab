@@ -1,0 +1,8 @@
+!!SBtab Level="1" Version "0.8" Document="Hynne_2001" TableType="Quantity" TableName="Species"
+!Quantity	!Name	!Reaction	!Location	!Value	!Unit	!SBOTerm
+Sp1	GlcX	vGlcTrans	extracellular	6.7	mM	0000196
+Sp2	Glc	vGlcTrans	cytosol	0.573074	mM	0000196
+Sp3	ATP	vHK	cytosol	2.1	mM	0000196
+Sp4	ADP	vHK	cytosol	1.5	mM	0000196
+Sp5	G6P	vHK	cytosol	4.2	mM	0000196
+
