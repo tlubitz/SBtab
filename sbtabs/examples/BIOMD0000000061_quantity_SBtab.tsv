@@ -1,0 +1,6 @@
+!!SBtab Level="1" Version "0.8" Document="Hynne_2001" TableType="Quantity" TableName="Parameters"
+!Quantity	!Name	!Reaction	!Location	!Value	!Unit	!SBOTerm
+Par1	k1	vGlcTrans	plasmamembrane	0.14	1/s	0000009
+Par2	Km	vHK	cytosol	0.31	mM	0000027
+Par3	Vm	vHK	cytosol	2.14	mM/s	0000009
+

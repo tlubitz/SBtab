@@ -1,0 +1,7 @@
+!!SBtab Level="1" Version "0.8" Document="Hynne_2001" TableType="Compound" TableName="Compound"
+!Compound	!Name	!Location	!Charge	!IsConstant	!SBOTerm	!Unit
+GlcX	GlcX	extracellular	0	False	0000299	mM
+Glc	Glc	cytosol	0	False	0000299	mM
+ATP	ATP	cytosol	0	False	0000299	mM
+G6P	G6P	cytosol	0	False	0000299	mM
+ADP	ADP	cytosol	0	False	0000299	mM

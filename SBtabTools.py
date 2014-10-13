@@ -80,9 +80,6 @@ def openSBtab(filepath):
     
     return sbtab
 
-    # -----------------------------Species----------------------------------------
-    # Set header
-    header = "!!SBtab TableType='WCM-Species' Document='WCM' Table='" + name + "'"
 
 def createDataset(header_row, columns, value_rows, filename):
     """
