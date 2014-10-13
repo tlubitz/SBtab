@@ -1,5 +1,5 @@
 {{extend 'layout2.html'}}
-<p>Information on how to use the SBtab <-> SBML converter can be found in the <a href="/static/files/converter_manual.pdf">manual</a>.</p>
+<p>Information on how to use the SBtab <-> SBML converter can be found in the <a href="/SBtab/static/files/converter_manual.pdf">manual</a>.</p>
 <hr>
 <h1>Convert SBtab file/s to SBML file</h1>
 
@@ -35,7 +35,7 @@
 	    <tr>
 	      <td>
 		&bull;
-		<a href="/default/show_sbtab/{{=str(pos)}}" target="_new"> {{=f}} </a>
+		<a href="/SBtab/default/show_sbtab/{{=str(pos)}}" target="_new"> {{=f}} </a>
 	      </td>
 	      {{if TYPES[pos].capitalize() == 'Reaction':}}
 	      {{reaction = True}}
@@ -72,7 +72,7 @@ No SBtab files uploaded.
 <table>
 {{for pos,f in enumerate(NAME_LIST_SBML):}} 
   <tr> 
-    <td><a href="/default/show_sbml/{{=str(pos)}}" target="_new"> {{=f}}</td> 
+    <td><a href="/SBtab/default/show_sbml/{{=str(pos)}}" target="_new"> {{=f}}</td> 
     <td> <form> <button type="submit" value="{{=pos}}" name="c2sbtab_button">Convert to SBtab</button> </form> </td>
     <td> <form> <button type="submit" value="{{=pos}}" name="erase_sbml_button">Remove</button> </form> </td>
     <td> <form> <button type="submit" value="{{=pos}}" name="dl_sbml_button">Download</button> </form> </td>
