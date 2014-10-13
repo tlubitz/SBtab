@@ -65,7 +65,7 @@ class SBMLDocument:
         '''
         build an Enzyme SBtab
         '''
-        enzyme_SBtab = '!!SBtab Level="1" Version "0.1" Document="'+self.filename.rstrip('.xml')+'" TableType="Enzyme" TableName="Enzyme"\n!Enzyme\t!Name\t!CatalysedReaction\t!KineticLaw\t!SBOTerm\n'
+        enzyme_SBtab = '!!SBtab Version "0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Enzyme" TableName="Enzyme"\n!Enzyme\t!Name\t!CatalysedReaction\t!KineticLaw\t!SBOTerm\n'
         modifiers = []
 
         for reaction in self.model.getListOfReactions():
@@ -96,7 +96,7 @@ class SBMLDocument:
         '''
         build a Compartment SBtab
         '''
-        compartment_SBtab = '!!SBtab Level="1" Version "0.1" Document="'+self.filename.rstrip('.xml')+'" TableType="Compartment" TableName="Compartment"\n!Compartment\t!Name\t!Size\t!SBOTerm\n'
+        compartment_SBtab = '!!SBtab Version "0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Compartment" TableName="Compartment"\n!Compartment\t!Name\t!Size\t!SBOTerm\n'
 
         for compartment in self.model.getListOfCompartments():
             value_row = compartment.getId()+'\t'
@@ -117,15 +117,11 @@ class SBMLDocument:
         '''
         builds a Compound SBtab
         '''
-        compound_SBtab = '!!SBtab Level="1" Version "0.1" Document="'+self.filename.rstrip('.xml')+'" TableType="Compound" TableName="Compound"\n!Compound\t!Name\t!SpeciesType\t!Location\t!Charge\t!Constant\t!SBOTerm\t!InitialConcentration\n' #\t!MiriamID\n'
+        compound_SBtab = '!!SBtab Version "0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Compound" TableName="Compound"\n!Compound\t!Name\t!Location\t!Charge\t!Constant\t!SBOTerm\t!InitialConcentration\n' #\t!MiriamID\n'
 
         for species in self.model.getListOfSpecies():
             value_row = species.getId()+'\t'
             value_row += species.getName()+'\t'
-            try: stype = species.getSpeciesType()
-            except: stype = ''
-            if stype == '': stype = 'No species type given in SBML'
-            value_row += stype+'\t'
             try: value_row += species.getCompartment()+'\t'
             except: value_row += '\t'
             try: value_row += str(species.getCharge())+'\t'
@@ -150,7 +146,7 @@ class SBMLDocument:
         '''
         builds a Reaction SBtab
         '''
-        reaction_SBtab = '!!SBtab Level="1" Version "0.1" Document="'+self.filename.rstrip('.xml')+'" TableType="Reaction" TableName="Reaction"\n!Reaction\t!Name\t!SumFormula\t!Location\t!Modifier\t!KineticLaw\t!SBOTerm\t!IsReversible\n'
+        reaction_SBtab = '!!SBtab Version "0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Reaction" TableName="Reaction"\n!Reaction\t!Name\t!SumFormula\t!Location\t!Modifier\t!KineticLaw\t!SBOTerm\t!IsReversible\n'
 
         for reaction in self.model.getListOfReactions():
             value_row  = reaction.getId()+'\t'
