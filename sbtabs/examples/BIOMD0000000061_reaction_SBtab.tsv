@@ -1,5 +1,0 @@
-!!SBtab Level="1" Version "0.8" Document="Hynne_2001" TableType="Reaction" TableName="Reaction"
-!Reaction	!Name	!SumFormula	!Location	!Modifier	!KineticLaw	!SBOTerm	!IsReversible
-vGlcTrans	vGlcTrans	GlcX <=> 59 Glc	plasmamembrane	G6P	mass action	0000012	True
-vHK	vHK	ATP + Glc <=> G6P + ADP	cytosol		michaelis menten kinetics	0000432	False
-

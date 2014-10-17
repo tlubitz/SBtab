@@ -1,4 +1,0 @@
-!!SBtab Level="1" Version "0.8" Document="Hynne_2001" TableType="Compartment" TableName="Compartment"
-!Compartment	!Name	!Size	!SBOTerm	!Unit
-extracellular	extracellular	1.0	0000290	mL
-cytosol	cytosol	1.0	0000290	fL
