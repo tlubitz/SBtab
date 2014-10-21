@@ -19,8 +19,8 @@ import tablib.packages.xlrd as xlrd
 
 def index():
     session.ex_warning = None
-    if not session.has_key('name2doc'):
-        session.name2doc = {}
+    #if not session.has_key('name2doc'):
+    #    session.name2doc = {}
     redirect(URL('../../static/introduction.html'))
 
 def clearsession():
@@ -28,6 +28,7 @@ def clearsession():
     session.sbtab_filenames = []
     session.sbtab_docnames = []
     session.sbtab_types = []
+    session.todeletename = []
     session.name2doc = {}
 
     session.ex_warning = ''
@@ -66,6 +67,7 @@ def validator():
                 session.sbtab_docnames  = [docs[0]]
                 session.sbtab_types     = [types[0]]
                 session.todeletename    = [request.vars.File.filename[:-4]+'_'+types[0]+request.vars.File.filename[-4:]]
+                session.name2doc        = {}
                 session.name2doc[request.vars.File.filename[:-4]+'_'+types[0]+request.vars.File.filename[-4:]] = docs[0]
                 if len(sbtab_list) > 1:
                     for i,sbtab in enumerate(sbtab_list[1:]):
@@ -155,6 +157,7 @@ def converter():
                 session.sbtab_docnames  = [docs[0]]
                 session.sbtab_types     = [types[0]]
                 session.todeletename    = [request.vars.File.filename[:-4]+'_'+types[0]+request.vars.File.filename[-4:]]
+                session.name2doc        = {}
                 session.name2doc[request.vars.File.filename[:-4]+'_'+types[0]+request.vars.File.filename[-4:]] = docs[0]
                 if len(sbtab_list) > 1:
                     for i,sbtab in enumerate(sbtab_list[1:]):
@@ -252,9 +255,10 @@ def converter():
                 if not session.has_key('sbtabs'):
                     session.sbtabs = [SBtab[0]]
                     session.sbtab_filenames = [session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')+'_'+SBtab[1]+'_SBtab.tsv']
-                    session.sbtab_docnames = [session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')]
-                    session.sbtab_types    = [SBtab[1]]
-                    session.todeletename   = [session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')+'_'+SBtab[1]+'_SBtab.tsv']
+                    session.sbtab_docnames  = [session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')]
+                    session.sbtab_types     = [SBtab[1]]
+                    session.todeletename    = [session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')+'_'+SBtab[1]+'_SBtab.tsv']
+                    session.name2doc        = {}
                     session.name2doc[session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')+'_'+SBtab[1]+'_SBtab.tsv'] = session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')
                 else:
                     session.sbtabs.append(SBtab[0])
