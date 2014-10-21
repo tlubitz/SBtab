@@ -27,13 +27,17 @@ def clearsession():
     session.sbtabs = []
     session.sbtab_filenames = []
     session.sbtab_docnames = []
+    session.sbtab_types = []
     session.name2doc = {}
+
     session.ex_warning = ''
     session.definition_file= []
     session.definition_file_name = []
+
     session.sbmls = []
     session.sbml_filenames = []
-    session.sbtab_types = []
+
+    redirect(URL('../../default/converter'))
 
 def validator():
     """
@@ -61,6 +65,7 @@ def validator():
                 session.sbtab_filenames = [request.vars.File.filename[:-4]+'_'+types[0]+request.vars.File.filename[-4:]]
                 session.sbtab_docnames  = [docs[0]]
                 session.sbtab_types     = [types[0]]
+                session.todeletename    = [request.vars.File.filename[:-4]+'_'+types[i]+request.vars.File.filename[-4:]]
                 session.name2doc[request.vars.File.filename[:-4]+'_'+types[0]+request.vars.File.filename[-4:]] = docs[0]
                 if len(sbtab_list) > 1:
                     for i,sbtab in enumerate(sbtab_list[1:]):
@@ -68,6 +73,7 @@ def validator():
                         session.sbtab_filenames.append(request.vars.File.filename[:-4]+'_'+types[i]+request.vars.File.filename[-4:])
                         session.sbtab_docnames.append(docs[i])
                         session.sbtab_types.append(types[i])
+                        session.todeletename.append(request.vars.File.filename[:-4]+'_'+types[i]+request.vars.File.filename[-4:])
                         session.name2doc[request.vars.File.filename[:-4]+'_'+types[i]+request.vars.File.filename[-4:]] = docs[i]
             else:
                 if len(sbtab_list) > 1:
@@ -76,12 +82,14 @@ def validator():
                         session.sbtab_filenames.append(request.vars.File.filename[:-4]+'_'+types[i]+request.vars.File.filename[-4:])
                         session.sbtab_docnames.append(docs[i])
                         session.sbtab_types.append(types[i])
+                        session.todeletename.append(request.vars.File.filename[:-4]+'_'+types[i]+request.vars.File.filename[-4:])
                         session.name2doc[request.vars.File.filename[:-4]+'_'+types[i]+request.vars.File.filename[-4:]] = docs[i]
                 else:
                     session.sbtabs.append('\n'.join(sbtab_list[0]))
                     session.sbtab_filenames.append(request.vars.File.filename[:-4]+'_'+types[0]+request.vars.File.filename[-4:])
                     session.sbtab_docnames.append(docs[0])
                     session.sbtab_types.append(types[0])
+                    session.todeletename.append(request.vars.File.filename[:-4]+'_'+types[i]+request.vars.File.filename[-4:])
                     session.name2doc[request.vars.File.filename[:-4]+'_'+types[0]+request.vars.File.filename[-4:]] = docs[0]
             #redirect(URL(''))
         except:
@@ -122,6 +130,8 @@ def validator():
         del session.sbtab_filenames[int(request.vars.erase_button)]
         del session.sbtab_docnames[int(request.vars.erase_button)]
         del session.sbtab_types[int(request.vars.erase_button)]
+        del session.name2doc[session.todeletename[int(request.vars.erase_button)]]
+        del session.todeletename[int(request.vars.erase_button)]
         session.ex_warning = None
         redirect(URL(''))
 
@@ -144,6 +154,7 @@ def converter():
                 session.sbtab_filenames = [request.vars.File.filename[:-4]+'_'+types[0]+request.vars.File.filename[-4:]]
                 session.sbtab_docnames  = [docs[0]]
                 session.sbtab_types     = [types[0]]
+                session.todeletename    = [request.vars.File.filename[:-4]+'_'+types[0]+request.vars.File.filename[-4:]]
                 session.name2doc[request.vars.File.filename[:-4]+'_'+types[0]+request.vars.File.filename[-4:]] = docs[0]
                 if len(sbtab_list) > 1:
                     for i,sbtab in enumerate(sbtab_list[1:]):
@@ -151,6 +162,7 @@ def converter():
                         session.sbtab_filenames.append(request.vars.File.filename[:-4]+'_'+types[i]+request.vars.File.filename[-4:])
                         session.sbtab_docnames.append(docs[i])
                         session.sbtab_types.append(types[i])
+                        session.todeletename.append(request.vars.File.filename[:-4]+'_'+types[0]+request.vars.File.filename[-4:])
                         session.name2doc[request.vars.File.filename[:-4]+'_'+types[i]+request.vars.File.filename[-4:]] = docs[i]
             else:
                 if len(sbtab_list) > 1:
@@ -159,38 +171,19 @@ def converter():
                         session.sbtab_filenames.append(request.vars.File.filename[:-4]+'_'+types[i]+request.vars.File.filename[-4:])
                         session.sbtab_docnames.append(docs[i])
                         session.sbtab_types.append(types[i])
+                        session.todeletename.append(request.vars.File.filename[:-4]+'_'+types[0]+request.vars.File.filename[-4:])
                         session.name2doc[request.vars.File.filename[:-4]+'_'+types[i]+request.vars.File.filename[-4:]] = docs[i]
                 else:
                     session.sbtabs.append('\n'.join(sbtab_list[0]))
                     session.sbtab_filenames.append(request.vars.File.filename[:-4]+'_'+types[0]+request.vars.File.filename[-4:])
                     session.sbtab_docnames.append(docs[0])
                     session.sbtab_types.append(types[0])
+                    session.todeletename.append(request.vars.File.filename[:-4]+'_'+types[0]+request.vars.File.filename[-4:])
                     session.name2doc[request.vars.File.filename[:-4]+'_'+types[0]+request.vars.File.filename[-4:]] = docs[0]
         #except:
         #    session.ex_warning = 'The file that you uploaded is no SBtab file. Please only use .tsv, .csv, or .xls format. If it still does not work out, please consult the SBtab specification.'
     elif lform.errors:
         response.flash = 'form has errors'
-
-    '''
-    if lform.process(formname='form_one').accepted:
-        response.flash = 'form accepted'
-        if not session.has_key('sbtabs'):
-            session.sbtabs = [request.vars.File.value]
-            session.sbtab_filenames = [request.vars.File.filename]
-        else:
-            session.sbtabs.append(request.vars.File.value)
-            session.sbtab_filenames.append(request.vars.File.filename)
-    elif lform.errors:
-        response.flash = 'form has errors'
-    '''
-
-    if request.vars.erase_sbtab_button:
-        del session.sbtabs[int(request.vars.erase_sbtab_button)]
-        del session.sbtab_filenames[int(request.vars.erase_sbtab_button)]
-        del session.sbtab_docnames[int(request.vars.erase_sbtab_button)]
-        del session.sbtab_types[int(request.vars.erase_sbtab_button)]
-        session.ex_warning = None
-        redirect(URL(''))
 
     # convert sbtab2sbml button is pushed
     if request.vars.c2sbml_button:
@@ -261,12 +254,14 @@ def converter():
                     session.sbtab_filenames = [session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')+'_'+SBtab[1]+'_SBtab.tsv']
                     session.sbtab_docnames = [session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')]
                     session.sbtab_types    = [SBtab[1]]
+                    session.todeletename   = [session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')+'_'+SBtab[1]+'_SBtab.tsv']
                     session.name2doc[session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')+'_'+SBtab[1]+'_SBtab.tsv'] = session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')
                 else:
                     session.sbtabs.append(SBtab[0])
                     session.sbtab_filenames.append(session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')+'_'+SBtab[1]+'_SBtab.tsv')
                     session.sbtab_docnames.append(session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml'))
                     session.sbtab_types.append(SBtab[1])
+                    session.todeletename.append(session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')+'_'+SBtab[1]+'_SBtab.tsv')
                     session.name2doc[session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')+'_'+SBtab[1]+'_SBtab.tsv'] = session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')
             #redirect(URL(''))
         except:
@@ -275,6 +270,17 @@ def converter():
     if request.vars.dl_sbml_button:
         downloader_sbml()
         
+    if request.vars.erase_sbtab_button:
+        del session.sbtabs[int(request.vars.erase_sbtab_button)]
+        del session.sbtab_filenames[int(request.vars.erase_sbtab_button)]
+        del session.sbtab_docnames[int(request.vars.erase_sbtab_button)]
+        del session.sbtab_types[int(request.vars.erase_sbtab_button)]
+        del session.name2doc[session.todeletename[int(request.vars.erase_sbtab_button)]]
+        del session.todeletename[int(request.vars.erase_sbtab_button)]
+
+        session.ex_warning = None
+        redirect(URL(''))
+
     return dict(UPL_FORML=lform,UPL_FORMR=rform,SBTAB_LIST=session.sbtabs,SBML_LIST=session.sbmls,NAME_LIST_SBTAB=session.sbtab_filenames,NAME_LIST_SBML=session.sbml_filenames,DOC_NAMES=session.sbtab_docnames,NAME2DOC=session.name2doc,EXWARNING=session.ex_warning,TYPES=session.sbtab_types)
 
 
@@ -357,7 +363,8 @@ def show_sbtab_xls():
                     new_row += '<td>'+thing+'</td>'
                 nice_sbtab += '<tr>'+new_row+'</tr>'
                     
-    return nice_sbtab    
+    return nice_sbtab 
+
 
 def show_sbtab():
     '''
@@ -393,7 +400,7 @@ def show_sbml():
     old_sbml = session.sbmls[int(request.args(0))].split('\n')
 
     for row in old_sbml:
-        new_sbml += row + '\n'
+        new_sbml += row +'\n'
 
     new_sbml += '</xmp>'
         
