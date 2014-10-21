@@ -65,7 +65,7 @@ def validator():
                 session.sbtab_filenames = [request.vars.File.filename[:-4]+'_'+types[0]+request.vars.File.filename[-4:]]
                 session.sbtab_docnames  = [docs[0]]
                 session.sbtab_types     = [types[0]]
-                session.todeletename    = [request.vars.File.filename[:-4]+'_'+types[i]+request.vars.File.filename[-4:]]
+                session.todeletename    = [request.vars.File.filename[:-4]+'_'+types[0]+request.vars.File.filename[-4:]]
                 session.name2doc[request.vars.File.filename[:-4]+'_'+types[0]+request.vars.File.filename[-4:]] = docs[0]
                 if len(sbtab_list) > 1:
                     for i,sbtab in enumerate(sbtab_list[1:]):
@@ -89,7 +89,7 @@ def validator():
                     session.sbtab_filenames.append(request.vars.File.filename[:-4]+'_'+types[0]+request.vars.File.filename[-4:])
                     session.sbtab_docnames.append(docs[0])
                     session.sbtab_types.append(types[0])
-                    session.todeletename.append(request.vars.File.filename[:-4]+'_'+types[i]+request.vars.File.filename[-4:])
+                    session.todeletename.append(request.vars.File.filename[:-4]+'_'+types[0]+request.vars.File.filename[-4:])
                     session.name2doc[request.vars.File.filename[:-4]+'_'+types[0]+request.vars.File.filename[-4:]] = docs[0]
             #redirect(URL(''))
         except:
