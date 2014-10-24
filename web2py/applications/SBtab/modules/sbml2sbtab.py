@@ -96,7 +96,7 @@ class SBMLDocument:
         '''
         build a Compartment SBtab
         '''
-        compartment_SBtab = '!!SBtab Version "0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Compartment" TableName="Compartment"\n!Compartment\t!Name\t!Size\t!SBOTerm\n'
+        compartment_SBtab = '!!SBtab Version "0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Compartment" TableName="Compartment"\n!Compartment\t!Name\t!Size\t!Unit\t!SBOTerm\n'
 
         for compartment in self.model.getListOfCompartments():
             value_row = compartment.getId()+'\t'
@@ -105,6 +105,8 @@ class SBMLDocument:
             value_row += name+'\t'  
             try: value_row += str(compartment.getSize())+'\t'
             except: value_row += '\t'
+            try: value_row += str(compartment.getUnits())+'\t'
+            except: value_row += '\t'            
             if str(compartment.getSBOTerm()) == '-1': value_row += 'No SBO Term set in SBML.\n'
             else: str(compartment.getSBOTerm())+'\n'            
             #try: value_row += str(compartment.getSBOTerm())+'\n'
@@ -117,7 +119,7 @@ class SBMLDocument:
         '''
         builds a Compound SBtab
         '''
-        compound_SBtab = '!!SBtab Version "0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Compound" TableName="Compound"\n!Compound\t!Name\t!Location\t!Charge\t!Constant\t!SBOTerm\t!InitialConcentration\n' #\t!MiriamID\n'
+        compound_SBtab = '!!SBtab Version "0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Compound" TableName="Compound"\n!Compound\t!Name\t!Location\t!Charge\t!IsConstant\t!SBOTerm\t!InitialConcentration\n' #\t!MiriamID\n'
 
         for species in self.model.getListOfSpecies():
             value_row = species.getId()+'\t'
