@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import libsbml, numpy
+import libsbml, numpy, tablibIO, SBtab
 
 allowed_sbtabs = ['Reaction','Compound','Compartment','Quantity']
 
@@ -24,10 +24,10 @@ class SBMLDocument:
             raise ConversionError('The given file format is not supported: '+self.filename)
 
         #for testing purposes:
-        sbtabs = self.makeSBtabs()
-        for sbtab in sbtabs:
-            print sbtab
-            print '\n\n\n'
+        #sbtabs = self.makeSBtabs()
+        #for sbtab in sbtabs:
+        #    print sbtab
+        #    print '\n\n\n'
         
     def makeSBtabs(self):
         '''
@@ -42,7 +42,13 @@ class SBMLDocument:
 
         sbtabs = self.getRidOfNone(sbtabs)
 
-        return sbtabs
+        sbtab_objects = []
+        for sbtab in sbtabs:
+            new_tablib_obj = tablibIO.importSetNew(sbtab[0],'sbtab.tsv')
+            single_tab     = SBtab.SBtabTable(new_tablib_obj,'sbtab.tsv')
+            sbtab_objects.append(single_tab)
+
+        return sbtab_objects
         
     def getRidOfNone(self,sbtabs):
         '''
@@ -143,8 +149,6 @@ class SBMLDocument:
         '''
         reaction_SBtab = '!!SBtab Version "0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Reaction" TableName="Reaction"\n!Reaction\t!Name\t!SumFormula\t!Location\t!Modifier\t!KineticLaw\t!SBOTerm\t!IsReversible\n'
 
-        print self.model
-
         for reaction in self.model.getListOfReactions():
             value_row  = reaction.getId()+'\t'
             value_row += reaction.getName()+'\t'
@@ -192,7 +196,7 @@ class SBMLDocument:
             for parameter in kinetic_law.getListOfParameters():
                 value_row = parameter.getId()+'_'+reaction.getId()+'\t'
                 value_row += parameter.getId()+'\t'
-                value_row += parameter.getValue()+'\t'
+                value_row += str(parameter.getValue())+'\t'
                 try: value_row += parameter.getUnits()+'\t'
                 except: value_row += 'No unit provided\t'
                 value_row += 'local parameter\t\n'
@@ -201,7 +205,7 @@ class SBMLDocument:
         for parameter in self.model.getListOfParameters():
             value_row = parameter.getId()+'\t'
             value_row += parameter.getId()+'\t'
-            value_row += parameter.getValue()+'\t'
+            value_row += str(parameter.getValue())+'\t'
             try: value_row += parameter.getUnits()+'\t'
             except: value_row += 'No unit provided\t'            
             value_row += 'global parameter\t\n'
@@ -257,9 +261,9 @@ if __name__ == '__main__':
     #sbml_model = open('BIOMD0000000061.xml','r')
     reader     = libsbml.SBMLReader()
     sbml_model = reader.readSBML('BIOMD0000000061.xml')
-   
     sbml_class = SBMLDocument(sbml_model,'BIOMD.xml')
 
+    print sbml_class.makeSBtabs()
 
     #reactions = sbml_class.reactionSBtab()
     #bla = open('yeast.tsv','wr')
