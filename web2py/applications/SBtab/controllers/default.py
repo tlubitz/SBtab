@@ -53,7 +53,7 @@ def validator():
     response.title    = T('SBtab - Standardised data tables for Systems Biology')
     response.subtitle = T('Online Validator')
 
-    lform = SQLFORM.factory(Field('File', 'upload',uploadfolder="/tmp", label='Upload SBtab file (.tsv, .csv, .xls)'))
+    lform = SQLFORM.factory(Field('File', 'upload',uploadfolder="/tmp", label='Upload SBtab file (.csv, .tsv, .xls)'))
 
     #update session lists
     if lform.process().accepted:
@@ -95,7 +95,7 @@ def validator():
                     session.name2doc[request.vars.File.filename[:-4]+'_'+types[0]+request.vars.File.filename[-4:]] = docs[0]
             #redirect(URL(''))
         except:
-            session.ex_warning = 'The file that you uploaded is no SBtab file. Please only use .tsv, .csv, or .xls format. If it still does not work out, please consult the SBtab specification.'
+            session.ex_warning = 'The file that you uploaded is no SBtab file. Please only use .csv, .tsv, or .xls format. If it still does not work out, please consult the SBtab specification.'
     elif lform.errors:
         response.flash = 'form has errors'
 
@@ -144,7 +144,7 @@ def converter():
     response.subtitle = T('SBML / SBtab Conversion')
 
     #Form for SBtab files
-    lform = SQLFORM.factory(Field('File', 'upload',uploadfolder="/tmp", label='Upload SBtab file to convert (.tsv, .csv, .xls)'))
+    lform = SQLFORM.factory(Field('File', 'upload',uploadfolder="/tmp", label='Upload SBtab file to convert (.csv, .tsv, .xls)'))
 
     #update session lists
     if lform.process(formname='form_one').accepted:
@@ -295,7 +295,7 @@ def def_files():
     response.title = T('SBtab - Standardised data tables for Systems Biology')
     response.subtitle = T('Upload your own definition files')
 
-    dform = SQLFORM.factory(Field('File', 'upload',uploadfolder="/tmp", label='Upload definition file (.tsv, .csv)'))
+    dform = SQLFORM.factory(Field('File', 'upload',uploadfolder="/tmp", label='Upload definition file (.csv, .tsv)'))
 
     #update session lists
     if dform.process().accepted:
