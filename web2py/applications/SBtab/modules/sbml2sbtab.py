@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import re, libsbml, numpy
 
-allowed_sbtabs = ['Reaction','Compound','Compartment']
+allowed_sbtabs = ['Reaction','Compound','Compartment','Quantity']
 
 class ConversionError(Exception):
     def __init__(self,message):
@@ -185,6 +185,32 @@ class SBMLDocument:
             reaction_SBtab += value_row
 
         return [reaction_SBtab,'reaction']
+
+    def quantitySBtab(self):
+        '''
+        builds a Quantity SBtab
+        '''
+        quantity_SBtab = '!!SBtab Version "0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Quantity" TableName="Quantity"\n!Quantity\t!SBML:parameter:id\t!Unit\t!Description\n'
+
+        for reaction in self.model.getListOfReactions():
+            kinetic_law = reaction.getKineticLaw()
+            for parameter in kinetic_law.getListOfParameters():
+                value_row = parameter.getId()+'_'+reaction.getId()+'\t'
+                value_row += parameter.getId()+'\t'
+                try: value_row += parameter.getUnits()+'\t'
+                except: value_row += 'No unit provided\t'
+                value_row += 'local parameter\t\n'
+            quantity_SBtab += value_row
+
+        for parameter in self.model.getListOfParameters():
+            value_row = parameter.getId()+'\t'
+            value_row += parameter.getId()+'\t'
+            try: value_row += parameter.getUnits()+'\t'
+            except: value_row += 'No unit provided\t'            
+            value_row += 'global parameter\t\n'
+            quantity_SBtab += value_row
+            
+        return [quantity_SBtab,'quantity']
 
     def makeSumFormula(self,reaction):
         '''
