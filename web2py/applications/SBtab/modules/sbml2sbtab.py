@@ -190,13 +190,14 @@ class SBMLDocument:
         '''
         builds a Quantity SBtab
         '''
-        quantity_SBtab = '!!SBtab Version "0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Quantity" TableName="Quantity"\n!Quantity\t!SBML:parameter:id\t!Unit\t!Description\n'
+        quantity_SBtab = '!!SBtab Version "0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Quantity" TableName="Quantity"\n!Quantity\t!SBML:parameter:id\t!Value\t!Unit\t!Description\n'
 
         for reaction in self.model.getListOfReactions():
             kinetic_law = reaction.getKineticLaw()
             for parameter in kinetic_law.getListOfParameters():
                 value_row = parameter.getId()+'_'+reaction.getId()+'\t'
                 value_row += parameter.getId()+'\t'
+                value_row += str(parameter.getValue())+'\t'
                 try: value_row += parameter.getUnits()+'\t'
                 except: value_row += 'No unit provided\t'
                 value_row += 'local parameter\t\n'
@@ -205,6 +206,7 @@ class SBMLDocument:
         for parameter in self.model.getListOfParameters():
             value_row = parameter.getId()+'\t'
             value_row += parameter.getId()+'\t'
+            value_row += str(parameter.getValue())+'\t'
             try: value_row += parameter.getUnits()+'\t'
             except: value_row += 'No unit provided\t'            
             value_row += 'global parameter\t\n'
