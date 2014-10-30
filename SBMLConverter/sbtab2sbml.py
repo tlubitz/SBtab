@@ -66,6 +66,7 @@ class SBtabDocument:
             #generate SBtab class instance for every SBtab
             for sbtab in sbtabs:
                 as_sbtab = '\n'.join(sbtab)
+
                 new_tablib_obj = tablibIO.importSetNew(as_sbtab,self.filename)
                 single_tab = SBtab.SBtabTable(new_tablib_obj,self.filename)
                 self.type2sbtab[single_tab.table_type] = single_tab
@@ -145,9 +146,8 @@ class SBtabDocument:
         self.id2sbmlid        = {}
 
         #0st order: create compartments
-        
-        self.compartmentSBtab()
-        '''
+        try:
+            self.compartmentSBtab()
         except:
             default_compartment = self.new_model.createCompartment()
             default_compartment.setId('Default_Compartment')
@@ -158,8 +158,6 @@ class SBtabDocument:
             #for species in self.new_model.getListOfSpecies():
             #    if not species.isSetCompartment():
             #        species.setCompartment('Default_Compartment')   
-        '''
-        
 
         #1st order of bizness: due to the right modeling order of SBML, we first check for a compound SBtab
         if 'Compound' in self.type2sbtab.keys():
