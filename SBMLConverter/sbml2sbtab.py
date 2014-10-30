@@ -13,11 +13,11 @@ class SBMLDocument:
     '''
     SBML model to be converted to SBtab file/s
     '''
-    def __init__(self,libsbml_model,filename):
+    def __init__(self,sbml_file,filename):
         '''
         initalize SBtab document, check it for SBtabs
         '''
-        try: self.model = libsbml_model.getModel()
+        try: self.model = sbml_file.getModel()
         except: print 'The model that you have entered is not a valid SBML file. Please see the readme.txt to see how this is done properly.'
         self.filename = filename
         if not self.filename.endswith('.xml'): 
@@ -38,7 +38,7 @@ class SBMLDocument:
         for sbtab_type in allowed_sbtabs:
             function_name = 'self.'+sbtab_type.lower()+'SBtab()'
             try: sbtabs.append(eval(function_name))
-            except: print 'There were troubles generating the ',sbtab_type,' SBtab for ',self.filename,'. Please see the readme.txt to see how this is done properly.'
+            except: print 'There were troubles generating the',sbtab_type,'SBtab for',self.filename,'. Please see the readme.txt to see how this is done properly.'
 
         sbtabs = self.getRidOfNone(sbtabs)
 
@@ -185,13 +185,14 @@ class SBMLDocument:
         '''
         builds a Quantity SBtab
         '''
-        quantity_SBtab = '!!SBtab Version "0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Quantity" TableName="Quantity"\n!Quantity\t!SBML:parameter:id\t!Unit\t!Description\n'
+        quantity_SBtab = '!!SBtab Version "0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Quantity" TableName="Quantity"\n!Quantity\t!SBML:parameter:id\t!Value\t!Unit\t!Description\n'
 
         for reaction in self.model.getListOfReactions():
             kinetic_law = reaction.getKineticLaw()
             for parameter in kinetic_law.getListOfParameters():
                 value_row = parameter.getId()+'_'+reaction.getId()+'\t'
                 value_row += parameter.getId()+'\t'
+                value_row += parameter.getValue()+'\t'
                 try: value_row += parameter.getUnits()+'\t'
                 except: value_row += 'No unit provided\t'
                 value_row += 'local parameter\t\n'
@@ -200,6 +201,7 @@ class SBMLDocument:
         for parameter in self.model.getListOfParameters():
             value_row = parameter.getId()+'\t'
             value_row += parameter.getId()+'\t'
+            value_row += parameter.getValue()+'\t'
             try: value_row += parameter.getUnits()+'\t'
             except: value_row += 'No unit provided\t'            
             value_row += 'global parameter\t\n'
@@ -252,10 +254,11 @@ class SBMLDocument:
         
 
 if __name__ == '__main__':
-    #sbml_model = open('teusink.xml','r')
-    reader = libsbml.SBMLReader()
-    sbml   = reader.readSBML('BIOMD0000000061.xml')
-    sbml_class = SBMLDocument(sbml,'BIOMD.xml')
+    #sbml_model = open('BIOMD0000000061.xml','r')
+    reader     = libsbml.SBMLReader()
+    sbml_model = reader.readSBML('BIOMD0000000061.xml')
+   
+    sbml_class = SBMLDocument(sbml_model,'BIOMD.xml')
 
 
     #reactions = sbml_class.reactionSBtab()
