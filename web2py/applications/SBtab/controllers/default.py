@@ -190,7 +190,7 @@ def converter():
 
     # convert sbtab2sbml button is pushed
     if request.vars.c2sbml_button:
-        #try:
+        try:
             sbtab_document = sbtab2sbml.SBtabDocument(session.sbtabs[int(request.vars.c2sbml_button)],session.sbtab_filenames[int(request.vars.c2sbml_button)])
             new_sbml       = sbtab_document.makeSBML()
             if not session.has_key('sbmls'):
@@ -199,8 +199,8 @@ def converter():
             else:
                 session.sbmls.append(new_sbml)
                 session.sbml_filenames.append(session.sbtab_filenames[int(request.vars.c2sbml_button)].rstrip('.tcxlsv')+'_SBML.xml')
-        #except:
-        #    session.ex_warning = 'The SBtab file could not be converted to SBML. Please check whether you have a valid Reaction SBtab file.'
+        except:
+            session.ex_warning = 'The SBtab file could not be converted to SBML. Please check whether you have a valid Reaction SBtab file.'
 
     if request.vars.dl_sbtab_button:
         downloader_sbtab()
