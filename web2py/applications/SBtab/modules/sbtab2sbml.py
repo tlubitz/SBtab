@@ -59,7 +59,7 @@ class SBtabDocument:
             #print '2'
             #check for several SBtabs in one document
             #print self.document[0][0]
-            document_rows    = self.document[0][0].split('\n')
+            document_rows    = self.document[0].split('\n')
             tabs_in_document = self.getAmountOfTables(document_rows)
             if tabs_in_document > 1: sbtabs = self.splitDocumentInTables(document_rows)
             else: sbtabs = [document_rows]
@@ -145,9 +145,8 @@ class SBtabDocument:
         self.id2sbmlid        = {}
 
         #0st order: create compartments
-        
-        self.compartmentSBtab()
-        '''
+        try:
+            self.compartmentSBtab()
         except:
             default_compartment = self.new_model.createCompartment()
             default_compartment.setId('Default_Compartment')
@@ -158,8 +157,6 @@ class SBtabDocument:
             #for species in self.new_model.getListOfSpecies():
             #    if not species.isSetCompartment():
             #        species.setCompartment('Default_Compartment')   
-        '''
-        
 
         #1st order of bizness: due to the right modeling order of SBML, we first check for a compound SBtab
         if 'Compound' in self.type2sbtab.keys():
