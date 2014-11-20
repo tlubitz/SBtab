@@ -1,0 +1,4 @@
+!!SBtab Level='1' Version='0.1' Document='Test' TableType='Reaction' Name='TEST'
+!Reaction	!SumFormula	!MiriamID::urn:miriam:kegg.reaction	!GeneName	!MetabolicRegulators	!Location	!Enzyme	!KineticLaw	!BuildReaction	!BuildEnzyme
+R1	ATP + F6P <=> ADP + F16P	R00658	pfk		cytosol	ATP	Mass action kinetic	True	True
+R2	F16P + 2 H2O <=> F6P + Pi	R01015	fbp	+ ATP	extracellular		Hill kinetic	True	True

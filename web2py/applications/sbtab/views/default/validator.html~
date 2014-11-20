@@ -1,0 +1,82 @@
+{{extend 'layout2.html'}}
+<p>Information on the SBtab validator can be found in the <a href="/static/files/validator_manual.pdf">manual</a>.</p>
+<h2>SBtab online validator</h2>
+
+{{=UPL_FORM}}
+
+{{if NAME_LIST:}}
+
+{{displayedf = []}}
+{{displayedg = []}}
+<hr>
+<table>
+  {{for pos2,g in enumerate(DOC_NAMES):}}
+    {{if not g in displayedg:}}
+    <td>
+      <br>SBtab document
+      <b>{{=g}}</b>
+    </td>
+    {{for pos,f in enumerate(NAME_LIST):}}
+    {{if NAME2DOC[f] == g:}}
+    {{sbtab = str(SBTAB_LIST[0])}}
+	    <tr>
+	      <td>
+		&bull;
+		  <a href="/default/show_sbtab/{{=str(pos)}}" target="_new"> {{=f}} </a>
+	      </td>
+	      <td> <form> <button type="submit" value="{{=pos}}" name="validate_button">Validate</button> </form> </td>
+	      <td> <form> <button type="submit" value="{{=pos}}" name="erase_button">Remove</button> </form> </td>
+	    </tr>
+
+{{displayedf.append(f)}}
+{{displayedg.append(g)}}
+{{pass}}
+{{pass}}
+{{pass}}
+{{pass}}
+</table>
+{{else:}}
+<table>
+<td>
+No SBtab files uploaded.
+</td>
+</table>
+{{pass}}
+
+
+{{if V_OUTPUT:}}
+
+<b>File validation of
+{{=SBTAB2VAL}}:</b>
+
+<table>
+{{for f in V_OUTPUT:}} 
+  <tr> 
+    <td>{{=f}}</td> 
+  </tr>
+{{pass}}
+</table>
+{{elif EXWARNING:}}
+<table>
+<tr>
+<td>
+<b>{{=EXWARNING}}</b>
+</td>
+</tr>
+</table>
+{{else:}}
+<table>
+<td>
+No warnings detected.
+</td>
+</table>
+
+{{pass}}
+
+<!--{{=V_OUTPUT}}-->
+
+<hr>
+<p>
+  <!-- <a href="../static/introduction.html">Back to main page</a> -->
+  <a href="http://www.sbtab.net">Back to main page</a>
+</p>

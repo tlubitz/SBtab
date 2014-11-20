@@ -1,0 +1,10 @@
+!!SBtab Level='1' Version='0.1' Document='Test' TableType='Compound'
+!Compound	!Name	!MiriamID::urn:miriam:kegg.compound	!SBML::species::id	!SBML::speciestype::id	!Location	!Charge	!IsConstant
+F6P	Fructose-6-phosphate	C05345		SBMLSTID1	cytosol	1	TRUE
+ATP	ATP	C00002		SBMLST2	cytosol	2	TRUE
+ADP	ADP	C00008		SBMLST3	cytosol	3	TRUE
+F16P	Fructose-1,6-bisphosphate	C00354		SBMLST4	extracellular	4	TRUE
+H2O	Water	C00001		SBMLST5	extracellular	5	FALSE
+Pi	Inorganic phosphate	C00009		SBMLST6	extracellular	6	FALSE
+PEP	Phosphoenolpyruvate	C00074		SBMLST7	extracellular	7	FALSE
+AMP	AMP	C00020		SBMLST8	extracellular	8	FALSE

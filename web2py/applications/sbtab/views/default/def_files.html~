@@ -1,0 +1,22 @@
+{{extend 'layout2.html'}}
+{{=UPL_FORM}}
+{{if DEF_NAME:}}
+<table>
+{{for pos,f in enumerate(DEF_NAME):}}
+  <tr>
+    <td>{{=f}}</td>
+    <td> <form> <button type="submit" value="{{=pos}}" name="erase_def_button">Remove</button> </form> </td>
+  </tr>
+{{pass}}
+</table>
+{{else:}}
+Currently the default definition SBtab is loaded for your session.
+{{pass}}
+
+<hr>
+<p>
+  <a href="http://www.sbtab.net">Back to main page</a>
+</p>
+
+
+
