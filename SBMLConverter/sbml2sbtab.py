@@ -39,7 +39,6 @@ class SBMLDocument:
             function_name = 'self.'+sbtab_type.lower()+'SBtab()'
             try: sbtabs.append(eval(function_name))
             except: print 'There were troubles generating the',sbtab_type,'SBtab for',self.filename,'. Please see the readme.txt to see how this is done properly.'
-
         sbtabs = self.getRidOfNone(sbtabs)
 
         sbtab_objects = []
@@ -60,53 +59,21 @@ class SBMLDocument:
                 new_tabs.append(element)
         return new_tabs
 
-    def enzymeSBtab(self):
-        '''
-        build an Enzyme SBtab
-        '''
-        enzyme_SBtab = '!!SBtab Version "0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Enzyme" TableName="Enzyme"\n!Enzyme\t!Name\t!CatalysedReaction\t!KineticLaw\t!SBOTerm\n'
-        modifiers = []
-
-        for reaction in self.model.getListOfReactions():
-            counter = 0
-            try:
-                modifiers = reaction.getListOfModifiers()
-                for modifier in modifiers:
-                    value_row = ''
-                    value_row += modifier.getSpecies()+'\t'
-                    value_row += modifier.getElementName()+'\t'
-                    value_row += reaction.getId()+'\t'
-                    try: value_row += reaction.getKineticLaw().getName()+'\t'
-                    except: value_row += '\t'
-                    if str(modifier.getSBOTerm()) == '-1': value_row += 'No SBO term set in SBML.\n'
-                    else: str(modifier.getSBOTerm())+'\n'
-                    #try: value_row += str(modifier.getSBOTerm())+'\n'
-                    #except: value_row += '\t\n'
-                    enzyme_SBtab += value_row
-                    counter += 1
-            except:
-                continue
-
-        if counter>0: return [enzyme_SBtab,'enzyme']
-        else: pass
-        
-
     def compartmentSBtab(self):
         '''
         build a Compartment SBtab
         '''
-        compartment_SBtab = '!!SBtab Version "0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Compartment" TableName="Compartment"\n!Compartment\t!Name\t!Size\t!Unit\t!SBOTerm\n'
+        compartment_SBtab = '!!SBtab SBtabVersion="0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Compartment" TableName="Compartment"\n!Compartment\t!Name\t!Size\t!Unit\t!SBOTerm\n'
 
         for compartment in self.model.getListOfCompartments():
             value_row = compartment.getId()+'\t'
-            name = compartment.getName()
-            if name == '': name = 'No name given in SBML'
-            value_row += name+'\t'  
+            try: value_row += str(compartment.getName())+'\t'
+            except: value_row += '\t'
             try: value_row += str(compartment.getSize())+'\t'
             except: value_row += '\t'
             try: value_row += str(compartment.getUnits())+'\t'
-            except: value_row += '\t'            
-            if str(compartment.getSBOTerm()) == '-1': value_row += 'No SBO Term set in SBML.\n'
+            except: value_row += '\t'           
+            if str(compartment.getSBOTerm()) == '-1': value_row += '\n'
             else: str(compartment.getSBOTerm())+'\n'            
             #try: value_row += str(compartment.getSBOTerm())+'\n'
             #except: value_row += '\t\n'
@@ -118,7 +85,7 @@ class SBMLDocument:
         '''
         builds a Compound SBtab
         '''
-        compound_SBtab = '!!SBtab Version "0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Compound" TableName="Compound"\n!Compound\t!Name\t!Location\t!Charge\t!IsConstant\t!SBOTerm\t!InitialConcentration\n' #\t!MiriamID\n'
+        compound_SBtab = '!!SBtab SBtabVersion="0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Compound" TableName="Compound"\n!Compound\t!Name\t!Location\t!Charge\t!IsConstant\t!SBOTerm\t!InitialConcentration\n'
 
         for species in self.model.getListOfSpecies():
             value_row = species.getId()+'\t'
@@ -129,15 +96,20 @@ class SBMLDocument:
             except: value_row += '\t'
             try: value_row += str(species.getConstant())+'\t'
             except: value_row += '\t'
-            if str(species.getSBOTerm()) == '-1': value_row += 'No SBO term set in SBML.\t'
+            if str(species.getSBOTerm()) == '-1': value_row += '\t'
             else: str(species.getSBOTerm())+'\t'
             #try: value_row += str(species.getSBOTerm())+'\t'
             #except: value_row += '\t'
             try: value_row += str(species.getInitialConcentration())+'\n'
             except: value_row += '\t\n'
-            #try: value_row += species.getAnnotation()+'\n'
-            #except: value_row += '\t\n'
-            
+            '''
+            dsds = species.getCVTerms()
+            for i in range(species.getNumCVTerms()):
+                cvterm = dsds.get(i)
+                print cvterm.getResourceURI(i)
+            try: value_row += species.getAnnotation()+'\n'
+            except: value_row += '\t\n'
+            '''
             compound_SBtab += value_row
             
         return [compound_SBtab,'compound']
@@ -147,16 +119,14 @@ class SBMLDocument:
         '''
         builds a Reaction SBtab
         '''
-        reaction_SBtab = '!!SBtab Version "0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Reaction" TableName="Reaction"\n!Reaction\t!Name\t!SumFormula\t!Location\t!Modifier\t!KineticLaw\t!SBOTerm\t!IsReversible\n'
+        reaction_SBtab = '!!SBtab SBtabVersion="0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Reaction" TableName="Reaction"\n!Reaction\t!Name\t!SumFormula\t!Location\t!Modifier\t!KineticLaw\t!SBOTerm\t!IsReversible\n'
 
         for reaction in self.model.getListOfReactions():
             value_row  = reaction.getId()+'\t'
             value_row += reaction.getName()+'\t'
-            value_row += self.makeSumFormula(reaction)
-            try: compartment = reaction.getCompartment()
-            except: compartment = ''
-            if compartment == '': compartment = 'No compartment given in SBML'
-            value_row += compartment+'\t'
+            value_row += self.makeSumFormula(reaction)+'\t'
+            try: compartment = reaction.getCompartment()+'\t'
+            except: compartment = '\t'
             #try: value_row += reaction.getCompartment()+'\t'
             #except: value_row += '\t'
             modifiers = reaction.getListOfModifiers()
@@ -171,11 +141,11 @@ class SBMLDocument:
             else: value_row += '\t'
             try: kinlaw = reaction.getKineticLaw().getName()
             except: kinlaw = ''
-            if kinlaw == '': kinlaw = 'No kinetic law given in SBML'
+            if kinlaw == '': kinlaw = ''
             value_row += kinlaw+'\t'          
             #try: value_row += reaction.getKineticLaw().getName()+'\t'
             #except: value_row += '\t'
-            if str(reaction.getSBOTerm()) == '-1': value_row += 'No SBOterm set in SBML.\t'
+            if str(reaction.getSBOTerm()) == '-1': value_row += '\t'
             else: str(reaction.getSBOTerm())+'\t'
             #try: value_row += str(reaction.getSBOTerm())+'\t'
             #except: value_row += '\t'
@@ -183,31 +153,34 @@ class SBMLDocument:
             except: value_row += '\t\n'
             reaction_SBtab += value_row
 
+
         return [reaction_SBtab,'reaction']
 
     def quantitySBtab(self):
         '''
         builds a Quantity SBtab
         '''
-        quantity_SBtab = '!!SBtab Version "0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Quantity" TableName="Quantity"\n!Quantity\t!SBML:parameter:id\t!Value\t!Unit\t!Description\n'
+        quantity_SBtab = '!!SBtab SBtabVersion="0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Quantity" TableName="Quantity"\n!Quantity\t!SBML:parameter:id\t!Value\t!Unit\t!Description\n'
 
         for reaction in self.model.getListOfReactions():
             kinetic_law = reaction.getKineticLaw()
-            for parameter in kinetic_law.getListOfParameters():
-                value_row = parameter.getId()+'_'+reaction.getId()+'\t'
-                value_row += parameter.getId()+'\t'
-                value_row += str(parameter.getValue())+'\t'
-                try: value_row += parameter.getUnits()+'\t'
-                except: value_row += 'No unit provided\t'
-                value_row += 'local parameter\t\n'
-            quantity_SBtab += value_row
+            if kinetic_law:
+                value_row   = ''
+                for parameter in kinetic_law.getListOfParameters():
+                    value_row += parameter.getId()+'_'+reaction.getId()+'\t'
+                    value_row += parameter.getId()+'\t'
+                    value_row += str(parameter.getValue())+'\t'
+                    try: value_row += parameter.getUnits()+'\t'
+                    except: value_row += '\t'
+                    value_row += 'local parameter\t\n'
+                quantity_SBtab += value_row
 
         for parameter in self.model.getListOfParameters():
             value_row = parameter.getId()+'\t'
             value_row += parameter.getId()+'\t'
-            value_row += str(parameter.getValue())+'\t'
+            value_row += str(parameter.getValue())+'\t'            
             try: value_row += parameter.getUnits()+'\t'
-            except: value_row += 'No unit provided\t'            
+            except: value_row += '\t'            
             value_row += 'global parameter\t\n'
             quantity_SBtab += value_row
             
