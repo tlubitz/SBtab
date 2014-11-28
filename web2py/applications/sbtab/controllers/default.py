@@ -22,6 +22,7 @@ import xlrd
 
 def index():
     session.ex_warning = None
+    #load_def_file()
     redirect(URL('../../static/introduction.html'))
 
 def clearsession():
@@ -149,7 +150,10 @@ def validator():
                     for itemx in TableValidClass.returnOutput():
                         v_output.append(itemx)
                 else:
-                    TableValidClass = validatorSBtab.ValidateTable(new_tablib_obj,session.sbtab_filenames[int(request.vars.validate_button)])
+                    def_file_open = open('./definitions/definitions.csv','r')    
+                    session.definition_file      = [def_file_open.read()]
+                    session.definition_file_name = ['definitions.csv']
+                    TableValidClass = validatorSBtab.ValidateTable(new_tablib_obj,session.sbtab_filenames[int(request.vars.validate_button)],session.definition_file[0],session.definition_file_name[0])
                     for itemx in TableValidClass.returnOutput():
                         v_output.append(itemx)
             sbtab2val  = session.sbtab_filenames[int(request.vars.validate_button)]
@@ -329,7 +333,9 @@ def converter():
         try:
             reader     = libsbml.SBMLReader()
             sbml_model = reader.readSBMLFromString(session.sbmls[int(request.vars.c2sbtab_button)])
-            ConvSBMLClass = sbml2sbtab.SBMLDocument(sbml_model.getModel(),session.sbml_filenames[int(request.vars.c2sbtab_button)])
+            filename   = session.sbml_filenames[int(request.vars.c2sbtab_button)]
+            if not filename.endswith('.xml'): filename += '.xml'
+            ConvSBMLClass = sbml2sbtab.SBMLDocument(sbml_model.getModel(),filename)
             tab_output    = ConvSBMLClass.makeSBtabs()
             # append generated SBtabs to session variables
             for SBtab in tab_output:
@@ -384,13 +390,19 @@ def def_files():
     response.title = T('SBtab - Standardised data tables for Systems Biology')
     response.subtitle = T('Upload your own definition files')
 
-    dform = SQLFORM.factory(Field('File', 'upload',uploadfolder="/tmp", label='Upload definition file (.csv, .tsv)'))
+    dform   = SQLFORM.factory(Field('File', 'upload',uploadfolder="/tmp", label='Upload definition file (.csv, .tsv)'))
+    new_def = False
+    
+    def_file_open = open('./definitions/definitions.csv','r')    
+    session.definition_file      = [def_file_open.read()]
+    session.definition_file_name = ['definitions.csv']
 
     #update session lists
     if dform.process().accepted:
         response.flash = 'form accepted'
         session.definition_file      = [request.vars.File.value]
         session.definition_file_name = [request.vars.File.filename]
+        new_def                      = True
     elif dform.errors:
         response.flash = 'form has errors'
 
@@ -400,7 +412,7 @@ def def_files():
         del session.definition_file_name[int(request.vars.erase_def_button)]
         redirect(URL(''))
 
-    return dict(UPL_FORM=dform,DEF_FILE=session.definition_file,DEF_NAME=session.definition_file_name)
+    return dict(UPL_FORM=dform,DEF_FILE=session.definition_file,DEF_NAME=session.definition_file_name,NEW=new_def)
 
 def downloader_sbtab():
         response.headers['Content-Type'] = 'text/csv'
@@ -426,6 +438,27 @@ def downloader_sbml():
                    **{'Content-Type':'text/xml',
                       'Content-Disposition':attachment + ';'})
 
+def show_sbtab_def():
+    '''
+    displays a given SBtab definition file in html
+    '''
+    def_file      = session.definition_file[int(request.args(0))]
+    def_file_name = session.definition_file_name[int(request.args(0))]
+    sbtype        = 'Definition'
+
+    try:
+        FileValidClass = validatorSBtab.ValidateFile(def_file,def_file_name)
+        delimiter      = FileValidClass.checkSeperator(def_file)
+    except:
+        delimiter = None
+        
+    if delimiter:
+        try: return makehtml.csv2html(def_file,def_file_name,delimiter,sbtype,def_file,def_file_name)
+        except: return 'There is something wrong with this SBtab file. It cannot be displayed.'
+    else:
+        try: return show_sbtab_xls(def_file,def_file_name)
+        except: return 'There is something wrong with this SBtab file. It cannot be displayed.'
+
 def show_sbtab():
     '''
     displays a given SBtab file in html
@@ -441,11 +474,12 @@ def show_sbtab():
         delimiter = None
         
     try:
-        def_file      = session.definition_file
-        def_file_name = session.definition_file_name
+        def_file      = session.definition_file[0]
+        def_file_name = session.definition_file_name[0]
     except:
-        def_file      = None
-        def_file_name = None
+        def_file_open = open('./definitions/definitions.csv','r')    
+        def_file      = def_file_open.read()
+        def_file_name = 'definitions.csv'
 
     if delimiter:
         try: return makehtml.csv2html(sbtab_file,file_name,delimiter,sbtype,def_file,def_file_name)

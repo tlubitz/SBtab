@@ -4,28 +4,27 @@
 <table>
 {{for pos,f in enumerate(DEF_NAME):}}
   <tr>
-    <td>{{=f}}</td>
+    {{if not NEW:}}
+    <td>Currently the default definition SBtab is loaded for your session:</td>
+    <td> <a href="/sbtab/default/show_sbtab_def/{{=str(pos)}}" target="_new"> {{=f}} </a> </td>
+    {{pass}}
+    {{if NEW:}}
+    <td> <a href="/sbtab/default/show_sbtab_def/{{=str(pos)}}" target="_new"> {{=f}} </a> </td>
     <td> <form> <button type="submit" value="{{=pos}}" name="erase_def_button">Remove</button> </form> </td>
+    {{pass}}
   </tr>
 {{pass}}
 </table>
 {{else:}}
-Currently the default definition SBtab is loaded for your session.
 {{pass}}
-
-
     <hr>
     <p>
       <a href="http://www.sbtab.net/index.html">Main</a> | 
       <a href="http://www.sbtab.net/introduction.html">Getting started</a> |
-      <a href="http://www.sbtab.net/specification.html">Specification</a> |
-      <a href="http://rumo.biologie.hu-berlin.de/SBtab/default/validator">Validation</a> | 
-      <a href="http://rumo.biologie.hu-berlin.de/SBtab/default/converter">Conversion</a> |
+      <a href="http://www.sbtab.net/specification.html">Documentation</a> |
+      <a href="http://rumo.biologie.hu-berlin.de/SBtab/default/validator">Validator</a> | 
+      <a href="http://rumo.biologie.hu-berlin.de/SBtab/default/converter">SBML</a> |
+      <a href="http://rumo.biologie.hu-berlin.de/SBtab/default/def_files">Customize</a> |
       <a href="http://www.sbtab.net/code.html">Code</a> |
       <a href="http://www.sbtab.net/team.html">Contact</a> 
     </p>
-
-
-
-
-

@@ -86,7 +86,6 @@ class SBtabDocument:
         in a list, moreover store the SBtab types in a dict linking to the SBtabs
         '''
         self.sbtabs     = []
-        #self.types      = []
         self.type2sbtab = {}
 
         #if there are more than one SBtabs given in single files that might be comprised of several SBtabs:
@@ -363,7 +362,8 @@ class SBtabDocument:
         if '!SumFormula' in sbtab.columns:
             self.getReactants(sbtab)
             for reaction in self.reaction2reactants:
-                compartment = self.reaction2compartment[reaction]
+                try: compartment = self.reaction2compartment[reaction]
+                except: compartment = False
                 educts      = self.reaction2reactants[reaction][0]
                 for educt in educts:
                     if not educt in self.id2sbmlid.keys() and not educt in self.species_list:
@@ -371,7 +371,7 @@ class SBtabDocument:
                         sp.setId(str(educt))
                         sp.setName(str(educt))
                         sp.setInitialConcentration(1)
-                        sp.setCompartment(compartment)
+                        if compartment: sp.setCompartment(compartment)
                         self.species_list.append(educt)
                 products = self.reaction2reactants[reaction][1]
                 for product in products:
@@ -380,7 +380,7 @@ class SBtabDocument:
                         sp.setId(str(product))
                         sp.setName(str(product))
                         sp.setInitialConcentration(1)
-                        sp.setCompartment(compartment)
+                        if compartment: sp.setCompartment(compartment)
                         self.species_list.append(product)
 
         #if compartments are given for the reactions and these compartments are not built yet:

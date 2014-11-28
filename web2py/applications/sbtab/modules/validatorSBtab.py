@@ -17,7 +17,7 @@ class ValidateTable:
     Validator (version 0.2.0 15/02/2014)
     Check SBtab file and SBtab object.
     """
-    def __init__(self, table, sbtab_name, def_table=None, def_name=None):
+    def __init__(self, table, sbtab_name, def_table, def_name):
         """
         Initialize validator and start check for file and table format.
 
@@ -29,18 +29,9 @@ class ValidateTable:
             File path of the Sbtab file
         """
         # import definitions from definition table
-        if def_table:  # user provided a custom definition file; let's see how that's working out
-            definition_table = tablibIO.importSetNew(def_table,def_name,seperator='\t')
-            definition_sbtab = SBtab.SBtabTable(definition_table, def_name)
-            self.definitions = definition_sbtab.sbtab_list
-        else: # no definition table is provided, so use the default one
-            try:
-                definition_table = tablibIO.importSet('./definitions/definitions.tsv')
-                definition_sbtab = SBtab.SBtabTable(definition_table, './definitions/definitions.tsv')
-                # ignore header and main column
-                self.definitions = definition_sbtab.sbtab_list
-            except:
-                raise SBtabError('Definition table could not be found, check file path! See specifications for further information.')
+        definition_table = tablibIO.importSetNew(def_table,def_name,seperator='\t')
+        definition_sbtab = SBtab.SBtabTable(definition_table, def_name)
+        self.definitions = definition_sbtab.sbtab_list
 
         # create set of valid table types
         #self.allowed_table_types = ['Reaction', 'Gene', 'Relationship', 'Regulator', 'Enzyme', 'Compound', 'Compartment', 'Quantity']
@@ -49,11 +40,7 @@ class ValidateTable:
         # create dict of valid column names per table type
         self.allowed_columns = {}
         for table_type in self.allowed_table_types:
-            self.allowed_columns[table_type] = [row[2] for row in self.definitions[2:][0] if row[1] == table_type]
-
-        #watch out if you want to start using this hard coded version instead of the read in definition file:
-        #the single column names may not be up to date!
-        #self.allowed_columns = {'Reaction': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Name', 'MiriamAnnotations', 'Type', 'Reaction', 'SBML:reaction:id', 'SumFormula', 'Location', 'Enzyme', 'Model', 'Pathway', 'SubreactionOf', 'IsComplete', 'IsReversible', 'IsInEquilibrium', 'IsExchangeReaction', 'Flux', 'IsNonEnzymatic', 'KineticLaw', 'Gene', 'Operon', 'Enzyme:SBML:species:id', 'Enzyme:SBML:parameter:id', 'BuildReaction', 'BuildEnzyme', 'BuildEnzymeProduction', 'SBOTerm', 'Modifier'], 'Compartment': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Name', 'MiriamAnnotations', 'Type', 'Compartment', 'SBML:compartment:id', 'OuterCompartment', 'OuterCompartment:SBML:compartment:id', 'Size', 'SBOTerm'], 'Relationship': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Relationship', 'SBOTerm'], 'Regulator': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Name', 'MiriamAnnotations', 'Type', 'Regulator', 'State', 'TargetGene', 'TargetOperon', 'TargetPromoter', 'SBOTerm'], 'Enzyme': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Name', 'MiriamAnnotations', 'Type', 'Enzyme', 'CatalysedReaction', 'KineticLaw', 'Gene', 'SBOTerm'], 'Compound': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Name', 'MiriamAnnotations', 'Type', 'Compound', 'SBML:species:id', 'SBML:speciestype:id', 'Location', 'State', 'CompoundSumFormula', 'StructureFormula', 'Charge', 'Mass', 'Constant', 'EnzymeRole', 'RegulatorRole', 'SBOTerm', 'SpeciesType', 'InitialConcentration'], 'Gene': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Name', 'MiriamAnnotations', 'Type', 'Gene', 'GeneLocus', 'GeneProduct', 'GeneProduct:SBML:species:id', 'Operon'], 'Quantity': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Name', 'MiriamAnnotations', 'Type', 'Quantity', 'QuantityType', 'SBML:parameter:id', 'Unit', 'Scale', 'Condition', 'pH', 'Temperature', 'Location', 'SBML:compartment:id', 'Compound', 'Compound:SBML:species:id', 'Reaction', 'Reaction:SBML:reaction:id', 'Enyzme', 'Enyzme:SBML:species:id', 'Enyzme:SBML:parameter:id', 'Gene', 'Organism']}
+            self.allowed_columns[table_type] = [row[3] for row in self.definitions[2:][0] if row[1] == table_type]
 
         # initialize warning string
         self.warnings = []

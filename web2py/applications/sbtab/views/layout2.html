@@ -5,8 +5,7 @@
   <meta charset="utf-8" />
   <meta name="application-name" content="{{=request.application}}" />
   <title>SBtab Online Validator</title>
-  <link rel="stylesheet" type="text/css" href="../static/css/sbtab.css">
-  {{#response.files.append(URL('static','css/sbtab.css'))}}
+  <link rel="stylesheet" type="text/css" href="/sbtab/static/css/sbtab.css">
 
   <script type="text/javascript">
     function help_click(div, txt) { if (div.innerHTML == "") div.innerHTML = "<br/>   " + txt; else div.innerHTML = ""; }

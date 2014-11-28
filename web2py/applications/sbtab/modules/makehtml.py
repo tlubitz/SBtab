@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 import re
 import tablib
+import string
+import validatorSBtab
 import tablib.packages.xlrd as xlrd
+
+urns = ["obo.chebi","kegg.compound","obo.go","obo.sgd","biomodels.sbo","ec-code","kegg.orthology","obo.uniprot"]
 
 def csv2html(sbtab_file,file_name,delimiter,sbtype,def_file=None,def_file_name=None):
     '''
@@ -11,10 +15,11 @@ def csv2html(sbtab_file,file_name,delimiter,sbtype,def_file=None,def_file_name=N
         FileValidClass = validatorSBtab.ValidateFile(def_file,def_file_name)
         def_delimiter  = FileValidClass.checkSeperator(sbtab_file)
     else:
-        def_file = open('./definitions/definitions.tsv','r')
+        def_file_open = open('./definitions/definitions.csv','r')
+        def_file      = def_file_open.read()
         def_delimiter = '\t'
 
-    col2description = findDescriptions(def_file.read(),def_delimiter,sbtype)
+    col2description = findDescriptions(def_file,def_delimiter,sbtype)
 
     ugly_sbtab = sbtab_file.split('\n')
     nice_sbtab = '<p><h2><b>'+file_name+'</b></h2></p>'
@@ -29,10 +34,12 @@ def csv2html(sbtab_file,file_name,delimiter,sbtype,def_file=None,def_file_name=N
             splitrow = row.split(delimiter)
             for i,element in enumerate(splitrow):
                 if 'Identifiers:' in element:
-                    urn_str = re.search("\w*\.\w*",element)
-                    urn     = urn_str.group(0)
-                    ident_url = 'http://www.identifiers.org/'+urn+'/'
-                    ident_col = i
+                    for pattern in urns:
+                        if pattern in element:
+                            #urn_str = re.search(pattern,element)
+                            #urn     = urn_str.group(0)
+                            ident_url = 'http://identifiers.org/'+pattern+'/'
+                            ident_col = i
         else: nice_sbtab += '<tr>'
 
         for i,thing in enumerate(row.split(delimiter)):
@@ -61,12 +68,13 @@ def xls2html(xls_sbtab,file_name,sbtype,def_file=None,def_file_name=None):
     '''
     if def_file:
         FileValidClass = validatorSBtab.ValidateFile(def_file,def_file_name)
-        def_delimiter  = FileValidClass.checkSeperator(sbtab_file)
+        def_delimiter  = FileValidClass.checkSeperator(def_file)
     else:
-        def_file = open('./definitions/definitions.tsv','r')
+        def_file_open = open('./definitions/definitions.csv','r')
+        def_file      = def_file_open.read()
         def_delimiter = '\t'
 
-    col2description = findDescriptions(def_file.read(),def_delimiter,sbtype)
+    col2description = findDescriptions(def_file,def_delimiter,sbtype)
 
     nice_sbtab = '<p><h2><b>'+file_name+'</b></h2></p>'
     ident_url = False
@@ -94,7 +102,7 @@ def xls2html(xls_sbtab,file_name,sbtype,def_file=None,def_file_name=None):
                     if "Identifiers:" in thing:
                         urn_str = re.search("\w*\.\w*",thing)
                         urn     = urn_str.group(0)
-                        ident_url = 'http://www.identifiers.org/'+urn+'/'
+                        ident_url = 'http://identifiers.org/'+urn+'/'
                         ident_col = i
                 nice_sbtab += '<tr bgcolor="#87CEFA">'+new_row+'</tr>'
             else:
@@ -129,13 +137,13 @@ def xml2html(sbml_file):
 def findDescriptions(def_file,def_delimiter,sbtype):
     '''
     preprocesses the definition file in order to enable some nice mouseover effects for the known column names
-    '''
+    '''    
     col2description = {}
     col_dsc         = False
 
     columnrow = def_file.split('\n')[1]
     columnrowspl = columnrow.split(def_delimiter)
-    
+
     for row in def_file.split('\n'):
         splitrow = row.split(def_delimiter)
         if len(splitrow) != len(columnrowspl): continue
@@ -144,9 +152,8 @@ def findDescriptions(def_file,def_delimiter,sbtype):
             for i,elem in enumerate(splitrow):
                 if elem == "!Description":
                     col_dsc = i
-        if not splitrow[0] == sbtype: continue
-        if col_dsc and not splitrow[0].startswith('!'):
-            col2description[splitrow[1]] = splitrow[col_dsc]
+        if not string.capitalize(splitrow[0]) == string.capitalize(sbtype): continue
+        if col_dsc and not splitrow[0].startswith('!'): col2description[splitrow[1]] = splitrow[col_dsc]
 
     return col2description
             
