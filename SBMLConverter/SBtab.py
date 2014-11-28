@@ -25,7 +25,7 @@ See specification for further informations.
 import re
 import copy
 import sys
-sys.path.insert(0, './SBtab')
+#sys.path.insert(0, './SBtab')
 import tablib
 import tablibIO
 
@@ -62,8 +62,7 @@ class SBtabTable():
         self.table = table
 
         # Delete tablib header to avoid complications
-        if self.table.headers:
-            self.table.headers = None
+        if self.table.headers: self.table.headers = None
 
         # Create all necessary variables
         self.initializeTable()
@@ -76,7 +75,7 @@ class SBtabTable():
         self.header_row = self.getHeaderRow()
 
         # Read the table information from header row
-        (self.table_type, self.table_name, self.table_document, self.table_level, self.table_version) = self.getTableInformation()
+        (self.table_type, self.table_name, self.table_document, self.table_version) = self.getTableInformation()
         
         # Read the columns of the table
         (self.columns, self.columns_dict, inserted_column) = self.getColumns()
@@ -107,7 +106,7 @@ class SBtabTable():
                 if str(entry).startswith('!!'):
                     header_row = row
                     break
-
+        
         # Save string or raise error
         if not header_row:
             raise SBtabError('This is not a valid SBtab table, please use validator to check format or have a look in the specification!')
@@ -118,19 +117,19 @@ class SBtabTable():
         header_row = header_row.replace('"', "'")
         try: header_row = header_row.replace('\xe2\x80\x9d', "'")
         except: pass
-        
+     
         # Split header row
         header_row = header_row.split(' ')
-        
+
         # Delete spaces in header row
         while '' in header_row:
             header_row.remove('')
+
         header = ""
         for x in header_row[:-1]:
             header += x + ' '
         header += header_row[-1]
 
-        # return header row
         return header
 
     def getTableInformation(self):
@@ -145,8 +144,6 @@ class SBtabTable():
             Name of the SBtab table.
         table_document : str
             Document type of SBtab table.
-        table_level : str
-            Level of SBtab table.
         table_version : str
             Version of the SBtab table.
 
@@ -160,16 +157,16 @@ class SBtabTable():
         # Initialize variables for unnamed table handling
         global tables_without_name
         no_name_counter = 0
-        header_row = self.getHeaderRow()
+        #header_row = self.getHeaderRow()
 
         # Save table type, otherwise raise error
-        if re.search("TableType='([^']*)'", header_row) != None:
-            table_type = re.search("TableType='([^']*)'", header_row).group(1)
+        if re.search("TableType='([^']*)'", self.header_row) != None:
+            table_type = re.search("TableType='([^']*)'", self.header_row).group(1)
         else:
             raise SBtabError('The TableType of the SBtab is not defined!')
 
         # Save table name, otherwise give name with number of unnamed tables
-        tn = re.search("TableName='([^']*)'", header_row)
+        tn = re.search("TableName='([^']*)'", self.header_row)
         if tn:
             table_name = tn.group(1)
         else:
@@ -181,27 +178,20 @@ class SBtabTable():
             self.header_row += " TableName='" + table_name + "'"
 
         # Save table document, otherwise return None
-        td = re.search("Document='([^']*)'", header_row)
+        td = re.search("Document='([^']*)'", self.header_row)
         if td:
             table_document = td.group(1)
         else:
             table_document = None
 
-        # save table level, otherwise return None
-        tl = re.search("Level='([^']*)'", header_row)
-        if tl:
-            table_level = tl.group(1)
-        else:
-            table_level = None
-
         # save table version, otherwise return None
-        tv = re.search("Version='([^']*)'", header_row)
+        tv = re.search("SBtabVersion='([^']*)'", self.header_row)
         if tv:
             table_version = tv.group(1)
         else:
             table_version = None
 
-        return table_type, table_name, table_document, table_level, table_version
+        return table_type, table_name, table_document, table_version
 
     def getColumns(self):
         """
