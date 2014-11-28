@@ -19,9 +19,13 @@ try:
 except:
     tablib.Databook.sheets = sheets
 
-def importSetNew(sbtabfile,filename):
+def importSetNew(sbtabfile,filename,seperator=None):
+    if seperator:
+        return haveTSV(sbtabfile,seperator)
+
     mimetypes.init()
     file_mimetype = mimetypes.guess_type(filename)[0]
+
     if file_mimetype == 'text/csv':
         return haveTSV(sbtabfile, 'c')
     elif file_mimetype == 'text/tab-separated-values':
@@ -29,7 +33,7 @@ def importSetNew(sbtabfile,filename):
     elif file_mimetype == 'text/tsv':
         return haveTSV(sbtabfile, 't')    
     elif file_mimetype == 'application/vnd.ms-excel' or file_mimetype == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
-        return haveXLS(sbtabfile, False, True)
+        return haveXLS(sbtabfile, True, True)
     else:
         return None
         #raise TypeError("%s is not in a supported format" % fpath)
@@ -79,6 +83,7 @@ def loadCSV(fpath, headers):
             dset.append(row)
     return dset
 
+
 def haveCSV(csvfile,headers):
     '''
     not needed anymore?
@@ -106,15 +111,12 @@ def haveCSV(csvfile,headers):
 
     return dset
 
-def haveTSV(tsvfile,headers=False):
+def haveTSV(tsvfile,seperator):
+    
     in_stream = tsvfile     #.read()
-    #tsvfile.close()
 
     dset = tablib.Dataset()
-    if headers == 't':
-        rows = list(csv.reader(in_stream.splitlines(), delimiter='\t', quotechar='"'))
-    elif headers == 'c':
-        rows = list(csv.reader(in_stream.splitlines(), delimiter=',', quotechar='"'))
+    rows = list(csv.reader(in_stream.splitlines(), delimiter=seperator, quotechar='"'))    
 
     try:
         longest = max([len(x) for x in rows])
@@ -158,9 +160,10 @@ def loadTSV(fpath, headers):
     return dset
 
 def haveXLS(file,headers,set_only):
+
     dbook = tablib.Databook()
-    #f = open(fpath, 'rb')
     xl = xlrd.open_workbook(file_contents=file)
+
     for sheetname in xl.sheet_names():
         dset = tablib.Dataset()
         dset.title = sheetname
@@ -168,9 +171,9 @@ def haveXLS(file,headers,set_only):
         for row in range(sheet.nrows):
             if (row == 0) and (headers):
                 dset.headers = sheet.row_values(row)
-            else:
-                dset.append(sheet.row_values(row))
+            dset.append(sheet.row_values(row))
         dbook.add_sheet(dset)
+
     if set_only:
         return dbook.sheets()[0]
     else:
