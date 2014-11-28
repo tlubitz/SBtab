@@ -30,6 +30,8 @@ class SBtabDocument:
             self.document = [self.makeTSVfile(sbtab_document)]
         else: self.document = [sbtab_document]
 
+        self.tabs = tabs
+
         (sbtabs,types) = self.checkTabs()              #check how many SBtabs are given in the document
 
     def makeTSVfile(self,xls_file):
