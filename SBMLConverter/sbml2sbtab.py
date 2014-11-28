@@ -139,7 +139,7 @@ class SBMLDocument:
             elif len(modifiers)==1:
                 for modifier in modifiers: value_row += modifier.getSpecies()+'\t'
             else: value_row += '\t'
-            try: kinlaw = reaction.getKineticLaw().getName()
+            try: kinlaw = reaction.getKineticLaw().getFormula()
             except: kinlaw = ''
             if kinlaw == '': kinlaw = ''
             value_row += kinlaw+'\t'          
@@ -152,7 +152,6 @@ class SBMLDocument:
             try: value_row += str(reaction.getReversible())+'\n'
             except: value_row += '\t\n'
             reaction_SBtab += value_row
-
 
         return [reaction_SBtab,'reaction']
 
@@ -184,7 +183,7 @@ class SBMLDocument:
             value_row += 'global parameter\t\n'
             quantity_SBtab += value_row
             
-        return [quantity_SBtab,'quantity']                
+        return [quantity_SBtab,'quantity']
 
     def makeSumFormula(self,reaction):
         '''
@@ -228,7 +227,7 @@ class SBMLDocument:
             sumformula += '\t'
 
         return sumformula
-        
+
 
 if __name__ == '__main__':
     #sbml_model = open('BIOMD0000000061.xml','r')
@@ -237,10 +236,3 @@ if __name__ == '__main__':
     sbml_class = SBMLDocument(sbml_model,'BIOMD.xml')
 
     print sbml_class.makeSBtabs()
-
-    #reactions = sbml_class.reactionSBtab()
-    #bla = open('yeast.tsv','wr')
-    #for row in reactions:
-    #    bla.write(row)
-
-    #bla.close()
