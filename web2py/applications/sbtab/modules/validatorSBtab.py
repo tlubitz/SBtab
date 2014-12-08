@@ -35,12 +35,12 @@ class ValidateTable:
 
         # create set of valid table types
         #self.allowed_table_types = ['Reaction', 'Gene', 'Relationship', 'Regulator', 'Enzyme', 'Compound', 'Compartment', 'Quantity']
-        self.allowed_table_types = list(set([row[1] for row in self.definitions[2:][0]]))
+        self.allowed_table_types = list(set([row[3] for row in self.definitions[2:][0]]))
 
         # create dict of valid column names per table type
         self.allowed_columns = {}
         for table_type in self.allowed_table_types:
-            self.allowed_columns[table_type] = [row[3] for row in self.definitions[2:][0] if row[1] == table_type]
+            self.allowed_columns[table_type] = [row[1] for row in self.definitions[2:][0] if row[3] == table_type]
 
         # initialize warning string
         self.warnings = []
@@ -158,11 +158,9 @@ class ValidateTable:
             # check the content of the main column (first one) for empty entries
             if row[self.sbtab.columns_dict['!' + self.sbtab.table_type]] == '':
                 self.warnings.append('The SBtab includes a row with an undefined identifier in the row: \n' + str(row))
-            for column in self.sbtab.columns:
-                # check the rows for entries starting with + or -
-                if str(row[self.sbtab.columns_dict[column]]).startswith('+') or str(row[self.sbtab.columns_dict[column]]).startswith('-'):
-                    self.warnings.append('An identifier for a data row must not begin with "+" or "-": \n' + \
-                        str(row))
+            # check the rows for entries starting with + or -
+            if str(row[0]).startswith('+') or str(row[0]).startswith('-'):
+                self.warnings.append('An identifier for a data row must not begin with "+" or "-": \n' + str(row))
                 # check the rows for entries containing . or :     OMITTED; should be solved, if the user puts the entryfield in quotes "
                 #if ',' in list(row[self.sbtab.columns_dict[column]]):
                 #    self.warnings.append('A data row must not include commas, but this one does: \n' + \

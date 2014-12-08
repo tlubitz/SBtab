@@ -38,7 +38,10 @@ class SBMLDocument:
         '''
         generates the SBtab files
         '''
-        sbtabs = []
+        self.warnings = []
+        sbtabs        = []
+
+        self.testForInconvertibles()
 
         for sbtab_type in allowed_sbtabs:
             function_name = 'self.'+sbtab_type.lower()+'SBtab()'
@@ -46,7 +49,23 @@ class SBMLDocument:
 
         sbtabs = self.getRidOfNone(sbtabs)
 
-        return sbtabs
+        return sbtabs,self.warnings
+
+    def testForInconvertibles(self):
+        '''
+        some SBML entities cannot be converted to SBML. so we add warnings to tell the user.
+        '''
+        try:
+            rules = self.model.getListOfRules()
+            if len(rules)>0:
+                self.warnings.append('The SBML model contains rules. These cannot be translated to the SBtab files.')
+        except: pass
+        try:
+            events = self.model.getListOfEvents()
+            if len(events)>0:
+                self.warnings.append('The SBML model contains events. These cannot be translated to the SBtab files.')
+        except: pass
+        
         
     def getRidOfNone(self,sbtabs):
         '''
@@ -75,7 +94,7 @@ class SBMLDocument:
             try: value_row += str(compartment.getUnits())+'\t'
             except: value_row += '\t'           
             if str(compartment.getSBOTerm()) == '-1': value_row += '\t'
-            else: str(compartment.getSBOTerm())+'\t'            
+            else: value_row += str(compartment.getSBOTerm())+'\t'            
             #try: value_row += str(compartment.getSBOTerm())+'\n'
             #except: value_row += '\t\n'
 
@@ -113,7 +132,7 @@ class SBMLDocument:
             try: value_row += str(species.getConstant())+'\t'
             except: value_row += '\t'
             if str(species.getSBOTerm()) == '-1': value_row += '\t'
-            else: str(species.getSBOTerm())+'\t'
+            else: value_row += str(species.getSBOTerm())+'\t'
             try: value_row += str(species.getInitialConcentration())+'\t'
             except: value_row += '\t'
 
@@ -164,6 +183,13 @@ class SBMLDocument:
                 urn = pattern2urn[pattern]
                 break
             except: pass
+
+        if urn == False:
+            try:
+                search_annot = re.search('identifiers.org/(.*)/(.*)',resource)
+                annotation   = search_annot.group(2)
+                urn          = search_annot.group(1)
+            except: pass
             
         return (annotation,urn)
 
@@ -172,7 +198,7 @@ class SBMLDocument:
         builds a Reaction SBtab
         '''
         
-        reaction_SBtab = '!!SBtab SBtabVersion="0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Reaction" TableName="Reaction"\n!Reaction\t!Name\t!SumFormula\t!Location\t!Modifier\t!KineticLaw\t!SBOTerm\t!IsReversible'
+        reaction_SBtab = '!!SBtab SBtabVersion="0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Reaction" TableName="Reaction"\n!Reaction\t!Name\t!SumFormula\t!Location\t!Regulator\t!KineticLaw\t!SBOTerm\t!IsReversible'
         identifiers = []
         the_rows    = ''
 
@@ -201,7 +227,7 @@ class SBMLDocument:
             #try: value_row += reaction.getKineticLaw().getName()+'\t'
             #except: value_row += '\t'
             if str(reaction.getSBOTerm()) == '-1': value_row += '\t'
-            else: str(reaction.getSBOTerm())+'\t'
+            else: value_row += str(reaction.getSBOTerm())+'\t'
             #try: value_row += str(reaction.getSBOTerm())+'\t'
             #except: value_row += '\t'
             try: value_row += str(reaction.getReversible())+'\t'

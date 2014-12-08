@@ -80,21 +80,29 @@ No SBtab files uploaded.
 {{pass}}
 </table>
 {{else:}}
-No SBML files uploaded
+<tr>No SBML files uploaded</tr>
 {{pass}}
 
 
 {{if EXWARNING:}}
+<br><br>
+<b>Logfile of warnings for conversion:</b>
+
 <table>
+{{if len(EXWARNING)>1:}}
+{{for f in EXWARNING:}} 
+  <tr> 
+    <td>{{=f}}</td> 
+  </tr>
+{{pass}}
+</table>
+{{else:}}
 <tr>
-<td>
-<b>{{=EXWARNING}}</b>
-</td>
+{{=EXWARNING[0]}}
 </tr>
 </table>
 {{pass}}
-
-
+{{pass}}
     <hr>
     <p>
       <a href="http://www.sbtab.net/index.html">Main</a> | 

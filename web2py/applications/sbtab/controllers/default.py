@@ -15,6 +15,7 @@ import sbml2sbtab
 import sbtab2sbml
 import libsbml
 import random
+import string
 import splitTabs
 import makehtml
 import tablib.packages.xlrd as xlrd
@@ -128,7 +129,7 @@ def validator():
 
                 #redirect(URL(''))
         except:
-            session.ex_warning = 'The file that you uploaded is no valid SBtab file. Please only use .csv or .xls format. If it still does not work out, please consult the SBtab specification.'
+            session.ex_warning = ['The file that you uploaded is no valid SBtab file. Please only use .csv or .xls format. If it still does not work out, please consult the SBtab specification.']
     elif lform.errors:
         response.flash = 'form has errors'
 
@@ -160,7 +161,7 @@ def validator():
             #redirect(URL(''))
             session.ex_warning = None
         except:
-            session.ex_warning = 'Your file is corrupt. Even too corrupt to be validated. Please remove it and see the SBtab specification to try and create a better SBtab file.'
+            session.ex_warning = ['Your file is corrupt. Even too corrupt to be validated. Please remove it and see the SBtab specification to try and create a better SBtab file.']
             v_output  = ''
             sbtab2val = ''
     else:
@@ -253,7 +254,7 @@ def converter():
                         session.sbtab_docnames.append(docs[0])
                         session.sbtab_types.append(types[0])
             except:
-                session.ex_warning = 'The file that you uploaded is no SBtab file. Please only use .csv or .xls format. If it still does not work out, please consult the SBtab specification.'
+                session.ex_warning = ['The file that you uploaded is no SBtab file. Please only use .csv or .xls format. If it still does not work out, please consult the SBtab specification.']
     elif lform.errors:
         response.flash = 'form has errors'
 
@@ -261,8 +262,8 @@ def converter():
     if request.vars.c2sbml_button:
         try:
             fn = session.sbtab_filenames[int(request.vars.c2sbml_button)]+session.sbtab_fileformat[int(request.vars.c2sbml_button)]
-            sbtab_document = sbtab2sbml.SBtabDocument(session.sbtabs[int(request.vars.c2sbml_button)],fn)
-            new_sbml       = sbtab_document.makeSBML()
+            sbtab_document                = sbtab2sbml.SBtabDocument(session.sbtabs[int(request.vars.c2sbml_button)],fn)
+            (new_sbml,session.ex_warning) = sbtab_document.makeSBML()
             if not session.has_key('sbmls'):
                 session.sbmls = [new_sbml]
                 session.sbml_filenames = [session.sbtab_filenames[int(request.vars.c2sbml_button)]+'_SBML']
@@ -275,7 +276,7 @@ def converter():
                     random_number = str(random.randint(0,1000))
                     session.sbml_filenames.append(fn+'_'+random_number)
         except:
-            session.ex_warning = 'The SBtab file could not be converted to SBML. Please check whether you have a valid Reaction SBtab file.'
+            session.ex_warning = ['The SBtab file could not be converted to SBML. Please check whether you have a valid Reaction SBtab file.']
 
     if request.vars.dl_sbtab_button:
         downloader_sbtab()
@@ -287,8 +288,8 @@ def converter():
             for i,docname in enumerate(session.sbtab_docnames):
                 if docname == convert_document:
                     merged_sbtabs.append(session.sbtabs[i])
-            sbtab_document = sbtab2sbml.SBtabDocument(merged_sbtabs,'merged_unknown.tsv',tabs=2)
-            new_sbml       = sbtab_document.makeSBML()
+            sbtab_document                = sbtab2sbml.SBtabDocument(merged_sbtabs,'merged_unknown.tsv',tabs=2)
+            (new_sbml,session.ex_warning) = sbtab_document.makeSBML()
             if not session.has_key('sbmls'):
                 session.sbmls = [new_sbml]
                 session.sbml_filenames = [convert_document]
@@ -301,7 +302,7 @@ def converter():
                     random_number = str(random.randint(0,1000))
                     session.sbml_filenames.append(fn+'_'+random_number)
         except:
-            session.ex_warning = 'The SBtab file could not be converted to SBML. Please check whether you have a valid Reaction SBtab file.'
+            session.ex_warning = ['The SBtab file could not be converted to SBML. Please check whether you have a valid Reaction SBtab file.']
 
     #Form for SBML files
     rform = SQLFORM.factory(Field('File', 'upload',uploadfolder="/tmp", label='Upload SBML file to convert (.xml)'))
@@ -335,8 +336,8 @@ def converter():
             sbml_model = reader.readSBMLFromString(session.sbmls[int(request.vars.c2sbtab_button)])
             filename   = session.sbml_filenames[int(request.vars.c2sbtab_button)]
             if not filename.endswith('.xml'): filename += '.xml'
-            ConvSBMLClass = sbml2sbtab.SBMLDocument(sbml_model.getModel(),filename)
-            tab_output    = ConvSBMLClass.makeSBtabs()
+            ConvSBMLClass                   = sbml2sbtab.SBMLDocument(sbml_model.getModel(),filename)
+            (tab_output,session.ex_warning) = ConvSBMLClass.makeSBtabs()
             # append generated SBtabs to session variables
             for SBtab in tab_output:
                 if not session.has_key('sbtabs'):
@@ -344,7 +345,7 @@ def converter():
                     session.sbtab_filenames = [session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')+'_'+SBtab[1]]
                     session.sbtab_fileformat = ['.csv']
                     session.sbtab_docnames = [session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')]
-                    session.sbtab_types    = [SBtab[1]]
+                    session.sbtab_types    = [string.capitalize(SBtab[1])]
                     session.todeletename   = [session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')+'_'+SBtab[1]]
                     session.name2doc = {}
                     session.name2doc[session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')+'_'+SBtab[1]] = session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')
@@ -362,9 +363,9 @@ def converter():
                         session.name2doc[fn+'_'+random_number] = session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')      #needs +'_'+SBtab[1]??
                     session.sbtab_fileformat.append('.csv')
                     session.sbtab_docnames.append(session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml'))
-                    session.sbtab_types.append(SBtab[1])
+                    session.sbtab_types.append(string.capitalize(SBtab[1]))
         except:
-            session.ex_warning = 'The SBML file could not be converted to SBtab. Please check whether your SBML file is valid.'
+            session.ex_warning = ['The SBML file could not be converted to SBtab. Please check whether your SBML file is valid.']
 
     if request.vars.erase_sbtab_button:
         del session.sbtabs[int(request.vars.erase_sbtab_button)]

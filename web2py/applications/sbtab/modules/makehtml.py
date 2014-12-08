@@ -34,12 +34,12 @@ def csv2html(sbtab_file,file_name,delimiter,sbtype,def_file=None,def_file_name=N
             splitrow = row.split(delimiter)
             for i,element in enumerate(splitrow):
                 if 'Identifiers:' in element:
-                    for pattern in urns:
-                        if pattern in element:
-                            #urn_str = re.search(pattern,element)
-                            #urn     = urn_str.group(0)
-                            ident_url = 'http://identifiers.org/'+pattern+'/'
-                            ident_col = i
+                    try:
+                        searcher  = re.search('!Identifiers:(.*)',element)
+                        ident_url = 'http://identifiers.org/'+searcher.group(1)+'/'
+                        ident_col = i
+                    except: pass
+                    
         else: nice_sbtab += '<tr>'
 
         for i,thing in enumerate(row.split(delimiter)):
@@ -152,8 +152,8 @@ def findDescriptions(def_file,def_delimiter,sbtype):
             for i,elem in enumerate(splitrow):
                 if elem == "!Description":
                     col_dsc = i
-        if not string.capitalize(splitrow[0]) == string.capitalize(sbtype): continue
-        if col_dsc and not splitrow[0].startswith('!'): col2description[splitrow[1]] = splitrow[col_dsc]
+        if not string.capitalize(splitrow[2]) == string.capitalize(sbtype): continue
+        if col_dsc and not splitrow[2].startswith('!'): col2description[splitrow[0]] = splitrow[col_dsc]
 
     return col2description
             
