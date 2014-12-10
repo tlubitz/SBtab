@@ -27,12 +27,15 @@ class SBtabError(Exception):
 
 class ValidateTable:
     """
-    Validator (version 0.8.0 10/12/2014)
+    Table validator (version 0.8.0 10/12/2014)
     Check SBtab spreadsheet file and SBtab object.
     """
     def __init__(self, table, sbtab_name, def_table, def_name):
         """
         Initialise validator, load definition table and start validation of file and table format.
+        Take tablib object of SBtab, file path of the spreadsheet file, definition table as SBtab object 
+        and the file path of the definition table.
+        Creates a string list of warnings.
 
         Parameters
         ----------
@@ -184,10 +187,16 @@ class ValidateTable:
 
 class ValidateFile:
     """
+    File validator (version 0.8.0 10/12/2014)
     Validate spreadsheet file and format of the file.
     Class does not use the definition table. 
     """
     def __init__(self, sbtab_file, filename):
+        """
+        Initialise validation of table. 
+        Take SBtab object of table and file path of the SBtab table.
+        Create a string list of warnings.
+        """
         # initialize warning string
         self.warnings = []
 
