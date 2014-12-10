@@ -43,7 +43,7 @@ class SBtabError(Exception):
 
 class SBtabTable():
     """
-    SBtabTable (version 0.1.0 07/12/2013)
+    SBtabTable (version 0.8.0 10/12/2014)
     """
     def __init__(self, table, filename):
         """
