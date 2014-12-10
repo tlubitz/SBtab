@@ -7,6 +7,7 @@ import string
 
 #all allowed SBtab types (except for Compound and Reaction, which are somewhat mandatory)
 sbtab_types = ['Quantity'] #['Enzyme','Compartment']
+urns = ["obo.chebi","kegg.compound","obo.go","obo.sgd","biomodels.sbo","ec-code","kegg.orthology","obo.uniprot"]
 
 class ConversionError(Exception):
     def __init__(self,message):
@@ -78,6 +79,7 @@ class SBtabDocument:
             tsv_file.append(row.rstrip('\t')+'\n')
         '''
         return tsv_file
+
 
     def checkTabs(self,doc=None):
         '''
@@ -179,6 +181,7 @@ class SBtabDocument:
         generates the SBML file using the mandatory reaction SBtab file
         '''
         # initialize new model
+        self.warnings     = []
         self.new_document = libsbml.SBMLDocument()
         self.new_model    = self.new_document.createModel()
         self.new_model.setId('default_id')
@@ -214,7 +217,7 @@ class SBtabDocument:
         #libsbml.writeSBML(self.new_document,'New_Model.xml')
         newSBML = libsbml.writeSBMLToString(self.new_document)
 
-        return newSBML
+        return newSBML,self.warnings
 
     def checkForCompartments(self):
         '''
@@ -256,25 +259,23 @@ class SBtabDocument:
         self.compartment_list.append('Default_Compartment')
         return True
 
-    def enzymeSBtab(self):
+    def setAnnotation(self,element,annotation,urn,elementtype):
         '''
-        extract the information from the Enzyme SBtab and write it to the model
+        sets an annotation for a given SBML element
         '''
-        sbtab = self.type2sbtab['Enzyme']
+        element.setMetaId(element.getId()+"_meta")
+        cv_term = libsbml.CVTerm()
+        if elementtype == 'Model':
+            cv_term.setQualifierType(0)
+            cv_term.setModelQualifierType(libsbml.BQB_IS)
+        else:
+            cv_term.setQualifierType(1)
+            cv_term.setBiologicalQualifierType(libsbml.BQB_IS)
 
-        for row in sbtab.value_rows:
-            if row[sbtab.columns_dict['!Enzyme']] not in self.species_list:
-                species = self.new_model.createSpecies()
-                species.setId(str(row[sbtab.columns_dict['!Enzyme']]))
-                if '!Name' in sbtab.columns and not row[sbtab.columns_dict['!Name']] == '':
-                    if '|' in row[sbtab.columns_dict['!Name']]: species.setName(str(row[sbtab.columns_dict['!Name']].split('|')[0]))
-                    else: species.setName(str(row[sbtab.columns_dict['!Name']]))
-                #self.new_model.addSpecies(species)                
-            if row[sbtab.columns_dict['!Enzyme']] not in self.modifier_list:
-                for reaction in self.new_model.getListOfReactions():
-                    if reaction.getId() == row[sbtab.columns_dict['!Reaction']]:
-                        modifier = reaction.createModifier()
-                        modifier.setSpecies(row[sbtab.columns_dict['!Enzyme']])
+        resource_term = "http://identifiers.org/"+urn+'/'+annotation
+        cv_term.addResource(resource_term)
+
+        return cv_term
 
     def compartmentSBtab(self):
         '''
@@ -282,7 +283,7 @@ class SBtabDocument:
         '''
         sbtab     = self.type2sbtab['Compartment']
         comp2size = {}
-        
+
         #complement the missing compartments
         for row in sbtab.value_rows:
             if row[sbtab.columns_dict['!Compartment']] not in self.compartment_list:
@@ -304,6 +305,21 @@ class SBtabDocument:
                     for compsbtab in sbtab.value_rows:
                         if comp.getId() == compsbtab[sbtab.columns_dict['!Compartment']] and compsbtab[sbtab.columns_dict['!Size']] != '':
                             comp.setSize(float(compsbtab[sbtab.columns_dict['!Size']]))
+            
+            for column in sbtab.columns_dict.keys():
+                if "Identifiers" in column:
+                    annot = row[sbtab.columns_dict[column]]
+                    if annot == '':
+                        continue
+                    for pattern in urns:
+                        if pattern in column:
+                            urn = pattern
+                    try:
+                        cv_term = self.setAnnotation(compartment,annot,urn,'Model')
+                        compartment.addCVTerm(cv_term)
+                    except:
+                        print 'There was an annotation that I could not assign properly: ',compartment.getId(),annot,urn
+           
 
     def compoundSBtab(self):
         '''
@@ -323,7 +339,7 @@ class SBtabDocument:
                 if '!Name' in sbtab.columns and not row[sbtab.columns_dict['!Name']] == '':
                     if '|' in row[sbtab.columns_dict['!Name']]: species.setName(str(row[sbtab.columns_dict['!Name']].split('|')[0]))
                     else: species.setName(str(row[sbtab.columns_dict['!Name']]))
-                self.species_list.append(species)
+                self.species_list.append(species.getId())
                 #check out the speciestype if possible
                 if '!SBML:speciestype:id' in sbtab.columns and row[sbtab.columns_dict['!SBML:speciestype:id']] != '':
                     species_type = self.new_model.createSpeciesType()
@@ -346,11 +362,23 @@ class SBtabDocument:
                 if '!IsConstant' in sbtab.columns and row[sbtab.columns_dict['!IsConstant']] != '':
                     species.setConstant(row[sbtab.columns_dict['!IsConstant']].lower())
 
+                for column in sbtab.columns_dict.keys():
+                    if "Identifiers" in column:
+                        annot = row[sbtab.columns_dict[column]]
+                        if annot == '': continue
+                        for pattern in urns:
+                            if pattern in column:
+                                urn = pattern
+                        try:
+                            cv_term = self.setAnnotation(species,annot,urn,'Biological')
+                            species.addCVTerm(cv_term)
+                        except:
+                            print 'There was an annotation that I could not assign properly: ',species.getId(),annot,urn
+
         #species without compartments yield errors --> set them to the first available compartment
         for species in self.new_model.getListOfSpecies():
             if not species.isSetCompartment():
                 species.setCompartment(self.compartment_list[0])
-
 
     def reactionSBtab(self):
         '''
@@ -366,6 +394,7 @@ class SBtabDocument:
                 except: compartment = False
                 educts      = self.reaction2reactants[reaction][0]
                 for educt in educts:
+                    if educt == '': continue
                     if not educt in self.id2sbmlid.keys() and not educt in self.species_list:
                         sp = self.new_model.createSpecies()
                         sp.setId(str(educt))
@@ -375,6 +404,7 @@ class SBtabDocument:
                         self.species_list.append(educt)
                 products = self.reaction2reactants[reaction][1]
                 for product in products:
+                    if product == '': continue
                     if not product in self.id2sbmlid.keys() and not product in self.species_list:
                         sp = self.new_model.createSpecies()
                         sp.setId(str(product))
@@ -424,6 +454,7 @@ class SBtabDocument:
                 sbtab.columns_dict['!SumFormula']
                 if row[sbtab.columns_dict['!SumFormula']] != '':
                     for educt in self.reaction2reactants[react.getId()][0]:
+                        if educt == '': continue
                         reactant = react.createReactant()
                         if educt in self.id2sbmlid.keys():
                             if self.id2sbmlid[educt] != None: reactant.setSpecies(self.id2sbmlid[educt])
@@ -431,6 +462,7 @@ class SBtabDocument:
                         else: reactant.setSpecies(educt)
                         reactant.setStoichiometry(self.rrps2stoichiometry[row[sbtab.columns_dict['!Reaction']],educt])
                     for product in self.reaction2reactants[react.getId()][1]:
+                        if product == '': continue
                         reactant = react.createProduct()
                         if product in self.id2sbmlid.keys():
                             if self.id2sbmlid[product] != None: reactant.setSpecies(self.id2sbmlid[product])
@@ -451,21 +483,60 @@ class SBtabDocument:
                     react.setCompartment(row[loc_column])
             '''
 
-            #if an enzyme is given, mark it as modifier to the reaction
+            #if kinetic law is given, set:
             try:
-                sbtab.columns_dict['!Enzyme']
-                if row[sbtab.columns_dict['!Enzyme']] != '':
-                    if '!BuildEnzyme' in sbtab.columns and row[sbtab.columns_dict['!BuildEnzyme']] != 'False':
-                        mod = react.createModifier()
-                        if '!Enyzme:SBML:species:id' in sbtab.columns and row[sbtab.columns_dict['!Enyzme:SBML:species:id']] != '':
-                            mod.setSpecies(row[sbtab.columns_dict['!Enyzme SBMLSpeciesID']])
-                        elif '!Enyzme:SBML:parameter:id' in sbtab.columns and row[sbtab.columns_dict['!Enyzme:SBML:parameter:id']] != '':
-                            mod.setSpecies(row[sbtab.columns_dict['!Enyzme:SBML:parameter:id']])
-                        else: mod.setSpecies(row[sbtab.columns_dict['!Enzyme']])
-                        #react.addModifier(mod)
-                    self.modifier_list.append(row[sbtab.columns_dict['!Enzyme']])
+                sbtab.columns_dict['!KineticLaw']
+                if row[sbtab.columns_dict['!KineticLaw']] != '':
+                    kl = react.createKineticLaw()
+                    kl.setFormula(row[sbtab.columns_dict['!KineticLaw']])
+                    react.setKineticLaw(kl)
+                    letring = str('The kinetic law for reaction '+react.getId()+' was set according to the SBtab file. However, the validity of this kinetic law has to be ensured by the user. Please see the SBtab specification for details.')
+                    self.warnings.append(letring)
             except: pass
-                    
+
+            #if an enzyme is given, mark it as modifier to the reaction
+
+            try:
+                sbtab.columns_dict['!Regulator']
+                if row[sbtab.columns_dict['!Regulator']] != '':
+                    if "|" in row[sbtab.columns_dict['!Regulator']]:
+                        splits = row[sbtab.columns_dict['!Regulator']].split('|')
+                        for element in splits:
+                            mod = react.createModifier()
+                            if element.startswith('+'):
+                                mod.setSpecies(element[1:])
+                                mod.setSBOTerm(459)
+                                self.modifier_list.append(element)
+                            elif element.startswith('-'):
+                                mod.setSpecies(element[1:])
+                                mod.setSBOTerm(20)
+                                self.modifier_list.append(element)
+                            else:
+                                mod.setSpecies(element[1:])
+                                self.modifier_list.append(element)
+                                letring = str('There was a reaction modifier that could not be identified as either stimulator or inhibitor for reaction '+react.getId()+': '+element)
+                                self.warnings.append(letring)
+                    else:
+                        mod = react.createModifier()
+                        if (row[sbtab.columns_dict['!Regulator']]).startswith('+'):
+                            mod.setSpecies(row[sbtab.columns_dict['!Regulator']][1:])
+                            mod.setSBOTerm(459)
+                            self.modifier_list.append(row[sbtab.columns_dict['!Regulator']])
+                        elif (row[sbtab.columns_dict['!Regulator']]).startswith('-'):
+                            mod.setSpecies(row[sbtab.columns_dict['!Regulator']][1:])
+                            mod.setSBOTerm(20)
+                            self.modifier_list.append(row[sbtab.columns_dict['!Regulator']])
+                        else:
+                            mod.setSpecies(row[sbtab.columns_dict['!Regulator']][1:])
+                            self.modifier_list.append(row[sbtab.columns_dict['!Regulator']])
+                            letring = str('There was a reaction modifier that could not be identified as either stimulator or inhibitor for reaction '+react.getId()+': '+element)
+                            self.warnings.append(letring)
+                            
+                        self.modifier_list.append(row[sbtab.columns_dict['!Regulator']])
+
+            except: pass
+
+            '''
             #if metabolic regulators are given: extract them and create them
             try:
                 sbtab.columns_dict['!MetabolicRegulators']
@@ -486,12 +557,24 @@ class SBtabDocument:
                             #react.addModifier(inhi)
                             self.modifier_list.append(inhi)
             except: pass
-
-
-
+            '''
+            #set annotations if given:
+            for column in sbtab.columns_dict.keys():
+                if "Identifiers" in column:
+                    annot = row[sbtab.columns_dict[column]]
+                    if annot == '': continue
+                    for pattern in urns:
+                        if pattern in column:
+                            urn = pattern
+                    try:
+                        cv_term = self.setAnnotation(react,annot,urn,'Biological')
+                        react.addCVTerm(cv_term)
+                    except:
+                        print 'There was an annotation that I could not assign properly: ',react.getId(),annot,urn
+            
     def extractRegulators(self,mods):
         '''
-        extracts the regulators from the column "MetabolicRegulators"
+        extracts the regulators from the column "Regulator"
         '''
         activators = []
         inhibitors = []
@@ -552,11 +635,23 @@ class SBtabDocument:
         '''
         sbtab = self.type2sbtab['Quantity']
         for row in sbtab.value_rows:
-            #if row[sbtab.columns_dict['!Description']] == 'global parameter':
-            parameter = self.new_model.createParameter()
-            parameter.setId(row[sbtab.columns_dict['!SBML:parameter:id']])
-            parameter.setUnits(row[sbtab.columns_dict['!Unit']])
-            parameter.setValue(float(row[sbtab.columns_dict['!Value']]))
+            if row[sbtab.columns_dict['!Description']] == 'local parameter':
+                for reaction in self.new_model.getListOfReactions():
+                    kl      = reaction.getKineticLaw()
+                    formula = kl.getFormula()
+                    if row[sbtab.columns_dict['!SBML:parameter:id']] in formula:
+                        lp = kl.createParameter()
+                        lp.setId(row[sbtab.columns_dict['!SBML:parameter:id']])
+                        try: lp.setValue(float(row[sbtab.columns_dict['!Value']]))
+                        except: lp.setValue(1.0)
+                        try: lp.setUnits(row[sbtab.columns_dict['!Unit']])
+                        except: pass
+            else:
+                parameter = self.new_model.createParameter()
+                parameter.setId(row[sbtab.columns_dict['!SBML:parameter:id']])
+                parameter.setUnits(row[sbtab.columns_dict['!Unit']])
+                parameter.setValue(float(row[sbtab.columns_dict['!Value']]))
+
         
 if __name__ == '__main__':
     sbtab_reaction = open('sbtabs/sbtab_reaction_full.tsv','r')
@@ -589,4 +684,6 @@ if __name__ == '__main__':
     #sbtab_compound.close()
     #sbtab_quantity.close()
     #sbtab_compartment.close()
+    
+
     

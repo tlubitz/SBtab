@@ -1,136 +1,149 @@
-!!SBtab Level='1' !Version='0.1' !Document='Transposed' !TableType='Definition' !Table='Allowed_types'		
-!TableType	!Column	!Format
-Reaction	Comment	Text
-Reaction	ReferenceName	
-Reaction	ReferencePubMed	
-Reaction	ReferenceDOI	
-Reaction	Description	
-Reaction	Name	
-Reaction	MiriamAnnotations	
-Reaction	Type	
-Reaction	Reaction	
-Reaction	SBML:reaction:id	
-Reaction	SumFormula	
-Reaction	Location	
-Reaction	Modifier	
-Reaction	Model	
-Reaction	Pathway	
-Reaction	SubreactionOf	
-Reaction	IsComplete	
-Reaction	IsReversible	
-Reaction	IsInEquilibrium	
-Reaction	IsExchangeReaction	
-Reaction	Flux	
-Reaction	IsNonEnzymatic	
-Reaction	KineticLaw	
-Reaction	Gene	
-Reaction	Operon	
-Reaction	Enzyme:SBML:species:id	
-Reaction	Enzyme:SBML:parameter:id	
-Reaction	BuildReaction	
-Reaction	BuildEnzyme	
-Reaction	BuildEnzymeProduction	
-Compound	Comment	
-Compound	ReferenceName	
-Compound	ReferencePubMed	
-Compound	ReferenceDOI	
-Compound	Description	
-Compound	Name	
-Compound	MiriamAnnotations	
-Compound	Type	
-Compound	Compound	
-Compound	SBML:species:id	
-Compound	SBML:speciestype:id	
-Compound	Location	
-Compound	State	
-Compound	CompoundSumFormula	
-Compound	StructureFormula	
-Compound	Charge	
-Compound	Mass	
-Compound	IsConstant	
-Compound	EnzymeRole	
-Compound	RegulatorRole	
-Enzyme	Comment	
-Enzyme	ReferenceName	
-Enzyme	ReferencePubMed	
-Enzyme	ReferenceDOI	
-Enzyme	Description	
-Enzyme	Name	
-Enzyme	MiriamAnnotations	
-Enzyme	Type	
-Enzyme	Enzyme	
-Enzyme	CatalysedReaction	
-Enzyme	KineticLaw	
-Enzyme	Gene	
-Compartment	Comment	
-Compartment	ReferenceName	
-Compartment	ReferencePubMed	
-Compartment	ReferenceDOI	
-Compartment	Description	
-Compartment	Name	
-Compartment	MiriamAnnotations	
-Compartment	Type	
-Compartment	Compartment	
-Compartment	SBML:compartment:id	
-Compartment	OuterCompartment	
-Compartment	OuterCompartment:SBML:compartment:id	
-Compartment	Size	
-Quantity	Comment	
-Quantity	ReferenceName	
-Quantity	ReferencePubMed	
-Quantity	ReferenceDOI	
-Quantity	Description	
-Quantity	Name	
-Quantity	MiriamAnnotations	
-Quantity	Type	
-Quantity	Quantity	
-Quantity	QuantityType	
-Quantity	SBML:parameter:id	
-Quantity	Unit	
-Quantity	Scale	
-Quantity	Condition	
-Quantity	pH	
-Quantity	Temperature	
-Quantity	Location	
-Quantity	SBML:compartment:id	
-Quantity	Compound	
-Quantity	Compound:SBML:species:id	
-Quantity	Reaction	
-Quantity	Reaction:SBML:reaction:id	
-Quantity	Enyzme	
-Quantity	Enyzme:SBML:species:id	
-Quantity	Enyzme:SBML:parameter:id	
-Quantity	Gene	
-Quantity	Organism	
-Regulator	Comment	
-Regulator	ReferenceName	
-Regulator	ReferencePubMed	
-Regulator	ReferenceDOI	
-Regulator	Description	
-Regulator	Name	
-Regulator	MiriamAnnotations	
-Regulator	Type	
-Regulator	Regulator	
-Regulator	State	
-Regulator	TargetGene	
-Regulator	TargetOperon	
-Regulator	TargetPromoter	
-Gene	Comment	
-Gene	ReferenceName	
-Gene	ReferencePubMed	
-Gene	ReferenceDOI	
-Gene	Description	
-Gene	Name	
-Gene	MiriamAnnotations	
-Gene	Type	
-Gene	Gene	
-Gene	GeneLocus	
-Gene	GeneProduct	
-Gene	GeneProduct:SBML:species:id	
-Gene	Operon	
-Relationship	Comment	
-Relationship	ReferenceName	
-Relationship	ReferencePubMed	
-Relationship	ReferenceDOI	
-Relationship	Description	
-Relationship	Relationship	
+!!SBtab SBtabVersion='0.1' !TableType='Definition' !Table='Allowed_types'			
+!TableType	!ColumnName	!Format	!Description
+Reaction	Comment	Text	Comment
+Reaction	ReferenceName		Reference title, authors, etc. (as free text)
+Reaction	ReferencePubMed		Reference PubMed ID
+Reaction	ReferenceDOI		Reference DOI
+Reaction	Description		Description of the row element
+Reaction	Name		Entity name
+Reaction	MiriamAnnotations		Entity ID
+Reaction	Type		Biochemical type of entity
+Reaction	Reaction		Reaction shortname
+Reaction	SBML:reaction:id		SBML ID of reaction
+Reaction	SumFormula		Reaction sum formula
+Reaction	Location		Compartment for localised reaction
+Reaction	Enzyme		Enzyme catalysing the reaction
+Reaction	Model		Model(s) in which the reaction is involved
+Reaction	Pathway		Pathway(s) in which the reaction is involved
+Reaction	SubreactionOf		Mark as subreaction of a (lumped) reaction
+Reaction	IsComplete		Reaction formula includes all cofactors etc.
+Reaction	IsReversible		Reaction should be treated as irreversible
+Reaction	IsInEquilibrium		Reaction approximately in equilibrium
+Reaction	IsExchangeReaction		Some reactants are left out
+Reaction	Flux		Metabolic flux through the reaction
+Reaction	IsNonEnzymatic		Non-catalysed reaction
+Reaction	KineticLaw		
+Reaction	Gene		
+Reaction	Operon		
+Reaction	Enzyme:SBML:species:id		SBML ID of enzyme
+Reaction	Enzyme:SBML:parameter:id		SBML ID of enzyme
+Reaction	BuildReaction		Include reaction in SBML model
+Reaction	BuildEnzyme		Include enzyme in SBML model
+Reaction	BuildEnzymeProduction		Describe enzyme production in SBML model
+Reaction	Identifiers		Annotation of the entity
+Compound	Comment		Comment
+Compound	ReferenceName		Reference title, authors, etc. (as free text)
+Compound	ReferencePubMed		Reference PubMed ID
+Compound	ReferenceDOI		Reference DOI
+Compound	Description		Description of the row element
+Compound	Name		Entity name
+Compound	MiriamAnnotations		Entity ID
+Compound	Type		Biochemical type of entity
+Compound	Compound		Compound shortname
+Compound	SBML:species:id		SBML species ID of the entity
+Compound	SBML:speciestype:id		SBML speciestype ID of the entity
+Compound	Location		Compartment for localised entities
+Compound	State		State of the entity
+Compound	CompoundSumFormula		Chemical sum formula
+Compound	StructureFormula		Chemical structure formula
+Compound	Charge		Electrical charge number
+Compound	Mass		Molecular mass
+Compound	IsConstant		Substance with fixed concentrations
+Compound	EnzymeRole		Enzymatic activity
+Compound	RegulatorRole		Regulatory activity
+Compound	Identifiers		Annotation of the entity
+Enzyme	Comment		Comment
+Enzyme	ReferenceName		Reference title, authors, etc. (as free text)
+Enzyme	ReferencePubMed		Reference PubMed ID
+Enzyme	ReferenceDOI		Reference DOI
+Enzyme	Description		Description of the row element
+Enzyme	Name		Entity name
+Enzyme	MiriamAnnotations		Entity ID
+Enzyme	Type		Biochemical type of entity
+Enzyme	Enzyme		Enzyme shortname
+Enzyme	CatalysedReaction		Catalysed reaction
+Enzyme	KineticLaw		Catalysed reaction
+Enzyme	Gene		Gene coding for enzyme (shortname)
+Enzyme	Identifiers		Annotation of the entity
+Compartment	Comment		Comment
+Compartment	ReferenceName		Reference title, authors, etc. (as free text)
+Compartment	ReferencePubMed		Reference PubMed ID
+Compartment	ReferenceDOI		Reference DOI
+Compartment	Description		Description of the row element
+Compartment	Name		Entity name
+Compartment	MiriamAnnotations		Entity ID
+Compartment	Type		Biochemical type of entity
+Compartment	Compartment		Compartment shortname
+Compartment	SBML:compartment:id		SBML compartment ID
+Compartment	OuterCompartment		Surrounding compartment (short)
+Compartment	OuterCompartment:SBML:compartment:id		Surrounding compartment (name)
+Compartment	Size		Compartment size
+Compartment	Unit		Physical unit
+Compartment	Identifiers		Annotation of the entity
+Quantity	Comment		Comment
+Quantity	ReferenceName		Reference title, authors, etc. (as free text)
+Quantity	ReferencePubMed		Reference PubMed ID
+Quantity	ReferenceDOI		Reference DOI
+Quantity	Description		Description of the row element
+Quantity	Name		Entity name
+Quantity	MiriamAnnotations		Entity ID
+Quantity	Type		Biochemical type of entity
+Quantity	Quantity		Quantity shortname
+Quantity	QuantityType		Quantity type (e.g. from SBO)
+Quantity	SBML:parameter:id		Parameter ID in SBML file
+Quantity	Unit		Physical unit
+Quantity	Scale		Scale (e.g. logarithm)
+Quantity	Condition		experimental condition name (free text)
+Quantity	pH		pH value in measurement
+Quantity	Temperature		Temperature in measurement
+Quantity	Location		Compartment (shortname)
+Quantity	Location:SBML:compartment:id		SBML ID of compartment
+Quantity	Compound		Related compound (shortname)
+Quantity	Compound:SBML:species:id		SBML ID of compound
+Quantity	Reaction		Related reaction (shortname)
+Quantity	Reaction:SBML:reaction:id		SBML ID of reaction
+Quantity	Enyzme		Related enzyme (shortname)
+Quantity	Enyzme:SBML:species:id		SBML ID of enzyme
+Quantity	Enyzme:SBML:parameter:id		SBML ID of enzyme
+Quantity	Gene		Related gene
+Quantity	Organism		Organism
+Quantity	Provenance		Provenance of the entity
+Quantity	Identifiers		Annotation of the entity
+Regulator	Comment		Comment
+Regulator	ReferenceName		Reference title, authors, etc. (as free text)
+Regulator	ReferencePubMed		Reference PubMed ID
+Regulator	ReferenceDOI		Reference DOI
+Regulator	Description		Description of the row element
+Regulator	Name		Entity name
+Regulator	MiriamAnnotations		Entity ID
+Regulator	Type		Biochemical type of entity
+Regulator	Regulator		Regulator shortname
+Regulator	State		State of the regulator
+Regulator	TargetGene		Target gene
+Regulator	TargetOperon		Target operon
+Regulator	TargetPromoter		Target promoter
+Regulator	Identifiers		Annotation of the entity
+Gene	Comment		Comment
+Gene	ReferenceName		Reference title, authors, etc. (as free text)
+Gene	ReferencePubMed		Reference PubMed ID
+Gene	ReferenceDOI		Reference DOI
+Gene	Description		Description of the row element
+Gene	Name		Entity name
+Gene	MiriamAnnotations		Entity ID
+Gene	Type		Biochemical type of entity
+Gene	Gene		Gene shortname
+Gene	GeneLocus		Locus name
+Gene	GeneProduct		Gene product shortname
+Gene	GeneProduct:SBML:species:id		SBML ID of protein
+Gene	Operon		Operon in which gene is located
+Gene	Identifiers		Annotation of the entity
+Relationship	Comment		Comment
+Relationship	ReferenceName		Reference title, authors, etc. (as free text)
+Relationship	ReferencePubMed		Reference PubMed ID
+Relationship	ReferenceDOI		Reference DOI
+Relationship	Description		Description of the row element
+Relationship	Relationship		Type of quantitative relationship
+Relationship	From		Element at beginning of arrow
+Relationship	To		Element at arrowhead
+Relationship	IsSymmetric		Flag indicating non-symmetric relationships
+Relationship	Value:QuantityType		Numerical value assigned to the relationship

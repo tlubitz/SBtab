@@ -5,7 +5,7 @@ SBtab
 Provides:
     1. Automatic tranlations from SBtab file to Python objects
     2. Automatic verification of format and files
-    3. Easily callable and changeable entries in tables
+    2. Easily callable and changeable entries in tables
 
 SBtab is a uniforming spreadsheet format and designed for the use in
 Systems Biology. Furthermore, it is a useful format to import stored information
@@ -25,7 +25,7 @@ See specification for further informations.
 import re
 import copy
 import sys
-sys.path.insert(0, './SBtab')
+#sys.path.insert(0, './SBtab')
 import tablib
 import tablibIO
 
@@ -43,7 +43,7 @@ class SBtabError(Exception):
 
 class SBtabTable():
     """
-    SBtabTable (version 0.8.0 15/09/2013)
+    SBtabTable (version 0.1.0 07/12/2013)
     """
     def __init__(self, table, filename):
         """
@@ -62,8 +62,7 @@ class SBtabTable():
         self.table = table
 
         # Delete tablib header to avoid complications
-        if self.table.headers:
-            self.table.headers = None
+        if self.table.headers: self.table.headers = None
 
         # Create all necessary variables
         self.initializeTable()
@@ -76,16 +75,13 @@ class SBtabTable():
         self.header_row = self.getHeaderRow()
 
         # Read the table information from header row
-        (self.table_type, self.table_name, self.table_document, self.table_level, self.table_version) = self.getTableInformation()
+        (self.table_type, self.table_name, self.table_document, self.table_version) = self.getTableInformation()
         
         # Read the columns of the table
         (self.columns, self.columns_dict, inserted_column) = self.getColumns()
 
         # Read data rows
         self.value_rows = self.getRows(self.table_type, inserted_column)
-
-        # Automatically fill lazy columns (only one entry meets same entry in all fields)
-        self.lazyColumn()
 
         # Update the list and tablib object
         self.update()
@@ -110,7 +106,7 @@ class SBtabTable():
                 if str(entry).startswith('!!'):
                     header_row = row
                     break
-
+        
         # Save string or raise error
         if not header_row:
             raise SBtabError('This is not a valid SBtab table, please use validator to check format or have a look in the specification!')
@@ -121,19 +117,19 @@ class SBtabTable():
         header_row = header_row.replace('"', "'")
         try: header_row = header_row.replace('\xe2\x80\x9d', "'")
         except: pass
-        
+     
         # Split header row
         header_row = header_row.split(' ')
-        
+
         # Delete spaces in header row
         while '' in header_row:
             header_row.remove('')
+
         header = ""
         for x in header_row[:-1]:
             header += x + ' '
         header += header_row[-1]
 
-        # return header row
         return header
 
     def getTableInformation(self):
@@ -148,8 +144,6 @@ class SBtabTable():
             Name of the SBtab table.
         table_document : str
             Document type of SBtab table.
-        table_level : str
-            Level of SBtab table.
         table_version : str
             Version of the SBtab table.
 
@@ -163,16 +157,16 @@ class SBtabTable():
         # Initialize variables for unnamed table handling
         global tables_without_name
         no_name_counter = 0
-        header_row = self.getHeaderRow()
+        #header_row = self.getHeaderRow()
 
         # Save table type, otherwise raise error
-        if re.search("TableType='([^']*)'", header_row) != None:
-            table_type = re.search("TableType='([^']*)'", header_row).group(1)
+        if re.search("TableType='([^']*)'", self.header_row) != None:
+            table_type = re.search("TableType='([^']*)'", self.header_row).group(1)
         else:
             raise SBtabError('The TableType of the SBtab is not defined!')
 
         # Save table name, otherwise give name with number of unnamed tables
-        tn = re.search("TableName='([^']*)'", header_row)
+        tn = re.search("TableName='([^']*)'", self.header_row)
         if tn:
             table_name = tn.group(1)
         else:
@@ -184,27 +178,20 @@ class SBtabTable():
             self.header_row += " TableName='" + table_name + "'"
 
         # Save table document, otherwise return None
-        td = re.search("Document='([^']*)'", header_row)
+        td = re.search("Document='([^']*)'", self.header_row)
         if td:
             table_document = td.group(1)
         else:
             table_document = None
 
-        # save table level, otherwise return None
-        tl = re.search("Level='([^']*)'", header_row)
-        if tl:
-            table_level = tl.group(1)
-        else:
-            table_level = None
-
         # save table version, otherwise return None
-        tv = re.search("Version='([^']*)'", header_row)
+        tv = re.search("SBtabVersion='([^']*)'", self.header_row)
         if tv:
             table_version = tv.group(1)
         else:
             table_version = None
 
-        return table_type, table_name, table_document, table_level, table_version
+        return table_type, table_name, table_document, table_version
 
     def getColumns(self):
         """
@@ -486,23 +473,21 @@ class SBtabTable():
         column_list : list
             List of strings, containing the entries of the new column.
         position : int
-            Position of new column in the table, 0 is right.
+            Positino of new column in the table, 0 is right.
         """
         # Empty column to fill up sbtab_dataset with ''
         empty_list = []
 
-        sbtab_dataset = self.table
-        
         # If new column is to small, add empty entries to new column
-        if len(column_list) < (len(sbtab_dataset.dict)-1):
-            for i in range((len(sbtab_dataset.dict) - 1) - len(column_list)):
+        if len(column_list) < (len(self.sbtab_dataset.dict)-1):
+            for i in range((len(self.sbtab_dataset.dict) - 1) - len(column_list)):
                 column_list.append('')
 
         # If new column is to long, add empty entries to sbtab_dataset
-        elif len(column_list) > (len(sbtab_dataset.dict) - 1):
-            for i in range(len(sbtab_dataset.dict[0])):
+        elif len(column_list) > (len(self.sbtab_dataset.dict) - 1):
+            for i in range(len(self.sbtab_dataset.dict[0])):
                 empty_list.append('')
-            for i in range(len(column_list) - (len(sbtab_dataset.dict) - 1)):
+            for i in range(len(column_list) - (len(self.sbtab_dataset.dict) - 1)):
                 self.value_rows.append(empty_list)
                 empty_list = copy.deepcopy(empty_list)
 
@@ -561,13 +546,13 @@ class SBtabTable():
         if not filename:
             filename = self.filename
         if format_type == 'tsv':
-            tablibIO.writeTSV(self.table, filename)
+            tablibIO.writeTSV(self.sbtab_dataset, filename)
         elif format_type == 'csv':
-            tablibIO.writeCSV(self.table, filename)
+            tablibIO.writeCSV(self.sbtab_dataset, filename)
         elif format_type == 'ods':
-            tablibIO.writeODS(self.table, filename)
+            tablibIO.writeODS(self.sbtab_dataset, filename)
         elif format_type == 'xls':
-            tablibIO.writeXLS(self.table, filename)
+            tablibIO.writeXLS(self.sbtab_dataset, filename)
         else:
             raise SBtabError('The given file format is not supported: ' + format_type + '. Please use ".tsv", ".csv", ".ods" or ".xls" instead.')
 
@@ -669,35 +654,3 @@ class SBtabTable():
         self.value_rows = trans_value_rows
 
         self.update()
-
-
-    def lazyColumn(self):
-        """
-        If only one entry in the column, automatically fill column, put the same entry in the complete column.
-        """
-        for i, entry in enumerate(self.value_rows[0]):
-            column = [column[i] for column in self.value_rows]
-            column_stripped = [val for val in column if val != '']
-            if len(column_stripped) == 1:
-                for row in self.value_rows:
-                    row[i] = column_stripped[0]
-
-    def autoColumn(self):
-        """
-        Add new column '!XX' with entries 'xx' in all rows, when introduced as !XX = 'xx' in the header row.
-        """
-        lines = len(self.value_rows)
-        header_row = self.header_row.rsplit()
-        for entry in header_row:
-            if entry.startswith('!') and not entry.startswith('!!'):
-                column_name = re.search('!([^\']*)=\'', entry)
-                if column_name:
-                    column_name = column_name.group(1)
-                column_entry = re.search('=\'([^\']*)\'', entry)
-                if column_entry:
-                    column_entry = column_entry.group(1)
-        column = ['!' + column_name]
-        for x in range(lines):
-            column.append(column_entry)
-
-        self.addColumn(column)

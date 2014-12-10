@@ -1,4 +1,0 @@
-!!SBtab TableType='Reaction'
-!Reaction   !SumFormula !MiriamID::urn:miriam:kegg.reaction !GeneName   !MetabolicRegulators
-R1  ATP + F6P <=> ADP + F16P    R00658  pfk 
-R2  F16P + H2O <=> F6P + Pi R01015  fbp + PEP - AMP

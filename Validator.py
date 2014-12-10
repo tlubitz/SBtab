@@ -3,7 +3,8 @@ Validator
 =========
 
 The validator checks SBtab files and tables for incorrect entries and possible 
-error sources. Therefore, it helps the user to create valid SBtab tables. 
+error sources. Therefore, it helps the user to create valid SBtab tables.
+It is crucial that the definition table SBtab is provided.
 """
 
 #!/usr/bin/env python
@@ -22,45 +23,38 @@ class SBtabError(Exception):
 
 class ValidateTable:
     """
-    Validator (version 0.8.0 15/09/2014)
+    Validator (version 0.2.0 15/02/2014)
     Check SBtab file and SBtab object.
     """
-    def __init__(self, table, sbtab_name, def_table=None, def_name=None):
+    def __init__(self, table, sbtab_name, def_table, def_name):
         """
         Initialize validator and start check for file and table format.
 
         Parameters
         ----------
         table : tablib object
-            Tablib object of the Sbtab file
+            Tablib object of the SBtab file
         sbtab_name : str
-            File path of the Sbtab file
+            File path of the SBtab file
+        def_table : str
+            Definition table in SBtab format
+        def_name : str
+            Name of the definition table
         """
         # import definitions from definition table
-        #if def_table:  # user provided a custom definition file; let's see how that's working out
-        #    definition_table = tablibIO.importSetNew(def_table,def_name)
-        #    definition_sbtab = SBtab.SBtabTable(definition_table, def_name)
-        #    self.definitions = definition_sbtab.sbtab_list
-        #else: # no definition table is provided, so use the default one
-        #    pass
-
-            try:
-                definition_table = tablibIO.importSet('./definitions/definitions.tsv')
-                definition_sbtab = SBtab.SBtabTable(definition_table, './definitions/definitions.tsv')
-                # ignore header and main column
-                self.definitions = definition_sbtab.sbtab_list
-            except:
-                raise SBtabError('Definition table could not be found, check file path! See specifications for further information.')
+        definition_table = tablibIO.importSetNew(def_table,def_name,seperator='\t')
+        definition_sbtab = SBtab.SBtabTable(definition_table, def_name)
+        self.definitions = definition_sbtab.sbtab_list
 
         # create set of valid table types
-        self.allowed_table_types = list(set([row[1] for row in self.definitions[2:][0]]))
         #self.allowed_table_types = ['Reaction', 'Gene', 'Relationship', 'Regulator', 'Enzyme', 'Compound', 'Compartment', 'Quantity']
-        
+        self.allowed_table_types = list(set([row[3] for row in self.definitions[2:][0]]))
+
         # create dict of valid column names per table type
         self.allowed_columns = {}
         for table_type in self.allowed_table_types:
-            self.allowed_columns[table_type] = [row[2] for row in self.definitions[2:][0] if row[1] == table_type]
-        #self.allowed_columns = {'Reaction': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Name', 'MiriamAnnotations', 'Type', 'Reaction', 'SBML:reaction:id', 'SumFormula', 'Location', 'Enzyme', 'Model', 'Pathway', 'SubreactionOf', 'IsComplete', 'IsReversible', 'IsInEquilibrium', 'IsExchangeReaction', 'Flux', 'IsNonEnzymatic', 'KineticLaw', 'Gene', 'Operon', 'Enzyme:SBML:species:id', 'Enzyme:SBML:parameter:id', 'BuildReaction', 'BuildEnzyme', 'BuildEnzymeProduction', 'SBOTerm', 'Modifier'], 'Compartment': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Name', 'MiriamAnnotations', 'Type', 'Compartment', 'SBML:compartment:id', 'OuterCompartment', 'OuterCompartment:SBML:compartment:id', 'Size', 'SBOTerm'], 'Relationship': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Relationship', 'SBOTerm'], 'Regulator': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Name', 'MiriamAnnotations', 'Type', 'Regulator', 'State', 'TargetGene', 'TargetOperon', 'TargetPromoter', 'SBOTerm'], 'Enzyme': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Name', 'MiriamAnnotations', 'Type', 'Enzyme', 'CatalysedReaction', 'KineticLaw', 'Gene', 'SBOTerm'], 'Compound': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Name', 'MiriamAnnotations', 'Type', 'Compound', 'SBML:species:id', 'SBML:speciestype:id', 'Location', 'State', 'CompoundSumFormula', 'StructureFormula', 'Charge', 'Mass', 'Constant', 'EnzymeRole', 'RegulatorRole', 'SBOTerm', 'SpeciesType', 'InitialConcentration'], 'Gene': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Name', 'MiriamAnnotations', 'Type', 'Gene', 'GeneLocus', 'GeneProduct', 'GeneProduct:SBML:species:id', 'Operon'], 'Quantity': ['Comment', 'ReferenceName', 'ReferencePubMed', 'ReferenceDOI', 'Description', 'Name', 'MiriamAnnotations', 'Type', 'Quantity', 'QuantityType', 'SBML:parameter:id', 'Unit', 'Scale', 'Condition', 'pH', 'Temperature', 'Location', 'SBML:compartment:id', 'Compound', 'Compound:SBML:species:id', 'Reaction', 'Reaction:SBML:reaction:id', 'Enyzme', 'Enyzme:SBML:species:id', 'Enyzme:SBML:parameter:id', 'Gene', 'Organism']}
+            self.allowed_columns[table_type] = [row[1] for row in self.definitions[2:][0] if row[3] == table_type]
+
         # initialize warning string
         self.warnings = []
         # define self variables
@@ -86,13 +80,6 @@ class ValidateTable:
         # check SBtab object for validity
         self.checkTable()
 
-        # print warnings
-        '''
-        if len(self.warnings) > 0:
-            print self.warnings
-        else:
-            print 'No warnings detected!'
-        '''
         
     def checkTableFormat(self):
         """
@@ -165,7 +152,7 @@ class ValidateTable:
         # 3rd: check the validity of the given column names
         if column_check:
             for column in self.sbtab.columns:
-                if not column.replace('!', '') in self.allowed_columns[self.sbtab.table_type] and not column.startswith('!MiriamID'):
+                if not column.replace('!', '') in self.allowed_columns[self.sbtab.table_type] and not ('Identifiers:') in column:
                     self.warnings.append('The SBtab file has an unknown column: ' + \
                         column + '.\n \t Please use only supported column types!')
             if not self.sbtab.columns_dict['!' + self.sbtab.table_type] == 0:
@@ -178,21 +165,13 @@ class ValidateTable:
             # check the content of the main column (first one) for empty entries
             if row[self.sbtab.columns_dict['!' + self.sbtab.table_type]] == '':
                 self.warnings.append('The SBtab includes a row with an undefined identifier in the row: \n' + str(row))
-            for column in self.sbtab.columns:
-                # check the rows for entries starting with + or -
-                if row[self.sbtab.columns_dict[column]].startswith('+') or row[self.sbtab.columns_dict[column]].startswith('-'):
-                    self.warnings.append('An identifier for a data row must not begin with "+" or "-": \n' + \
-                        str(row))
-                # check the rows for entries containing . or :     OMITTED; should be solved, if the user puts the entryfield in quotes "
-                #if ',' in list(row[self.sbtab.columns_dict[column]]):
-                #    self.warnings.append('A data row must not include commas, but this one does: \n' + \
-                #        str(row[self.sbtab.columns_dict[column]]))
-                # raise SBtabError('An identifier for a data row must not
-                # include ":" or ".": \n'+str(row))
+            # check the rows for entries starting with + or -
+            if str(row[0]).startswith('+') or str(row[0]).startswith('-'):
+                self.warnings.append('An identifier for a data row must not begin with "+" or "-": \n' + str(row))
 
     def returnOutput(self):
         '''
-        returns stuff
+        Returns the warnings of the file validation in form of a list.
         '''
         return self.warnings
 
@@ -212,7 +191,7 @@ class ValidateFile:
         self.file = sbtab_file
         self.filename = filename
 
-        self.validateExtension(self.filename)
+        #self.validateExtension(self.filename)
         self.validateFile(self.file)
 
     def validateExtension(self, filename):
@@ -238,9 +217,23 @@ class ValidateFile:
                 self.warnings.append('The lengths of the rows are not identical.\n Will be adjusted automatically.')
             length = len(row)
 
+    def checkSeperator(self,sbtabfile):
+        '''
+        SBtab allows different file formats with different content delimiters; this function checks which delimiter is used in the given file.
+        '''
+        sep = False
+
+        for row in sbtabfile.split('\n'):
+            if row.startswith('!!'): continue
+            if row.startswith('!'):
+                s = re.search('(.)(!)',row[1:])
+                sep = s.group(1)
+
+        return sep
+
     def returnOutput(self):
         '''
-        returns stuff
+        Returns the warnings of the file validation in form of a list.
         '''
         return self.warnings
 
