@@ -2,8 +2,8 @@
 SBtab Tools
 ===========
 
-These functions can be used to facilitate the use of SBtab. 
-They can be called from outside to create a SBtab instance.
+These functions facilitates the use of SBtab. 
+They can be used to create SBtab objects, by merging strings or read files, respectively.
 """
 
 import tablib
@@ -15,8 +15,8 @@ import tablibIO
 
 def oneOrMany(spreadsheet_file):
     """
-    Check for multiple tables and cut them into different tablib object.
-    Return a list of tablib object.
+    Check for multiple tables in a file and cut them into separate tablib object.
+    Take a spreadsheet file and return a list of tablib object.
 
     Parameters
     ----------
@@ -60,7 +60,8 @@ def oneOrMany(spreadsheet_file):
 
 def openSBtab(filepath):
     """
-    Open SBtab from file. Return SBtab object.
+    Open SBtab from file. 
+    Take a file path and return an SBtab object.
 
     Parameters
     ----------
@@ -83,7 +84,8 @@ def openSBtab(filepath):
 
 def createDataset(header_row, columns, value_rows, filename):
     """
-    Create a SBtab object by merging a header, a main column row and the value rows. 
+    Create an SBtab object by merging strings or list of strings.
+    Take a header row, main column row and the value rows as lists of strings and return an SBtab object.
 
     Parameters
     ----------
