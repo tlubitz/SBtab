@@ -18,6 +18,7 @@ import tablibIO
 import re
 
 class SBtabError(Exception):
+    """Base class for errors in the SBtab class."""
     def __init__(self, message):
         self.message = message
 
@@ -27,7 +28,7 @@ class SBtabError(Exception):
 
 class ValidateTable:
     """
-    Table validator (version 0.8.0 10/12/2014)
+    Table validator (version 0.8.0 10/12/2014)    
     Check SBtab spreadsheet file and SBtab object.
     """
     def __init__(self, table, sbtab_name, def_table, def_name):
@@ -90,7 +91,7 @@ class ValidateTable:
         
     def checkTableFormat(self):
         """
-        Validate format of SBtab file, check file and header row.
+        Validate format of SBtab file, check file and header row.     
         Validate header row for inconsistencies and check if table content is readable.
         """
         # Check tablib header
@@ -187,14 +188,14 @@ class ValidateTable:
 
 class ValidateFile:
     """
-    File validator (version 0.8.0 10/12/2014)
-    Validate spreadsheet file and format of the file.
+    File validator (version 0.8.0 10/12/2014)     
+    Validate spreadsheet file and format of the file.     
     Class does not use the definition table. 
     """
     def __init__(self, sbtab_file, filename):
         """
-        Initialise validation of table. 
-        Take SBtab object of table and file path of the SBtab table.
+        Initialise validation of table.    
+        Take SBtab object of table and file path of the SBtab table.     
         Create a string list of warnings.
         """
         # initialize warning string
@@ -208,20 +209,20 @@ class ValidateFile:
 
     def validateExtension(self, filename):
         """
-        Check the extension of the file for invalid formats.
-        Valid file types are 
-        '.tsv' - tab separated value tables
-        '.csv' - character separated value tables
-        '.ods' - open office spreadsheets (openCalc)
-        '.xls' - Microsoft Excel spreadsheets ('.xlsx' not supported!)
+        Check the extension of the file for invalid formats.     
+        Valid file types are     
+        - '.tsv' - tab separated value tables     
+        - '.csv' - character separated value tables     
+        - '.ods' - open office spreadsheets (openCalc)     
+        - '.xls' - Microsoft Excel spreadsheets ('.xlsx' not supported!)     
         """
         if not (str(filename).endswith('.tsv') or str(filename).endswith('.csv') or str(filename).endswith('.ods') or str(filename).endswith('.xls')):
             self.warnings.append('The given file format is not supported: ' + filename + '. Please use ".tsv", ".csv", ".ods" or ".xls" instead.')
 
     def validateFile(self, sbtab_file):
         """
-        Validate file format and check for possible problems.
-        Check for empty rows and validate row length.
+        Validate file format and check for possible problems.     
+        Check for empty rows and validate row length. 
         """
         rows = []
         for line in sbtab_file:
@@ -235,9 +236,10 @@ class ValidateFile:
                 self.warnings.append('The lengths of the rows are not identical.\n Will be adjusted automatically.')
             length = len(row)
 
-    def checkSeperator(self,sbtabfile):
+    def checkSeparator(self,sbtabfile):
         '''
-        SBtab allows different file formats with different content delimiters; this function checks which delimiter is used in the given file.
+        SBtab allows different file formats with different content delimiters;      
+        this function checks which delimiter is used in the given file.
         '''
         sep = False
 

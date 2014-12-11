@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>&lt;no title&gt; &mdash; SBtab 0.8 documentation</title>
+    <title>Validator &mdash; SBtab 0.8 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -48,7 +48,130 @@
         <div class="bodywrapper">
           <div class="body">
             
-  
+  <span class="target" id="module-Validator"></span><div class="section" id="validator">
+<h1>Validator<a class="headerlink" href="#validator" title="Permalink to this headline">¶</a></h1>
+<p>The validator checks SBtab files and tables for incorrect entries and possible 
+error sources. Therefore, it helps the user to create valid SBtab tables.
+It is crucial that the definition table SBtab is provided.</p>
+<p>The validator consists of two classes, the &#8216;ValidateTable&#8217; class validates the content and the SBtab object 
+according to the definition table. The &#8216;ValidateFile&#8217; class checks the format of the spreadsheet file and its
+general properties.</p>
+</div>
+<dl class="exception">
+<dt id="Validator.SBtabError">
+<em class="property">exception </em><tt class="descclassname">Validator.</tt><tt class="descname">SBtabError</tt><big>(</big><em>message</em><big>)</big><a class="reference internal" href="_modules/Validator.html#SBtabError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Validator.SBtabError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for errors in the SBtab class.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="Validator.ValidateFile">
+<em class="property">class </em><tt class="descclassname">Validator.</tt><tt class="descname">ValidateFile</tt><big>(</big><em>sbtab_file</em>, <em>filename</em><big>)</big><a class="reference internal" href="_modules/Validator.html#ValidateFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Validator.ValidateFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>File validator (version 0.8.0 10/12/2014)     
+Validate spreadsheet file and format of the file.     
+Class does not use the definition table.</p>
+<p class="rubric">Methods</p>
+<dl class="method">
+<dt id="Validator.ValidateFile.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>sbtab_file</em>, <em>filename</em><big>)</big><a class="reference internal" href="_modules/Validator.html#ValidateFile.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Validator.ValidateFile.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialise validation of table.    
+Take SBtab object of table and file path of the SBtab table.     
+Create a string list of warnings.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Validator.ValidateFile.checkSeparator">
+<tt class="descname">checkSeparator</tt><big>(</big><em>sbtabfile</em><big>)</big><a class="reference internal" href="_modules/Validator.html#ValidateFile.checkSeparator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Validator.ValidateFile.checkSeparator" title="Permalink to this definition">¶</a></dt>
+<dd><p>SBtab allows different file formats with different content delimiters;      
+this function checks which delimiter is used in the given file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Validator.ValidateFile.returnOutput">
+<tt class="descname">returnOutput</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Validator.html#ValidateFile.returnOutput"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Validator.ValidateFile.returnOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the warnings of the file validation in form of a list.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Validator.ValidateFile.validateExtension">
+<tt class="descname">validateExtension</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="_modules/Validator.html#ValidateFile.validateExtension"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Validator.ValidateFile.validateExtension" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check the extension of the file for invalid formats.     
+Valid file types are     
+- &#8216;.tsv&#8217; - tab separated value tables     
+- &#8216;.csv&#8217; - character separated value tables     
+- &#8216;.ods&#8217; - open office spreadsheets (openCalc)     
+- &#8216;.xls&#8217; - Microsoft Excel spreadsheets (&#8216;.xlsx&#8217; not supported!)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Validator.ValidateFile.validateFile">
+<tt class="descname">validateFile</tt><big>(</big><em>sbtab_file</em><big>)</big><a class="reference internal" href="_modules/Validator.html#ValidateFile.validateFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Validator.ValidateFile.validateFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate file format and check for possible problems.     
+Check for empty rows and validate row length.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="Validator.ValidateTable">
+<em class="property">class </em><tt class="descclassname">Validator.</tt><tt class="descname">ValidateTable</tt><big>(</big><em>table</em>, <em>sbtab_name</em>, <em>def_table</em>, <em>def_name</em><big>)</big><a class="reference internal" href="_modules/Validator.html#ValidateTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Validator.ValidateTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Table validator (version 0.8.0 10/12/2014)    
+Check SBtab spreadsheet file and SBtab object.</p>
+<p class="rubric">Methods</p>
+<dl class="method">
+<dt id="Validator.ValidateTable.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>table</em>, <em>sbtab_name</em>, <em>def_table</em>, <em>def_name</em><big>)</big><a class="reference internal" href="_modules/Validator.html#ValidateTable.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Validator.ValidateTable.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialise validator, load definition table and start validation of file and table format.
+Take tablib object of SBtab, file path of the spreadsheet file, definition table as SBtab object 
+and the file path of the definition table.
+Creates a string list of warnings.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>table</strong> : tablib object</p>
+<blockquote>
+<div><p>Tablib object of the SBtab file</p>
+</div></blockquote>
+<p><strong>sbtab_name</strong> : str</p>
+<blockquote>
+<div><p>File path of the SBtab file</p>
+</div></blockquote>
+<p><strong>def_table</strong> : str</p>
+<blockquote>
+<div><p>Definition table in SBtab format</p>
+</div></blockquote>
+<p><strong>def_name</strong> : str</p>
+<blockquote class="last">
+<div><p>Name of the definition table</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Validator.ValidateTable.checkTable">
+<tt class="descname">checkTable</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Validator.html#ValidateTable.checkTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Validator.ValidateTable.checkTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate the table type, row length and mandatory entries in main column of the SBtab according to definition table.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Validator.ValidateTable.checkTableFormat">
+<tt class="descname">checkTableFormat</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Validator.html#ValidateTable.checkTableFormat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Validator.ValidateTable.checkTableFormat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate format of SBtab file, check file and header row.     
+Validate header row for inconsistencies and check if table content is readable.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Validator.ValidateTable.returnOutput">
+<tt class="descname">returnOutput</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Validator.html#ValidateTable.returnOutput"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Validator.ValidateTable.returnOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the warnings of the file validation in form of a list.</p>
+</dd></dl>
+
+</dd></dl>
+
+
 
           </div>
         </div>

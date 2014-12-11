@@ -51,8 +51,8 @@
 <span class="sd">SBtab Tools</span>
 <span class="sd">===========</span>
 
-<span class="sd">These functions can be used to facilitate the use of SBtab. </span>
-<span class="sd">They can be called from outside to create a SBtab instance.</span>
+<span class="sd">These functions facilitates the use of SBtab. </span>
+<span class="sd">They can be used to create SBtab objects, by merging strings or read files, respectively.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">tablib</span>
@@ -64,8 +64,8 @@
 
 <div class="viewcode-block" id="oneOrMany"><a class="viewcode-back" href="../SBtabTools.html#SBtabTools.oneOrMany">[docs]</a><span class="k">def</span> <span class="nf">oneOrMany</span><span class="p">(</span><span class="n">spreadsheet_file</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Check for multiple tables and cut them into different tablib object.</span>
-<span class="sd">    Return a list of tablib object.</span>
+<span class="sd">    Check for multiple tables in a file and cut them into separate tablib object.</span>
+<span class="sd">    Take a spreadsheet file and return a list of tablib object.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -109,7 +109,8 @@
 </div>
 <div class="viewcode-block" id="openSBtab"><a class="viewcode-back" href="../SBtabTools.html#SBtabTools.openSBtab">[docs]</a><span class="k">def</span> <span class="nf">openSBtab</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Open SBtab from file. Return SBtab object.</span>
+<span class="sd">    Open SBtab from file. </span>
+<span class="sd">    Take a file path and return an SBtab object.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -132,7 +133,8 @@
 </div>
 <div class="viewcode-block" id="createDataset"><a class="viewcode-back" href="../SBtabTools.html#SBtabTools.createDataset">[docs]</a><span class="k">def</span> <span class="nf">createDataset</span><span class="p">(</span><span class="n">header_row</span><span class="p">,</span> <span class="n">columns</span><span class="p">,</span> <span class="n">value_rows</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Create a SBtab object by merging a header, a main column row and the value rows. </span>
+<span class="sd">    Create an SBtab object by merging strings or list of strings.</span>
+<span class="sd">    Take a header row, main column row and the value rows as lists of strings and return an SBtab object.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
