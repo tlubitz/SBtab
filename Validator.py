@@ -5,6 +5,10 @@ Validator
 The validator checks SBtab files and tables for incorrect entries and possible 
 error sources. Therefore, it helps the user to create valid SBtab tables.
 It is crucial that the definition table SBtab is provided.
+
+The validator consists of two classes, the 'ValidateTable' class validates the content and the SBtab object 
+according to the definition table. The 'ValidateFile' class checks the format of the spreadsheet file and its
+general properties.
 """
 
 #!/usr/bin/env python
@@ -14,6 +18,7 @@ import tablibIO
 import re
 
 class SBtabError(Exception):
+    """Base class for errors in the SBtab class."""
     def __init__(self, message):
         self.message = message
 
@@ -23,12 +28,15 @@ class SBtabError(Exception):
 
 class ValidateTable:
     """
-    Validator (version 0.2.0 15/02/2014)
-    Check SBtab file and SBtab object.
+    Table validator (version 0.8.0 10/12/2014)    
+    Check SBtab spreadsheet file and SBtab object.
     """
     def __init__(self, table, sbtab_name, def_table, def_name):
         """
-        Initialize validator and start check for file and table format.
+        Initialise validator, load definition table and start validation of file and table format.
+        Take tablib object of SBtab, file path of the spreadsheet file, definition table as SBtab object 
+        and the file path of the definition table.
+        Creates a string list of warnings.
 
         Parameters
         ----------
@@ -83,7 +91,8 @@ class ValidateTable:
         
     def checkTableFormat(self):
         """
-        Validate format of SBtab file, check file format and header row.
+        Validate format of SBtab file, check file and header row.     
+        Validate header row for inconsistencies and check if table content is readable.
         """
         # Check tablib header
         if self.table.headers:
@@ -134,7 +143,8 @@ class ValidateTable:
 
     def checkTable(self):
         """
-        Validate the table type and mandatory format of the SBtab.
+        Validate the table type, row length and mandatory entries in main column of the SBtab according to definition table.
+
         """
         column_check = True
         # general stuff
@@ -171,20 +181,23 @@ class ValidateTable:
 
     def returnOutput(self):
         '''
-        Returns the warnings of the file validation in form of a list.
+        Return the warnings of the file validation in form of a list.
         '''
         return self.warnings
 
 
 class ValidateFile:
     """
-    Validate file and check for valid format.
-
-    Notes
-    -----
-    To open a file: sbtab_file = open("filepath", "rb")
+    File validator (version 0.8.0 10/12/2014)     
+    Validate spreadsheet file and format of the file.     
+    Class does not use the definition table. 
     """
     def __init__(self, sbtab_file, filename):
+        """
+        Initialise validation of table.    
+        Take SBtab object of table and file path of the SBtab table.     
+        Create a string list of warnings.
+        """
         # initialize warning string
         self.warnings = []
 
@@ -196,14 +209,20 @@ class ValidateFile:
 
     def validateExtension(self, filename):
         """
-        Check the extension of the file for invalid formats.
+        Check the extension of the file for invalid formats.     
+        Valid file types are     
+        - '.tsv' - tab separated value tables     
+        - '.csv' - character separated value tables     
+        - '.ods' - open office spreadsheets (openCalc)     
+        - '.xls' - Microsoft Excel spreadsheets ('.xlsx' not supported!)     
         """
         if not (str(filename).endswith('.tsv') or str(filename).endswith('.csv') or str(filename).endswith('.ods') or str(filename).endswith('.xls')):
             self.warnings.append('The given file format is not supported: ' + filename + '. Please use ".tsv", ".csv", ".ods" or ".xls" instead.')
 
     def validateFile(self, sbtab_file):
         """
-        Validate file format and check for possible problems.
+        Validate file format and check for possible problems.     
+        Check for empty rows and validate row length. 
         """
         rows = []
         for line in sbtab_file:
@@ -217,9 +236,10 @@ class ValidateFile:
                 self.warnings.append('The lengths of the rows are not identical.\n Will be adjusted automatically.')
             length = len(row)
 
-    def checkSeperator(self,sbtabfile):
+    def checkSeparator(self,sbtabfile):
         '''
-        SBtab allows different file formats with different content delimiters; this function checks which delimiter is used in the given file.
+        SBtab allows different file formats with different content delimiters;      
+        this function checks which delimiter is used in the given file.
         '''
         sep = False
 

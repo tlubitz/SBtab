@@ -54,13 +54,13 @@
             
   <span class="target" id="module-SBtabTools"></span><div class="section" id="sbtab-tools">
 <h1>SBtab Tools<a class="headerlink" href="#sbtab-tools" title="Permalink to this headline">¶</a></h1>
-<p>These functions can be used to facilitate the use of SBtab. 
-They can be called from outside to create a SBtab instance.</p>
+<p>These functions facilitates the use of SBtab. 
+They can be used to create SBtab objects, by merging strings or read files, respectively.</p>
 <dl class="function">
 <dt id="SBtabTools.oneOrMany">
 <tt class="descclassname">SBtabTools.</tt><tt class="descname">oneOrMany</tt><big>(</big><em>spreadsheet_file</em><big>)</big><a class="reference internal" href="_modules/SBtabTools.html#oneOrMany"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtabTools.oneOrMany" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check for multiple tables and cut them into different tablib object.
-Return a list of tablib object.</p>
+<dd><p>Check for multiple tables in a file and cut them into separate tablib object.
+Take a spreadsheet file and return a list of tablib object.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -84,7 +84,8 @@ Return a list of tablib object.</p>
 <dl class="function">
 <dt id="SBtabTools.openSBtab">
 <tt class="descclassname">SBtabTools.</tt><tt class="descname">openSBtab</tt><big>(</big><em>filepath</em><big>)</big><a class="reference internal" href="_modules/SBtabTools.html#openSBtab"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtabTools.openSBtab" title="Permalink to this definition">¶</a></dt>
-<dd><p>Open SBtab from file. Return SBtab object.</p>
+<dd><p>Open SBtab from file. 
+Take a file path and return an SBtab object.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -108,7 +109,8 @@ Return a list of tablib object.</p>
 <dl class="function">
 <dt id="SBtabTools.createDataset">
 <tt class="descclassname">SBtabTools.</tt><tt class="descname">createDataset</tt><big>(</big><em>header_row</em>, <em>columns</em>, <em>value_rows</em>, <em>filename</em><big>)</big><a class="reference internal" href="_modules/SBtabTools.html#createDataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtabTools.createDataset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a SBtab object by merging a header, a main column row and the value rows.</p>
+<dd><p>Create an SBtab object by merging strings or list of strings.
+Take a header row, main column row and the value rows as lists of strings and return an SBtab object.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

@@ -57,9 +57,9 @@
 <dl class="docutils">
 <dt>Provides:</dt>
 <dd><ol class="first last arabic simple">
-<li>Automatic tranlations from SBtab file to Python objects</li>
-<li>Automatic verification of format and files</li>
-<li>Easily callable and changeable entries in tables</li>
+<li>Automatic tranlations from SBtab file to Python objects (SBtabTools.py)</li>
+<li>Automatic verification of format and files (Validator.py)</li>
+<li>Easily callable and changeable entries in tables (SBtab.py)</li>
 </ol>
 </dd>
 </dl>
@@ -71,6 +71,7 @@ into Python to process and edit it.</p>
 Use &#8220;SBtabTools.openSBtab(filepath)&#8221; to create SBtab Python object.
 Attention: Only &#8216;tsv&#8217;, &#8216;csv&#8217;, &#8216;ods&#8217; and &#8216;xls&#8217; are supported.</p>
 <p>See specification for further informations.</p>
+<p>Wolfgang Liebermeister, Timo Lubitz, Jens Hahn - Berlin 2014</p>
 </div>
 <dl class="exception">
 <dt id="SBtab.SBtabError">
@@ -81,12 +82,15 @@ Attention: Only &#8216;tsv&#8217;, &#8216;csv&#8217;, &#8216;ods&#8217; and &#82
 <dl class="class">
 <dt id="SBtab.SBtabTable">
 <em class="property">class </em><tt class="descclassname">SBtab.</tt><tt class="descname">SBtabTable</tt><big>(</big><em>table</em>, <em>filename</em><big>)</big><a class="reference internal" href="_modules/SBtab.html#SBtabTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtab.SBtabTable" title="Permalink to this definition">¶</a></dt>
-<dd><p>SBtabTable (version 0.8.0 15/09/2013)</p>
+<dd><p>SBtabTable (version 0.8.0 10/12/2014)     
+Class to modify SBtab objects.</p>
 <p class="rubric">Methods</p>
 <dl class="method">
 <dt id="SBtab.SBtabTable.__init__">
 <tt class="descname">__init__</tt><big>(</big><em>table</em>, <em>filename</em><big>)</big><a class="reference internal" href="_modules/SBtab.html#SBtabTable.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtab.SBtabTable.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create SBtab Python object from tablib object.</p>
+<dd><p>Create SBtab Python object from tablib object.     
+Take tablib object of spreadsheet file and its file path and     
+call functions to initialise SBtab object.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -108,7 +112,11 @@ Attention: Only &#8216;tsv&#8217;, &#8216;csv&#8217;, &#8216;ods&#8217; and &#82
 <dl class="method">
 <dt id="SBtab.SBtabTable.addColumn">
 <tt class="descname">addColumn</tt><big>(</big><em>column_list</em>, <em>position=None</em><big>)</big><a class="reference internal" href="_modules/SBtab.html#SBtabTable.addColumn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtab.SBtabTable.addColumn" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add column to the table, if position is None at the end of it.</p>
+<dd><p>Add column to SBtab object.
+Take string list and add it as new column to the Sbtab object. First entry
+of the list will be set as name for the new column. If no position is given
+the column will be added after the rightmost column. 1 is defined as the 
+position of the leftmost column.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -119,7 +127,7 @@ Attention: Only &#8216;tsv&#8217;, &#8216;csv&#8217;, &#8216;ods&#8217; and &#82
 </div></blockquote>
 <p><strong>position</strong> : int</p>
 <blockquote class="last">
-<div><p>Position of new column in the table, 0 is right.</p>
+<div><p>Position of new column in the table, 1 is leftmost.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -131,6 +139,8 @@ Attention: Only &#8216;tsv&#8217;, &#8216;csv&#8217;, &#8216;ods&#8217; and &#82
 <dt id="SBtab.SBtabTable.addRow">
 <tt class="descname">addRow</tt><big>(</big><em>row_list</em>, <em>position=None</em><big>)</big><a class="reference internal" href="_modules/SBtab.html#SBtabTable.addRow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtab.SBtabTable.addRow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add row to the table, if postion is None at the end of it.</p>
+<p>Take list of strings and add it as row at given position, 
+if no position was given, append row at the end of the SBtab.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -150,15 +160,14 @@ Attention: Only &#8216;tsv&#8217;, &#8216;csv&#8217;, &#8216;ods&#8217; and &#82
 </dd></dl>
 
 <dl class="method">
-<dt id="SBtab.SBtabTable.autoColumn">
-<tt class="descname">autoColumn</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SBtab.html#SBtabTable.autoColumn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtab.SBtabTable.autoColumn" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add new column &#8216;!XX&#8217; with entries &#8216;xx&#8217; in all rows, when introduced as !XX = &#8216;xx&#8217; in the header row.</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="SBtab.SBtabTable.changeValue">
 <tt class="descname">changeValue</tt><big>(</big><em>row</em>, <em>column</em>, <em>new</em><big>)</big><a class="reference internal" href="_modules/SBtab.html#SBtabTable.changeValue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtab.SBtabTable.changeValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Change single value in the SBtab table by position in the table.</p>
+<dd><p>Change single value in the SBtab table by position in the table.     
+Take position of entry as numbers (row and column) and the new value 
+for this entry.</p>
+<p>Example:     
+changevalue(2,4,&#8217;new&#8217;) will replace the entry in the 2nd row and the 
+4th column by the string &#8216;new&#8217;.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -186,7 +195,11 @@ Attention: Only &#8216;tsv&#8217;, &#8216;csv&#8217;, &#8216;ods&#8217; and &#82
 <dl class="method">
 <dt id="SBtab.SBtabTable.changeValueByName">
 <tt class="descname">changeValueByName</tt><big>(</big><em>name</em>, <em>column_name</em>, <em>new</em><big>)</big><a class="reference internal" href="_modules/SBtab.html#SBtabTable.changeValueByName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtab.SBtabTable.changeValueByName" title="Permalink to this definition">¶</a></dt>
-<dd><p>Change singe value in the SBtab by name of column and of the first row entry.</p>
+<dd><p>Change entry in the SBtab by name of column and its identifier in the first row.
+Take identifier of entry and name of column to replace entry by new entry.</p>
+<p>Example:      
+changeValueByName(&#8216;ATP&#8217;, &#8216;Name&#8217;, &#8216;Adenosine triphosphate&#8217;) will replace the entry
+of &#8216;ATP&#8217; in the column &#8216;Name&#8217; by &#8216;Adenosine triphosphate&#8217;.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -208,8 +221,8 @@ Attention: Only &#8216;tsv&#8217;, &#8216;csv&#8217;, &#8216;ods&#8217; and &#82
 </tbody>
 </table>
 <p class="rubric">Notes</p>
-<p>Example:
-name : &#8216;Rn_4&#8217; 
+<p>Example:     
+name : &#8216;Rn_4&#8217;     
 column_name : &#8216;Gene&#8217;</p>
 <p>Change entry in the column &#8216;Gene&#8217; for Reaction 4.</p>
 <p>Be aware, if mandatory column was set, name would be the entry in the new column!</p>
@@ -218,7 +231,7 @@ column_name : &#8216;Gene&#8217;</p>
 <dl class="method">
 <dt id="SBtab.SBtabTable.createDataset">
 <tt class="descname">createDataset</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SBtab.html#SBtabTable.createDataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtab.SBtabTable.createDataset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a tablib object of the SBtab Python object.</p>
+<dd><p>Create and return a tablib object of the SBtab Python object.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -236,7 +249,8 @@ column_name : &#8216;Gene&#8217;</p>
 <dl class="method">
 <dt id="SBtab.SBtabTable.createList">
 <tt class="descname">createList</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SBtab.html#SBtabTable.createList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtab.SBtabTable.createList" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a list object of the SBtab Python object.</p>
+<dd><p>Create and return a list of the SBtab object, add header, column names 
+and all rows to list.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -254,8 +268,8 @@ column_name : &#8216;Gene&#8217;</p>
 <dl class="method">
 <dt id="SBtab.SBtabTable.createSBtabDict">
 <tt class="descname">createSBtabDict</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SBtab.html#SBtabTable.createSBtabDict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtab.SBtabTable.createSBtabDict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a dict instance of the SBtab table.
-Keys are the column names, values are dicts. These contain the entries of the table.
+<dd><p>Create and return a dictionary of the SBtab table.     
+Keys are the column names, values are again dictionaries. These contain the entries of the table.
 Keys are the entries in the first column, values are the current entries in the certain column.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -278,7 +292,7 @@ Value - entry</p>
 <dl class="method">
 <dt id="SBtab.SBtabTable.duplicate">
 <tt class="descname">duplicate</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SBtab.html#SBtabTable.duplicate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtab.SBtabTable.duplicate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a copy of the SBtab object.</p>
+<dd><p>Create and return a copy of the SBtab object.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -298,7 +312,10 @@ Value - entry</p>
 <dl class="method">
 <dt id="SBtab.SBtabTable.getColumns">
 <tt class="descname">getColumns</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SBtab.html#SBtabTable.getColumns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtab.SBtabTable.getColumns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extract the column names of the table, add mandatory first column name if necessary.</p>
+<dd><p>Extract the column names of the table, add mandatory first column name 
+(equal to table name) if necessary.     
+Returns column names (list), column positions (dict) and flag, whether first 
+column was set automatically.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -324,7 +341,7 @@ See specification for further informations.</p>
 <dl class="method">
 <dt id="SBtab.SBtabTable.getHeaderRow">
 <tt class="descname">getHeaderRow</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SBtab.html#SBtabTable.getHeaderRow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtab.SBtabTable.getHeaderRow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extract the !!-header row from the SBtab file.</p>
+<dd><p>Extract the header row from the SBtab file and return it as string.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -344,7 +361,10 @@ See specification for further informations.</p>
 <dl class="method">
 <dt id="SBtab.SBtabTable.getRows">
 <tt class="descname">getRows</tt><big>(</big><em>table_type='table'</em>, <em>inserted=False</em><big>)</big><a class="reference internal" href="_modules/SBtab.html#SBtabTable.getRows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtab.SBtabTable.getRows" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extract the rows of the SBtab, add first column if necessary.</p>
+<dd><p>Extract the rows of the SBtab, fill first column automatically if necessary.     
+Take table type and flag if necessary. Both only necessary when function called
+from class function &#8216;initializeTable&#8217;.     
+Return rows of table as list.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -379,7 +399,8 @@ See specification for further informations.</p>
 <dl class="method">
 <dt id="SBtab.SBtabTable.getTableInformation">
 <tt class="descname">getTableInformation</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SBtab.html#SBtabTable.getTableInformation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtab.SBtabTable.getTableInformation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Read column type row and store its information.</p>
+<dd><p>Read header row and store its information in class variables.     
+Returns table type, table name, table document and table version.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -396,10 +417,6 @@ See specification for further informations.</p>
 <blockquote>
 <div><p>Document type of SBtab table.</p>
 </div></blockquote>
-<p><strong>table_level</strong> : str</p>
-<blockquote>
-<div><p>Level of SBtab table.</p>
-</div></blockquote>
 <p><strong>table_version</strong> : str</p>
 <blockquote class="last">
 <div><p>Version of the SBtab table.</p>
@@ -409,27 +426,23 @@ See specification for further informations.</p>
 </tbody>
 </table>
 <p class="rubric">Notes</p>
-<p>If no name was set, name equals table_type and number of occurences of unnamed
-tables of same type.
-Raise error if no table type is defined.</p>
+<ul class="simple">
+<li>If no name was set, name equals table_type and number of occurences of unnamed tables of same type.</li>
+<li>Raise error if no table type is defined.</li>
+</ul>
 </dd></dl>
 
 <dl class="method">
 <dt id="SBtab.SBtabTable.initializeTable">
 <tt class="descname">initializeTable</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SBtab.html#SBtabTable.initializeTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtab.SBtabTable.initializeTable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load table informations and class variables.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="SBtab.SBtabTable.lazyColumn">
-<tt class="descname">lazyColumn</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SBtab.html#SBtabTable.lazyColumn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtab.SBtabTable.lazyColumn" title="Permalink to this definition">¶</a></dt>
-<dd><p>If only one entry in the column, automatically fill column, put the same entry in the complete column.</p>
+<dd><p>Initialise table information and class variables.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="SBtab.SBtabTable.removeColumn">
 <tt class="descname">removeColumn</tt><big>(</big><em>position</em><big>)</big><a class="reference internal" href="_modules/SBtab.html#SBtabTable.removeColumn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtab.SBtabTable.removeColumn" title="Permalink to this definition">¶</a></dt>
-<dd><p>Remove column from the table.</p>
+<dd><p>Remove column from the table at given position. 1 is defined as the 
+position of the leftmost column.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -447,14 +460,16 @@ Raise error if no table type is defined.</p>
 <dl class="method">
 <dt id="SBtab.SBtabTable.removeRow">
 <tt class="descname">removeRow</tt><big>(</big><em>position</em><big>)</big><a class="reference internal" href="_modules/SBtab.html#SBtabTable.removeRow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtab.SBtabTable.removeRow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Remove row from the table</p>
+<dd><p>Remove row at given position from the table.      
+Position gives position of value row (starting at 1), 
+header and column names cannot be removed.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>position</strong> : int</p>
 <blockquote class="last">
-<div><p>Position of row to be removed. Starting with 1.</p>
+<div><p>Position of row to be removed. Starting at 1.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -465,7 +480,9 @@ Raise error if no table type is defined.</p>
 <dl class="method">
 <dt id="SBtab.SBtabTable.transposeTable">
 <tt class="descname">transposeTable</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SBtab.html#SBtabTable.transposeTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtab.SBtabTable.transposeTable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Transpose SBtab table. Switch columns and rows.</p>
+<dd><p>Transpose SBtab table. Switch columns and rows of the SBtab object.    
+The header row will not be changed. The column names will be the first entry
+of each row.</p>
 <p class="rubric">Notes</p>
 <p>Some tables need to store the data in the columns, not in rows. This function enables
 the user to use the same dictionaries features of SBtab without formatting the file
@@ -476,13 +493,18 @@ by hand.</p>
 <dl class="method">
 <dt id="SBtab.SBtabTable.update">
 <tt class="descname">update</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SBtab.html#SBtabTable.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtab.SBtabTable.update" title="Permalink to this definition">¶</a></dt>
-<dd><p>Update the SBtab instance, list object and tablib dataset.</p>
+<dd><p>Update the SBtab instance, list object and tablib dataset.     
+This function is needed to provide a consistent representation as list, 
+tablib and SBtab object after modification of the table.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="SBtab.SBtabTable.writeSBtab">
 <tt class="descname">writeSBtab</tt><big>(</big><em>format_type</em>, <em>filename=None</em><big>)</big><a class="reference internal" href="_modules/SBtab.html#SBtabTable.writeSBtab"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtab.SBtabTable.writeSBtab" title="Permalink to this definition">¶</a></dt>
-<dd><p>Write SBtab tablib object to file.</p>
+<dd><p>Write SBtab object to file.      
+Save SBtab in given file format (tsv, csv, ods, xls). If no filename is 
+given, the old file will be overwritten.     
+This function uses tablib.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
