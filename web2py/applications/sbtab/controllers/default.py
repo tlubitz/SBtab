@@ -290,6 +290,7 @@ def converter():
                     merged_sbtabs.append(session.sbtabs[i])
             sbtab_document                = sbtab2sbml.SBtabDocument(merged_sbtabs,'merged_unknown.tsv',tabs=2)
             (new_sbml,session.ex_warning) = sbtab_document.makeSBML()
+            if convert_document == None: convert_document = 'Unnamed_document.xml'
             if not session.has_key('sbmls'):
                 session.sbmls = [new_sbml]
                 session.sbml_filenames = [convert_document]

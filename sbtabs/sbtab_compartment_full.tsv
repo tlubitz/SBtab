@@ -1,5 +1,0 @@
-!!SBtab Level="1" Version="0.1" Document="Test" TableType="Compartment"
-!Compartment	!SBML::compartment::id	!Size
-cytosol		23
-extracellular		4
-fakecomp		1

@@ -5,7 +5,7 @@ import string
 import validatorSBtab
 import tablib.packages.xlrd as xlrd
 
-urns = ["obo.chebi","kegg.compound","obo.go","obo.sgd","biomodels.sbo","ec-code","kegg.orthology","obo.uniprot"]
+urns = ["obo.chebi","kegg.compound","kegg.reaction","obo.go","obo.sgd","biomodels.sbo","ec-code","kegg.orthology","obo.uniprot"]
 
 def csv2html(sbtab_file,file_name,delimiter,sbtype,def_file=None,def_file_name=None):
     '''
@@ -26,7 +26,8 @@ def csv2html(sbtab_file,file_name,delimiter,sbtype,def_file=None,def_file_name=N
     nice_sbtab += '<a style="background-color:#00BFFF">'+ugly_sbtab[0]+'</a><br>'
     nice_sbtab += '<table>'
 
-    ident_url = False
+    ident_url  = False
+    ident_cols = []
 
     for row in ugly_sbtab[1:]:
         if row.startswith('!'):
@@ -35,9 +36,9 @@ def csv2html(sbtab_file,file_name,delimiter,sbtype,def_file=None,def_file_name=N
             for i,element in enumerate(splitrow):
                 if 'Identifiers:' in element:
                     try:
-                        searcher  = re.search('!Identifiers:(.*)',element)
+                        searcher  = re.search('Identifiers:(.*)',element)
                         ident_url = 'http://identifiers.org/'+searcher.group(1)+'/'
-                        ident_col = i
+                        ident_cols.append(i)
                     except: pass
                     
         else: nice_sbtab += '<tr>'
@@ -49,7 +50,7 @@ def csv2html(sbtab_file,file_name,delimiter,sbtype,def_file=None,def_file_name=N
                 new_row = '<td title="'+str(title)+'">'+str(thing)+'</\td>'
                 nice_sbtab += new_row
             else:
-                if i == ident_col and not thing.startswith('!'):
+                if i in ident_cols and not thing.startswith('!'):
                     ref_string = ident_url+thing
                     new_row = '<td><a href="'+ref_string+'" target="_blank">'+str(thing)+'</a></\td>'
                 else:

@@ -33,7 +33,7 @@ class SBtabDocument:
 
         self.tabs = tabs
 
-        (sbtabs,types) = self.checkTabs()              #check how many SBtabs are given in the document
+        self.checkTabs()              #check how many SBtabs are given in the document
 
     def makeTSVfile(self,xls_file):
         '''
@@ -86,7 +86,6 @@ class SBtabDocument:
         this function checks, how many SBtab files are given by the user and save it/them
         in a list, moreover store the SBtab types in a dict linking to the SBtabs
         '''
-        self.sbtabs     = []
         self.type2sbtab = {}
 
         #if there are more than one SBtabs given in single files that might be comprised of several SBtabs:
@@ -103,7 +102,10 @@ class SBtabDocument:
                     sbtabtsv = self.unifySBtab(sbtab)
                     new_tablib_obj = tablibIO.importSetNew(sbtabtsv,self.filename,seperator='\t')
                     single_tab = SBtab.SBtabTable(new_tablib_obj,self.filename)
-                    self.type2sbtab[single_tab.table_type] = single_tab
+                    if single_tab.table_type in self.type2sbtab.keys():
+                        fn = random_number = str(random.randint(0,1000))
+                        self.type2sbtab[single_tab.table_type+'_'+fn] = single_tab
+                    else: self.type2sbtab[single_tab.table_type] = single_tab
         #elif there is only one document given, possibly consisting of several SBtabs
         else:
             #check for several SBtabs in one document
@@ -117,8 +119,6 @@ class SBtabDocument:
                 new_tablib_obj = tablibIO.importSetNew(as_sbtab,self.filename,seperator='\t')
                 single_tab = SBtab.SBtabTable(new_tablib_obj,self.filename)
                 self.type2sbtab[single_tab.table_type] = single_tab
-
-        return sbtabs,self.type2sbtab
 
     def unifySBtab(self,sbtab):
         '''
@@ -318,7 +318,7 @@ class SBtabDocument:
                         cv_term = self.setAnnotation(compartment,annot,urn,'Model')
                         compartment.addCVTerm(cv_term)
                     except:
-                        print 'There was an annotation that I could not assign properly: ',compartment.getId(),annot,urn
+                        print 'There was an annotation that I could not assign properly: ',compartment.getId(),annot #,urn
            
 
     def compoundSBtab(self):
@@ -373,7 +373,7 @@ class SBtabDocument:
                             cv_term = self.setAnnotation(species,annot,urn,'Biological')
                             species.addCVTerm(cv_term)
                         except:
-                            print 'There was an annotation that I could not assign properly: ',species.getId(),annot,urn
+                            print 'There was an annotation that I could not assign properly: ',species.getId(),annot #,urn
 
         #species without compartments yield errors --> set them to the first available compartment
         for species in self.new_model.getListOfSpecies():
@@ -570,7 +570,7 @@ class SBtabDocument:
                         cv_term = self.setAnnotation(react,annot,urn,'Biological')
                         react.addCVTerm(cv_term)
                     except:
-                        print 'There was an annotation that I could not assign properly: ',react.getId(),annot,urn
+                        print 'There was an annotation that I could not assign properly: ',react.getId(),annot #,urn
             
     def extractRegulators(self,mods):
         '''
@@ -634,23 +634,31 @@ class SBtabDocument:
         '''
         '''
         sbtab = self.type2sbtab['Quantity']
+
         for row in sbtab.value_rows:
-            if row[sbtab.columns_dict['!Description']] == 'local parameter':
-                for reaction in self.new_model.getListOfReactions():
-                    kl      = reaction.getKineticLaw()
-                    formula = kl.getFormula()
-                    if row[sbtab.columns_dict['!SBML:parameter:id']] in formula:
-                        lp = kl.createParameter()
-                        lp.setId(row[sbtab.columns_dict['!SBML:parameter:id']])
-                        try: lp.setValue(float(row[sbtab.columns_dict['!Value']]))
-                        except: lp.setValue(1.0)
-                        try: lp.setUnits(row[sbtab.columns_dict['!Unit']])
-                        except: pass
-            else:
+            try:
+                row[sbtab.columns_dict['!Description']]
+                if row[sbtab.columns_dict['!Description']] == 'local parameter':
+                    for reaction in self.new_model.getListOfReactions():
+                        kl      = reaction.getKineticLaw()
+                        formula = kl.getFormula()
+                        if row[sbtab.columns_dict['!SBML:parameter:id']] in formula:
+                            lp = kl.createParameter()
+                            lp.setId(row[sbtab.columns_dict['!SBML:parameter:id']])
+                            try: lp.setValue(float(row[sbtab.columns_dict['!Value']]))
+                            except: lp.setValue(1.0)
+                            try: lp.setUnits(row[sbtab.columns_dict['!Unit']])
+                            except: pass
+                else:
+                    parameter = self.new_model.createParameter()
+                    parameter.setId(row[sbtab.columns_dict['!SBML:parameter:id']])
+                    parameter.setUnits(row[sbtab.columns_dict['!Unit']])
+                    parameter.setValue(float(row[sbtab.columns_dict['!Value']]))
+            except:
                 parameter = self.new_model.createParameter()
                 parameter.setId(row[sbtab.columns_dict['!SBML:parameter:id']])
                 parameter.setUnits(row[sbtab.columns_dict['!Unit']])
-                parameter.setValue(float(row[sbtab.columns_dict['!Value']]))
+                parameter.setValue(float(row[sbtab.columns_dict['!Value']]))              
 
         
 if __name__ == '__main__':
@@ -684,6 +692,4 @@ if __name__ == '__main__':
     #sbtab_compound.close()
     #sbtab_quantity.close()
     #sbtab_compartment.close()
-    
-
     
