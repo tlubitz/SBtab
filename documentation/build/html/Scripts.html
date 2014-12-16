@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Commandline scripts &mdash; SBtab 0.8 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="SBtab 0.8 documentation" href="index.html" />
+    <link rel="next" title="Web2py" href="Web2py.html" />
+    <link rel="prev" title="Validator" href="Validator.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Web2py.html" title="Web2py"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Validator.html" title="Validator"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">SBtab 0.8 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+<span class="target" id="module-Scripts"></span><div class="section" id="scripts">
+<h1>Commandline scripts<a class="headerlink" href="#scripts" title="Permalink to this headline">¶</a></h1>
+<p>
+There are several Python-based commandline scripts that can be used to integrate core functions of SBtab handling
+into new software. We are providing the following scripts: <br><br>
+
+- convert SBtab file/s to SBML file <br>
+- convert SBML file to SBtab files <br>
+- convert SBtab file/s to HTML file <br><br>
+
+The prerequisites to use these scripts are: <br><br>
+
+- python 2.7 or higher <br>
+- numpy (numerical operations for python) <br>
+- libsbml (SBML manipulation for python) <br>
+- re (regular expression module for python) <br><br>
+
+If you are experiencing troubles running or embedding the scripts, do not hesitate to contact Timo Lubitz (timo.lubitz@hu-berlin.de).
+</p>
+
+<p>
+<h2>1. Converting an SBML file to SBtab output files.</h2>
+
+The conversion of an SBML file to SBtab files is easy: simply generate an instance of the class SBMLDocument in sbml2sbtab.py. You have to provide an SBML file as a libsbml instance and a model name as a string. Then start the function makeSBtabs(): <br><br>
+<b>
+    reader     = libsbml.SBMLReader() <br>
+    sbml       = reader.readSBML('yourSBMLmodel.xml') <br>
+    A          = SBMLDocument(sbml,'mysbmlmodel.xml') <br>
+    sbtabfiles = A.makeSBtabs() <br><br>
+</b>
+The SBtab files are now stored as a list of SBtab classes in the variable sbtabfiles. If the SBML model provides the required information, the output SBtab files are of the types: compartment, reaction, compound, and quantitytype.
+</p>
+
+<p>
+<h2>2. Converting SBtab files to an SBML output file.</h2>
+
+The conversion from SBtab files to SBML files can be done analogously. Create an instance of the class SBtabDocument in sbtab2sbml.py. The parameters that have to be provided are an SBtab file (of the type reaction) or a list of SBtab files (including one of the type reaction), a filename as a string, and the amount of SBtab files you are providing. Then start the function makeSBML() and the new SBML file is stored in sbml_file: <br><br>
+<b>
+    #first: open x SBtab files <br>
+    sbtab_reaction = open('sbtabs/sbtab_reaction_full.tsv','r') <br>
+    sbtab_compound = open('sbtabs/sbtab_compound_full.tsv','r') <br><br>
+
+    #second: if there are more than one SBtab file, create a list document <br>
+    document = [] <br>
+    document.append(sbtab_reaction.read()) <br>
+    document.append(sbtab_compound.read()) <br><br>
+
+    #third: create class instance and create SBML <br>
+    sbtab_class = SBtabDocument(document,'sbtabname.tsv',2) <br>
+    sbml_file   = sbtab_class.makeSBML() <br><br>
+</b>
+</p>
+
+<p>
+<h2>3. Converting SBtab files an HTML output file.</h2>
+
+Blatext.<br><br>
+
+<b>
+  Code snippets
+  makehtml.py, etc.
+</b>
+
+</p>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Validator.html"
+                        title="previous chapter">Validator</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Web2py.html"
+                        title="next chapter">Web2py</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/Validator.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Web2py.html" title="Web2py"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Validator.html" title="Validator"
+             >previous</a> |</li>
+        <li><a href="index.html">SBtab 0.8 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Wolfram Liebermeister, Timo Lubitz, Jens Hahn.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
