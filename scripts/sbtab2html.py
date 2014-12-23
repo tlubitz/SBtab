@@ -18,16 +18,17 @@ def csv2html(sbtab_file,file_name,sbtype):
     #now start building the HTML file from the SBtab file
     delimiter = checkSeperator(sbtab_file)
     ugly_sbtab = sbtab_file.split('\n')
-    nice_sbtab = '<p><h2><b>'+file_name+'</b></h2></p>'
-    nice_sbtab += '<a style="background-color:#00BFFF">'+ugly_sbtab[0]+'</a><br>'
-    nice_sbtab += '<table>'
+    nice_sbtab = '<html>\n<body>\n'
+    nice_sbtab += '<p>\n<h2><b>'+file_name+'</b></h2>\n</p>\n'
+    nice_sbtab += '<a style="background-color:#00BFFF">'+ugly_sbtab[0]+'</a>\n<br>\n'
+    nice_sbtab += '<table>\n'
 
     ident_url  = False
     ident_cols = []
 
     for row in ugly_sbtab[1:]:
         if row.startswith('!'):
-            nice_sbtab += '<tr bgcolor="#87CEFA">'
+            nice_sbtab += '<tr bgcolor="#87CEFA">\n'
             splitrow = row.split(delimiter)
             for i,element in enumerate(splitrow):
                 if 'Identifiers:' in element:
@@ -37,26 +38,28 @@ def csv2html(sbtab_file,file_name,sbtype):
                         ident_cols.append(i)
                     except: pass
                     
-        else: nice_sbtab += '<tr>'
+        else: nice_sbtab += '<tr>\n'
 
         for i,thing in enumerate(row.split(delimiter)):
             try: title = col2description[thing[1:]]
             except: title = ''
             if not ident_url:
-                new_row = '<td title="'+str(title)+'">'+str(thing)+'</\td>'
-                nice_sbtab += new_row
+                new_row = '<td title="'+str(title)+'">'+str(thing)+'</td>'
+                nice_sbtab += new_row+'\n'
             else:
                 if i in ident_cols and not thing.startswith('!'):
                     ref_string = ident_url+thing
-                    new_row = '<td><a href="'+ref_string+'" target="_blank">'+str(thing)+'</a></\td>'
+                    new_row = '<td><a href="'+ref_string+'" target="_blank">'+str(thing)+'</a></td>'
                 else:
-                    new_row = '<td title="'+title+'">'+str(thing)+'</\td>'
-                nice_sbtab += new_row
+                    new_row = '<td title="'+title+'">'+str(thing)+'</td>'
+                nice_sbtab += new_row+'\n'
                 
-        nice_sbtab += '</tr>'
-    nice_sbtab += '</table>'
+        nice_sbtab += '</tr>\n'
+    nice_sbtab += '</table>\n'
 
-    html_file = open(file_name+'.html','w')
+    nice_sbtab += '</body>\n</html>\n'
+
+    html_file = open(file_name[:-4]+'.html','w')
     for row in nice_sbtab: html_file.write(row)
     html_file.close()
     
