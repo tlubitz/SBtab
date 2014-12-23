@@ -13,7 +13,7 @@ def csv2html(sbtab_file,file_name,sbtype):
     def_file      = def_file_open.read()
     def_delimiter = '\t'
     col2description = findDescriptions(def_file,def_delimiter,sbtype)
-    def_file.close()
+    def_file_open.close()
 
     #now start building the HTML file from the SBtab file
     delimiter = checkSeperator(sbtab_file)
