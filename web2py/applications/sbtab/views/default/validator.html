@@ -8,14 +8,22 @@
 
 {{displayedf = []}}
 {{displayedg = []}}
-<hr>
-<table>
+
+<table border="0">
   {{for pos2,g in enumerate(DOC_NAMES):}}
     {{if not g in displayedg:}}
-    <td>
-      <br>SBtab document
+    <table border="1" rules="rows">
+    <td bgcolor="#87CEFA">
+      SBtab document
       <b>{{=g}}</b>
     </td>
+    {{if len(DOC_NAMES)>1:}}
+    <form><td bgcolor="#87CEFA"><button type="submit" value="{{=pos2}}" name="remove_all_button_val">Remove all</button> </td> </form>
+    <td bgcolor="#87CEFA"></td>
+    {{else:}}
+    <td bgcolor="#87CEFA"></td>
+    <td bgcolor="#87CEFA"></td>
+    {{pass}}
     {{for pos,f in enumerate(NAME_LIST):}}
     {{if NAME2DOC[f] == g:}}
     {{sbtab = str(SBTAB_LIST[0])}}
@@ -24,8 +32,8 @@
 		&bull;
 		  <a href="/sbtab/default/show_sbtab/{{=str(pos)}}" target="_new"> {{=f}} </a>
 	      </td>
-	      <td> <form> <button type="submit" value="{{=pos}}" name="validate_button">Validate</button> </form> </td>
-	      <td> <form> <button type="submit" value="{{=pos}}" name="erase_button">Remove</button> </form> </td>
+	      <form><td> <button type="submit" value="{{=pos}}" name="validate_button">Validate</button> </td> </form>
+	      <form><td> <button type="submit" value="{{=pos}}" name="erase_button">Remove</button> </td> </form>
 	    </tr>
 
 {{displayedf.append(f)}}
@@ -35,8 +43,9 @@
 {{pass}}
 {{pass}}
 </table>
+</table>
 {{else:}}
-<table>
+<table border="0">
 <td>
 No SBtab files uploaded.
 </td>
@@ -45,27 +54,27 @@ No SBtab files uploaded.
 
 
 {{if V_OUTPUT:}}
-
+<br>
 <b>File validation of
 {{=SBTAB2VAL}}:</b>
 
-<table>
+<table border="0">
 {{for f in V_OUTPUT:}} 
   <tr> 
-    <td>{{=f}}</td> 
+    <td><font color="#FF0000">&bull; {{=f}}</font></td> 
   </tr>
 {{pass}}
 </table>
 {{elif EXWARNING:}}
-<table>
+<table border="0">
 <tr>
 <td>
-<b>{{=EXWARNING[0]}}</b>
+<td>{{=EXWARNING[0]}}</td>
 </td>
 </tr>
 </table>
 {{else:}}
-<table>
+<table border="0">
 <td>
 No warnings detected.
 </td>

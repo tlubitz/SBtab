@@ -8,7 +8,7 @@ import random
 
 #all allowed SBtab types (except for Compound and Reaction, which are somewhat mandatory)
 sbtab_types = ['Quantity'] #['Enzyme','Compartment']
-urns = ["obo.chebi","kegg.compound","kegg.reaction","obo.go","obo.sgd","biomodels.sbo","ec-code","kegg.orthology","obo.uniprot"]
+urns = ["obo.chebi","kegg.compound","kegg.reaction","obo.go","obo.sgd","biomodels.sbo","ec-code","kegg.orthology","uniprot"]
 
 class ConversionError(Exception):
     def __init__(self,message):
@@ -225,6 +225,8 @@ class SBtabDocument:
         If there is no Compartment SBtab AND no compartments given in the other provided SBtab files, a default
         compartment needs to be set.
         '''
+        self.def_comp_set = False      #has a default compartment been set?
+        
         #1. check for compartment SBtab
         try:
             self.compartmentSBtab()
@@ -253,6 +255,7 @@ class SBtabDocument:
             pass
 
         #4. Nothing yet? Then create a default compartment
+        self.def_comp_set   = True
         default_compartment = self.new_model.createCompartment()
         default_compartment.setId('Default_Compartment')
         default_compartment.setName('Default_Compartment')
@@ -353,6 +356,8 @@ class SBtabDocument:
                         new_comp.setId(str(row[sbtab.columns_dict['!Location']]))
                         self.compartment_list.append(row[sbtab.columns_dict['!Location']])
                     species.setCompartment(row[sbtab.columns_dict['!Location']])
+                elif self.def_comp_set:
+                    species.setCompartment('Default_Compartment')
                 if '!InitialConcentration' in sbtab.columns and row[sbtab.columns_dict['!InitialConcentration']] != '':
                     species.setInitialConcentration(float(row[sbtab.columns_dict['!InitialConcentration']]))
                 #DEPRECATED: Libsbml does not want this anymore!
@@ -402,6 +407,7 @@ class SBtabDocument:
                         sp.setName(str(educt))
                         sp.setInitialConcentration(1)
                         if compartment: sp.setCompartment(compartment)
+                        elif self.def_comp_set: sp.setCompartment('Default_Compartment')
                         self.species_list.append(educt)
                 products = self.reaction2reactants[reaction][1]
                 for product in products:
@@ -412,6 +418,7 @@ class SBtabDocument:
                         sp.setName(str(product))
                         sp.setInitialConcentration(1)
                         if compartment: sp.setCompartment(compartment)
+                        elif self.def_comp_set: sp.setCompartment('Default_Compartment')
                         self.species_list.append(product)
 
         #if compartments are given for the reactions and these compartments are not built yet:
@@ -491,7 +498,7 @@ class SBtabDocument:
                     kl = react.createKineticLaw()
                     kl.setFormula(row[sbtab.columns_dict['!KineticLaw']])
                     react.setKineticLaw(kl)
-                    letring = str('The kinetic law for reaction '+react.getId()+' was set according to the SBtab file. However, the validity of this kinetic law has to be ensured by the user. Please see the SBtab specification for details.')
+                    letring = str('The kinetic law for reaction '+react.getId()+' was set according to the SBtab file without check of validity.')
                     self.warnings.append(letring)
             except: pass
 
@@ -515,7 +522,7 @@ class SBtabDocument:
                             else:
                                 mod.setSpecies(element[1:])
                                 self.modifier_list.append(element)
-                                letring = str('There was a reaction modifier that could not be identified as either stimulator or inhibitor for reaction '+react.getId()+': '+element)
+                                letring = str('The reaction modifier '+element+' could not be identified as either stimulator or inhibitor.')
                                 self.warnings.append(letring)
                     else:
                         mod = react.createModifier()
@@ -530,7 +537,7 @@ class SBtabDocument:
                         else:
                             mod.setSpecies(row[sbtab.columns_dict['!Regulator']][1:])
                             self.modifier_list.append(row[sbtab.columns_dict['!Regulator']])
-                            letring = str('There was a reaction modifier that could not be identified as either stimulator or inhibitor for reaction '+react.getId()+': '+element)
+                            letring = str('The reaction modifier '+element+' could not be identified as either stimulator or inhibitor.')
                             self.warnings.append(letring)
                             
                         self.modifier_list.append(row[sbtab.columns_dict['!Regulator']])
@@ -658,8 +665,11 @@ class SBtabDocument:
             except:
                 parameter = self.new_model.createParameter()
                 parameter.setId(row[sbtab.columns_dict['!SBML:parameter:id']])
-                parameter.setUnits(row[sbtab.columns_dict['!Unit']])
-                parameter.setValue(float(row[sbtab.columns_dict['!Value']]))              
+                try: parameter.setValue(float(row[sbtab.columns_dict['!Value']]))
+                except: parameter.setValue(1.0)
+                try: parameter.setUnits(row[sbtab.columns_dict['!Unit']])
+                except: pass
+
 
         
 if __name__ == '__main__':

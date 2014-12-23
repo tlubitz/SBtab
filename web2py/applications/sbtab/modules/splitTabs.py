@@ -11,6 +11,7 @@ def checkTabs(document,filename,seperator=None):
     sbtabs = []
     types  = []
     docs   = []
+    tnames = []
     type2sbtab = {}
 
     #if there are more than one SBtabs given in single files that might be comprised of several SBtabs:
@@ -29,6 +30,8 @@ def checkTabs(document,filename,seperator=None):
                 type2sbtab[single_tab.table_type] = single_tab
                 types.append(single_tab.table_type)
                 docs.append(single_tab.table_document)
+                try: tnames.append(single_tab.table_name)
+                except: tnames.append('')
     #elif there is only one document given, possibly consisting of several SBtabs
     else:
         #check for several SBtabs in one document
@@ -44,8 +47,10 @@ def checkTabs(document,filename,seperator=None):
             type2sbtab[single_tab.table_type] = single_tab
             types.append(single_tab.table_type)
             docs.append(single_tab.table_document)
+            try: tnames.append(single_tab.table_name)
+            except: tnames.append('')
             
-        return sbtabs,types,docs
+        return sbtabs,types,docs,tnames
 
 def getAmountOfTables(document_rows):
     '''

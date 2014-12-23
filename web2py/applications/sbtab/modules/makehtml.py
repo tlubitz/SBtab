@@ -5,7 +5,7 @@ import string
 import validatorSBtab
 import tablib.packages.xlrd as xlrd
 
-urns = ["obo.chebi","kegg.compound","kegg.reaction","obo.go","obo.sgd","biomodels.sbo","ec-code","kegg.orthology","obo.uniprot"]
+urns = ["obo.chebi","kegg.compound","kegg.reaction","obo.go","obo.sgd","biomodels.sbo","ec-code","kegg.orthology","uniprot"]
 
 def csv2html(sbtab_file,file_name,delimiter,sbtype,def_file=None,def_file_name=None):
     '''

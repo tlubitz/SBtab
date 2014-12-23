@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import libsbml, numpy
+import re, libsbml, numpy
 
 allowed_sbtabs = ['Reaction','Compound','Compartment','Quantity']
 
@@ -58,12 +58,12 @@ class SBMLDocument:
         try:
             rules = self.model.getListOfRules()
             if len(rules)>0:
-                self.warnings.append('The SBML model contains rules. These cannot be translated to the SBtab files.')
+                self.warnings.append('The SBML model contains rules. These cannot be translated to the SBtab files yet.')
         except: pass
         try:
             events = self.model.getListOfEvents()
             if len(events)>0:
-                self.warnings.append('The SBML model contains events. These cannot be translated to the SBtab files.')
+                self.warnings.append('The SBML model contains events. These cannot be translated to the SBtab files yet.')
         except: pass
         
         
@@ -169,7 +169,7 @@ class SBMLDocument:
                        "SBO:\d{7}$":"biomodels.sbo",\
                        "\d+\.-\.-\.-|\d+\.\d+\.-\.-|\d+\.\d+\.\d+\.-|\d+\.\d+\.\d+\.(n)?\d+$":"ec-code",\
                        "K\d+$":"kegg.orthology",\
-                       "([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$":"obo.uniprot"}#,\
+                       "([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$":"uniprot"}#,\
                        #"\d+$":"taxonomy"}
 
         #for i in range(element.getNumCVTerms()):

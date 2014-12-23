@@ -151,7 +151,7 @@ class ValidateTable:
             if not self.sbtab.columns_dict['!' + self.sbtab.table_type] == 0:
                 self.warnings.append('The SBtab primary column is at a wrong position.')
         else:
-            self.warnings.append('The SBtab TableType is "unknown", therefore the main columns can not be checked!')
+            self.warnings.append('The SBtab TableType is "unknown", therefore the main columns cannot be checked!')
 
         # 4th: check the length of the different rows
         for row in self.sbtab.value_rows:
@@ -198,7 +198,7 @@ class ValidateFile:
         Check the extension of the file for invalid formats.
         """
         if not (str(filename).endswith('.tsv') or str(filename).endswith('.csv') or str(filename).endswith('.ods') or str(filename).endswith('.xls')):
-            self.warnings.append('The given file format is not supported: ' + filename + '. Please use ".tsv", ".csv", ".ods" or ".xls" instead.')
+            self.warnings.append('The given file format is not supported: ' + filename + '. Please use ".csv" or ".xls" instead.')
 
     def validateFile(self, sbtab_file):
         """
@@ -211,9 +211,9 @@ class ValidateFile:
         length = len(rows[0])
         for i, row in enumerate(rows):
             if not row:
-                self.warnings.append('The file contains an empty row in line ' + str(i) + '\n Will be ignored.')
+                self.warnings.append('The file contains an empty row in line: ' + str(i))
             if not len(row) == length:
-                self.warnings.append('The lengths of the rows are not identical.\n Will be adjusted automatically.')
+                self.warnings.append('The lengths of the rows are not identical.\n This will be adjusted automatically.')
             length = len(row)
 
     def checkSeperator(self,sbtabfile):

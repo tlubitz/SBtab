@@ -11,8 +11,8 @@
 
 {{displayedf = []}}
 {{displayedg = []}}
-<hr>
-<table>
+
+<table border="0">
   {{for pos2,g in enumerate(DOC_NAMES):}}
   {{for pos,f in enumerate(NAME_LIST_SBTAB):}}
   {{if NAME2DOC[f] == g:}}
@@ -23,13 +23,31 @@
   {{pass}}
 
     {{if not g in displayedg:}}
-    <td>
-      <br>SBtab document
-      <b>{{=g}}</b>
-      {{if DOC_NAMES.count(g)>1 and "Reaction" in TYPES:}}
-      <td><form> <button type="submit" value="{{=pos2}}" name="convert_all_button">Convert to SBML</button> </form> </td>
+    <table border="1" rules="rows">
+      <td bgcolor="#87CEFA">
+      
+        SBtab document
+        <b>{{=g}}</b>
+      </td>
+      
+      {{if DOC_NAMES.count(g)>1:}}
+      {{if "Reaction" in TYPES:}}
+      <form><td bgcolor="#87CEFA"><button type="submit" value="{{=pos2}}" name="convert_all_button" valign="top">Convert to SBML</button> </td> </form>
+      <form><td bgcolor="#87CEFA"><button type="submit" value="{{=pos2}}" name="remove_all_button">Remove all</button> </td> </form>
+      <td bgcolor="#87CEFA"></td>
+      {{else:}}
+      <td bgcolor="#87CEFA"></td>
+      <form><td bgcolor="#87CEFA"><button type="submit" value="{{=pos2}}" name="remove_all_button">Remove all</button> </td> </form>
+      <td bgcolor="#87CEFA"></td>
       {{pass}}
-    </td>
+      {{else:}}
+      </td>
+      <td bgcolor="#87CEFA"></td>
+      <td bgcolor="#87CEFA"></td>
+      <td bgcolor="#87CEFA"></td>
+      {{pass}}
+
+
     {{for pos,f in enumerate(NAME_LIST_SBTAB):}}
     {{if NAME2DOC[f] == g:}}
 	    <tr>
@@ -39,12 +57,12 @@
 	      </td>
 	      {{if TYPES[pos].capitalize() == 'Reaction':}}
 	      {{reaction = True}}
-	      <td> <form> <button type="submit" value="{{=pos}}" name="c2sbml_button">Convert to SBML</button> </form> </td>
+	      <form><td>  <button type="submit" value="{{=pos}}" name="c2sbml_button">Convert to SBML</button> </td> </form>
 	      {{else:}}
 	      <td></td>
 	      {{pass}}
-	      <td> <form> <button type="submit" value="{{=pos}}" name="erase_sbtab_button">Remove</button> </form> </td>
-	      <td> <form> <button type="submit" value="{{=pos}}" name="dl_sbtab_button">Download</button> </form> </td>
+	      <form><td>  <button type="submit" value="{{=pos}}" name="erase_sbtab_button">Remove</button> </td> </form>
+	      <form><td> <button type="submit" value="{{=pos}}" name="dl_sbtab_button">Download</button> </td> </form>
 {{displayedf.append(f)}}
 {{displayedg.append(g)}}
 {{pass}}
@@ -53,29 +71,29 @@
 </tr>
 {{pass}}
 </table>
+<br>
+</table>
 {{else:}}
-<table>
+<table border="0">
 <td>
 No SBtab files uploaded.
 </td>
 </table>
+<hr>
 {{pass}}
 
 
-<hr>
-<br>
 
 <h2>Convert SBML file to SBtab files</h2>
 {{=UPL_FORMR}}
 {{if NAME_LIST_SBML:}}
-<hr>
-<table>
+<table border="1" rules="rows">
 {{for pos,f in enumerate(NAME_LIST_SBML):}} 
   <tr> 
-    <td><a href="/sbtab/default/show_sbml/{{=str(pos)}}" target="_new"> {{=f}}</td> 
-    <td> <form> <button type="submit" value="{{=pos}}" name="c2sbtab_button">Convert to SBtab</button> </form> </td>
-    <td> <form> <button type="submit" value="{{=pos}}" name="erase_sbml_button">Remove</button> </form> </td>
-    <td> <form> <button type="submit" value="{{=pos}}" name="dl_sbml_button">Download</button> </form> </td>
+    <td> <a href="/sbtab/default/show_sbml/{{=str(pos)}}" target="_new"> {{=f}}</td> 
+     <form> <td> <button type="submit" value="{{=pos}}" name="c2sbtab_button">Convert to SBtab</button> </td></form>
+     <form> <td>  <button type="submit" value="{{=pos}}" name="erase_sbml_button">Remove</button></td> </form>
+     <form> <td>  <button type="submit" value="{{=pos}}" name="dl_sbml_button">Download</button></td> </form>
   </tr>
 {{pass}}
 </table>
@@ -87,18 +105,19 @@ No SBtab files uploaded.
 {{if EXWARNING:}}
 <br><br>
 <b>Logfile of warnings for conversion:</b>
+<br>
 
-<table>
+<table border="0">
 {{if len(EXWARNING)>1:}}
 {{for f in EXWARNING:}} 
   <tr> 
-    <td>{{=f}}</td> 
+    <td><font color="#FF0000">&bull; {{=f}}</font></td> 
   </tr>
 {{pass}}
 </table>
 {{else:}}
 <tr>
-{{=EXWARNING[0]}}
+    <td><font color="#FF0000">&bull; {{=EXWARNING[0]}}</font></td>
 </tr>
 </table>
 {{pass}}
