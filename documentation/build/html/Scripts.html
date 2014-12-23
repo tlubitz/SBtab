@@ -108,11 +108,12 @@ The conversion from SBtab files to SBML files can be done analogously. Create an
 <p>
 <h2>3. Converting SBtab files an HTML output file.</h2>
 
-Blatext.<br><br>
+SBtab files in csv format can be converted to HTML files by using the script sbtab2html.py. Please make sure that the file definitions.csv is available in the directory the script is started from. definitions.csv is required for the HTML mouseovers of the columns. The parameters for starting the converter are the SBtab file, the name of the file as a string, and the SBtab table type as a string. The script returns the SBtab file as HTML, moreover this HTML file is written on your hard disk. <br><br>
 
 <b>
-  Code snippets
-  makehtml.py, etc.
+    sbtab_file = open('your_sbtab.csv','r') <br>
+    sbtab      = sbtab_file.read() <br>
+    html_file  = sbtab2html.csv2html(sbtab,'your_sbtab.csv','your_tabletype') <br><br>
 </b>
 
 </p>
