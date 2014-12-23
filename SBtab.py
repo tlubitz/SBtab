@@ -3,9 +3,9 @@ SBtab
 =====
 
 Provides:
-    1. Automatic tranlations from SBtab file to Python objects (SBtabTools.py)    
-    2. Automatic verification of format and files (Validator.py)    
-    3. Easily callable and changeable entries in tables (SBtab.py)     
+    1. Automatic tranlations from SBtab file to Python objects
+    2. Automatic verification of format and files
+    2. Easily callable and changeable entries in tables
 
 SBtab is a uniforming spreadsheet format and designed for the use in
 Systems Biology. Furthermore, it is a useful format to import stored information
@@ -19,8 +19,6 @@ Use "SBtabTools.openSBtab(filepath)" to create SBtab Python object.
 Attention: Only 'tsv', 'csv', 'ods' and 'xls' are supported.
 
 See specification for further informations.
-
-Wolfgang Liebermeister, Timo Lubitz, Jens Hahn - Berlin 2014
 """
 
 #!/usr/bin/env python
@@ -45,14 +43,11 @@ class SBtabError(Exception):
 
 class SBtabTable():
     """
-    SBtabTable (version 0.8.0 10/12/2014)     
-    Class to modify SBtab objects.
+    SBtabTable (version 0.1.0 07/12/2013)
     """
     def __init__(self, table, filename):
         """
-        Create SBtab Python object from tablib object.     
-        Take tablib object of spreadsheet file and its file path and     
-        call functions to initialise SBtab object.
+        Create SBtab Python object from tablib object.
 
         Parameters
         ----------
@@ -74,7 +69,7 @@ class SBtabTable():
 
     def initializeTable(self):
         """
-        Initialise table information and class variables.
+        Load table informations and class variables.
         """
         # Read the header row from table
         self.header_row = self.getHeaderRow()
@@ -93,7 +88,7 @@ class SBtabTable():
 
     def getHeaderRow(self):
         """
-        Extract the header row from the SBtab file and return it as string.
+        Extract the !!-header row from the SBtab file.
 
         Returns
         -------
@@ -139,8 +134,7 @@ class SBtabTable():
 
     def getTableInformation(self):
         """
-        Read header row and store its information in class variables.     
-        Returns table type, table name, table document and table version.
+        Read column type row and store its information.
 
         Returns
         -------
@@ -155,8 +149,9 @@ class SBtabTable():
 
         Notes
         -----
-        - If no name was set, name equals table_type and number of occurences of unnamed tables of same type.     
-        - Raise error if no table type is defined.     
+        If no name was set, name equals table_type and number of occurences of unnamed
+        tables of same type.
+        Raise error if no table type is defined.
         """
 
         # Initialize variables for unnamed table handling
@@ -200,10 +195,7 @@ class SBtabTable():
 
     def getColumns(self):
         """
-        Extract the column names of the table, add mandatory first column name 
-        (equal to table name) if necessary.     
-        Returns column names (list), column positions (dict) and flag, whether first 
-        column was set automatically.
+        Extract the column names of the table, add mandatory first column name if necessary.
 
         Returns
         -------
@@ -240,10 +232,7 @@ class SBtabTable():
 
     def getRows(self, table_type='table', inserted=False):
         """
-        Extract the rows of the SBtab, fill first column automatically if necessary.     
-        Take table type and flag if necessary. Both only necessary when function called
-        from class function 'initializeTable'.     
-        Return rows of table as list.
+        Extract the rows of the SBtab, add first column if necessary.
 
         Parameters
         ----------
@@ -296,13 +285,7 @@ class SBtabTable():
 
     def changeValue(self, row, column, new):
         """
-        Change single value in the SBtab table by position in the table.     
-        Take position of entry as numbers (row and column) and the new value 
-        for this entry.
-
-        Example:     
-        changevalue(2,4,'new') will replace the entry in the 2nd row and the 
-        4th column by the string 'new'.
+        Change single value in the SBtab table by position in the table.
 
         Parameters
         ----------
@@ -324,12 +307,7 @@ class SBtabTable():
 
     def changeValueByName(self, name, column_name, new):
         """
-        Change entry in the SBtab by name of column and its identifier in the first row.
-        Take identifier of entry and name of column to replace entry by new entry.
-
-        Example:      
-        changeValueByName('ATP', 'Name', 'Adenosine triphosphate') will replace the entry
-        of 'ATP' in the column 'Name' by 'Adenosine triphosphate'.
+        Change singe value in the SBtab by name of column and of the first row entry.
 
         Parameters
         ----------
@@ -342,11 +320,11 @@ class SBtabTable():
 
         Notes
         -----
-        Example:     
-        name : 'Rn_4'     
-        column_name : 'Gene'     
+        Example:
+        name : 'Rn_4' 
+        column_name : 'Gene'
 
-        Change entry in the column 'Gene' for Reaction 4.     
+        Change entry in the column 'Gene' for Reaction 4.
 
         Be aware, if mandatory column was set, name would be the entry in the new column!
         """
@@ -360,8 +338,7 @@ class SBtabTable():
 
     def createList(self):
         """
-        Create and return a list of the SBtab object, add header, column names 
-        and all rows to list.
+        Create a list object of the SBtab Python object.
 
         Returns
         -------
@@ -380,7 +357,7 @@ class SBtabTable():
 
     def createDataset(self):
         """
-        Create and return a tablib object of the SBtab Python object.
+        Create a tablib object of the SBtab Python object.
 
         Returns
         -------
@@ -431,10 +408,7 @@ class SBtabTable():
 
     def addRow(self, row_list, position=None):
         """
-        Add row to the table, if postion is None at the end of it.     
-
-        Take list of strings and add it as row at given position, 
-        if no position was given, append row at the end of the SBtab.
+        Add row to the table, if postion is None at the end of it.
 
         Parameters
         ----------
@@ -473,14 +447,12 @@ class SBtabTable():
 
     def removeRow(self, position):
         """
-        Remove row at given position from the table.      
-        Position gives position of value row (starting at 1), 
-        header and column names cannot be removed.
+        Remove row from the table
 
         Parameters
         ----------
         position : int
-            Position of row to be removed. Starting at 1.
+            Position of row to be removed. Starting with 1.
         """
 
         # Create temporary work copy
@@ -494,18 +466,14 @@ class SBtabTable():
 
     def addColumn(self, column_list, position=None):
         """
-        Add column to SBtab object.
-        Take string list and add it as new column to the Sbtab object. First entry
-        of the list will be set as name for the new column. If no position is given
-        the column will be added after the rightmost column. 1 is defined as the 
-        position of the leftmost column.
+        Add column to the table, if position is None at the end of it.
 
         Parameters
         ----------
         column_list : list
             List of strings, containing the entries of the new column.
         position : int
-            Position of new column in the table, 1 is leftmost.
+            Positino of new column in the table, 0 is right.
         """
         # Empty column to fill up sbtab_dataset with ''
         empty_list = []
@@ -540,8 +508,7 @@ class SBtabTable():
 
     def removeColumn(self, position):
         """
-        Remove column from the table at given position. 1 is defined as the 
-        position of the leftmost column.
+        Remove column from the table.
 
         Parameters
         ----------
@@ -560,10 +527,7 @@ class SBtabTable():
 
     def writeSBtab(self, format_type, filename=None):
         """
-        Write SBtab object to file.      
-        Save SBtab in given file format (tsv, csv, ods, xls). If no filename is 
-        given, the old file will be overwritten.     
-        This function uses tablib. 
+        Write SBtab tablib object to file.
 
         Parameters
         ----------
@@ -594,7 +558,7 @@ class SBtabTable():
 
     def duplicate(self):
         """
-        Create and return a copy of the SBtab object.
+        Create a copy of the SBtab object.
 
         Parameters
         ----------
@@ -614,9 +578,7 @@ class SBtabTable():
 
     def update(self):
         """
-        Update the SBtab instance, list object and tablib dataset.     
-        This function is needed to provide a consistent representation as list, 
-        tablib and SBtab object after modification of the table.
+        Update the SBtab instance, list object and tablib dataset.
         """
         # Create tablib Dataset instance with new SBtab table
         self.table = self.createDataset()
@@ -625,8 +587,8 @@ class SBtabTable():
 
     def createSBtabDict(self):
         """
-        Create and return a dictionary of the SBtab table.     
-        Keys are the column names, values are again dictionaries. These contain the entries of the table.
+        Create a dict instance of the SBtab table.
+        Keys are the column names, values are dicts. These contain the entries of the table.
         Keys are the entries in the first column, values are the current entries in the certain column.
 
         Returns
@@ -650,9 +612,7 @@ class SBtabTable():
 
     def transposeTable(self):
         """
-        Transpose SBtab table. Switch columns and rows of the SBtab object.    
-        The header row will not be changed. The column names will be the first entry
-        of each row.
+        Transpose SBtab table. Switch columns and rows.
 
         Notes
         -----

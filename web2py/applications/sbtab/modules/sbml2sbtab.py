@@ -17,10 +17,6 @@ class SBMLDocument:
         '''
         initalize SBtab document, check it for SBtabs
         '''
-        #reader      = libsbml.SBMLReader()
-        #sbml_modelx = reader.readSBML(sbml_model)
-        #print sbml_modelx.getModel()
-
         self.model    = sbml_model
         self.filename = filename
         if not self.filename.endswith('.xml'): 
