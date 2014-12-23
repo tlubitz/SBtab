@@ -24,7 +24,7 @@ import xlrd
 def index():
     session.ex_warning_val  = None
     session.ex_warning_con = None
-    redirect(URL('../../static/introduction.html'))
+    redirect(URL('../../sbtab/static/introduction.html'))
 
 def clearsession():
     session.sbtabs = []
