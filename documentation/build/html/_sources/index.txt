@@ -14,6 +14,8 @@ Contents:
    SBtab
    SBtabTools
    Validator
+   Scripts
+   Web2py
 
 Indices and tables
 ==================
