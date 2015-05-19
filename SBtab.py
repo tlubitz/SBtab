@@ -213,7 +213,7 @@ class SBtabTable():
         # Save list of main columns
         for row in self.table:
             for entry in row:
-                if str(entry).startswith('!') and not str(entry).startswith('!!'):
+                if str(row[0]).startswith('!') and not str(row[0]).startswith('!!'):
                     column_names = list(row)
                     break
 
