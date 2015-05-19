@@ -310,9 +310,8 @@ def writeCSV(data, fpath):
             outputfile.write(sheet.csv)
             outputfile.close()
 
-
 def writeTSV(data, fpath):
-    outputfile = open(fpath + '.tsv', 'w')
+    outputfile = open(fpath + '.tsv', 'wb')
     try:
         outputfile.write(data.tsv)
         outputfile.close()
@@ -322,7 +321,6 @@ def writeTSV(data, fpath):
             outputfile = open(fpath + '_' + sheet.title + '.tsv', 'w')
             outputfile.write(sheet.tsv)
             outputfile.close()
-
 
 def writeXLS(data, fpath):
     outputfile = open(fpath + '.xls', 'wb')
