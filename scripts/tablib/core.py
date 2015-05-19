@@ -571,8 +571,9 @@ class Dataset(object):
         The default behaviour is to insert the given row to the :class:`Dataset`
         object at the given index.
        """
-
-        self._validate(row)
+        #Please note: I am removing this validation, because SBtab has no need of valid rectangular dimensions; in fact, the opposite is the case, the first
+        #row is supposed to be only a single element, the following rows are multiple elements
+        #self._validate(row)
         self._data.insert(index, Row(row, tags=tags))
 
 
