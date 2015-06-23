@@ -13,10 +13,17 @@ These scripts can be embedded in your own code easily. Just follow the instructi
 
 The conversion of an SBML file to SBtab files is easy: simply generate an instance of the class SBMLDocument in sbml2sbtab.py. You have to provide an SBML file as a libsbml instance and a model name as a string. Then start the function makeSBtabs():
 
-    reader     = libsbml.SBMLReader()
-    sbml       = reader.readSBML('yourSBMLmodel.xml')
-    A          = SBMLDocument(sbml,'mysbmlmodel.xml')
-    sbtabfiles = A.makeSBtabs()
+    reader = libsbml.SBMLReader()
+    sbml = reader.readSBML(sys.argv[1])
+    model = sbml.getModel()
+    A = sbml2sbtab.SBMLDocument(model,'yourSBMLmodel.xml')
+    (sbtabfiles,warnings) = A.makeSBtabs()
+
+    for tab in sbtabfiles:
+        tablib_tab = tablibIO.importSetNew(tab[0],'yourSBMLmodel.xml',seperator='\t')
+        SBtab_obj = SBtab.SBtabTable(tablib_tab,'yourSBMLmodel.xml')
+        SBtab_obj.createDataset()
+        SBtab_obj.writeSBtab('tsv', 'yourSBMLmodel.xml'.rstrip('.xml')+'_'+tab[1])
 
 The SBtab files are now stored as a list of SBtab classes in the variable sbtabfiles. If the SBML model provides the required information, the output SBtab files are of the types: compartment, reaction, compound, and quantitytype.
 
