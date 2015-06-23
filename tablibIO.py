@@ -300,6 +300,7 @@ def loadODS(fpath, headers, set_only):
 
 def writeCSV(data, fpath):
     outputfile = open(fpath + '.csv', 'wb')
+    print 'c'
     try:
         outputfile.write(data.csv)
         outputfile.close()
@@ -312,6 +313,7 @@ def writeCSV(data, fpath):
 
 def writeTSV(data, fpath):
     outputfile = open(fpath + '.tsv', 'wb')
+    print 't'
     try:
         outputfile.write(data.tsv)
         outputfile.close()

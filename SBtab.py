@@ -24,10 +24,13 @@ See specification for further informations.
 #!/usr/bin/env python
 import re
 import copy
+import sys
+#sys.path.insert(0, './SBtab')
 import tablib
 import tablibIO
 
 tables_without_name = []
+
 
 class SBtabError(Exception):
     """Base class for errors in the SBtab class."""
@@ -71,10 +74,10 @@ class SBtabTable():
         Load table informations and class variables.
         """
         # Read the header row from table
-        self.header_row = self._getHeaderRow()
+        self.header_row = self.getHeaderRow()
 
         # Read the table information from header row
-        (self.table_type, self.table_name, self.table_document, self.table_version) = self.getTableInformation()
+        (self.table_type, self.table_name, self.table_document, self.table_version, self.unique_key) = self.getTableInformation()
         
         # Read the columns of the table
         (self.columns, self.columns_dict, inserted_column) = self.getColumns()
@@ -85,7 +88,7 @@ class SBtabTable():
         # Update the list and tablib object
         self.update()
 
-    def _getHeaderRow(self):
+    def getHeaderRow(self):
         """
         Extract the !!-header row from the SBtab file.
 
@@ -96,7 +99,7 @@ class SBtabTable():
 
         Notes
         -----
-        Raise error if no header row could be found in the table.
+        Raise error if no header row could be find in the table.
         """
         header_row = None
         # Find header row
@@ -156,9 +159,13 @@ class SBtabTable():
         # Initialize variables for unnamed table handling
         global tables_without_name
         no_name_counter = 0
+        #header_row = self.getHeaderRow()
 
         # Save table type, otherwise raise error
-        table_type = self.getCustomTableInformation('TableType')
+        if re.search("TableType='([^']*)'", self.header_row) != None:
+            table_type = re.search("TableType='([^']*)'", self.header_row).group(1)
+        else:
+            raise SBtabError('The TableType of the SBtab is not defined!')
 
         # Save table name, otherwise give name with number of unnamed tables
         tn = re.search("TableName='([^']*)'", self.header_row)
@@ -173,36 +180,26 @@ class SBtabTable():
             self.header_row += " TableName='" + table_name + "'"
 
         # Save table document, otherwise return None
-        try:
-            table_document = self.getCustomTableInformation('Document')
-        except SBtabError:
+        td = re.search("Document='([^']*)'", self.header_row)
+        if td:
+            table_document = td.group(1)
+        else:
             table_document = None
 
         # save table version, otherwise return None
-        try:
-            table_version = self.getCustomTableInformation('SBtabVersion')
-        except SBtabError:
+        tv = re.search("SBtabVersion='([^']*)'", self.header_row)
+        if tv:
+            table_version = tv.group(1)
+        else:
             table_version = None
 
-        return table_type, table_name, table_document, table_version
-
-    def getCustomTableInformation(self, attribute_name):
-        """
-        Get the value of a specific attribute in the table header
-
-        Returns
-        -------
-        value : str
-            The value of the attribute.
-
-        Notes
-        -----
-        Raise error if this attribute is defined in the header.
-        """
-        if re.search("%s='([^']*)'" % attribute_name, self.header_row) != None:
-            return re.search("%s='([^']*)'" % attribute_name, self.header_row).group(1)
+        uk = re.search("UniqueKey='([^']*)'", self.header_row)
+        if uk:
+            unique_key = uk.group(1)
         else:
-            raise SBtabError('The %s of the SBtab is not defined!' % attribute_name)
+            unique_key = 'True'
+
+        return table_type, table_name, table_document, table_version, unique_key
 
     def getColumns(self):
         """
@@ -339,7 +336,7 @@ class SBtabTable():
 
         Be aware, if mandatory column was set, name would be the entry in the new column!
         """
-        col = self.columns_dict['!' + column_name]
+        col = self.columns_dict['!' + column]
         for r in self.value_rows:
             if r[0] == name:
                 r[col] = new
@@ -408,11 +405,7 @@ class SBtabTable():
         # Make all rows the same length
         longest = max([len(x) for x in sbtab_temp])
 
-        #Please note: at this point we are producing invalid tablib code, but this is justified:
-        #tablib requires a rectangular table, but SBtab does not want this; we want the first
-        #row to be single (or at least not depending on the other rows' length)
-        self.sbtab_dataset.append(sbtab_temp[0])
-        for row in sbtab_temp[1:]:
+        for row in sbtab_temp:
             if len(row) < longest:
                 for i in range(longest - len(row)):
                     row.append('')
