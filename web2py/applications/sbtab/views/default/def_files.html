@@ -5,7 +5,7 @@
 {{for pos,f in enumerate(DEF_NAME):}}
   <tr>
     {{if not NEW:}}
-    <td>Currently the default definition SBtab is loaded for your session:</td>
+    <td>The features of SBtab tables, such as column names, are defined by a definition table. By editing this table, you can customize the SBtab format and define new table types. Currently the default definition SBtab is loaded for your session:</td>
     <td> <a href="/sbtab/default/show_sbtab_def/{{=str(pos)}}" target="_new"> {{=f}} </a> </td>
     {{pass}}
     {{if NEW:}}

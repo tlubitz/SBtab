@@ -5,7 +5,7 @@ import string
 import validatorSBtab
 import tablib.packages.xlrd as xlrd
 
-urns = ["obo.chebi","kegg.compound","kegg.reaction","obo.go","obo.sgd","biomodels.sbo","ec-code","kegg.orthology","uniprot"]
+urns = ["obo.chebi","kegg.compound","kegg.reaction","obo.go","obo.sgd","biomodels.sbo","ec-code","kegg.orthology","uniprot","hmdb"]
 
 def csv2html(sbtab_file,file_name,delimiter,sbtype,def_file=None,def_file_name=None):
     '''
@@ -13,7 +13,7 @@ def csv2html(sbtab_file,file_name,delimiter,sbtype,def_file=None,def_file_name=N
     '''
     if def_file:
         FileValidClass = validatorSBtab.ValidateFile(def_file,def_file_name)
-        def_delimiter  = FileValidClass.checkSeperator(sbtab_file)
+        def_delimiter  = FileValidClass.checkSeperator(def_file)
     else:
         def_file_open = open('./definitions/definitions.csv','r')
         def_file      = def_file_open.read()
@@ -28,6 +28,7 @@ def csv2html(sbtab_file,file_name,delimiter,sbtype,def_file=None,def_file_name=N
 
     ident_url  = False
     ident_cols = []
+    col2urn    = {}
 
     for row in ugly_sbtab[1:]:
         if row.startswith('!'):
@@ -38,9 +39,9 @@ def csv2html(sbtab_file,file_name,delimiter,sbtype,def_file=None,def_file_name=N
                     try:
                         searcher  = re.search('Identifiers:(.*)',element)
                         ident_url = 'http://identifiers.org/'+searcher.group(1)+'/'
-                        ident_cols.append(i)
+                        #ident_cols.append(i)
+                        col2urn[i] = ident_url
                     except: pass
-                    
         else: nice_sbtab += '<tr>'
 
         for i,thing in enumerate(row.split(delimiter)):
@@ -50,8 +51,8 @@ def csv2html(sbtab_file,file_name,delimiter,sbtype,def_file=None,def_file_name=N
                 new_row = '<td title="'+str(title)+'">'+str(thing)+'</\td>'
                 nice_sbtab += new_row
             else:
-                if i in ident_cols and not thing.startswith('!'):
-                    ref_string = ident_url+thing
+                if i in col2urn.keys() and not thing.startswith('!'):
+                    ref_string = col2urn[i]+thing
                     new_row = '<td><a href="'+ref_string+'" target="_blank">'+str(thing)+'</a></\td>'
                 else:
                     new_row = '<td title="'+title+'">'+str(thing)+'</\td>'

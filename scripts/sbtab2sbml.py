@@ -6,8 +6,8 @@ import xlrd
 import string
 import random
 
-#all allowed SBtab types (except for Compound and Reaction, which are somewhat mandatory)
-sbtab_types = ['Quantity'] #['Enzyme','Compartment']
+#all allowed SBtab types
+sbtab_types = ['Quantity','Event','Rule']
 urns = ["obo.chebi","kegg.compound","kegg.reaction","obo.go","obo.sgd","biomodels.sbo","ec-code","kegg.orthology","uniprot"]
 
 class ConversionError(Exception):
@@ -30,10 +30,10 @@ class SBtabDocument:
 
         if self.filename.endswith('.xls') or self.filename.endswith('.xlsx'):
             self.document = [self.makeTSVfile(sbtab_document)]
-        else: self.document = [sbtab_document]
+        else: self.document = [sbtab_document.split('\n')]
 
-        self.tabs = tabs
-
+        self.tabs     = tabs            
+        self.unit_def = False
         self.checkTabs()              #check how many SBtabs are given in the document
 
     def makeTSVfile(self,xls_file):
@@ -93,7 +93,7 @@ class SBtabDocument:
         if self.tabs > 1:
             for single_document in self.document[0]:
                 #check for several SBtabs in one document
-                document_rows = single_document.split('\n')
+                document_rows = single_document
                 tabs_in_document = self.getAmountOfTables(document_rows)
                 if tabs_in_document > 1:
                     sbtabs = self.splitDocumentInTables(document_rows)
@@ -110,7 +110,7 @@ class SBtabDocument:
         #elif there is only one document given, possibly consisting of several SBtabs
         else:
             #check for several SBtabs in one document
-            document_rows    = self.document[0].split('\n')
+            document_rows    = self.document[0]
             tabs_in_document = self.getAmountOfTables(document_rows)
             if tabs_in_document > 1: sbtabs = self.splitDocumentInTables(document_rows)
             else: sbtabs = [document_rows]
@@ -213,7 +213,7 @@ class SBtabDocument:
                 eval(name)
             except:
                 pass
-
+        
         #Last, but not least: generate the SBML model
         #libsbml.writeSBML(self.new_document,'New_Model.xml')
         newSBML = libsbml.writeSBMLToString(self.new_document)
@@ -309,6 +309,9 @@ class SBtabDocument:
                     for compsbtab in sbtab.value_rows:
                         if comp.getId() == compsbtab[sbtab.columns_dict['!Compartment']] and compsbtab[sbtab.columns_dict['!Size']] != '':
                             comp.setSize(float(compsbtab[sbtab.columns_dict['!Size']]))
+
+            if '!SBOTerm' in sbtab.columns and row[sbtab.columns_dict['!SBOTerm']] != '':
+                compartment.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
             
             for column in sbtab.columns_dict.keys():
                 if "Identifiers" in column:
@@ -366,7 +369,21 @@ class SBtabDocument:
                 #    species.setCharge(int(row[sbtab.charge_column]))
                 #is the species a constant and we have this information?
                 if '!IsConstant' in sbtab.columns and row[sbtab.columns_dict['!IsConstant']] != '':
-                    species.setConstant(row[sbtab.columns_dict['!IsConstant']].lower())
+                    if row[sbtab.columns_dict['!IsConstant']].lower() == 'false':
+                        species.setConstant(0)
+                        species.setBoundaryCondition(0)
+                    else:
+                        species.setConstant(1)
+                        species.setBoundaryCondition(1)
+                if '!SBOTerm' in sbtab.columns and row[sbtab.columns_dict['!SBOTerm']] != '':
+                    print row[sbtab.columns_dict['!SBOTerm']]
+                    species.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
+
+                if '!Unit' in sbtab.columns and self.unit_def == False:
+                    if row[sbtab.columns_dict['!Unit']] == 'mM':
+                        self.makeUnitDefmM()
+                        self.unit_def == True
+                    
 
                 for column in sbtab.columns_dict.keys():
                     if "Identifiers" in column:
@@ -432,7 +449,8 @@ class SBtabDocument:
                     compartment.setName(row[sbtab.columns_dict['!Location']])
                     compartment.setSize(1)
                     self.compartment_list.append(row[sbtab.columns_dict['!Location']])
-                        
+
+             
         #creating the reactions
         for row in sbtab.value_rows:
             #if the reaction must not be included in the model: continue
@@ -448,6 +466,18 @@ class SBtabDocument:
                 if row[sbtab.columns_dict['!SBML:reaction:id']] != '':
                     react.setId(str(row[sbtab.columns_dict['!SBML:reaction:id']]))
             except: react.setId(str(row[sbtab.columns_dict['!Reaction']]))
+
+            if '!SBOTerm' in sbtab.columns and row[sbtab.columns_dict['!SBOTerm']] != '':
+                try: react.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
+                except: pass
+
+            if '!IsReversible' in sbtab.columns and row[sbtab.columns_dict['!IsReversible']] != '':
+                if string.capitalize(row[sbtab.columns_dict['!IsReversible']]) == 'False':
+                    try: react.setReversible(0)
+                    except: pass
+                elif string.capitalize(row[sbtab.columns_dict['!IsReversible']]) == 'True':
+                    try: react.setReversible(1)
+                    except: pass                   
 
             #get the reaction name
             try:
@@ -491,19 +521,7 @@ class SBtabDocument:
                     react.setCompartment(row[loc_column])
             '''
 
-            #if kinetic law is given, set:
-            try:
-                sbtab.columns_dict['!KineticLaw']
-                if row[sbtab.columns_dict['!KineticLaw']] != '':
-                    kl = react.createKineticLaw()
-                    kl.setFormula(row[sbtab.columns_dict['!KineticLaw']])
-                    react.setKineticLaw(kl)
-                    letring = str('The kinetic law for reaction '+react.getId()+' was set according to the SBtab file without check of validity.')
-                    self.warnings.append(letring)
-            except: pass
-
             #if an enzyme is given, mark it as modifier to the reaction
-
             try:
                 sbtab.columns_dict['!Regulator']
                 if row[sbtab.columns_dict['!Regulator']] != '':
@@ -579,6 +597,25 @@ class SBtabDocument:
                         react.addCVTerm(cv_term)
                     except:
                         print 'There was an annotation that I could not assign properly: ',react.getId(),annot #,urn
+
+            try:
+                sbtab.columns_dict['!KineticLaw']
+                if row[sbtab.columns_dict['!KineticLaw']] != '':
+                    kl = react.createKineticLaw()
+                    formula = row[sbtab.columns_dict['!KineticLaw']]
+                    kl.setFormula(formula)
+                    react.setKineticLaw(kl)
+                    #for erraneous laws: remove them
+                    if react.getKineticLaw().getFormula() == '':
+                        react.unsetKineticLaw()
+            except: pass
+
+    def makeUnitDefmM(self):
+        '''
+        builds unit definition; right now only in case of mM
+        '''
+        ud = self.new_model.createUnitDefinition()
+
             
     def extractRegulators(self,mods):
         '''
@@ -616,26 +653,29 @@ class SBtabDocument:
             if sum_formula.startswith('['):
                 self.reaction2compartment[r_id] = re.search('[([^"]*)]',sum_formula).group(1)
             #check the educts
-            educt_list   = re.search('([^"]*)<=>',sum_formula).group(1)
-            educts       = []
-            for educt in educt_list.split('+'):
-                if educt.lstrip().rstrip().split(' ')[0].isdigit():
-                    self.rrps2stoichiometry[r_id,educt.lstrip().rstrip().split(' ')[1]] = int(educt.lstrip().rstrip().split(' ')[0])
-                    educts.append(educt.lstrip().rstrip().split(' ')[1])
-                else:
-                    self.rrps2stoichiometry[r_id,educt.lstrip().rstrip()] = 1
-                    educts.append(educt.lstrip().rstrip())
+            try:
+                educt_list   = re.search('([^"]*)<=>',sum_formula).group(1)
+                educts       = []
+                for educt in educt_list.split('+'):
+                    if educt.lstrip().rstrip().split(' ')[0].isdigit():
+                        self.rrps2stoichiometry[r_id,educt.lstrip().rstrip().split(' ')[1]] = int(educt.lstrip().rstrip().split(' ')[0])
+                        educts.append(educt.lstrip().rstrip().split(' ')[1])
+                    else:
+                        self.rrps2stoichiometry[r_id,educt.lstrip().rstrip()] = 1
+                        educts.append(educt.lstrip().rstrip())
+            except: pass
             #check the products
-            product_list = re.search('<=>([^"]*)',sum_formula).group(1)
-            products     = []
-            for product in product_list.split('+'):
-                if product.lstrip().rstrip().split(' ')[0].isdigit():
-                    self.rrps2stoichiometry[r_id,product.lstrip().rstrip().split(' ')[1]] = int(product.lstrip().rstrip().split(' ')[0])
-                    products.append(product.lstrip().rstrip().split(' ')[1])
-                else:
-                    self.rrps2stoichiometry[r_id,product.lstrip().rstrip()] = 1
-                    products.append(product.lstrip().rstrip())
-                #products.append(product.lstrip().rstrip())
+            try:
+                product_list = re.search('<=>([^"]*)',sum_formula).group(1)
+                products     = []
+                for product in product_list.split('+'):
+                    if product.lstrip().rstrip().split(' ')[0].isdigit():
+                        self.rrps2stoichiometry[r_id,product.lstrip().rstrip().split(' ')[1]] = int(product.lstrip().rstrip().split(' ')[0])
+                        products.append(product.lstrip().rstrip().split(' ')[1])
+                    else:
+                        self.rrps2stoichiometry[r_id,product.lstrip().rstrip()] = 1
+                        products.append(product.lstrip().rstrip())
+            except: pass
             self.reaction2reactants[r_id] = [educts,products]
 
     def quantitySBtab(self):
@@ -657,11 +697,19 @@ class SBtabDocument:
                             except: lp.setValue(1.0)
                             try: lp.setUnits(row[sbtab.columns_dict['!Unit']])
                             except: pass
+                            if '!Unit' in sbtab.columns and self.unit_def == False:
+                                if row[sbtab.columns_dict['!Unit']] == 'mM':
+                                    self.makeUnitDefmM()
+                                    self.unit_def == True                            
+                            if '!SBOTerm' in sbtab.columns and row[sbtab.columns_dict['!SBOTerm']] != '':
+                                lp.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
                 else:
                     parameter = self.new_model.createParameter()
                     parameter.setId(row[sbtab.columns_dict['!SBML:parameter:id']])
                     parameter.setUnits(row[sbtab.columns_dict['!Unit']])
                     parameter.setValue(float(row[sbtab.columns_dict['!Value']]))
+                    if '!SBOTerm' in sbtab.columns and row[sbtab.columns_dict['!SBOTerm']] != '':
+                        parameter.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
             except:
                 parameter = self.new_model.createParameter()
                 parameter.setId(row[sbtab.columns_dict['!SBML:parameter:id']])
@@ -669,33 +717,135 @@ class SBtabDocument:
                 except: parameter.setValue(1.0)
                 try: parameter.setUnits(row[sbtab.columns_dict['!Unit']])
                 except: pass
+                if '!SBOTerm' in sbtab.columns and row[sbtab.columns_dict['!SBOTerm']] != '':
+                    parameter.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
 
+    def eventSBtab(self):
+        '''
+        '''
+        sbtab = self.type2sbtab['Event']
 
-        
+        for row in sbtab.value_rows:
+            event = self.new_model.createEvent()
+            event.setId(row[sbtab.columns_dict['!Event']])
+            try: event.setName(row[sbtab.columns_dict['!Name']])
+            except: pass
+            try:
+                if row[sbtab.columns_dict['!Assignments']] != '':
+                    asses = row[sbtab.columns_dict['!Assignments']].split('|')
+                    if len(asses) > 1:
+                        for ass in asses:
+                            ea  = event.createEventAssignment()
+                            var = ass.split('=')[0].strip()
+                            val = ass.split('=')[1].strip()
+                            ea.setMath(libsbml.parseL3Formula(val))
+                            ea.setVariable(var)
+                    else:
+                        ea  = event.createEventAssignment()
+                        var = asses[0].split('=')[0].strip()
+                        val = asses[0].split('=')[1].strip()
+                        ea.setMath(libsbml.parseL3Formula(val))
+                        ea.setVariable(var)
+            except: pass            
+            try:
+                if row[sbtab.columns_dict['!Trigger']] != '' and row[sbtab.columns_dict['!Trigger']] != 'None':
+                    trig = event.createTrigger()
+                    trig.setMetaId(row[sbtab.columns_dict['!Event']]+'_meta')
+                    trig.setMath(libsbml.parseL3Formula(row[sbtab.columns_dict['!Trigger']]))
+            except: pass
+            if '!SBOTerm' in sbtab.columns and row[sbtab.columns_dict['!SBOTerm']] != '':
+                event.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
+            try:
+                if row[sbtab.columns_dict['!Delay']] != '' and row[sbtab.columns_dict['!Delay']] != 'None':
+                    dl = event.createDelay()
+                    dl.setMath(libsbml.parseL3Formula(row[sbtab.columns_dict['!Delay']]))
+            except: pass
+            try:
+                if row[sbtab.columns_dict['!UseValuesFromTriggerTime']] == 'False':
+                    event.setUseValuesFromTriggerTime(0)
+                else:
+                    event.setUseValuesFromTriggerTime(1)
+            except: pass
+
+            for column in sbtab.columns_dict.keys():
+                if "Identifiers" in column:
+                    annot = row[sbtab.columns_dict[column]]
+                    if annot == '': continue
+                    for pattern in urns:
+                        if pattern in column:
+                            urn = pattern
+                    try:
+                        cv_term = self.setAnnotation(event,annot,urn,'Biological')
+                        event.addCVTerm(cv_term)
+                    except:
+                        print 'There was an annotation that I could not assign properly: ',event.getId(),annot #,urn
+
+    def ruleSBtab(self):
+        '''
+        '''
+        sbtab = self.type2sbtab['Rule']
+
+        for row in sbtab.value_rows:
+            if row[sbtab.columns_dict['!Name']] == 'assignmentRule':
+                rule = self.new_model.createAssignmentRule()
+            elif row[sbtab.columns_dict['!Name']] == 'algebraicRule':
+                rule = self.new_model.createAlgebraicRule()
+            elif row[sbtab.columns_dict['!Name']] == 'rateRule':
+                rule = self.new_model.createRateRule()
+            else: continue
+            rule.setMetaId(row[sbtab.columns_dict['!Rule']]+'_meta')
+            try: rule.setName(row[sbtab.columns_dict['!Name']])
+            except: pass
+            try: rule.setUnits(row[sbtab.columns_dict['!Unit']])
+            except: pass
+            try:
+                if row[sbtab.columns_dict['!Formula']] != '':
+                    asses = row[sbtab.columns_dict['!Formula']]
+                    var = asses.split('=')[0].strip()
+                    val = asses.split('=')[1].strip()
+                    rule.setMath(libsbml.parseL3Formula(val))
+                    rule.setVariable(var)
+            except:
+                pass
+            for column in sbtab.columns_dict.keys():
+                if "Identifiers" in column:
+                    annot = row[sbtab.columns_dict[column]]
+                    if annot == '': continue
+                    for pattern in urns:
+                        if pattern in column:
+                            urn = pattern
+                    try:
+                        cv_term = self.setAnnotation(event,annot,urn,'Biological')
+                        rule.addCVTerm(cv_term)
+                    except:
+                        print 'There was an annotation that I could not assign properly: ',event.getId(),annot #,urn
+
 if __name__ == '__main__':
-    sbtab_reaction = open('sbtabs/sbtab_reaction_full.tsv','r')
-    sbtab_compound = open('sbtabs/sbtab_compound_full.tsv','r')
+    sbtab_reaction = open('sbtabs/BIOMD_reaction_SBtab.tsv','r')
+    sbtab_compound = open('sbtabs/BIOMD_compound_SBtab.tsv','r')
     #sbtab_enzyme = open('sbtabs/sbtab_enzyme_full.tsv','r')
-    sbtab_quantity = open('sbtabs/sbtab_quantity_full.tsv','r')
-    sbtab_compartment = open('sbtabs/sbtab_compartment_full.tsv','r')
-    
-    document = []
-    document.append(sbtab_reaction.read())
-    document.append(sbtab_compound.read())
-    document.append(sbtab_quantity.read())
-    document.append(sbtab_compartment.read())
+    sbtab_compartment = open('sbtabs/BIOMD_compartment_SBtab.tsv','r')
+    #sbtab_compartment = open('sbtabs/sbtab_compartment_full.tsv','r')
+
+    sbtabs = sbtab_reaction.read()+'\n\n'+sbtab_compound.read()+'\n\n'+sbtab_compartment.read()+'\n\n'
+
+    document = sbtabs    #document = []
+    #document.append(sbtab_reaction.read())
+    #document.append(sbtab_compound.read())
+    #document.append(sbtab_quantity.read())
+    #document.append(sbtab_compartment.read())
     #document = [sbtab_reaction.read()+'\n\n'+sbtab_compound.read()]
 
     sbtab_reaction.close()
     sbtab_compound.close()
-    sbtab_quantity.close()
+    #sbtab_quantity.close()
     sbtab_compartment.close()
 
-    sbtab_class = SBtabDocument(document,'bla.tsv',4)
+    sbtab_class = SBtabDocument(document,'bla.tsv')
     bla = sbtab_class.makeSBML()
 
     output = open('new_sbml.xml','w')
-    output.write(bla)
+    output.write(bla[0])
 
     output.close()
 
@@ -703,3 +853,4 @@ if __name__ == '__main__':
     #sbtab_compound.close()
     #sbtab_quantity.close()
     #sbtab_compartment.close()
+    

@@ -56,7 +56,6 @@ class ValidateTable:
         self.sbtab = SBtab.SBtabTable(self.table, self.filename)
         #except:
         #    raise SBtabError('The Parser cannot work with this file!')
-
         # remove empty column headers
         f_columns = []
         for element in self.sbtab.columns:
@@ -99,14 +98,11 @@ class ValidateTable:
 
         # check for valid header row
         if not header.startswith('!!'):
-            self.warnings.append('The header row of the table does not start with "!!SBtab": ' + \
-                header + '\n \t This will cause an error!')
+            self.warnings.append('The header row of the table does not start with "!!SBtab". This file cannot be validated.')
         if not re.search("TableType='([^']*)'", header):
-            self.warnings.append('The table type of the SBtab is not defined. Line: ' + \
-                header + '\n \t This will cause an error!')
+            self.warnings.append('The attribute TableType is not defined in the SBtab table; This file cannot be validated.')
         if not re.search("TableName='([^']*)'", header):
-            self.warnings.append('The name of the SBtab table is not defined. Line: ' + \
-                header)
+            self.warnings.append('The attribute TableName is not defined in the SBtab table.')
 
         # check for possible table content and main columns
         columns_row = self.rows_file[1]

@@ -24,7 +24,7 @@ import xlrd
 def index():
     session.ex_warning_val  = None
     session.ex_warning_con = None
-    redirect(URL('../../sbtab/static/introduction.html'))
+    redirect(URL('../../static/introduction.html'))
 
 def clearsession():
     session.sbtabs = []
@@ -60,6 +60,11 @@ def validator():
     response.title    = T('SBtab - Standardised data tables for Systems Biology')
     response.subtitle = T('Online Validator')
 
+    if not session.definition_file:
+        def_file_open = open('./definitions/definitions.csv','r')    
+        session.definition_file      = [def_file_open.read()]
+        session.definition_file_name = ['definitions.csv']
+
     lform = SQLFORM.factory(Field('File', 'upload',uploadfolder="/tmp", label='Upload SBtab file (.csv, .xls)'))
 
     #update session lists
@@ -71,17 +76,19 @@ def validator():
             seperator      = FileValidClass.checkSeperator(request.vars.File.value)
             (sbtab_list,types,docs,tnames) = splitTabs.checkTabs([request.vars.File.value],request.vars.File.filename,seperator=seperator)
             if not session.has_key('sbtabs'):
+                session.name2doc         = {}
                 session.sbtabs           = ['\n'.join(sbtab_list[0])]
-                if tnames != '': session.sbtab_filenames  = [request.vars.File.filename[:-4]+'_'+types[0]+'_'+tnames[0]]
-                else: session.sbtab_filenames  = [request.vars.File.filename[:-4]+'_'+types[0]]
+                if tnames[0] != '':
+                    session.sbtab_filenames  = [request.vars.File.filename[:-4]+'_'+types[0]+'_'+tnames[0]]
+                    session.name2doc[request.vars.File.filename[:-4]+'_'+types[0]+'_'+tnames[0]] = docs[0]
+                    session.todeletename     = [request.vars.File.filename[:-4]+'_'+types[0]+'_'+tnames[0]]
+                else:
+                    session.sbtab_filenames  = [request.vars.File.filename[:-4]+'_'+types[0]]
+                    session.name2doc[request.vars.File.filename[:-4]+'_'+types[0]] = docs[0]
+                    session.todeletename     = [request.vars.File.filename[:-4]+'_'+types[0]]
                 session.sbtab_fileformat = [request.vars.File.filename[-4:]]
-                #if docs[0] != None: session.sbtab_docnames = [docs[0]]
-                #else: session.sbtab_docnames = ["Unnamed_document"]
                 session.sbtab_docnames   = [docs[0]]
                 session.sbtab_types      = [types[0]]
-                session.todeletename     = [request.vars.File.filename[:-4]+'_'+types[0]]
-                session.name2doc         = {}
-                session.name2doc[request.vars.File.filename[:-4]+'_'+types[0]] = docs[0]
                 if len(sbtab_list) > 1:
                     for i,sbtab in enumerate(sbtab_list[1:]):
                         session.sbtabs.append('\n'.join(sbtab))
@@ -177,7 +184,7 @@ def validator():
             sbtab2val  = session.sbtab_filenames[int(request.vars.validate_button)]
             #redirect(URL(''))
         except:
-            session.ex_warning_val = ['The file is corrupt and cannot be validated.']
+            session.ex_warning_val = ['The file is corrupted and cannot be validated.']
             v_output  = ''
             sbtab2val = ''
     else:
@@ -218,7 +225,7 @@ def validator():
             redirect(URL(''))
             pass
 
-    return dict(UPL_FORM=lform,SBTAB_LIST=session.sbtabs,NAME_LIST=session.sbtab_filenames,V_OUTPUT=v_output,SBTAB2VAL=sbtab2val,DOC_NAMES=session.sbtab_docnames,NAME2DOC=session.name2doc,EXWARNING=session.ex_warning_val)
+    return dict(UPL_FORM=lform,DEF_FILE_NAME=session.definition_file_name,SBTAB_LIST=session.sbtabs,NAME_LIST=session.sbtab_filenames,V_OUTPUT=v_output,SBTAB2VAL=sbtab2val,DOC_NAMES=session.sbtab_docnames,NAME2DOC=session.name2doc,EXWARNING=session.ex_warning_val)
 
 def converter():
     response.title = T('SBtab - Standardised data tables for Systems Biology')
@@ -237,16 +244,18 @@ def converter():
                 (sbtab_list,types,docs,tnames) = splitTabs.checkTabs([request.vars.File.value],request.vars.File.filename,seperator=seperator)
                 if not session.has_key('sbtabs'):
                     session.sbtabs = ['\n'.join(sbtab_list[0])]
-                    if tnames[0] != '': session.sbtab_filenames = [request.vars.File.filename[:-4]+'_'+types[0]+'_'+tnames[0]]
-                    else: session.sbtab_filenames = [request.vars.File.filename[:-4]+'_'+types[0]]
+                    session.name2doc = {}
+                    if tnames[0] != '':
+                        session.sbtab_filenames = [request.vars.File.filename[:-4]+'_'+types[0]+'_'+tnames[0]]
+                        session.name2doc[request.vars.File.filename[:-4]+'_'+types[0]+'_'+tnames[0]] = docs[0]
+                        session.todeletename    = [request.vars.File.filename[:-4]+'_'+types[0]+'_'+tnames[0]]
+                    else:
+                        session.sbtab_filenames = [request.vars.File.filename[:-4]+'_'+types[0]]
+                        session.name2doc[request.vars.File.filename[:-4]+'_'+types[0]] = docs[0]
+                        session.todeletename    = [request.vars.File.filename[:-4]+'_'+types[0]]
                     session.sbtab_fileformat = [request.vars.File.filename[-4:]]
-                    #if docs[0] != None: session.sbtab_docnames = [docs[0]]
-                    #else: session.sbtab_docnames = ["Unnamed_document"]
                     session.sbtab_docnames  = [docs[0]]
                     session.sbtab_types     = [types[0]]
-                    session.todeletename    = [request.vars.File.filename[:-4]+'_'+types[0]]
-                    session.name2doc = {}
-                    session.name2doc[request.vars.File.filename[:-4]+'_'+types[0]] = docs[0]
                     if len(sbtab_list) > 1:
                         for i,sbtab in enumerate(sbtab_list[1:]):
                             session.sbtabs.append('\n'.join(sbtab))
@@ -304,7 +313,7 @@ def converter():
                         #else: session.sbtab_docnames.append("Unnamed_document")
                         session.sbtab_docnames.append(docs[0])
                         session.sbtab_types.append(types[0])
-                redirect(URL(''))
+                #redirect(URL(''))
             except:
                 session.ex_warning_con = ['The uploaded file cannot be identified as valid SBtab file.']
     elif lform.errors:
@@ -336,8 +345,8 @@ def converter():
         downloader_sbtab()
 
     if request.vars.convert_all_button:
-        session.ex_warning_con = None
-        try:
+            session.ex_warning_con = None
+        #try:
             convert_document = session.sbtab_docnames[int(request.vars.convert_all_button)]
             merged_sbtabs    = []
             for i,docname in enumerate(session.sbtab_docnames):
@@ -357,8 +366,8 @@ def converter():
                 else:
                     random_number = str(random.randint(0,1000))
                     session.sbml_filenames.append(fn+'_'+random_number)
-        except:
-            session.ex_warning_con = ['The SBtab file seems to be invalid and could not be converted to SBML.']
+        #except:
+        #    session.ex_warning_con = ['The SBtab files seem to be invalid and could not be converted to SBML.']
 
     if request.vars.remove_all_button:
         try:
@@ -420,6 +429,7 @@ def converter():
             (tab_output,session.ex_warning_con) = ConvSBMLClass.makeSBtabs()
             # append generated SBtabs to session variables
             for SBtab in tab_output:
+                if SBtab == False: continue
                 if not session.has_key('sbtabs'):
                     session.sbtabs = [SBtab[0]]
                     session.sbtab_filenames = [session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')+'_'+SBtab[1]]
@@ -444,7 +454,7 @@ def converter():
                     session.sbtab_fileformat.append('.csv')
                     session.sbtab_docnames.append(session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml'))
                     session.sbtab_types.append(string.capitalize(SBtab[1]))
-            redirect(URL(''))
+            #redirect(URL(''))
         except:
             session.ex_warning_con = ['The SBML file seems to be invalid and could not be converted to SBtab.']
 
@@ -472,7 +482,7 @@ def def_files():
     response.title = T('SBtab - Standardised data tables for Systems Biology')
     response.subtitle = T('Upload your own definition files')
 
-    dform   = SQLFORM.factory(Field('File', 'upload',uploadfolder="/tmp", label='Upload definition file (.csv, .tsv)'))
+    dform   = SQLFORM.factory(Field('File', 'upload',uploadfolder="/tmp", label='Upload new definition file (.csv, .tsv)'))
     #new_def = False
     
     if not session.definition_file:

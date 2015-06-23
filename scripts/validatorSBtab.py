@@ -42,29 +42,69 @@ class ValidateTable:
         for table_type in self.allowed_table_types:
             self.allowed_columns[table_type] = [row[1] for row in self.definitions[2:][0] if row[3] == table_type]
 
-        # initialize warning string
-        self.warnings = []
-        # define self variables
-        self.table = table
-        self.filename = sbtab_name
+        #check if there are more than one SBtab table to validate
+        amount = self.getAmountOfTables(table.split('\n'))
 
-        # check file format and header row
-        self.checkTableFormat()
+        if amount == 1:
+            # initialize warning string
+            warnings      = []
+            self.warnings = {}
+            # define self variables
+            self.table = tablibIO.importSetNew(table,sbtab_name)
+            self.filename = sbtab_name
 
-        # try creating SBtab instance
-        #try:
-        self.sbtab = SBtab.SBtabTable(self.table, self.filename)
-        #except:
-        #    raise SBtabError('The Parser cannot work with this file!')
-        # remove empty column headers
-        f_columns = []
-        for element in self.sbtab.columns:
-            if element == '': pass
-            else: f_columns.append(element)
-        self.sbtab.columns = f_columns
+            # check file format and header row
+            table_warnings = self.checkTableFormat()
+            if table_warnings != []: warnings.append(table_warnings)
 
-        # check SBtab object for validity
-        self.checkTable()
+            # try creating SBtab instance
+            #try:
+            self.sbtab = SBtab.SBtabTable(self.table, self.filename)
+            #except:
+            #    raise SBtabError('The Parser cannot work with this file!')
+            # remove empty column headers
+            f_columns = []
+            for element in self.sbtab.columns:
+                if element == '': pass
+                else: f_columns.append(element)
+            self.sbtab.columns = f_columns
+
+            # check SBtab object for validity
+            table_warnings = self.checkTable()
+            if table_warnings != []: warnings.append(table_warnings)
+            self.warnings[self.filename] = warnings
+        elif amount > 1:
+            tables = self.splitDocumentInTables(table.split('\n'))
+            self.filename = sbtab_name
+            self.warnings = {}
+            for single_table in tables:
+                # initialize warning string
+                single_warnings = []
+                # define self variables
+                self.table = tablibIO.importSetNew('\n'.join(single_table),sbtab_name)
+                #self.table = table
+
+                # check file format and header row
+                table_warnings = self.checkTableFormat()
+                if table_warnings != []: single_warnings.append(table_warnings)
+
+                # try creating SBtab instance
+                #try:
+                self.sbtab = SBtab.SBtabTable(self.table, self.filename)
+                #except:
+                #    raise SBtabError('The Parser cannot work with this file!')
+                # remove empty column headers
+                f_columns = []
+                for element in self.sbtab.columns:
+                    if element == '': pass
+                    else: f_columns.append(element)
+                self.sbtab.columns = f_columns
+
+                # check SBtab object for validity
+                table_warnings = self.checkTable()
+
+                if table_warnings != []: single_warnings.append(table_warnings)
+                self.warnings[self.filename+'_'+self.sbtab.table_type] = single_warnings
 
         '''
         if len(self.warnings) > 0:
@@ -77,9 +117,10 @@ class ValidateTable:
         """
         Validate format of SBtab file, check file format and header row.
         """
+        t_warnings = []
         # Check tablib header
         if self.table.headers:
-            self.warnings.append('Tablib header is set, will be removed. This feature is not supported.')
+            t_warnings.append('Tablib header is set, will be removed. This feature is not supported.')
             self.table.headers = None
         # save table rows in variable
         self.rows_file = self.table.dict
@@ -98,11 +139,11 @@ class ValidateTable:
 
         # check for valid header row
         if not header.startswith('!!'):
-            self.warnings.append('The header row of the table does not start with "!!SBtab". This file cannot be validated.')
+            t_warnings.append('The header row of the table does not start with "!!SBtab". This file cannot be validated.')
         if not re.search("TableType='([^']*)'", header):
-            self.warnings.append('The attribute TableType is not defined in the SBtab table; This file cannot be validated.')
+            t_warnings.append('The attribute TableType is not defined in the SBtab table; This file cannot be validated.')
         if not re.search("TableName='([^']*)'", header):
-            self.warnings.append('The attribute TableName is not defined in the SBtab table.')
+            t_warnings.append('The attribute TableName is not defined in the SBtab table.')
 
         # check for possible table content and main columns
         columns_row = self.rows_file[1]
@@ -112,57 +153,86 @@ class ValidateTable:
         columns += columns_row[-1]
         # check length of table
         if len(self.rows_file) < 3:
-            self.warnings.append('The table contains no information: ' + \
+            t_warnings.append('The table contains no information: ' + \
                 header)
         else:
             self.main_column_count = None
             # checks for existing main column
             if not columns.startswith('!'):
-                self.warnings.append('The main column row of the table does not start with "!": ' + \
+                t_warnings.append('The main column row of the table does not start with "!": ' + \
                     columns)
+
+        return t_warnings
 
     def checkTable(self):
         """
         Validate the table type and mandatory format of the SBtab.
         """
+        c_warnings = []
         column_check = True
         # general stuff
         # 1st: check validity of table_type and save table type for later tests
         if not self.sbtab.table_type in self.allowed_table_types:
-            self.warnings.append('The SBtab file has an invalid TableType in its header: ' + self.sbtab.table_type)
+            c_warnings.append('The SBtab file has an invalid TableType in its header: ' + self.sbtab.table_type)
             column_check = False
 
         # 2nd: check the important first column
         first_column = '!' + self.sbtab.table_type
         if not self.rows_file[1][0] == first_column:
-            self.warnings.append('The first column of the file does not correspond with the given TableType ' + \
+            c_warnings.append('The first column of the file does not correspond with the given TableType ' + \
                 self.sbtab.table_type + ' and will be filled automatically.')
 
         # 3rd: check the validity of the given column names
         if column_check:
             for column in self.sbtab.columns:
                 if not column.replace('!', '') in self.allowed_columns[self.sbtab.table_type] and not ('Identifiers:') in column:
-                    self.warnings.append('The SBtab file has an unknown column: ' + \
+                    c_warnings.append('The SBtab file has an unknown column: ' + \
                         column + '.\n \t Please use only supported column types!')
             if not self.sbtab.columns_dict['!' + self.sbtab.table_type] == 0:
-                self.warnings.append('The SBtab primary column is at a wrong position.')
+                c_warnings.append('The SBtab primary column is at a wrong position.')
         else:
-            self.warnings.append('The SBtab TableType is "unknown", therefore the main columns cannot be checked!')
+            c_warnings.append('The SBtab TableType is "unknown", therefore the main columns cannot be checked!')
 
         # 4th: check the length of the different rows
         for row in self.sbtab.value_rows:
             # check the content of the main column (first one) for empty entries
             if row[self.sbtab.columns_dict['!' + self.sbtab.table_type]] == '':
-                self.warnings.append('The SBtab includes a row with an undefined identifier in the row: \n' + str(row))
+                c_warnings.append('The SBtab includes a row with an undefined identifier in the row: \n' + str(row))
             # check the rows for entries starting with + or -
             if str(row[0]).startswith('+') or str(row[0]).startswith('-'):
-                self.warnings.append('An identifier for a data row must not begin with "+" or "-": \n' + str(row))
+                c_warnings.append('An identifier for a data row must not begin with "+" or "-": \n' + str(row))
                 # check the rows for entries containing . or :     OMITTED; should be solved, if the user puts the entryfield in quotes "
                 #if ',' in list(row[self.sbtab.columns_dict[column]]):
                 #    self.warnings.append('A data row must not include commas, but this one does: \n' + \
                 #        str(row[self.sbtab.columns_dict[column]]))
                 # raise SBtabError('An identifier for a data row must not
                 # include ":" or ".": \n'+str(row))
+        return c_warnings
+
+    def getAmountOfTables(self,document_rows):
+        '''
+        counts the SBtab tables that are present in the document
+        '''
+        counter = 0
+        for row in document_rows:
+            if row.startswith('!!'):
+                counter += 1
+        return counter
+
+    def splitDocumentInTables(self,document_rows):
+        '''
+        if the document contains more than one SBtab, this function splits the document
+        into the single SBtabs
+        '''
+        single_sbtab = [document_rows[0]]
+        sbtab_list   = []
+        for row in document_rows[1:]:
+            if not row.startswith('!!'): single_sbtab.append(row)
+            else:
+                sbtab_list.append(single_sbtab)
+                single_sbtab = [row]
+        sbtab_list.append(single_sbtab)
+        return sbtab_list
 
     def returnOutput(self):
         '''
@@ -232,3 +302,30 @@ class ValidateFile:
         '''
         return self.warnings
 
+if __name__ == '__main__':
+    def_table = open('definitions.csv','r')
+
+    sbtab_reaction = open('sbtabs/BIOMD_reaction_SBtab.tsv','r')
+    sbtab_compound = open('sbtabs/BIOMD_compound_SBtab.tsv','r')
+    #sbtab_enzyme = open('sbtabs/sbtab_enzyme_full.tsv','r')
+    sbtab_compartment = open('sbtabs/BIOMD_compartment_SBtab.tsv','r')
+    #sbtab_compartment = open('sbtabs/sbtab_compartment_full.tsv','r')
+
+    sbtabs = sbtab_reaction.read()+'\n\n'+sbtab_compound.read()+'\n\n'+sbtab_compartment.read()+'\n\n'
+
+    document = sbtabs    #document = []
+    #document.append(sbtab_reaction.read())
+    #document.append(sbtab_compound.read())
+    #document.append(sbtab_quantity.read())
+    #document.append(sbtab_compartment.read())
+    #document = [sbtab_reaction.read()+'\n\n'+sbtab_compound.read()]
+
+    sbtab_reaction.close()
+    sbtab_compound.close()
+    #sbtab_quantity.close()
+    sbtab_compartment.close()
+
+    sbtab_class = ValidateTable(document,'bla.tsv',def_table.read(),'definition_file.csv')
+    bla = sbtab_class.returnOutput()
+
+    print bla

@@ -67,6 +67,8 @@ class SBtabTable():
         # Create all necessary variables
         self.initializeTable()
 
+        self.sbtab_dataset = []
+
     def initializeTable(self):
         """
         Load table informations and class variables.
@@ -367,10 +369,10 @@ class SBtabTable():
         """
         # Initialize empty variables for conversion
         sbtab_temp = []
-        sbtab_dataset = tablib.Dataset()
+        self.sbtab_dataset = tablib.Dataset()
 
         # Create list of header
-        header = self.header_row.split(' ')
+        header = [self.header_row]#.split(' ')
 
         # Delete spaces in header, main column and data rows
         header = [x.strip(' ') for x in header]
@@ -396,15 +398,20 @@ class SBtabTable():
 
         # Make all rows the same length
         longest = max([len(x) for x in sbtab_temp])
-        for row in sbtab_temp:
+
+        #Please note: at this point we are producing invalid tablib code, but this is justified:
+        #tablib requires a rectangular table, but SBtab does not want this; we want the first
+        #row to be single (or at least not depending on the other rows' length)
+        self.sbtab_dataset.append(sbtab_temp[0])
+        for row in sbtab_temp[1:]:
             if len(row) < longest:
                 for i in range(longest - len(row)):
                     row.append('')
-                sbtab_dataset.append(row)
+                self.sbtab_dataset.append(row)
             else:
-                sbtab_dataset.append(row)
+                self.sbtab_dataset.append(row)
 
-        return sbtab_dataset
+        return self.sbtab_dataset
 
     def addRow(self, row_list, position=None):
         """
@@ -543,6 +550,10 @@ class SBtabTable():
         Default value for filename is the filename as given with the SBtab object.
         Raise error if file format is invalid.
         """
+
+        #for row in self.sbtab_dataset:
+        #    print row
+        
         if not filename:
             filename = self.filename
         if format_type == 'tsv':

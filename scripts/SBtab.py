@@ -108,7 +108,7 @@ class SBtabTable():
                 if str(entry).startswith('!!'):
                     header_row = row
                     break
-        
+
         # Save string or raise error
         if not header_row:
             raise SBtabError('This is not a valid SBtab table, please use validator to check format or have a look in the specification!')
@@ -123,6 +123,8 @@ class SBtabTable():
         # Split header row
         header_row = header_row.split(' ')
 
+
+        
         # Delete spaces in header row
         while '' in header_row:
             header_row.remove('')
