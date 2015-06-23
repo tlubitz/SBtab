@@ -133,10 +133,11 @@ class ValidateTable:
             column_check = False
 
         # 2nd: check the important first column
-        first_column = '!' + self.sbtab.table_type
-        if not self.rows_file[1][0] == first_column:
-            self.warnings.append('The first column of the file does not correspond with the given TableType ' + \
-                self.sbtab.table_type + ' and will be filled automatically.')
+        if self.sbtab.unique_key == 'True':
+            first_column = '!' + self.sbtab.table_type
+            if not self.rows_file[1][0] == first_column:
+                self.warnings.append('The first column of the file does not correspond with the given TableType ' + \
+                                     self.sbtab.table_type + ' and will be filled automatically.')
 
         # 3rd: check the validity of the given column names
         if column_check:

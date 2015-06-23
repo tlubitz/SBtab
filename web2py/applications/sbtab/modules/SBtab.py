@@ -77,7 +77,7 @@ class SBtabTable():
         self.header_row = self.getHeaderRow()
 
         # Read the table information from header row
-        (self.table_type, self.table_name, self.table_document, self.table_version) = self.getTableInformation()
+        (self.table_type, self.table_name, self.table_document, self.table_version, self.unique_key) = self.getTableInformation()
         
         # Read the columns of the table
         (self.columns, self.columns_dict, inserted_column) = self.getColumns()
@@ -193,7 +193,13 @@ class SBtabTable():
         else:
             table_version = None
 
-        return table_type, table_name, table_document, table_version
+        uk = re.search("UniqueKey='([^']*)'", self.header_row)
+        if uk:
+            unique_key = uk.group(1)
+        else:
+            unique_key = 'True'
+
+        return table_type, table_name, table_document, table_version, unique_key
 
     def getColumns(self):
         """
@@ -399,11 +405,7 @@ class SBtabTable():
         # Make all rows the same length
         longest = max([len(x) for x in sbtab_temp])
 
-        #Please note: at this point we are producing invalid tablib code, but this is justified:
-        #tablib requires a rectangular table, but SBtab does not want this; we want the first
-        #row to be single (or at least not depending on the other rows' length)
-        self.sbtab_dataset.append(sbtab_temp[0])
-        for row in sbtab_temp[1:]:
+        for row in sbtab_temp:
             if len(row) < longest:
                 for i in range(longest - len(row)):
                     row.append('')

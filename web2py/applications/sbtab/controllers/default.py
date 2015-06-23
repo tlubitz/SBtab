@@ -18,6 +18,7 @@ import random
 import string
 import splitTabs
 import makehtml
+import misc
 import tablib.packages.xlrd as xlrd
 import xlrd
 
@@ -515,7 +516,15 @@ def downloader_sbtab():
         else: attachment = 'attachment;filename=' + session.sbtab_filenames[int(request.vars.dl_sbtab_button)]
         response.headers['Content-Disposition'] = attachment
         
-        content = session.sbtabs[int(request.vars.dl_sbtab_button)]
+        #here we remove the extra tabs/comma from the first row for export
+        content_raw = session.sbtabs[int(request.vars.dl_sbtab_button)]
+        try:
+            FileValidClass = validatorSBtab.ValidateFile(content_raw,session.sbtab_filenames[int(request.vars.dl_sbtab_button)])
+            delimiter      = FileValidClass.checkSeperator(content_raw)
+        except:
+            delimiter = None
+        content = misc.first_row(content_raw,delimiter)
+
         raise HTTP(200,str(content),
                    **{'Content-Type':'text/csv',
                       'Content-Disposition':attachment + ';'})
