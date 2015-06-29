@@ -1,4 +1,4 @@
-!!SBtab SBtabVersion='0.1' !TableType='Definition' !Table='Allowed_types'				
+!!SBtab SBtabVersion='0.1' TableType='Definition' TableName='Allowed_types'				
 !ComponentName	!ComponentType	!IsPartOf	!Format	!Description
 Comment	Column	Reaction	Text	Comment
 ReferenceName	Column	Reaction		Reference title, authors, etc. (as free text)
@@ -30,6 +30,7 @@ Enzyme:SBML:parameter:id	Column	Reaction		SBML ID of enzyme
 BuildReaction	Column	Reaction		Include reaction in SBML model
 BuildEnzyme	Column	Reaction		Include enzyme in SBML model
 BuildEnzymeProduction	Column	Reaction		Describe enzyme production in SBML model
+Regulator	Column	Reaction		Regulating entity for this reaction
 SBOTerm	Column	Reaction		SBO term of the entity
 Identifiers	Column	Reaction		Annotation of the entity
 Comment	Column	Compound		Comment
@@ -112,6 +113,7 @@ Enyzme:SBML:parameter:id	Column	Quantity		SBML ID of enzyme
 Gene	Column	Quantity		Related gene
 Organism	Column	Quantity		Organism
 Provenance	Column	Quantity		Provenance of the entity
+Value	Column	Quantity		The numerical value of this quantity
 SBOTerm	Column	Quantity		SBO term of the entity
 Identifiers	Column	Quantity		Annotation of the entity
 Comment	Column	Regulator		Comment

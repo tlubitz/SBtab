@@ -32,8 +32,9 @@ class SBtabDocument:
             self.document = [self.makeTSVfile(sbtab_document)]
         else: self.document = [sbtab_document]
 
-        self.tabs     = tabs            
-        self.unit_def = False
+        self.tabs      = tabs            
+        self.unit_mM   = False
+        self.unit_mpdw = False
         self.checkTabs()              #check how many SBtabs are given in the document
 
     def makeTSVfile(self,xls_file):
@@ -203,7 +204,8 @@ class SBtabDocument:
             self.compoundSBtab()
 
         #2nd order of bizness: Work the Reaction SBtab (mandatory)
-        self.reactionSBtab()
+        if 'Reaction' in self.type2sbtab.keys():
+            self.reactionSBtab()
 
         #3rd order: check, which other SBtabs are given
         for sbtab in sbtab_types:
@@ -235,8 +237,8 @@ class SBtabDocument:
             pass
 
         #2. if there was no compartment SBtab given, check whether it is given in the other SBtabs
-        sbtab = self.type2sbtab['Reaction']
         try:
+            sbtab = self.type2sbtab['Reaction']
             sbtab.columns_dict['!Location']
             for row in sbtab.value_rows:
                 if row[sbtab.columns_dict['!Location']] != '':
@@ -378,10 +380,13 @@ class SBtabDocument:
                 if '!SBOTerm' in sbtab.columns and row[sbtab.columns_dict['!SBOTerm']] != '':
                     species.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
 
-                if '!Unit' in sbtab.columns and self.unit_def == False:
+                if '!Unit' in sbtab.columns and self.unit_mM == False:
                     if row[sbtab.columns_dict['!Unit']] == 'mM':
                         self.makeUnitDefmM()
-                        self.unit_def == True
+                        self.unit_mM = True
+                    elif row[sbtab.columns_dict['!Unit']].lower().startswith('molecules'):
+                        self.makeUnitDefmpdw()
+                        self.unit_mpdw = True
                     
 
                 for column in sbtab.columns_dict.keys():
@@ -614,8 +619,41 @@ class SBtabDocument:
         builds unit definition; right now only in case of mM
         '''
         ud = self.new_model.createUnitDefinition()
+        ud.setId('mM')
+        ud.setName('mM')
 
-            
+        mole = ud.createUnit()
+        mole.setScale(-3)
+        mole.setKind(libsbml.UNIT_KIND_MOLE)
+
+        litre = ud.createUnit()
+        litre.setExponent(-1)
+        litre.setKind(libsbml.UNIT_KIND_LITRE)
+
+    def makeUnitDefmpdw(self):
+        '''
+        builds unit definition; right now only in case of molecules/gram dry weight
+        '''
+        ud = self.new_model.createUnitDefinition()
+        ud.setId('mmol_per_gDW_per_hr')
+        ud.setName('mmol_per_gDW_per_hr')
+
+        mole = ud.createUnit()
+        mole.setScale(-3)
+        mole.setExponent(1)
+        mole.setKind(libsbml.UNIT_KIND_MOLE)
+
+        litre = ud.createUnit()
+        litre.setScale(0)
+        litre.setExponent(-1)
+        litre.setKind(libsbml.UNIT_KIND_GRAM)
+       
+        second = ud.createUnit()
+        second.setScale(0)
+        second.setExponent(-1)
+        second.setMultiplier(0.000277777777777778)
+        second.setKind(libsbml.UNIT_KIND_SECOND)
+
     def extractRegulators(self,mods):
         '''
         extracts the regulators from the column "Regulator"
@@ -696,10 +734,13 @@ class SBtabDocument:
                             except: lp.setValue(1.0)
                             try: lp.setUnits(row[sbtab.columns_dict['!Unit']])
                             except: pass
-                            if '!Unit' in sbtab.columns and self.unit_def == False:
+                            if '!Unit' in sbtab.columns and self.unit_mM == False:
                                 if row[sbtab.columns_dict['!Unit']] == 'mM':
                                     self.makeUnitDefmM()
-                                    self.unit_def == True                            
+                                    self.unit_mM = True
+                                elif row[sbtab.columns_dict['!Unit']].lower().startswith('molecules'):
+                                    self.makeUnitDefmpdw()
+                                    self.unit_mpdw = True
                             if '!SBOTerm' in sbtab.columns and row[sbtab.columns_dict['!SBOTerm']] != '':
                                 lp.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
                 else:

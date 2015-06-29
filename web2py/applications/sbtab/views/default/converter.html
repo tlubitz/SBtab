@@ -1,5 +1,8 @@
 {{extend 'layout2.html'}}
-<p>Information on how to use the SBtab <-> SBML converter can be found in the <a href="/sbtab/static/files/converter_manual.pdf">manual</a>.</p>
+<p>
+Information on how to use the SBtab <-> SBML converter can be found in the <a href="/sbtab/static/files/converter_manual.pdf">manual</a>.<br>
+Information on file formats (.csv, .xls) can be found <a href="http://www.sbtab.net/introduction.html">here</a>.
+</p>
 <hr>
 <h2>Convert SBtab file/s to SBML file</h2>
 
@@ -7,7 +10,6 @@
 
 
 {{if NAME_LIST_SBTAB:}}
-{{reaction = False}}
 
 {{displayedf = []}}
 {{displayedg = []}}
@@ -16,9 +18,6 @@
   {{for pos2,g in enumerate(DOC_NAMES):}}
   {{for pos,f in enumerate(NAME_LIST_SBTAB):}}
   {{if NAME2DOC[f] == g:}}
-  {{if TYPES[pos].capitalize() == 'Reaction':}}
-  {{reaction = True}}
-  {{pass}}
   {{pass}}
   {{pass}}
 
@@ -31,14 +30,14 @@
       </td>
       
       {{if DOC_NAMES.count(g)>1:}}
-      {{if "Reaction" in TYPES:}}
+      {{if "Reaction" in TYPES or "Compound" in TYPES:}}
       <form><td bgcolor="#87CEFA"><button type="submit" value="{{=pos2}}" name="convert_all_button" valign="top">Convert to SBML</button> </td> </form>
       <form><td bgcolor="#87CEFA"><button type="submit" value="{{=pos2}}" name="remove_all_button">Remove all</button> </td> </form>
-      <td bgcolor="#87CEFA"></td>
+      <form><td bgcolor="#87CEFA"><button type="submit" value="{{=pos2}}" name="download_all_button">Download all</button> </td> </form>
       {{else:}}
       <td bgcolor="#87CEFA"></td>
       <form><td bgcolor="#87CEFA"><button type="submit" value="{{=pos2}}" name="remove_all_button">Remove all</button> </td> </form>
-      <td bgcolor="#87CEFA"></td>
+      <form><td bgcolor="#87CEFA"><button type="submit" value="{{=pos2}}" name="download_all_button">Download all</button> </td> </form>
       {{pass}}
       {{else:}}
       </td>
@@ -55,13 +54,12 @@
 		&bull;
 		<a href="/sbtab/default/show_sbtab/{{=str(pos)}}" target="_new"> {{=f}} </a>
 	      </td>
-	      {{if TYPES[pos].capitalize() == 'Reaction':}}
-	      {{reaction = True}}
+	      {{if TYPES[pos].capitalize() == 'Reaction' or TYPES[pos].capitalize() == 'Compound':}}
 	      <form><td>  <button type="submit" value="{{=pos}}" name="c2sbml_button">Convert to SBML</button> </td> </form>
 	      {{else:}}
 	      <td></td>
 	      {{pass}}
-	      <form><td>  <button type="submit" value="{{=pos}}" name="erase_sbtab_button">Remove</button> </td> </form>
+	      <form><td> <button type="submit" value="{{=pos}}" name="erase_sbtab_button">Remove</button> </td> </form>
 	      <form><td> <button type="submit" value="{{=pos}}" name="dl_sbtab_button">Download</button> </td> </form>
 {{displayedf.append(f)}}
 {{displayedg.append(g)}}

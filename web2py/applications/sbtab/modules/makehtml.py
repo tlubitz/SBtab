@@ -42,8 +42,10 @@ def csv2html(sbtab_file,file_name,delimiter,sbtype,def_file=None,def_file_name=N
                         #ident_cols.append(i)
                         col2urn[i] = ident_url
                     except: pass
+        elif row.startswith('%'):
+            nice_sbtab += '<tr bgcolor="#C0C0C0">'
         else: nice_sbtab += '<tr>'
-
+        
         for i,thing in enumerate(row.split(delimiter)):
             try: title = col2description[thing[1:]]
             except: title = ''

@@ -77,81 +77,21 @@ def validator():
             seperator      = FileValidClass.checkSeperator(request.vars.File.value)
             (sbtab_list,types,docs,tnames) = splitTabs.checkTabs([request.vars.File.value],request.vars.File.filename,seperator=seperator)
             if not session.has_key('sbtabs'):
+                session.sbtabs           = []
                 session.name2doc         = {}
-                session.sbtabs           = ['\n'.join(sbtab_list[0])]
-                if tnames[0] != '':
-                    session.sbtab_filenames  = [request.vars.File.filename[:-4]+'_'+types[0]+'_'+tnames[0]]
-                    session.name2doc[request.vars.File.filename[:-4]+'_'+types[0]+'_'+tnames[0]] = docs[0]
-                    session.todeletename     = [request.vars.File.filename[:-4]+'_'+types[0]+'_'+tnames[0]]
-                else:
-                    session.sbtab_filenames  = [request.vars.File.filename[:-4]+'_'+types[0]]
-                    session.name2doc[request.vars.File.filename[:-4]+'_'+types[0]] = docs[0]
-                    session.todeletename     = [request.vars.File.filename[:-4]+'_'+types[0]]
-                session.sbtab_fileformat = [request.vars.File.filename[-4:]]
-                session.sbtab_docnames   = [docs[0]]
-                session.sbtab_types      = [types[0]]
-                if len(sbtab_list) > 1:
-                    for i,sbtab in enumerate(sbtab_list[1:]):
-                        session.sbtabs.append('\n'.join(sbtab))
-                        if tnames[i] != '': fn = request.vars.File.filename[:-4]+'_'+types[i]+'_'+tnames[i]
-                        else: fn = request.vars.File.filename[:-4]+'_'+types[i]
-                        if not fn in session.sbtab_filenames:
-                            session.sbtab_filenames.append(fn)
-                            session.todeletename.append(fn)
-                            session.name2doc[fn] = docs[i]
-                        else:
-                            random_number = str(random.randint(0,1000))
-                            session.sbtab_filenames.append(fn+'_'+random_number)
-                            session.todeletename.append(fn+'_'+random_number)
-                            session.name2doc[fn+'_'+random_number] = docs[i]
-                        session.sbtab_fileformat.append(request.vars.File.filename[-4:])
-                        #if docs[i] != None: session.sbtab_docnames.append(docs[i])
-                        #else: session.sbtab_docnames.append("Unnamed_document")
-                        session.sbtab_docnames.append(docs[i])
-                        session.sbtab_types.append(types[i])
-            else:
-                if len(sbtab_list) > 1:
-                    for i,sbtab in enumerate(sbtab_list):
-                        session.sbtabs.append('\n'.join(sbtab))
-                        if tnames[i] != '': fn = request.vars.File.filename[:-4]+'_'+types[i]+'_'+tnames[i]
-                        else: fn = request.vars.File.filename[:-4]+'_'+types[i]
-                        if not fn in session.sbtab_filenames:
-                            session.sbtab_filenames.append(fn)
-                            session.todeletename.append(fn)
-                            session.name2doc[fn] = docs[i]
-                        else:
-                            random_number = str(random.randint(0,1000))
-                            session.sbtab_filenames.append(fn+'_'+random_number)
-                            session.todeletename.append(fn+'_'+random_number)
-                            session.name2doc[fn+'_'+random_number] = docs[i]
-                        session.sbtab_fileformat.append(request.vars.File.filename[-4:])
-                        #if docs[i] != None: session.sbtab_docnames.append(docs[i])
-                        #else: session.sbtab_docnames.append("Unnamed_document")
-                        session.sbtab_docnames.append(docs[i])
-                        session.sbtab_types.append(types[i])
-                else:
-                    session.sbtabs.append('\n'.join(sbtab_list[0]))
-                    if tnames[0] != '': fn = request.vars.File.filename[:-4]+'_'+types[0]+'_'+tnames[0]
-                    else:
-                        if tnames[0] != '': fn = request.vars.File.filename[:-4]+'_'+types[0]+'_'+tnames[0]
-                        else: fn = request.vars.File.filename[:-4]+'_'+types[0]
-                    if not fn in session.sbtab_filenames:
-                        session.sbtab_filenames.append(fn)
-                        session.todeletename.append(fn)
-                        session.name2doc[fn] = docs[0]
-                    else:
-                        random_number = str(random.randint(0,1000))
-                        session.sbtab_filenames.append(fn+'_'+random_number)
-                        session.todeletename.append(fn+'_'+random_number)
-                        session.name2doc[fn+'_'+random_number] = docs[0]
+            for i,sbtab in enumerate(sbtab_list):
+                fn = misc.create_filename(request.vars.File.filename,types[i],tnames[i])
+                if not fn in session.sbtab_filenames:
+                    session.sbtabs.append('\n'.join(sbtab))
+                    session.sbtab_filenames.append(fn)
+                    session.todeletename.append(fn)
+                    session.name2doc[fn] = docs[i]
                     session.sbtab_fileformat.append(request.vars.File.filename[-4:])
-                    #if docs[0] != None: session.sbtab_docnames.append(docs[0])
-                    #else: session.sbtab_docnames.append("Unnamed_document")
-                    session.sbtab_docnames.append(docs[0])
-                    session.sbtab_types.append(types[0])
-
-
-                #redirect(URL(''))
+                    session.sbtab_docnames.append(docs[i])
+                    session.sbtab_types.append(types[i])
+                else:
+                    warning = 'A file with the name %s has already been uploaded. Please rename your file before upload.'%fn
+                    session.ex_warning_val = [warning]
         except:
             session.ex_warning_val = ['The file format was not supported. Please use .csv or .xls.']
     elif lform.errors:
@@ -244,77 +184,21 @@ def converter():
                 seperator      = FileValidClass.checkSeperator(request.vars.File.value)            
                 (sbtab_list,types,docs,tnames) = splitTabs.checkTabs([request.vars.File.value],request.vars.File.filename,seperator=seperator)
                 if not session.has_key('sbtabs'):
-                    session.sbtabs = ['\n'.join(sbtab_list[0])]
+                    session.sbtabs = []
                     session.name2doc = {}
-                    if tnames[0] != '':
-                        session.sbtab_filenames = [request.vars.File.filename[:-4]+'_'+types[0]+'_'+tnames[0]]
-                        session.name2doc[request.vars.File.filename[:-4]+'_'+types[0]+'_'+tnames[0]] = docs[0]
-                        session.todeletename    = [request.vars.File.filename[:-4]+'_'+types[0]+'_'+tnames[0]]
-                    else:
-                        session.sbtab_filenames = [request.vars.File.filename[:-4]+'_'+types[0]]
-                        session.name2doc[request.vars.File.filename[:-4]+'_'+types[0]] = docs[0]
-                        session.todeletename    = [request.vars.File.filename[:-4]+'_'+types[0]]
-                    session.sbtab_fileformat = [request.vars.File.filename[-4:]]
-                    session.sbtab_docnames  = [docs[0]]
-                    session.sbtab_types     = [types[0]]
-                    if len(sbtab_list) > 1:
-                        for i,sbtab in enumerate(sbtab_list[1:]):
-                            session.sbtabs.append('\n'.join(sbtab))
-                            if tnames[i] != '': fn = request.vars.File.filename[:-4]+'_'+types[i]+'_'+tnames[i]
-                            else: fn = request.vars.File.filename[:-4]+'_'+types[i]
-                            if not fn in session.sbtab_filenames:
-                                session.sbtab_filenames.append(fn)
-                                session.todeletename.append(fn)
-                                session.name2doc[fn] = docs[i]
-                            else:
-                                random_number = str(random.randint(0,1000))
-                                session.sbtab_filenames.append(fn+'_'+random_number)
-                                session.todeletename.append(fn+'_'+random_number)
-                                session.name2doc[fn+'_'+random_number] = docs[i]
-                            session.sbtab_fileformat.append(request.vars.File.filename[-4:])
-                            #if docs[i] != None: session.sbtab_docnames.append(docs[i])
-                            #else: session.sbtab_docnames.append("Unnamed_document")
-                            session.sbtab_docnames.append(docs[i])
-                            session.sbtab_types.append(types[i])
-                else:
-                    if len(sbtab_list) > 1:
-                        for i,sbtab in enumerate(sbtab_list):
-                            session.sbtabs.append('\n'.join(sbtab))
-                            if tnames[i] != '': fn = request.vars.File.filename[:-4]+'_'+types[i]+'_'+tnames[i]
-                            else: fn = request.vars.File.filename[:-4]+'_'+types[i]
-                            if not fn in session.sbtab_filenames:
-                                session.sbtab_filenames.append(fn)
-                                session.todeletename.append(fn)
-                                session.name2doc[fn] = docs[i]
-                            else:
-                                random_number = str(random.randint(0,1000))
-                                session.sbtab_filenames.append(fn+'_'+random_number)
-                                session.todeletename.append(fn+'_'+random_number)
-                                session.name2doc[fn+'_'+random_number] = docs[i]
-                            session.sbtab_fileformat.append(request.vars.File.filename[-4:])
-                            #if docs[i] != None: session.sbtab_docnames.append(docs[i])
-                            #else: session.sbtab_docnames.append("Unnamed_document")
-                            session.sbtab_docnames.append(docs[i])
-                            session.sbtab_types.append(types[i])
-                    else:
-                        session.sbtabs.append('\n'.join(sbtab_list[0]))
-                        if tnames[0] != '': fn = request.vars.File.filename[:-4]+'_'+types[0]+'_'+tnames[0]
-                        else: fn = request.vars.File.filename[:-4]+'_'+types[0]
-                        if not fn in session.sbtab_filenames:
-                            session.sbtab_filenames.append(fn)
-                            session.todeletename.append(fn)
-                            session.name2doc[fn] = docs[0]
-                        else:
-                            random_number = str(random.randint(0,1000))
-                            session.sbtab_filenames.append(fn+'_'+random_number)
-                            session.todeletename.append(fn+'_'+random_number)
-                            session.name2doc[fn+'_'+random_number] = docs[0]
+                for i,sbtab in enumerate(sbtab_list):
+                    fn = misc.create_filename(request.vars.File.filename,types[i],tnames[i])
+                    if not fn in session.sbtab_filenames:
+                        session.sbtabs.append('\n'.join(sbtab))
+                        session.sbtab_filenames.append(fn)
+                        session.todeletename.append(fn)
+                        session.name2doc[fn] = docs[i]
                         session.sbtab_fileformat.append(request.vars.File.filename[-4:])
-                        #if docs[0] != None: session.sbtab_docnames.append(docs[0])
-                        #else: session.sbtab_docnames.append("Unnamed_document")
-                        session.sbtab_docnames.append(docs[0])
-                        session.sbtab_types.append(types[0])
-                #redirect(URL(''))
+                        session.sbtab_docnames.append(docs[i])
+                        session.sbtab_types.append(types[i])
+                    else:
+                        warning = 'A file with the name %s has already been uploaded. Please rename your file before upload.'%fn
+                        session.ex_warning_con = [warning]
             except:
                 session.ex_warning_con = ['The uploaded file cannot be identified as valid SBtab file.']
     elif lform.errors:
@@ -331,13 +215,13 @@ def converter():
                 session.sbmls = [new_sbml]
                 session.sbml_filenames = [session.sbtab_filenames[int(request.vars.c2sbml_button)]+'_SBML']
             else:
-                session.sbmls.append(new_sbml)
                 fn = session.sbtab_filenames[int(request.vars.c2sbml_button)]+'_SBML'
                 if not fn in session.sbml_filenames:
+                    session.sbmls.append(new_sbml)
                     session.sbml_filenames.append(fn)
                 else:
-                    random_number = str(random.randint(0,1000))
-                    session.sbml_filenames.append(fn+'_'+random_number)
+                    warning = 'A file with the name %s has already been uploaded. Please rename your SBtab file/s before SBML creation.'%fn
+                    session.ex_warning_con = [warning]
         except:
             session.ex_warning_con = ['The SBtab file seems to be invalid and could not be converted to SBML.']
         redirect(URL(''))
@@ -345,9 +229,17 @@ def converter():
     if request.vars.dl_sbtab_button:
         downloader_sbtab()
 
+    if request.vars.download_all_button:
+        download_document = session.sbtab_docnames[int(request.vars.download_all_button)]
+        sbtab_list        = []
+        for i,docname in enumerate(session.sbtab_docnames):
+            if docname == download_document:
+                sbtab_list.append(session.sbtabs[i])
+        downloader_sbtab_doc(sbtab_list,int(request.vars.download_all_button))
+
     if request.vars.convert_all_button:
-            session.ex_warning_con = None
-        #try:
+        session.ex_warning_con = None
+        try:
             convert_document = session.sbtab_docnames[int(request.vars.convert_all_button)]
             merged_sbtabs    = []
             for i,docname in enumerate(session.sbtab_docnames):
@@ -360,15 +252,15 @@ def converter():
                 session.sbmls = [new_sbml]
                 session.sbml_filenames = [convert_document]
             else:
-                session.sbmls.append(new_sbml)
                 fn = convert_document
                 if not fn in session.sbml_filenames:
+                    session.sbmls.append(new_sbml)
                     session.sbml_filenames.append(fn)
                 else:
-                    random_number = str(random.randint(0,1000))
-                    session.sbml_filenames.append(fn+'_'+random_number)
-        #except:
-        #    session.ex_warning_con = ['The SBtab files seem to be invalid and could not be converted to SBML.']
+                    warning = 'A file with the name %s has already been uploaded. Please rename your SBtab file/s before SBML creation.'%fn
+                    session.ex_warning_con = [warning]
+        except:
+            session.ex_warning_con = ['The SBtab files seem to be invalid and could not be converted to SBML.']
 
     if request.vars.remove_all_button:
         try:
@@ -441,20 +333,15 @@ def converter():
                     session.name2doc = {}
                     session.name2doc[session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')+'_'+SBtab[1]] = session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')
                 else:
-                    session.sbtabs.append(SBtab[0])
                     fn = session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')+'_'+SBtab[1]
                     if not fn in session.sbtab_filenames:
+                        session.sbtabs.append(SBtab[0])
                         session.sbtab_filenames.append(fn)
                         session.todeletename.append(fn)
                         session.name2doc[fn] = session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')      #needs +'_'+SBtab[1]??
-                    else:
-                        random_number = str(random.randint(0,1000))
-                        session.sbtab_filenames.append(fn+'_'+random_number)
-                        session.todeletename.append(fn+'_'+random_number)
-                        session.name2doc[fn+'_'+random_number] = session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml')      #needs +'_'+SBtab[1]??
-                    session.sbtab_fileformat.append('.csv')
-                    session.sbtab_docnames.append(session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml'))
-                    session.sbtab_types.append(string.capitalize(SBtab[1]))
+                        session.sbtab_fileformat.append('.csv')
+                        session.sbtab_docnames.append(session.sbml_filenames[int(request.vars.c2sbtab_button)].rstrip('.xml'))
+                        session.sbtab_types.append(string.capitalize(SBtab[1]))
             #redirect(URL(''))
         except:
             session.ex_warning_con = ['The SBML file seems to be invalid and could not be converted to SBtab.']
@@ -474,7 +361,6 @@ def converter():
         downloader_sbml()
         
     return dict(UPL_FORML=lform,UPL_FORMR=rform,SBTAB_LIST=session.sbtabs,SBML_LIST=session.sbmls,NAME_LIST_SBTAB=session.sbtab_filenames,NAME_LIST_SBML=session.sbml_filenames,DOC_NAMES=session.sbtab_docnames,NAME2DOC=session.name2doc,EXWARNING=session.ex_warning_con,TYPES=session.sbtab_types)
-
 
 def def_files():
     '''
@@ -524,6 +410,28 @@ def downloader_sbtab():
         except:
             delimiter = None
         content = misc.first_row(content_raw,delimiter)
+
+        raise HTTP(200,str(content),
+                   **{'Content-Type':'text/csv',
+                      'Content-Disposition':attachment + ';'})
+
+def downloader_sbtab_doc(sbtab_list,iter):
+        response.headers['Content-Type'] = 'text/csv'
+        if not session.sbtab_docnames[iter].endswith('.csv') and not session.sbtab_docnames[iter].endswith('.tsv'):
+            attachment = 'attachment;filename=' + session.sbtab_docnames[iter]+'.csv'
+        else: attachment = 'attachment;filename=' + session.sbtab_docnames[iter]
+        response.headers['Content-Disposition'] = attachment
+        
+        #here we remove the extra tabs/comma from the first row for export
+        #content_raw = sbtab_list
+        content = ''
+        for sbtab in sbtab_list:
+            try:
+                FileValidClass = validatorSBtab.ValidateFile(sbtab,session.sbtab_docnames[iter])
+                delimiter      = FileValidClass.checkSeperator(sbtab)
+            except:
+                delimiter = None
+            content += misc.first_row(sbtab,delimiter)+'\n'
 
         raise HTTP(200,str(content),
                    **{'Content-Type':'text/csv',

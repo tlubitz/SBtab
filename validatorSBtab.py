@@ -165,6 +165,7 @@ class ValidateTable:
                 # raise SBtabError('An identifier for a data row must not
                 # include ":" or ".": \n'+str(row))
 
+
     def returnOutput(self):
         '''
         returns stuff
@@ -223,7 +224,10 @@ class ValidateFile:
             if row.startswith('!!'): continue
             if row.startswith('!'):
                 s = re.search('(.)(!)',row[1:])
-                sep = s.group(1)
+                #if there is only one column, we have to define a default separator.
+                #let's use a tab.
+                try: sep = s.group(1)
+                except: sep = '\t'
 
         return sep
 
