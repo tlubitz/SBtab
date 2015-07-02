@@ -3,4 +3,4 @@ SBtab - Table format for Systems Biology
 
 Python code and example files
 
-Jens Hahn (2013)
+Jens Hahn & Timo Lubitz (2015)
