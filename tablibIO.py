@@ -27,11 +27,11 @@ def importSetNew(sbtabfile,filename,seperator=None):
     file_mimetype = mimetypes.guess_type(filename)[0]
 
     if file_mimetype == 'text/csv':
-        return haveTSV(sbtabfile, 'c')
+        return haveTSV(sbtabfile, ',')
     elif file_mimetype == 'text/tab-separated-values':
-        return haveTSV(sbtabfile, 't')
+        return haveTSV(sbtabfile, '\t')
     elif file_mimetype == 'text/tsv':
-        return haveTSV(sbtabfile, 't')    
+        return haveTSV(sbtabfile, '\t')    
     elif file_mimetype == 'application/vnd.ms-excel' or file_mimetype == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
         return haveXLS(sbtabfile, True, True)
     else:
