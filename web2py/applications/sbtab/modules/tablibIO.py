@@ -10,6 +10,7 @@ import tablib.packages.odf.opendocument as opendocument
 from tablib.packages.odf.table import Table, TableRow, TableColumn, TableCell
 from tablib.packages.odf.text import P
 import tablib.packages.xlrd as xlrd
+import misc
 
 
 def sheets(self):  # Added to excess sheets of Databook
@@ -20,14 +21,20 @@ except:
     tablib.Databook.sheets = sheets
 
 def importSetNew(sbtabfile,filename,seperator=None):
-    if seperator:
-        return haveTSV(sbtabfile,seperator)
-
     mimetypes.init()
     file_mimetype = mimetypes.guess_type(filename)[0]
+    
+    if seperator:
+        return haveTSV(sbtabfile,seperator)
+    else:
+        seperator = misc.getDelimiter(sbtabfile)
+        if file_mimetype == 'application/vnd.ms-excel' or file_mimetype == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+            return haveXLS(sbtabfile, True, True)
+        else: return haveTSV(sbtabfile, seperator)            
 
+    '''
     if file_mimetype == 'text/csv':
-        return haveTSV(sbtabfile, 'c')
+        return haveTSV(sbtabfile,'c')
     elif file_mimetype == 'text/tab-separated-values':
         return haveTSV(sbtabfile, 't')
     elif file_mimetype == 'text/tsv':
@@ -37,6 +44,7 @@ def importSetNew(sbtabfile,filename,seperator=None):
     else:
         return None
         #raise TypeError("%s is not in a supported format" % fpath)
+    '''
 
 def importSet(fpath):
     if not os.path.isfile(fpath):

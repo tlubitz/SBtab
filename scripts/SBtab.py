@@ -28,6 +28,7 @@ import sys
 #sys.path.insert(0, './SBtab')
 import tablib
 import tablibIO
+import misc
 
 tables_without_name = []
 
@@ -77,10 +78,10 @@ class SBtabTable():
         self.header_row = self.getHeaderRow()
 
         # Read the table information from header row
-        (self.table_type, self.table_name, self.table_document, self.table_version) = self.getTableInformation()
+        (self.table_type, self.table_name, self.table_document, self.table_version, self.unique_key) = self.getTableInformation()
         
         # Read the columns of the table
-        (self.columns, self.columns_dict, inserted_column) = self.getColumns()
+        (self.columns, self.columns_dict, inserted_column, self.delimiter) = self.getColumns()
 
         # Read data rows
         self.value_rows = self.getRows(self.table_type, inserted_column)
@@ -108,7 +109,7 @@ class SBtabTable():
                 if str(entry).startswith('!!'):
                     header_row = row
                     break
-
+        
         # Save string or raise error
         if not header_row:
             raise SBtabError('This is not a valid SBtab table, please use validator to check format or have a look in the specification!')
@@ -123,8 +124,6 @@ class SBtabTable():
         # Split header row
         header_row = header_row.split(' ')
 
-
-        
         # Delete spaces in header row
         while '' in header_row:
             header_row.remove('')
@@ -190,12 +189,14 @@ class SBtabTable():
 
         # save table version, otherwise return None
         tv = re.search("SBtabVersion='([^']*)'", self.header_row)
-        if tv:
-            table_version = tv.group(1)
-        else:
-            table_version = None
+        if tv: table_version = tv.group(1)
+        else: table_version = None
 
-        return table_type, table_name, table_document, table_version
+        uk = re.search("UniqueKey='([^']*)'", self.header_row)
+        if uk: unique_key = uk.group(1)
+        else: unique_key = 'True'
+
+        return table_type, table_name, table_document, table_version, unique_key
 
     def getColumns(self):
         """
@@ -218,6 +219,7 @@ class SBtabTable():
         for row in self.table:
             for entry in row:
                 if str(row[0]).startswith('!') and not str(row[0]).startswith('!!'):
+                    delimiter    = misc.getDelimiter(row)
                     column_names = list(row)
                     break
 
@@ -232,7 +234,7 @@ class SBtabTable():
         for i, column in enumerate(column_names):
             columns[column] = i
 
-        return column_names, columns, inserted_column
+        return column_names, columns, inserted_column, delimiter
 
     def getRows(self, table_type='table', inserted=False):
         """
@@ -401,11 +403,7 @@ class SBtabTable():
         # Make all rows the same length
         longest = max([len(x) for x in sbtab_temp])
 
-        #Please note: at this point we are producing invalid tablib code, but this is justified:
-        #tablib requires a rectangular table, but SBtab does not want this; we want the first
-        #row to be single (or at least not depending on the other rows' length)
-        self.sbtab_dataset.append(sbtab_temp[0])
-        for row in sbtab_temp[1:]:
+        for row in sbtab_temp:
             if len(row) < longest:
                 for i in range(longest - len(row)):
                     row.append('')

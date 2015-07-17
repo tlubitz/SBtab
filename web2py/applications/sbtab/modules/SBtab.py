@@ -28,6 +28,7 @@ import sys
 #sys.path.insert(0, './SBtab')
 import tablib
 import tablibIO
+import misc
 
 tables_without_name = []
 
@@ -80,7 +81,7 @@ class SBtabTable():
         (self.table_type, self.table_name, self.table_document, self.table_version, self.unique_key) = self.getTableInformation()
         
         # Read the columns of the table
-        (self.columns, self.columns_dict, inserted_column) = self.getColumns()
+        (self.columns, self.columns_dict, inserted_column, self.delimiter) = self.getColumns()
 
         # Read data rows
         self.value_rows = self.getRows(self.table_type, inserted_column)
@@ -188,16 +189,12 @@ class SBtabTable():
 
         # save table version, otherwise return None
         tv = re.search("SBtabVersion='([^']*)'", self.header_row)
-        if tv:
-            table_version = tv.group(1)
-        else:
-            table_version = None
+        if tv: table_version = tv.group(1)
+        else: table_version = None
 
         uk = re.search("UniqueKey='([^']*)'", self.header_row)
-        if uk:
-            unique_key = uk.group(1)
-        else:
-            unique_key = 'True'
+        if uk: unique_key = uk.group(1)
+        else: unique_key = 'True'
 
         return table_type, table_name, table_document, table_version, unique_key
 
@@ -222,6 +219,7 @@ class SBtabTable():
         for row in self.table:
             for entry in row:
                 if str(row[0]).startswith('!') and not str(row[0]).startswith('!!'):
+                    delimiter    = misc.getDelimiter(row)
                     column_names = list(row)
                     break
 
@@ -236,7 +234,7 @@ class SBtabTable():
         for i, column in enumerate(column_names):
             columns[column] = i
 
-        return column_names, columns, inserted_column
+        return column_names, columns, inserted_column, delimiter
 
     def getRows(self, table_type='table', inserted=False):
         """

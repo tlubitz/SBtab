@@ -79,6 +79,11 @@ def validator():
             if not session.has_key('sbtabs'):
                 session.sbtabs           = []
                 session.name2doc         = {}
+                session.sbtab_filenames  = []
+                session.todeletename     = []
+                session.sbtab_fileformat = []
+                session.sbtab_docnames   = []
+                session.sbtab_types      = []
             for i,sbtab in enumerate(sbtab_list):
                 fn = misc.create_filename(request.vars.File.filename,types[i],tnames[i])
                 if not fn in session.sbtab_filenames:
@@ -186,6 +191,11 @@ def converter():
                 if not session.has_key('sbtabs'):
                     session.sbtabs = []
                     session.name2doc = {}
+                    session.sbtab_filenames  = []
+                    session.todeletename     = []
+                    session.sbtab_fileformat = []
+                    session.sbtab_docnames   = []
+                    session.sbtab_types      = []
                 for i,sbtab in enumerate(sbtab_list):
                     fn = misc.create_filename(request.vars.File.filename,types[i],tnames[i])
                     if not fn in session.sbtab_filenames:
@@ -228,6 +238,9 @@ def converter():
 
     if request.vars.dl_sbtab_button:
         downloader_sbtab()
+
+    if request.vars.dl_xls_sbtab_button:
+        downloader_sbtab_xls()
 
     if request.vars.download_all_button:
         download_document = session.sbtab_docnames[int(request.vars.download_all_button)]
@@ -397,11 +410,11 @@ def def_files():
 
 def downloader_sbtab():
         response.headers['Content-Type'] = 'text/csv'
-        if not session.sbtab_filenames[int(request.vars.dl_sbtab_button)].endswith('.csv') and not session.sbtab_filenames[int(request.vars.dl_sbtab_button)].endswith('.tsv'):
+        if not session.sbtab_filenames[int(request.vars.dl_sbtab_button)].endswith('.csv') and not session.sbtab_filenames[int(request.vars.dl_sbtab_button)].endswith('.tsv') and not session.sbtab_filenames[int(request.vars.dl_sbtab_button)].endswith('.xls'):
             attachment = 'attachment;filename=' + session.sbtab_filenames[int(request.vars.dl_sbtab_button)]+'.csv'
         else: attachment = 'attachment;filename=' + session.sbtab_filenames[int(request.vars.dl_sbtab_button)]
         response.headers['Content-Disposition'] = attachment
-        
+
         #here we remove the extra tabs/comma from the first row for export
         content_raw = session.sbtabs[int(request.vars.dl_sbtab_button)]
         try:
@@ -413,6 +426,31 @@ def downloader_sbtab():
 
         raise HTTP(200,str(content),
                    **{'Content-Type':'text/csv',
+                      'Content-Disposition':attachment + ';'})
+
+def downloader_sbtab_xls():
+        response.headers['Content-Type'] = 'application/vnd.ms-excel'#'xls'
+        if not session.sbtab_filenames[int(request.vars.dl_xls_sbtab_button)].endswith('.xls'):
+            attachment = 'attachment;filename=' + session.sbtab_filenames[int(request.vars.dl_xls_sbtab_button)]+'.xls'
+            content_raw = session.sbtabs[int(request.vars.dl_xls_sbtab_button)]
+            try:
+                FileValidClass = validatorSBtab.ValidateFile(content_raw,session.sbtab_filenames[int(request.vars.dl_xls_sbtab_button)])
+                delimiter      = FileValidClass.checkSeperator(content_raw)
+            except:
+                delimiter = None
+            try:
+                content_csv = misc.first_row(content_raw,delimiter)
+                content_xls = misc.csv2xls(content_csv,delimiter)
+            except:
+                attachment  = 'attachment;filename=' + session.sbtab_filenames[int(request.vars.dl_xls_sbtab_button)]+'.xls'
+                content_xls = session.sbtabs[int(request.vars.dl_xls_sbtab_button)]
+        else:
+            attachment  = 'attachment;filename=' + session.sbtab_filenames[int(request.vars.dl_xls_sbtab_button)]
+            content_xls = session.sbtabs[int(request.vars.dl_xls_sbtab_button)]
+        #response.headers['Content-Disposition'] = attachment
+
+        raise HTTP(200,content_xls,
+                   **{'Content-Type':'application/vnd.ms-excel',#'text/xls',
                       'Content-Disposition':attachment + ';'})
 
 def downloader_sbtab_doc(sbtab_list,iter):

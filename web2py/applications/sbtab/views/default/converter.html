@@ -34,13 +34,16 @@ Information on file formats (.csv, .xls) can be found <a href="http://www.sbtab.
       <form><td bgcolor="#87CEFA"><button type="submit" value="{{=pos2}}" name="convert_all_button" valign="top">Convert to SBML</button> </td> </form>
       <form><td bgcolor="#87CEFA"><button type="submit" value="{{=pos2}}" name="remove_all_button">Remove all</button> </td> </form>
       <form><td bgcolor="#87CEFA"><button type="submit" value="{{=pos2}}" name="download_all_button">Download all</button> </td> </form>
+      <td bgcolor="#87CEFA"></td>
       {{else:}}
       <td bgcolor="#87CEFA"></td>
       <form><td bgcolor="#87CEFA"><button type="submit" value="{{=pos2}}" name="remove_all_button">Remove all</button> </td> </form>
       <form><td bgcolor="#87CEFA"><button type="submit" value="{{=pos2}}" name="download_all_button">Download all</button> </td> </form>
+      <td bgcolor="#87CEFA"></td>
       {{pass}}
       {{else:}}
       </td>
+      <td bgcolor="#87CEFA"></td>
       <td bgcolor="#87CEFA"></td>
       <td bgcolor="#87CEFA"></td>
       <td bgcolor="#87CEFA"></td>
@@ -61,6 +64,7 @@ Information on file formats (.csv, .xls) can be found <a href="http://www.sbtab.
 	      {{pass}}
 	      <form><td> <button type="submit" value="{{=pos}}" name="erase_sbtab_button">Remove</button> </td> </form>
 	      <form><td> <button type="submit" value="{{=pos}}" name="dl_sbtab_button">Download</button> </td> </form>
+	      <form><td> <button type="submit" value="{{=pos}}" name="dl_xls_sbtab_button">Download as .xls</button> </td> </form>
 {{displayedf.append(f)}}
 {{displayedg.append(g)}}
 {{pass}}
