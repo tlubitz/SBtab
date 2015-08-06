@@ -268,7 +268,7 @@ class SBtabTable():
         self.comments = []
 
         for row in self.table:
-            if row[0].startswith('!'):            
+            if str(row[0]).startswith('!'):            
                 continue
             for i, entry in enumerate(row):
                 #if str(entry).startswith('!'):
