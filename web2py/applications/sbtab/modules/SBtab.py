@@ -59,8 +59,9 @@ class SBtabTable():
         """
         # Needed to be able to adress it from outside of the class for writing and reading
         self.filename = filename
-        # Tablib object as loaded
-        self.table = table
+
+        #check if ascii stuff is violated
+        self.table = self.checkascii(table)
 
         # Delete tablib header to avoid complications
         if self.table.headers: self.table.headers = None
@@ -89,6 +90,23 @@ class SBtabTable():
         # Update the list and tablib object
         self.update()
 
+    def checkascii(self,table):
+
+        new_table = []
+
+        for row in table:
+            new_row = []
+            for i,entry in enumerate(row):
+                try:
+                    new_row.append(str(entry))
+                except:
+                    new_row.append('Ascii violation error! Please check input file!')
+            new_table.append('\t'.join(new_row))
+
+        tablibtable = tablibIO.importSetNew('\n'.join(new_table),self.filename+'.csv')
+
+        return tablibtable
+
     def getHeaderRow(self):
         """
         Extract the !!-header row from the SBtab file.
@@ -105,6 +123,7 @@ class SBtabTable():
         header_row = None
         # Find header row
         for row in self.table:
+            #print row
             for entry in row:
                 if str(entry).startswith('!!'):
                     header_row = row
@@ -268,10 +287,12 @@ class SBtabTable():
         self.comments = []
 
         for row in self.table:
+            if str(row[0]).startswith('!'):            
+                continue
             for i, entry in enumerate(row):
-                if str(entry).startswith('!'):
-                    break
-                elif str(entry).startswith('%'):
+                #if str(entry).startswith('!'):
+                #    break
+                if str(entry).startswith('%'):
                     self.comments.append(list(row))
                     break
                 else:
