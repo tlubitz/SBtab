@@ -67,6 +67,7 @@ def getDelimiter(sbtab_file_string):
     
     for row in rows:
         if row.startswith('!!'): continue
+        elif row.startswith('"!!'): continue
         if row.startswith('!'):
             s = re.search('(.)(!)',row)
             #if there is only one column, we have to define a default separator.
@@ -75,3 +76,25 @@ def getDelimiter(sbtab_file_string):
             except: sep = '\t'
 
     return sep
+
+def removeDoubleQuotes(sbtab_file_string):
+    '''
+    remove quotes and double quotes introduced by fucking MS Excel
+    '''
+    try: rows = sbtab_file_string.split('\n')
+    except: rows = sbtab_file_string
+
+    sbtab = []
+    for row in rows:
+        n1 = row.replace('""','#')
+        if n1.startswith('!!'): n2 = n1
+        else: n2 = n1.replace('"','')
+        new_row = n2.replace('#','"')
+        sbtab.append(new_row)
+
+    new_sbtab = '\n'.join(sbtab)
+
+    return new_sbtab
+            
+            
+        

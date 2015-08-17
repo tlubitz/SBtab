@@ -2,6 +2,7 @@
 import re, libsbml
 import SBtab
 import tablibIO
+import misc
 
 def checkTabs(document,filename,seperator=None):
     '''
@@ -68,11 +69,15 @@ def splitDocumentInTables(document_rows):
     if the document contains more than one SBtab, this function splits the document
     into the single SBtabs
     '''
+    delimiter = misc.getDelimiter('\n'.join(document_rows))
+    
     single_sbtab = [document_rows[0]]
     sbtab_list   = []
     for row in document_rows[1:]:
         if not row.startswith('!!'):
-            single_sbtab.append(row)
+            splitrow = row.split(delimiter)
+            if not row == '' and not row[0] == '' and not splitrow[0] == '' and not splitrow[0] == '':
+                single_sbtab.append(row)
         else:
             sbtab_list.append(single_sbtab)
             single_sbtab = [row]

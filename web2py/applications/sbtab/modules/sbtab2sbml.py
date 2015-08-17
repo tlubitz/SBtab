@@ -313,7 +313,8 @@ class SBtabDocument:
                             comp.setSize(float(compsbtab[sbtab.columns_dict['!Size']]))
 
             if '!SBOTerm' in sbtab.columns and row[sbtab.columns_dict['!SBOTerm']] != '':
-                compartment.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
+                try: compartment.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
+                except: pass
             
             for column in sbtab.columns_dict.keys():
                 if "Identifiers" in column:
@@ -378,7 +379,8 @@ class SBtabDocument:
                         species.setConstant(1)
                         species.setBoundaryCondition(1)
                 if '!SBOTerm' in sbtab.columns and row[sbtab.columns_dict['!SBOTerm']] != '':
-                    species.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
+                    try: species.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
+                    except: pass
 
                 if '!Unit' in sbtab.columns and self.unit_mM == False:
                     if row[sbtab.columns_dict['!Unit']] == 'mM':
@@ -742,14 +744,16 @@ class SBtabDocument:
                                     self.makeUnitDefmpdw()
                                     self.unit_mpdw = True
                             if '!SBOTerm' in sbtab.columns and row[sbtab.columns_dict['!SBOTerm']] != '':
-                                lp.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
+                                try: lp.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
+                                except: pass
                 else:
                     parameter = self.new_model.createParameter()
                     parameter.setId(row[sbtab.columns_dict['!SBML:parameter:id']])
                     parameter.setUnits(row[sbtab.columns_dict['!Unit']])
                     parameter.setValue(float(row[sbtab.columns_dict['!Value']]))
                     if '!SBOTerm' in sbtab.columns and row[sbtab.columns_dict['!SBOTerm']] != '':
-                        parameter.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
+                        try: parameter.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
+                        except: pass
             except:
                 parameter = self.new_model.createParameter()
                 parameter.setId(row[sbtab.columns_dict['!SBML:parameter:id']])
@@ -758,7 +762,8 @@ class SBtabDocument:
                 try: parameter.setUnits(row[sbtab.columns_dict['!Unit']])
                 except: pass
                 if '!SBOTerm' in sbtab.columns and row[sbtab.columns_dict['!SBOTerm']] != '':
-                    parameter.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
+                    try: parameter.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
+                    except: pass
 
     def eventSBtab(self):
         '''
@@ -794,7 +799,8 @@ class SBtabDocument:
                     trig.setMath(libsbml.parseL3Formula(row[sbtab.columns_dict['!Trigger']]))
             except: pass
             if '!SBOTerm' in sbtab.columns and row[sbtab.columns_dict['!SBOTerm']] != '':
-                event.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
+                try: event.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
+                except: pass
             try:
                 if row[sbtab.columns_dict['!Delay']] != '' and row[sbtab.columns_dict['!Delay']] != 'None':
                     dl = event.createDelay()

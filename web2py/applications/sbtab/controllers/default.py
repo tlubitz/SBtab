@@ -75,7 +75,8 @@ def validator():
         try:
             FileValidClass = validatorSBtab.ValidateFile(request.vars.File.value,request.vars.File.filename)
             seperator      = FileValidClass.checkSeperator(request.vars.File.value)
-            (sbtab_list,types,docs,tnames) = splitTabs.checkTabs([request.vars.File.value],request.vars.File.filename,seperator=seperator)
+            sbtabber       = misc.removeDoubleQuotes(request.vars.File.value)
+            (sbtab_list,types,docs,tnames) = splitTabs.checkTabs([sbtabber],request.vars.File.filename,seperator=seperator)
             if not session.has_key('sbtabs'):
                 session.sbtabs           = []
                 session.name2doc         = {}
@@ -114,7 +115,6 @@ def validator():
             else:
                 xx_filename = session.sbtab_filenames[int(request.vars.validate_button)]+session.sbtab_fileformat[int(request.vars.validate_button)]
                 new_tablib_obj = tablibIO.importSetNew(session.sbtabs[int(request.vars.validate_button)],xx_filename)
-
             if new_tablib_obj:
                 if session.definition_file:
                     TableValidClass = validatorSBtab.ValidateTable(new_tablib_obj,session.sbtab_filenames[int(request.vars.validate_button)],session.definition_file[0],session.definition_file_name[0])
@@ -186,8 +186,9 @@ def converter():
             session.ex_warning_con = None
             try:
                 FileValidClass = validatorSBtab.ValidateFile(request.vars.File.value,request.vars.File.filename)
-                seperator      = FileValidClass.checkSeperator(request.vars.File.value)            
-                (sbtab_list,types,docs,tnames) = splitTabs.checkTabs([request.vars.File.value],request.vars.File.filename,seperator=seperator)
+                seperator      = FileValidClass.checkSeperator(request.vars.File.value)
+                sbtabber       = misc.removeDoubleQuotes(request.vars.File.value)
+                (sbtab_list,types,docs,tnames) = splitTabs.checkTabs([sbtabber],request.vars.File.filename,seperator=seperator)
                 if not session.has_key('sbtabs'):
                     session.sbtabs = []
                     session.name2doc = {}
@@ -418,10 +419,10 @@ def downloader_sbtab():
         #here we remove the extra tabs/comma from the first row for export
         content_raw = session.sbtabs[int(request.vars.dl_sbtab_button)]
         try:
-            FileValidClass = validatorSBtab.ValidateFile(content_raw,session.sbtab_filenames[int(request.vars.dl_sbtab_button)])
-            delimiter      = FileValidClass.checkSeperator(content_raw)
+            #FileValidClass = validatorSBtab.ValidateFile(content_raw,session.sbtab_filenames[int(request.vars.dl_sbtab_button)])
+            delimiter = misc.getDelimiter(content_raw) #FileValidClass.checkSeperator(content_raw)
         except:
-            delimiter = None
+            delimiter = '\t'
         content = misc.first_row(content_raw,delimiter)
 
         raise HTTP(200,str(content),

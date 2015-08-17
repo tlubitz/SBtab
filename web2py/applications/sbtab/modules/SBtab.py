@@ -61,7 +61,7 @@ class SBtabTable():
         self.filename = filename
 
         #check if ascii stuff is violated
-        self.table = self.checkascii(table)
+        self.table = self.checkAscii(table)
 
         # Delete tablib header to avoid complications
         if self.table.headers: self.table.headers = None
@@ -90,10 +90,10 @@ class SBtabTable():
         # Update the list and tablib object
         self.update()
 
-    def checkascii(self,table):
+    def checkAscii(self,table):
 
         new_table = []
-
+        #first: check for ascii character violations
         for row in table:
             new_row = []
             for i,entry in enumerate(row):
@@ -123,10 +123,14 @@ class SBtabTable():
         header_row = None
         # Find header row
         for row in self.table:
-            #print row
             for entry in row:
                 if str(entry).startswith('!!'):
                     header_row = row
+                    break
+                elif str(entry).startswith('"!!'):
+                    rm1 = row.replace('""','#')
+                    rm2 = row.remove('"')
+                    header_row = rm2.replace('#','"')
                     break
         
         # Save string or raise error
@@ -180,7 +184,6 @@ class SBtabTable():
         global tables_without_name
         no_name_counter = 0
         #header_row = self.getHeaderRow()
-
         # Save table type, otherwise raise error
         if re.search("TableType='([^']*)'", self.header_row) != None:
             table_type = re.search("TableType='([^']*)'", self.header_row).group(1)
@@ -416,15 +419,19 @@ class SBtabTable():
             sbtab_temp.append(row)
 
         # Delete all empty entries at the end of the rows
+        sb1 = []
         for row in sbtab_temp:
-            if len(row) > 1:
-                while not row[-1]:
-                    del row[-1]
+            if row[0] != '':
+                sb1.append(row)
+            #print '1. ',row
+            #if len(row) > 1:
+            #    while not row[-1]:
+            #        del row[-1]
 
         # Make all rows the same length
-        longest = max([len(x) for x in sbtab_temp])
+        longest = max([len(x) for x in sb1])
 
-        for row in sbtab_temp:
+        for row in sb1:
             if len(row) < longest:
                 for i in range(longest - len(row)):
                     row.append('')
@@ -571,10 +578,6 @@ class SBtabTable():
         Default value for filename is the filename as given with the SBtab object.
         Raise error if file format is invalid.
         """
-
-        #for row in self.sbtab_dataset:
-        #    print row
-        
         if not filename:
             filename = self.filename
         if format_type == 'tsv':
