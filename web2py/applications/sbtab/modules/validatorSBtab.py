@@ -139,6 +139,14 @@ class ValidateTable:
                 self.warnings.append('The first column of the file does not correspond with the given TableType ' + \
                                      self.sbtab.table_type + ' and will be filled automatically.')
 
+            # 2,5nd: very important: check if the identifiers start with a digit; this is not allowed in SBML!
+            for row in self.sbtab.value_rows:
+                identifier = row[0]
+                try:
+                    int(identifier[0])
+                    self.warnings.append('There is an identifier that starts with a digit; this is not permitted for the SBML conversion: '+identifier)
+                except: pass
+
         # 3rd: check the validity of the given column names
         if column_check:
             for column in self.sbtab.columns:

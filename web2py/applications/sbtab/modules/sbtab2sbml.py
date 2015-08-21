@@ -534,36 +534,52 @@ class SBtabDocument:
                     if "|" in row[sbtab.columns_dict['!Regulator']]:
                         splits = row[sbtab.columns_dict['!Regulator']].split('|')
                         for element in splits:
-                            mod = react.createModifier()
-                            if element.startswith('+'):
-                                mod.setSpecies(element[1:])
-                                mod.setSBOTerm(459)
-                                self.modifier_list.append(element)
-                            elif element.startswith('-'):
-                                mod.setSpecies(element[1:])
-                                mod.setSBOTerm(20)
-                                self.modifier_list.append(element)
-                            else:
-                                mod.setSpecies(element[1:])
-                                self.modifier_list.append(element)
-                                letring = str('The reaction modifier '+element+' could not be identified as either stimulator or inhibitor.')
-                                self.warnings.append(letring)
+                            #element = element.strip()
+                            if element.startswith('+') and element[1:] in self.species_list:
+                                try:
+                                    mod = react.createModifier()
+                                    mod.setSpecies(element[1:])
+                                    mod.setSBOTerm(459)
+                                    self.modifier_list.append(element)
+                                except: pass
+                            elif element.startswith('-') and element[1:] in self.species_list:
+                                try:
+                                    mod = react.createModifier()
+                                    mod.setSpecies(element[1:])
+                                    mod.setSBOTerm(20)
+                                    self.modifier_list.append(element)
+                                except: pass
+                            elif element[1:] in self.species_list:
+                                try:
+                                    mod = react.createModifier()
+                                    mod.setSpecies(element[1:])
+                                    self.modifier_list.append(element)
+                                    letring = str('The reaction modifier '+element+' could not be identified as either stimulator or inhibitor.')
+                                    self.warnings.append(letring)
+                                except: pass
                     else:
-                        mod = react.createModifier()
-                        if (row[sbtab.columns_dict['!Regulator']]).startswith('+'):
-                            mod.setSpecies(row[sbtab.columns_dict['!Regulator']][1:])
-                            mod.setSBOTerm(459)
-                            self.modifier_list.append(row[sbtab.columns_dict['!Regulator']])
-                        elif (row[sbtab.columns_dict['!Regulator']]).startswith('-'):
-                            mod.setSpecies(row[sbtab.columns_dict['!Regulator']][1:])
-                            mod.setSBOTerm(20)
-                            self.modifier_list.append(row[sbtab.columns_dict['!Regulator']])
-                        else:
-                            mod.setSpecies(row[sbtab.columns_dict['!Regulator']][1:])
-                            self.modifier_list.append(row[sbtab.columns_dict['!Regulator']])
-                            letring = str('The reaction modifier '+element+' could not be identified as either stimulator or inhibitor.')
-                            self.warnings.append(letring)
-                            
+                        if (row[sbtab.columns_dict['!Regulator']]).startswith('+') and row[sbtab.columns_dict['!Regulator']] in self.species_list:
+                            try:
+                                mod = react.createModifier()
+                                mod.setSpecies(row[sbtab.columns_dict['!Regulator']][1:])
+                                mod.setSBOTerm(459)
+                                self.modifier_list.append(row[sbtab.columns_dict['!Regulator']])
+                            except: pass
+                        elif (row[sbtab.columns_dict['!Regulator']]).startswith('-') and row[sbtab.columns_dict['!Regulator']] in self.species_list:
+                            try:
+                                mod = react.createModifier()
+                                mod.setSpecies(row[sbtab.columns_dict['!Regulator']][1:])
+                                mod.setSBOTerm(20)
+                                self.modifier_list.append(row[sbtab.columns_dict['!Regulator']])
+                            except: pass
+                        elif row[sbtab.columns_dict['!Regulator']] in self.species_list:
+                            try:
+                                mod = react.createModifier()
+                                mod.setSpecies(row[sbtab.columns_dict['!Regulator']])
+                                self.modifier_list.append(row[sbtab.columns_dict['!Regulator']])
+                                letring = str('The reaction modifier '+row[sbtab.columns_dict['!Regulator']]+' could not be identified as either stimulator or inhibitor.')
+                                self.warnings.append(letring)
+                            except: pass
                         self.modifier_list.append(row[sbtab.columns_dict['!Regulator']])
 
             except: pass
@@ -603,6 +619,8 @@ class SBtabDocument:
                         react.addCVTerm(cv_term)
                     except:
                         print 'There was an annotation that I could not assign properly: ',react.getId(),annot #,urn
+
+            #since local parameters need to be entered *after* reaction creation, but *before* setting 
 
             try:
                 sbtab.columns_dict['!KineticLaw']

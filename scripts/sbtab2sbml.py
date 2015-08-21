@@ -534,6 +534,7 @@ class SBtabDocument:
                     if "|" in row[sbtab.columns_dict['!Regulator']]:
                         splits = row[sbtab.columns_dict['!Regulator']].split('|')
                         for element in splits:
+                            #element = element.strip()
                             if element.startswith('+') and element[1:] in self.species_list:
                                 try:
                                     mod = react.createModifier()
@@ -618,6 +619,8 @@ class SBtabDocument:
                         react.addCVTerm(cv_term)
                     except:
                         print 'There was an annotation that I could not assign properly: ',react.getId(),annot #,urn
+
+            #since local parameters need to be entered *after* reaction creation, but *before* setting 
 
             try:
                 sbtab.columns_dict['!KineticLaw']
