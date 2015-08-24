@@ -61,7 +61,8 @@ class SBtabTable():
         self.filename = filename
 
         #check if ascii stuff is violated
-        self.table = self.checkAscii(table)
+        try: self.table = self.checkAscii(table)
+        except: raise SBtabError('This is not a valid SBtab file. Try to check your file with the SBtab validator or read the SBtab specification.')
 
         # Delete tablib header to avoid complications
         if self.table.headers: self.table.headers = None
