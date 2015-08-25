@@ -580,7 +580,7 @@ class SBtabTable():
         Raise error if file format is invalid.
         """
         if not filename:
-            filename = self.filename
+            filename = self.filename[:-4]
         if format_type == 'tsv':
             tablibIO.writeTSV(self.sbtab_dataset, filename)
         elif format_type == 'csv':
