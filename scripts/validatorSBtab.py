@@ -196,15 +196,18 @@ class ValidateFile:
         self.file = sbtab_file
         self.filename = filename
 
-        #self.validateExtension(self.filename)
+        #valid = self.validateExtension(self.filename)
+        #if not valid: raise SBtabError('The Parser cannot work with this file! Dude!')
+        
         self.validateFile(self.file)
 
-    def validateExtension(self, filename):
+    def validateExtension(self):
         """
         Check the extension of the file for invalid formats.
         """
-        if not (str(filename).endswith('.tsv') or str(filename).endswith('.csv') or str(filename).endswith('.ods') or str(filename).endswith('.xls')):
-            self.warnings.append('The given file format is not supported: ' + filename + '. Please use ".csv" or ".xls" instead.')
+        valid_extensions = ['tsv','csv','xls','ods']
+        if not self.filename[-3:] in valid_extensions: return False
+        else: return True
 
     def validateFile(self, sbtab_file):
         """
@@ -222,13 +225,13 @@ class ValidateFile:
                 self.warnings.append('The lengths of the rows are not identical.\n This will be adjusted automatically.')
             length = len(row)
 
-    def checkSeperator(self,sbtabfile):
+    def checkSeperator(self, sfile=None):
         '''
         find the seperator of the file; this is fucked up, but crucial
         '''
         sep = False
 
-        for row in sbtabfile.split('\n'):
+        for row in self.file.split('\n'):
             if row.startswith('!!'): continue
             if row.startswith('!'):
                 s = re.search('(.)(!)',row[1:])
