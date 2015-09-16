@@ -51,7 +51,7 @@ def checkTabs(document,filename,seperator=None):
             try: tnames.append(single_tab.table_name)
             except: tnames.append('')
             
-        return sbtabs,types,docs,tnames
+    return sbtabs,types,docs,tnames
 
 def getAmountOfTables(document_rows):
     '''

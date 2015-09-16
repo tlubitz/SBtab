@@ -28,9 +28,11 @@ class SBtabDocument:
         if self.filename.endswith('tsv') or self.filename.endswith('csv') or self.filename.endswith('.xls'): pass
         else: raise ConversionError('The given file format is not supported: '+self.filename)
 
-        if self.filename.endswith('.xls') or self.filename.endswith('.xlsx'):
-            self.document = [self.makeTSVfile(sbtab_document)]
-        else: self.document = [sbtab_document]
+        #This is not required anymore, since we already convert this after the upload in the user interface
+        #if self.filename.endswith('.xls') or self.filename.endswith('.xlsx'):
+        #    self.document = [self.makeTSVfile(sbtab_document)]
+        #else:
+        self.document = [sbtab_document]
 
         self.tabs      = tabs            
         self.unit_mM   = False
@@ -194,34 +196,49 @@ class SBtabDocument:
         self.compartment_list = []
         self.modifier_list    = []
         self.id2sbmlid        = {}
+        valid                 = True
+        newSBML               = False
 
-        #0st order: create compartments
-        if self.checkForCompartments(): pass
-        else: raise ConversionError('Compartment setup fucked up')
-                    
-        #1st order of bizness: due to the right modeling order of SBML, we first check for a compound SBtab
-        if 'Compound' in self.type2sbtab.keys():
-            self.compoundSBtab()
-
-        #2nd order of bizness: Work the Reaction SBtab (mandatory)
-        if 'Reaction' in self.type2sbtab.keys():
-            self.reactionSBtab()
-
-        #3rd order: check, which other SBtabs are given
-        for sbtab in sbtab_types:
-            try:
-                self.type2sbtab[sbtab]
-                name = 'self.'+sbtab.lower()+'SBtab()'
-                eval(name)
+        while valid:
+            #0st order: create compartments
+            try: self.checkForCompartments()
             except:
-                pass
-        
-        #Last, but not least: generate the SBML model
-        #libsbml.writeSBML(self.new_document,'New_Model.xml')
-        newSBML = libsbml.writeSBMLToString(self.new_document)
+                self.warnings.append('The compartment initialisation crashed. Please check for valid compartment information.')
+                break
+
+            #1st order of bizness: due to the right modeling order of SBML, we first check for a compound SBtab
+            if 'Compound' in self.type2sbtab.keys():
+                try: self.compoundSBtab()
+                except:
+                    self.warnings.append('The provided compounds could not be initialised. Please check for valid compound information.')
+                    break    
+
+            #2nd order of bizness: Work the Reaction SBtab (mandatory)
+            if 'Reaction' in self.type2sbtab.keys():
+                try: self.reactionSBtab()
+                except:
+                    self.warnings.append('The provided reaction information could not be converted. Please check for valid reaction information.')
+                    break
+
+            #3rd order: check, which other SBtabs are given
+            for sbtab in sbtab_types:
+                try:
+                    self.type2sbtab[sbtab]
+                    name = 'self.'+sbtab.lower()+'SBtab()'
+                    eval(name)
+                except:
+                    pass
+
+            #Last, but not least: generate the SBML model
+            #libsbml.writeSBML(self.new_document,'New_Model.xml')
+            newSBML = libsbml.writeSBMLToString(self.new_document)
+            break
 
         return newSBML,self.warnings
 
+    def getWarningOnly(self):
+        return self.warnings
+    
     def checkForCompartments(self):
         '''
         If there is no Compartment SBtab AND no compartments given in the other provided SBtab files, a default
@@ -456,6 +473,10 @@ class SBtabDocument:
                     compartment.setSize(1)
                     self.compartment_list.append(row[sbtab.columns_dict['!Location']])
 
+        try:
+            sbtab.columns_dict['!KineticLaw']
+            self.warnings.append('Please be aware that the SBtab -> SBML conversion does not include a validation of the provided kinetic rate laws. If they are invalid, this affects the validity of the output SBML.')
+        except: pass
              
         #creating the reactions
         for row in sbtab.value_rows:
