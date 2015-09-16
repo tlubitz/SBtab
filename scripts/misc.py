@@ -1,5 +1,7 @@
 #!/usr/bin/python
 import re
+import xlrd
+import string
 
 def first_row(sbtab_content,delimiter):
     '''
@@ -96,5 +98,41 @@ def removeDoubleQuotes(sbtab_file_string):
 
     return new_sbtab
             
-            
+def xls2csv(xls_file,filename):
+        '''
+        converts xls to tsv
+        @xls_file: file of type xlrd
+        '''
+        workbook = xlrd.open_workbook(filename,file_contents=xls_file)
+        sheet    = workbook.sheet_by_name('Sheet1')                   
+        
+        getridof = []
+        csv_file = []
+
+        for i in range(sheet.nrows):
+            stringrow = str(sheet.row(i))
+            notext    = string.replace(stringrow,'text:u','')
+            nonumbers = string.replace(notext,'number:','')
+            noopenbra = string.replace(nonumbers,'[','')
+            noclosebr = string.replace(noopenbra,']','')
+            if '\"!!' in noclosebr:
+                noone = string.replace(noclosebr,'\"',"")
+                noapostr = string.replace(noone,"\'",'\"')
+            else:
+                noone    = string.replace(noclosebr,"\'",'')
+                noapostr = string.replace(noone,'\u201d','\"')
+            nocommas  = noapostr.split(', ')
+            getridof.append(nocommas)
+
+        for row in getridof:
+            new_row = ''
+            for elem in row:
+                if not elem == "empty:''" and not elem == 'empty:' and not elem == 'empty:""':
+                    new_row += elem+','
+            csv_file.append(new_row.rstrip(','))
+
+
+        csv_file ='\n'.join(csv_file)
+
+        return csv_file
         
