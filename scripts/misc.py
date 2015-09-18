@@ -104,7 +104,7 @@ def xls2csv(xls_file,filename):
         @xls_file: file of type xlrd
         '''
         workbook = xlrd.open_workbook(filename,file_contents=xls_file)
-        sheet    = workbook.sheet_by_name('Sheet1')                   
+        sheet    = workbook.sheet_by_name(workbook.sheet_names()[0])
         
         getridof = []
         csv_file = []
@@ -127,10 +127,9 @@ def xls2csv(xls_file,filename):
         for row in getridof:
             new_row = ''
             for elem in row:
-                if not elem == "empty:''" and not elem == 'empty:' and not elem == 'empty:""':
-                    new_row += elem+','
+                if not elem == "empty:''" and not elem == 'empty:' and not elem == 'empty:""': new_row += elem+','
+                else: new_row += ','
             csv_file.append(new_row.rstrip(','))
-
 
         csv_file ='\n'.join(csv_file)
 
