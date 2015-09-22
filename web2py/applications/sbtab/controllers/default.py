@@ -72,11 +72,36 @@ def validator():
     if lform.process().accepted:
         response.flash = 'form accepted'
         session.ex_warning_val = None
-        try:
-            FileValidClass = validatorSBtab.ValidateFile(request.vars.File.value,request.vars.File.filename)
-            seperator      = FileValidClass.checkSeperator(request.vars.File.value)
-            sbtabber       = misc.removeDoubleQuotes(request.vars.File.value)
-            (sbtab_list,types,docs,tnames) = splitTabs.checkTabs([sbtabber],request.vars.File.filename,seperator=seperator)
+        valid = True
+        FileValidClass = validatorSBtab.ValidateFile(request.vars.File.value,request.vars.File.filename)
+        while valid:
+            #1: Is the file extension valid?
+            if not FileValidClass.validateExtension():
+                session.ex_warning_val = ['The file format was not supported. Please use .csv or .xls.']
+                break
+
+            #2: Can the separator be determined?
+            if request.vars.File.filename[-3:] == 'xls':
+                try: csv_file  = misc.xls2csv(request.vars.File.value,request.vars.File.filename)
+                except:
+                    session.ex_warning_val = ['This xls file could not be imported. Please ensure the validity of the xls format.']
+                    break
+                sbtabber  = misc.removeDoubleQuotes(csv_file)
+                seperator = ','
+            elif not FileValidClass.checkSeperator():
+                session.ex_warning_val = ['The delimiter of the file could not be determined. Please use comma or tabs as consistent separators.']
+                break
+            else:
+                seperator = FileValidClass.checkSeperator()
+                sbtabber  = misc.removeDoubleQuotes(request.vars.File.value)
+                
+            #3: If there are more than one SBtab files in the uploaded documents, try to split them
+            try: (sbtab_list,types,docs,tnames) = splitTabs.checkTabs([sbtabber],request.vars.File.filename,seperator=seperator)
+            except:
+                session.ex_warning_val = ['The SBtab document could not be split into single SBtab tables. Please try uploading them separately.']
+                break
+
+            #4: Now save all the required files, names, and variables in the session
             if not session.has_key('sbtabs'):
                 session.sbtabs           = []
                 session.name2doc         = {}
@@ -98,28 +123,37 @@ def validator():
                 else:
                     warning = 'A file with the name %s has already been uploaded. Please rename your file before upload.'%fn
                     session.ex_warning_val = [warning]
-        except:
-            session.ex_warning_val = ['The file format was not supported. Please use .csv or .xls.']
+            break
     elif lform.errors:
         response.flash = 'form has errors'
 
     #pushed validation button
     if request.vars.validate_button:
-        session.ex_warning_val = None  
-        try:
-            FileValidClass = validatorSBtab.ValidateFile(session.sbtabs[int(request.vars.validate_button)],session.sbtab_filenames[int(request.vars.validate_button)])
-            v_output       = FileValidClass.returnOutput()
-            try: seperator = FileValidClass.checkSeperator(session.sbtabs[int(request.vars.validate_button)])
-            except: pass
-            if seperator: new_tablib_obj = tablibIO.importSetNew(session.sbtabs[int(request.vars.validate_button)],session.sbtab_filenames[int(request.vars.validate_button)],seperator=seperator)
-            else:
-                xx_filename = session.sbtab_filenames[int(request.vars.validate_button)]+session.sbtab_fileformat[int(request.vars.validate_button)]
-                new_tablib_obj = tablibIO.importSetNew(session.sbtabs[int(request.vars.validate_button)],xx_filename)
-            if new_tablib_obj:
+        #session.ex_warning_val = None
+        valid    = True
+        v_output = []
+        FileValidClass = validatorSBtab.ValidateFile(session.sbtabs[int(request.vars.validate_button)],session.sbtab_filenames[int(request.vars.validate_button)])
+        while valid:
+            #1: Can the separator be determined?
+            if not FileValidClass.checkSeperator():
+                session.ex_warning_val = ['The delimiter of the file could not be determined. Please use commas or tabs as consistent separators.']
+                break
+            else: seperator = FileValidClass.checkSeperator()
+            try: new_tablib_obj = tablibIO.importSetNew(session.sbtabs[int(request.vars.validate_button)],session.sbtab_filenames[int(request.vars.validate_button)],seperator=seperator)
+            except:
+                try:
+                    add_extension  = session.sbtab_filenames[int(request.vars.validate_button)]+session.sbtab_fileformat[int(request.vars.validate_button)]
+                    new_tablib_obj = tablibIO.importSetNew(session.sbtabs[int(request.vars.validate_button)],add_extension)
+                except: pass
+                session.ex_warning_val = ['The file is corrupted and cannot be validated. A tablib object could not be created.']
+                break
+
+            #2: Get definition file
+            try:
                 if session.definition_file:
                     TableValidClass = validatorSBtab.ValidateTable(new_tablib_obj,session.sbtab_filenames[int(request.vars.validate_button)],session.definition_file[0],session.definition_file_name[0])
-                    for itemx in TableValidClass.returnOutput():
-                        v_output.append(itemx)
+                    for warning in TableValidClass.returnOutput():
+                        v_output.append(warning)
                 else:
                     def_file_open = open('./definitions/definitions.csv','r')    
                     session.definition_file      = [def_file_open.read()]
@@ -127,12 +161,12 @@ def validator():
                     TableValidClass = validatorSBtab.ValidateTable(new_tablib_obj,session.sbtab_filenames[int(request.vars.validate_button)],session.definition_file[0],session.definition_file_name[0])
                     for itemx in TableValidClass.returnOutput():
                         v_output.append(itemx)
-            sbtab2val  = session.sbtab_filenames[int(request.vars.validate_button)]
-            #redirect(URL(''))
-        except:
-            session.ex_warning_val = ['The file is corrupted and cannot be validated.']
-            v_output  = ''
-            sbtab2val = ''
+            except:
+                session.ex_warning_val = ['The definition file could not be loaded. Please reload session by restarting your browser.']
+                break
+   
+            sbtab2val = session.sbtab_filenames[int(request.vars.validate_button)]
+            break
     else:
         v_output  = ''
         sbtab2val = ''
@@ -182,46 +216,72 @@ def converter():
 
     #update session lists
     if lform.process(formname='form_one').accepted:
-            response.flash = 'form accepted'
-            session.ex_warning_con = None
-            try:
-                FileValidClass = validatorSBtab.ValidateFile(request.vars.File.value,request.vars.File.filename)
-                seperator      = FileValidClass.checkSeperator(request.vars.File.value)
-                sbtabber       = misc.removeDoubleQuotes(request.vars.File.value)
-                (sbtab_list,types,docs,tnames) = splitTabs.checkTabs([sbtabber],request.vars.File.filename,seperator=seperator)
-                if not session.has_key('sbtabs'):
-                    session.sbtabs = []
-                    session.name2doc = {}
-                    session.sbtab_filenames  = []
-                    session.todeletename     = []
-                    session.sbtab_fileformat = []
-                    session.sbtab_docnames   = []
-                    session.sbtab_types      = []
-                for i,sbtab in enumerate(sbtab_list):
-                    fn = misc.create_filename(request.vars.File.filename,types[i],tnames[i])
-                    if not fn in session.sbtab_filenames:
-                        session.sbtabs.append('\n'.join(sbtab))
-                        session.sbtab_filenames.append(fn)
-                        session.todeletename.append(fn)
-                        session.name2doc[fn] = docs[i]
-                        session.sbtab_fileformat.append(request.vars.File.filename[-4:])
-                        session.sbtab_docnames.append(docs[i])
-                        session.sbtab_types.append(types[i])
-                    else:
-                        warning = 'A file with the name %s has already been uploaded. Please rename your file before upload.'%fn
-                        session.ex_warning_con = [warning]
+        response.flash = 'form accepted'
+        session.ex_warning_con = None
+        valid = True
+        FileValidClass = validatorSBtab.ValidateFile(request.vars.File.value,request.vars.File.filename)
+        while valid:
+            #1: Is the file extension valid?
+            if not FileValidClass.validateExtension():
+                session.ex_warning_con = ['The file format was not supported. Please use .csv or .xls.']
+                break
+
+            #2: Can the separator be determined?
+            if request.vars.File.filename[-3:] == 'xls':
+                try: csv_file  = misc.xls2csv(request.vars.File.value,request.vars.File.filename)
+                except:
+                    session.ex_warning_con = ['This xls file could not be imported. Please ensure the validity of the xls format.']
+                    break
+                sbtabber  = misc.removeDoubleQuotes(csv_file)
+                seperator = ','
+            elif not FileValidClass.checkSeperator():
+                session.ex_warning_con = ['The delimiter of the file could not be determined. Please use comma or tabs as consistent separators.']
+                break
+            else:
+                seperator = FileValidClass.checkSeperator()
+                sbtabber  = misc.removeDoubleQuotes(request.vars.File.value)
+                
+            #3: If there are more than one SBtab files in the uploaded documents, try to split them
+            try: (sbtab_list,types,docs,tnames) = splitTabs.checkTabs([sbtabber],request.vars.File.filename,seperator=seperator)
             except:
-                session.ex_warning_con = ['The uploaded file cannot be identified as valid SBtab file.']
+                session.ex_warning_con = ['The SBtab document could not be split into single SBtab tables. Please try uploading them separately.']
+                break
+
+            #4: Now save all the required files, names, and variables in the session
+            if not session.has_key('sbtabs'):
+                session.sbtabs           = []
+                session.name2doc         = {}
+                session.sbtab_filenames  = []
+                session.todeletename     = []
+                session.sbtab_fileformat = []
+                session.sbtab_docnames   = []
+                session.sbtab_types      = []
+            for i,sbtab in enumerate(sbtab_list):
+                fn = misc.create_filename(request.vars.File.filename,types[i],tnames[i])
+                if not fn in session.sbtab_filenames:
+                    session.sbtabs.append('\n'.join(sbtab))
+                    session.sbtab_filenames.append(fn)
+                    session.todeletename.append(fn)
+                    session.name2doc[fn] = docs[i]
+                    session.sbtab_fileformat.append(request.vars.File.filename[-4:])
+                    session.sbtab_docnames.append(docs[i])
+                    session.sbtab_types.append(types[i])
+                else:
+                    warning = 'A file with the name %s has already been uploaded. Please rename your file before upload.'%fn
+                    session.ex_warning_con = [warning]
+            break
     elif lform.errors:
         response.flash = 'form has errors'
 
     # convert sbtab2sbml button is pushed
     if request.vars.c2sbml_button:
         session.ex_warning_con = None
-        try:
-            fn = session.sbtab_filenames[int(request.vars.c2sbml_button)]+session.sbtab_fileformat[int(request.vars.c2sbml_button)]
-            sbtab_document                = sbtab2sbml.SBtabDocument(session.sbtabs[int(request.vars.c2sbml_button)],fn)
+        valid = True
+        fn = session.sbtab_filenames[int(request.vars.c2sbml_button)]+session.sbtab_fileformat[int(request.vars.c2sbml_button)]
+        sbtab_document = sbtab2sbml.SBtabDocument(session.sbtabs[int(request.vars.c2sbml_button)],fn)
+        while valid:
             (new_sbml,session.ex_warning_con) = sbtab_document.makeSBML()
+            if not new_sbml: break
             if not session.has_key('sbmls'):
                 session.sbmls = [new_sbml]
                 session.sbml_filenames = [session.sbtab_filenames[int(request.vars.c2sbml_button)]+'_SBML']
@@ -233,8 +293,7 @@ def converter():
                 else:
                     warning = 'A file with the name %s has already been uploaded. Please rename your SBtab file/s before SBML creation.'%fn
                     session.ex_warning_con = [warning]
-        except:
-            session.ex_warning_con = ['The SBtab file seems to be invalid and could not be converted to SBML.']
+            break
         redirect(URL(''))
 
     if request.vars.dl_sbtab_button:
@@ -253,14 +312,17 @@ def converter():
 
     if request.vars.convert_all_button:
         session.ex_warning_con = None
-        try:
-            convert_document = session.sbtab_docnames[int(request.vars.convert_all_button)]
-            merged_sbtabs    = []
-            for i,docname in enumerate(session.sbtab_docnames):
-                if docname == convert_document:
-                    merged_sbtabs.append(session.sbtabs[i])
-            sbtab_document                = sbtab2sbml.SBtabDocument(merged_sbtabs,'merged_unknown.tsv',tabs=2)
+        valid = True
+        convert_document = session.sbtab_docnames[int(request.vars.convert_all_button)]
+        merged_sbtabs    = []
+        for i,docname in enumerate(session.sbtab_docnames):
+            if docname == convert_document:
+                merged_sbtabs.append(session.sbtabs[i])
+        sbtab_document = sbtab2sbml.SBtabDocument(merged_sbtabs,'merged_unknown.tsv',tabs=2)
+
+        while valid:
             (new_sbml,session.ex_warning_con) = sbtab_document.makeSBML()
+            if not new_sbml: break
             if convert_document == None: convert_document = 'Unnamed_document'
             if not session.has_key('sbmls'):
                 session.sbmls = [new_sbml]
@@ -273,8 +335,8 @@ def converter():
                 else:
                     warning = 'A file with the name %s has already been uploaded. Please rename your SBtab file/s before SBML creation.'%fn
                     session.ex_warning_con = [warning]
-        except:
-            session.ex_warning_con = ['The SBtab files seem to be invalid and could not be converted to SBML.']
+            break
+        redirect(URL(''))
 
     if request.vars.remove_all_button:
         try:
@@ -302,18 +364,25 @@ def converter():
     rform = SQLFORM.factory(Field('File', 'upload',uploadfolder="/tmp", label='Upload SBML file to convert (.xml)'))
 
     if rform.process(formname='form_two').accepted:
-        response.flash = 'form accepted'
-        if not session.has_key('sbmls'):
-            session.sbmls = [request.vars.File.value]
-            session.sbml_filenames = [request.vars.File.filename]
-        else:
-            session.sbmls.append(request.vars.File.value)
-            fn = request.vars.File.filename
-            if not fn in session.sbml_filenames:
-                session.sbml_filenames.append(fn)
+        response.flash         = 'form accepted'
+        session.ex_warning_con = None
+        valid = True
+        while valid:
+            if request.vars.File.filename[-3:] != 'xml':
+                session.ex_warning_con = ['The uploaded file has a different extension than .xml and does not seem to be an SBML file.']
+                break
+            if not session.has_key('sbmls'):
+                session.sbmls = [request.vars.File.value]
+                session.sbml_filenames = [request.vars.File.filename]
             else:
-                random_number = str(random.randint(0,1000))
-                session.sbml_filenames.append(fn+'_'+random_number)
+                session.sbmls.append(request.vars.File.value)
+                fn = request.vars.File.filename
+                if not fn in session.sbml_filenames:
+                    session.sbml_filenames.append(fn)
+                else:
+                    random_number = str(random.randint(0,1000))
+                    session.sbml_filenames.append(fn+'_'+random_number)
+            break
         redirect(URL(''))
     elif rform.errors:
         response.flash = 'form has errors'
@@ -358,7 +427,7 @@ def converter():
                         session.sbtab_types.append(string.capitalize(SBtab[1]))
             #redirect(URL(''))
         except:
-            session.ex_warning_con = ['The SBML file seems to be invalid and could not be converted to SBtab.']
+            session.ex_warning_con = ['The SBML file seems to be invalid and could not be converted to SBtab. Please validate it on the SBML validator homepage.']
 
     if request.vars.erase_sbtab_button:
         del session.sbtabs[int(request.vars.erase_sbtab_button)]
@@ -498,10 +567,9 @@ def show_sbtab_def():
 
     try:
         FileValidClass = validatorSBtab.ValidateFile(def_file,def_file_name)
-        delimiter      = FileValidClass.checkSeperator(def_file)
-    except:
-        delimiter = None
-        
+        delimiter      = FileValidClass.checkSeperator()
+    except: delimiter = None
+
     if delimiter:
         try: return makehtml.csv2html(def_file,def_file_name,delimiter,sbtype,def_file,def_file_name)
         except: return 'There is something wrong with this SBtab file. It cannot be displayed.'
@@ -519,7 +587,7 @@ def show_sbtab():
 
     try:
         FileValidClass = validatorSBtab.ValidateFile(sbtab_file,file_name)
-        delimiter      = FileValidClass.checkSeperator(sbtab_file)
+        delimiter      = FileValidClass.checkSeperator()
     except:
         delimiter = None
         
