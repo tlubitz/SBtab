@@ -52,6 +52,7 @@ class SBMLDocument:
                 pass
 
         sbtabs = self.getRidOfNone(sbtabs)
+        sbtabs = self.getRidOfEmptyColumns(sbtabs)
 
         return sbtabs,self.warnings
 
@@ -74,6 +75,43 @@ class SBMLDocument:
             if element != None:
                 new_tabs.append(element)
         return new_tabs
+
+    def getRidOfEmptyColumns(self,sbtabs):
+        '''
+        remove empty columns.
+        '''
+        sbtab2empty_columns = {}
+
+        for i,sbtab in enumerate(sbtabs):
+            tab   = sbtab[0]
+            sptab = tab.split('\n')[1]
+            empty_columns = list(range(0,len(sptab.split('\t'))))
+            for k,element in enumerate(empty_columns): empty_columns[k] = str(element)
+            for row in sbtab[0].split('\n')[2:]:
+                for j,element in enumerate(row.split('\t')):
+                    if element != '':
+                        try: empty_columns.remove(str(j))
+                        except: pass
+            for k,element in enumerate(empty_columns): empty_columns[k] = int(element)
+            sbtab2empty_columns[i] = empty_columns
+
+        new_tabs = []
+        
+        for i,sbtab in enumerate(sbtabs):
+            eliminate_columns = sbtab2empty_columns[i]
+            new_tab = [sbtab[0].split('\n')[0]]
+            #new_tab.append(sbtab[0].split('\n')[1])
+            tab = sbtab[0].split('\n')[1:]
+            for row in tab:
+                new_row = []
+                for j,element in enumerate(row.split('\t')):
+                    if not j in eliminate_columns:
+                        new_row.append(element)
+                new_tab.append('\t'.join(new_row))
+            new_tabs.append(('\n'.join(new_tab),sbtab[1]))
+
+        return new_tabs
+                
 
     def compartmentSBtab(self):
         '''
@@ -120,7 +158,7 @@ class SBMLDocument:
         builds a Compound SBtab
         '''
         compound = [['!!SBtab SBtabVersion="0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Compound" TableName="Compound"'],['']]
-        header   = ['!Compound','!Name','!Location','!Charge','!IsConstant','!SBOTerm','!InitialConcentration']
+        header   = ['!Compound','!Name','!Location','!Charge','!IsConstant','!SBOTerm','!InitialConcentration','!hasOnlySubstanceUnits']
         identifiers  = []
         column2ident = {}
 
@@ -136,6 +174,8 @@ class SBMLDocument:
             except: pass
             if str(species.getSBOTerm()) != '-1': value_row[5] ='SBO:%.7d'%species.getSBOTerm()
             try: value_row[6] = str(species.getInitialConcentration())
+            except: pass
+            try: value_row[7] = str(species.getHasOnlySubstanceUnits())
             except: pass
             try:
                 annot_tuples = self.getAnnotations(species)
@@ -354,7 +394,6 @@ class SBMLDocument:
             reaction_SB.append('\t'.join(row))
         reaction_SBtab = '\n'.join(reaction_SB)
         
-        #print reaction_SBtab
         return [reaction_SBtab,'reaction']
 
     def quantitySBtab(self):
@@ -424,28 +463,28 @@ class SBMLDocument:
         for i,reactant in enumerate(reaction.getListOfReactants()):
             if i != len(reaction.getListOfReactants())-1:
                 if reactant.getStoichiometry() != 1.0:
-                    sumformula += str(int(reactant.getStoichiometry())) + ' ' + reactant.getSpecies()+' + '
+                    sumformula += str(float(reactant.getStoichiometry())) + ' ' + reactant.getSpecies()+' + '
                 else:
                     sumformula += reactant.getSpecies()+' + '
             else:
                 if numpy.isnan(reactant.getStoichiometry()):
                     sumformula += '1 ' + reactant.getSpecies() + ' <=> '
                 elif reactant.getStoichiometry() != 1.0:
-                    sumformula += str(int(reactant.getStoichiometry())) + ' ' + reactant.getSpecies()+' <=> '
+                    sumformula += str(float(reactant.getStoichiometry())) + ' ' + reactant.getSpecies()+' <=> '
                 else:
                     sumformula += reactant.getSpecies()+' <=> '
         if sumformula == '': sumformula += '<=> '
         for i,product in enumerate(reaction.getListOfProducts()):
             if i != len(reaction.getListOfProducts())-1:
                 if product.getStoichiometry() != 1.0:
-                    sumformula += str(int(product.getStoichiometry())) + ' ' + product.getSpecies()+' + '
+                    sumformula += str(float(product.getStoichiometry())) + ' ' + product.getSpecies()+' + '
                 else:
                     sumformula += product.getSpecies()+' + '
             else:
                 if numpy.isnan(product.getStoichiometry()):
                     sumformula += '1 ' + product.getSpecies() + ' <=> '
                 elif product.getStoichiometry() != 1.0:
-                    sumformula += str(int(product.getStoichiometry())) + ' ' + product.getSpecies()
+                    sumformula += str(float(product.getStoichiometry())) + ' ' + product.getSpecies()
                 else:
                     sumformula += product.getSpecies()
             
