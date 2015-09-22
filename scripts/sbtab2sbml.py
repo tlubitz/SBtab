@@ -104,6 +104,7 @@ class SBtabDocument:
                 #generate SBtab class instance for every SBtab
                 for sbtab in sbtabs:
                     sbtabtsv = self.unifySBtab(sbtab)
+                    if sbtabtsv == False: continue
                     new_tablib_obj = tablibIO.importSetNew(sbtabtsv,self.filename,seperator='\t')
                     single_tab = SBtab.SBtabTable(new_tablib_obj,self.filename)
                     if single_tab.table_type in self.type2sbtab.keys():
@@ -151,8 +152,10 @@ class SBtabDocument:
                     continue
                 else:
                     print 'The delimiter of one of the SBtabs could not be identified. Please check.'
-            new_tab.append(row.replace(delimiter,'\t'))
-
+            else:
+                try: new_tab.append(row.replace(delimiter,'\t'))
+                except: return False
+            
         new_tab = '\n'.join(new_tab)
 
         return new_tab
