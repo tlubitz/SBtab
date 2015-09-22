@@ -575,7 +575,7 @@ class SBtabDocument:
                                     mod = react.createModifier()
                                     mod.setSpecies(element[1:])
                                     self.modifier_list.append(element)
-                                    letring = str('The reaction modifier '+element+' could not be identified as either stimulator or inhibitor.')
+                                    letring = str('The reaction modifier '+element+' could not be identified as either stimulator or inhibitor. Please add an SBO Term.')
                                     self.warnings.append(letring)
                                 except: pass
                     else:
@@ -598,7 +598,7 @@ class SBtabDocument:
                                 mod = react.createModifier()
                                 mod.setSpecies(row[sbtab.columns_dict['!Regulator']])
                                 self.modifier_list.append(row[sbtab.columns_dict['!Regulator']])
-                                letring = str('The reaction modifier '+row[sbtab.columns_dict['!Regulator']]+' could not be identified as either stimulator or inhibitor.')
+                                letring = str('The reaction modifier '+row[sbtab.columns_dict['!Regulator']]+' could not be identified as either stimulator or inhibitor. Please add an SBO Term.')
                                 self.warnings.append(letring)
                             except: pass
                         self.modifier_list.append(row[sbtab.columns_dict['!Regulator']])
@@ -730,27 +730,33 @@ class SBtabDocument:
             #is a compartment given for the reaction? (nice, but we cannot set it (only in SBML version 3))
             if sum_formula.startswith('['):
                 self.reaction2compartment[r_id] = re.search('[([^"]*)]',sum_formula).group(1)
+
+
             #check the educts
             try:
                 educt_list   = re.search('([^"]*)<=>',sum_formula).group(1)
                 educts       = []
                 for educt in educt_list.split('+'):
-                    if educt.lstrip().rstrip().split(' ')[0].isdigit():
-                        self.rrps2stoichiometry[r_id,educt.lstrip().rstrip().split(' ')[1]] = int(educt.lstrip().rstrip().split(' ')[0])
+                    try:
+                        float(educt.lstrip().rstrip().split(' ')[0])
+                        self.rrps2stoichiometry[r_id,educt.lstrip().rstrip().split(' ')[1]] = float(educt.lstrip().rstrip().split(' ')[0])
                         educts.append(educt.lstrip().rstrip().split(' ')[1])
-                    else:
+                    except:
                         self.rrps2stoichiometry[r_id,educt.lstrip().rstrip()] = 1
                         educts.append(educt.lstrip().rstrip())
             except: pass
+
+
             #check the products
             try:
                 product_list = re.search('<=>([^"]*)',sum_formula).group(1)
                 products     = []
                 for product in product_list.split('+'):
-                    if product.lstrip().rstrip().split(' ')[0].isdigit():
-                        self.rrps2stoichiometry[r_id,product.lstrip().rstrip().split(' ')[1]] = int(product.lstrip().rstrip().split(' ')[0])
+                    try:
+                        float(product.lstrip().rstrip().split(' ')[0])
+                        self.rrps2stoichiometry[r_id,product.lstrip().rstrip().split(' ')[1]] = float(product.lstrip().rstrip().split(' ')[0])
                         products.append(product.lstrip().rstrip().split(' ')[1])
-                    else:
+                    except:
                         self.rrps2stoichiometry[r_id,product.lstrip().rstrip()] = 1
                         products.append(product.lstrip().rstrip())
             except: pass
