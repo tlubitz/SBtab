@@ -135,8 +135,10 @@ class SBtabDocument:
             if row.startswith('!'):
                 columns = row
                 if '\t' in columns:
-                    new_tab = sbtab
-                    break
+                    delimiter = '\t'
+                    new_tab.append(sbtab[0])
+                    new_tab.append(sbtab[1])
+                    continue
                 elif ';' in columns:
                     delimiter = ';'
                     new_tab.append(sbtab[0].replace(delimiter,'\t'))
@@ -315,7 +317,10 @@ class SBtabDocument:
                     compartment.setId(str(row[sbtab.columns_dict['!SBML:compartment:id']]))
                 else:
                     compartment.setId(str(row[sbtab.columns_dict['!Compartment']]))
-                compartment.setName(str(row[sbtab.columns_dict['!Compartment']]))
+                if '!Name' in sbtab.columns and row[sbtab.columns_dict['!Name']] != '':
+                    compartment.setName(str(row[sbtab.columns_dict['!Name']]))
+                else:
+                    compartment.setName(str(row[sbtab.columns_dict['!Compartment']]))
                 #if '!Name' in sbtab.columns and not row[sbtab.columns_dict['!Name']] == '' and not str(row[sbtab.columns_dict['!Name']]).startswith('No Name'):
                 #    #if '|' in row[sbtab.columns_dict['!Name']]: compartment.setName(str(row[sbtab.columns_dict['!Name']].split('|')[0]))
                 #    compartment.setName(str(row[sbtab.columns_dict['!Name']]))
