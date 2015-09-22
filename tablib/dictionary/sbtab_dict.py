@@ -86,36 +86,52 @@ class SBtabDict(dict):
         except SBtabError:
             return None
             
-    def SBtab2SQL(self, comm):
-        comm.execute("DROP TABLE IF EXISTS __tables__")
-        comm.execute("CREATE TABLE __tables__ (TableName TEXT, TableType TEXT, "
+    def SBtab2SQL(self, comm, append=False):
+        comm.execute("CREATE TABLE IF NOT EXISTS __tables__ (TableName TEXT, TableType TEXT, "
                      "header TEXT)")
-
-        comm.execute("DROP TABLE IF EXISTS __columns__")
-        comm.execute("CREATE TABLE __columns__ (TableName TEXT, idx INT, ColumnName TEXT)")
+        comm.execute("CREATE TABLE IF NOT EXISTS __columns__ (TableName TEXT, idx INT, ColumnName TEXT)")
 
         for m in self.sbtab_list:
             # get the names of the columns in the right order (i.e. so that
             # the corresponding column indices will be 0..n)
-            columns, _ = zip(*sorted(m.columns_dict.iteritems(), key=lambda x:x[1]))
-            columns = list(columns)
-            if '' in columns:
-                columns.remove('')
-            columns = map(lambda c: c[1:], columns)
-
-            comm.execute("INSERT INTO __tables__ VALUES(?,?,?)", 
-                         [m.table_name, m.table_type, m._getHeaderRow()])
-
-            for i, col in enumerate(columns):
-                comm.execute("INSERT INTO __columns__ VALUES(?,?,?)", 
-                             [m.table_name, i, col])
-
+            
+            columns = sorted(m.columns, key=m.columns_dict.get)
+            columns = map(lambda c: str(c[1:]), columns)
+            columns = [c for c in columns if c != '']
+            
+            rows = list(comm.execute("SELECT * FROM __tables__ "
+                                     "WHERE TableName = '%s'" %  m.table_name))
+            if len(rows) > 0:
+                # if the table already exists, make sure that the metadata is
+                # the same as in the SBtab.
+                tname, ttype, theader = rows[0]
+                assert ttype == m.table_type
+                assert theader == m._getHeaderRow()
+                
+                # TODO: also assert that the columns are exactly the same as before
+                
+                if not append:
+                    comm.execute("DROP TABLE %s" % m.table_name)
+            else:
+                # if the table doesn't already exist, add an entries for it 
+                # in the __tables__ and __columns__
+                comm.execute("INSERT INTO __tables__ VALUES(?,?,?)", 
+                             [m.table_name, m.table_type, m._getHeaderRow()])
+    
+                for i, col in enumerate(columns):
+                    comm.execute("INSERT INTO __columns__ VALUES(?,?,?)", 
+                                 [m.table_name, i, col])
+            
             col_text = ','.join(['\'%s\' TEXT' % col for col in columns])
-            comm.execute("DROP TABLE IF EXISTS %s" % m.table_name)
-            comm.execute("CREATE TABLE %s (%s)" % (m.table_name, col_text))
+            comm.execute("CREATE TABLE IF NOT EXISTS %s (%s)" % (m.table_name, col_text))
+
+            # copy the data from the SBtab table into the relevant table in the 
+            # database.
             ins_command = "INSERT INTO %s VALUES(%s)" % \
                           (m.table_name, ','.join(["?"]*len(columns)))
-            for row in m.getRows():
+            for i, row in enumerate(m.getRows()):
+                if len(row) > len(columns):
+                    row = row[0:len(columns)]
                 comm.execute(ins_command, row)
         
         comm.commit()
@@ -150,4 +166,5 @@ class SBtabDict(dict):
         sbtab_list = [SBtabTable(dset, fpath) for dset in sbtabs]
         sbtab_dict = SBtabDict(sbtab_list)
         sbtab_dict.fpath = fpath
+        comm.close()
         return sbtab_dict
