@@ -3,6 +3,7 @@ import SBtab
 import tablibIO
 #import SBtabDefinition
 import re
+import collections
 
 class SBtabError(Exception):
     def __init__(self, message):
@@ -172,6 +173,13 @@ class ValidateTable:
                 #        str(row[self.sbtab.columns_dict[column]]))
                 # raise SBtabError('An identifier for a data row must not
                 # include ":" or ".": \n'+str(row))
+
+        # 5th: are there duplicate columns?
+        for column in collections.Counter(self.sbtab.columns).items():
+            if column[1] > 1:
+                self.warnings.append('There was a duplicate column in this SBtab file. Please remove it: ' + str(column[0]))
+        
+
 
 
     def returnOutput(self):
