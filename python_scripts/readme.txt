@@ -9,7 +9,19 @@ The scripts in this directory will allow you to convert SBML files to SBtab file
 
 These scripts can be embedded in your own code easily. Just follow the instructions on how to use the interface:
 
-1. Converting an SBML file to SBtab output files.
+1. Starting the scripts from commandline:
+
+All scripts can be either embedded in your code (see below) or started from commandline. The former looks like this:
+>python sbtab2sbml.py SBtabfile.csv Outputname
+...where "SBtabfile.csv" is the name of your SBtabfile, "Outputname" is an _optional_ outputname for the SBML file.
+
+>python sbml2sbtab.py SBMLfile.xml Outputname
+...where, analogously, "SBMLfile.xml" is the name of your SMBL file and "Outputname" is an _optional_ outputname for the SBtab file/s.
+
+>python validatorSBtab.py SBtabfile.csv definition.csv
+...where "SBtabfile.csv" is your SBtab file to be validated and "definition.csv" is the required default definition table, which can be found in the table_definition directory. Please note that also "SBtab.py" needs to be imported for the validation.
+
+2. Embedding of Code: Conversion of an SBML file to SBtab output files.
 
 The conversion of an SBML file to SBtab files is easy: simply generate an instance of the class SBMLDocument in sbml2sbtab.py. You have to provide an SBML file as a libsbml instance and a model name as a string. Then start the function makeSBtabs():
 
@@ -25,9 +37,9 @@ The conversion of an SBML file to SBtab files is easy: simply generate an instan
         SBtab_obj.createDataset()
         SBtab_obj.writeSBtab('tsv', 'yourSBMLmodel.xml'.rstrip('.xml')+'_'+tab[1])
 
-The SBtab files are now stored as a list of SBtab classes in the variable sbtabfiles. If the SBML model provides the required information, the output SBtab files are of the types: compartment, reaction, compound, and quantitytype.
+The SBtab files are now stored as a list of SBtab classes in the variable sbtabfiles. If the SBML model provides the required information, the output SBtab files are of the types: compartment, reaction, compound, quantitytype, event, and rule.
 
-2. Converting SBtab files to an SBML output file.
+3. Embedding of Code: Conversion of SBtab files to an SBML output file.
 
 The conversion from SBtab files to SBML files can be done analogously. Create an instance of the class SBtabDocument in sbtab2sbml.py. The parameters that have to be provided are an SBtab file (of the type reaction) or a list of SBtab files (including one of the type reaction), a filename as a string, and the amount of SBtab files you are providing. Then start the function makeSBML() and the new SBML file is stored in sbml_file:
 
