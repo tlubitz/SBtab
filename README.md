@@ -9,17 +9,17 @@ This repository holds files and information on SBtab, a table format for
 Systems Biology. The directories and their contents are:
 
 <b>main directory:</b>
-- SBtab.py: The SBtab Python class. (copyright Timo Lubitz & Jens Hahn)
+- SBtab.py: The SBtab Python class (copyright Timo Lubitz & Jens Hahn).
 - Scripts.py/Web2py.py: information files required for automated documentation.
 
 <b>documentation:</b><br>
-HTML documentation of the SBtab repository and source code. (copyright Timo Lubitz & Jens Hahn)
+HTML documentation of the SBtab repository and source code (copyright Timo Lubitz & Jens Hahn).
 
 <b>excel plugin:</b><br>
 windows installer and source code for the excel plugin (copyright Frank T. Bergmann).
 
 <b>python scripts:</b><br>
-command line python scripts, including validator and converter to and from SBML. (copyright Timo Lubitz)
+command line python scripts, including validator and converter to and from SBML (copyright Timo Lubitz).
 
 <b>example sbtabs:</b><br>
 example SBtab files.
