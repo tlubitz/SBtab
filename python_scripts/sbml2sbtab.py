@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import re, libsbml, numpy
+import sys
 
 allowed_sbtabs = ['Reaction','Compound','Compartment','Quantity','Event','Rule']
 
@@ -503,16 +504,23 @@ class SBMLDocument:
         
 
 if __name__ == '__main__':
-    #sbml_model = open('teusink.xml','r')
-    reader = libsbml.SBMLReader()
-    sbml   = reader.readSBML('yeast_7.00.xml')
-    model  = sbml.getModel()
-    sbml_class = SBMLDocument(model,'yeast_7.00.xml')
 
+    file_name  = sys.argv[1]
+    try: output_name = sys.argv[2]+'.csv'
+    except: output_name = file_name[:-4]+'.csv'
 
-    reactions = sbml_class.reactionSBtab()
-    bla = open('yeast.tsv','wr')
-    for row in reactions:
-        bla.write(row)
+    reader     = libsbml.SBMLReader()
+    sbml       = reader.readSBML(file_name)
+    model      = sbml.getModel()
+    Sbml_class = SBMLDocument(model,file_name)
 
-    bla.close()
+    (sbtabs,warnings) = Sbml_class.makeSBtabs()
+
+    #print warnings
+
+    for sbtab in sbtabs:
+        sbtab_name = sbtab[1]+'_'+output_name
+        sbtab_file = open(sbtab_name,'w')
+        sbtab_file.write(sbtab[0])
+        sbtab_file.close()
+

@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 import SBtab
 import tablibIO
-#import SBtabDefinition
 import re
 import collections
+import sys
+import misc
 
 class SBtabError(Exception):
     def __init__(self, message):
@@ -18,7 +19,7 @@ class ValidateTable:
     Validator (version 0.2.0 15/02/2014)
     Check SBtab file and SBtab object.
     """
-    def __init__(self, table, sbtab_name, def_table, def_name):
+    def __init__(self, table, sbtab_name, def_table=None):
         """
         Initialize validator and start check for file and table format.
 
@@ -29,6 +30,15 @@ class ValidateTable:
         sbtab_name : str
             File path of the Sbtab file
         """
+        def_name = 'definitions.csv'
+        if not def_table:
+            try:
+                default_def = open(def_name,'r')
+                def_table   = default_def.read()
+                default_def.close()
+            except:
+                raise SBtabError('Definition file could not be loaded, so the validation could not be started. Please provide definition file as argument or make it is located in the same directory as this script.')
+        
         # import definitions from definition table
         definition_table = tablibIO.importSetNew(def_table,def_name,seperator='\t')
         definition_sbtab = SBtab.SBtabTable(definition_table, def_name)
@@ -78,7 +88,8 @@ class ValidateTable:
         """
         Validate format of SBtab file, check file format and header row.
         """
-        # Check tablib header
+        # Check tablib heade
+
         if self.table.headers:
             self.warnings.append('Tablib header is set, will be removed. This feature is not supported.')
             self.table.headers = None
@@ -204,18 +215,17 @@ class ValidateFile:
         self.file = sbtab_file
         self.filename = filename
 
-        #valid = self.validateExtension(self.filename)
-        #if not valid: raise SBtabError('The Parser cannot work with this file! Dude!')
-        
-        self.validateFile(self.file)
+        self.validateExtension()
+        #self.validateFile(self.file)
 
     def validateExtension(self):
         """
         Check the extension of the file for invalid formats.
         """
         valid_extensions = ['tsv','csv','xls','ods']
-        if not self.filename[-3:] in valid_extensions: return False
-        else: return True
+        if not self.filename[-3:] in valid_extensions:
+            self.warnings.append('The file extension is not valid for an SBtab file.')
+
 
     def validateFile(self, sbtab_file):
         """
@@ -255,4 +265,33 @@ class ValidateFile:
         returns stuff
         '''
         return self.warnings
+
+if __name__ == '__main__':
+
+    file_name    = sys.argv[1]
+    sbtab_file_o = open(file_name,'r')
+    sbtab_file   = sbtab_file_o.read()
+    sbtab_file_o.close()
+    
+    delimiter    = misc.getDelimiter(sbtab_file)
+    sbtab_tablib = tablibIO.importSetNew(sbtab_file,file_name,delimiter)
+
+    try:
+        default_def = sys.argv[2]
+        def_file    = open(default_def,'r')
+        def_tab = def_file.read()
+        def_file.close()
+    except:
+        def_tab = None
+
+    validator_output     = []
+    Validate_file_class  = ValidateFile(sbtab_file,file_name)
+    validator_output.append(Validate_file_class.returnOutput())
+    Validate_table_class = ValidateTable(sbtab_tablib,file_name,def_tab)
+    validator_output.append(Validate_table_class.returnOutput())
+
+    for warning in validator_output:
+        print warning
+
+
 

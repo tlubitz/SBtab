@@ -5,6 +5,7 @@ import tablibIO
 import xlrd
 import string
 import random
+import sys
 
 #all allowed SBtab types
 sbtab_types = ['Quantity','Event','Rule']
@@ -20,11 +21,16 @@ class SBtabDocument:
     '''
     SBtab document to be converted to SBML model
     '''
-    def __init__(self,sbtab_document,filename,tabs=1):
+    def __init__(self,filename,tabs=1):
         '''
         initalize SBtab document, check it for SBtabs
+        if there are more than 1 SBtab file to be convered, please provide a "tabs" parameter higher than 1.
         '''
-        self.filename = filename
+        self.filename  = filename
+        sbtab_file_o   = open(self.filename,'r')
+        sbtab_document = sbtab_file_o.read()
+        sbtab_file_o.close()
+
         if self.filename.endswith('tsv') or self.filename.endswith('csv') or self.filename.endswith('.xls'): pass
         else: raise ConversionError('The given file format is not supported: '+self.filename)
 
@@ -33,7 +39,6 @@ class SBtabDocument:
         #    self.document = [self.makeTSVfile(sbtab_document)]
         #else:
         self.document = [sbtab_document]
-
         self.tabs      = tabs            
         self.unit_mM   = False
         self.unit_mpdw = False
@@ -920,34 +925,45 @@ class SBtabDocument:
                         print 'There was an annotation that I could not assign properly: ',event.getId(),annot #,urn
 
 if __name__ == '__main__':
-    sbtab_reaction = open('sbtabs/sbtab_reaction_full.tsv','r')
-    sbtab_compound = open('sbtabs/sbtab_compound_full.tsv','r')
+
+    file_name    = sys.argv[1]
+    sbtab_file_o = open(file_name,'r')
+    sbtab_file   = sbtab_file_o.read()
+
+    try: output_name = sys.argv[2]+'.xml'
+    except: output_name = file_name[:-4]+'.xml'
+
+    Converter_class = SBtabDocument(file_name)
+    SBML_output     = Converter_class.makeSBML()
+    new_SBML_file   = open(output_name,'w')
+    new_SBML_file.write(SBML_output[0])
+    new_SBML_file.close()
+
+    #OPENING SINGLE SBTAB FILES
+    #sbtab_reaction = open('sbtabs/sbtab_reaction_full.tsv','r')
+    #sbtab_compound = open('sbtabs/sbtab_compound_full.tsv','r')
     #sbtab_enzyme = open('sbtabs/sbtab_enzyme_full.tsv','r')
-    sbtab_quantity = open('sbtabs/sbtab_quantity_full.tsv','r')
-    sbtab_compartment = open('sbtabs/sbtab_compartment_full.tsv','r')
+    #sbtab_quantity = open('sbtabs/sbtab_quantity_full.tsv','r')
+    #sbtab_compartment = open('sbtabs/sbtab_compartment_full.tsv','r')
     
-    document = []
-    document.append(sbtab_reaction.read())
-    document.append(sbtab_compound.read())
-    document.append(sbtab_quantity.read())
-    document.append(sbtab_compartment.read())
+    #CREATING AN SBTAB DOCUMENT OF SINGLE SBTABFILES
+    #document = []
+    #document.append(sbtab_reaction.read())
+    #document.append(sbtab_compound.read())
+    #document.append(sbtab_quantity.read())
+    #document.append(sbtab_compartment.read())
     #document = [sbtab_reaction.read()+'\n\n'+sbtab_compound.read()]
 
-    sbtab_reaction.close()
-    sbtab_compound.close()
-    sbtab_quantity.close()
-    sbtab_compartment.close()
-
-    sbtab_class = SBtabDocument(document,'bla.tsv',4)
-    bla = sbtab_class.makeSBML()
-
-    output = open('new_sbml.xml','w')
-    output.write(bla)
-
-    output.close()
-
+    #CLOSING THE SBTAB FILES
     #sbtab_reaction.close()
     #sbtab_compound.close()
     #sbtab_quantity.close()
     #sbtab_compartment.close()
+
+    #INITIALISE THE CLASS, CONVERT TO SBML, SAVE FILE TO DISC
+    #sbtab_class = SBtabDocument(document,'bla.tsv',4)
+    #bla = sbtab_class.makeSBML()
+    #output = open('new_sbml.xml','w')
+    #output.write(bla)
+    #output.close()
     
