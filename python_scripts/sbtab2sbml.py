@@ -926,6 +926,9 @@ class SBtabDocument:
 
 if __name__ == '__main__':
 
+    try: sys.argv[1]
+    except: raise ConversionError('You have not provided input arguments. Please start the script by also providing an SBtab file and an optional SBML output filename: >python sbtab2sbml.py SBtabfile.csv Output')
+
     file_name    = sys.argv[1]
     sbtab_file_o = open(file_name,'r')
     sbtab_file   = sbtab_file_o.read()
