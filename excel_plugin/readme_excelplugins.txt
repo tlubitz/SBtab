@@ -1,10 +1,7 @@
-The Excel plugins are supposed to work in three ways and thus they require three different scripts:
+**********COPYRIGHT FRANK T. BERGMANN**********
 
-1. Convert SBML file to SBtab file
-This plugin requires the file sbml2sbtab.py. The input is an SBML model and the output is a list of SBtab files. Use it e.g. as explained in the general readme.txt in this directory. But: the *direct* output of this script is a list of strings, which should be easy to use for the plugin and display in Excel (I hope?).
+This is the first prototype release of the SBtab Excel Add-in. It provides basic features for importing SBML which will generate the SBtab tables, and exporting the tabs back to SBML again. Rudimentary validation is included as well.
 
-2. Convert SBtab/s to SBML file.
-This plugin requires the file sbtab2sbml.py. The input is either a list of SBtabs or one SBtab file or one file with several SBtabs in it. It can be seen in the main method how it is called. The output is an SBML file.
+Next to the source archives you will also find a binary installer. This installer bundles a compiled version of the add-in, Python 2.7 (32bit) as well as SBtab. So it can be installed with a double click. Once installed the add in is registered with Excel 2013 and will be active from the Add-ins menu.
 
-3. Validate SBtab files.
-This plugin requires the file validatorSBtab.py. The input is either a single SBtab file, several SBtab files (use parameter "tabs" for initialisation) or a single file with many SBtabs in it. Here again, the usage can be seen in the main method. The output is a python dictionary that links the filename (key) to a string list of warnings (value).
+***********************************************
