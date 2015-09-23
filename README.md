@@ -6,7 +6,7 @@ Timo Lubitz, Jens Hahn, Elad Noor, Frank Bergmann (2015)
 -----------------------------------------
 
 This repository holds files and information on SBtab, a table format for
-Systems Biology. The readme file clarifies the directories and their contents:
+Systems Biology. The directories and their contents are:
 
 <b>main directory:</b>
 - SBtab.py: The SBtab Python class. (copyright Timo Lubitz & Jens Hahn)
