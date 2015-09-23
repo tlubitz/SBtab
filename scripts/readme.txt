@@ -1,6 +1,6 @@
 0. Introduction
 
-Dear user, the scripts in this directory will allow you to convert SBML files to SBtab files and vice versa. The prerequisites for these scripts are:
+The scripts in this directory will allow you to convert SBML files to SBtab files and vice versa. The prerequisites for these scripts are:
 
 - python 2.7 or higher
 - numpy (numerical operations for python)
