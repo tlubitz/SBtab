@@ -162,8 +162,8 @@ class ValidateTable:
         # 4th: check the length of the different rows
         for row in self.sbtab.value_rows:
             # check the content of the main column (first one) for empty entries
-            if row[self.sbtab.columns_dict['!' + self.sbtab.table_type]] == '':
-                self.warnings.append('The SBtab includes a row with an undefined identifier in the row: \n' + str(row))
+            #if row[self.sbtab.columns_dict['!' + self.sbtab.table_type]] == '':
+            #    self.warnings.append('The SBtab includes a row with an undefined identifier in the row: \n' + str(row))
             # check the rows for entries starting with + or -
             if str(row[0]).startswith('+') or str(row[0]).startswith('-'):
                 self.warnings.append('An identifier for a data row must not begin with "+" or "-": \n' + str(row))
