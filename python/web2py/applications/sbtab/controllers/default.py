@@ -133,6 +133,7 @@ def validator():
         valid    = True
         v_output = []
         FileValidClass = validatorSBtab.ValidateFile(session.sbtabs[int(request.vars.validate_button)],session.sbtab_filenames[int(request.vars.validate_button)])
+        sbtab2val = session.sbtab_filenames[int(request.vars.validate_button)]
         while valid:
             #1: Can the separator be determined?
             if not FileValidClass.checkSeperator():
@@ -151,10 +152,12 @@ def validator():
             #2: Get definition file
             try:
                 if session.definition_file:
+                    iss = True
                     TableValidClass = validatorSBtab.ValidateTable(new_tablib_obj,session.sbtab_filenames[int(request.vars.validate_button)],session.definition_file[0],session.definition_file_name[0])
                     for warning in TableValidClass.returnOutput():
                         v_output.append(warning)
                 else:
+                    iss = False
                     def_file_open = open('./definitions/definitions.csv','r')    
                     session.definition_file      = [def_file_open.read()]
                     session.definition_file_name = ['definitions.csv']
@@ -162,10 +165,11 @@ def validator():
                     for itemx in TableValidClass.returnOutput():
                         v_output.append(itemx)
             except:
-                session.ex_warning_val = ['The definition file could not be loaded. Please reload session by restarting your browser.']
+                if iss: session.ex_warning_val = ['The file could not be validated, it seems to be broken. Please see example files, the troubleshooting page, or the specification for help.']
+                else: session.ex_warning_val = ['The definition file could not be loaded. Please reload session by restarting your browser.']
                 break
    
-            sbtab2val = session.sbtab_filenames[int(request.vars.validate_button)]
+            
             break
     else:
         v_output  = ''
@@ -476,6 +480,12 @@ def def_files():
         redirect(URL(''))
 
     return dict(UPL_FORM=dform,DEF_FILE=session.definition_file,DEF_NAME=session.definition_file_name,NEW=session.new_def)
+
+def troubles():
+    '''
+    some static troubleshooting
+    '''
+    redirect(URL('../static/troubles.html'))
 
 def downloader_sbtab():
         response.headers['Content-Type'] = 'text/csv'
