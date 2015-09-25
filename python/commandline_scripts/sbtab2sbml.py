@@ -2,7 +2,6 @@
 import re, libsbml
 import SBtab
 import tablibIO
-import xlrd
 import string
 import random
 import sys
@@ -49,6 +48,7 @@ class SBtabDocument:
         converts xls to tsv
         @xls_file: file of type xlrd
         '''
+        import xlrd
         workbook = xlrd.open_workbook(self.filename,file_contents=xls_file)
         sheet    = workbook.sheet_by_name('Sheet1')                   
         
@@ -927,8 +927,10 @@ class SBtabDocument:
 if __name__ == '__main__':
 
     try: sys.argv[1]
-    except: raise ConversionError('You have not provided input arguments. Please start the script by also providing an SBtab file and an optional SBML output filename: >python sbtab2sbml.py SBtabfile.csv Output')
-
+    except:
+        print 'You have not provided input arguments. Please start the script by also providing an SBtab file and an optional SBML output filename: >python sbtab2sbml.py SBtabfile.csv Output')
+        sys.exit()
+        
     file_name    = sys.argv[1]
     sbtab_file_o = open(file_name,'r')
     sbtab_file   = sbtab_file_o.read()
@@ -942,31 +944,4 @@ if __name__ == '__main__':
     new_SBML_file.write(SBML_output[0])
     new_SBML_file.close()
 
-    #OPENING SINGLE SBTAB FILES
-    #sbtab_reaction = open('sbtabs/sbtab_reaction_full.tsv','r')
-    #sbtab_compound = open('sbtabs/sbtab_compound_full.tsv','r')
-    #sbtab_enzyme = open('sbtabs/sbtab_enzyme_full.tsv','r')
-    #sbtab_quantity = open('sbtabs/sbtab_quantity_full.tsv','r')
-    #sbtab_compartment = open('sbtabs/sbtab_compartment_full.tsv','r')
-    
-    #CREATING AN SBTAB DOCUMENT OF SINGLE SBTABFILES
-    #document = []
-    #document.append(sbtab_reaction.read())
-    #document.append(sbtab_compound.read())
-    #document.append(sbtab_quantity.read())
-    #document.append(sbtab_compartment.read())
-    #document = [sbtab_reaction.read()+'\n\n'+sbtab_compound.read()]
-
-    #CLOSING THE SBTAB FILES
-    #sbtab_reaction.close()
-    #sbtab_compound.close()
-    #sbtab_quantity.close()
-    #sbtab_compartment.close()
-
-    #INITIALISE THE CLASS, CONVERT TO SBML, SAVE FILE TO DISC
-    #sbtab_class = SBtabDocument(document,'bla.tsv',4)
-    #bla = sbtab_class.makeSBML()
-    #output = open('new_sbml.xml','w')
-    #output.write(bla)
-    #output.close()
-    
+    print 'The SBML file has been successfully written to your working directory or chosen output path.'

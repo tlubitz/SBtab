@@ -506,7 +506,9 @@ class SBMLDocument:
 if __name__ == '__main__':
 
     try: sys.argv[1]
-    except: raise ConversionError('You have not provided input arguments. Please start the script by also providing an SBML file and an optional SBtab output filename: >python sbml2sbtab.py SBMLfile.xml Output')
+    except:
+        print 'You have not provided input arguments. Please start the script by also providing an SBML file and an optional SBtab output filename: >python sbml2sbtab.py SBMLfile.xml Output'
+        sys.exit()
 
     file_name  = sys.argv[1]
     try: output_name = sys.argv[2]+'.csv'
@@ -522,8 +524,9 @@ if __name__ == '__main__':
     #print warnings
 
     for sbtab in sbtabs:
-        sbtab_name = sbtab[1]+'_'+output_name
+        sbtab_name = output_name[:-4]+'_'+sbtab[1]+output_name[-4:]
         sbtab_file = open(sbtab_name,'w')
         sbtab_file.write(sbtab[0])
         sbtab_file.close()
 
+    print 'The SBtab file/s have been successfully written to your working directory or chosen output path.'

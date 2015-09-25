@@ -1,22 +1,29 @@
 #!/usr/bin/env python
 import re
 import string
+import sys
+import misc
 
 urns = ["obo.chebi","kegg.compound","kegg.reaction","obo.go","obo.sgd","biomodels.sbo","ec-code","kegg.orthology","uniprot"]
 
-def csv2html(sbtab_file,file_name,sbtype):
+def csv2html(sbtab_file,file_name,definition_file,sbtype=None):
     '''
     generates html view out of csv file
     '''
     #extract information from the definition file
-    def_file_open = open('definitions.csv','r')
-    def_file      = def_file_open.read()
-    def_delimiter = '\t'
-    col2description = findDescriptions(def_file,def_delimiter,sbtype)
-    def_file_open.close()
+    if not definition_file:
+        try:
+            def_file_open = open('definitions.csv','r')
+            def_file      = def_file_open.read()
+            def_delimiter = '\t'
+            col2description = findDescriptions(def_file,def_delimiter,sbtype)
+            def_file_open.close()
+        except:
+            print 'You have not provided the definition file and it cannot be found in this directory. Please provide it.'
+            sys.exit(1)
 
     #now start building the HTML file from the SBtab file
-    delimiter = checkSeperator(sbtab_file)
+    delimiter = misc.getDelimiter(sbtab_file)    #checkSeperator(sbtab_file)
     ugly_sbtab = sbtab_file.split('\n')
     nice_sbtab = '<html>\n<body>\n'
     nice_sbtab += '<p>\n<h2><b>'+file_name+'</b></h2>\n</p>\n'
@@ -101,3 +108,34 @@ def checkSeperator(sbtabfile):
             sep = s.group(1)
 
     return sep
+
+if __name__ == '__main__':
+
+    try: sys.argv[1]
+    except:
+        print 'You have not provided input arguments. Please start the script by also providing an SBtab file, the definition file, and an optional HTML output filename: >python sbtab2html.py SBtabfile.csv definitions.csv Output'
+        sys.exit()
+
+    file_name  = sys.argv[1]
+
+    try:
+        default_def = sys.argv[2]
+        def_file    = open(default_def,'r')
+        def_tab = def_file.read()
+        def_file.close()
+    except:
+        def_tab = None
+    
+    try: output_name = sys.argv[3]+'.html'
+    except: output_name = file_name[:-4]+'.html'
+
+    sbtab_file = open(file_name,'r')
+    sbtab      = sbtab_file.read()
+
+    html = csv2html(sbtab,file_name,def_tab,output_name)
+    #html_name = output_name
+    html_file = open(output_name,'w')
+    html_file.write(html)
+    html_file.close()
+
+    print 'The HTML file has been successfully written to your working directory or chosen output path.'

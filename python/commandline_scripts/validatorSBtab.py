@@ -37,7 +37,8 @@ class ValidateTable:
                 def_table   = default_def.read()
                 default_def.close()
             except:
-                raise SBtabError('Definition file could not be loaded, so the validation could not be started. Please provide definition file as argument or make it is located in the same directory as this script.')
+                print 'Definition file could not be loaded, so the validation could not be started. Please provide definition file as argument or make it is located in the same directory as this script.'
+                sys.exit()
         
         # import definitions from definition table
         definition_table = tablibIO.importSetNew(def_table,def_name,seperator='\t')
@@ -269,7 +270,9 @@ class ValidateFile:
 if __name__ == '__main__':
 
     try: sys.argv[1]
-    except: raise SBtabError('You have not provided input arguments. Please start the script by also providing an SBtab file and the required definition file: >python validatorSBtab.py SBtab.csv definition.csv')
+    except:
+        print 'You have not provided input arguments. Please start the script by also providing an SBtab file and the required definition file: >python validatorSBtab.py SBtab.csv definition.csv'
+        sys.exit()
 
     file_name    = sys.argv[1]
     sbtab_file_o = open(file_name,'r')
@@ -293,8 +296,15 @@ if __name__ == '__main__':
     Validate_table_class = ValidateTable(sbtab_tablib,file_name,def_tab)
     validator_output.append(Validate_table_class.returnOutput())
 
+    warned = False
     for warning in validator_output:
-        print warning
+        if warning != []:
+            print 'WARNINGS: ',warning
+            warned = True
+
+    if not warned:
+        print 'The SBtab file is valid.'
+            
 
 
 
