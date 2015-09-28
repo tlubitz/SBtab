@@ -141,9 +141,11 @@ class SBtabTable():
             header_row = ' '.join(header_row)
 
         # Replace double quotes by single quotes
-        header_row = header_row.replace('"', "'")
-        try: header_row = header_row.replace('\xe2\x80\x9d', "'")
-        except: pass
+        stupid_quotes = ['"','\xe2\x80\x9d','\xe2\x80\x98','\xe2\x80\x99','\xe2\x80\x9b','\xe2\x80\x9c','\xe2\x80\x9f','\xe2\x80\xb2','\xe2\x80\xb3','\xe2\x80\xb4','\xe2\x80\xb5','\xe2\x80\xb6','\xe2\x80\xb7']
+
+        for squote in stupid_quotes:
+            try: header_row = header_row.replace(squote, "'")
+            except: pass
      
         # Split header row
         header_row = header_row.split(' ')
@@ -184,6 +186,7 @@ class SBtabTable():
         # Initialize variables for unnamed table handling
         global tables_without_name
         no_name_counter = 0
+
         #header_row = self.getHeaderRow()
         # Save table type, otherwise raise error
         if re.search("TableType='([^']*)'", self.header_row) != None:
