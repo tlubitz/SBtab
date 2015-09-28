@@ -6,6 +6,7 @@ The scripts in this directory will allow you to convert SBML files to SBtab file
 - numpy (numerical operations for python)
 - libsbml (SBML manipulation for python)
 - re (regular expression module for python)
+- xlrd (module for manipulating xls files)
 
 These scripts can be embedded in your own code easily. Just follow the instructions on how to use the interface:
 
