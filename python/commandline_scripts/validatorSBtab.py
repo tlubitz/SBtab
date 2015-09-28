@@ -105,9 +105,14 @@ class ValidateTable:
         for x in header_row[:-1]:
             header += x + ' '
         header += header_row[-1]
-        header = header.replace('"', "'")
-        try: header = header.replace('\xe2\x80\x9d', "'")
-        except: pass
+
+        #Replace double quotes by single quotes
+        stupid_quotes = ['"','\xe2\x80\x9d','\xe2\x80\x98','\xe2\x80\x99','\xe2\x80\x9b','\xe2\x80\x9c','\xe2\x80\x9f','\xe2\x80\xb2','\xe2\x80\xb3','\xe2\x80\xb4','\xe2\x80\xb5','\xe2\x80\xb6','\xe2\x80\xb7']
+
+        for squote in stupid_quotes:
+            try: header = header.replace(squote, "'")
+            except: pass
+
 
         # check for valid header row
         if not header.startswith('!!'):
