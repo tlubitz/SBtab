@@ -922,7 +922,7 @@ class SBtabDocument:
                         cv_term = self.setAnnotation(event,annot,urn,'Biological')
                         rule.addCVTerm(cv_term)
                     except:
-                        print 'There was an annotation that I could not assign properly: ',event.getId(),annot #,urn
+                        print 'There was an annotation that I could not assign properly: ',rule.getId(),annot #,urn
 
 if __name__ == '__main__':
 
