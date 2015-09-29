@@ -25,7 +25,7 @@ import xlrd
 def index():
     session.ex_warning_val  = None
     session.ex_warning_con = None
-    redirect(URL('../../static/introduction.html'))
+    redirect(URL('../static/introduction.html'))
 
 def clearsession():
     session.sbtabs = []
@@ -46,7 +46,7 @@ def clearsession():
     session.definition_file_name = []
     session.new_def = False
 
-    redirect(URL('../../sbtab/static/introduction.html'))
+    redirect('http://www.sbtab.net')
 
 def validator():
     """
@@ -71,25 +71,25 @@ def validator():
     #update session lists
     if lform.process().accepted:
         response.flash = 'form accepted'
-        session.ex_warning_val = None
+        session.ex_warning_val = []
         valid = True
         FileValidClass = validatorSBtab.ValidateFile(request.vars.File.value,request.vars.File.filename)
         while valid:
             #1: Is the file extension valid?
             if not FileValidClass.validateExtension():
-                session.ex_warning_val = ['The file format was not supported. Please use .csv or .xls.']
+                session.ex_warning_val.append('The file format was not supported. Please use .csv or .xls.')
                 break
 
             #2: Can the separator be determined?
             if request.vars.File.filename[-3:] == 'xls':
                 try: csv_file  = misc.xls2csv(request.vars.File.value,request.vars.File.filename)
                 except:
-                    session.ex_warning_val = ['This xls file could not be imported. Please ensure the validity of the xls format.']
+                    session.ex_warning_val.append('This xls file could not be imported. Please ensure the validity of the xls format.')
                     break
                 sbtabber  = misc.removeDoubleQuotes(csv_file)
                 seperator = ','
             elif not FileValidClass.checkSeperator():
-                session.ex_warning_val = ['The delimiter of the file could not be determined. Please use comma or tabs as consistent separators.']
+                session.ex_warning_val.append('The delimiter of the file could not be determined. Please use comma or tabs as consistent separators.')
                 break
             else:
                 seperator = FileValidClass.checkSeperator()
@@ -98,7 +98,7 @@ def validator():
             #3: If there are more than one SBtab files in the uploaded documents, try to split them
             try: (sbtab_list,types,docs,tnames) = splitTabs.checkTabs([sbtabber],request.vars.File.filename,seperator=seperator)
             except:
-                session.ex_warning_val = ['The SBtab document could not be split into single SBtab tables. Please try uploading them separately.']
+                session.ex_warning_val.append('The SBtab document could not be split into single SBtab tables. Please try uploading them separately.')
                 break
 
             #4: Now save all the required files, names, and variables in the session
@@ -122,7 +122,7 @@ def validator():
                     session.sbtab_types.append(types[i])
                 else:
                     warning = 'A file with the name %s has already been uploaded. Please rename your file before upload.'%fn
-                    session.ex_warning_val = [warning]
+                    session.ex_warning_val.append(warning)
             break
     elif lform.errors:
         response.flash = 'form has errors'
@@ -169,7 +169,8 @@ def validator():
                 else: session.ex_warning_val = ['The definition file could not be loaded. Please reload session by restarting your browser.']
                 break
    
-            
+            #session.ex_warning_val = ['The SBtab file is valid.']
+            if v_output == [] or v_output == '': v_output = ['The SBtab file is valid.']
             break
     else:
         v_output  = ''
@@ -203,7 +204,7 @@ def validator():
                 del session.sbtab_types[i]
                 del session.name2doc[session.todeletename[i]]
                 del session.todeletename[i]
-                session.ex_warning_con = None
+                session.ex_warning_val = None
             redirect(URL(''))
         except:
             redirect(URL(''))
