@@ -24,7 +24,7 @@ class SBMLDocument:
 
         self.model    = sbml_model
         self.filename = filename
-        if not self.filename.endswith('.xml'): 
+        if not self.filename.endswith('.xml') and not filename.endswith('.sbml'): 
             raise ConversionError('The given file format is not supported: '+self.filename)
 
         #for testing purposes:

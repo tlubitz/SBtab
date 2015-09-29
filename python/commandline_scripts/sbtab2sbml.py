@@ -396,6 +396,8 @@ class SBtabDocument:
                     species.setCompartment('Default_Compartment')
                 if '!InitialConcentration' in sbtab.columns and row[sbtab.columns_dict['!InitialConcentration']] != '':
                     species.setInitialConcentration(float(row[sbtab.columns_dict['!InitialConcentration']]))
+                elif '!InitialValue' in sbtab.columns and row[sbtab.columns_dict['!InitialValue']] != '':
+                    species.setInitialConcentration(float(row[sbtab.columns_dict['!InitialValue']]))
                 #DEPRECATED: Libsbml does not want this anymore!
                 #is the charge at hand? if so: set
                 #if sbtab.charge_column and row[sbtab.charge_column] != '':
