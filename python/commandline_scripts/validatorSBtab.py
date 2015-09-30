@@ -19,7 +19,7 @@ class ValidateTable:
     Validator (version 0.2.0 15/02/2014)
     Check SBtab file and SBtab object.
     """
-    def __init__(self, table, sbtab_name, def_table=None):
+    def __init__(self, table, sbtab_name, def_table=None,def_name=None):
         """
         Initialize validator and start check for file and table format.
 
@@ -30,7 +30,11 @@ class ValidateTable:
         sbtab_name : str
             File path of the Sbtab file
         """
-        def_name = 'definitions.csv'
+        delimiter    = misc.getDelimiter(table)
+        sbtab_tablib = tablibIO.importSetNew(table,sbtab_name,delimiter)
+        
+        if not def_name:
+            def_name = 'definitions.csv'
         if not def_table:
             try:
                 default_def = open(def_name,'r')
@@ -56,13 +60,14 @@ class ValidateTable:
         # initialize warning string
         self.warnings = []
         # define self variables
-        self.table = table
+        self.table = sbtab_tablib
         self.filename = sbtab_name
 
         # check file format and header row
         self.checkTableFormat()
 
         # try creating SBtab instance
+      
         self.sbtab = SBtab.SBtabTable(self.table, self.filename)
 
         self.column2format = {}
@@ -346,7 +351,8 @@ if __name__ == '__main__':
     validator_output     = []
     Validate_file_class  = ValidateFile(sbtab_file,file_name)
     validator_output.append(Validate_file_class.returnOutput())
-    Validate_table_class = ValidateTable(sbtab_tablib,file_name,def_tab)
+    Validate_table_class = ValidateTable(sbtab_file,file_name,def_tab)
+    #Validate_table_class = ValidateTable(sbtab_tablib,file_name,def_tab)
     validator_output.append(Validate_table_class.returnOutput())
 
     warned = False
