@@ -20,15 +20,12 @@ class SBtabDocument:
     '''
     SBtab document to be converted to SBML model
     '''
-    def __init__(self,filename,tabs=1):
+    def __init__(self,sbtab,filename=None,tabs=1):
         '''
         initalize SBtab document, check it for SBtabs
         if there are more than 1 SBtab file to be convered, please provide a "tabs" parameter higher than 1.
         '''
         self.filename  = filename
-        sbtab_file_o   = open(self.filename,'r')
-        sbtab_document = sbtab_file_o.read()
-        sbtab_file_o.close()
 
         if self.filename.endswith('tsv') or self.filename.endswith('csv') or self.filename.endswith('.xls'): pass
         else: raise ConversionError('The given file format is not supported: '+self.filename)
@@ -37,7 +34,7 @@ class SBtabDocument:
         #if self.filename.endswith('.xls') or self.filename.endswith('.xlsx'):
         #    self.document = [self.makeTSVfile(sbtab_document)]
         #else:
-        self.document = [sbtab_document]
+        self.document = [sbtab]
         self.tabs      = tabs            
         self.unit_mM   = False
         self.unit_mpdw = False
@@ -940,7 +937,7 @@ if __name__ == '__main__':
     try: output_name = sys.argv[2]+'.xml'
     except: output_name = file_name[:-4]+'.xml'
 
-    Converter_class = SBtabDocument(file_name)
+    Converter_class = SBtabDocument(sbtab_file,file_name)
     SBML_output     = Converter_class.makeSBML()
     new_SBML_file   = open(output_name,'w')
     new_SBML_file.write(SBML_output[0])
