@@ -1,5 +1,5 @@
 ## xlSBtab - an SBtab Excel 2013 Add-in 
-This project hosts a basic Excel Plugin, for opening an [SBML](http://sbml.org) file within Excel and have it be converted to the SBtab format. Alternatively a file edited in the [SBtab](http://sbtab.net/) format can be exported as SBML file. 
+This project hosts a basic Excel Plugin, for opening an [SBML](http://sbml.org) file within Excel and have it be converted to the SBtab format. Alternatively a file edited in the [SBtab](http://sbtab.net/) format can be validated and exported as SBML file. 
 
 ### Dependencies
 For the program to work, you will need to have the following installed: 
