@@ -6,9 +6,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Validator &mdash; SBtab 0.8 documentation</title>
+    <title>&lt;no title&gt; &mdash; SBtab 0.8 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -24,181 +24,45 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="SBtab 0.8 documentation" href="index.html" />
-    <link rel="next" title="Commandline scripts" href="Scripts.html" />
-    <link rel="prev" title="SBtab Tools" href="SBtabTools.html" /> 
+    <link rel="prev" title="&lt;no title&gt;" href="SBtabTools.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="Scripts.html" title="Commandline scripts"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="SBtabTools.html" title="SBtab Tools"
+          <a href="SBtabTools.html" title="&lt;no title&gt;"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">SBtab 0.8 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">SBtab 0.8 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
-  <span class="target" id="module-Validator"></span><div class="section" id="validator">
-<h1>Validator<a class="headerlink" href="#validator" title="Permalink to this headline">¶</a></h1>
-<p>The validator checks SBtab files and tables for incorrect entries and possible 
-error sources. Therefore, it helps the user to create valid SBtab tables.
-It is crucial that the definition table SBtab is provided.</p>
-<p>The validator consists of two classes, the &#8216;ValidateTable&#8217; class validates the content and the SBtab object 
-according to the definition table. The &#8216;ValidateFile&#8217; class checks the format of the spreadsheet file and its
-general properties.</p>
-</div>
-<dl class="exception">
-<dt id="Validator.SBtabError">
-<em class="property">exception </em><tt class="descclassname">Validator.</tt><tt class="descname">SBtabError</tt><big>(</big><em>message</em><big>)</big><a class="reference internal" href="_modules/Validator.html#SBtabError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Validator.SBtabError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Base class for errors in the SBtab class.</p>
-</dd></dl>
-
-<dl class="class">
-<dt id="Validator.ValidateFile">
-<em class="property">class </em><tt class="descclassname">Validator.</tt><tt class="descname">ValidateFile</tt><big>(</big><em>sbtab_file</em>, <em>filename</em><big>)</big><a class="reference internal" href="_modules/Validator.html#ValidateFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Validator.ValidateFile" title="Permalink to this definition">¶</a></dt>
-<dd><p>File validator (version 0.8.0 10/12/2014)     
-Validate spreadsheet file and format of the file.     
-Class does not use the definition table.</p>
-<p class="rubric">Methods</p>
-<dl class="method">
-<dt id="Validator.ValidateFile.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>sbtab_file</em>, <em>filename</em><big>)</big><a class="reference internal" href="_modules/Validator.html#ValidateFile.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Validator.ValidateFile.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialise validation of table.    
-Take SBtab object of table and file path of the SBtab table.     
-Create a string list of warnings.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Validator.ValidateFile.checkSeparator">
-<tt class="descname">checkSeparator</tt><big>(</big><em>sbtabfile</em><big>)</big><a class="reference internal" href="_modules/Validator.html#ValidateFile.checkSeparator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Validator.ValidateFile.checkSeparator" title="Permalink to this definition">¶</a></dt>
-<dd><p>SBtab allows different file formats with different content delimiters;      
-this function checks which delimiter is used in the given file.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Validator.ValidateFile.returnOutput">
-<tt class="descname">returnOutput</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Validator.html#ValidateFile.returnOutput"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Validator.ValidateFile.returnOutput" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the warnings of the file validation in form of a list.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Validator.ValidateFile.validateExtension">
-<tt class="descname">validateExtension</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="_modules/Validator.html#ValidateFile.validateExtension"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Validator.ValidateFile.validateExtension" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>Check the extension of the file for invalid formats.     </dt>
-<dd><div class="first last line-block">
-<div class="line">Valid file types are     </div>
-<div class="line">- &#8216;.tsv&#8217; - tab separated value tables     </div>
-<div class="line">- &#8216;.csv&#8217; - character separated value tables     </div>
-<div class="line">- &#8216;.ods&#8217; - open office spreadsheets (openCalc)     </div>
-<div class="line">- &#8216;.xls&#8217; - Microsoft Excel spreadsheets (&#8216;.xlsx&#8217; not supported!)     </div>
-</div>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="Validator.ValidateFile.validateFile">
-<tt class="descname">validateFile</tt><big>(</big><em>sbtab_file</em><big>)</big><a class="reference internal" href="_modules/Validator.html#ValidateFile.validateFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Validator.ValidateFile.validateFile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Validate file format and check for possible problems.     
-Check for empty rows and validate row length.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="Validator.ValidateTable">
-<em class="property">class </em><tt class="descclassname">Validator.</tt><tt class="descname">ValidateTable</tt><big>(</big><em>table</em>, <em>sbtab_name</em>, <em>def_table</em>, <em>def_name</em><big>)</big><a class="reference internal" href="_modules/Validator.html#ValidateTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Validator.ValidateTable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Table validator (version 0.8.0 10/12/2014)    
-Check SBtab spreadsheet file and SBtab object.</p>
-<p class="rubric">Methods</p>
-<dl class="method">
-<dt id="Validator.ValidateTable.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>table</em>, <em>sbtab_name</em>, <em>def_table</em>, <em>def_name</em><big>)</big><a class="reference internal" href="_modules/Validator.html#ValidateTable.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Validator.ValidateTable.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialise validator, load definition table and start validation of file and table format.
-Take tablib object of SBtab, file path of the spreadsheet file, definition table as SBtab object 
-and the file path of the definition table.
-Creates a string list of warnings.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>table</strong> : tablib object</p>
-<blockquote>
-<div><p>Tablib object of the SBtab file</p>
-</div></blockquote>
-<p><strong>sbtab_name</strong> : str</p>
-<blockquote>
-<div><p>File path of the SBtab file</p>
-</div></blockquote>
-<p><strong>def_table</strong> : str</p>
-<blockquote>
-<div><p>Definition table in SBtab format</p>
-</div></blockquote>
-<p><strong>def_name</strong> : str</p>
-<blockquote class="last">
-<div><p>Name of the definition table</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="Validator.ValidateTable.checkTable">
-<tt class="descname">checkTable</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Validator.html#ValidateTable.checkTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Validator.ValidateTable.checkTable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Validate the table type, row length and mandatory entries in main column of the SBtab according to definition table.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Validator.ValidateTable.checkTableFormat">
-<tt class="descname">checkTableFormat</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Validator.html#ValidateTable.checkTableFormat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Validator.ValidateTable.checkTableFormat" title="Permalink to this definition">¶</a></dt>
-<dd><p>Validate format of SBtab file, check file and header row.     
-Validate header row for inconsistencies and check if table content is readable.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="Validator.ValidateTable.returnOutput">
-<tt class="descname">returnOutput</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Validator.html#ValidateTable.returnOutput"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Validator.ValidateTable.returnOutput" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the warnings of the file validation in form of a list.</p>
-</dd></dl>
-
-</dd></dl>
-
-
+  
 
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="SBtabTools.html"
-                        title="previous chapter">SBtab Tools</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="Scripts.html"
-                        title="next chapter">Commandline scripts</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/Validator.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+                        title="previous chapter">&lt;no title&gt;</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Validator.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -215,27 +79,21 @@ Validate header row for inconsistencies and check if table content is readable.<
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="Scripts.html" title="Commandline scripts"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="SBtabTools.html" title="SBtab Tools"
+          <a href="SBtabTools.html" title="&lt;no title&gt;"
              >previous</a> |</li>
-        <li><a href="index.html">SBtab 0.8 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">SBtab 0.8 documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2014, Wolfram Liebermeister, Timo Lubitz, Jens Hahn.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

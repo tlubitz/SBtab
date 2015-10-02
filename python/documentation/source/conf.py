@@ -40,8 +40,8 @@ extensions = [
     #'sphinx.ext.inheritance_diagram',
     'matplotlib.sphinxext.only_directives',
     'matplotlib.sphinxext.plot_directive',
-    'matplotlib.sphinxext.ipython_directive',
-    'matplotlib.sphinxext.ipython_console_highlighting'
+    'IPython.sphinxext.ipython_directive',
+    'IPython.sphinxext.ipython_console_highlighting'
 ]
 
 # Add any paths that contain templates here, relative to this directory.

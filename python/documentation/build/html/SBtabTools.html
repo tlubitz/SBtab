@@ -6,9 +6,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>SBtab Tools &mdash; SBtab 0.8 documentation</title>
+    <title>&lt;no title&gt; &mdash; SBtab 0.8 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -24,144 +24,52 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="SBtab 0.8 documentation" href="index.html" />
-    <link rel="next" title="Validator" href="Validator.html" />
-    <link rel="prev" title="SBtab" href="SBtab.html" /> 
+    <link rel="next" title="&lt;no title&gt;" href="Validator.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="SBtab.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="Validator.html" title="Validator"
+          <a href="Validator.html" title="&lt;no title&gt;"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="SBtab.html" title="SBtab"
+          <a href="SBtab.html" title="&lt;no title&gt;"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">SBtab 0.8 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">SBtab 0.8 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
-  <span class="target" id="module-SBtabTools"></span><div class="section" id="sbtab-tools">
-<h1>SBtab Tools<a class="headerlink" href="#sbtab-tools" title="Permalink to this headline">¶</a></h1>
-<p>These functions facilitates the use of SBtab. 
-They can be used to create SBtab objects, by merging strings or read files, respectively.</p>
-<dl class="function">
-<dt id="SBtabTools.oneOrMany">
-<tt class="descclassname">SBtabTools.</tt><tt class="descname">oneOrMany</tt><big>(</big><em>spreadsheet_file</em><big>)</big><a class="reference internal" href="_modules/SBtabTools.html#oneOrMany"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtabTools.oneOrMany" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check for multiple tables in a file and cut them into separate tablib object.
-Take a spreadsheet file and return a list of tablib object.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>spreadsheet_file</strong> : tablib object</p>
-<blockquote>
-<div><p>Tablib object of the whole table.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>sbtabs</strong> : list</p>
-<blockquote class="last">
-<div><p>List of single tablib objects.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="SBtabTools.openSBtab">
-<tt class="descclassname">SBtabTools.</tt><tt class="descname">openSBtab</tt><big>(</big><em>filepath</em><big>)</big><a class="reference internal" href="_modules/SBtabTools.html#openSBtab"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtabTools.openSBtab" title="Permalink to this definition">¶</a></dt>
-<dd><p>Open SBtab from file. 
-Take a file path and return an SBtab object.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filepath</strong> : str</p>
-<blockquote>
-<div><p>Path of the spread sheet file.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>sbtab</strong> : SBtab object</p>
-<blockquote class="last">
-<div><p>SBtab object of the table</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="SBtabTools.createDataset">
-<tt class="descclassname">SBtabTools.</tt><tt class="descname">createDataset</tt><big>(</big><em>header_row</em>, <em>columns</em>, <em>value_rows</em>, <em>filename</em><big>)</big><a class="reference internal" href="_modules/SBtabTools.html#createDataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtabTools.createDataset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create an SBtab object by merging strings or list of strings.
-Take a header row, main column row and the value rows as lists of strings and return an SBtab object.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>header_row</strong> : str</p>
-<blockquote>
-<div><p>String of the header row.</p>
-</div></blockquote>
-<p><strong>columns: list</strong></p>
-<blockquote>
-<div><p>List of strings, name of the columns.</p>
-</div></blockquote>
-<p><strong>value_rows</strong> : list</p>
-<blockquote>
-<div><p>List of lists containing the different rows of the table.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>sbtab</strong> : SBtab instance</p>
-<blockquote class="last">
-<div><p>SBtab object of the table.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Notes</p>
-<p>First entry in columns should be consistent with table type.
-Otherwise the SBtab object will have a automatically added column.</p>
-</dd></dl>
-
-</div>
-
+  
 
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="SBtab.html"
-                        title="previous chapter">SBtab</a></p>
+                        title="previous chapter">&lt;no title&gt;</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="Validator.html"
-                        title="next chapter">Validator</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/SBtabTools.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+                        title="next chapter">&lt;no title&gt;</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/SBtabTools.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -178,27 +86,24 @@ Otherwise the SBtab object will have a automatically added column.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="Validator.html" title="Validator"
+          <a href="Validator.html" title="&lt;no title&gt;"
              >next</a> |</li>
         <li class="right" >
-          <a href="SBtab.html" title="SBtab"
+          <a href="SBtab.html" title="&lt;no title&gt;"
              >previous</a> |</li>
-        <li><a href="index.html">SBtab 0.8 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">SBtab 0.8 documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2014, Wolfram Liebermeister, Timo Lubitz, Jens Hahn.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

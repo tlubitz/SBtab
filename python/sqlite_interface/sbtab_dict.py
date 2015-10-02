@@ -114,7 +114,7 @@ class SBtabDict(dict):
                 # if the table doesn't already exist, add an entries for it 
                 # in the __tables__ and __columns__
                 comm.execute("INSERT INTO __tables__ VALUES(?,?,?)", 
-                             [m.table_name, m.table_type, m._getHeaderRow()])
+                             [m.table_name, m.table_type, m.getHeaderRow()])
     
                 for i, col in enumerate(columns):
                     comm.execute("INSERT INTO __columns__ VALUES(?,?,?)", 
