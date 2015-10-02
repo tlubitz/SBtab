@@ -4,10 +4,10 @@ This project hosts a basic Excel Plugin, for opening an [SBML](http://sbml.org) 
 ### Dependencies
 For the program to work, you will need to have the following installed: 
 
-* a version of [python 2.x](http://python.org)
-* the [libSBML python bindings](http://sbml.org/Software/libSBML) for that python version
-* Excel 2013 to run the plugin
-* a checkout of the [SBtab repository](https://github.com/derHahn/SBtab)
+* Windows Vista or higher
+* Microsoft Excel 2010 or higher, 32 Bit
+* Microsoft .NET Framework 4.5 (full) or higher (can be downloaded directly from Microsoft )
+* Microsoft Visual Studio 2010 Tools for Office Runtime (VSTO) (can be downloaded directly from Microsoft)
 
 ### Installation
 After you installed the plugin, you will find a new tab called 'SBtab' in the Add-ins ribbon menu. On that tab, click settings to verify the python path, and the SBtab location. 
