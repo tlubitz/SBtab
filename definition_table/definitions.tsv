@@ -14,7 +14,7 @@ PositionX	Column	Reaction	float	x coordinate for graphical display
 PositionY	Column	Reaction	float	y coordinate for graphical display
 Reaction	Column	Reaction	string	Reaction shortname
 SBML:reaction:id	Column	Reaction	string	SBML ID of reaction
-SumFormula	Column	Reaction	string	Reaction sum formula
+ReactionFormula	Column	Reaction	string	Reaction formula
 Location	Column	Reaction	string	Compartment for localised reaction
 Enzyme	Column	Reaction	string	Enzyme catalysing the reaction
 Model	Column	Reaction	string	Model(s) in which the reaction is involved
