@@ -1,9 +1,7 @@
 SBtab - Table format for Systems Biology
 ========================================
 Python code and example files by
-
-Timo Lubitz, Jens Hahn, Elad Noor, Frank Bergmann (2015)
------------------------------------------
+<b>Timo Lubitz, Jens Hahn, Elad Noor, Frank Bergmann (2015)<b>
 
 This repository holds files and information on SBtab, a table format for
 Systems Biology. The directories and their contents are:
