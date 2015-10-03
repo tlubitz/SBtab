@@ -17,18 +17,20 @@ windows installer and source code for the excel add-in (copyright Frank T. Bergm
 <b>sbtab examples:</b><br>
 example SBtab files.
 
-<b>python:</b><br>
-&nbsp;&nbsp;<b>commandline scripts:</b><br>
-&nbsp;&nbsp;&nbsp;&nbsp;command line python scripts, including validator and converter to and from SBML (copyright &nbsp;&nbsp;&nbsp;&nbsp;Timo Lubitz).
+<b>python:</b>
+<ul>
+<li><b>commandline scripts:</b><br>
+command line python scripts, including validator and converter to and from SBML (copyright Timo Lubitz).</li>
 
-&nbsp;&nbsp;&nbsp;&nbsp;<b>documentation:</b><br>
-&nbsp;&nbsp;&nbsp;&nbsp;HTML documentation of the SBtab repository and source code (copyright Timo Lubitz & Jens &nbsp;&nbsp;&nbsp;&nbsp;Hahn).
+<li><b>documentation:</b><br>
+HTML documentation of the SBtab repository and source code (copyright Timo Lubitz & Jens Hahn).</li>
 
-&nbsp;&nbsp;&nbsp;&nbsp;<b>sqlite interface:</b><br>
-&nbsp;&nbsp;&nbsp;&nbsp;Python interface for querying SQLite database via SBtab (copyright Elad Noor).
+<li><b>sqlite interface:</b><br>
+Python interface for querying SQLite database via SBtab (copyright Elad Noor).</li>
 
-&nbsp;&nbsp;&nbsp;&nbsp;<b>tablib:</b><br>
-&nbsp;&nbsp;&nbsp;&nbsp;Tablib module for the handling of table files (copyright Kenneth Reitz, whereas the &nbsp;&nbsp;&nbsp;&nbsp;interface has been slightly changed to support SBtab files as desired).
+<li><b>tablib:</b><br>
+Tablib module for the handling of table files (copyright Kenneth Reitz, whereas the interface has been slightly changed to support SBtab files as desired).</li>
 
-&nbsp;&nbsp;&nbsp;&nbsp;<b>web2py:</b><br>
-&nbsp;&nbsp;&nbsp;&nbsp;Web2py server files for the SBtab online tools. Can be run locally and offline if required &nbsp;&nbsp;(copyright Massimo Di Pierro (web2py) and Timo Lubitz (SBtab application))
+<li><b>web2py:</b><br>
+Web2py server files for the SBtab online tools. Can be run locally and offline if required (copyright Massimo Di Pierro (web2py) and Timo Lubitz (SBtab application))</li>
+</ul>
