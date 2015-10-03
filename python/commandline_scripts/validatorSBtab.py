@@ -34,7 +34,7 @@ class ValidateTable:
         sbtab_tablib = tablibIO.importSetNew(table,sbtab_name,delimiter)
         
         if not def_name:
-            def_name = 'definitions.csv'
+            def_name = 'definitions.tsv'
         if not def_table:
             try:
                 default_def = open(def_name,'r')
@@ -329,7 +329,7 @@ if __name__ == '__main__':
 
     try: sys.argv[1]
     except:
-        print 'You have not provided input arguments. Please start the script by also providing an SBtab file and the required definition file: >python validatorSBtab.py SBtab.csv definition.csv'
+        print 'You have not provided input arguments. Please start the script by also providing an SBtab file and the required definition file: >python validatorSBtab.py SBtab.csv definition.tsv'
         sys.exit()
 
     file_name    = sys.argv[1]
