@@ -8,6 +8,7 @@ Timo Lubitz, Jens Hahn, Elad Noor, Frank Bergmann (2015)
 This repository holds files and information on SBtab, a table format for
 Systems Biology. The directories and their contents are:
 
+<h3>vg</h3>
 <b>definition table:</b><br>
 Default definitions of predefined SBtab table types.
 
