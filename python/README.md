@@ -4,7 +4,7 @@ This directory holds all SBtab files implemented in Python. For directory conten
 
 <h3>How to embed SBtab into your code</h3>
 
-´´´python
+```python
 import tablibIO
 import SBtab
 
@@ -17,4 +17,4 @@ import SBtab
 #3: create an SBtab object
 
 
-´´´
+```
