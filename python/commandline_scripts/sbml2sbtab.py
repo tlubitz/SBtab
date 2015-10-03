@@ -350,7 +350,7 @@ class SBMLDocument:
         builds a Reaction SBtab
         '''
         reaction     = [['!!SBtab SBtabVersion="0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Reaction" TableName="Reaction"'],['']]
-        header       = ['!Reaction','!Name','!SumFormula','!Location','!Regulator','!KineticLaw','!SBOTerm','!IsReversible']
+        header       = ['!Reaction','!Name','!ReactionFormula','!Location','!Regulator','!KineticLaw','!SBOTerm','!IsReversible']
         identifiers  = []
         column2ident = {}
 

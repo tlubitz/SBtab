@@ -445,7 +445,7 @@ class SBtabDocument:
         sbtab = self.type2sbtab['Reaction']
 
         #if we have the sumformulas, extract the reactants and create the species
-        if '!SumFormula' in sbtab.columns:
+        if '!ReactionFormula' in sbtab.columns:
             self.getReactants(sbtab)
             for reaction in self.reaction2reactants:
                 try: compartment = self.reaction2compartment[reaction]
@@ -528,8 +528,8 @@ class SBtabDocument:
 
             #if sumformula is at hand: generate reactants and products
             try:
-                sbtab.columns_dict['!SumFormula']
-                if row[sbtab.columns_dict['!SumFormula']] != '':
+                sbtab.columns_dict['!ReactionFormula']
+                if row[sbtab.columns_dict['!ReactionFormula']] != '':
                     for educt in self.reaction2reactants[react.getId()][0]:
                         if educt == '': continue
                         reactant = react.createReactant()
@@ -738,7 +738,7 @@ class SBtabDocument:
             if '!Reaction' in sbtab.columns and reaction[sbtab.columns_dict['!Reaction']] != '': r_id = reaction[sbtab.columns_dict['!Reaction']]
             else: r_id   = reaction[sbtab.columns_dict['!Reaction']]
             if '!Location' in sbtab.columns: self.reaction2compartment[r_id] = reaction[sbtab.columns_dict['!Location']]
-            sum_formula  = reaction[sbtab.columns_dict['!SumFormula']]
+            sum_formula  = reaction[sbtab.columns_dict['!ReactionFormula']]
             #is a compartment given for the reaction? (nice, but we cannot set it (only in SBML version 3))
             if sum_formula.startswith('['):
                 self.reaction2compartment[r_id] = re.search('[([^"]*)]',sum_formula).group(1)
