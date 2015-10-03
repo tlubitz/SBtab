@@ -20,8 +20,8 @@ All scripts can be either embedded in your code (see below) or started from comm
 `>python sbml2sbtab.py SBMLfile.xml Outputname`
 ...where, analogously, "SBMLfile.xml" is the name of your SMBL file and "Outputname" is an _optional_ outputname for the SBtab file/s.
 
-`>python validatorSBtab.py SBtabfile.csv definition.csv`
-...where "SBtabfile.csv" is your SBtab file to be validated and "definition.csv" is the required default definition table, which can be found in the table_definition directory. Please note that also "SBtab.py" needs to be imported for the validation.
+`>python validatorSBtab.py SBtabfile.csv definition.tsv`
+...where "SBtabfile.csv" is your SBtab file to be validated and "definition.tsv" is the required default definition table, which can be found in the table_definition directory. Please note that also "SBtab.py" needs to be imported for the validation.
 
 ## Embedding of Code: Conversion of an SBML file to SBtab output files.
 
