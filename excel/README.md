@@ -14,7 +14,7 @@ After you installed the plugin, you will find a new tab called 'SBtab' in the Ad
 
 The add in has four options: 
 
-![SBTab options](https://raw.githubusercontent.com/fbergmann/xlSBtab/master/images/addin_options.png)
+![SBtab options](https://raw.githubusercontent.com/fbergmann/xlSBtab/master/images/addin_options.png)
 
 * **Import SBML**: imports an SBML file and replaces the contents of the current sheet with SBtab tables representing that file.
 * **Export SBML**: translates the tables of the current sheet back into an SBML file. 
