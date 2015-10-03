@@ -13,7 +13,7 @@ def csv2html(sbtab_file,file_name,definition_file,sbtype=None):
     #extract information from the definition file
     if not definition_file:
         try:
-            def_file_open = open('definitions.csv','r')
+            def_file_open = open('definitions.tsv','r')
             def_file      = def_file_open.read()
             def_delimiter = '\t'
             col2description = findDescriptions(def_file,def_delimiter,sbtype)
@@ -113,7 +113,7 @@ if __name__ == '__main__':
 
     try: sys.argv[1]
     except:
-        print 'You have not provided input arguments. Please start the script by also providing an SBtab file, the definition file, and an optional HTML output filename: >python sbtab2html.py SBtabfile.csv definitions.csv Output'
+        print 'You have not provided input arguments. Please start the script by also providing an SBtab file, the definition file, and an optional HTML output filename: >python sbtab2html.py SBtabfile.csv definitions.tsv Output'
         sys.exit()
 
     file_name  = sys.argv[1]
