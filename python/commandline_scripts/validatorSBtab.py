@@ -34,7 +34,7 @@ class ValidateTable:
         sbtab_tablib = tablibIO.importSetNew(table,sbtab_name,delimiter)
         
         if not def_name:
-            def_name = 'definitions.csv'
+            def_name = 'definitions.tsv'
         if not def_table:
             try:
                 default_def = open(def_name,'r')
@@ -189,12 +189,12 @@ class ValidateTable:
                 
         # Check if there is at least a SumFormula or an identifier to characterise a Reaction
         if self.sbtab.table_type == 'Reaction':
-            if not '!SumFormula' in self.sbtab.columns_dict.keys():
+            if not '!ReactionFormula' in self.sbtab.columns_dict.keys():
                 for it in self.sbtab.columns_dict.keys():
                     ident = False
                     if it.startswith('!Identifier'): ident = True
                 if not ident:
-                    warning = 'A Reaction SBtab needs at least a column !SumFormula or an !Identifier column to be characterised.'
+                    warning = 'A Reaction SBtab needs at least a column !ReactionFormula or an !Identifier column to be characterised.'
                     self.warnings.append(warning)
 
         # 3rd: check the validity of the given column names
@@ -216,9 +216,9 @@ class ValidateTable:
             # check the rows for entries starting with + or -
             if str(row[0]).startswith('+') or str(row[0]).startswith('-'):
                 self.warnings.append('An identifier for a data row must not begin with "+" or "-": \n' + str(row))
-            if '!SumFormula' in self.sbtab.columns_dict:
-                if not '<=>' in row[self.sbtab.columns_dict['!SumFormula']]:
-                    warning = 'There is a sum formula that does not adhere to the sum formula syntax from the SBtab specification: '+str(row[self.sbtab.columns_dict['!SumFormula']])
+            if '!ReactionFormula' in self.sbtab.columns_dict:
+                if not '<=>' in row[self.sbtab.columns_dict['!ReactionFormula']]:
+                    warning = 'There is a sum formula that does not adhere to the sum formula syntax from the SBtab specification: '+str(row[self.sbtab.columns_dict['!ReactionFormula']])
                     self.warnings.append(warning)
                 # check the rows for entries containing . or :     OMITTED; should be solved, if the user puts the entryfield in quotes "
                 #if ',' in list(row[self.sbtab.columns_dict[column]]):
@@ -329,7 +329,7 @@ if __name__ == '__main__':
 
     try: sys.argv[1]
     except:
-        print 'You have not provided input arguments. Please start the script by also providing an SBtab file and the required definition file: >python validatorSBtab.py SBtab.csv definition.csv'
+        print 'You have not provided input arguments. Please start the script by also providing an SBtab file and the required definition file: >python validatorSBtab.py SBtab.csv definition.tsv'
         sys.exit()
 
     file_name    = sys.argv[1]

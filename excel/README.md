@@ -14,12 +14,12 @@ After you installed the plugin, you will find a new tab called 'SBtab' in the Ad
 
 The add in has four options: 
 
-![SBTab options](https://raw.githubusercontent.com/fbergmann/xlSBtab/master/images/addin_options.png)
+![SBtab options](https://raw.githubusercontent.com/fbergmann/xlSBtab/master/images/addin_options.png)
 
 * **Import SBML**: imports an SBML file and replaces the contents of the current sheet with SBtab tables representing that file.
 * **Export SBML**: translates the tables of the current sheet back into an SBML file. 
 * **Validate**: currently ensures only that the tables have the expected headers. It does not yet validate the entries in the table. 
-* **Settings**: specify the path to the python interpreter, and the SBtab script directory. 
+* **Settings**: specify the path to the python interpreter ("/xlSBtab/python/python.exe"), and the SBtab script directory ("/xlSBtab/SBtab/scripts"). 
 
 Once a model is imported it will be displayed like in the example below (here BioModel 10 was imported): 
 
