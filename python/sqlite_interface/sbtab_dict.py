@@ -7,10 +7,10 @@ A wrapper object for handling an SBtab with multiple tables using
 a dictinoary.
 Also, includes methods for I/O between SQLite and SBtab.
 """
-from SBtabTools import oneOrMany
+import SBtabTools 
 from SBtab import SBtabTable, SBtabError
 import tablib
-from tablibIO import loadTSV
+import tablibIO
 import sqlite3
 
 class SBtabDict(dict):
@@ -27,8 +27,8 @@ class SBtabDict(dict):
 
     @staticmethod
     def FromSBtab(fpath):
-        spreadsheet_file = loadTSV(fpath, False)
-        m = oneOrMany(spreadsheet_file)
+        spreadsheet_file = tablibIO.loadTSV(fpath, False)
+        m = SBtabTools.oneOrMany(spreadsheet_file)
         sbtab_list = [SBtabTable(dset, fpath) for dset in m]
         sbtab_dict = SBtabDict(sbtab_list)
         sbtab_dict.fpath = fpath
@@ -114,7 +114,7 @@ class SBtabDict(dict):
                 # if the table doesn't already exist, add an entries for it 
                 # in the __tables__ and __columns__
                 comm.execute("INSERT INTO __tables__ VALUES(?,?,?)", 
-                             [m.table_name, m.table_type, m.getHeaderRow()])
+                             [m.table_name, m.table_type, m._getHeaderRow()])
     
                 for i, col in enumerate(columns):
                     comm.execute("INSERT INTO __columns__ VALUES(?,?,?)", 
