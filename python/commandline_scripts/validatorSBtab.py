@@ -281,7 +281,7 @@ class ValidateFile:
         """
         Check the extension of the file for invalid formats.
         """
-        valid_extensions = ['tsv','csv','xls','ods']
+        valid_extensions = ['tsv','csv','xls','tab']
         if not self.filename[-3:] in valid_extensions:
             self.warnings.append('The file extension is not valid for an SBtab file.')
 

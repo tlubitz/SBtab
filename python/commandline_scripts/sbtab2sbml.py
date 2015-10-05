@@ -27,7 +27,7 @@ class SBtabDocument:
         '''
         self.filename  = filename
 
-        if self.filename.endswith('tsv') or self.filename.endswith('csv') or self.filename.endswith('.xls'): pass
+        if self.filename.endswith('tsv') or self.filename.endswith('tab') or self.filename.endswith('csv') or self.filename.endswith('.xls'): pass
         else: raise ConversionError('The given file format is not supported: '+self.filename)
 
         #This is not required anymore, since we already convert this after the upload in the user interface
