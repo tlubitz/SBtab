@@ -16,7 +16,7 @@ Furthermore, new table types can be easily defined and used directly via the def
 
 How to load tablib object:
 Use "SBtabTools.openSBtab(filepath)" to create SBtab Python object.
-Attention: Only 'tsv', 'csv', 'ods' and 'xls' are supported.
+Attention: Only 'tsv', 'csv', 'tab' and 'xls' are supported.
 
 See specification for further informations.
 """
@@ -577,7 +577,7 @@ class SBtabTable():
         Parameters
         ----------
         format_type : str
-            File extension of the SBtab file. ('tsv', 'csv', 'ods', 'xls')
+            File extension of the SBtab file. ('tsv', 'csv', 'tab', 'xls')
         filename : str
             Filename of the SBtab file without extension. Default is filename.
         sbtab_dataset : tablib object
@@ -590,7 +590,7 @@ class SBtabTable():
         """
         if not filename:
             filename = self.filename[:-4]
-        if format_type == 'tsv':
+        if format_type == 'tsv' or format_type == 'tab':
             tablibIO.writeTSV(self.sbtab_dataset, filename)
         elif format_type == 'csv':
             tablibIO.writeCSV(self.sbtab_dataset, filename)
@@ -599,7 +599,7 @@ class SBtabTable():
         elif format_type == 'xls':
             tablibIO.writeXLS(self.sbtab_dataset, filename)
         else:
-            raise SBtabError('The given file format is not supported: ' + format_type + '. Please use ".tsv", ".csv", ".ods" or ".xls" instead.')
+            raise SBtabError('The given file format is not supported: ' + format_type + '. Please use ".tsv", ".csv", ".tab" or ".xls" instead.')
 
     def duplicate(self):
         """
