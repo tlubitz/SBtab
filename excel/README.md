@@ -1,16 +1,16 @@
-## xlSBtab - an SBtab Excel 2013 Add-in 
-This project hosts a basic Excel Plugin, for opening an [SBML](http://sbml.org) file within Excel and have it be converted to the SBtab format. Alternatively a file edited in the [SBtab](http://sbtab.net/) format can be validated and exported as SBML file. 
+## xlSBtab - an SBtab Excel Add-in 
+This project hosts a basic Excel Add-in, for opening an [SBML](http://sbml.org) file within Excel and have it be converted to the SBtab format. Alternatively a file edited in the [SBtab](http://sbtab.net/) format can be validated and exported as SBML file. 
 
 ### Dependencies
 For the program to work, you will need to have the following installed: 
 
 * Windows Vista or higher
-* Microsoft Excel 2010 or higher, 32 Bit
+* Microsoft Excel 2010 or higher
 * Microsoft .NET Framework 4.5 (full) or higher (can be downloaded directly from Microsoft )
 * Microsoft Visual Studio 2010 Tools for Office Runtime (VSTO) (can be downloaded directly from Microsoft)
 
 ### Installation
-After you installed the plugin, you will find a new tab called 'SBtab' in the Add-ins ribbon menu. On that tab, click settings to verify the python path, and the SBtab location. 
+After you installed the add-in, you will find a new tab called 'SBtab' in the Add-ins ribbon menu. On that tab, click settings to verify the python path, and the SBtab location. This is a crucial step: both paths have to be set to the installation directory of xlSBtab, which is usually either "C:\Program Files\xlSBtab" or "C:\Program Files (x86)\xlSBtab", depending on your system. The Python interpreter needs to be set to "...\xlSBtab\python\python.exe" and the SBtab scripts to "...\xlSBtab\SBtab\scripts".
 
 The add in has four options: 
 
@@ -19,7 +19,7 @@ The add in has four options:
 * **Import SBML**: imports an SBML file and replaces the contents of the current sheet with SBtab tables representing that file.
 * **Export SBML**: translates the tables of the current sheet back into an SBML file. 
 * **Validate**: currently ensures only that the tables have the expected headers. It does not yet validate the entries in the table. 
-* **Settings**: specify the path to the python interpreter ("/xlSBtab/python/python.exe"), and the SBtab script directory ("/xlSBtab/SBtab/scripts"). 
+* **Settings**: specify the path to the Python interpreter and the SBtab script directory. 
 
 Once a model is imported it will be displayed like in the example below (here BioModel 10 was imported): 
 
