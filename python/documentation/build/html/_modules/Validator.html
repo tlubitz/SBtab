@@ -99,7 +99,7 @@
 <span class="sd">            Name of the definition table</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c"># import definitions from definition table</span>
-        <span class="n">definition_table</span> <span class="o">=</span> <span class="n">tablibIO</span><span class="o">.</span><span class="n">importSetNew</span><span class="p">(</span><span class="n">def_table</span><span class="p">,</span><span class="n">def_name</span><span class="p">,</span><span class="n">seperator</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\t</span><span class="s">&#39;</span><span class="p">)</span>
+        <span class="n">definition_table</span> <span class="o">=</span> <span class="n">tablibIO</span><span class="o">.</span><span class="n">importSetNew</span><span class="p">(</span><span class="n">def_table</span><span class="p">,</span><span class="n">def_name</span><span class="p">,</span><span class="n">separator</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\t</span><span class="s">&#39;</span><span class="p">)</span>
         <span class="n">definition_sbtab</span> <span class="o">=</span> <span class="n">SBtab</span><span class="o">.</span><span class="n">SBtabTable</span><span class="p">(</span><span class="n">definition_table</span><span class="p">,</span> <span class="n">def_name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">definitions</span> <span class="o">=</span> <span class="n">definition_sbtab</span><span class="o">.</span><span class="n">sbtab_list</span>
 

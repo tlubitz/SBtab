@@ -20,17 +20,17 @@ try:
 except:
     tablib.Databook.sheets = sheets
 
-def importSetNew(sbtabfile,filename,seperator=None):
+def importSetNew(sbtabfile,filename,separator=None):
     mimetypes.init()
     file_mimetype = mimetypes.guess_type(filename)[0]
     
-    if seperator:
-        return haveTSV(sbtabfile,seperator)
+    if separator:
+        return haveTSV(sbtabfile,separator)
     elif file_mimetype == 'application/vnd.ms-excel' or file_mimetype == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' or file_mimetype == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
         return haveXLS(sbtabfile, True, True)        
     else:
-        seperator = misc.getDelimiter(sbtabfile)
-        return haveTSV(sbtabfile, seperator)            
+        separator = misc.getDelimiter(sbtabfile)
+        return haveTSV(sbtabfile, separator)            
 
     '''
     if file_mimetype == 'text/csv':
@@ -119,12 +119,12 @@ def haveCSV(csvfile,headers):
 
     return dset
 
-def haveTSV(tsvfile,seperator):
+def haveTSV(tsvfile,separator):
     
     in_stream = tsvfile     #.read()
 
     dset = tablib.Dataset()
-    rows = list(csv.reader(in_stream.splitlines(), delimiter=seperator, quotechar='"'))    
+    rows = list(csv.reader(in_stream.splitlines(), delimiter=separator, quotechar='"'))    
 
     try:
         longest = max([len(x) for x in rows])

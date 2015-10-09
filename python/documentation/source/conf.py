@@ -19,10 +19,9 @@ import os
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.insert(0, os.path.abspath('.'))
-print sys.path
 sys.path.insert(0, "/home/jens/sbtab/SBtab/python/")
 sys.path.insert(0, "/home/jens/sbtab/SBtab/python/commandline_scripts/")
-sys.path.insert(0, "/home/jens/sbtab/SBtab/sqlite_interface/")
+sys.path.insert(0, "/home/jens/sbtab/SBtab/python/sqlite_interface/")
 
 # -- General configuration ------------------------------------------------
 

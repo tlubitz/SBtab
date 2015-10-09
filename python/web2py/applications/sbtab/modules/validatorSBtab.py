@@ -30,7 +30,7 @@ class ValidateTable:
             File path of the Sbtab file
         """
         # import definitions from definition table
-        definition_table = tablibIO.importSetNew(def_table,def_name,seperator='\t')
+        definition_table = tablibIO.importSetNew(def_table,def_name,separator='\t')
         definition_sbtab = SBtab.SBtabTable(definition_table, def_name)
         self.definitions = definition_sbtab.sbtab_list
 
@@ -233,9 +233,9 @@ class ValidateFile:
                 self.warnings.append('The lengths of the rows are not identical.\n This will be adjusted automatically.')
             length = len(row)
 
-    def checkSeperator(self, sfile=None):
+    def checkseparator(self, sfile=None):
         '''
-        find the seperator of the file; this is fucked up, but crucial
+        find the separator of the file; this is fucked up, but crucial
         '''
         sep = False
 

@@ -34,7 +34,7 @@ The conversion of an SBML file to SBtab files is easy: simply generate an instan
     (sbtabfiles,warnings) = A.makeSBtabs()
 
     for tab in sbtabfiles:
-        tablib_tab = tablibIO.importSetNew(tab[0],'yourSBMLmodel.xml',seperator='\t')
+        tablib_tab = tablibIO.importSetNew(tab[0],'yourSBMLmodel.xml',separator='\t')
         SBtab_obj = SBtab.SBtabTable(tablib_tab,'yourSBMLmodel.xml')
         SBtab_obj.createDataset()
         SBtab_obj.writeSBtab('tsv', 'yourSBMLmodel.xml'.rstrip('.xml')+'_'+tab[1])

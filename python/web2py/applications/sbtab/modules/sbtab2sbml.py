@@ -105,7 +105,7 @@ class SBtabDocument:
                 for sbtab in sbtabs:
                     sbtabtsv = self.unifySBtab(sbtab)
                     if sbtabtsv == False: continue
-                    new_tablib_obj = tablibIO.importSetNew(sbtabtsv,self.filename,seperator='\t')
+                    new_tablib_obj = tablibIO.importSetNew(sbtabtsv,self.filename,separator='\t')
                     single_tab = SBtab.SBtabTable(new_tablib_obj,self.filename)
                     if single_tab.table_type in self.type2sbtab.keys():
                         fn = random_number = str(random.randint(0,1000))
@@ -121,7 +121,7 @@ class SBtabDocument:
             #generate SBtab class instance for every SBtab
             for sbtab in sbtabs:
                 as_sbtab = '\n'.join(sbtab)
-                new_tablib_obj = tablibIO.importSetNew(as_sbtab,self.filename,seperator='\t')
+                new_tablib_obj = tablibIO.importSetNew(as_sbtab,self.filename,separator='\t')
                 single_tab = SBtab.SBtabTable(new_tablib_obj,self.filename)
                 self.type2sbtab[single_tab.table_type] = single_tab
 

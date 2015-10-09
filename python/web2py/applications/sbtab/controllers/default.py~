@@ -64,8 +64,8 @@ def validator():
         session.ex_warning = None
         try:
             FileValidClass = validatorSBtab.ValidateFile(request.vars.File.value,request.vars.File.filename)
-            seperator      = FileValidClass.checkSeperator(request.vars.File.value)
-            (sbtab_list,types,docs) = splitTabs.checkTabs([request.vars.File.value],request.vars.File.filename,seperator=seperator)
+            separator      = FileValidClass.checkseparator(request.vars.File.value)
+            (sbtab_list,types,docs) = splitTabs.checkTabs([request.vars.File.value],request.vars.File.filename,separator=separator)
             if not session.has_key('sbtabs'):
                 session.sbtabs = ['\n'.join(sbtab_list[0])]
                 session.sbtab_filenames = [request.vars.File.filename[:-4]+'_'+types[0]]
@@ -136,9 +136,9 @@ def validator():
         try:
             FileValidClass = validatorSBtab.ValidateFile(session.sbtabs[int(request.vars.validate_button)],session.sbtab_filenames[int(request.vars.validate_button)])
             v_output       = FileValidClass.returnOutput()
-            try: seperator      = FileValidClass.checkSeperator(session.sbtabs[int(request.vars.validate_button)])
+            try: separator      = FileValidClass.checkseparator(session.sbtabs[int(request.vars.validate_button)])
             except: pass
-            if seperator: new_tablib_obj = tablibIO.importSetNew(session.sbtabs[int(request.vars.validate_button)],session.sbtab_filenames[int(request.vars.validate_button)],seperator=seperator)
+            if separator: new_tablib_obj = tablibIO.importSetNew(session.sbtabs[int(request.vars.validate_button)],session.sbtab_filenames[int(request.vars.validate_button)],separator=separator)
             else:
                 xx_filename = session.sbtab_filenames[int(request.vars.validate_button)]+session.sbtab_fileformat[int(request.vars.validate_button)]
                 new_tablib_obj = tablibIO.importSetNew(session.sbtabs[int(request.vars.validate_button)],xx_filename)
@@ -189,8 +189,8 @@ def converter():
             response.flash = 'form accepted'
             try:
                 FileValidClass = validatorSBtab.ValidateFile(request.vars.File.value,request.vars.File.filename)
-                seperator      = FileValidClass.checkSeperator(request.vars.File.value)            
-                (sbtab_list,types,docs) = splitTabs.checkTabs([request.vars.File.value],request.vars.File.filename,seperator=seperator)
+                separator      = FileValidClass.checkseparator(request.vars.File.value)            
+                (sbtab_list,types,docs) = splitTabs.checkTabs([request.vars.File.value],request.vars.File.filename,separator=separator)
                 if not session.has_key('sbtabs'):
                     session.sbtabs = ['\n'.join(sbtab_list[0])]
                     session.sbtab_filenames = [request.vars.File.filename[:-4]+'_'+types[0]]
@@ -446,7 +446,7 @@ def show_sbtab():
       
     try:
         FileValidClass = validatorSBtab.ValidateFile(sbtab_file,file_name)
-        delimiter      = FileValidClass.checkSeperator(sbtab_file)
+        delimiter      = FileValidClass.checkseparator(sbtab_file)
     except:
         delimiter = None
         

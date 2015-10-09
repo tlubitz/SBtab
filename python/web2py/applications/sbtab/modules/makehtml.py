@@ -13,7 +13,7 @@ def csv2html(sbtab_file,file_name,delimiter,sbtype,def_file=None,def_file_name=N
     '''
     if def_file:
         FileValidClass = validatorSBtab.ValidateFile(def_file,def_file_name)
-        def_delimiter  = FileValidClass.checkSeperator()
+        def_delimiter  = FileValidClass.checkseparator()
     else:
         def_file_open = open('./definitions/definitions.csv','r')
         def_file      = def_file_open.read()
@@ -72,7 +72,7 @@ def xls2html(xls_sbtab,file_name,sbtype,def_file=None,def_file_name=None):
     '''
     if def_file:
         FileValidClass = validatorSBtab.ValidateFile(def_file,def_file_name)
-        def_delimiter  = FileValidClass.checkSeperator(def_file)
+        def_delimiter  = FileValidClass.checkseparator(def_file)
     else:
         def_file_open = open('./definitions/definitions.csv','r')
         def_file      = def_file_open.read()

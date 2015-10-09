@@ -87,16 +87,16 @@ def validator():
                     session.ex_warning_val.append('This xls file could not be imported. Please ensure the validity of the xls format.')
                     break
                 sbtabber  = misc.removeDoubleQuotes(csv_file)
-                seperator = ','
-            elif not FileValidClass.checkSeperator():
+                separator = ','
+            elif not FileValidClass.checkseparator():
                 session.ex_warning_val.append('The delimiter of the file could not be determined. Please use comma or tabs as consistent separators.')
                 break
             else:
-                seperator = FileValidClass.checkSeperator()
+                separator = FileValidClass.checkseparator()
                 sbtabber  = misc.removeDoubleQuotes(request.vars.File.value)
                 
             #3: If there are more than one SBtab files in the uploaded documents, try to split them
-            try: (sbtab_list,types,docs,tnames) = splitTabs.checkTabs([sbtabber],request.vars.File.filename,seperator=seperator)
+            try: (sbtab_list,types,docs,tnames) = splitTabs.checkTabs([sbtabber],request.vars.File.filename,separator=separator)
             except:
                 session.ex_warning_val.append('The SBtab document could not be split into single SBtab tables. Please try uploading them separately.')
                 break
@@ -136,11 +136,11 @@ def validator():
         sbtab2val = session.sbtab_filenames[int(request.vars.validate_button)]
         while valid:
             #1: Can the separator be determined?
-            if not FileValidClass.checkSeperator():
+            if not FileValidClass.checkseparator():
                 session.ex_warning_val = ['The delimiter of the file could not be determined. Please use commas or tabs as consistent separators.']
                 break
-            else: seperator = FileValidClass.checkSeperator()
-            try: new_tablib_obj = tablibIO.importSetNew(session.sbtabs[int(request.vars.validate_button)],session.sbtab_filenames[int(request.vars.validate_button)],seperator=seperator)
+            else: separator = FileValidClass.checkseparator()
+            try: new_tablib_obj = tablibIO.importSetNew(session.sbtabs[int(request.vars.validate_button)],session.sbtab_filenames[int(request.vars.validate_button)],separator=separator)
             except:
                 try:
                     add_extension  = session.sbtab_filenames[int(request.vars.validate_button)]+session.sbtab_fileformat[int(request.vars.validate_button)]
@@ -238,16 +238,16 @@ def converter():
                     session.ex_warning_con = ['This xls file could not be imported. Please ensure the validity of the xls format.']
                     break
                 sbtabber  = misc.removeDoubleQuotes(csv_file)
-                seperator = ','
-            elif not FileValidClass.checkSeperator():
+                separator = ','
+            elif not FileValidClass.checkseparator():
                 session.ex_warning_con = ['The delimiter of the file could not be determined. Please use comma or tabs as consistent separators.']
                 break
             else:
-                seperator = FileValidClass.checkSeperator()
+                separator = FileValidClass.checkseparator()
                 sbtabber  = misc.removeDoubleQuotes(request.vars.File.value)
                 
             #3: If there are more than one SBtab files in the uploaded documents, try to split them
-            try: (sbtab_list,types,docs,tnames) = splitTabs.checkTabs([sbtabber],request.vars.File.filename,seperator=seperator)
+            try: (sbtab_list,types,docs,tnames) = splitTabs.checkTabs([sbtabber],request.vars.File.filename,separator=separator)
             except:
                 session.ex_warning_con = ['The SBtab document could not be split into single SBtab tables. Please try uploading them separately.']
                 break
@@ -499,7 +499,7 @@ def downloader_sbtab():
         content_raw = session.sbtabs[int(request.vars.dl_sbtab_button)]
         try:
             #FileValidClass = validatorSBtab.ValidateFile(content_raw,session.sbtab_filenames[int(request.vars.dl_sbtab_button)])
-            delimiter = misc.getDelimiter(content_raw) #FileValidClass.checkSeperator(content_raw)
+            delimiter = misc.getDelimiter(content_raw) #FileValidClass.checkseparator(content_raw)
         except:
             delimiter = '\t'
         content = misc.first_row(content_raw,delimiter)
@@ -515,7 +515,7 @@ def downloader_sbtab_xls():
             content_raw = session.sbtabs[int(request.vars.dl_xls_sbtab_button)]
             try:
                 FileValidClass = validatorSBtab.ValidateFile(content_raw,session.sbtab_filenames[int(request.vars.dl_xls_sbtab_button)])
-                delimiter      = FileValidClass.checkSeperator(content_raw)
+                delimiter      = FileValidClass.checkseparator(content_raw)
             except:
                 delimiter = None
             try:
@@ -546,7 +546,7 @@ def downloader_sbtab_doc(sbtab_list,iter):
         for sbtab in sbtab_list:
             try:
                 FileValidClass = validatorSBtab.ValidateFile(sbtab,session.sbtab_docnames[iter])
-                delimiter      = FileValidClass.checkSeperator(sbtab)
+                delimiter      = FileValidClass.checkseparator(sbtab)
             except:
                 delimiter = None
             content += misc.first_row(sbtab,delimiter)+'\n'
@@ -577,7 +577,7 @@ def show_sbtab_def():
 
     try:
         FileValidClass = validatorSBtab.ValidateFile(def_file,def_file_name)
-        delimiter      = FileValidClass.checkSeperator()
+        delimiter      = FileValidClass.checkseparator()
     except: delimiter = None
 
     if delimiter:
@@ -597,7 +597,7 @@ def show_sbtab():
 
     try:
         FileValidClass = validatorSBtab.ValidateFile(sbtab_file,file_name)
-        delimiter      = FileValidClass.checkSeperator()
+        delimiter      = FileValidClass.checkseparator()
     except:
         delimiter = None
         

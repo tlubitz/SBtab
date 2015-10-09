@@ -38,7 +38,7 @@ History
 0.9.6 (2011-05-12)
 ++++++++++++++++++
 
-* ``seperators`` renamed to ``separators``
+* ``separators`` renamed to ``separators``
 * Full unicode CSV support
 
 

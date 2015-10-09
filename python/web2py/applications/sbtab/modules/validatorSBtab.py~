@@ -30,7 +30,7 @@ class ValidateTable:
         """
         # import definitions from definition table
         if def_table:  # user provided a custom definition file; let's see how that's working out
-            definition_table = tablibIO.importSetNew(def_table,def_name,seperator='\t')
+            definition_table = tablibIO.importSetNew(def_table,def_name,separator='\t')
             definition_sbtab = SBtab.SBtabTable(definition_table, def_name)
             self.definitions = definition_sbtab.sbtab_list
         else: # no definition table is provided, so use the default one
@@ -232,9 +232,9 @@ class ValidateFile:
                 self.warnings.append('The lengths of the rows are not identical.\n Will be adjusted automatically.')
             length = len(row)
 
-    def checkSeperator(self,sbtabfile):
+    def checkseparator(self,sbtabfile):
         '''
-        find the seperator of the file; this is fucked up, but crucial
+        find the separator of the file; this is fucked up, but crucial
         '''
         sep = False
 

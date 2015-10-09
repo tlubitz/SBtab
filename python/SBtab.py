@@ -83,11 +83,6 @@ class SBtabTable():
         self.update()
 
     def checkAscii(self,table):
-<<<<<<< HEAD
-        """
-        Check for ASCII character violations.
-        """
-=======
         '''
         Checks for ASCII violations, so that the parser will not crash if these occur.
 
@@ -96,7 +91,6 @@ class SBtabTable():
         table : str
             SBtab table as string.
         '''
->>>>>>> 8e07872137dc4b5da1f4f600e63a5e55d5854e36
         new_table = []
 
         for row in table:

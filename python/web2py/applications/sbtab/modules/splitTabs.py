@@ -4,7 +4,7 @@ import SBtab
 import tablibIO
 import misc
 
-def checkTabs(document,filename,seperator=None):
+def checkTabs(document,filename,separator=None):
     '''
     this function checks, how many SBtab files are given by the user and save it/them
     in a list, moreover store the SBtab types in a dict linking to the SBtabs
@@ -26,7 +26,7 @@ def checkTabs(document,filename,seperator=None):
             else: sbtabs = [document_rows]
             #generate SBtab class instance for every SBtab
             for sbtab in sbtabs:
-                new_tablib_obj = tablibIO.importSetNew(sbtab,filename,seperator)
+                new_tablib_obj = tablibIO.importSetNew(sbtab,filename,separator)
                 single_tab = SBtab.SBtabTable(new_tablib_obj,filename)
                 type2sbtab[single_tab.table_type] = single_tab
                 types.append(single_tab.table_type)
@@ -43,7 +43,7 @@ def checkTabs(document,filename,seperator=None):
         #generate SBtab class instance for every SBtab
         for sbtab in sbtabs:
             as_sbtab = '\n'.join(sbtab)
-            new_tablib_obj = tablibIO.importSetNew(as_sbtab,filename,seperator)
+            new_tablib_obj = tablibIO.importSetNew(as_sbtab,filename,separator)
             single_tab = SBtab.SBtabTable(new_tablib_obj,filename)
             type2sbtab[single_tab.table_type] = single_tab
             types.append(single_tab.table_type)

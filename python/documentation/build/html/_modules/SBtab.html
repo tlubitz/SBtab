@@ -51,25 +51,16 @@
 <span class="sd">SBtab</span>
 <span class="sd">=====</span>
 
-<span class="sd">Provides:</span>
-<span class="sd">    1. Automatic tranlations from SBtab file to Python objects</span>
-<span class="sd">    2. Automatic verification of format and files</span>
-<span class="sd">    2. Easily callable and changeable entries in tables</span>
-
-<span class="sd">SBtab is a uniforming spreadsheet format and designed for the use in</span>
+<span class="sd">SBtab is a uniforming table format and designed for the use in</span>
 <span class="sd">Systems Biology. Furthermore, it is a useful format to import stored information</span>
-<span class="sd">into Python to process and edit it.</span>
-
-<span class="sd">Furthermore, new table types can be easily defined and used directly via the definition table.</span>
-
+<span class="sd">into Python objects to process and manipulate it.</span>
 
 <span class="sd">How to load tablib object:</span>
 <span class="sd">Use &quot;SBtabTools.openSBtab(filepath)&quot; to create SBtab Python object.</span>
 <span class="sd">Attention: Only &#39;tsv&#39;, &#39;csv&#39;, &#39;tab&#39; and &#39;xls&#39; are supported.</span>
 
-<span class="sd">See specification for further informations.</span>
+<span class="sd">See specification for further information.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-
 <span class="c">#!/usr/bin/env python</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">copy</span>
@@ -81,7 +72,9 @@
 
 
 <div class="viewcode-block" id="SBtabError"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabError">[docs]</a><span class="k">class</span> <span class="nc">SBtabError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Base class for errors in the SBtab class.&quot;&quot;&quot;</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Base class for errors in the SBtab class.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">message</span>
 
@@ -90,12 +83,12 @@
 
 </div>
 <div class="viewcode-block" id="SBtabTable"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable">[docs]</a><span class="k">class</span> <span class="nc">SBtabTable</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    SBtabTable (version 0.1.0 07/12/2013)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    SBtabTable (version 0.9.0 06/10/2010)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
 <div class="viewcode-block" id="SBtabTable.__init__"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Create SBtab Python object from tablib object.</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Creates SBtab Python object from tablib object.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -103,7 +96,7 @@
 <span class="sd">            Containing one SBtab.</span>
 <span class="sd">        filename : str</span>
 <span class="sd">            Filename with extension.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="c"># Needed to be able to adress it from outside of the class for writing and reading</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>
 
@@ -120,9 +113,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">sbtab_dataset</span> <span class="o">=</span> <span class="p">[]</span>
 </div>
 <div class="viewcode-block" id="SBtabTable.initializeTable"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.initializeTable">[docs]</a>    <span class="k">def</span> <span class="nf">initializeTable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Load table informations and class variables.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Loads table informations and class variables.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="c"># Read the header row from table</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">header_row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getHeaderRow</span><span class="p">()</span>
 
@@ -139,11 +132,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 </div>
 <div class="viewcode-block" id="SBtabTable.checkAscii"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.checkAscii">[docs]</a>    <span class="k">def</span> <span class="nf">checkAscii</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">table</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Check for ASCII character violations.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Checks for ASCII violations, so that the parser will not crash if these occur.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        table : str</span>
+<span class="sd">            SBtab table as string.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">new_table</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="c">#first: check for ascii character violations</span>
+
         <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">table</span><span class="p">:</span>
             <span class="n">new_row</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">entry</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
@@ -158,18 +156,9 @@
         <span class="k">return</span> <span class="n">tablibtable</span>
 </div>
 <div class="viewcode-block" id="SBtabTable._getHeaderRow"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable._getHeaderRow">[docs]</a>    <span class="k">def</span> <span class="nf">_getHeaderRow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Extract the !!-header row from the SBtab file.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        header_row : str</span>
-<span class="sd">            !!-header row of SBtab table as string.</span>
-
-<span class="sd">        Notes</span>
-<span class="sd">        -----</span>
-<span class="sd">        Raise error if no header row could be found in the table.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Extracts the declaration row from the SBtab file.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">header_row</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="c"># Find header row</span>
         <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">:</span>
@@ -211,26 +200,9 @@
         <span class="k">return</span> <span class="n">header</span>
 </div>
 <div class="viewcode-block" id="SBtabTable.getTableInformation"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.getTableInformation">[docs]</a>    <span class="k">def</span> <span class="nf">getTableInformation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Read column type row and store its information.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        table_type : str</span>
-<span class="sd">            Table type of the SBtab table.</span>
-<span class="sd">        table_name : str</span>
-<span class="sd">            Name of the SBtab table.</span>
-<span class="sd">        table_document : str</span>
-<span class="sd">            Document type of SBtab table.</span>
-<span class="sd">        table_version : str</span>
-<span class="sd">            Version of the SBtab table.</span>
-
-<span class="sd">        Notes</span>
-<span class="sd">        -----</span>
-<span class="sd">        If no name was set, name equals table_type and number of occurences of unnamed</span>
-<span class="sd">        tables of same type.</span>
-<span class="sd">        Raise error if no table type is defined.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Reads declaration row and stores the SBtab table attributes.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
 
         <span class="c"># Initialize variables for unnamed table handling</span>
         <span class="k">global</span> <span class="n">tables_without_name</span>
@@ -266,38 +238,23 @@
         <span class="k">return</span> <span class="n">table_type</span><span class="p">,</span> <span class="n">table_name</span><span class="p">,</span> <span class="n">table_document</span><span class="p">,</span> <span class="n">table_version</span><span class="p">,</span> <span class="n">unique_key</span>
 </div>
 <div class="viewcode-block" id="SBtabTable.getCustomTableInformation"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.getCustomTableInformation">[docs]</a>    <span class="k">def</span> <span class="nf">getCustomTableInformation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute_name</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get the value of a specific attribute in the table header</span>
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        value : str</span>
-<span class="sd">            The value of the attribute.</span>
-<span class="sd">        Notes</span>
-<span class="sd">        -----</span>
-<span class="sd">        Raise error if this attribute is defined in the header.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Retrieves the value of a table attribute in the declaration line</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        attribute_name : str</span>
+<span class="sd">           Name of the table attribute.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">=&#39;([^&#39;]*)&#39;&quot;</span> <span class="o">%</span> <span class="n">attribute_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">header_row</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">=&#39;([^&#39;]*)&#39;&quot;</span> <span class="o">%</span> <span class="n">attribute_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">header_row</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">SBtabError</span><span class="p">(</span><span class="s">&#39;The </span><span class="si">%s</span><span class="s"> of the SBtab is not defined!&#39;</span> <span class="o">%</span> <span class="n">attribute_name</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="SBtabTable.getColumns"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.getColumns">[docs]</a>    <span class="k">def</span> <span class="nf">getColumns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Extract the column names of the table, add mandatory first column name if necessary.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        columns : dict</span>
-<span class="sd">            dict of colunm names (str) as key and position (int) as value.</span>
-<span class="sd">        inserted_column : Boolean</span>
-<span class="sd">            True, if mandatory first column was set automatically.</span>
-
-<span class="sd">        Notes</span>
-<span class="sd">        -----</span>
-<span class="sd">        First entry has to be the table type.</span>
-<span class="sd">        Adds first entry in the list, if it doesn&#39;t correspond with the table type.</span>
-<span class="sd">        See specification for further informations.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Extracts the column headers, adds mandatory first column name if necessary.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="c"># Save list of main columns</span>
         <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
@@ -320,30 +277,16 @@
         <span class="k">return</span> <span class="n">column_names</span><span class="p">,</span> <span class="n">columns</span><span class="p">,</span> <span class="n">inserted_column</span><span class="p">,</span> <span class="n">delimiter</span>
 </div>
 <div class="viewcode-block" id="SBtabTable.getRows"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.getRows">[docs]</a>    <span class="k">def</span> <span class="nf">getRows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_type</span><span class="o">=</span><span class="s">&#39;table&#39;</span><span class="p">,</span> <span class="n">inserted</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Extract the rows of the SBtab, add first column if necessary.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        table_type : str (default &#39;table&#39;)</span>
-<span class="sd">            Table type of the SBtab table. Only necessary, if first column was set automatically.</span>
+<span class="sd">            Attribute TableType of the SBtab table. Only necessary, if first column was set automatically.</span>
 <span class="sd">        inserted : Boolean</span>
 <span class="sd">            True, if mandatory first column was set automatically.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        value_rows : list</span>
-<span class="sd">            List containing the entries of the SBtab table as string.</span>
-
-<span class="sd">        Notes</span>
-<span class="sd">        -----</span>
-<span class="sd">        If first column was set automatically, &quot;inserted&quot; is set to True.</span>
-<span class="sd">        The entries in the first column are then an abbreviation of the table type</span>
-<span class="sd">        and the number of the current row. The abbreviation is set using the first and the last</span>
-<span class="sd">        character of the table type.</span>
-<span class="sd">        This function removes comment lines and stores them in a list.</span>
-<span class="sd">        See specification for further informations.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="c"># Add row to list value_rows if row doesn&#39;t contain entries starting with &#39;!&#39;</span>
         <span class="n">value_rows</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -375,29 +318,25 @@
         <span class="k">return</span> <span class="n">value_rows</span>
 </div>
 <div class="viewcode-block" id="SBtabTable.changeValue"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.changeValue">[docs]</a>    <span class="k">def</span> <span class="nf">changeValue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">new</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Change single value in the SBtab table by position in the table.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        row : int</span>
-<span class="sd">            Number of row in the table. First row is number 1.</span>
+<span class="sd">            Number of rows in the table. First row is number 1.</span>
 <span class="sd">        column : int</span>
-<span class="sd">            Number of column in the table. First column is number 1.</span>
+<span class="sd">            Number of columns in the table. First column is number 1.</span>
 <span class="sd">        new : str</span>
 <span class="sd">            New entry.</span>
-
-<span class="sd">        Notes</span>
-<span class="sd">        -----</span>
-<span class="sd">        Old value will be overwritten.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value_rows</span><span class="p">[</span><span class="n">row</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">column</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">new</span>
 
         <span class="c"># Update object</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 </div>
 <div class="viewcode-block" id="SBtabTable.changeValueByName"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.changeValueByName">[docs]</a>    <span class="k">def</span> <span class="nf">changeValueByName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">column_name</span><span class="p">,</span> <span class="n">new</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Change singe value in the SBtab by name of column and of the first row entry.</span>
 
 <span class="sd">        Parameters</span>
@@ -408,17 +347,7 @@
 <span class="sd">            Name of the column (without &#39;!&#39;)</span>
 <span class="sd">        new : str</span>
 <span class="sd">            New entry.</span>
-
-<span class="sd">        Notes</span>
-<span class="sd">        -----</span>
-<span class="sd">        Example:</span>
-<span class="sd">        name : &#39;Rn_4&#39; </span>
-<span class="sd">        column_name : &#39;Gene&#39;</span>
-
-<span class="sd">        Change entry in the column &#39;Gene&#39; for Reaction 4.</span>
-
-<span class="sd">        Be aware, if mandatory column was set, name would be the entry in the new column!</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">col</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns_dict</span><span class="p">[</span><span class="s">&#39;!&#39;</span> <span class="o">+</span> <span class="n">column</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_rows</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
@@ -428,14 +357,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 </div>
 <div class="viewcode-block" id="SBtabTable.createList"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.createList">[docs]</a>    <span class="k">def</span> <span class="nf">createList</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Create a list object of the SBtab Python object.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        sbtab_list : list object</span>
-<span class="sd">            List containing header, columns, value_rows.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Creates a list object of the SBtab Python object.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="c"># Create new list</span>
         <span class="n">sbtab_list</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -447,15 +371,9 @@
         <span class="k">return</span> <span class="n">sbtab_list</span>
 </div>
 <div class="viewcode-block" id="SBtabTable.createDataset"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.createDataset">[docs]</a>    <span class="k">def</span> <span class="nf">createDataset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Create a tablib object of the SBtab Python object.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        sbtab_dataset : tablib object</span>
-<span class="sd">            Tablib dataset of the SBtab Python object.</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Creates a tablib object of the SBtab Python object.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="c"># Initialize empty variables for conversion</span>
         <span class="n">sbtab_temp</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sbtab_dataset</span> <span class="o">=</span> <span class="n">tablib</span><span class="o">.</span><span class="n">Dataset</span><span class="p">()</span>
@@ -503,8 +421,8 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sbtab_dataset</span>
 </div>
 <div class="viewcode-block" id="SBtabTable.addRow"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.addRow">[docs]</a>    <span class="k">def</span> <span class="nf">addRow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_list</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Add row to the table, if postion is None at the end of it.</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Adds row to the table, if postion is None at the end of it.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -512,7 +430,7 @@
 <span class="sd">            List of strings, containing the entries of the new row.</span>
 <span class="sd">        position : int</span>
 <span class="sd">            Position of new row in the table, 0 is on top.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="c"># Empty column to fill up sbtab_dataset with &#39;&#39;</span>
         <span class="n">empty_list</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -542,14 +460,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">initializeTable</span><span class="p">()</span>
 </div>
 <div class="viewcode-block" id="SBtabTable.removeRow"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.removeRow">[docs]</a>    <span class="k">def</span> <span class="nf">removeRow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Remove row from the table</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Removes row from the table</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        position : int</span>
 <span class="sd">            Position of row to be removed. Starting with 1.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &#39;&#39;&#39;</span>
 
         <span class="c"># Create temporary work copy</span>
         <span class="n">sbtab_dataset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span>
@@ -561,16 +479,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">initializeTable</span><span class="p">()</span>
 </div>
 <div class="viewcode-block" id="SBtabTable.addColumn"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.addColumn">[docs]</a>    <span class="k">def</span> <span class="nf">addColumn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column_list</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Add column to the table, if position is None at the end of it.</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Adds a column to the table, if position is None at the end of it.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        column_list : list</span>
 <span class="sd">            List of strings, containing the entries of the new column.</span>
 <span class="sd">        position : int</span>
-<span class="sd">            Positino of new column in the table, 0 is right.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">            Position of new column in the table, 0 is right.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="c"># Empty column to fill up sbtab_dataset with &#39;&#39;</span>
         <span class="n">empty_list</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -603,14 +521,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 </div>
 <div class="viewcode-block" id="SBtabTable.removeColumn"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.removeColumn">[docs]</a>    <span class="k">def</span> <span class="nf">removeColumn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Remove column from the table.</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Removes column from the table.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        position : int</span>
 <span class="sd">            Position of column to be removed. Sarting with 1.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="c"># Remove entries on position</span>
         <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_rows</span><span class="p">:</span>
             <span class="k">del</span> <span class="n">row</span><span class="p">[</span><span class="n">position</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
@@ -622,8 +540,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 </div>
 <div class="viewcode-block" id="SBtabTable.writeSBtab"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.writeSBtab">[docs]</a>    <span class="k">def</span> <span class="nf">writeSBtab</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">format_type</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Write SBtab tablib object to file.</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Writes SBtab tablib object to file.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -631,14 +549,7 @@
 <span class="sd">            File extension of the SBtab file. (&#39;tsv&#39;, &#39;csv&#39;, &#39;tab&#39;, &#39;xls&#39;)</span>
 <span class="sd">        filename : str</span>
 <span class="sd">            Filename of the SBtab file without extension. Default is filename.</span>
-<span class="sd">        sbtab_dataset : tablib object</span>
-<span class="sd">            Tablib object of the SBtab table</span>
-
-<span class="sd">        Notes</span>
-<span class="sd">        -----</span>
-<span class="sd">        Default value for filename is the filename as given with the SBtab object.</span>
-<span class="sd">        Raise error if file format is invalid.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">filename</span><span class="p">:</span>
             <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">format_type</span> <span class="o">==</span> <span class="s">&#39;tsv&#39;</span> <span class="ow">or</span> <span class="n">format_type</span> <span class="o">==</span> <span class="s">&#39;tab&#39;</span><span class="p">:</span>
@@ -653,51 +564,28 @@
             <span class="k">raise</span> <span class="n">SBtabError</span><span class="p">(</span><span class="s">&#39;The given file format is not supported: &#39;</span> <span class="o">+</span> <span class="n">format_type</span> <span class="o">+</span> <span class="s">&#39;. Please use &quot;.tsv&quot;, &quot;.csv&quot;, &quot;.tab&quot; or &quot;.xls&quot; instead.&#39;</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="SBtabTable.duplicate"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.duplicate">[docs]</a>    <span class="k">def</span> <span class="nf">duplicate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Create a copy of the SBtab object.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        sbtab : SBtab object</span>
-<span class="sd">            Copy of the SBtab object</span>
-
-<span class="sd">        Notes</span>
-<span class="sd">        -----</span>
-<span class="sd">        Copy is a deepcopy, see Pyton API for further informations.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Creates a copy of the SBtab object.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">sbtab</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">sbtab</span>
 </div>
 <div class="viewcode-block" id="SBtabTable.update"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Update the SBtab instance, list object and tablib dataset.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Updates the SBtab instance, list object, and tablib dataset.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="c"># Create tablib Dataset instance with new SBtab table</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">createDataset</span><span class="p">()</span>
         <span class="c"># Create list instance with new SBtab table</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sbtab_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">createList</span><span class="p">()</span>
 </div>
 <div class="viewcode-block" id="SBtabTable.createSBtabDict"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.createSBtabDict">[docs]</a>    <span class="k">def</span> <span class="nf">createSBtabDict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Create a dict instance of the SBtab table.</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Creates a dict instance of the SBtab table.</span>
 <span class="sd">        Keys are the column names, values are dicts. These contain the entries of the table.</span>
 <span class="sd">        Keys are the entries in the first column, values are the current entries in the certain column.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        sbtab_dicts : dict</span>
-<span class="sd">            Dictionary of dictionaries of the SBtab object.</span>
-
-<span class="sd">        Notes</span>
-<span class="sd">        -----</span>
-<span class="sd">        Name - column name</span>
-<span class="sd">        Key - entry first row</span>
-<span class="sd">        Value - entry</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">sbtab_dicts</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">column_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
             <span class="n">sbtab_dicts</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
@@ -707,17 +595,9 @@
         <span class="k">return</span> <span class="n">sbtab_dicts</span>
 </div>
 <div class="viewcode-block" id="SBtabTable.transposeTable"><a class="viewcode-back" href="../SBtab.html#SBtab.SBtabTable.transposeTable">[docs]</a>    <span class="k">def</span> <span class="nf">transposeTable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Transpose SBtab table. Switch columns and rows.</span>
-
-<span class="sd">        Notes</span>
-<span class="sd">        -----</span>
-<span class="sd">        Some tables need to store the data in the columns, not in rows. This function enables</span>
-<span class="sd">        the user to use the same dictionaries features of SBtab without formatting the file</span>
-<span class="sd">        by hand.</span>
-
-<span class="sd">        This is necessary to read the definition table for example.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Transposes SBtab table. Switches columns and rows.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="c"># Initialize new table data</span>
         <span class="n">trans_columns</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">trans_columns_dict</span> <span class="o">=</span> <span class="p">{}</span>

@@ -1,10 +1,8 @@
 """
-=======
 SBtab2HTML
 ==========
 
 Python script that converts SBtab file/s to HTML.
-
 """
 #!/usr/bin/env python
 import re
@@ -45,7 +43,7 @@ def csv2html(sbtab_file,file_name,definition_file=None,sbtype=None):
         col2description = findDescriptions(definition_file,def_delimiter,sbtype)
 
     #now start building the HTML file from the SBtab file
-    delimiter = misc.getDelimiter(sbtab_file)    #checkSeperator(sbtab_file)
+    delimiter = misc.getDelimiter(sbtab_file)    #checkseparator(sbtab_file)
     ugly_sbtab = sbtab_file.split('\n')
     nice_sbtab = '<html>\n<body>\n'
     nice_sbtab += '<p>\n<h2><b>'+file_name+'</b></h2>\n</p>\n'
@@ -126,9 +124,9 @@ def findDescriptions(def_file,def_delimiter,sbtype):
 
     return col2description
             
-def checkSeperator(sbtabfile):
+def checkseparator(sbtabfile):
     '''
-    Finds the seperator of the SBtab file.
+    Finds the separator of the SBtab file.
 
     Parameters
     ----------

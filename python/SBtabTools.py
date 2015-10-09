@@ -1,16 +1,16 @@
-"""
+'''
 SBtab Tools
 ===========
 
 These functions facilitate the use of SBtab. 
 They can be used to create SBtab objects, by merging strings or read files, respectively.
-"""
+'''
 
-import .tablib
+import tablib
 import copy
-import .SBtab
+import SBtab
 import os.path
-import .tablibIO
+import tablibIO
 
 def oneOrMany(spreadsheet_file):
     '''

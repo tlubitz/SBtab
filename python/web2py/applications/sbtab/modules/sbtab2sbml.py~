@@ -102,7 +102,7 @@ class SBtabDocument:
                 #generate SBtab class instance for every SBtab
                 for sbtab in sbtabs:
                     sbtabtsv = self.unifySBtab(sbtab)
-                    new_tablib_obj = tablibIO.importSetNew(sbtabtsv,self.filename,seperator='\t')
+                    new_tablib_obj = tablibIO.importSetNew(sbtabtsv,self.filename,separator='\t')
                     single_tab = SBtab.SBtabTable(new_tablib_obj,self.filename)
                     self.type2sbtab[single_tab.table_type] = single_tab
         #elif there is only one document given, possibly consisting of several SBtabs
@@ -115,7 +115,7 @@ class SBtabDocument:
             #generate SBtab class instance for every SBtab
             for sbtab in sbtabs:
                 as_sbtab = '\n'.join(sbtab)
-                new_tablib_obj = tablibIO.importSetNew(as_sbtab,self.filename,seperator='\t')
+                new_tablib_obj = tablibIO.importSetNew(as_sbtab,self.filename,separator='\t')
                 single_tab = SBtab.SBtabTable(new_tablib_obj,self.filename)
                 self.type2sbtab[single_tab.table_type] = single_tab
 
