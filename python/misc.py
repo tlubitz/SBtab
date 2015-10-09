@@ -1,3 +1,10 @@
+"""
+Miscellaneous SBtab functions
+=============================
+
+
+"""
+
 #!/usr/bin/python
 import re
 import xlrd
@@ -5,9 +12,15 @@ import string
 
 def first_row(sbtab_content,delimiter):
     '''
-    revokes a problem in the SBtab/tablib interface: tablib requires all rows to be
-    equally long, but SBtab wants (especially for the export) only one element in
-    the first row.
+    Revokes a problem in the SBtab/tablib interface: tablib requires all rows to be
+    equally long, but SBtab a differing length for the first row.
+
+    Parameters
+    ----------
+    sbtab_content : str
+       SBtab file as string.
+    delimiter : str
+       Delimiter of the column content; usually comma, tab, or semicolon.
     '''
     splitt =  sbtab_content.split('\n')
     new_content = ''
@@ -20,7 +33,16 @@ def first_row(sbtab_content,delimiter):
 
 def create_filename(sbtab_name, table_type, table_name):
     '''
-    creates a unique identifying name for an uploaded sbtab file to be displayed in the interface.
+    Creates a unique identifying name for an uploaded SBtab file to be displayed in the web interface.
+
+    Parameters
+    ----------
+    sbtab_name : str
+       SBtab file name as string.
+    table_type : str
+       SBtab attribute TableType
+    table_name : str
+       SBtab attribute TableName
     '''
     if table_name != '':
         if not table_type.lower() in sbtab_name[:-4].lower(): filename = sbtab_name[:-4]+'_'+table_type+'_'+table_name
@@ -32,38 +54,50 @@ def create_filename(sbtab_name, table_type, table_name):
     return filename
 
 def csv2xls(sbtab_file,delimiter):
-        '''
-        converts sbtab file to xls file
-        @sbtab_file: sbtab string
-        '''
-        import xlwt
-        import tempfile
-        
-        book  = xlwt.Workbook()
-        sheet = book.add_sheet('Sheet 1')
+    '''
+    Converts SBtab file to xls file.
 
-        split_sbtab_file = sbtab_file.split('\n')
+    Parameters
+    ----------
+    sbtab_file : str
+       SBtab file as string.
+    delimiter : str
+       Delimiter of the column content; usually comma, tab, or semicolon.
+    '''
+    import xlwt
+    import tempfile
 
-        first_row = sheet.row(0)
-        first_row.write(0,split_sbtab_file[0])
+    book  = xlwt.Workbook()
+    sheet = book.add_sheet('Sheet 1')
 
-        for i,row in enumerate(split_sbtab_file[1:]):
-            new_row   = sheet.row(i+1)
-            split_row = row.split(delimiter)
-            for j,element in enumerate(split_row):
-                new_row.write(j,element)
+    split_sbtab_file = sbtab_file.split('\n')
 
-        #if something is stupid and it works
-        #then it is not stupid:
-        book.save('simple.xls')
-        fileobject = open('simple.xls','r')
+    first_row = sheet.row(0)
+    first_row.write(0,split_sbtab_file[0])
 
-        return fileobject
+    for i,row in enumerate(split_sbtab_file[1:]):
+        new_row   = sheet.row(i+1)
+        split_row = row.split(delimiter)
+        for j,element in enumerate(split_row):
+            new_row.write(j,element)
+
+    #if something is stupid and it works
+    #then it is not stupid:
+    book.save('simple.xls')
+    fileobject = open('simple.xls','r')
+
+    return fileobject
 
 def getDelimiter(sbtab_file_string):
     '''
-    check the sbtab file for a delimiter
+    Determines the delimiter of an SBtab file.
+    
+    Parameters
+    ----------
+    sbtab_file_string : str
+       SBtab file as string.
     '''
+    
     try: rows = sbtab_file_string.split('\n')
     except: rows = sbtab_file_string
     sep = False
@@ -100,7 +134,12 @@ def getDelimiter(sbtab_file_string):
 
 def removeDoubleQuotes(sbtab_file_string):
     '''
-    remove quotes and double quotes introduced by fucking MS Excel
+    Removes quotes and double quotes introduced by MS Excel
+
+    Parameters
+    ----------
+    sbtab_file_string : str
+       SBtab file as string.
     '''
     try: rows = sbtab_file_string.split('\n')
     except: rows = sbtab_file_string
@@ -118,39 +157,45 @@ def removeDoubleQuotes(sbtab_file_string):
     return new_sbtab
             
 def xls2csv(xls_file,filename):
-        '''
-        converts xls to tsv
-        @xls_file: file of type xlrd
-        '''
-        workbook = xlrd.open_workbook(filename,file_contents=xls_file)
-        sheet    = workbook.sheet_by_name(workbook.sheet_names()[0])
-        
-        getridof = []
-        csv_file = []
+    '''
+    Converts xls file to tsv file.
+    
+    Parameters
+    ----------
+    xls_file : xlrd object
+       Excel sheet file as xlrd object.
+    filename : str
+       File name of the Excel file.
+    '''
+    workbook = xlrd.open_workbook(filename,file_contents=xls_file)
+    sheet    = workbook.sheet_by_name(workbook.sheet_names()[0])
 
-        for i in range(sheet.nrows):
-            stringrow = str(sheet.row(i))
-            notext    = string.replace(stringrow,'text:u','')
-            nonumbers = string.replace(notext,'number:','')
-            noopenbra = string.replace(nonumbers,'[','')
-            noclosebr = string.replace(noopenbra,']','')
-            if '\"!!' in noclosebr:
-                noone = string.replace(noclosebr,'\"',"")
-                noapostr = string.replace(noone,"\'",'\"')
-            else:
-                noone    = string.replace(noclosebr,"\'",'')
-                noapostr = string.replace(noone,'\u201d','\"')
-            nocommas  = noapostr.split(', ')
-            getridof.append(nocommas)
+    getridof = []
+    csv_file = []
 
-        for row in getridof:
-            new_row = ''
-            for elem in row:
-                if not elem == "empty:''" and not elem == 'empty:' and not elem == 'empty:""': new_row += elem+','
-                else: new_row += ','
-            csv_file.append(new_row.rstrip(','))
+    for i in range(sheet.nrows):
+        stringrow = str(sheet.row(i))
+        notext    = string.replace(stringrow,'text:u','')
+        nonumbers = string.replace(notext,'number:','')
+        noopenbra = string.replace(nonumbers,'[','')
+        noclosebr = string.replace(noopenbra,']','')
+        if '\"!!' in noclosebr:
+            noone = string.replace(noclosebr,'\"',"")
+            noapostr = string.replace(noone,"\'",'\"')
+        else:
+            noone    = string.replace(noclosebr,"\'",'')
+            noapostr = string.replace(noone,'\u201d','\"')
+        nocommas  = noapostr.split(', ')
+        getridof.append(nocommas)
 
-        csv_file ='\n'.join(csv_file)
+    for row in getridof:
+        new_row = ''
+        for elem in row:
+            if not elem == "empty:''" and not elem == 'empty:' and not elem == 'empty:""': new_row += elem+','
+            else: new_row += ','
+        csv_file.append(new_row.rstrip(','))
 
-        return csv_file
+    csv_file ='\n'.join(csv_file)
+
+    return csv_file
         

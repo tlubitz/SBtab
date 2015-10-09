@@ -1,3 +1,11 @@
+"""
+SBtab Validator
+===============
+
+Python script that validates SBtab files
+
+See specification for further information.
+"""
 #!/usr/bin/env python
 import SBtab
 import tablibIO
@@ -7,6 +15,9 @@ import sys
 import misc
 
 class SBtabError(Exception):
+    '''
+    Base class for errors in the SBtab validation class.
+    '''
     def __init__(self, message):
         self.message = message
 
@@ -15,21 +26,25 @@ class SBtabError(Exception):
 
 
 class ValidateTable:
-    """
-    Validator (version 0.2.0 15/02/2014)
-    Check SBtab file and SBtab object.
-    """
+    '''
+    Validator (version 0.9 06/10/2015).
+    Checks SBtab file and SBtab object.
+    '''
     def __init__(self, table, sbtab_name, def_table=None,def_name=None):
-        """
-        Initialize validator and start check for file and table format.
+        '''
+        Initialises validator and starts check for file and table format.
 
         Parameters
         ----------
         table : tablib object
-            Tablib object of the Sbtab file
+            Tablib object of the SBtab file.
         sbtab_name : str
-            File path of the Sbtab file
-        """
+            File path of the SBtab file.
+        def_table : str
+            SBtab definition table as string representation.
+        def_name : str
+            SBtab definition table name.
+        '''
         delimiter    = misc.getDelimiter(table)
         sbtab_tablib = tablibIO.importSetNew(table,sbtab_name,delimiter)
         
@@ -94,9 +109,9 @@ class ValidateTable:
         '''
         
     def checkTableFormat(self):
-        """
-        Validate format of SBtab file, check file format and header row.
-        """
+        '''
+        Validates format of SBtab file, checks file format and header row.
+        '''
         # Check tablib heade
 
         if self.table.headers:
@@ -148,9 +163,9 @@ class ValidateTable:
                     columns)
 
     def checkTable(self):
-        """
-        Validate the table type and mandatory format of the SBtab.
-        """
+        '''
+        Validates the mandatory format of the SBtab in accordance to the TableType attribute.
+        '''
         column_check = True
         # general stuff
         # 1st: check validity of table_type and save table type for later tests
@@ -254,20 +269,26 @@ class ValidateTable:
 
     def returnOutput(self):
         '''
-        returns stuff
+        Returns the warnings from the validation process.
         '''
         return self.warnings
 
 
 class ValidateFile:
-    """
-    Validate file and check for valid format.
-
-    Notes
-    -----
-    To open a file: sbtab_file = open("filepath", "rb")
-    """
+    '''
+    Validates file and checks for valid format.
+    '''
     def __init__(self, sbtab_file, filename):
+        '''
+        Initialisation of file validation.
+
+        Parameters
+        ----------
+        sbtab_file : str
+           SBtab file as string representation.
+        filename : str
+           SBtab file name.
+        '''        
         # initialize warning string
         self.warnings = []
 
@@ -278,18 +299,23 @@ class ValidateFile:
         #self.validateFile(self.file)
 
     def validateExtension(self):
-        """
-        Check the extension of the file for invalid formats.
-        """
+        '''
+        Checks the extension of the file for invalid formats.
+        '''
         valid_extensions = ['tsv','csv','xls','tab']
         if not self.filename[-3:] in valid_extensions:
             self.warnings.append('The file extension is not valid for an SBtab file.')
 
 
     def validateFile(self, sbtab_file):
-        """
-        Validate file format and check for possible problems.
-        """
+        '''
+        Validates file format and checks for possible problems.
+
+        Parameters
+        ----------
+        sbtab_file : str
+           SBtab file as string representation.
+        '''
         rows = []
         for line in sbtab_file:
             rows.append(line)
@@ -302,9 +328,9 @@ class ValidateFile:
                 self.warnings.append('The lengths of the rows are not identical.\n This will be adjusted automatically.')
             length = len(row)
 
-    def checkSeperator(self, sfile=None):
+    def checkSeperator(self):
         '''
-        find the seperator of the file; this is fucked up, but crucial
+        Finds the seperator of the file.
         '''
         sep = False
 
@@ -321,7 +347,7 @@ class ValidateFile:
 
     def returnOutput(self):
         '''
-        returns stuff
+        Returns the warnings from the validation process.
         '''
         return self.warnings
 

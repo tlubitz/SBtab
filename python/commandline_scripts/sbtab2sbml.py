@@ -1,3 +1,10 @@
+"""
+SBtab2SBML
+==========
+
+Python script that converts SBtab file/s to SBML.
+
+"""
 #!/usr/bin/env python
 import re, libsbml
 import SBtab
@@ -11,6 +18,9 @@ sbtab_types = ['Quantity','Event','Rule']
 urns = ["obo.chebi","kegg.compound","kegg.reaction","obo.go","obo.sgd","biomodels.sbo","ec-code","kegg.orthology","uniprot"]
 
 class ConversionError(Exception):
+    '''
+    Base class for errors in the SBtab conversion class.
+    '''    
     def __init__(self,message):
         self.message = message
     def __str__(self):
@@ -22,75 +32,33 @@ class SBtabDocument:
     '''
     def __init__(self,sbtab,filename=None,tabs=1):
         '''
-        initalize SBtab document, check it for SBtabs
-        if there are more than 1 SBtab file to be convered, please provide a "tabs" parameter higher than 1.
+        Initalizes SBtab document, checks it for SBtab count.
+        If there are more than 1 SBtab file to be converted, provide a "tabs" parameter higher than 1.
+
+        Parameters
+        ----------
+        sbtab : str
+           SBtab file as string representation.
+        filename : str
+           SBtab file name.
+        tabs : int
+           Amount of SBtab tables in the provided file.
         '''
         self.filename  = filename
 
         if self.filename.endswith('tsv') or self.filename.endswith('tab') or self.filename.endswith('csv') or self.filename.endswith('.xls'): pass
         else: raise ConversionError('The given file format is not supported: '+self.filename)
 
-        #This is not required anymore, since we already convert this after the upload in the user interface
-        #if self.filename.endswith('.xls') or self.filename.endswith('.xlsx'):
-        #    self.document = [self.makeTSVfile(sbtab_document)]
-        #else:
         self.document = [sbtab]
         self.tabs      = tabs            
         self.unit_mM   = False
         self.unit_mpdw = False
         self.checkTabs()              #check how many SBtabs are given in the document
 
-    def makeTSVfile(self,xls_file):
+    def checkTabs(self):
         '''
-        converts xls to tsv
-        @xls_file: file of type xlrd
-        '''
-        import xlrd
-        workbook = xlrd.open_workbook(self.filename,file_contents=xls_file)
-        sheet    = workbook.sheet_by_name('Sheet1')                   
-        
-        getridof = []
-        tsv_file = []
-
-        for i in range(sheet.nrows):
-            stringrow = str(sheet.row(i))
-            notext    = string.replace(stringrow,'text:u','')
-            nonumbers = string.replace(notext,'number:','')
-            noopenbra = string.replace(nonumbers,'[','')
-            noclosebr = string.replace(noopenbra,']','')
-            if '\"!!' in noclosebr:
-                noone = string.replace(noclosebr,'\"',"")
-                noapostr = string.replace(noone,"\'",'\"')
-            else:
-                noone    = string.replace(noclosebr,"\'",'')
-                noapostr = string.replace(noone,'\u201d','\"')
-            nocommas  = noapostr.split(', ')
-            getridof.append(nocommas)
-
-        for row in getridof:
-            new_row = ''
-            for elem in row:
-                if not elem == "empty:''" and not elem == 'empty:' and not elem == 'empty:""':
-                    new_row += elem+'\t'
-            tsv_file.append(new_row.rstrip('\t'))
-
-
-        tsv_file ='\n'.join(tsv_file)
-
-        '''
-        for i in range(xls_file.nrows):
-            row = ''
-            for j in range(xls_file.ncols):
-                row += str(xls_file.cell_value(i,j))+'\t'
-            tsv_file.append(row.rstrip('\t')+'\n')
-        '''
-        return tsv_file
-
-
-    def checkTabs(self,doc=None):
-        '''
-        this function checks, how many SBtab files are given by the user and save it/them
-        in a list, moreover store the SBtab types in a dict linking to the SBtabs
+        Checks, how many SBtab files are given by the user and saves them
+        in a list, moreover stores the SBtab types in a dict linking to the SBtabs.
         '''
         self.type2sbtab = {}
 
@@ -129,7 +97,12 @@ class SBtabDocument:
 
     def unifySBtab(self,sbtab):
         '''
-        if we have a list of heterogeneous SBtab files, we have to unify them to one common delimiter; we choose \t arbitrarily
+        If we have a list of heterogeneous SBtab files, we have to unify them to one common delimiter; we choose \t arbitrarily.
+
+        Parameters
+        ----------
+        sbtab : str
+           SBtab file as string representation.
         '''
         new_tab = []
 
@@ -164,7 +137,12 @@ class SBtabDocument:
             
     def getAmountOfTables(self,document_rows):
         '''
-        counts the SBtab tables that are present in the document
+        Counts the SBtab tables that are present in the document.
+
+        Parameters
+        ----------
+        document_rows : str
+           Whole SBtab document as a string representation.
         '''
         counter = 0
         for row in document_rows:
@@ -174,8 +152,12 @@ class SBtabDocument:
 
     def splitDocumentInTables(self,document_rows):
         '''
-        if the document contains more than one SBtab, this function splits the document
-        into the single SBtabs
+        If the document contains more than one SBtab, this function splits the document into the single SBtabs.
+
+        Parameters
+        ----------
+        document_rows : str
+           Whole SBtab document as a string representation.
         '''
         single_sbtab = [document_rows[0]]
         sbtab_list   = []
@@ -189,7 +171,7 @@ class SBtabDocument:
 
     def makeSBML(self):
         '''
-        generates the SBML file using the mandatory reaction SBtab file
+        Generates the SBML file using the provided SBtab file/s.
         '''
         # initialize new model
         self.warnings     = []
@@ -244,6 +226,10 @@ class SBtabDocument:
         return newSBML,self.warnings
 
     def getWarningOnly(self):
+        '''
+        Returns warnings from the SBML conversion.
+        '''
+        
         return self.warnings
     
     def checkForCompartments(self):
@@ -291,7 +277,18 @@ class SBtabDocument:
 
     def setAnnotation(self,element,annotation,urn,elementtype):
         '''
-        sets an annotation for a given SBML element
+        Sets an annotation for a given SBML element.
+
+        Parameters
+        ----------
+        element : libsbml object
+           Element that needs to be annotated.
+        annotation : str
+           The identifier part of the annotation string.
+        urn : str
+           URN that links to the external web resource.
+        elementtype : str
+           What kind of element needs to be annotated? Model or Biological?
         '''
         element.setMetaId(element.getId()+"_meta")
         cv_term = libsbml.CVTerm()
@@ -309,7 +306,7 @@ class SBtabDocument:
 
     def compartmentSBtab(self):
         '''
-        extract the information from the Compartment SBtab and write it to the model
+        Extracts the information from the Compartment SBtab and writes it to the model.
         '''
         sbtab     = self.type2sbtab['Compartment']
         comp2size = {}
@@ -360,7 +357,7 @@ class SBtabDocument:
 
     def compoundSBtab(self):
         '''
-        extract the information from the Compound SBtab and write it to the model
+        Extracts the information from the Compound SBtab and writes it to the model.
         '''
         sbtab = self.type2sbtab['Compound']
 
@@ -440,7 +437,7 @@ class SBtabDocument:
 
     def reactionSBtab(self):
         '''
-        extract the information from the Reaction SBtab and write it to the model
+        Extracts the information from the Reaction SBtab and writes it to the model.
         '''
         sbtab = self.type2sbtab['Reaction']
 
@@ -669,7 +666,7 @@ class SBtabDocument:
 
     def makeUnitDefmM(self):
         '''
-        builds unit definition; right now only in case of mM
+        Builds unit definition; right now only in case of mM.
         '''
         ud = self.new_model.createUnitDefinition()
         ud.setId('mM')
@@ -685,7 +682,7 @@ class SBtabDocument:
 
     def makeUnitDefmpdw(self):
         '''
-        builds unit definition; right now only in case of molecules/gram dry weight
+        Builds unit definition; right now only in case of molecules/gram dry weight.
         '''
         ud = self.new_model.createUnitDefinition()
         ud.setId('mmol_per_gDW_per_hr')
@@ -709,7 +706,12 @@ class SBtabDocument:
 
     def extractRegulators(self,mods):
         '''
-        extracts the regulators from the column "Regulator"
+        Extracts the regulators from the column "Regulator".
+
+        Parameters
+        ----------
+        mods : str
+           The modifiers of a reaction.
         '''
         activators = []
         inhibitors = []
@@ -725,7 +727,12 @@ class SBtabDocument:
         
     def getReactants(self,sbtab):
         '''
-        extracts the reactants from the sum formula
+        Extracts the reactants from the a reaction formula.
+
+        Parameters
+        ----------
+        sbtab : SBtab object
+           SBtab file as SBtab object.
         '''
         self.reaction2reactants   = {}
         self.rrps2stoichiometry   = {}
@@ -776,6 +783,7 @@ class SBtabDocument:
 
     def quantitySBtab(self):
         '''
+        Extracts the information from the Quantity SBtab and writes it to the model.
         '''
         sbtab = self.type2sbtab['Quantity']
 
@@ -824,6 +832,7 @@ class SBtabDocument:
 
     def eventSBtab(self):
         '''
+        Extracts the information from the Event SBtab and writes it to the model.
         '''
         sbtab = self.type2sbtab['Event']
 
@@ -885,6 +894,7 @@ class SBtabDocument:
 
     def ruleSBtab(self):
         '''
+        Extracts the information from the Rule SBtab and writes it to the model.
         '''
         sbtab = self.type2sbtab['Rule']
 

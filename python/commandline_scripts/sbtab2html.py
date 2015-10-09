@@ -1,3 +1,11 @@
+"""
+SBtab2HTML
+==========
+
+Python script that converts SBtab file/s to HTML.
+
+"""
+
 #!/usr/bin/env python
 import re
 import string
@@ -6,9 +14,20 @@ import misc
 
 urns = ["obo.chebi","kegg.compound","kegg.reaction","obo.go","obo.sgd","biomodels.sbo","ec-code","kegg.orthology","uniprot"]
 
-def csv2html(sbtab_file,file_name,definition_file,sbtype=None):
+def csv2html(sbtab_file,file_name,definition_file=None,sbtype=None):
     '''
-    generates html view out of csv file
+    Generates html view out of csv file.
+
+    Parameters
+    ----------
+    sbtab_file : str
+       SBtab file as string representation.
+    file_name : str
+       SBtab file name.
+    definition_file : str
+       SBtab definition file as string representation.
+    sbtype : str
+       SBtab attribute TableType.
     '''
     #extract information from the definition file
     if not definition_file:
@@ -21,6 +40,9 @@ def csv2html(sbtab_file,file_name,definition_file,sbtype=None):
         except:
             print 'You have not provided the definition file and it cannot be found in this directory. Please provide it.'
             sys.exit(1)
+    else:
+        def_delimiter = '\t'
+        col2description = findDescriptions(definition_file,def_delimiter,sbtype)
 
     #now start building the HTML file from the SBtab file
     delimiter = misc.getDelimiter(sbtab_file)    #checkSeperator(sbtab_file)
@@ -74,7 +96,16 @@ def csv2html(sbtab_file,file_name,definition_file,sbtype=None):
 
 def findDescriptions(def_file,def_delimiter,sbtype):
     '''
-    preprocesses the definition file in order to enable some nice mouseover effects for the known column names
+    Preprocesses the definition file in order to enable some nice mouseover effects for the known column names.
+
+    Parameters
+    ----------
+    def_file : str
+       SBtab definition file as string representation.
+    def_delimiter : str
+       Delimiter used for the columns; usually comma, tab, or semicolon.
+    sbtype : str
+       SBtab attribute TableType.
     '''    
     col2description = {}
     col_dsc         = False
@@ -97,7 +128,12 @@ def findDescriptions(def_file,def_delimiter,sbtype):
             
 def checkSeperator(sbtabfile):
     '''
-    find the seperator of the file; this is fucked up, but crucial
+    Finds the seperator of the SBtab file.
+
+    Parameters
+    ----------
+    sbtabfile : str
+       SBtab file as string representation.
     '''
     sep = False
 

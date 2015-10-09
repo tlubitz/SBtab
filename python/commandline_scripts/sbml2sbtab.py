@@ -1,3 +1,12 @@
+"""
+SBML2SBtab Converter
+====================
+
+Python script that converts an SBML file to SBtab file/s.
+
+See specification for further information.
+"""
+
 #!/usr/bin/env python
 import re, libsbml, numpy
 import sys
@@ -5,6 +14,9 @@ import sys
 allowed_sbtabs = ['Reaction','Compound','Compartment','Quantity','Event','Rule']
 
 class ConversionError(Exception):
+    '''
+    Base class for errors in the SBtab conversion class.
+    '''
     def __init__(self,message):
         self.message = message
     def __str__(self):
@@ -16,7 +28,14 @@ class SBMLDocument:
     '''
     def __init__(self,sbml_model,filename):
         '''
-        initalize SBtab document, check it for SBtabs
+        Initalizes SBtab document, checks it for SBtabs
+
+        Parameters
+        ----------
+        sbml_model : libsbml object
+            SBML model as libsbml object.
+        filename : str
+            Filename with extension.
         '''
         #reader      = libsbml.SBMLReader()
         #sbml_modelx = reader.readSBML(sbml_model)
@@ -37,7 +56,7 @@ class SBMLDocument:
 
     def makeSBtabs(self):
         '''
-        generates the SBtab files
+        Generates the SBtab files.
         '''
         self.warnings = []
         sbtabs        = []
@@ -59,7 +78,7 @@ class SBMLDocument:
 
     def testForInconvertibles(self):
         '''
-        some SBML entities cannot be converted to SBML. so we add warnings to tell the user.
+        Some SBML entities cannot be converted to SBML. Thus, we add warnings to tell the user about omitting them.
         '''
         try:
             rules = self.model.getListOfRules()
@@ -69,7 +88,12 @@ class SBMLDocument:
         
     def getRidOfNone(self,sbtabs):
         '''
-        remove empty SBtabs (if no values for an SBtab were provided by the SBML)
+        Removes empty SBtabs (if no values for an SBtab were provided by the SBML).
+
+        Parameters
+        ----------
+        sbtabs : list
+           List of single SBtab files.
         '''
         new_tabs = []
         for element in sbtabs:
@@ -79,7 +103,12 @@ class SBMLDocument:
 
     def getRidOfEmptyColumns(self,sbtabs):
         '''
-        remove empty columns.
+        Removes empty columns.
+
+        Parameters
+        ----------
+        sbtabs : list
+           List of single SBtab files.        
         '''
         sbtab2empty_columns = {}
 
@@ -116,9 +145,9 @@ class SBMLDocument:
 
     def compartmentSBtab(self):
         '''
-        build a Compartment SBtab
+        Builds a Compartment SBtab.
         '''
-        compartment  = [['!!SBtab SBtabVersion="0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Compartment" TableName="Compartment"'],['']]
+        compartment  = [['!!SBtab SBtabVersion="0.9" Document="'+self.filename.rstrip('.xml')+'" TableType="Compartment" TableName="Compartment"'],['']]
         header       = ['!Compartment','!Name','!Size','!Unit','!SBOTerm']
         identifiers  = []
         column2ident = {}
@@ -156,9 +185,9 @@ class SBMLDocument:
         
     def compoundSBtab(self):
         '''
-        builds a Compound SBtab
+        Builds a Compound SBtab.
         '''
-        compound = [['!!SBtab SBtabVersion="0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Compound" TableName="Compound"'],['']]
+        compound = [['!!SBtab SBtabVersion="0.9" Document="'+self.filename.rstrip('.xml')+'" TableType="Compound" TableName="Compound"'],['']]
         header   = ['!Compound','!Name','!Location','!Charge','!IsConstant','!SBOTerm','!InitialConcentration','!hasOnlySubstanceUnits']
         identifiers  = []
         column2ident = {}
@@ -201,12 +230,12 @@ class SBMLDocument:
 
     def eventSBtab(self):
         '''
-        builds an Event SBtab
+        Builds an Event SBtab.
         '''
         if len(self.model.getListOfEvents()) == 0:
             return False
             
-        event    = [['!!SBtab SBtabVersion="0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Event" TableName="Event"'],['']]
+        event    = [['!!SBtab SBtabVersion="0.9" Document="'+self.filename.rstrip('.xml')+'" TableType="Event" TableName="Event"'],['']]
         header   = ['!Event','!Name','!Assignments','!Trigger','!SBOterm','!Delay','!UseValuesFromTriggerTime']
         identifiers  = []
         column2ident = {}
@@ -265,12 +294,12 @@ class SBMLDocument:
 
     def ruleSBtab(self):
         '''
-        builds a Rule SBtab
+        Builds a Rule SBtab.
         '''
         if len(self.model.getListOfRules()) == 0:
             return False
             
-        rule     = [['!!SBtab SBtabVersion="0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Rule" TableName="Rule"'],['']]
+        rule     = [['!!SBtab SBtabVersion="0.9" Document="'+self.filename.rstrip('.xml')+'" TableType="Rule" TableName="Rule"'],['']]
         header   = ['!Rule','!Name','!Formula','!Unit']
         identifiers  = []
         column2ident = {}
@@ -309,7 +338,7 @@ class SBMLDocument:
 
     def getAnnotations(self,element):
         '''
-        try and extract an annotation from an SBML element. PS: this is tricky stuff.
+        Tries to extract an annotation from an SBML element.
         '''
         cvterms      = element.getCVTerms()
         annotation   = False
@@ -319,7 +348,7 @@ class SBMLDocument:
         pattern2urn = {"CHEBI:\d+$":"obo.chebi",\
                        "C\d+$":"kegg.compound",\
                        "GO:\d{7}$":"obo.go",\
-                       "((S\d+$)|(Y[A-Z]{2}\d{3}[a-zA-Z](\-[A-Z])?))$":"obo.sgd",\
+                       "((S\d+$)|(Y[A-Z]{2}\d{3}[a-zA-Z](\-[A-Z])?))$":"sgd",\
                        "SBO:\d{7}$":"biomodels.sbo",\
                        "\d+\.-\.-\.-|\d+\.\d+\.-\.-|\d+\.\d+\.\d+\.-|\d+\.\d+\.\d+\.(n)?\d+$":"ec-code",\
                        "K\d+$":"kegg.orthology",\
@@ -347,9 +376,9 @@ class SBMLDocument:
 
     def reactionSBtab(self):
         '''
-        builds a Reaction SBtab
+        Builds a Reaction SBtab.
         '''
-        reaction     = [['!!SBtab SBtabVersion="0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Reaction" TableName="Reaction"'],['']]
+        reaction     = [['!!SBtab SBtabVersion="0.9" Document="'+self.filename.rstrip('.xml')+'" TableType="Reaction" TableName="Reaction"'],['']]
         header       = ['!Reaction','!Name','!ReactionFormula','!Location','!Regulator','!KineticLaw','!SBOTerm','!IsReversible']
         identifiers  = []
         column2ident = {}
@@ -399,7 +428,7 @@ class SBMLDocument:
 
     def quantitySBtab(self):
         '''
-        builds a Quantity SBtab
+        Builds a Quantity SBtab.
         '''
         if len(self.model.getListOfParameters()) == 0:
             for reaction in self.model.getListOfReactions():
@@ -408,7 +437,7 @@ class SBMLDocument:
                 else: break
             return False        
         
-        quantity_SBtab = '!!SBtab SBtabVersion="0.8" Document="'+self.filename.rstrip('.xml')+'" TableType="Quantity" TableName="Quantity"\n!Quantity\t!SBML:parameter:id\t!Value\t!Unit\t!Description'
+        quantity_SBtab = '!!SBtab SBtabVersion="0.9" Document="'+self.filename.rstrip('.xml')+'" TableType="Quantity" TableName="Quantity"\n!Quantity\t!SBML:parameter:id\t!Value\t!Unit\t!Description'
         identifiers = []
         the_rows    = ''
 
@@ -460,7 +489,12 @@ class SBMLDocument:
 
     def makeSumFormula(self,reaction):
         '''
-        generates the sum formula of a reaction from the list of products and list of reactants
+        Generates the reaction formula of a reaction from the list of products and list of reactants.
+
+        Parameters
+        ----------
+        reaction : libsbml object reaction
+           Single reaction object from the SBML file.
         '''
         sumformula = ''
         id2name    = {}
