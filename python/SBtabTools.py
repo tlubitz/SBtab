@@ -2,7 +2,7 @@
 SBtab Tools
 ===========
 
-These functions facilitates the use of SBtab. 
+These functions facilitate the use of SBtab. 
 They can be used to create SBtab objects, by merging strings or read files, respectively.
 """
 
@@ -13,20 +13,14 @@ import os.path
 import .tablibIO
 
 def oneOrMany(spreadsheet_file):
-    """
-    Check for multiple tables in a file and cut them into separate tablib object.
-    Take a spreadsheet file and return a list of tablib object.
+    '''
+    Checks for multiple tables in a file and cuts them into separate tablib object.
 
     Parameters
     ----------
     spreadsheet_file : tablib object
-        Tablib object of the whole table.
-
-    Returns
-    -------
-    sbtabs : list
-        List of single tablib objects.
-    """
+        Tablib object of the whole SBtab table.
+    '''
     sbtabs = []
 
     # Copy file, one for iteration, one for cutting
@@ -57,20 +51,14 @@ def oneOrMany(spreadsheet_file):
     return sbtabs
 
 def openSBtab(filepath):
-    """
-    Open SBtab from file. 
-    Take a file path and return an SBtab object.
+    '''
+    Opens SBtab from file. 
 
     Parameters
     ----------
     filepath : str
-        Path of the spread sheet file.
-
-    Returns
-    -------
-    sbtab : SBtab object
-        SBtab object of the table
-    """
+        Path of the spreadsheet file.
+    '''
     if not os.path.isfile(filepath):
         return None
 
@@ -81,29 +69,19 @@ def openSBtab(filepath):
 
 
 def createDataset(header_row, columns, value_rows, filename):
-    """
-    Create an SBtab object by merging strings or list of strings.
-    Take a header row, main column row and the value rows as lists of strings and return an SBtab object.
+    '''
+    Creates an SBtab object by merging strings or list of strings.
+    Takes a header row, main column row, and the value rows as lists of strings and returns an SBtab object.
 
     Parameters
     ----------
     header_row : str
         String of the header row.
     columns: list
-        List of strings, name of the columns.
+        List of strings, names of the columns.
     value_rows : list
         List of lists containing the different rows of the table.
-
-    Returns
-    -------
-    sbtab : SBtab instance
-        SBtab object of the table.
-
-    Notes
-    -----
-    First entry in columns should be consistent with table type.
-    Otherwise the SBtab object will have a automatically added column.
-    """
+    '''
     # Initialize variables
     sbtab_temp = []
     sbtab_dataset = tablib.Dataset()
