@@ -1,3 +1,7 @@
+"""
+sbtab2html
+==========
+"""
 #!/usr/bin/env python
 import re, libsbml
 import SBtab

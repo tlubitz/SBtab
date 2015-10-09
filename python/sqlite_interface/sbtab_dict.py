@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 """
 tablib.dictionary.sbtab_dict
 ~~~~~~~~~~~~~
@@ -7,6 +5,7 @@ A wrapper object for handling an SBtab with multiple tables using
 a dictinoary.
 Also, includes methods for I/O between SQLite and SBtab.
 """
+# -*- coding: utf-8 -*-
 import SBtabTools 
 from SBtab import SBtabTable, SBtabError
 import tablib

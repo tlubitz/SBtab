@@ -1,3 +1,7 @@
+"""
+sbml2sbtab
+==========
+"""
 #!/usr/bin/env python
 import re, libsbml, numpy
 import sys

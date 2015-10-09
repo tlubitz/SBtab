@@ -90,7 +90,9 @@ class SBtabTable():
         self.update()
 
     def checkAscii(self,table):
-
+        """
+        Check for ASCII character violations.
+        """
         new_table = []
         #first: check for ascii character violations
         for row in table:

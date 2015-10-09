@@ -1,3 +1,8 @@
+"""
+Validator
+=====
+"""
+
 #!/usr/bin/env python
 import SBtab
 import tablibIO

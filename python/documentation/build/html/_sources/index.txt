@@ -12,10 +12,15 @@ Contents:
    :maxdepth: 3
 
    SBtab
-   SBtabTools
-   Validator
    Scripts
    Web2py
+   misc
+   validatorSBtab
+   sbtab_dict
+   sbml2sbtab
+   sbtab2sbml
+   sbtab2html
+   SBtabTools
 
 Indices and tables
 ==================

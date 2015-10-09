@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="SBtab 0.8 documentation" href="index.html" />
     <link rel="next" title="Web2py standalone version" href="Web2py.html" />
-    <link rel="prev" title="Validator" href="Validator.html" /> 
+    <link rel="prev" title="SBtab" href="SBtab.html" /> 
   </head>
   <body>
     <div class="related">
@@ -41,7 +41,7 @@
           <a href="Web2py.html" title="Web2py standalone version"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="Validator.html" title="Validator"
+          <a href="SBtab.html" title="SBtab"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">SBtab 0.8 documentation</a> &raquo;</li> 
       </ul>
@@ -68,46 +68,40 @@
 <li>re (regular expression module for python)</li>
 </ul>
 <p>If you are experiencing troubles running or embedding the scripts, do not hesitate to contact Timo Lubitz (<a class="reference external" href="mailto:timo&#46;lubitz&#37;&#52;&#48;hu-berlin&#46;de">timo<span>&#46;</span>lubitz<span>&#64;</span>hu-berlin<span>&#46;</span>de</a>).</p>
-<p><strong>1. Converting an SBML file to SBtab output files.</strong></p>
+<ol class="arabic simple">
+<li>Converting an SBML file to SBtab output files.</li>
+</ol>
 <p>The conversion of an SBML file to SBtab files is easy: simply generate an instance of the class SBMLDocument in sbml2sbtab.py. You have to provide an SBML file as a libsbml instance and a model name as a string. Then start the function makeSBtabs():</p>
 <blockquote>
-<div><div class="line-block">
-<div class="line">reader     = libsbml.SBMLReader()</div>
-<div class="line">sbml       = reader.readSBML(&#8216;yourSBMLmodel.xml&#8217;)</div>
-<div class="line">A          = SBMLDocument(sbml,&#8217;mysbmlmodel.xml&#8217;)</div>
-<div class="line">sbtabfiles = A.makeSBtabs()</div>
-</div>
-</div></blockquote>
+<div>reader     = libsbml.SBMLReader()
+sbml       = reader.readSBML(&#8216;yourSBMLmodel.xml&#8217;)
+A          = SBMLDocument(sbml,&#8217;mysbmlmodel.xml&#8217;)
+sbtabfiles = A.makeSBtabs()</div></blockquote>
 <p>The SBtab files are now stored as a list of SBtab classes in the variable sbtabfiles. If the SBML model provides the required information, the output SBtab files are of the types: compartment, reaction, compound, and quantitytype.</p>
-<p><strong>2. Converting SBtab files to an SBML output file.</strong></p>
+<ol class="arabic simple" start="2">
+<li>Converting SBtab files to an SBML output file.</li>
+</ol>
 <p>The conversion from SBtab files to SBML files can be done analogously. Create an instance of the class SBtabDocument in sbtab2sbml.py. The parameters that have to be provided are an SBtab file (of the type reaction) or a list of SBtab files (including one of the type reaction), a filename as a string, and the amount of SBtab files you are providing. Then start the function makeSBML() and the new SBML file is stored in sbml_file:</p>
 <blockquote>
-<div><div class="line-block">
-<div class="line">#first: open x SBtab files</div>
-<div class="line">sbtab_reaction = open(&#8216;sbtabs/sbtab_reaction_full.tsv&#8217;,&#8217;r&#8217;)</div>
-<div class="line">sbtab_compound = open(&#8216;sbtabs/sbtab_compound_full.tsv&#8217;,&#8217;r&#8217;)</div>
-</div>
-<div class="line-block">
-<div class="line">#second: if there are more than one SBtab file, create a list document    </div>
-<div class="line">document = []</div>
-<div class="line">document.append(sbtab_reaction.read())    </div>
-<div class="line">document.append(sbtab_compound.read())</div>
-</div>
-<div class="line-block">
-<div class="line">#third: create class instance and create SBML</div>
-<div class="line">sbtab_class = SBtabDocument(document,&#8217;sbtabname.tsv&#8217;,2)</div>
-<div class="line">sbml_file   = sbtab_class.makeSBML()</div>
-</div>
+<div><p>#first: open x SBtab files
+sbtab_reaction = open(&#8216;sbtabs/sbtab_reaction_full.tsv&#8217;,&#8217;r&#8217;)
+sbtab_compound = open(&#8216;sbtabs/sbtab_compound_full.tsv&#8217;,&#8217;r&#8217;)</p>
+<p>#second: if there are more than one SBtab file, create a list document
+document = []
+document.append(sbtab_reaction.read())
+document.append(sbtab_compound.read())</p>
+<p>#third: create class instance and create SBML
+sbtab_class = SBtabDocument(document,&#8217;sbtabname.tsv&#8217;,2)
+sbml_file   = sbtab_class.makeSBML()</p>
 </div></blockquote>
-<p><strong>3. Converting SBtab files an HTML output file.</strong></p>
+<ol class="arabic simple" start="3">
+<li>Converting SBtab files an HTML output file.</li>
+</ol>
 <p>SBtab files in csv format can be converted to HTML files by using the script sbtab2html.py. Please make sure that the file definitions.csv is available in the directory the script is started from. definitions.csv is required for the HTML mouseovers of the columns. The parameters for starting the converter are the SBtab file, the name of the file as a string, and the SBtab table type as a string. The script returns the SBtab file as HTML, moreover this HTML file is written on your hard disk.</p>
 <blockquote>
-<div><div class="line-block">
-<div class="line">sbtab_file = open(&#8216;your_sbtab.csv&#8217;,&#8217;r&#8217;)    </div>
-<div class="line">sbtab      = sbtab_file.read()    </div>
-<div class="line">html_file  = sbtab2html.csv2html(sbtab,&#8217;your_sbtab.csv&#8217;,&#8217;your_tabletype&#8217;)</div>
-</div>
-</div></blockquote>
+<div>sbtab_file = open(&#8216;your_sbtab.csv&#8217;,&#8217;r&#8217;)
+sbtab      = sbtab_file.read()
+html_file  = sbtab2html.csv2html(sbtab,&#8217;your_sbtab.csv&#8217;,&#8217;your_tabletype&#8217;)</div></blockquote>
 </div>
 
 
@@ -117,8 +111,8 @@
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
-  <p class="topless"><a href="Validator.html"
-                        title="previous chapter">Validator</a></p>
+  <p class="topless"><a href="SBtab.html"
+                        title="previous chapter">SBtab</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="Web2py.html"
                         title="next chapter">Web2py standalone version</a></p>
@@ -157,7 +151,7 @@
           <a href="Web2py.html" title="Web2py standalone version"
              >next</a> |</li>
         <li class="right" >
-          <a href="Validator.html" title="Validator"
+          <a href="SBtab.html" title="SBtab"
              >previous</a> |</li>
         <li><a href="index.html">SBtab 0.8 documentation</a> &raquo;</li> 
       </ul>

@@ -1,3 +1,7 @@
+"""
+sbtab2sbml
+==========
+"""
 #!/usr/bin/env python
 import re
 import string
