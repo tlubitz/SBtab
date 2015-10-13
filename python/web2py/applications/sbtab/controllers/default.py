@@ -62,11 +62,11 @@ def validator():
     response.subtitle = T('Online Validator')
 
     if not session.definition_file:
-        def_file_open = open('./definitions/definitions.csv','r')    
+        def_file_open = open('./definitions/definitions.tsv','r')    
         session.definition_file      = [def_file_open.read()]
-        session.definition_file_name = ['definitions.csv']
+        session.definition_file_name = ['definitions.tsv']
 
-    lform = SQLFORM.factory(Field('File', 'upload',uploadfolder="/tmp", label='Upload SBtab file (.csv, .xls)'))
+    lform = SQLFORM.factory(Field('File', 'upload',uploadfolder="/tmp", label='Upload SBtab file (.csv, .tsv, .tab, .xls)',requires=IS_LENGTH(10485760, 1, error_message='Max upload size: 10MB')))
 
     #update session lists
     if lform.process().accepted:
@@ -77,7 +77,7 @@ def validator():
         while valid:
             #1: Is the file extension valid?
             if not FileValidClass.validateExtension():
-                session.ex_warning_val.append('The file format was not supported. Please use .csv or .xls.')
+                session.ex_warning_val.append('The file format was not supported. Please use .csv, .tsv, .tab, or .xls.')
                 break
 
             #2: Can the separator be determined?
@@ -158,9 +158,9 @@ def validator():
                         v_output.append(warning)
                 else:
                     iss = False
-                    def_file_open = open('./definitions/definitions.csv','r')    
+                    def_file_open = open('./definitions/definitions.tsv','r')    
                     session.definition_file      = [def_file_open.read()]
-                    session.definition_file_name = ['definitions.csv']
+                    session.definition_file_name = ['definitions.tsv']
                     TableValidClass = validatorSBtab.ValidateTable(new_tablib_obj,session.sbtab_filenames[int(request.vars.validate_button)],session.definition_file[0],session.definition_file_name[0])
                     for itemx in TableValidClass.returnOutput():
                         v_output.append(itemx)
@@ -217,7 +217,7 @@ def converter():
     response.subtitle = T('SBML / SBtab Conversion')
 
     #Form for SBtab files
-    lform = SQLFORM.factory(Field('File', 'upload',uploadfolder="/tmp", label='Upload SBtab file to convert (.csv, .xls)'))
+    lform = SQLFORM.factory(Field('File', 'upload',uploadfolder="/tmp", label='Upload SBtab file to convert (.csv, .tsv, .tab, .xls)',requires=IS_LENGTH(10485760, 1, error_message='Max upload size: 10MB')))
 
     #update session lists
     if lform.process(formname='form_one').accepted:
@@ -228,7 +228,7 @@ def converter():
         while valid:
             #1: Is the file extension valid?
             if not FileValidClass.validateExtension():
-                session.ex_warning_con = ['The file format was not supported. Please use .csv or .xls.']
+                session.ex_warning_con = ['The file format was not supported. Please use .csv, .tsv, .tab, or .xls.']
                 break
 
             #2: Can the separator be determined?
@@ -365,15 +365,15 @@ def converter():
             pass
 
     #Form for SBML files
-    rform = SQLFORM.factory(Field('File', 'upload',uploadfolder="/tmp", label='Upload SBML file to convert (.xml)'))
+    rform = SQLFORM.factory(Field('File', 'upload',uploadfolder="/tmp", label='Upload SBML file to convert (.xml)',requires=IS_LENGTH(52428800, 1, error_message='Max upload size: 50MB')))
 
     if rform.process(formname='form_two').accepted:
         response.flash         = 'form accepted'
         session.ex_warning_con = None
         valid = True
         while valid:
-            if request.vars.File.filename[-3:] != 'xml':
-                session.ex_warning_con = ['The uploaded file has a different extension than .xml and does not seem to be an SBML file.']
+            if request.vars.File.filename[-3:] != 'xml' and request.vars.File.filename[-4:] != 'sbml':
+                session.ex_warning_con = ['The uploaded file has a different extension than .xml or .sbml and does not seem to be an SBML file.']
                 break
             if not session.has_key('sbmls'):
                 session.sbmls = [request.vars.File.value]
@@ -404,7 +404,7 @@ def converter():
             reader     = libsbml.SBMLReader()
             sbml_model = reader.readSBMLFromString(session.sbmls[int(request.vars.c2sbtab_button)])
             filename   = session.sbml_filenames[int(request.vars.c2sbtab_button)]
-            if not filename.endswith('.xml'): filename += '.xml'
+            if not filename.endswith('.xml') and not filename.endswith('.sbml'): filename += '.xml'
             ConvSBMLClass                   = sbml2sbtab.SBMLDocument(sbml_model.getModel(),filename)
             (tab_output,session.ex_warning_con) = ConvSBMLClass.makeSBtabs()
             # append generated SBtabs to session variables
@@ -456,13 +456,13 @@ def def_files():
     response.title = T('SBtab - Standardised data tables for Systems Biology')
     response.subtitle = T('Upload your own definition files')
 
-    dform   = SQLFORM.factory(Field('File', 'upload',uploadfolder="/tmp", label='Upload new definition file (.csv, .tsv)'))
+    dform   = SQLFORM.factory(Field('File', 'upload',uploadfolder="/tmp", label='Upload new definition file (.csv, .tsv, .tab)',requires=IS_LENGTH(10485760, 1, error_message='Max upload size: 10MB')))
     #new_def = False
     
     if not session.definition_file:
-        def_file_open = open('./definitions/definitions.csv','r')    
+        def_file_open = open('./definitions/definitions.tsv','r')    
         session.definition_file      = [def_file_open.read()]
-        session.definition_file_name = ['definitions.csv']
+        session.definition_file_name = ['definitions.tsv']
 
     #update session lists
     if dform.process().accepted:
@@ -490,7 +490,7 @@ def troubles():
 
 def downloader_sbtab():
         response.headers['Content-Type'] = 'text/csv'
-        if not session.sbtab_filenames[int(request.vars.dl_sbtab_button)].endswith('.csv') and not session.sbtab_filenames[int(request.vars.dl_sbtab_button)].endswith('.tsv') and not session.sbtab_filenames[int(request.vars.dl_sbtab_button)].endswith('.xls'):
+        if not session.sbtab_filenames[int(request.vars.dl_sbtab_button)].endswith('.csv') and not session.sbtab_filenames[int(request.vars.dl_sbtab_button)].endswith('.tsv') and not session.sbtab_filenames[int(request.vars.dl_sbtab_button)].endswith('.xls') and not session.sbtab_filenames[int(request.vars.dl_sbtab_button)].endswith('.tab'):
             attachment = 'attachment;filename=' + session.sbtab_filenames[int(request.vars.dl_sbtab_button)]+'.csv'
         else: attachment = 'attachment;filename=' + session.sbtab_filenames[int(request.vars.dl_sbtab_button)]
         response.headers['Content-Disposition'] = attachment
@@ -535,7 +535,7 @@ def downloader_sbtab_xls():
 
 def downloader_sbtab_doc(sbtab_list,iter):
         response.headers['Content-Type'] = 'text/csv'
-        if not session.sbtab_docnames[iter].endswith('.csv') and not session.sbtab_docnames[iter].endswith('.tsv'):
+        if not session.sbtab_docnames[iter].endswith('.csv') and not session.sbtab_docnames[iter].endswith('.tsv')  and not session.sbtab_docnames[iter].endswith('.tab'):
             attachment = 'attachment;filename=' + session.sbtab_docnames[iter]+'.csv'
         else: attachment = 'attachment;filename=' + session.sbtab_docnames[iter]
         response.headers['Content-Disposition'] = attachment
@@ -557,7 +557,7 @@ def downloader_sbtab_doc(sbtab_list,iter):
 
 def downloader_sbml():
         response.headers['Content-Type'] = 'text/xml'
-        if not session.sbml_filenames[int(request.vars.dl_sbml_button)].endswith('.xml'):
+        if not session.sbml_filenames[int(request.vars.dl_sbml_button)].endswith('.xml') and not session.sbml_filenames[int(request.vars.dl_sbml_button)].endswith('.sbml'):
             attachment = 'attachment;filename=' + session.sbml_filenames[int(request.vars.dl_sbml_button)]+'.xml'
         else: attachment = 'attachment;filename=' + session.sbml_filenames[int(request.vars.dl_sbml_button)]
         response.headers['Content-Disposition'] = attachment
@@ -605,9 +605,9 @@ def show_sbtab():
         def_file      = session.definition_file[0]
         def_file_name = session.definition_file_name[0]
     except:
-        def_file_open = open('./definitions/definitions.csv','r')    
+        def_file_open = open('./definitions/definitions.tsv','r')    
         def_file      = def_file_open.read()
-        def_file_name = 'definitions.csv'
+        def_file_name = 'definitions.tsv'
 
     if delimiter:
         try: return makehtml.csv2html(sbtab_file,file_name,delimiter,sbtype,def_file,def_file_name)
