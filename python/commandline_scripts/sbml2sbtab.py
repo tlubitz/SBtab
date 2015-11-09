@@ -429,12 +429,14 @@ class SBMLDocument:
         '''
         Builds a Quantity SBtab.
         '''
+        pars = True
         if len(self.model.getListOfParameters()) == 0:
+            pars = False
             for reaction in self.model.getListOfReactions():
                 kinetic_law = reaction.getKineticLaw()
-                if len(kinetic_law.getListOfParameters()) == 0: continue
-                else: break
-            return False        
+                if len(kinetic_law.getListOfParameters()) != 0: pars = True
+
+        if not pars: return False
         
         quantity_SBtab = '!!SBtab SBtabVersion="0.9" Document="'+self.filename.rstrip('.xml')+'" TableType="Quantity" TableName="Quantity"\n!Quantity\t!SBML:parameter:id\t!Value\t!Unit\t!Description'
         identifiers = []
