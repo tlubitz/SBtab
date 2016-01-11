@@ -581,3 +581,9 @@ class SBtabTable():
         self.value_rows = trans_value_rows
 
         self.update()
+
+    def toDataFrame(self):
+        import pandas as pd
+        column_names = map(lambda s: s[1:], self.columns)
+        df = pd.DataFrame(data=self.getRows(), columns=column_names)
+        return df
