@@ -1,32 +1,16 @@
-#' Read an SBtab file in TSV (Tab-Separated Values format) into an data.frame
-#' 
-#' \code{sbtab_read_tsv} returns a list containing the header and the data.frame.
-#' 
-#' This function only supports files with a single table.
-#' 
-#' @param fname A file name to read from.
-#' @return  list containing the header and the data.frame.
-sbtab_read_tsv <- function(fname) {
-  mydata <- read.table(fname, sep="\t", stringsAsFactors = FALSE)
-  header <- as.character(mydata$V1[1])
-  header <- substr(header, 3, nchar(header))    # remove the !! from the header text
-  columns <- as.character(mydata[2,]) 
-  columns <- substr(columns, 2, nchar(columns)) # remove the ! from each column title
-  data <- mydata[(3):dim(mydata)[1],]
-  sbtab <- data.frame(data, row.names = NULL)
-  names(sbtab) <- columns
-  return(list(header=header, sbtab=sbtab))
-}
-
 #' Read an SBtab file in TSV (Tab-Separated Values format) with multiple tables
 #' 
-#' \code{one_or_many} returns a list of all headers and tables
+#' Returns a list of all headers and tables
 #' 
 #' This function supports files with multiple tables separated by '%'
 #' 
 #' @param fname A file name to read from.
 #' @return nested list containing a list of headers and a list of sbtabs.
-one_or_many <- function(fname) {
+#' @author Elad Noor, \email{noor@imsb.biol.ethz.ch}
+#' @export
+#' 
+one_or_many <- 
+  function(fname) {
   headers <- list()
   sbtabs <- list()
   mydata <- read.table(fname, sep="\t", stringsAsFactors = FALSE)
