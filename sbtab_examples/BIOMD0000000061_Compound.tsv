@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 !!SBtab SBtabVersion '0.8' Document='Hynne_2001' TableType='Compound' TableName='Compound'							
+=======
+!!SBtab SBtabVersion="0.8" Document="Hynne_2001" TableType="Compound" TableName="Compound"							
+>>>>>>> c19309f3e3ef79d003c590e458548db468d7573a
 !Compound	!Name	!Location	!Charge	!IsConstant	!SBOTerm	!Unit	!Compound:Identifiers:sbo.kegg
 GlcX	GlcX	extracellular	0	False	SBO:0000299	mM	C00031
 Glc	Glc	cytosol	0	False	SBO:0000299	mM	C00031

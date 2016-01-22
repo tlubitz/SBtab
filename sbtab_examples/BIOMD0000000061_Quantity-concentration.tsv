@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 !!SBtab SBtabVersion '0.8' Document='Hynne_2001' TableType='Quantity' TableName='Quantity-species'						
+=======
+!!SBtab SBtabVersion="0.8" Document="Hynne_2001" TableType="Quantity" TableName="Quantity-species"						
+>>>>>>> c19309f3e3ef79d003c590e458548db468d7573a
 !Quantity	!Compound	!Location	!Value	!Unit	!SBOTerm	!QuantityType
 Sp1	GlcX	extracellular	6.7	mM	SBO:0000196	concentration
 Sp2	Glc	cytosol	0.573074	mM	SBO:0000196	concentration
