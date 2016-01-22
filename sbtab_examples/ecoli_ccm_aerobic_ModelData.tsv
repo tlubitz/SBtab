@@ -30,7 +30,7 @@ SDH_R02164	Ubiquinone + Succinate <=> Fumarate + Ubiquinol	R02164	True	SDH	Commo
 FUM_R01082	Fumarate + H2O <=> _S__Malate	R01082	True	FUM	Common saturable (CM)	u_R28 * ( kC_R28 * sqrt( kEQ_R28  * kM_R28_Fumarate * kM_R28_H2O / kM_R28__S__Malate ) * ( Fumarate / kM_R28_Fumarate ) * ( H2O / kM_R28_H2O ) - kC_R28 / sqrt( kEQ_R28  * kM_R28_Fumarate * kM_R28_H2O / kM_R28__S__Malate ) * ( _S__Malate / kM_R28__S__Malate ) ) / ( ( 1 + Fumarate / kM_R28_Fumarate ) * ( 1 + H2O / kM_R28_H2O ) * ( 1 + _S__Malate / kM_R28__S__Malate ) )
 MDH_R00342	_S__Malate + NADplus <=> NADH + Oxaloacetate	R00342	True	MDH	Common saturable (CM)	u_R29 * ( kC_R29 * sqrt( kEQ_R29  * kM_R29__S__Malate * kM_R29_NADplus / kM_R29_NADH / kM_R29_Oxaloacetate ) * ( _S__Malate / kM_R29__S__Malate ) * ( NADplus / kM_R29_NADplus ) - kC_R29 / sqrt( kEQ_R29  * kM_R29__S__Malate * kM_R29_NADplus / kM_R29_NADH / kM_R29_Oxaloacetate ) * ( NADH / kM_R29_NADH ) * ( Oxaloacetate / kM_R29_Oxaloacetate ) ) / ( ( 1 + _S__Malate / kM_R29__S__Malate ) * ( 1 + NADplus / kM_R29_NADplus ) * ( 1 + NADH / kM_R29_NADH ) * ( 1 + Oxaloacetate / kM_R29_Oxaloacetate ) )
 %						
-!!SBtab TableName='Compound' TableType='Compound' Document='Model'						
+!!SBtab SBtabVersion='0.8' TableName='Compound' TableType='Compound' Document='Model'						
 !Compound	!Name	!Identifiers:kegg.compound	!IsConstant			
 _S__Malate	(S)-Malate	C00149	False			
 Acetyl_CoA	Acetyl-CoA	C00024	False			
@@ -73,7 +73,7 @@ _2_Phospho_D_glycerate	2-Phospho-D-glycerate	C00631	False
 Succinate	Succinate	C00042	False			
 Sedoheptulose_7_phosphate	Sedoheptulose 7-phosphate	C05382	False			
 %						
-!!SBtab TableName='RateConstant' TableType='Quantity' Document='Model'						
+!!SBtab SBtabVersion='0.8' TableName='RateConstant' TableType='Quantity' Document='Model'						
 !QuantityType	!Value	!Unit	!Compound	!Reaction	!Compound:Identifiers:kegg.compound	!Reaction:Identifiers:kegg.reaction
 equilibrium constant	51340046			PTS_RPTSsy		RPTSsy
 equilibrium constant	0.36576352			PGI_R02740		R02740
@@ -302,7 +302,7 @@ product catalytic rate constant	160.99601	1/s		SDH_R02164		R02164
 product catalytic rate constant	165.71422	1/s		FUM_R01082		R01082
 product catalytic rate constant	767.24091	1/s		MDH_R00342		R00342
 %						
-!!SBtab TableName='Flux' TableType='Quantity' Unit='mM/s'						
+!!SBtab SBtabVersion='0.8' TableName='Flux' TableType='Quantity' Unit='mM/s'						
 !QuantityType	!Reaction	!Reaction:Identifiers:kegg.reaction	!Flux			
 flux	PTS_RPTSsy	RPTSsy	0.609			
 flux	PGI_R02740	R02740	0.504			
@@ -334,7 +334,7 @@ flux	SDH_R02164	R02164	0.077
 flux	FUM_R01082	R01082	0.077			
 flux	MDH_R00342	R00342	0.091			
 %						
-!!SBtab TableName='GibbsEnergyOfFormation' TableType='Quantity' Unit='kJ/mol' StandardConcentration='1mM'						
+!!SBtab SBtabVersion='0.8' TableName='GibbsEnergyOfFormation' TableType='Quantity' Unit='kJ/mol' StandardConcentration='1mM'						
 !QuantityType	!Compound	!Compound:Identifiers:kegg.compound	!Value			
 standard Gibbs energy of formation	_S__Malate	C00149	-761.84273			
 standard Gibbs energy of formation	Acetyl_CoA	C00024	-791.5391			
@@ -377,7 +377,7 @@ standard Gibbs energy of formation	_2_Phospho_D_glycerate	C00631	-811.9054
 standard Gibbs energy of formation	Succinate	C00042	-537.42793			
 standard Gibbs energy of formation	Sedoheptulose_7_phosphate	C05382	-898.29581			
 %						
-!!SBtab TableName='GibbsEnergyOfReaction' TableType='Quantity' Unit='kJ/mol' StandardConcentration='1mM'						
+!!SBtab SBtabVersion='0.8' TableName='GibbsEnergyOfReaction' TableType='Quantity' Unit='kJ/mol' StandardConcentration='1mM'						
 !QuantityType	!Reaction	!Reaction:Identifiers:kegg.reaction	!Value	!OriginalValue	!SumFormula	
 standard Gibbs energy of reaction	PTS_RPTSsy	RPTSsy	-44.281981	-44.281981	D_Glucose + Phosphoenolpyruvate <=> Pyruvate + D_Glucose_6_phosphate	
 standard Gibbs energy of reaction	PGI_R02740	R02740	2.5085872	2.5085872	D_Glucose_6_phosphate <=> D_Fructose_6_phosphate	
@@ -409,7 +409,7 @@ standard Gibbs energy of reaction	SDH_R02164	R02164	-21.595126	-21.576753	Ubiqui
 standard Gibbs energy of reaction	FUM_R01082	R01082	-3.4486706	-3.4457364	Fumarate + H2O <=> _S__Malate	
 standard Gibbs energy of reaction	MDH_R00342	R00342	26.918927	26.896024	_S__Malate + NADplus <=> NADH + Oxaloacetate	
 %						
-!!SBtab TableName='Concentration' TableType='Quantity' Unit='mM'						
+!!SBtab SBtabVersion='0.8' TableName='Concentration' TableType='Quantity' Unit='mM'						
 !QuantityType	!Compound	!Compound:Identifiers:kegg.compound	!Concentration			
 concentration	_S__Malate	C00149	1.68			
 concentration	Acetyl_CoA	C00024	0.606			
@@ -452,7 +452,7 @@ concentration	_2_Phospho_D_glycerate	C00631	NaN
 concentration	Succinate	C00042	0.569			
 concentration	Sedoheptulose_7_phosphate	C05382	NaN			
 %						
-!!SBtab TableName='EnzymeConcentration' TableType='Quantity' Unit='mM'						
+!!SBtab SBtabVersion='0.8' TableName='EnzymeConcentration' TableType='Quantity' Unit='mM'						
 !QuantityType	!Reaction	!Reaction:Identifiers:kegg.reaction	!EnzymeConcentration			
 concentration of enzyme	PTS_RPTSsy	RPTSsy	0.0052772441			
 concentration of enzyme	PGI_R02740	R02740	0.0044271666			
@@ -484,7 +484,7 @@ concentration of enzyme	SDH_R02164	R02164	NaN
 concentration of enzyme	FUM_R01082	R01082	0.0015986991			
 concentration of enzyme	MDH_R00342	R00342	0.024144199			
 %						
-!!SBtab TableName='ConcentrationConstraint' TableType='Quantity' Unit='mM'						
+!!SBtab SBtabVersion='0.8' TableName='ConcentrationConstraint' TableType='Quantity' Unit='mM'						
 !QuantityType	!Compound	!Compound:Identifiers:kegg.compound	!Concentration:Min	!Concentration:Max		
 concentration	_S__Malate	C00149	0.001	10		
 concentration	Acetyl_CoA	C00024	0.001	10		
@@ -527,7 +527,7 @@ concentration	_2_Phospho_D_glycerate	C00631	0.001	10
 concentration	Succinate	C00042	0.001	10		
 concentration	Sedoheptulose_7_phosphate	C05382	0.001	10		
 %						
-!!SBtab TableName='Position' TableType='Position'						
+!!SBtab SBtabVersion='0.8' TableName='Position' TableType='Position'						
 !Element	!PositionX	!PositionY				
 _S__Malate	0.32772	0.095058				
 Acetyl_CoA	0.359426	0.22902				

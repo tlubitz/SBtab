@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-!!SBtab SBtabVersion '0.8' Document='Boolean_example' TableType='Relationship' TableName='Relationship'					
-=======
-!!SBtab SBtabVersion="0.8" Document="Boolean_example" TableType="Relationship" TableName="Relationship"					
->>>>>>> c19309f3e3ef79d003c590e458548db468d7573a
+!!SBtab SBtabVersion='0.8' Document='Boolean_example' TableType='Relationship' TableName='Relationship'					
 !Relationship	!From	!To	!Value	!IsSymmetric	!Sign
 R1	A	B	1	False	+
 R2	B	C	1	False	+
