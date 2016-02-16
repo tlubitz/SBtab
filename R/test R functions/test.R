@@ -5,17 +5,21 @@ library(RJSONIO)
 library(rPython)
 
 #set working directory and python path
-python.exec("import sys")
-python.exec("sys.path.append('/home/working/directory/with/python/files/')")
-setwd("/home/working/directory/with/python/files/")
+python.exec("import sys, os")
+python.exec("basedir = os.path.expanduser('~/git/SBtab')")
+python.exec("sys.path.append(basedir + '/python')")
+python.exec("sys.path.append(basedir + '/python/commandline_scripts')")
+setwd(path.expand('~/git/SBtab/R/test R functions'))
 
 #load some of the python scripts.
 #please be aware that the executable scripts validatorSBtab, sbtab2sbml, and sbml2sbtab have to
 #be edited to disable the auto execution; easiest to do this is exclusion of the __main__ methods.
-python.load("SBtab.py")
-python.load("validatorSBtab.py")
-python.load("sbtab2sbml.py")
-python.load("sbml2sbtab.py")
+python.exec("import libsbml")
+python.exec("import tablibIO")
+python.exec("from SBtab import SBtabTable")
+python.exec("from validatorSBtab import ValidateTable")
+python.exec("from sbtab2sbml import SBtabDocument")
+python.exec("from sbml2sbtab import SBMLDocument")
 
 #first, generate SBtab object
 python.exec("sbtab_file   = open('reaction.tsv','r')")
@@ -54,7 +58,7 @@ python.call("SBtab_obj.addRow",value_rows[[1]])
 python.call("SBtab_obj.removeRow",1)
 
 #4. remove a column
-python.call("SBtab_obj.removeColumn”,1)
+python.call("SBtab_obj.removeColumn",1)
 
 #5. validate the SBtab file and save warnings in R variable
 python.exec("V_obj = ValidateTable(file_content,'reaction.tsv')")
@@ -64,11 +68,13 @@ warnings <- python.get("V_obj.warnings")
 python.exec("sbtab_file = SBtabDocument(file_content,'reaction.tsv',1)")
 python.exec("pysbml = sbtab_file.makeSBML()")
 rsbml <- python.get("pysbml")
+write(rsbml[[1]], file='sbml.xml')
 
 #7. convert SBML to SBtab
 python.exec("reader = libsbml.SBMLReader()")
 python.exec("sbml = reader.readSBML('sbml.xml')")
-python.exec("A = SBMLDocument(model,'yourSBMLmodel.xml')")
+python.exec("A = SBMLDocument(sbml,'yourSBMLmodel.xml')")
 python.exec("(sbtabfiles,warnings) = A.makeSBtabs()")
 sbtabs <- python.get("sbtabfiles")
 warnings <- python.get("warnings")
+
