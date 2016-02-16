@@ -1,4 +1,4 @@
-!!SBtab SBtabVersion='1.0' !TableType='Definition' !Table='Allowed_types'				
+!!SBtab SBtabVersion='1.0' TableType='Definition' TableName='Allowed_types'				
 !ComponentName	!ComponentType	!IsPartOf	!Format	!Description
 Comment	Column	Reaction	string	Comment
 ReferenceName	Column	Reaction	string	Reference title, authors, etc. (as free text)
@@ -14,7 +14,7 @@ PositionX	Column	Reaction	float	x coordinate for graphical display
 PositionY	Column	Reaction	float	y coordinate for graphical display
 Reaction	Column	Reaction	string	Reaction shortname
 SBML:reaction:id	Column	Reaction	string	SBML ID of reaction
-SumFormula	Column	Reaction	string	Reaction sum formula
+ReactionFormula	Column	Reaction	string	Reaction formula
 Location	Column	Reaction	string	Compartment for localised reaction
 Enzyme	Column	Reaction	string	Enzyme catalysing the reaction
 Model	Column	Reaction	string	Model(s) in which the reaction is involved
@@ -126,6 +126,7 @@ Symbol	Column	Quantity	string	Short symbol (e.g. gene symbol)
 PositionX	Column	Quantity	float	x coordinate for graphical display
 PositionY	Column	Quantity	float	y coordinate for graphical display
 Quantity	Column	Quantity	string	Quantity shortname
+QuantityName	Column	Quantity	string	Quantity (name)
 QuantityType	Column	Quantity	string	Quantity type (e.g. from SBO)
 Value	Column	Quantity	float	Simple value
 Mean	Column	Quantity	float	Algebraic mean
@@ -139,6 +140,8 @@ ProbDist	Column	Quantity	string	Probability distribution
 SBML:parameter:id	Column	Quantity	string	Parameter ID in SBML file
 Unit	Column	Quantity	string	Physical unit
 Scale	Column	Quantity	string	Scale (e.g. logarithm)
+Time	Column	Quantity	float	Time value
+TimePoint	Column	Quantity	string	Time point name or identifier
 Condition	Column	Quantity	string	experimental condition name (free text)
 pH	Column	Quantity	float	pH value in measurement
 Temperature	Column	Quantity	float	Temperature in measurement
@@ -205,3 +208,44 @@ ComponentType	Column	Definition	string	Type of component
 IsPartOf	Column	Definition	string	Name of parent component
 Format	Column	Definition	string	Format
 Description	Column	Definition	string	Free text description of component
+Comment	Column	QuantityMatrix	string	Comment
+ReferenceName	Column	QuantityMatrix	string	Reference title, authors, etc. (as free text)
+ReferencePubMed	Column	QuantityMatrix	string	Reference PubMed ID
+ReferenceDOI	Column	QuantityMatrix	string	Reference DOI
+Description	Column	QuantityMatrix	string	Description of the row element
+Name	Column	QuantityMatrix	string	Entity name
+MiriamAnnotations	Column	QuantityMatrix	string	Entity ID
+Type	Column	QuantityMatrix	string	Biochemical type of entity
+Symbol	Column	QuantityMatrix	string	Short symbol (e.g. gene symbol)
+PositionX	Column	QuantityMatrix	float	x coordinate for graphical display
+PositionY	Column	QuantityMatrix	float	y coordinate for graphical display
+Time	Column	QuantityMatrix	float	Time value
+TimePoint	Column	QuantityMatrix	string	Time point name or identifier
+>Table:Column	Column	QuantityMatrix	string	Pointer to column in another table
+>Document:Table:Column	Column	QuantityMatrix	string	Pointer to column in another document
+Quantity	Column	QuantityMatrix	string	Quantity shortname
+QuantityName	Column	QuantityMatrix	string	Quantity (name)
+QuantityType	Column	QuantityMatrix	string	Quantity type (e.g. from SBO)
+Value	Column	QuantityMatrix	float	Simple value
+Mean	Column	QuantityMatrix	float	Algebraic mean
+Std	Column	QuantityMatrix	float	Standard deviation (positive)
+Min	Column	QuantityMatrix	float	Lower bound
+Max	Column	QuantityMatrix	float	Upper bound
+Median	Column	QuantityMatrix	float	Median
+GeometricMean	Column	QuantityMatrix	float	Geometric mean
+Sign	Column	QuantityMatrix	{+,-,0}	Sign
+ProbDist	Column	QuantityMatrix	string	Probability distribution
+SBML:parameter:id	Column	QuantityMatrix	string	Parameter ID in SBML file
+Unit	Column	QuantityMatrix	string	Physical unit
+Scale	Column	QuantityMatrix	string	Scale (e.g. logarithm)
+Compound	Column	QuantityMatrix	string	Related compound (shortname)
+Compound:SBML:species:id	Column	QuantityMatrix	string	SBML ID of compound
+Reaction	Column	QuantityMatrix	string	Related reaction (shortname)
+Reaction:SBML:reaction:id	Column	QuantityMatrix	string	SBML ID of reaction
+Enyzme	Column	QuantityMatrix	string	Related enzyme (shortname)
+Enyzme:SBML:species:id	Column	QuantityMatrix	string	SBML ID of enzyme
+Enyzme:SBML:parameter:id	Column	QuantityMatrix	string	SBML ID of enzyme
+Protein	Column	QuantityMatrix	string	Related enzyme (shortname)
+Protein:SBML:species:id	Column	QuantityMatrix	string	SBML ID of enzyme
+Enyzme:SBML:parameter:id	Column	QuantityMatrix	string	SBML ID of enzyme
+Gene	Column	QuantityMatrix	string	Related gene
