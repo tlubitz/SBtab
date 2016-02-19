@@ -9,7 +9,7 @@ python.exec("import sys, os")
 python.exec("basedir = os.path.expanduser('~/git/SBtab')")
 python.exec("sys.path.append(basedir + '/python')")
 python.exec("sys.path.append(basedir + '/python/commandline_scripts')")
-setwd(path.expand('~/git/SBtab/R/test R functions'))
+setwd(path.expand('~/git/SBtab/R/'))
 
 #load some of the python scripts.
 #please be aware that the executable scripts validatorSBtab, sbtab2sbml, and sbml2sbtab have to
