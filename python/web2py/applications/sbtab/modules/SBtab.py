@@ -16,7 +16,7 @@ Furthermore, new table types can be easily defined and used directly via the def
 
 How to load tablib object:
 Use "SBtabTools.openSBtab(filepath)" to create SBtab Python object.
-Attention: Only 'tsv', 'csv', 'ods' and 'xls' are supported.
+Attention: Only 'tsv', 'csv', 'tab' and 'xls' are supported.
 
 See specification for further informations.
 """
@@ -80,7 +80,7 @@ class SBtabTable():
         self.header_row = self.getHeaderRow()
 
         # Read the table information from header row
-        (self.table_type, self.table_name, self.table_document, self.table_version, self.unique_key) = self.getTableInformation()
+        (self.table_type, self.table_name, self.table_document, self.table_version) = self.getTableInformation()
         
         # Read the columns of the table
         (self.columns, self.columns_dict, inserted_column, self.delimiter) = self.getColumns()
@@ -98,10 +98,8 @@ class SBtabTable():
         for row in table:
             new_row = []
             for i,entry in enumerate(row):
-                try:
-                    new_row.append(str(entry).strip())
-                except:
-                    new_row.append('Ascii violation error! Please check input file!')
+                try: new_row.append(str(entry).strip())
+                except: new_row.append('Ascii violation error! Please check input file!')
             new_table.append('\t'.join(new_row))
 
         tablibtable = tablibIO.importSetNew('\n'.join(new_table),self.filename+'.csv')
@@ -133,7 +131,7 @@ class SBtabTable():
                     rm2 = row.remove('"')
                     header_row = rm2.replace('#','"')
                     break
-        
+
         # Save string or raise error
         if not header_row:
             raise SBtabError('This is not a valid SBtab table, please use validator to check format or have a look in the specification!')
@@ -141,9 +139,11 @@ class SBtabTable():
             header_row = ' '.join(header_row)
 
         # Replace double quotes by single quotes
-        header_row = header_row.replace('"', "'")
-        try: header_row = header_row.replace('\xe2\x80\x9d', "'")
-        except: pass
+        stupid_quotes = ['"','\xe2\x80\x9d','\xe2\x80\x98','\xe2\x80\x99','\xe2\x80\x9b','\xe2\x80\x9c','\xe2\x80\x9f','\xe2\x80\xb2','\xe2\x80\xb3','\xe2\x80\xb4','\xe2\x80\xb5','\xe2\x80\xb6','\xe2\x80\xb7']
+
+        for squote in stupid_quotes:
+            try: header_row = header_row.replace(squote, "'")
+            except: pass
      
         # Split header row
         header_row = header_row.split(' ')
@@ -184,6 +184,7 @@ class SBtabTable():
         # Initialize variables for unnamed table handling
         global tables_without_name
         no_name_counter = 0
+
         #header_row = self.getHeaderRow()
         # Save table type, otherwise raise error
         if re.search("TableType='([^']*)'", self.header_row) != None:
@@ -205,21 +206,15 @@ class SBtabTable():
 
         # Save table document, otherwise return None
         td = re.search("Document='([^']*)'", self.header_row)
-        if td:
-            table_document = td.group(1)
-        else:
-            table_document = None
+        if td: table_document = td.group(1)
+        else: table_document = None
 
         # save table version, otherwise return None
         tv = re.search("SBtabVersion='([^']*)'", self.header_row)
         if tv: table_version = tv.group(1)
         else: table_version = None
 
-        uk = re.search("UniqueKey='([^']*)'", self.header_row)
-        if uk: unique_key = uk.group(1)
-        else: unique_key = 'True'
-
-        return table_type, table_name, table_document, table_version, unique_key
+        return table_type, table_name, table_document, table_version
 
     def getColumns(self):
         """
@@ -248,9 +243,9 @@ class SBtabTable():
 
         # Insert mandatory first column if not existent
         inserted_column = False
-        if not column_names[0].title() == '!' + self.table_type.title():
-            column_names.insert(0, '!' + self.table_type.title())
-            inserted_column = True
+        #if not column_names[0].title() == '!' + self.table_type.title():
+        #    column_names.insert(0, '!' + self.table_type.title())
+        #    inserted_column = True
 
         # Get column positions
         columns = {}
@@ -459,7 +454,7 @@ class SBtabTable():
         # Create temporary work copy
         sbtab_dataset = self.table
 
-        # If new row is to small, add empty entries to new row
+        # If new row is too small, add empty entries to new row
         if len(row_list) < len(sbtab_dataset.dict[0]):
             for i in range(len(sbtab_dataset.dict[0]) - len(row_list)):
                 row_list.append('')
@@ -514,12 +509,12 @@ class SBtabTable():
         # Empty column to fill up sbtab_dataset with ''
         empty_list = []
 
-        # If new column is to small, add empty entries to new column
+        # If new column is too small, add empty entries to new column
         if len(column_list) < (len(self.sbtab_dataset.dict)-1):
             for i in range((len(self.sbtab_dataset.dict) - 1) - len(column_list)):
                 column_list.append('')
 
-        # If new column is to long, add empty entries to sbtab_dataset
+        # If new column is too long, add empty entries to sbtab_dataset
         elif len(column_list) > (len(self.sbtab_dataset.dict) - 1):
             for i in range(len(self.sbtab_dataset.dict[0])):
                 empty_list.append('')
@@ -568,7 +563,7 @@ class SBtabTable():
         Parameters
         ----------
         format_type : str
-            File extension of the SBtab file. ('tsv', 'csv', 'ods', 'xls')
+            File extension of the SBtab file. ('tsv', 'csv', 'tab', 'xls')
         filename : str
             Filename of the SBtab file without extension. Default is filename.
         sbtab_dataset : tablib object
@@ -581,7 +576,7 @@ class SBtabTable():
         """
         if not filename:
             filename = self.filename[:-4]
-        if format_type == 'tsv':
+        if format_type == 'tsv' or format_type == 'tab':
             tablibIO.writeTSV(self.sbtab_dataset, filename)
         elif format_type == 'csv':
             tablibIO.writeCSV(self.sbtab_dataset, filename)
@@ -590,7 +585,7 @@ class SBtabTable():
         elif format_type == 'xls':
             tablibIO.writeXLS(self.sbtab_dataset, filename)
         else:
-            raise SBtabError('The given file format is not supported: ' + format_type + '. Please use ".tsv", ".csv", ".ods" or ".xls" instead.')
+            raise SBtabError('The given file format is not supported: ' + format_type + '. Please use ".tsv", ".csv", ".tab" or ".xls" instead.')
 
     def duplicate(self):
         """

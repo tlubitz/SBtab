@@ -1,6 +1,7 @@
 {{extend 'layout2.html'}}
 <p>
 Information on how to use the SBtab <-> SBML converter can be found in the <a href="/sbtab/static/files/converter_manual.pdf">manual</a>.<br>
+The manual also holds information on where the limitations of the conversion processes lie. <br>
 Information on file formats (.csv, .xls) can be found <a href="http://www.sbtab.net/introduction.html">here</a>.
 </p>
 <hr>
@@ -31,11 +32,13 @@ Information on file formats (.csv, .xls) can be found <a href="http://www.sbtab.
       
       {{if DOC_NAMES.count(g)>1:}}
       {{if "Reaction" in TYPES or "Compound" in TYPES:}}
-      <form><td bgcolor="#87CEFA"><button type="submit" value="{{=pos2}}" name="convert_all_button" valign="top">Convert to SBML</button> </td> </form>
+      <form><td bgcolor="#87CEFA"><button type="submit" value="{{=pos2}}" name="convert_all_button24" valign="top">Convert to SBML 2.4</button> </td> </form>
+      <form><td bgcolor="#87CEFA"><button type="submit" value="{{=pos2}}" name="convert_all_button31" valign="top">Convert to SBML 3.1</button> </td> </form>
       <form><td bgcolor="#87CEFA"><button type="submit" value="{{=pos2}}" name="remove_all_button">Remove all</button> </td> </form>
       <form><td bgcolor="#87CEFA"><button type="submit" value="{{=pos2}}" name="download_all_button">Download all</button> </td> </form>
       <td bgcolor="#87CEFA"></td>
       {{else:}}
+      <td bgcolor="#87CEFA"></td>
       <td bgcolor="#87CEFA"></td>
       <form><td bgcolor="#87CEFA"><button type="submit" value="{{=pos2}}" name="remove_all_button">Remove all</button> </td> </form>
       <form><td bgcolor="#87CEFA"><button type="submit" value="{{=pos2}}" name="download_all_button">Download all</button> </td> </form>
@@ -43,6 +46,7 @@ Information on file formats (.csv, .xls) can be found <a href="http://www.sbtab.
       {{pass}}
       {{else:}}
       </td>
+      <td bgcolor="#87CEFA"></td>
       <td bgcolor="#87CEFA"></td>
       <td bgcolor="#87CEFA"></td>
       <td bgcolor="#87CEFA"></td>
@@ -58,8 +62,10 @@ Information on file formats (.csv, .xls) can be found <a href="http://www.sbtab.
 		<a href="/sbtab/default/show_sbtab/{{=str(pos)}}" target="_new"> {{=f}} </a>
 	      </td>
 	      {{if TYPES[pos].capitalize() == 'Reaction' or TYPES[pos].capitalize() == 'Compound':}}
-	      <form><td>  <button type="submit" value="{{=pos}}" name="c2sbml_button">Convert to SBML</button> </td> </form>
+	      <form><td>  <button type="submit" value="{{=pos}}" name="c2sbml_button24">Convert to SBML 2.4</button> </td> </form>
+	      <form><td>  <button type="submit" value="{{=pos}}" name="c2sbml_button31">Convert to SBML 3.1</button> </td> </form>
 	      {{else:}}
+	      <td></td>
 	      <td></td>
 	      {{pass}}
 	      <form><td> <button type="submit" value="{{=pos}}" name="erase_sbtab_button">Remove</button> </td> </form>
@@ -125,18 +131,19 @@ No SBtab files uploaded.
 {{pass}}
 {{pass}}
     <hr>
+
+
     <p>
       <a href="http://www.sbtab.net/index.html">Main</a> | 
       <a href="http://www.sbtab.net/introduction.html">Getting started</a> |
-      <a href="http://www.sbtab.net/specification.html">Documentation</a> |
+      <a href="http://www.sbtab.net/specification.html">Specification</a> |
       <a href="http://rumo.biologie.hu-berlin.de/SBtab/default/validator">Validator</a> | 
       <a href="http://rumo.biologie.hu-berlin.de/SBtab/default/converter">SBML</a> |
-      <a href="http://rumo.biologie.hu-berlin.de/SBtab/default/def_files">Customize</a> |
+      <a href="http://rumo.biologie.hu-berlin.de/SBtab/default/def_files">Customize SBtab</a> |
       <a href="http://www.sbtab.net/code.html">Code</a> |
+      <a href="http://rumo.biologie.hu-berlin.de/SBtab/static/troubles.html">Troubleshooting</a> |
       <a href="http://www.sbtab.net/team.html">Contact</a> 
     </p>
-
-
 
 
 

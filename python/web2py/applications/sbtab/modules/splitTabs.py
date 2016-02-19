@@ -6,13 +6,13 @@ import misc
 
 def checkTabs(document,filename,separator=None):
     '''
-    this function checks, how many SBtab files are given by the user and save it/them
-    in a list, moreover store the SBtab types in a dict linking to the SBtabs
+    this function checks, how many SBtab files are given by the user and saves it/them
+    in a list, moreover stores the SBtab types in a dict linking to the SBtabs
     '''
-    sbtabs = []
-    types  = []
-    docs   = []
-    tnames = []
+    sbtabs     = []
+    types      = []
+    docs       = []
+    tnames     = []
     type2sbtab = {}
 
     #if there are more than one SBtabs given in single files that might be comprised of several SBtabs:

@@ -1,16 +1,25 @@
+"""
+SBtab2SBML
+==========
+
+Python script that converts SBtab file/s to SBML.
+"""
 #!/usr/bin/env python
 import re, libsbml
 import SBtab
 import tablibIO
-import xlrd
 import string
 import random
+import sys
 
 #all allowed SBtab types
 sbtab_types = ['Quantity','Event','Rule']
 urns = ["obo.chebi","kegg.compound","kegg.reaction","obo.go","obo.sgd","biomodels.sbo","ec-code","kegg.orthology","uniprot"]
 
 class ConversionError(Exception):
+    '''
+    Base class for errors in the SBtab conversion class.
+    '''    
     def __init__(self,message):
         self.message = message
     def __str__(self):
@@ -20,75 +29,36 @@ class SBtabDocument:
     '''
     SBtab document to be converted to SBML model
     '''
-    def __init__(self,sbtab_document,filename,tabs=1):
+    def __init__(self,sbtab,filename=None,sbml='24',tabs=1):
         '''
-        initalize SBtab document, check it for SBtabs
+        Initalizes SBtab document, checks it for SBtab count.
+        If there are more than 1 SBtab file to be converted, provide a "tabs" parameter higher than 1.
+
+        Parameters
+        ----------
+        sbtab : str
+           SBtab file as string representation.
+        filename : str
+           SBtab file name.
+        tabs : int
+           Amount of SBtab tables in the provided file.
         '''
-        self.filename = filename
-        if self.filename.endswith('tsv') or self.filename.endswith('csv') or self.filename.endswith('.xls'): pass
+        self.filename  = filename
+
+        if self.filename.endswith('tsv') or self.filename.endswith('tab') or self.filename.endswith('csv') or self.filename.endswith('.xls'): pass
         else: raise ConversionError('The given file format is not supported: '+self.filename)
 
-        #This is not required anymore, since we already convert this after the upload in the user interface
-        #if self.filename.endswith('.xls') or self.filename.endswith('.xlsx'):
-        #    self.document = [self.makeTSVfile(sbtab_document)]
-        #else:
-        self.document = [sbtab_document]
-
+	self.sbml      = sbml
+        self.document  = [sbtab]
         self.tabs      = tabs            
         self.unit_mM   = False
         self.unit_mpdw = False
         self.checkTabs()              #check how many SBtabs are given in the document
 
-    def makeTSVfile(self,xls_file):
+    def checkTabs(self):
         '''
-        converts xls to tsv
-        @xls_file: file of type xlrd
-        '''
-        workbook = xlrd.open_workbook(self.filename,file_contents=xls_file)
-        sheet    = workbook.sheet_by_name('Sheet1')                   
-        
-        getridof = []
-        tsv_file = []
-
-        for i in range(sheet.nrows):
-            stringrow = str(sheet.row(i))
-            notext    = string.replace(stringrow,'text:u','')
-            nonumbers = string.replace(notext,'number:','')
-            noopenbra = string.replace(nonumbers,'[','')
-            noclosebr = string.replace(noopenbra,']','')
-            if '\"!!' in noclosebr:
-                noone = string.replace(noclosebr,'\"',"")
-                noapostr = string.replace(noone,"\'",'\"')
-            else:
-                noone    = string.replace(noclosebr,"\'",'')
-                noapostr = string.replace(noone,'\u201d','\"')
-            nocommas  = noapostr.split(', ')
-            getridof.append(nocommas)
-
-        for row in getridof:
-            new_row = ''
-            for elem in row:
-                if not elem == "empty:''" and not elem == 'empty:' and not elem == 'empty:""':
-                    new_row += elem+'\t'
-            tsv_file.append(new_row.rstrip('\t'))
-
-
-        tsv_file ='\n'.join(tsv_file)
-
-        '''
-        for i in range(xls_file.nrows):
-            row = ''
-            for j in range(xls_file.ncols):
-                row += str(xls_file.cell_value(i,j))+'\t'
-            tsv_file.append(row.rstrip('\t')+'\n')
-        '''
-        return tsv_file
-
-
-    def checkTabs(self,doc=None):
-        '''
-        this function checks, how many SBtab files are given by the user and save it/them
-        in a list, moreover store the SBtab types in a dict linking to the SBtabs
+        Checks, how many SBtab files are given by the user and saves them
+        in a list, moreover stores the SBtab types in a dict linking to the SBtabs.
         '''
         self.type2sbtab = {}
 
@@ -127,7 +97,13 @@ class SBtabDocument:
 
     def unifySBtab(self,sbtab):
         '''
-        if we have a list of heterogeneous SBtab files, we have to unify them to one common delimiter; we choose \t arbitrarily
+        If we have a list of heterogeneous SBtab files, we have to unify them to one common delimiter; we choose \t arbitrarily.
+        Usually, this will not be required. This is a very strong "But what if a user..."
+
+        Parameters
+        ----------
+        sbtab : str
+           SBtab file as string representation.
         '''
         new_tab = []
 
@@ -162,7 +138,12 @@ class SBtabDocument:
             
     def getAmountOfTables(self,document_rows):
         '''
-        counts the SBtab tables that are present in the document
+        Counts the SBtab tables that are present in the document.
+
+        Parameters
+        ----------
+        document_rows : str
+           Whole SBtab document as a string representation.
         '''
         counter = 0
         for row in document_rows:
@@ -172,8 +153,12 @@ class SBtabDocument:
 
     def splitDocumentInTables(self,document_rows):
         '''
-        if the document contains more than one SBtab, this function splits the document
-        into the single SBtabs
+        If the document contains more than one SBtab, this function splits the document into the single SBtabs.
+
+        Parameters
+        ----------
+        document_rows : str
+           Whole SBtab document as a string representation.
         '''
         single_sbtab = [document_rows[0]]
         sbtab_list   = []
@@ -187,7 +172,7 @@ class SBtabDocument:
 
     def makeSBML(self):
         '''
-        generates the SBML file using the mandatory reaction SBtab file
+        Generates the SBML file using the provided SBtab file/s.
         '''
         # initialize new model
         self.warnings     = []
@@ -195,7 +180,8 @@ class SBtabDocument:
         self.new_model    = self.new_document.createModel()
         self.new_model.setId('default_id')
         self.new_model.setName('default_name')
-        self.new_document.setLevelAndVersion(2,4)
+        if self.sbml == '24': self.new_document.setLevelAndVersion(2,4)
+        else: self.new_document.setLevelAndVersion(3,1)
         self.reaction_list    = []
         self.species_list     = []
         self.compartment_list = []
@@ -242,6 +228,10 @@ class SBtabDocument:
         return newSBML,self.warnings
 
     def getWarningOnly(self):
+        '''
+        Returns warnings from the SBML conversion.
+        '''
+        
         return self.warnings
     
     def checkForCompartments(self):
@@ -284,12 +274,24 @@ class SBtabDocument:
         default_compartment.setId('Default_Compartment')
         default_compartment.setName('Default_Compartment')
         default_compartment.setSize(1)
+        if self.sbml == '31': default_compartment.setConstant(0)                       # Default: SBML Level 3 demands this declaration
         self.compartment_list.append('Default_Compartment')
         return True
 
     def setAnnotation(self,element,annotation,urn,elementtype):
         '''
-        sets an annotation for a given SBML element
+        Sets an annotation for a given SBML element.
+
+        Parameters
+        ----------
+        element : libsbml object
+           Element that needs to be annotated.
+        annotation : str
+           The identifier part of the annotation string.
+        urn : str
+           URN that links to the external web resource.
+        elementtype : str
+           What kind of element needs to be annotated? Model or Biological?
         '''
         element.setMetaId(element.getId()+"_meta")
         cv_term = libsbml.CVTerm()
@@ -307,39 +309,41 @@ class SBtabDocument:
 
     def compartmentSBtab(self):
         '''
-        extract the information from the Compartment SBtab and write it to the model
+        Extracts the information from the Compartment SBtab and writes it to the model.
         '''
         sbtab     = self.type2sbtab['Compartment']
         comp2size = {}
 
         #complement the missing compartments
         for row in sbtab.value_rows:
-            if row[sbtab.columns_dict['!Compartment']] not in self.compartment_list:
+            if row[sbtab.columns_dict['!ID']] not in self.compartment_list:
                 compartment = self.new_model.createCompartment()
                 if '!SBML:compartment:id' in sbtab.columns and row[sbtab.columns_dict['!SBML:compartment:id']] != '':
                     compartment.setId(str(row[sbtab.columns_dict['!SBML:compartment:id']]))
                 else:
-                    compartment.setId(str(row[sbtab.columns_dict['!Compartment']]))
+                    compartment.setId(str(row[sbtab.columns_dict['!ID']]))
                 if '!Name' in sbtab.columns and row[sbtab.columns_dict['!Name']] != '':
                     compartment.setName(str(row[sbtab.columns_dict['!Name']]))
                 else:
-                    compartment.setName(str(row[sbtab.columns_dict['!Compartment']]))
-                #if '!Name' in sbtab.columns and not row[sbtab.columns_dict['!Name']] == '' and not str(row[sbtab.columns_dict['!Name']]).startswith('No Name'):
-                #    #if '|' in row[sbtab.columns_dict['!Name']]: compartment.setName(str(row[sbtab.columns_dict['!Name']].split('|')[0]))
-                #    compartment.setName(str(row[sbtab.columns_dict['!Name']]))
-                #else:
-            self.compartment_list.append(row[sbtab.columns_dict['!Compartment']])
+                    compartment.setName(str(row[sbtab.columns_dict['!ID']]))
+            self.compartment_list.append(row[sbtab.columns_dict['!ID']])
 
             #set the compartment sizes if given
             if '!Size' in sbtab.columns:
                 for comp in self.new_model.getListOfCompartments():
                     for compsbtab in sbtab.value_rows:
-                        if comp.getId() == compsbtab[sbtab.columns_dict['!Compartment']] and compsbtab[sbtab.columns_dict['!Size']] != '':
+                        if comp.getId() == compsbtab[sbtab.columns_dict['!ID']] and compsbtab[sbtab.columns_dict['!Size']] != '':
                             comp.setSize(float(compsbtab[sbtab.columns_dict['!Size']]))
 
             if '!SBOTerm' in sbtab.columns and row[sbtab.columns_dict['!SBOTerm']] != '':
                 try: compartment.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
                 except: pass
+
+            if '!IsConstant' in sbtab.columns:
+                if row[sbtab.columns_dict['!IsConstant']] == '1' or row[sbtab.columns_dict['!IsConstant']] == 'True':
+                    compartment.setConstant(1)
+                elif self.sbml == '31': compartment.setConstant(0)                    # a default value is required for SBML Level 3
+            elif self.sbml == '31': compartment.setConstant(0)                        # a default value is required for SBML Level 3
             
             for column in sbtab.columns_dict.keys():
                 if "Identifiers" in column:
@@ -358,28 +362,32 @@ class SBtabDocument:
 
     def compoundSBtab(self):
         '''
-        extract the information from the Compound SBtab and write it to the model
+        Extracts the information from the Compound SBtab and writes it to the model.
         '''
         sbtab = self.type2sbtab['Compound']
 
         for row in sbtab.value_rows:
-            if not row[sbtab.columns_dict['!Compound']] in self.species_list:
+            if not row[sbtab.columns_dict['!ID']] in self.species_list:
                 species = self.new_model.createSpecies()
+                species.setHasOnlySubstanceUnits(0)           #
                 if '!SBML:species:id' in sbtab.columns and row[sbtab.columns_dict['!SBML:species:id']] != '':
                     species.setId(str(row[sbtab.columns_dict['!SBML:species:id']]))
-                    self.id2sbmlid[row[sbtab.columns_dict['!Compound']]] = row[sbtab.columns_dict['!SBML:species:id']]
+                    self.id2sbmlid[row[sbtab.columns_dict['!ID']]] = row[sbtab.columns_dict['!SBML:species:id']]
                 else:
-                    species.setId(str(row[sbtab.columns_dict['!Compound']]))
-                    self.id2sbmlid[row[sbtab.columns_dict['!Compound']]] = None
+                    species.setId(str(row[sbtab.columns_dict['!ID']]))
+                    self.id2sbmlid[row[sbtab.columns_dict['!ID']]] = None
+
                 if '!Name' in sbtab.columns and not row[sbtab.columns_dict['!Name']] == '':
                     if '|' in row[sbtab.columns_dict['!Name']]: species.setName(str(row[sbtab.columns_dict['!Name']].split('|')[0]))
                     else: species.setName(str(row[sbtab.columns_dict['!Name']]))
                 self.species_list.append(species.getId())
+
                 #check out the speciestype if possible
                 if '!SBML:speciestype:id' in sbtab.columns and row[sbtab.columns_dict['!SBML:speciestype:id']] != '':
                     species_type = self.new_model.createSpeciesType()
                     species_type.setId(str(row[sbtab.columns_dict['!SBML:speciestype:id']]))
                     species.setSpeciesType(row[sbtab.columns_dict['!SBML:speciestype:id']])
+
                 #if compartments are given, add them
                 if '!Location' in sbtab.columns and row[sbtab.columns_dict['!Location']] != '':
                     if not row[sbtab.columns_dict['!Location']] in self.compartment_list:
@@ -389,24 +397,23 @@ class SBtabDocument:
                     species.setCompartment(row[sbtab.columns_dict['!Location']])
                 elif self.def_comp_set:
                     species.setCompartment('Default_Compartment')
+
                 if '!InitialConcentration' in sbtab.columns and row[sbtab.columns_dict['!InitialConcentration']] != '':
                     species.setInitialConcentration(float(row[sbtab.columns_dict['!InitialConcentration']]))
-                #DEPRECATED: Libsbml does not want this anymore!
-                #is the charge at hand? if so: set
-                #if sbtab.charge_column and row[sbtab.charge_column] != '':
-                #    species.setCharge(int(row[sbtab.charge_column]))
-                #is the species a constant and we have this information?
+                elif '!InitialValue' in sbtab.columns and row[sbtab.columns_dict['!InitialValue']] != '':
+                    species.setInitialConcentration(float(row[sbtab.columns_dict['!InitialValue']]))
                 if '!IsConstant' in sbtab.columns and row[sbtab.columns_dict['!IsConstant']] != '':
-                    if row[sbtab.columns_dict['!IsConstant']].lower() == 'false':
-                        species.setConstant(0)
-                        species.setBoundaryCondition(0)
-                    else:
+                    if row[sbtab.columns_dict['!IsConstant']].lower() == 'true':
                         species.setConstant(1)
+                if '!BoundaryCondition' in sbtab.columns and row[sbtab.columns_dict['!BoundaryCondition']] != '':
+                    if row[sbtab.columns_dict['!BoundaryCondition']].lower() == 'true':
                         species.setBoundaryCondition(1)
+                if '!HasOnlySubstanceUnits' in sbtab.columns and row[sbtab.columns_dict['!HasOnlySubstanceUnits']] != '':
+                    if row[sbtab.columns_dict['!HasOnlySubstanceUnits']].lower() == 'true':
+                        species.setHasOnlySubstanceUnits(1)
                 if '!SBOTerm' in sbtab.columns and row[sbtab.columns_dict['!SBOTerm']] != '':
                     try: species.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
                     except: pass
-
                 if '!Unit' in sbtab.columns and self.unit_mM == False:
                     if row[sbtab.columns_dict['!Unit']] == 'mM':
                         self.makeUnitDefmM()
@@ -414,7 +421,6 @@ class SBtabDocument:
                     elif row[sbtab.columns_dict['!Unit']].lower().startswith('molecules'):
                         self.makeUnitDefmpdw()
                         self.unit_mpdw = True
-                    
 
                 for column in sbtab.columns_dict.keys():
                     if "Identifiers" in column:
@@ -430,23 +436,31 @@ class SBtabDocument:
                             print 'There was an annotation that I could not assign properly: ',species.getId(),annot #,urn
 
         #species without compartments yield errors --> set them to the first available compartment
+        #furthermore, SBML Level 3 demands the declaration of constant, boundarycondition, hasonlysubstanceunit
         for species in self.new_model.getListOfSpecies():
             if not species.isSetCompartment():
                 species.setCompartment(self.compartment_list[0])
-
+            if self.sbml == '31':
+                if not species.isSetConstant():
+                    species.setConstant(0)
+                if not species.isSetBoundaryCondition():
+                    species.setBoundaryCondition(0)
+                if not species.isSetHasOnlySubstanceUnits():
+                    species.setHasOnlySubstanceUnits(0)
+                        
     def reactionSBtab(self):
         '''
-        extract the information from the Reaction SBtab and write it to the model
+        Extracts the information from the Reaction SBtab and writes it to the model.
         '''
         sbtab = self.type2sbtab['Reaction']
 
         #if we have the sumformulas, extract the reactants and create the species
-        if '!SumFormula' in sbtab.columns:
+        if '!ReactionFormula' in sbtab.columns:
             self.getReactants(sbtab)
             for reaction in self.reaction2reactants:
                 try: compartment = self.reaction2compartment[reaction]
                 except: compartment = False
-                educts      = self.reaction2reactants[reaction][0]
+                educts = self.reaction2reactants[reaction][0]
                 for educt in educts:
                     if educt == '': continue
                     if not educt in self.id2sbmlid.keys() and not educt in self.species_list:
@@ -454,6 +468,10 @@ class SBtabDocument:
                         sp.setId(str(educt))
                         sp.setName(str(educt))
                         sp.setInitialConcentration(1)
+                        if self.sbml == '31':
+                            sp.setConstant(0)                   #
+                            sp.setBoundaryCondition(0)          #
+                            sp.setHasOnlySubstanceUnits(0)      #
                         if compartment: sp.setCompartment(compartment)
                         elif self.def_comp_set: sp.setCompartment('Default_Compartment')
                         self.species_list.append(educt)
@@ -465,6 +483,10 @@ class SBtabDocument:
                         sp.setId(str(product))
                         sp.setName(str(product))
                         sp.setInitialConcentration(1)
+                        if self.sbml == '31':
+                            sp.setConstant(0)                   #
+                            sp.setBoundaryCondition(0)          #
+                            sp.setHasOnlySubstanceUnits(0)      #
                         if compartment: sp.setCompartment(compartment)
                         elif self.def_comp_set: sp.setCompartment('Default_Compartment')
                         self.species_list.append(product)
@@ -479,6 +501,8 @@ class SBtabDocument:
                     compartment.setId(row[sbtab.columns_dict['!Location']])
                     compartment.setName(row[sbtab.columns_dict['!Location']])
                     compartment.setSize(1)
+                    if self.sbml == '31':
+                        compartment.setConstant(0)          #
                     self.compartment_list.append(row[sbtab.columns_dict['!Location']])
 
         try:
@@ -496,15 +520,23 @@ class SBtabDocument:
             except: pass
 
             react = self.new_model.createReaction()
+
             try:
                 sbtab.columns_dict['!SBML:reaction:id']
                 if row[sbtab.columns_dict['!SBML:reaction:id']] != '':
                     react.setId(str(row[sbtab.columns_dict['!SBML:reaction:id']]))
-            except: react.setId(str(row[sbtab.columns_dict['!Reaction']]))
+            except: react.setId(str(row[sbtab.columns_dict['!ID']]))
 
             if '!SBOTerm' in sbtab.columns and row[sbtab.columns_dict['!SBOTerm']] != '':
                 try: react.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
                 except: pass
+
+            if '!IsFast' in sbtab.columns:
+                if row[sbtab.columns_dict['!IsFast']].lower() == 'true' or row[sbtab.columns_dict['!IsFast']] == '1':
+                    react.setFast(1)
+                else: react.setFast(0)
+            else: react.setFast(0)
+
 
             if '!IsReversible' in sbtab.columns and row[sbtab.columns_dict['!IsReversible']] != '':
                 if string.capitalize(row[sbtab.columns_dict['!IsReversible']]) == 'False':
@@ -520,41 +552,33 @@ class SBtabDocument:
                 if not row[sbtab.columns_dict['!Name']] == '':
                     if '|' in row[sbtab.columns_dict['!Name']]: react.setName(str(row[sbtab.columns_dict['!Name']].split('|')[0]))
                     else: react.setName(str(row[sbtab.columns_dict['!Name']]))
-            except: react.setName(str(row[sbtab.columns_dict['!Reaction']]))
+            except: react.setName(str(row[sbtab.columns_dict['!ID']]))
 
             #if sumformula is at hand: generate reactants and products
             try:
-                sbtab.columns_dict['!SumFormula']
-                if row[sbtab.columns_dict['!SumFormula']] != '':
+                sbtab.columns_dict['!ReactionFormula']
+                if row[sbtab.columns_dict['!ReactionFormula']] != '':
                     for educt in self.reaction2reactants[react.getId()][0]:
                         if educt == '': continue
                         reactant = react.createReactant()
+                        if self.sbml == '31':
+                            reactant.setConstant(0)              #
                         if educt in self.id2sbmlid.keys():
                             if self.id2sbmlid[educt] != None: reactant.setSpecies(self.id2sbmlid[educt])
                             else: reactant.setSpecies(educt)
                         else: reactant.setSpecies(educt)
-                        reactant.setStoichiometry(self.rrps2stoichiometry[row[sbtab.columns_dict['!Reaction']],educt])
+                        reactant.setStoichiometry(self.rrps2stoichiometry[row[sbtab.columns_dict['!ID']],educt])
                     for product in self.reaction2reactants[react.getId()][1]:
                         if product == '': continue
                         reactant = react.createProduct()
+                        if self.sbml == '31':
+                            reactant.setConstant(0)              #
                         if product in self.id2sbmlid.keys():
                             if self.id2sbmlid[product] != None: reactant.setSpecies(self.id2sbmlid[product])
                             else: reactant.setSpecies(product)
                         else: reactant.setSpecies(product)
-                        reactant.setStoichiometry(self.rrps2stoichiometry[row[sbtab.columns_dict['!Reaction']],product])
+                        reactant.setStoichiometry(self.rrps2stoichiometry[row[sbtab.columns_dict['!ID']],product])
             except: pass
-            '''
-            #Uncomment, if we start using SBML Level 3, Version 1, or higher
-            #if location is at hand: link reaction to the compartment
-            if sbtab.columns_dict['!Location'] and row[sbtab.columns_dict['!Location']] != '':
-                if not row[sbtab.columns_dict['!Location']] in self.compartment_list:
-                    new_comp = self.new_model.createCompartment()
-                    new_comp.setId(row[sbtab.columns_dict['!Location']])
-                    react.setCompartment(new_comp)
-                    self.compartment_list.append(row[sbtab.columns_dict['!Location']])
-                else:
-                    react.setCompartment(row[loc_column])
-            '''
 
             #if an enzyme is given, mark it as modifier to the reaction
             try:
@@ -665,7 +689,7 @@ class SBtabDocument:
 
     def makeUnitDefmM(self):
         '''
-        builds unit definition; right now only in case of mM
+        Builds unit definition; right now only in case of mM.
         '''
         ud = self.new_model.createUnitDefinition()
         ud.setId('mM')
@@ -681,7 +705,7 @@ class SBtabDocument:
 
     def makeUnitDefmpdw(self):
         '''
-        builds unit definition; right now only in case of molecules/gram dry weight
+        Builds unit definition; right now only in case of molecules/gram dry weight.
         '''
         ud = self.new_model.createUnitDefinition()
         ud.setId('mmol_per_gDW_per_hr')
@@ -705,7 +729,12 @@ class SBtabDocument:
 
     def extractRegulators(self,mods):
         '''
-        extracts the regulators from the column "Regulator"
+        Extracts the regulators from the column "Regulator".
+
+        Parameters
+        ----------
+        mods : str
+           The modifiers of a reaction.
         '''
         activators = []
         inhibitors = []
@@ -721,7 +750,12 @@ class SBtabDocument:
         
     def getReactants(self,sbtab):
         '''
-        extracts the reactants from the sum formula
+        Extracts the reactants from the a reaction formula.
+
+        Parameters
+        ----------
+        sbtab : SBtab object
+           SBtab file as SBtab object.
         '''
         self.reaction2reactants   = {}
         self.rrps2stoichiometry   = {}
@@ -731,14 +765,13 @@ class SBtabDocument:
         products = []
         
         for reaction in sbtab.value_rows:
-            if '!Reaction' in sbtab.columns and reaction[sbtab.columns_dict['!Reaction']] != '': r_id = reaction[sbtab.columns_dict['!Reaction']]
-            else: r_id   = reaction[sbtab.columns_dict['!Reaction']]
+            if '!ID' in sbtab.columns and reaction[sbtab.columns_dict['!ID']] != '': r_id = reaction[sbtab.columns_dict['!ID']]
+            else: r_id   = reaction[sbtab.columns_dict['!ID']]
             if '!Location' in sbtab.columns: self.reaction2compartment[r_id] = reaction[sbtab.columns_dict['!Location']]
-            sum_formula  = reaction[sbtab.columns_dict['!SumFormula']]
+            sum_formula  = reaction[sbtab.columns_dict['!ReactionFormula']]
             #is a compartment given for the reaction? (nice, but we cannot set it (only in SBML version 3))
             if sum_formula.startswith('['):
                 self.reaction2compartment[r_id] = re.search('[([^"]*)]',sum_formula).group(1)
-
 
             #check the educts
             try:
@@ -753,7 +786,6 @@ class SBtabDocument:
                         self.rrps2stoichiometry[r_id,educt.lstrip().rstrip()] = 1
                         educts.append(educt.lstrip().rstrip())
             except: pass
-
 
             #check the products
             try:
@@ -772,6 +804,7 @@ class SBtabDocument:
 
     def quantitySBtab(self):
         '''
+        Extracts the information from the Quantity SBtab and writes it to the model.
         '''
         sbtab = self.type2sbtab['Quantity']
 
@@ -799,17 +832,23 @@ class SBtabDocument:
                             if '!SBOTerm' in sbtab.columns and row[sbtab.columns_dict['!SBOTerm']] != '':
                                 try: lp.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
                                 except: pass
+                            if self.sbml == '31':
+                                lp.setConstant(0)
                 else:
                     parameter = self.new_model.createParameter()
                     parameter.setId(row[sbtab.columns_dict['!SBML:parameter:id']])
                     parameter.setUnits(row[sbtab.columns_dict['!Unit']])
                     parameter.setValue(float(row[sbtab.columns_dict['!Value']]))
+                    if self.sbml == '31':
+                        parameter.setConstant(0)
                     if '!SBOTerm' in sbtab.columns and row[sbtab.columns_dict['!SBOTerm']] != '':
                         try: parameter.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
                         except: pass
             except:
                 parameter = self.new_model.createParameter()
                 parameter.setId(row[sbtab.columns_dict['!SBML:parameter:id']])
+                if self.sbml == '31':
+                    parameter.setConstant(0)
                 try: parameter.setValue(float(row[sbtab.columns_dict['!Value']]))
                 except: parameter.setValue(1.0)
                 try: parameter.setUnits(row[sbtab.columns_dict['!Unit']])
@@ -820,12 +859,13 @@ class SBtabDocument:
 
     def eventSBtab(self):
         '''
+        Extracts the information from the Event SBtab and writes it to the model.
         '''
         sbtab = self.type2sbtab['Event']
 
         for row in sbtab.value_rows:
             event = self.new_model.createEvent()
-            event.setId(row[sbtab.columns_dict['!Event']])
+            event.setId(row[sbtab.columns_dict['!ID']])
             try: event.setName(row[sbtab.columns_dict['!Name']])
             except: pass
             try:
@@ -844,11 +884,11 @@ class SBtabDocument:
                         val = asses[0].split('=')[1].strip()
                         ea.setMath(libsbml.parseL3Formula(val))
                         ea.setVariable(var)
-            except: pass            
+            except: pass
             try:
                 if row[sbtab.columns_dict['!Trigger']] != '' and row[sbtab.columns_dict['!Trigger']] != 'None':
                     trig = event.createTrigger()
-                    trig.setMetaId(row[sbtab.columns_dict['!Event']]+'_meta')
+                    trig.setMetaId(row[sbtab.columns_dict['!ID']]+'_meta')
                     trig.setMath(libsbml.parseL3Formula(row[sbtab.columns_dict['!Trigger']]))
             except: pass
             if '!SBOTerm' in sbtab.columns and row[sbtab.columns_dict['!SBOTerm']] != '':
@@ -864,7 +904,7 @@ class SBtabDocument:
                     event.setUseValuesFromTriggerTime(0)
                 else:
                     event.setUseValuesFromTriggerTime(1)
-            except: pass
+            except: event.setUseValuesFromTriggerTime(1)
 
             for column in sbtab.columns_dict.keys():
                 if "Identifiers" in column:
@@ -881,6 +921,7 @@ class SBtabDocument:
 
     def ruleSBtab(self):
         '''
+        Extracts the information from the Rule SBtab and writes it to the model.
         '''
         sbtab = self.type2sbtab['Rule']
 
@@ -892,7 +933,7 @@ class SBtabDocument:
             elif row[sbtab.columns_dict['!Name']] == 'rateRule':
                 rule = self.new_model.createRateRule()
             else: continue
-            rule.setMetaId(row[sbtab.columns_dict['!Rule']]+'_meta')
+            rule.setMetaId(row[sbtab.columns_dict['!ID']]+'_meta')
             try: rule.setName(row[sbtab.columns_dict['!Name']])
             except: pass
             try: rule.setUnits(row[sbtab.columns_dict['!Unit']])
@@ -917,37 +958,28 @@ class SBtabDocument:
                         cv_term = self.setAnnotation(event,annot,urn,'Biological')
                         rule.addCVTerm(cv_term)
                     except:
-                        print 'There was an annotation that I could not assign properly: ',event.getId(),annot #,urn
+                        print 'There was an annotation that I could not assign properly: ',rule.getId(),annot #,urn
 
+'''
 if __name__ == '__main__':
-    sbtab_reaction = open('sbtabs/sbtab_reaction_full.tsv','r')
-    sbtab_compound = open('sbtabs/sbtab_compound_full.tsv','r')
-    #sbtab_enzyme = open('sbtabs/sbtab_enzyme_full.tsv','r')
-    sbtab_quantity = open('sbtabs/sbtab_quantity_full.tsv','r')
-    sbtab_compartment = open('sbtabs/sbtab_compartment_full.tsv','r')
-    
-    document = []
-    document.append(sbtab_reaction.read())
-    document.append(sbtab_compound.read())
-    document.append(sbtab_quantity.read())
-    document.append(sbtab_compartment.read())
-    #document = [sbtab_reaction.read()+'\n\n'+sbtab_compound.read()]
 
-    sbtab_reaction.close()
-    sbtab_compound.close()
-    sbtab_quantity.close()
-    sbtab_compartment.close()
+    try: sys.argv[1]
+    except:
+        print 'You have not provided input arguments. Please start the script by also providing an SBtab file and an optional SBML output filename: >python sbtab2sbml.py SBtabfile.csv Output'
+        sys.exit()
+        
+    file_name    = sys.argv[1]
+    sbtab_file_o = open(file_name,'r')
+    sbtab_file   = sbtab_file_o.read()
 
-    sbtab_class = SBtabDocument(document,'bla.tsv',4)
-    bla = sbtab_class.makeSBML()
+    try: output_name = sys.argv[2]+'.xml'
+    except: output_name = file_name[:-4]+'.xml'
 
-    output = open('new_sbml.xml','w')
-    output.write(bla)
+    Converter_class = SBtabDocument(sbtab_file,file_name)
+    SBML_output     = Converter_class.makeSBML()
+    new_SBML_file   = open(output_name,'w')
+    new_SBML_file.write(SBML_output[0])
+    new_SBML_file.close()
 
-    output.close()
-
-    #sbtab_reaction.close()
-    #sbtab_compound.close()
-    #sbtab_quantity.close()
-    #sbtab_compartment.close()
-    
+    print 'The SBML file has been successfully written to your working directory or chosen output path.'
+'''

@@ -3,6 +3,7 @@ import SBtab
 import tablibIO
 #import SBtabDefinition
 import re
+#import chardet
 import collections
 
 class SBtabError(Exception):
@@ -25,9 +26,9 @@ class ValidateTable:
         Parameters
         ----------
         table : tablib object
-            Tablib object of the Sbtab file
+            Tablib object of the SBtab file
         sbtab_name : str
-            File path of the Sbtab file
+            File path of the SBtab file
         """
         # import definitions from definition table
         definition_table = tablibIO.importSetNew(def_table,def_name,separator='\t')
@@ -35,13 +36,12 @@ class ValidateTable:
         self.definitions = definition_sbtab.sbtab_list
 
         # create set of valid table types
-        #self.allowed_table_types = ['Reaction', 'Gene', 'Relationship', 'Regulator', 'Enzyme', 'Compound', 'Compartment', 'Quantity']
-        self.allowed_table_types = list(set([row[3] for row in self.definitions[2:][0]]))
-
+        self.allowed_table_types = list(set([row[2] for row in self.definitions[2:][0]]))
+        
         # create dict of valid column names per table type
         self.allowed_columns = {}
         for table_type in self.allowed_table_types:
-            self.allowed_columns[table_type] = [row[1] for row in self.definitions[2:][0] if row[3] == table_type]
+            self.allowed_columns[table_type] = [row[0] for row in self.definitions[2:][0] if row[2] == table_type]
 
         # initialize warning string
         self.warnings = []
@@ -55,24 +55,22 @@ class ValidateTable:
         # try creating SBtab instance
         #try:
         self.sbtab = SBtab.SBtabTable(self.table, self.filename)
+        self.column2format = {}
+        defs = self.definitions[2]
+        for row in defs:
+            if row[3] == self.sbtab.table_type:
+                self.column2format[row[1]] = row[4]
         #except:
         #    raise SBtabError('The Parser cannot work with this file!')
+
         # remove empty column headers
         f_columns = []
         for element in self.sbtab.columns:
             if element == '': pass
             else: f_columns.append(element)
         self.sbtab.columns = f_columns
-
         # check SBtab object for validity
         self.checkTable()
-
-        '''
-        if len(self.warnings) > 0:
-            print self.warnings
-        else:
-            print 'No warnings detected!'
-        '''
         
     def checkTableFormat(self):
         """
@@ -93,9 +91,13 @@ class ValidateTable:
         for x in header_row[:-1]:
             header += x + ' '
         header += header_row[-1]
-        header = header.replace('"', "'")
-        try: header = header.replace('\xe2\x80\x9d', "'")
-        except: pass
+
+        #Replace double quotes by single quotes
+        stupid_quotes = ['"','\xe2\x80\x9d','\xe2\x80\x98','\xe2\x80\x99','\xe2\x80\x9b','\xe2\x80\x9c','\xe2\x80\x9f','\xe2\x80\xb2','\xe2\x80\xb3','\xe2\x80\xb4','\xe2\x80\xb5','\xe2\x80\xb6','\xe2\x80\xb7']
+
+        for squote in stupid_quotes:
+            try: header = header.replace(squote, "'")
+            except: pass
 
         # check for valid header row
         if not header.startswith('!!'):
@@ -134,19 +136,46 @@ class ValidateTable:
             column_check = False
 
         # 2nd: check the important first column
-        if self.sbtab.unique_key == 'True':
-            first_column = '!' + self.sbtab.table_type
-            if not self.rows_file[1][0] == first_column:
-                self.warnings.append('The first column of the file does not correspond with the given TableType ' + \
-                                     self.sbtab.table_type + ' and will be filled automatically.')
+        # NOT REQUIRED ANYMORE: we have changed to the ID column now
+        #first_column = '!' + self.sbtab.table_type
+        #if not self.rows_file[1][0] == first_column:
+        #    self.warnings.append('The first column of the file does not correspond with the given TableType ' + \
+        #                         self.sbtab.table_type + ' and will be filled automatically.')
+        # New 2nd: check for ID column
+        if not '!ID' in self.sbtab.columns_dict:
+            warning = 'There is no !ID column in your SBtab file. This may compromise automated parsing strongly. Please add this column.'
+            self.warnings.append(warning) 
 
-            # 2,5nd: very important: check if the identifiers start with a digit; this is not allowed in SBML!
-            for row in self.sbtab.value_rows:
-                identifier = row[0]
-                try:
-                    int(identifier[0])
-                    self.warnings.append('There is an identifier that starts with a digit; this is not permitted for the SBML conversion: '+identifier)
-                except: pass
+        unique = []
+        # 2,5nd: very important: check if the identifiers start with a digit; this is not allowed in SBML!
+        for row in self.sbtab.value_rows:
+            identifier = row[0]
+            if not identifier in unique: unique.append(identifier)
+            else:
+                warning = 'There is an identifier that is not unique. Please change that: '+str(identifier)
+                self.warnings.append(warning)
+            try:
+                int(identifier[0])
+                self.warnings.append('There is an identifier that starts with a digit; this is not permitted for the SBML conversion: '+identifier)
+            except: pass
+
+        if not '!Name' in self.sbtab.columns_dict:
+            ident = False
+            for it in self.sbtab.columns_dict.keys():
+                if it.startswith('!Identifier'): ident = True
+            if not ident and self.sbtab.table_type != 'Definition':
+                warning = 'Please use at least a !Name or an !Identifier column to better characterise the entries of your SBtab file.'
+                self.warnings.append(warning)
+
+        # Check if there is at least a ReactionFormula or an identifier to characterise a Reaction
+        if self.sbtab.table_type == 'Reaction':
+            if not '!ReactionFormula' in self.sbtab.columns_dict.keys():
+                for it in self.sbtab.columns_dict.keys():
+                    ident = False
+                    if it.startswith('!Identifier'): ident = True
+                if not ident:
+                    warning = 'A Reaction SBtab needs at least a column !ReactionFormula or an !Identifier column to be characterised.'
+                    self.warnings.append(warning)
 
         # 3rd: check the validity of the given column names
         if column_check:
@@ -154,8 +183,8 @@ class ValidateTable:
                 if not column.replace('!', '') in self.allowed_columns[self.sbtab.table_type] and not ('Identifiers:') in column:
                     self.warnings.append('The SBtab file has an unknown column: ' + \
                         column + '.\n \t Please use only supported column types!')
-            if not self.sbtab.columns_dict['!' + self.sbtab.table_type] == 0:
-                self.warnings.append('The SBtab primary column is at a wrong position.')
+            #if not self.sbtab.columns_dict['!' + self.sbtab.table_type] == 0:
+            #    self.warnings.append('The SBtab primary column is at a wrong position.')
         else:
             self.warnings.append('The SBtab TableType is "unknown", therefore the main columns cannot be checked!')
 
@@ -167,21 +196,41 @@ class ValidateTable:
             # check the rows for entries starting with + or -
             if str(row[0]).startswith('+') or str(row[0]).startswith('-'):
                 self.warnings.append('An identifier for a data row must not begin with "+" or "-": \n' + str(row))
+            if '!ReactionFormula' in self.sbtab.columns_dict:
+                if not '<=>' in row[self.sbtab.columns_dict['!ReactionFormula']]:
+                    warning = 'There is a sum formula that does not adhere to the sum formula syntax from the SBtab specification: '+str(row[self.sbtab.columns_dict['!ReactionFormula']])
+                    self.warnings.append(warning)
                 # check the rows for entries containing . or :     OMITTED; should be solved, if the user puts the entryfield in quotes "
                 #if ',' in list(row[self.sbtab.columns_dict[column]]):
                 #    self.warnings.append('A data row must not include commas, but this one does: \n' + \
                 #        str(row[self.sbtab.columns_dict[column]]))
                 # raise SBtabError('An identifier for a data row must not
                 # include ":" or ".": \n'+str(row))
-
+            for i,it in enumerate(row):
+                if it == '': continue
+                if self.sbtab.columns[i][1:].startswith('Identifier'): req_format = 'string'
+                else:
+                    try: req_format = self.column2format[self.sbtab.columns[i][1:]]
+                    except: continue
+                if req_format == 'Boolean':
+                    if it != 'True' and it != 'False' and it != 'TRUE' and it != 'FALSE' and it != '0' and it != '1':
+                        warning = 'The column '+self.sbtab.columns[i][1:]+' holds a value that does not conform with the assigned column format '+req_format+': '+it
+                        self.warnings.append(warning)
+                elif req_format == 'float':
+                    try: float(it)
+                    except:
+                        warning = 'The column '+self.sbtab.columns[i][1:]+' holds a value that does not conform with the assigned column format '+req_format+': '+it
+                        self.warnings.append(warning)
+                elif req_format == '{+,-,0}':
+                    if it != '+' and it != '-' and it !='0':
+                        warning = 'The column '+self.sbtab.columns[i][1:]+' holds a value that does not conform with the assigned column format '+req_format+': '+it
+                        self.warnings.append(warning)
+                
         # 5th: are there duplicate columns?
         for column in collections.Counter(self.sbtab.columns).items():
             if column[1] > 1:
                 self.warnings.append('There was a duplicate column in this SBtab file. Please remove it: ' + str(column[0]))
         
-
-
-
     def returnOutput(self):
         '''
         returns stuff
@@ -204,16 +253,17 @@ class ValidateFile:
         self.file = sbtab_file
         self.filename = filename
 
-        #valid = self.validateExtension(self.filename)
-        #if not valid: raise SBtabError('The Parser cannot work with this file! Dude!')
-        
+        #encoding of the file:
+        #encoding = chardet.detect(sbtab_file)
+        #print encoding['encoding']
+
         self.validateFile(self.file)
 
     def validateExtension(self):
         """
         Check the extension of the file for invalid formats.
         """
-        valid_extensions = ['tsv','csv','xls','ods']
+        valid_extensions = ['tsv','csv','xls','tab']
         if not self.filename[-3:] in valid_extensions: return False
         else: return True
 
