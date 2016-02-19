@@ -28,15 +28,13 @@ python.exec("sbtab_file.close()")
 python.exec("tablib_obj = tablibIO.importSetNew(file_content,'reaction.tsv')")
 python.exec("SBtab_obj = SBtabTable(tablib_obj,'reaction.tsv')")
 
-#receiving variables from the SBtab object
+#receiving various variables from the SBtab object
 file_name <- python.get("SBtab_obj.filename")
-#table attributes
 table_type <- python.get("SBtab_obj.table_type")
 table_name <- python.get("SBtab_obj.table_name")
 table_document <- python.get("SBtab_obj.table_document")
 table_version <- python.get("SBtab_obj.table_version")
 unique_key <- python.get("SBtab_obj.unique_key")
-#table structure
 delimiter <- python.get("SBtab_obj.delimiter")
 columns <- python.get("SBtab_obj.columns")
 columns_dict <- python.get("SBtab_obj.columns_dict")
@@ -54,11 +52,11 @@ value_rows[[1]][1] <- 'new_ID'
 value_rows[[1]][2] <- 'new_name'
 python.call("SBtab_obj.addRow",value_rows[[1]])
 
-#3. remove a row
+#3. remove the first row of the SBtab object
 python.call("SBtab_obj.removeRow",1)
 
-#4. remove a column
-python.call("SBtab_obj.removeColumn",1)
+#4. remove the second column of the SBtab object
+python.call("SBtab_obj.removeColumn",2)
 
 #5. validate the SBtab file and save warnings in R variable
 python.exec("V_obj = ValidateTable(file_content,'reaction.tsv')")
@@ -73,7 +71,8 @@ write(rsbml[[1]], file='sbml.xml')
 #7. convert SBML to SBtab
 python.exec("reader = libsbml.SBMLReader()")
 python.exec("sbml = reader.readSBML('sbml.xml')")
-python.exec("A = SBMLDocument(sbml,'yourSBMLmodel.xml')")
+python.exec("model = sbml.getModel()")
+python.exec("A = SBMLDocument(model,'yourSBMLmodel.xml')")
 python.exec("(sbtabfiles,warnings) = A.makeSBtabs()")
 sbtabs <- python.get("sbtabfiles")
 warnings <- python.get("warnings")
