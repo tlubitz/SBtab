@@ -1,3 +1,9 @@
+####
+# This file exemplifies how SBtab files can be opened in the R framework
+# without employing Python code. The files sbtab_read_tsv and one_or_many
+# are pure R code.
+####
+
 source("sbtab_read_tsv.R")
 source("one_or_many.R")
 y1 <- sbtab_read_tsv("../sbtab_examples/LacOperon_Gene.csv")
