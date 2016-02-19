@@ -1,4 +1,4 @@
-!!SBtab SBtabVersion='1.0' TableType='Definition' TableName='Allowed_types'				
+!!SBtab SBtabVersion='0.9.1' TableType='Definition' TableName='Allowed_types'
 !ComponentName	!ComponentType	!IsPartOf	!Format	!Description
 Comment	Column	Reaction	string	Comment
 ReferenceName	Column	Reaction	string	Reference title, authors, etc. (as free text)
@@ -12,7 +12,7 @@ Type	Column	Reaction	string	Biochemical type of entity
 Symbol	Column	Reaction	string	Short symbol (e.g. gene symbol)
 PositionX	Column	Reaction	float	x coordinate for graphical display
 PositionY	Column	Reaction	float	y coordinate for graphical display
-Reaction	Column	Reaction	string	Reaction shortname
+ID	Column	Reaction	string	Reaction shortname
 SBML:reaction:id	Column	Reaction	string	SBML ID of reaction
 ReactionFormula	Column	Reaction	string	Reaction formula
 Location	Column	Reaction	string	Compartment for localised reaction
@@ -47,7 +47,7 @@ Type	Column	Compound	string	Biochemical type of entity
 Symbol	Column	Compound	string	Short symbol (e.g. gene symbol)
 PositionX	Column	Compound	float	x coordinate for graphical display
 PositionY	Column	Compound	float	y coordinate for graphical display
-Compound	Column	Compound	string	Compound shortname
+ID	Column	Compound	string	Compound shortname
 SBML:species:id	Column	Compound	string	SBML species ID of the entity
 SBML:speciestype:id	Column	Compound	string	SBML speciestype ID of the entity
 InitialValue	Column	Compound	float	Initial amount or concentration
@@ -74,7 +74,7 @@ Type	Column	Enzyme	string	Biochemical type of entity
 Symbol	Column	Enzyme	string	Short symbol (e.g. gene symbol)
 PositionX	Column	Enzyme	float	x coordinate for graphical display
 PositionY	Column	Enzyme	float	y coordinate for graphical display
-Enzyme	Column	Enzyme	string	Enzyme shortname
+ID	Column	Enzyme	string	Enzyme shortname
 CatalysedReaction	Column	Enzyme	string	Catalysed reaction
 KineticLaw	Column	Enzyme	string	Catalysed reaction
 Pathway	Column	Enzyme	string	Pathway name (free text)
@@ -91,7 +91,7 @@ Type	Column	Protein	string	Biochemical type of entity
 Symbol	Column	Protein	string	Short symbol (e.g. gene symbol)
 PositionX	Column	Protein	float	x coordinate for graphical display
 PositionY	Column	Protein	float	y coordinate for graphical display
-Protein	Column	Protein	string	Protein shortname
+ID	Column	Protein	string	Protein shortname
 Gene	Column	Protein	string	Gene shortname
 Mass	Column	Protein	float	Protein mass
 Size	Column	Protein	float	Protein size
@@ -106,7 +106,7 @@ Type	Column	Compartment	string	Biochemical type of entity
 Symbol	Column	Compartment	string	Short symbol (e.g. gene symbol)
 PositionX	Column	Compartment	float	x coordinate for graphical display
 PositionY	Column	Compartment	float	y coordinate for graphical display
-Compartment	Column	Compartment	string	Compartment shortname
+ID	Column	Compartment	string	Compartment shortname
 SBML:compartment:id	Column	Compartment	string	SBML compartment ID
 OuterCompartment	Column	Compartment	string	Surrounding compartment (short)
 OuterCompartment:SBML:compartment:id	Column	Compartment	string	Surrounding compartment (name)
@@ -125,7 +125,7 @@ Type	Column	Quantity	string	Biochemical type of entity
 Symbol	Column	Quantity	string	Short symbol (e.g. gene symbol)
 PositionX	Column	Quantity	float	x coordinate for graphical display
 PositionY	Column	Quantity	float	y coordinate for graphical display
-Quantity	Column	Quantity	string	Quantity shortname
+ID	Column	Quantity	string	Quantity shortname
 QuantityName	Column	Quantity	string	Quantity (name)
 QuantityType	Column	Quantity	string	Quantity type (e.g. from SBO)
 Value	Column	Quantity	float	Simple value
@@ -170,7 +170,7 @@ Type	Column	Regulator	string	Biochemical type of entity
 Symbol	Column	Regulator	string	Short symbol (e.g. gene symbol)
 PositionX	Column	Regulator	float	x coordinate for graphical display
 PositionY	Column	Regulator	float	y coordinate for graphical display
-Regulator	Column	Regulator	string	Regulator shortname
+ID	Column	Regulator	string	Regulator shortname
 State	Column	Regulator	string	State of the regulator
 TargetGene	Column	Regulator	string	Target gene
 TargetOperon	Column	Regulator	string	Target operon
@@ -187,7 +187,7 @@ Type	Column	Gene	string	Biochemical type of entity
 Symbol	Column	Gene	string	Short symbol (e.g. gene symbol)
 PositionX	Column	Gene	float	x coordinate for graphical display
 PositionY	Column	Gene	float	y coordinate for graphical display
-Gene	Column	Gene	string	Gene shortname
+ID	Column	Gene	string	Gene shortname
 LocusName	Column	Gene	string	Gene locus name
 GeneProduct	Column	Gene	string	Gene product shortname
 GeneProduct:SBML:species:id	Column	Gene	string	SBML ID of protein
@@ -198,12 +198,12 @@ ReferenceName	Column	Relation	string	Reference title, authors, etc. (as free tex
 ReferencePubMed	Column	Relation	string	Reference PubMed ID
 ReferenceDOI	Column	Relation	string	Reference DOI
 Description	Column	Relation	string	Description of the row element
-Relation	Column	Relation	string	Type of quantitative relation
+ID	Column	Relation	string	Type of quantitative relation
 From	Column	Relation	string	Element at beginning of arrow
 To	Column	Relation	string	Element at arrowhead
 IsSymmetric	Column	Relation	Boolean	Flag indicating non-symmetric relations
 Value:QuantityType	Column	Relation	float	Numerical value assigned to the relation
-Component	Column	Definition	string	Name of component (table, column, attribute to be defined)
+ComponentName	Column	Definition	string	Name of component (table, column, attribute to be defined)
 ComponentType	Column	Definition	string	Type of component
 IsPartOf	Column	Definition	string	Name of parent component
 Format	Column	Definition	string	Format
@@ -223,7 +223,7 @@ Time	Column	QuantityMatrix	float	Time value
 TimePoint	Column	QuantityMatrix	string	Time point name or identifier
 >Table:Column	Column	QuantityMatrix	string	Pointer to column in another table
 >Document:Table:Column	Column	QuantityMatrix	string	Pointer to column in another document
-Quantity	Column	QuantityMatrix	string	Quantity shortname
+ID	Column	QuantityMatrix	string	Quantity shortname
 QuantityName	Column	QuantityMatrix	string	Quantity (name)
 QuantityType	Column	QuantityMatrix	string	Quantity type (e.g. from SBO)
 Value	Column	QuantityMatrix	float	Simple value
@@ -249,3 +249,8 @@ Protein	Column	QuantityMatrix	string	Related enzyme (shortname)
 Protein:SBML:species:id	Column	QuantityMatrix	string	SBML ID of enzyme
 Enyzme:SBML:parameter:id	Column	QuantityMatrix	string	SBML ID of enzyme
 Gene	Column	QuantityMatrix	string	Related gene
+ReactionID	Column	StoichiometricMatrix	string	Reaction shortname
+Stoichiometry	Column	StoichiometricMatrix	string	Stoichiometric coefficient of the reactant
+Substrate	Column	StoichiometricMatrix	string	Substrate of the reaction
+Product	Column	StoichiometricMatrix	string	Product of the reaction
+Location	Column	StoichiometricMatrix	string	Compartment for localised reaction
