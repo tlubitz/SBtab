@@ -146,7 +146,7 @@ class SBMLDocument:
         '''
         Builds a Compartment SBtab.
         '''
-        compartment  = [['!!SBtab SBtabVersion="0.9" Document="'+self.filename.rstrip('.xml')+'" TableType="Compartment" TableName="Compartment"'],['']]
+        compartment  = [['!!SBtab SBtabVersion="1.0" Document="'+self.filename.rstrip('.xml')+'" TableType="Compartment" TableName="Compartment"'],['']]
         header       = ['!Compartment','!Name','!Size','!Unit','!SBOTerm']
         identifiers  = []
         column2ident = {}
@@ -186,7 +186,7 @@ class SBMLDocument:
         '''
         Builds a Compound SBtab.
         '''
-        compound = [['!!SBtab SBtabVersion="0.9" Document="'+self.filename.rstrip('.xml')+'" TableType="Compound" TableName="Compound"'],['']]
+        compound = [['!!SBtab SBtabVersion="1.0" Document="'+self.filename.rstrip('.xml')+'" TableType="Compound" TableName="Compound"'],['']]
         header   = ['!Compound','!Name','!Location','!Charge','!IsConstant','!SBOTerm','!InitialConcentration','!hasOnlySubstanceUnits']
         identifiers  = []
         column2ident = {}
@@ -234,7 +234,7 @@ class SBMLDocument:
         if len(self.model.getListOfEvents()) == 0:
             return False
             
-        event    = [['!!SBtab SBtabVersion="0.9" Document="'+self.filename.rstrip('.xml')+'" TableType="Event" TableName="Event"'],['']]
+        event    = [['!!SBtab SBtabVersion="1.0" Document="'+self.filename.rstrip('.xml')+'" TableType="Event" TableName="Event"'],['']]
         header   = ['!Event','!Name','!Assignments','!Trigger','!SBOterm','!Delay','!UseValuesFromTriggerTime']
         identifiers  = []
         column2ident = {}
@@ -298,7 +298,7 @@ class SBMLDocument:
         if len(self.model.getListOfRules()) == 0:
             return False
             
-        rule     = [['!!SBtab SBtabVersion="0.9" Document="'+self.filename.rstrip('.xml')+'" TableType="Rule" TableName="Rule"'],['']]
+        rule     = [['!!SBtab SBtabVersion="1.0" Document="'+self.filename.rstrip('.xml')+'" TableType="Rule" TableName="Rule"'],['']]
         header   = ['!Rule','!Name','!Formula','!Unit']
         identifiers  = []
         column2ident = {}
@@ -377,7 +377,7 @@ class SBMLDocument:
         '''
         Builds a Reaction SBtab.
         '''
-        reaction     = [['!!SBtab SBtabVersion="0.9" Document="'+self.filename.rstrip('.xml')+'" TableType="Reaction" TableName="Reaction"'],['']]
+        reaction     = [['!!SBtab SBtabVersion="1.0" Document="'+self.filename.rstrip('.xml')+'" TableType="Reaction" TableName="Reaction"'],['']]
         header       = ['!Reaction','!Name','!ReactionFormula','!Location','!Regulator','!KineticLaw','!SBOTerm','!IsReversible']
         identifiers  = []
         column2ident = {}
@@ -438,7 +438,7 @@ class SBMLDocument:
 
         if not pars: return False
         
-        quantity_SBtab = '!!SBtab SBtabVersion="0.9" Document="'+self.filename.rstrip('.xml')+'" TableType="Quantity" TableName="Quantity"\n!Quantity\t!SBML:parameter:id\t!Value\t!Unit\t!Description'
+        quantity_SBtab = '!!SBtab SBtabVersion="1.0" Document="'+self.filename.rstrip('.xml')+'" TableType="Quantity" TableName="Quantity"\n!Quantity\t!SBML:parameter:id\t!Value\t!Unit\t!Description'
         identifiers = []
         the_rows    = ''
 
