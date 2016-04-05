@@ -168,7 +168,7 @@ class SBMLDocument:
         '''
         Builds a Compartment SBtab.
         '''
-        compartment  = [['!!SBtab SBtabVersion="0.9.1" Document="'+self.filename.rstrip('.xml')+'" TableType="Compartment" TableName="Compartment"'],['']]
+        compartment  = [['!!SBtab SBtabVersion="1.0" Document="'+self.filename.rstrip('.xml')+'" TableType="Compartment" TableName="Compartment"'],['']]
         header       = ['!ID','!Name','!Size','!Unit','!SBOTerm']
         identifiers  = []
         column2ident = {}
@@ -379,7 +379,7 @@ class SBMLDocument:
         '''
         Builds a Compound SBtab.
         '''
-        compound = [['!!SBtab SBtabVersion="0.9.1" Document="'+self.filename.rstrip('.xml')+'" TableType="Compound" TableName="Compound"'],['']]
+        compound = [['!!SBtab SBtabVersion="1.0" Document="'+self.filename.rstrip('.xml')+'" TableType="Compound" TableName="Compound"'],['']]
         if self.cd: header = ['!ID','!Name','!Location','!Charge','!IsConstant','!SBOTerm','!InitialConcentration','!hasOnlySubstanceUnits','!Notes','!LayerNotes']
         else: header = ['!ID','!Name','!Location','!Charge','!IsConstant','!SBOTerm','!InitialConcentration','!hasOnlySubstanceUnits']
         identifiers  = []
@@ -434,7 +434,7 @@ class SBMLDocument:
         if len(self.model.getListOfEvents()) == 0:
             return False
             
-        event    = [['!!SBtab SBtabVersion="0.9.1" Document="'+self.filename.rstrip('.xml')+'" TableType="Event" TableName="Event"'],['']]
+        event    = [['!!SBtab SBtabVersion="1.0" Document="'+self.filename.rstrip('.xml')+'" TableType="Event" TableName="Event"'],['']]
         header   = ['!ID','!Name','!Assignments','!Trigger','!SBOterm','!Delay','!UseValuesFromTriggerTime']
         identifiers  = []
         column2ident = {}
@@ -498,7 +498,7 @@ class SBMLDocument:
         if len(self.model.getListOfRules()) == 0:
             return False
             
-        rule     = [['!!SBtab SBtabVersion="0.9.1" Document="'+self.filename.rstrip('.xml')+'" TableType="Rule" TableName="Rule"'],['']]
+        rule     = [['!!SBtab SBtabVersion="1.0" Document="'+self.filename.rstrip('.xml')+'" TableType="Rule" TableName="Rule"'],['']]
         header   = ['!ID','!Name','!Formula','!Unit']
         identifiers  = []
         column2ident = {}
@@ -577,7 +577,7 @@ class SBMLDocument:
         '''
         Builds a Reaction SBtab.
         '''
-        reaction     = [['!!SBtab SBtabVersion="0.9.1" Document="'+self.filename.rstrip('.xml')+'" TableType="Reaction" TableName="Reaction"'],['']]
+        reaction     = [['!!SBtab SBtabVersion="1.0" Document="'+self.filename.rstrip('.xml')+'" TableType="Reaction" TableName="Reaction"'],['']]
         if self.cd: header = ['!ID','!Name','!ReactionFormula','!ReactionFormulaStates','!Regulator','!KineticLaw','!SBOTerm','!IsReversible','!Notes','!LayerNotes','!Location']
         else:       header = ['!ID','!Name','!ReactionFormula','!Location','!Regulator','!KineticLaw','!SBOTerm','!IsReversible']
         identifiers  = []
@@ -652,7 +652,7 @@ class SBMLDocument:
 
         if not pars: return False
         
-        quantity_SBtab = '!!SBtab SBtabVersion="0.9.1" Document="'+self.filename.rstrip('.xml')+'" TableType="Quantity" TableName="Quantity"\n!ID\t!SBML:parameter:id\t!Value\t!Unit\t!Description'
+        quantity_SBtab = '!!SBtab SBtabVersion="1.0" Document="'+self.filename.rstrip('.xml')+'" TableType="Quantity" TableName="Quantity"\n!ID\t!SBML:parameter:id\t!Value\t!Unit\t!Description'
         identifiers = []
         the_rows    = ''
 
@@ -716,8 +716,8 @@ class SBMLDocument:
         else: arrow = '<=> '
 
         for i,reactant in enumerate(reaction.getListOfReactants()):
-            name = self.sid2sname[reactant.getSpecies()]
-            if name == '': name = reactant.getSpecies()
+            if self.cd: name = self.sid2sname[reactant.getSpecies()]
+            else: name = reactant.getSpecies()
             if numpy.isnan(reactant.getStoichiometry()):
                 sumformula += '1 ' + name
             elif reactant.getStoichiometry() != 1.0:
@@ -729,8 +729,8 @@ class SBMLDocument:
         if sumformula == '': sumformula += arrow
         
         for i,product in enumerate(reaction.getListOfProducts()):
-            name = self.sid2sname[product.getSpecies()]
-            if name == '': name = reactant.getSpecies()
+            if self.cd: name = self.sid2sname[product.getSpecies()]
+            else: name = reactant.getSpecies()
             if numpy.isnan(product.getStoichiometry()):
                 sumformula += '1 ' + name
             elif product.getStoichiometry() != 1.0:

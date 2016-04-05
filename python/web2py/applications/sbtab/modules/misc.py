@@ -226,7 +226,7 @@ def parseReactionTable(sbtab_file,file_name,export=False):
                 st = reaction+'\t1\t\t'+right+'\t\t\n'
                 react_stoich_prod.append(st)
         
-    new_SBtab = '!!SBtab SBtabVersion="0.9.1" TableType="StoichiometricMatrix" TableName="%s" UniqueKey="False"\n!ReactionID\t!Stoichiometry\t!Substrate\t!Product!Location\n'%file_name[:-4]
+    new_SBtab = '!!SBtab SBtabVersion="1.0" TableType="StoichiometricMatrix" TableName="%s" UniqueKey="False"\n!ReactionID\t!Stoichiometry\t!Substrate\t!Product!Location\n'%file_name[:-4]
     for sub in react_stoich_sub:
         new_SBtab += sub
     for prod in react_stoich_prod:
