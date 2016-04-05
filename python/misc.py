@@ -197,3 +197,89 @@ def xls2csv(xls_file,filename):
 
     return csv_file
         
+def parseReactionTable(sbtab_file,file_name,export=False):
+    '''
+    parses a Reaction SBtab to a stoichiometric table of the reaction formula.
+    if the export parameter is set to True, the file will be written to the hard disk automatically
+    '''
+    import tablibIO
+    import SBtab
+
+    if sbtab_file.table_type != 'Reaction':
+        print 'The given TableType \"%s\" cannot be parsed. The TableType \"Reaction\" is required.'%sbtab_file.table_type
+        return False
+
+    if not '!ReactionFormula' in sbtab_file.columns:
+        print 'The given provided SBtab file misses the column \"ReactionFormula\".'
+        return False
+    else:
+        for i,c in enumerate(sbtab_file.columns):
+            if c == '!ReactionFormula': rf = i
+            elif c == '!ID': r = i
+
+    react_stoich_sub  = []
+    react_stoich_prod = []
+    
+    for row in sbtab_file.value_rows:
+        reaction = row[r]
+        formula  = row[rf]
+        left     = formula.split('<=>')[0].lstrip().rstrip()
+        right    = formula.split('<=>')[1].lstrip().rstrip()
+        if '+' in left:
+            subs = left.split('+')
+            for sub in subs:
+                sub = sub.lstrip().rstrip()
+                try:
+                    float(sub[0])
+                    (stoich,sub) = sub.split(' ')
+                    st = reaction+'\t'+stoich+'\t'+sub+'\t\t\t\n'
+                    react_stoich_sub.append(st)
+                except:
+                    st = reaction+'\t1\t'+sub+'\t\t\t\n'
+                    react_stoich_sub.append(st)
+        else:
+            try:
+                float(left[0])
+                (stoich,left) = left.split(' ')
+                st = reaction+'\t'+stoich+'\t'+left+'\t\t\t\n'
+                react_stoich_sub.append(st)
+            except:
+                st = reaction+'\t1\t'+left+'\t\t\t\n'
+                react_stoich_sub.append(st)
+        if '+' in right:
+            prods = right.split('+')
+            for prod in prods:
+                prod = prod.lstrip().rstrip()
+                try:
+                    float(prod[0])
+                    (stoich,prod) = prod.split(' ')
+                    st = reaction+'\t'+stoich+'\t\t'+prod+'\t\t\n'
+                    react_stoich_prod.append(st)
+                except:
+                    st = reaction+'\t1\t\t'+prod+'\t\n'
+                    react_stoich_prod.append(st)
+        else:
+            try:
+                float(right[0])
+                (stoich,right) = right.split(' ')
+                st = reaction+'\t'+stoich+'\t\t'+right+'\t\t\n'
+                react_stoich_prod.append(st)
+            except:
+                st = reaction+'\t1\t\t'+right+'\t\t\n'
+                react_stoich_prod.append(st)
+        
+    new_SBtab = '!!SBtab SBtabVersion="1.0" TableType="StoichiometricMatrix" TableName="%s" UniqueKey="False"\n!ReactionID\t!Stoichiometry\t!Substrate\t!Product!Location\n'%file_name[:-4]
+    for sub in react_stoich_sub:
+        new_SBtab += sub
+    for prod in react_stoich_prod:
+        new_SBtab += prod
+
+    if export:
+        parseTable = open('parseTable.tsv','w')
+        parseTable.write(new_SBtab)
+        parseTable.close()
+
+    return_tab   = tablibIO.importSetNew(new_SBtab,'bla.tsv',separator='\t')
+    return_SBtab = SBtab.SBtabTable(return_tab,'parseTableReaction.tsv')
+
+    return return_SBtab
