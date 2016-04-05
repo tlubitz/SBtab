@@ -27,6 +27,8 @@ IsExchangeReaction	Column	Reaction	Boolean	Some reactants are left out
 Flux	Column	Reaction	float	Metabolic flux through the reaction
 IsNonEnzymatic	Column	Reaction	Boolean	Non-catalysed reaction
 KineticLaw	Column	Reaction	string	Kinetic law of the reaction
+KineticLaw:Name	Column	Reaction	string	Name of the kinetic law
+KineticLaw:Formula	Column	Reaction	string	Rate law formula
 Gene	Column	Reaction	string	Name of the gene for the catalysing enzyme
 Operon	Column	Reaction	string	Operon for the gene of the catalysing enzyme
 Enzyme:SBML:species:id	Column	Reaction	string	SBML ID of enzyme
@@ -77,6 +79,8 @@ PositionY	Column	Enzyme	float	y coordinate for graphical display
 ID	Column	Enzyme	string	Enzyme shortname
 CatalysedReaction	Column	Enzyme	string	Catalysed reaction
 KineticLaw	Column	Enzyme	string	Catalysed reaction
+KineticLaw:Name	Column	Enzyme	string	Name of the kinetic law
+KineticLaw:Formula	Column	Enzyme	string	Rate law formula
 Pathway	Column	Enzyme	string	Pathway name (free text)
 Gene	Column	Enzyme	string	Gene coding for enzyme (shortname)
 Identifiers	Column	Enzyme	string	Annotation of the entity
@@ -254,3 +258,8 @@ Stoichiometry	Column	StoichiometricMatrix	string	Stoichiometric coefficient of t
 Substrate	Column	StoichiometricMatrix	string	Substrate of the reaction
 Product	Column	StoichiometricMatrix	string	Product of the reaction
 Location	Column	StoichiometricMatrix	string	Compartment for localised reaction
+Sample	Column	Measurement	string	Measurement value shortname
+Time	Column	Measurement	string	Time at which measurement was taken
+Unit	Column	Measurement	string	Measurement unit
+ValueType	Column	Measurement	string	Type of value (mean, standard deviation, etc)
+Description	Column	Measurement	string	Description of data value
