@@ -98,6 +98,9 @@ class ValidateTable:
             else: f_columns.append(element)
         self.sbtab.columns = f_columns
 
+        # determine headers
+        self.determineHeaders()
+
         # check SBtab object for validity
         self.checkTable()
 
@@ -161,6 +164,15 @@ class ValidateTable:
             if not columns.startswith('!'):
                 self.warnings.append('The main column row of the table does not start with "!": ' + \
                     columns)
+               
+    def determineHeaders(self):
+        '''
+        determines the headers and saves their position
+        '''
+        self.id_column=None
+        for i,column in enumerate(self.sbtab.columns):
+            if column == '!ID':
+                self.id_column = i
 
     def checkTable(self):
         '''
@@ -174,23 +186,29 @@ class ValidateTable:
             column_check = False
 
         # 2nd: check the important first column
-        if self.sbtab.unique_key == 'True':
-            first_column = '!' + self.sbtab.table_type
-            if not self.rows_file[1][0] == first_column:
-                self.warnings.append('The first column of the file does not correspond with the given TableType ' + \
-                                     self.sbtab.table_type + ' and will be filled automatically.')
+        #if self.sbtab.unique_key == 'True':
+        #    first_column = '!' + self.sbtab.table_type
+        #    if not self.rows_file[1][0] == first_column:
+        #        self.warnings.append('The first column of the file does not correspond with the given TableType ' + \
+        #                             self.sbtab.table_type + ' and will be filled automatically.')
 
-            unique = []
-            # 2,5nd: very important: check if the identifiers start with a digit; this is not allowed in SBML!
-            for row in self.sbtab.value_rows:
-                identifier = row[0]
-                if not identifier in unique: unique.append(identifier)
-                else:
-                    warning = 'There is an identifier that is not unique. Please change that: '+str(identifier)
-                    self.warnings.append(warning)
-                try:
-                    int(identifier[0])
-                    self.warnings.append('There is an identifier that starts with a digit; this is not permitted for the SBML conversion: '+identifier)
+        # New 2nd: check for ID column
+        if not '!ID' in self.sbtab.columns_dict:
+            warning = 'There is no !ID column in your SBtab file. This may compromise automated parsing strongly. Please add this column.'
+            self.warnings.append(warning) 
+
+        unique = []
+        # 2,5nd: very important: check if the identifiers start with a digit; this is not allowed in SBML!
+        for row in self.sbtab.value_rows:
+            if not self.id_column: break
+            identifier = row[self.id_column]
+            if not identifier in unique: unique.append(identifier)
+            else:
+                warning = 'There is an identifier that is not unique. Please change that: '+str(identifier)
+                self.warnings.append(warning)
+            try:
+                int(identifier[0])
+                self.warnings.append('There is an identifier that starts with a digit; this is not permitted for the SBML conversion: '+identifier)
                 except: pass
 
         if not '!Name' in self.sbtab.columns_dict:
