@@ -68,6 +68,40 @@ def openSBtab(filepath):
     return sbtab
 
 
+def openMultipleSBtab(filepath):
+    '''
+    Opens one or more SBtabTables from a single file.
+
+    Parameters
+    ----------
+    filepath : str
+        Path of the spreadsheet file.
+
+    Returns
+    ----------
+    A list of SBtabTable objects.
+    '''
+    tablib_obj = tablibIO.importSet(filepath)
+    datasets = oneOrMany(tablib_obj)
+    return [SBtab.SBtabTable(ds, filepath) for ds in datasets]
+
+
+def openMultipleSBtabFromFile(f):
+    '''
+    Opens one or more SBtabTables from a file-like object.
+    Assumes tab-separated.
+    Parameters
+    ----------
+    f : file-like object.
+    Returns
+    ----------
+    A list of SBtabTable objects.
+    '''
+    tablib_obj = tablibIO.haveTSV(f.read(), '\t')
+    datasets = oneOrMany(tablib_obj)
+    return [SBtab.SBtabTable(ds, 'dummy.tsv') for ds in datasets]
+
+
 def createDataset(header_row, columns, value_rows, filename):
     '''
     Creates an SBtab object by merging strings or list of strings.

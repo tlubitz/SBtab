@@ -66,7 +66,10 @@ class SBtabDict(dict):
                          value_mapping=None):
         column_names = [key_column_name, value_column_name]
         keys, vals = zip(*self.GetColumnsFromTable(table_name, column_names))
-        return dict(zip(keys, map(value_mapping, vals)))
+        if value_mapping:
+            return dict(zip(keys, map(value_mapping, vals)))
+        else:
+            return dict(zip(keys, vals))
         
     def GetTableAttribute(self, table_name, attribute_name):
         """
