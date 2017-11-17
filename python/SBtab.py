@@ -39,7 +39,7 @@ class SBtabTable():
     '''
     def __init__(self, table, filename):
         '''
-        Creates SBtab Python object from tablib object.<
+        Creates SBtab Python object from tablib object.
 
         Parameters
         ----------
@@ -48,7 +48,8 @@ class SBtabTable():
         filename : str
             Filename with extension.
         '''
-        # Needed to be able to adress it from outside of the class for writing and reading
+        # Needed to be able to adress it from outside of the class 
+        # for writing and reading
         self.filename = filename
         self.table = table
 
@@ -82,7 +83,8 @@ class SBtabTable():
          self.table_version, self.unique_key) = self.getTableInformation()
         
         # Read the columns of the table
-        (self.columns, self.columns_dict, inserted_column, self.delimiter) = self.getColumns()
+        (self.columns, self.columns_dict, inserted_column, self.delimiter) = \
+            self.getColumns()
 
         # Read data rows
         self.value_rows = self.getRows(self.table_type, inserted_column)
@@ -92,7 +94,8 @@ class SBtabTable():
 
     def checkAscii(self,table):
         '''
-        Checks for ASCII violations, so that the parser will not crash if these occur.
+        Checks for ASCII violations, so that the parser will not crash if 
+        these occur.
 
         Parameters
         ----------
@@ -107,7 +110,8 @@ class SBtabTable():
                 try:
                     new_row.append(str(entry).strip())
                 except:
-                    new_row.append('Ascii violation error! Please check input file!')
+                    new_row.append('Ascii violation error!'
+                                   ' Please check input file!')
             new_table.append('\t'.join(new_row))
 
         tablibtable = tablibIO.importSetNew('\n'.join(new_table),
@@ -134,12 +138,18 @@ class SBtabTable():
         
         # Save string or raise error
         if not header_row:
-            raise SBtabError('This is not a valid SBtab table, please use validator to check format or have a look in the specification!')
+            raise SBtabError('This is not a valid SBtab table, '
+                             'please use validator to check format or '
+                             'have a look in the specification!')
         else:
             header_row = ' '.join(header_row)
 
         # Replace double quotes by single quotes
-        stupid_quotes = ['"','\xe2\x80\x9d','\xe2\x80\x98','\xe2\x80\x99','\xe2\x80\x9b','\xe2\x80\x9c','\xe2\x80\x9f','\xe2\x80\xb2','\xe2\x80\xb3','\xe2\x80\xb4','\xe2\x80\xb5','\xe2\x80\xb6','\xe2\x80\xb7']
+        stupid_quotes = ['"','\xe2\x80\x9d','\xe2\x80\x98',
+                         '\xe2\x80\x99','\xe2\x80\x9b','\xe2\x80\x9c',
+                         '\xe2\x80\x9f','\xe2\x80\xb2','\xe2\x80\xb3',
+                         '\xe2\x80\xb4','\xe2\x80\xb5','\xe2\x80\xb6',
+                         '\xe2\x80\xb7']
 
         for squote in stupid_quotes:
             try: header_row = header_row.replace(squote, "'")
@@ -243,7 +253,8 @@ class SBtabTable():
         Parameters
         ----------
         table_type : str (default 'table')
-            Attribute TableType of the SBtab table. Only necessary, if first column was set automatically.
+            Attribute TableType of the SBtab table. Only necessary, 
+            if first column was set automatically.
         inserted : Boolean
             True, if mandatory first column was set automatically.
         '''
@@ -273,7 +284,8 @@ class SBtabTable():
                     row.insert(0, 'TableRow_' + str(i + 1))
             else:
                 for i, row in enumerate(value_rows):
-                    row.insert(0, table_type[0].upper() + table_type[- 1].lower() + str(i + 1))
+                    row.insert(0, table_type[0].upper() + 
+                                  table_type[- 1].lower() + str(i + 1))
 
         return value_rows
 
@@ -297,7 +309,8 @@ class SBtabTable():
 
     def changeValueByName(self, name, column_name, new):
         '''
-        Change singe value in the SBtab by name of column and of the first row entry.
+        Change singe value in the SBtab by name of column and
+        of the first row entry.
 
         Parameters
         ----------
@@ -323,7 +336,8 @@ class SBtabTable():
         # Create new list
         sbtab_list = []
 
-        # Append the parts header row, main column row and value rows to the list
+        # Append the parts header row, main column row and value 
+        # rows to the list
         sbtab_list.append(self.header_row)
         sbtab_list.append(self.columns)
         sbtab_list.append(self.value_rows)
@@ -521,7 +535,9 @@ class SBtabTable():
         elif format_type == 'xls':
             tablibIO.writeXLS(self.sbtab_dataset, filename)
         else:
-            raise SBtabError('The given file format is not supported: ' + format_type + '. Please use ".tsv", ".csv", ".tab" or ".xls" instead.')
+            raise SBtabError('The given file format is not supported: ' + 
+                format_type + 
+                '. Please use ".tsv", ".csv", ".tab" or ".xls" instead.')
 
     def duplicate(self):
         '''
@@ -543,14 +559,16 @@ class SBtabTable():
     def createSBtabDict(self):
         '''
         Creates a dict instance of the SBtab table.
-        Keys are the column names, values are dicts. These contain the entries of the table.
-        Keys are the entries in the first column, values are the current entries in the certain column.
+        Keys are the column names, values are dicts. These contain the entries 
+        of the table. Keys are the entries in the first column, values are the 
+        current entries in the certain column.
         '''
         sbtab_dicts = {}
         for column_name in self.columns:
             sbtab_dicts[column_name] = {}
             for row in self.value_rows:
-                sbtab_dicts[column_name][row[0]] = row[self.columns_dict[column_name]]
+                sbtab_dicts[column_name][row[0]] = \
+                    row[self.columns_dict[column_name]]
 
         return sbtab_dicts
 
