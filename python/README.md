@@ -30,7 +30,7 @@ Sbtab_doc.add_sbtab(Sbtab_obj)
 # or as string:
 Sbtab_doc.add_sbtab_string(file_content, file_name)
 
-# validate single file from the document
+# validate all SBtabs from the document
 for sbtab in Sbtab_doc.sbtabs:
     ValidateClass = validatorSBtab.validateTable(Sbtab_obj)
     warnings = ValidateClass.return_output()
