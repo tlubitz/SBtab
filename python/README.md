@@ -6,7 +6,7 @@ This directory holds all SBtab files implemented in Python3. For directory conte
 
 ```python
 import SBtab
-import validate
+import validatorSBtab
 
 # open a file and read it
 file_name = 'your_file.tsv'
