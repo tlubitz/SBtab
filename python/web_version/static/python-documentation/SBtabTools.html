@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>SBtab Tools &mdash; SBtab 0.8 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="SBtab 0.8 documentation" href="index.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="sbtab2html.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sbtab2html.html" title="&lt;no title&gt;"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">SBtab 0.8 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <span class="target" id="module-SBtabTools"></span><div class="section" id="sbtab-tools">
+<h1>SBtab Tools<a class="headerlink" href="#sbtab-tools" title="Permalink to this headline">¶</a></h1>
+<p>These functions facilitate the use of SBtab. 
+They can be used to create SBtab objects, by merging strings or read files, respectively.</p>
+<dl class="function">
+<dt id="SBtabTools.oneOrMany">
+<tt class="descclassname">SBtabTools.</tt><tt class="descname">oneOrMany</tt><big>(</big><em>spreadsheet_file</em><big>)</big><a class="reference internal" href="_modules/SBtabTools.html#oneOrMany"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtabTools.oneOrMany" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks for multiple tables in a file and cuts them into separate tablib object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>spreadsheet_file</strong> : tablib object</p>
+<blockquote class="last">
+<div><p>Tablib object of the whole SBtab table.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SBtabTools.openSBtab">
+<tt class="descclassname">SBtabTools.</tt><tt class="descname">openSBtab</tt><big>(</big><em>filepath</em><big>)</big><a class="reference internal" href="_modules/SBtabTools.html#openSBtab"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtabTools.openSBtab" title="Permalink to this definition">¶</a></dt>
+<dd><p>Opens SBtab from file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filepath</strong> : str</p>
+<blockquote class="last">
+<div><p>Path of the spreadsheet file.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SBtabTools.createDataset">
+<tt class="descclassname">SBtabTools.</tt><tt class="descname">createDataset</tt><big>(</big><em>header_row</em>, <em>columns</em>, <em>value_rows</em>, <em>filename</em><big>)</big><a class="reference internal" href="_modules/SBtabTools.html#createDataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SBtabTools.createDataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an SBtab object by merging strings or list of strings.
+Takes a header row, main column row, and the value rows as lists of strings and returns an SBtab object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>header_row</strong> : str</p>
+<blockquote>
+<div><p>String of the header row.</p>
+</div></blockquote>
+<p><strong>columns: list</strong></p>
+<blockquote>
+<div><p>List of strings, names of the columns.</p>
+</div></blockquote>
+<p><strong>value_rows</strong> : list</p>
+<blockquote class="last">
+<div><p>List of lists containing the different rows of the table.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="sbtab2html.html"
+                        title="previous chapter">&lt;no title&gt;</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/SBtabTools.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sbtab2html.html" title="&lt;no title&gt;"
+             >previous</a> |</li>
+        <li><a href="index.html">SBtab 0.8 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Wolfram Liebermeister, Timo Lubitz, Jens Hahn.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

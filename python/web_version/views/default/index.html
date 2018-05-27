@@ -1,0 +1,22 @@
+{{extend 'layout.html'}}
+{{=UPL_FORM}}
+
+
+
+
+
+{{if NAME_LIST:}}
+<table>
+{{for pos,f in enumerate(NAME_LIST):}} 
+  <tr> 
+    <td>{{=f}}</td> 
+    <td> <form> <button type="submit" value="{{=pos}}" name="validate_button">Validate</button> </form> </td>
+    <td> <form> <button type="submit" value="{{=pos}}" name="erase_button">Erase</button> </form> </td>
+  </tr>
+{{pass}}
+</table>
+{{else:}}
+No SBtabs uploaded
+{{pass}}
+
+{{=V_OUTPUT}}

@@ -1,0 +1,4 @@
+!!SBtab SBtabVersion='0.9.1' Document='Hynne_2001' TableType='Compartment' TableName='Compartment'					
+!ID	!Name	!Size	!SBOTerm	!Unit	!Compartment:Identifiers:sbo.go
+extracellular	extracellular	1.0	SBO:0000290	mL	GO:0005615
+cytosol	cytosol	1.0	SBO:0000290	fL	GO:0005829

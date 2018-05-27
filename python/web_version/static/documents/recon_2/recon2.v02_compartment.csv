@@ -1,0 +1,10 @@
+!!SBtab SBtabVersion="0.8" Document="recon2.v02" TableType="Compartment" TableName="Compartment"					
+!Compartment	!Name	!Size	!Unit	!SBOTerm	!Identifiers:obo.go
+c	cytoplasm	1.0		290	
+e	extracellular space	1.0		290	GO:0005615
+g	Golgi apparatus	1.0		290	GO:0005794
+l	lysosome	1.0		290	GO:0005764
+m	mitochondrion	1.0		290	GO:0005739
+n	nucleus	1.0		290	GO:0005634
+r	endoplasmic reticulum	1.0		290	GO:0005783
+x	peroxisome	1.0		290	GO:0005777

@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>SBtab - Standardised data tables for Systems Biology</title>
+    <link rel="stylesheet" type="text/css" href="./sbtab.css">
+    <link rel="icon" type="image/png" href="./images/sbtab_favicon.png">
+  </head>
+
+  <body>
+
+<a href="./index.html"><image width = "200" src="images/sbtab-logo.jpg"></a>
+
+<h3>Getting started with SBtab</h3>
+
+<h4> What is SBtab?</h4>
+
+<p> SBtab is a set of conventions for data tables
+and spreadsheet files, facilitating data exchange in Systems
+Biology. Conventions concern, for instance, formatted information
+about the table in the first row, standardised column names and units,
+and use of standard terminology (e.g., names defined by the 
+<a href="http://www.ebi.ac.uk/sbo/main/">Systems
+Biology Ontology</a>), as in the following example:</p>
+
+    <table><tr>	  
+	  <td>
+	    <table>
+	      <tbody>
+		<tr style="background-color:#00bfff">
+		  <td colspan="6"><font color="#000080">!!SBtab TableType = 'Quantity' TableName = 'Kinetic constants' SBtabVersion='0.9.1'</font></td>
+		</tr>
+		<tr style="background-color:#87cefa">
+		  <td><font color="#0000c0">!ID</font></td>
+		  <td><font color="#0000c0">!QuantityType</font></td>
+		  <td><font color="#0000c0">!Value</font></td>
+		  <td><font color="#0000c0">!Unit</font></td>
+		  <td><font color="#0000c0">!Compound</font></td>
+		  <td><font color="#0000c0">!Reaction</font></td>
+		</tr>
+		<tr>
+		  <td><font color="#444444">scp1</font></td>
+		  <td><font color="#666666">standard chemical potential</font></td><td>-1380</td>
+		  <td><font color="#666666">kJ/mol</font></td><td><font color="#444444">F6P</font></td><td><div/></td></tr>
+		<tr>
+		  <td><font color="#444444">scp2</font></td>
+		  <td><font color="#666666">standard chemical potential</font></td>
+		  <td>-2206</td><td><font color="#666666">kJ/mol</font></td><td><font color="#444444">FBP</font></td>
+		  <td><div/></td></tr>
+		<tr>
+		  <td><font color="#444444">kcrf1</font></td>
+		  <td><font color="#666666">substrate catalytic rate constant</font></td><td>0.02</td>
+		  <td><font color="#666666">1/s</font></td><td><div/></td><td><font color="#444444">R04779</font></td></tr>
+		<tr>
+		  <td><font color="#444444">kcrr1</font></td>
+		  <td><font color="#666666">product catalytic rate constant</font></td><td>0.01</td>
+		  <td><font color="#666666">1/s</font></td><td><div/></td><td><font color="#444444">R04779</font></td></tr>
+		<tr>
+		  <td><font color="#444444">kmc1</font></td>
+		  <td><font color="#666666">Michaelis constant</font></td>
+		  <td>0.5</td><td><font color="#666666">mM</font></td><td><font color="#444444">FBP</font></td>
+		  <td><font color="#444444">R04779</font></td></tr>
+		<tr>
+		  <td><font color="#444444">kmc2</font></td>
+		  <td><font color="#666666">Michaelis constant</font></td><td>0.5</td>
+		  <td><font color="#666666">mM</font></td><td><font color="#444444">ATP</font></td>
+		  <td><font color="#444444">R04779</font></td></tr>
+		<tr>
+		  <td><font color="#444444">kmc3</font></td>
+		  <td><font color="#666666">Michaelis constant</font></td><td>0.2</td>
+		  <td><font color="#666666">mM</font></td><td><font color="#444444">ADP</font></td>
+		  <td><font color="#444444">R04779</font></td></tr>
+		<tr>
+		  <td><font color="#444444">kic1</font></td>
+		  <td><font color="#666666">inhibitory constant</font></td><td>1</td>
+		  <td><font color="#666666">mM</font></td><td><font color="#444444">ATP</font></td>
+		  <td><font color="#444444">R04779</font></td></tr>
+	      </tbody>
+	    </table>
+	  </td>
+
+	  <td width="10"/>
+
+</tr>
+</table>
+
+<h4>What are the advantages of using SBtab? </h4>
+
+    <p>Data tables in the form of spreadsheet or
+    delimited text files are the most popular data format in Systems
+    Biology. However, they are often not sufficiently structured and
+    they lack clear naming conventions that are required for
+    modelling.<br>  SBtab is an attempt to establish easy-to-use
+    formats that are both flexible and clearly structured. It
+    comprises defined table types for different kinds of data; syntax
+    rules for usage of names, shortnames, and database identifiers
+    used for annotation; and standardised formulae for reaction
+    stoichiometries. Furthermore, SBtab enables users to easily define
+    their own table types to customise SBtab for different types of
+    data. The predefined table types can be used to define biochemical
+    network models and the biochemical constants therein.  By
+    modifying the definition
+    table <a href="./documents/definitions.tsv">definitions.tsv</a>, you
+    can customise the SBtab format and define new table types for your
+    data.
+</p>
+
+
+<h4>Interoperability</h4>
+
+    <p>SBtab can be used together with a number of
+tools and programming languages.</p>
+
+<ol>
+<li>
+<myunscale><p class="short"><strong>MS Excel</strong> SBtab files can be
+edited with MS Excel. The SBtab format concerns only the contents of
+cells. Other Excel functionality, such as colours, macros, or links
+between cells, are not supported by SBtab and should not be used to
+encode information.  In Excel, SBtab tables can be imported from /
+exported to .xls and .tsv (tab-delimited)
+or .csv (comma-delimited) 
+format. An <a href="./code.html">Excel Add-in</a> supporting SBtab is
+freely available.
+</p></myunscale></li>
+
+    <li><myunscale><p class="short"><strong>OpenOffice/LibreOffice</strong>
+SBtab files can be edited with OpenOffice and LibreOffice. As in the
+case of Excel, functionality such as colours, macros, or links between
+cells, are not supported by SBtab and should not be used to encode
+information.  SBtab tables can be imported from / exported to .xls and
+.tsv (tab-delimited) or .csv (comma-delimited) format. Note that some
+versions of LibreOffice do not recognise the .tsv filename
+extension. In this case, it is recommended to simply rename the files,
+replacing ".tsv" by ".csv".</p></myunscale></li>
+
+    <li><myunscale><p class="short"><strong>python</strong> Python code for
+loading and saving SBtab in python, as well as for validation and
+conversion to and from SBML, is
+available <a href="./code.html">here</a>.  The python code expects
+SBtab files to be in tab- or comma-separated text format and supports
+.xls files. There is also support for pandas. The method toDataFrame()
+requires no arguments, and returns a pandas.DataFrame() object with
+the data that is in the SBtab, including the column names.
+</p></myunscale></li>
+
+    <li><myunscale><p class="short"><strong>MATLAB</strong> Code for importing
+and exporting SBtab files in MATLAB is
+available <a href="./code.html">here</a>.  The MATLAB toolbox expects
+SBtab files to be in tab-separated text format and does not support
+.xls files.</p></myunscale></li>
+
+    <li><myunscale><p class="short"><strong>R</strong> The R project is a
+widespread and powerful software framework for statistical computing
+and graphics. We provide a simple interface that allows R users to
+import the SBtab python code into their R projects, manipulate SBtab
+objects, call Python functions from within the R environment.  Code is
+available <a href="./code.html">here</a>.
+</p></myunscale></li>
+
+    <li><myunscale><p class="short"><strong>SBML (Systems Biology Markup
+Language)</strong> The conversion between SBtab
+and <a href="http://www.sbml.org">SBML</a> (versions L2V4 or L3V1),
+can be done on this website or using the python tools. Details are
+described in the SBtab specification.</p></myunscale></li>
+
+    <li><myunscale><p class="short"><strong>Relational databases</strong> SBtab
+is structured in a way that makes it easy to express tables from
+relational databases in SBtab. Tables of type "Relationship" can be
+used to link other tables. However, the opposite is not true: SBtab
+does not impose normal forms, and it allows to link information in
+ways that would not be allowed in relational databases. However, a
+main feature of relational databases, unique keys for all tables,
+exists in SBtab.  By default, each table must begin with a column
+whose name matches the name of the table type and whose entries serve
+as unique keys for the table rows. To relieve this requirement, the
+table attribute UniqueKeyColumn='False' must be set in the table's
+declaration line. Python code for setting up an SQlight database and
+querying it through a simple python interface is
+available <a href="./code.html">here</a>.</p></myunscale></li>
+</ol>
+
+<h4>How to get started</h4>
+
+    <ol >
+    <li>Have a look at some  <a href="./files.html">example files</a> 
+to get a first impression of the SBtab format.<br>  </li>    
+    <li>Have a look at our <a href="./faq.html">Frequently Asked Questions</a> page.</li>
+    <li>Learn how to describe    <a href="./sbtab_models.html">biochemical network models</a>
+in the  SBtab format.</li>
+    <li>Learn how to <a href="./sbtab_compliance.html">make your data tables SBtab-compliant</a> in a few steps.</li>
+  <li>Read the  <a href="./specification.html">SBtab draft specification</a> to learn about details of the SBtab format</li>
+    </ol>
+
+<h4>How to cite SBtab</h4>
+
+<p>
+Lubitz T., Hahn J., Bergmann F.T., Noor E., Klipp E., Liebermeister W.
+ (2016), SBtab: A flexible table format for data exchange in systems
+ biology,
+  <a href="http://bioinformatics.oxfordjournals.org/content/early/2016/04/08/bioinformatics.btw179.abstract?keytype=ref&ijkey=xiEXADxtPPlY9uz">  Bioinformatics (2016)</a>
+</p>
+
+ 
+    <hr align="left" width="720">
+    <p>
+      <a href="./index.html">Main</a> | 
+      <a href="./introduction.html">Getting started</a> |
+      <a href="./specification.html">Specification</a> |
+      <a href="../default/validator">Validator</a> | 
+      <a href="../default/converter">SBML</a> |
+      <a href="../default/def_files">Customize SBtab</a> |
+      <a href="./code.html">Code</a> |
+      <a href="./troubles.html">Troubleshooting</a> |
+      <a href="./team.html">Contact</a> 
+    </p>
+
+  </body>
+</html>

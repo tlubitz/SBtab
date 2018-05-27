@@ -1,0 +1,3 @@
+!!SBtab Level='1' Version='0.1' Document='Test' TableType='Enzyme'
+!Enzyme	!CatalysedReaction	!KineticLaw	!MetabolicRegulators	!Gene	!GeneBooleanFormula
+ATP	R1	Mass-action kinetic	C6H20	Op10	Op10|Bre20
