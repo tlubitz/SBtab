@@ -1,22 +1,38 @@
 SBtab Python Code
 =================
-This directory holds all SBtab files implemented in Python. For directory content please see the main directory.
+This directory holds all SBtab files implemented in Python3. For directory content please see the main directory.
 
-<h3>How to embed SBtab into your code</h3>
+<h3>How to embed SBtab Tables into your code</h3>
 
 ```python
-import tablibIO
 import SBtab
+import validate
 
-#1: Open a file and read it
-sbtab_file   = open('your_file.tsv','r')
+# open a file and read it
+file_name = 'your_file.tsv'
+sbtab_file = open(file_name, 'r')
 file_content = sbtab_file.read()
 sbtab_file.close()
 
-#2: create a tablib object
-tablib_obj = tablibIO.importSetNew(file_content,'your_file.tsv')
+# create an SBtab Object
+Sbtab_obj = SBtab.SBtabTable(file_content, file_name)
 
-#3: create an SBtab object
-SBtab_obj = SBtab.SBtabTable(tablib_obj,'your_file.tsv')
+# validate the file
+ValidateClass = validatorSBtab.validateTable(Sbtab_obj)
+warnings = ValidateClass.return_output()
+print(warnings)
 
+# alternatively, create an SBtab Document (if you have more than one SBtab belonging to one document)
+Sbtab_doc = SBtab.SBtabDocument()
+
+# add an SBtab as object
+Sbtab_doc.add_sbtab(Sbtab_obj)
+# or as string:
+Sbtab_doc.add_sbtab_string(file_content, file_name)
+
+# validate single file from the document
+for sbtab in Sbtab_doc.sbtabs:
+    ValidateClass = validatorSBtab.validateTable(Sbtab_obj)
+    warnings = ValidateClass.return_output()
+    print(warnings)
 ```
