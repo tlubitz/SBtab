@@ -8,9 +8,15 @@ See specification for further information.
 """
 #!/usr/bin/env python
 import re, libsbml, numpy
+try: import SBtab
+except: from . import SBtab
 import sys
 
-allowed_sbtabs = ['Reaction','Compound','Compartment','Quantity','Event','Rule']
+#Rule and Event not updated yet (later. lack of time atm.)
+#supported_table_types = ['Compartment', 'Compound', 'Reaction', 'Rule',
+#                         'Quantity', 'Event']
+supported_table_types = ['Compartment', 'Compound', 'Reaction', 'Quantity']
+
 
 class ConversionError(Exception):
     '''
@@ -18,6 +24,7 @@ class ConversionError(Exception):
     '''
     def __init__(self,message):
         self.message = message
+        
     def __str__(self):
         return self.message
 
@@ -25,209 +32,154 @@ class SBMLDocument:
     '''
     SBML model to be converted to SBtab file/s
     '''
-    def __init__(self,sbml_model,filename):
+    def __init__(self, sbml_model, filename):
         '''
         Initalizes SBtab document, checks it for SBtabs
 
         Parameters
         ----------
-        sbml_model : libsbml object
+        sbml_model : libsbml model object
             SBML model as libsbml object.
         filename : str
             Filename with extension.
         '''
-        #reader      = libsbml.SBMLReader()
-        #sbml_modelx = reader.readSBML(sbml_model)
-        #print sbml_modelx.getModel()
+        self.model = sbml_model
+        if filename.endswith('.xml') or filename.endswith('.sbml'):
+            cut = re.search('(.*)\.', filename)
+            self.filename = cut.group(1)
+        else: raise ConversionError('Wrong extension of file %s.' % filename)
 
-        self.model    = sbml_model
-        self.filename = filename
-        if not self.filename.endswith('.xml') and not filename.endswith('.sbml'): 
-            raise ConversionError('The given file format is not supported: '+self.filename)
-
-        #for testing purposes:
-        '''
-        sbtabs = self.makeSBtabs()
-        for sbtab in sbtabs:
-            print sbtab
-            print '\n\n\n'
-        '''
-
-    def makeSBtabs(self):
+    def convert_to_sbtab(self):
         '''
         Generates the SBtab files.
         '''
         self.warnings = []
-        sbtabs        = []
+        sbtab_doc = SBtab.SBtabDocument(self.filename)
 
-        #self.testForInconvertibles()
-
-        for sbtab_type in allowed_sbtabs:
+        for table_type in supported_table_types:
             try:
-                function_name = 'self.'+sbtab_type.lower()+'SBtab()'
-                new_sbtab = eval(function_name)
-                if new_sbtab != False: sbtabs.append(new_sbtab)
+                function_name = 'self.'+table_type.lower()+'_sbtab()'
+                sbtab = eval(function_name)
+                if sbtab != False:
+                    sbtab_doc.add_sbtab(sbtab)
             except:
-                pass
-
-        sbtabs = self.getRidOfNone(sbtabs)
-        sbtabs = self.getRidOfEmptyColumns(sbtabs)
-
-        return sbtabs,self.warnings
-
-    def testForInconvertibles(self):
-        '''
-        Some SBML entities cannot be converted to SBML. Thus, we add warnings to tell the user about omitting them.
-        '''
-        try:
-            rules = self.model.getListOfRules()
-            if len(rules)>0:
-                self.warnings.append('The SBML model contains rules. These cannot be translated to the SBtab files yet.')
-        except: pass
-        
-    def getRidOfNone(self,sbtabs):
-        '''
-        Removes empty SBtabs (if no values for an SBtab were provided by the SBML).
-
-        Parameters
-        ----------
-        sbtabs : list
-           List of single SBtab files.
-        '''
-        new_tabs = []
-        for element in sbtabs:
-            if element != None:
-                new_tabs.append(element)
-        return new_tabs
-
-    def getRidOfEmptyColumns(self,sbtabs):
-        '''
-        Removes empty columns.
-
-        Parameters
-        ----------
-        sbtabs : list
-           List of single SBtab files.        
-        '''
-        sbtab2empty_columns = {}
-
-        for i,sbtab in enumerate(sbtabs):
-            tab   = sbtab[0]
-            sptab = tab.split('\n')[1]
-            empty_columns = list(range(0,len(sptab.split('\t'))))
-            for k,element in enumerate(empty_columns): empty_columns[k] = str(element)
-            for row in sbtab[0].split('\n')[2:]:
-                for j,element in enumerate(row.split('\t')):
-                    if element != '':
-                        try: empty_columns.remove(str(j))
-                        except: pass
-            for k,element in enumerate(empty_columns): empty_columns[k] = int(element)
-            sbtab2empty_columns[i] = empty_columns
-
-        new_tabs = []
-        
-        for i,sbtab in enumerate(sbtabs):
-            eliminate_columns = sbtab2empty_columns[i]
-            new_tab = [sbtab[0].split('\n')[0]]
-            #new_tab.append(sbtab[0].split('\n')[1])
-            tab = sbtab[0].split('\n')[1:]
-            for row in tab:
-                new_row = []
-                for j,element in enumerate(row.split('\t')):
-                    if not j in eliminate_columns:
-                        new_row.append(element)
-                new_tab.append('\t'.join(new_row))
-            new_tabs.append(('\n'.join(new_tab),sbtab[1]))
-
-        return new_tabs
+                self.warnings.append('Could not generate SBtab %s.' % table_type)
                 
+        return (sbtab_doc, self.warnings)
 
-    def compartmentSBtab(self):
+    def compartment_sbtab(self):
         '''
-        Builds a Compartment SBtab.
+        build a compartment SBtab
         '''
-        compartment  = [['!!SBtab SBtabVersion="1.0" Document="'+self.filename.rstrip('.xml')+'" TableType="Compartment" TableName="Compartment"'],['']]
-        header       = ['!Compartment','!Name','!Size','!Unit','!SBOTerm']
-        identifiers  = []
-        column2ident = {}
+        # header row
+        sbtab_compartment  = '!!SBtab SBtabVersion="1.0" Document="%s" TableT'\
+                             'ype="Compartment" TableName="Compartment"'\
+                             '\n' % self.filename
+        # columns
+        columns = ['!ID', '!Name', '!Size', '!Unit', '!SBOTerm']
+        sbtab_compartment += '\t'.join(columns) + '\n'
 
-        for comp in self.model.getListOfCompartments():
-            value_row = ['']*len(header)
-            value_row[0] = comp.getId()
-            try: value_row[1] = comp.getName()
+        # value rows
+        for compartment in self.model.getListOfCompartments():
+            value_row = [''] * len(columns)
+            value_row[0] = compartment.getId()
+            try: value_row[1] = compartment.getName()
             except: pass
-            try: value_row[2] = str(comp.getSize())
+            try: value_row[2] = str(compartment.getSize())
             except: pass
             try: value_row[3] = str(species.getUnits())
             except: pass
-            if str(comp.getSBOTerm()) != '-1': value_row[5] ='SBO:%.7d'%comp.getSBOTerm()
+            if str(compartment.getSBOTerm()) != '-1':
+                value_row[4] ='SBO:%.7d'%compartment.getSBOTerm()
+            sbtab_compartment += '\t'.join(value_row) + '\n'
+
+        # build SBtab Table object from basic information
+        sbtab_compartment = SBtab.SBtabTable(sbtab_compartment,
+                                             self.filename + '_compartment.tsv')
+
+        # test and extend for annotations
+        for i, compartment in enumerate(self.model.getListOfCompartments()):
             try:
-                annot_tuples = self.getAnnotations(comp)
-                for i,annotation in enumerate(annot_tuples):
-                    if not ("!Identifiers:"+annotation[1]) in header:
-                        identifiers.append(annotation[1])
-                        column2ident[annotation[1]] = int(len(header)+1)
-                        header.append('!Identifiers:'+annotation[1])
-                        value_row.append('')
-                    if annotation[1] in identifiers:
-                        value_row[column2ident[annotation[1]]-1] = annotation[0]
-            except: pass
-            compartment.append(value_row)
+                annotations = self.get_annotations(compartment)
+                for j, annotation in enumerate(annotations):
+                    col_name = '!Identifiers:' + annotation[1]
+                    if col_name not in columns:
+                        new_column = [''] * (self.model.getNumCompartments() + 1)
+                        new_column[0] = col_name
+                        new_column[i + 1] = annotation[0]
+                        columns.append(col_name)
+                        sbtab_compartment.add_column(new_column)
+                    else:
+                        sbtab_compartment.change_value_by_name(compartment.getId(),
+                                                               col_name,
+                                                               annotation[0])
+            except:
+                self.warnings.append('Could not add the annotation %s for'\
+                                     'compartment %s' % annotations[1],
+                                     compartment.getId())           
 
-        compartment[1] = header
-        compartment_SB = compartment[0]
-        for row in compartment[1:]:
-            compartment_SB.append('\t'.join(row))
-        compartment_SBtab = '\n'.join(compartment_SB)
-
-        return [compartment_SBtab,'compartment']
+        return sbtab_compartment
         
-    def compoundSBtab(self):
+    def compound_sbtab(self):
         '''
-        Builds a Compound SBtab.
+        build a compound SBtab
         '''
-        compound = [['!!SBtab SBtabVersion="1.0" Document="'+self.filename.rstrip('.xml')+'" TableType="Compound" TableName="Compound"'],['']]
-        header   = ['!Compound','!Name','!Location','!Charge','!IsConstant','!SBOTerm','!InitialConcentration','!hasOnlySubstanceUnits']
-        identifiers  = []
-        column2ident = {}
+        # header row
+        sbtab_compound = '!!SBtab SBtabVersion="1.0" Document="%s" TableType='\
+                         '"Compound" TableName="Compound"\n' % self.filename
 
+        # columns
+        columns = ['!ID', '!Name', '!Location', '!Charge', '!IsConstant',
+                   '!SBOTerm', '!InitialConcentration', '!hasOnlySubstanceUnits']
+        sbtab_compound += '\t'.join(columns) + '\n'
+
+        # value rows
         for species in self.model.getListOfSpecies():
-            value_row = ['']*len(header)
+            value_row = [''] * len(columns)
             value_row[0] = species.getId()
-            value_row[1] = species.getName()
+            try: value_row[1] = species.getName()
+            except: pass
             try: value_row[2] = species.getCompartment()
             except: pass
             try: value_row[3] = str(species.getCharge())
             except: pass
             try: value_row[4] = str(species.getConstant())
             except: pass
-            if str(species.getSBOTerm()) != '-1': value_row[5] ='SBO:%.7d'%species.getSBOTerm()
+            if str(species.getSBOTerm()) != '-1':
+                value_row[5] ='SBO:%.7d'%species.getSBOTerm()
             try: value_row[6] = str(species.getInitialConcentration())
             except: pass
             try: value_row[7] = str(species.getHasOnlySubstanceUnits())
             except: pass
-            try:
-                annot_tuples = self.getAnnotations(species)
-                for i,annotation in enumerate(annot_tuples):
-                    if not ("!Identifiers:"+annotation[1]) in header:
-                        identifiers.append(annotation[1])
-                        column2ident[annotation[1]] = int(len(header)+1)
-                        header.append('!Identifiers:'+annotation[1])
-                        value_row.append('')
-                    if annotation[1] in identifiers:
-                        value_row[column2ident[annotation[1]]-1] = annotation[0]
-            except: pass
-            compound.append(value_row)
+            sbtab_compound += '\t'.join(value_row) + '\n'
 
-        compound[1] = header
-        compound_SB = compound[0]
-        for row in compound[1:]:
-            compound_SB.append('\t'.join(row))
-        compound_SBtab = '\n'.join(compound_SB)
+        sbtab_compound = SBtab.SBtabTable(sbtab_compound,
+                                          self.filename + '_compound.tsv')
             
-        return [compound_SBtab,'compound']
+        # test and extend for annotations
+        for i, species in enumerate(self.model.getListOfSpecies()):
+            try:
+                annotations = self.get_annotations(species)
+                for j, annotation in enumerate(annotations):
+                    col_name = '!Identifiers:' + annotation[1]
+                    if col_name not in columns:
+                        new_column = [''] * (self.model.getNumSpecies() + 1)
+                        new_column[0] = col_name
+                        new_column[i + 1] = annotation[0]
+                        columns.append(col_name)
+                        sbtab_compound.add_column(new_column)
+                    else:
+                        sbtab_compound.change_value_by_name(species.getId(),
+                                                            col_name,
+                                                            annotation[0])
+            except:
+                self.warnings.append('Could not add the annotation %s for'\
+                                     'compound %s' % annotations[1],
+                                     species.getId())
 
-    def eventSBtab(self):
+        return sbtab_compound
+
+    def event_sbtab(self):
         '''
         Builds an Event SBtab.
         '''
@@ -271,7 +223,7 @@ class SBMLDocument:
             try: value_row[6] = str(eve.getUseValuesFromTriggerTime())
             except: pass
             try:
-                annot_tuples = self.getAnnotations(eve)
+                annot_tuples = self.get_annotations(eve)
                 for i,annotation in enumerate(annot_tuples):
                     if not ("!Identifiers:"+annotation[1]) in header:
                         identifiers.append(annotation[1])
@@ -291,7 +243,7 @@ class SBMLDocument:
             
         return [event_SBtab,'event']
 
-    def ruleSBtab(self):
+    def rule_sbtab(self):
         '''
         Builds a Rule SBtab.
         '''
@@ -315,7 +267,7 @@ class SBMLDocument:
             try: value_row[3] = ar.getUnits()
             except: pass            
             try:
-                annot_tuples = self.getAnnotations(ar)
+                annot_tuples = self.get_annotations(ar)
                 for i,annotation in enumerate(annot_tuples):
                     if not ("!Identifiers:"+annotation[1]) in header:
                         identifiers.append(annotation[1])
@@ -335,160 +287,222 @@ class SBMLDocument:
             
         return [rule_SBtab,'rule']
 
-    def getAnnotations(self,element):
+    def get_annotations(self, element):
         '''
         Tries to extract an annotation from an SBML element.
         '''
-        cvterms      = element.getCVTerms()
-        annotation   = False
-        urn          = False
+        annotation = False
+        urn = False
         annot_tuples = []
 
-        pattern2urn = {"CHEBI:\d+$":"obo.chebi",\
-                       "C\d+$":"kegg.compound",\
-                       "GO:\d{7}$":"obo.go",\
-                       "((S\d+$)|(Y[A-Z]{2}\d{3}[a-zA-Z](\-[A-Z])?))$":"sgd",\
-                       "SBO:\d{7}$":"biomodels.sbo",\
-                       "\d+\.-\.-\.-|\d+\.\d+\.-\.-|\d+\.\d+\.\d+\.-|\d+\.\d+\.\d+\.(n)?\d+$":"ec-code",\
-                       "K\d+$":"kegg.orthology",\
-                       "([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$":"uniprot"}
-        for i in range(element.getNumCVTerms()):
-            cvterm   = cvterms.get(i)
+        pattern2urn = {"CHEBI:\d+$": "obo.chebi",
+                       "C\d+$": "kegg.compound",
+                       "GO:\d{7}$": "obo.go",
+                       "((S\d+$)|(Y[A-Z]{2}\d{3}[a-zA-Z](\-[A-Z])?))$": "sgd",
+                       "SBO:\d{7}$": "biomodels.sbo",
+                       "\d+\.-\.-\.-|\d+\.\d+\.-\.-|\d+\.\d+\.\d+\.-|\d+\.\d+\.\d+\.(n)?\d+$": "ec-code",
+                       "K\d+$": "kegg.orthology",
+                       "([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\.\d+)?$": "uniprot"}
+
+        if element.getCVTerms() == None: return annot_tuples
+        
+        for cvterm in element.getCVTerms():
             for j in range(cvterm.getNumResources()):
                 resource = cvterm.getResourceURI(j)
+                # this is required since URL encoding of a colon is %3A and crashes the RE
+                resource = resource.replace('%3A',':')
                 for pattern in pattern2urn.keys():
                     try:
-                        search_annot = re.search(pattern,resource)
-                        annotation   = search_annot.group(0)
-                        urn          = pattern2urn[pattern]
-                        annot_tuples.append([annotation,urn])
+                        search_annot = re.search(pattern, resource)
+                        annotation = search_annot.group(0)
+                        urn = pattern2urn[pattern]
+                        annot_tuples.append([annotation, urn])
                         break
                     except: pass
                     try:
-                        search_annot = re.search('identifiers.org/(.*)/(.*)',resource)
-                        annotation   = search_annot.group(2)
-                        urn          = search_annot.group(1)
-                        annot_tuples.append([annotation,urn])
+                        search_annot = re.search('identifiers.org/(.*)/(.*)',
+                                                 resource)
+                        annotation = search_annot.group(2)
+                        urn = search_annot.group(1)
+                        annot_tuples.append([annotation, urn])
+                        break
                     except: pass
 
         return annot_tuples
 
-    def reactionSBtab(self):
+    def reaction_sbtab(self):
         '''
-        Builds a Reaction SBtab.
+        build a reaction SBtab
         '''
-        reaction     = [['!!SBtab SBtabVersion="1.0" Document="'+self.filename.rstrip('.xml')+'" TableType="Reaction" TableName="Reaction"'],['']]
-        header       = ['!Reaction','!Name','!ReactionFormula','!Location','!Regulator','!KineticLaw','!SBOTerm','!IsReversible']
-        identifiers  = []
-        column2ident = {}
+        # header row
+        sbtab_reaction = '!!SBtab SBtabVersion="1.0" Document="%s" TableType='\
+                         '"Reaction" TableName="Reaction"\n' % self.filename
 
-        for react in self.model.getListOfReactions():
-            value_row = ['']*len(header)
-            value_row[0] = react.getId()
-            value_row[1] = react.getName()
-            value_row[2] = self.makeSumFormula(react)
-            try: value_row[3] = str(react.getCompartment())
+        # columns
+        columns = ['!ID', '!Name', '!ReactionFormula', '!Location',
+                   '!Regulator', '!KineticLaw', '!SBOTerm', '!IsReversible']
+        sbtab_reaction += '\t'.join(columns) + '\n'
+
+        for reaction in self.model.getListOfReactions():
+            value_row = [''] * len(columns)
+            value_row[0] = reaction.getId()
+            try: value_row[1] = reaction.getName()
             except: pass
-            modifiers = react.getListOfModifiers()
-            if len(modifiers)>1:
-                modifier_list = ''
-                for i,modifier in enumerate(modifiers):
-                    if i != len(react.getListOfModifiers())-1: modifier_list += modifier.getSpecies() + '|'
-                    else: modifier_list += modifier.getSpecies()
-                value_row[4] = modifier_list
-            elif len(modifiers)==1:
-                for modifier in modifiers: value_row[4] = modifier.getSpecies()
-            else: pass
-            try: value_row[5] = react.getKineticLaw().getFormula()
+            try: value_row[2] = self.make_sum_formula(reaction)
             except: pass
-            if str(react.getSBOTerm()) != '-1': value_row[6] ='SBO:%.7d'%react.getSBOTerm()
-            try: value_row[7] = str(react.getReversible())
-            except: pass            
+            try: value_row[3] = str(reaction.getCompartment())
+            except: pass
             try:
-                annot_tuples = self.getAnnotations(react)
-                for i,annotation in enumerate(annot_tuples):
-                    if not ("!Identifiers:"+annotation[1]) in header:
-                        identifiers.append(annotation[1])
-                        column2ident[annotation[1]] = int(len(header))
-                        header.append('!Identifiers:'+annotation[1])
-                        value_row.append('')
-                    if annotation[1] in identifiers:
-                        value_row[column2ident[annotation[1]]] = annotation[0]
+                modifiers = reaction.getListOfModifiers()
+                if len(modifiers) > 1:
+                    modifier_list = ''
+                    for i, modifier in enumerate(modifiers):
+                        if i != len(reaction.getListOfModifiers()) - 1:
+                            modifier_list += modifier.getSpecies() + '|'
+                        else: modifier_list += modifier.getSpecies()
+                    value_row[4] = modifier_list
+                elif len(modifiers) == 1:
+                    for modifier in modifiers:
+                        value_row[4] = modifier.getSpecies()
+            except:
+                pass
+            try:
+                fm = reaction.getKineticLaw().getFormula()
+                value_row[5] = fm.replace('\n', '')
             except: pass
-            reaction.append(value_row)
+            if str(reaction.getSBOTerm()) != '-1':
+                value_row[6] ='SBO:%.7d' % reaction.getSBOTerm()
+            try: value_row[7] = str(reaction.getReversible())
+            except: pass
+            sbtab_reaction += '\t'.join(value_row) + '\n'
 
-        reaction[1] = header
-        reaction_SB = reaction[0]
-        for row in reaction[1:]:
-            reaction_SB.append('\t'.join(row))
-        reaction_SBtab = '\n'.join(reaction_SB)
-        
-        return [reaction_SBtab,'reaction']
+        sbtab_reaction = SBtab.SBtabTable(sbtab_reaction,
+                                          self.filename + '_reaction.tsv')
 
-    def quantitySBtab(self):
+        # test and extend for annotations
+        for i, reaction in enumerate(self.model.getListOfReactions()):
+            try:
+                annotations = self.get_annotations(reaction)
+                for j, annotation in enumerate(annotations):
+                    col_name = '!Identifiers:' + annotation[1]
+                    if col_name not in columns:
+                        new_column = [''] * (self.model.getNumReactions() + 1)
+                        new_column[0] = col_name
+                        new_column[i + 1] = annotation[0]
+                        columns.append(col_name)
+                        sbtab_reaction.add_column(new_column)
+                    else:
+                        sbtab_reaction.change_value_by_name(reaction.getId(),
+                                                            col_name,
+                                                            annotation[0])
+            except:
+                self.warnings.append('Could not add the annotation %s for'\
+                                     'reaction %s' % annotations[1],
+                                     reaction.getId())
+
+        return sbtab_reaction
+
+    def quantity_sbtab(self):
         '''
         Builds a Quantity SBtab.
         '''
-        pars = True
+        # if there are no parameters/quantities in the model, return False
+        parameters = True
         if len(self.model.getListOfParameters()) == 0:
-            pars = False
+            parameters = False
             for reaction in self.model.getListOfReactions():
                 kinetic_law = reaction.getKineticLaw()
-                if len(kinetic_law.getListOfParameters()) != 0: pars = True
+                if len(kinetic_law.getListOfParameters()) != 0:
+                    parameters = True
+        if not parameters: return False
 
-        if not pars: return False
+        # header row        
+        sbtab_quantity = '!!SBtab SBtabVersion="1.0" Document="%s" TableType='\
+                         '"Quantity" TableName="Quantity"\n' % self.filename
+        # columns
+        columns = ['!ID', '!Parameter:SBML:parameter:id', '!Value',
+                   '!Unit', '!Type']
+        sbtab_quantity += '\t'.join(columns) + '\n'
+
+        # required for later iteration of parameter annotations
+        local_parameters = []
         
-        quantity_SBtab = '!!SBtab SBtabVersion="1.0" Document="'+self.filename.rstrip('.xml')+'" TableType="Quantity" TableName="Quantity"\n!Quantity\t!SBML:parameter:id\t!Value\t!Unit\t!Description'
-        identifiers = []
-        the_rows    = ''
-
+        # value rows for local parameters
         for reaction in self.model.getListOfReactions():
             kinetic_law = reaction.getKineticLaw()
             if kinetic_law:
-                value_row   = ''
+                value_row = [''] * len(columns)
                 for parameter in kinetic_law.getListOfParameters():
-                    value_row += parameter.getId()+'_'+reaction.getId()+'\t'
-                    value_row += parameter.getId()+'\t'
-                    value_row += str(parameter.getValue())+'\t'
-                    try: value_row += parameter.getUnits()+'\t'
-                    except: value_row += '\t'
-                    value_row += 'local parameter\t'
-                    #quantity_SBtab += value_row
-                    try:
-                        (annotation,urn) = self.getAnnotation(parameter)
-                        if urn in identifiers: value_row += annotation+'\n'
-                        else: value_row += '\n'
-                        if not "!Identifiers:" in quantity_SBtab:
-                            quantity_SBtab += '\t'+'!Identifiers:'+urn
-                            identifiers.append(urn)
-                    except:
-                        value_row += '\n'
-                the_rows += value_row
+                    value_row[0] = parameter.getId() + '_' + reaction.getId()
+                    value_row[1] = parameter.getId()
+                    value_row[2] = str(parameter.getValue())
+                    try: value_row[3] = parameter.getUnits()
+                    except: pass
+                    value_row[4] = 'local parameter'
+                    local_parameters.append(parameter)
+                sbtab_quantity += '\t'.join(value_row) + '\n'
+                
 
-        for parameter in self.model.getListOfParameters():
-            value_row = parameter.getId()+'\t'
-            value_row += parameter.getId()+'\t'
-            value_row += str(parameter.getValue())+'\t'            
-            try: value_row += parameter.getUnits()+'\t'
-            except: value_row += '\t'            
-            value_row += 'global parameter\t'
+        sbtab_quantity = SBtab.SBtabTable(sbtab_quantity,
+                                          self.filename + '_quantity.tsv')
+                    
+
+        # test and extend for annotations of local parameters
+        for i, quantity in enumerate(local_parameters):
             try:
-                (annotation,urn) = self.getAnnotation(parameter)
-                if urn in identifiers: value_row += annotation+'\n'
-                else: value_row += '\n'
-                if not "!Identifiers:" in quantity_SBtab:
-                    quantity_SBtab += '\t'+'!Identifiers:'+urn
-                    identifiers.append(urn)
+                annotations = self.get_annotations(quantity)
+                for j, annotation in enumerate(annotations):
+                    col_name = '!Identifiers:' + annotation[1]
+                    if col_name not in columns:
+                        new_column = [''] * (len(local_parameters) + 1)
+                        new_column[0] = col_name
+                        new_column[i + 1] = annotation[0]
+                        columns.append(col_name)
+                        sbtab_quantity.add_column(new_column)
+                    else:
+                        sbtab_quantity.change_value_by_name(quantity.getId(),
+                                                            col_name,
+                                                            annotation[0])
             except:
-                value_row += '\n'
-            the_rows += value_row
+                self.warnings.append('Could not add the annotation %s for'\
+                                     'quantity %s' % annotations[1],
+                                     quantity.getId())
 
-        quantity_SBtab += '\n'
-        quantity_SBtab += the_rows
-            
-        return [quantity_SBtab,'quantity']
+        # value_rows for global parameters 
+        for parameter in self.model.getListOfParameters():
+            value_row = [''] * len(sbtab_quantity.columns)
+            value_row[0] = parameter.getId()
+            value_row[1] = parameter.getId()
+            value_row[2] = str(parameter.getValue())
+            try: value_row[3] += parameter.getUnits()
+            except: pass
+            value_row[4] = 'global parameter'
+            sbtab_quantity.add_row(value_row)
 
-    def makeSumFormula(self,reaction):
+        # test and extend for annotations of global parameters
+        for i, parameter in enumerate(self.model.getListOfParameters()):
+            try:
+                annotations = self.get_annotations(parameter)
+                for j, annotation in enumerate(annotations):
+                    col_name = '!Identifiers:' + annotation[1]
+                    if col_name not in columns:
+                        new_column = [''] * (self.model.getNumParameters() + 1)
+                        new_column[0] = col_name
+                        new_column[i + 1] = annotation[0]
+                        columns.append(col_name)
+                        sbtab_quantity.add_column(new_column)
+                    else:
+                        sbtab_quantity.change_value_by_name(parameter.getId(),
+                                                            col_name,
+                                                            annotation[0])
+            except:
+                self.warnings.append('Could not add the annotation %s for'\
+                                     'quantity %s' % annotations[1],
+                                     parameter.getId())
+                
+        return sbtab_quantity
+
+    def make_sum_formula(self, reaction):
         '''
         Generates the reaction formula of a reaction from the list of products and list of reactants.
 
@@ -498,31 +512,33 @@ class SBMLDocument:
            Single reaction object from the SBML file.
         '''
         sumformula = ''
-        id2name    = {}
+        id2name = {}
         
         for species in self.model.getListOfSpecies():
             id2name[species.getId()] = species.getName()
 
-        for i,reactant in enumerate(reaction.getListOfReactants()):
-            if i != len(reaction.getListOfReactants())-1:
+        for i, reactant in enumerate(reaction.getListOfReactants()):
+            if i != len(reaction.getListOfReactants()) - 1:
                 if reactant.getStoichiometry() != 1.0:
-                    sumformula += str(float(reactant.getStoichiometry())) + ' ' + reactant.getSpecies()+' + '
+                    sumformula += str(float(reactant.getStoichiometry())) + ' ' + reactant.getSpecies() + ' + '
                 else:
-                    sumformula += reactant.getSpecies()+' + '
+                    sumformula += reactant.getSpecies() + ' + '
             else:
                 if numpy.isnan(reactant.getStoichiometry()):
                     sumformula += '1 ' + reactant.getSpecies() + ' <=> '
                 elif reactant.getStoichiometry() != 1.0:
-                    sumformula += str(float(reactant.getStoichiometry())) + ' ' + reactant.getSpecies()+' <=> '
+                    sumformula += str(float(reactant.getStoichiometry())) + ' ' + reactant.getSpecies() + ' <=> '
                 else:
-                    sumformula += reactant.getSpecies()+' <=> '
+                    sumformula += reactant.getSpecies() + ' <=> '
+        
         if sumformula == '': sumformula += '<=> '
-        for i,product in enumerate(reaction.getListOfProducts()):
-            if i != len(reaction.getListOfProducts())-1:
+        
+        for i, product in enumerate(reaction.getListOfProducts()):
+            if i != len(reaction.getListOfProducts()) - 1:
                 if product.getStoichiometry() != 1.0:
-                    sumformula += str(float(product.getStoichiometry())) + ' ' + product.getSpecies()+' + '
+                    sumformula += str(float(product.getStoichiometry())) + ' ' + product.getSpecies() + ' + '
                 else:
-                    sumformula += product.getSpecies()+' + '
+                    sumformula += product.getSpecies() + ' + '
             else:
                 if numpy.isnan(product.getStoichiometry()):
                     sumformula += '1 ' + product.getSpecies() + ' <=> '
@@ -530,10 +546,6 @@ class SBMLDocument:
                     sumformula += str(float(product.getStoichiometry())) + ' ' + product.getSpecies()
                 else:
                     sumformula += product.getSpecies()
-            
-        #if there is no product in the reaction (e.g. influxes), don't forget the tab
-        #if len(reaction.getListOfProducts()) < 1:
-        #    sumformula += '\t'
 
         return sumformula
         
@@ -542,7 +554,7 @@ if __name__ == '__main__':
 
     try: sys.argv[1]
     except:
-        print 'You have not provided input arguments. Please start the script by also providing an SBML file and an optional SBtab output filename: >python sbml2sbtab.py SBMLfile.xml Output'
+        print('You have not provided input arguments. Please start the script by also providing an SBML file and an optional SBtab output filename: >python sbml2sbtab.py SBMLfile.xml Output')
         sys.exit()
 
     file_name  = sys.argv[1]
@@ -564,4 +576,4 @@ if __name__ == '__main__':
         sbtab_file.write(sbtab[0])
         sbtab_file.close()
 
-    print 'The SBtab file/s have been successfully written to your working directory or chosen output path.'
+    print('The SBtab file/s have been successfully written to your working directory or chosen output path.')

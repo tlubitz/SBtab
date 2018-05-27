@@ -1,24 +1,20 @@
 #!/usr/bin/python
-
 import mimetypes
 import sys
-import tablib
-import tablib.core
 import csv
 import os
-import tablib.packages.odf.opendocument as opendocument
-from tablib.packages.odf.table import Table, TableRow, TableColumn, TableCell
-from tablib.packages.odf.text import P
-import tablib.packages.xlrd as xlrd
-import misc
+import tablib
+try: from . import misc
+except: import misc
 
 
 def sheets(self):  # Added to excess sheets of Databook
     return self._datasets
 try:
-    tablib.Databook.sheets
+    tablib.core.Databook.sheets = sheets
 except:
     tablib.Databook.sheets = sheets
+
 
 def importSetNew(sbtabfile,filename,separator=None):
     mimetypes.init()
@@ -29,7 +25,7 @@ def importSetNew(sbtabfile,filename,separator=None):
     elif file_mimetype == 'application/vnd.ms-excel' or file_mimetype == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' or file_mimetype == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
         return haveXLS(sbtabfile, True, True)        
     else:
-        separator = misc.getDelimiter(sbtabfile)
+        separator = misc.check_delimiter(sbtabfile)
         return haveTSV(sbtabfile, separator)            
 
     '''
@@ -130,6 +126,9 @@ def haveTSV(tsvfile,separator):
         longest = max([len(x) for x in rows])
     except:
         raise TypeError("File is empty!")
+
+    
+    
     for i, row in enumerate(rows):
         # Skip empty rows
         if not row:
@@ -169,8 +168,8 @@ def loadTSV(fpath, headers):
 
 def haveXLS(file,headers,set_only):
 
-    dbook = tablib.Databook()
-    xl = xlrd.open_workbook(file_contents=file)
+    dbook = tablib.core.Databook()
+    xl = tablib.packages.xlrd.open_workbook(file_contents=file)
 
     for sheetname in xl.sheet_names():
         dset = tablib.Dataset()
@@ -188,9 +187,9 @@ def haveXLS(file,headers,set_only):
         return dbook   
 
 def loadXLS(fpath, headers, set_only):
-    dbook = tablib.Databook()
+    dbook = tablib.core.Databook()
     f = open(fpath, 'rb')
-    xl = xlrd.open_workbook(file_contents=f.read())
+    xl = tablib.packages.xlrd.open_workbook(file_contents=f.read())
     for sheetname in xl.sheet_names():
         dset = tablib.Dataset()
         dset.title = sheetname
@@ -214,16 +213,16 @@ def loadODS(fpath, headers, set_only):
         def __init__(self, file):
             self.doc = opendocument.load(file)
             self.SHEETS = {}
-            for sheet in self.doc.spreadsheet.getElementsByType(Table):
+            for sheet in self.doc.spreadsheet.getElementsByType(tablib.packages.odf.table.Table):
                 self.readSheet(sheet)
 
         # reads a sheet in the sheet dictionary, storing each sheet as an array
         # (rows) of arrays (columns)
         def readSheet(self, sheet):
             name = sheet.getAttribute("name")
-            rows = sheet.getElementsByType(TableRow)
+            rows = sheet.getElementsByType(tablib.packages.odf.table.TableRow)
             arrRows = []
-            cols = sheet.getElementsByType(TableColumn)
+            cols = sheet.getElementsByType(tablib.packages.odf.table.TableColumn)
             try:
                 longestRow = int(max([col.getAttribute("numbercolumnsrepeated") for col in cols]))
             except:
@@ -232,7 +231,7 @@ def loadODS(fpath, headers, set_only):
             for row in rows:
                 row_comment = ""
                 arrCells = []
-                cells = row.getElementsByType(TableCell)
+                cells = row.getElementsByType(tablib.packages.odf.table.TableCell)
 
                 # for each cell
                 # get longestRow to not fill empty rows with blanks, shortens runtime
@@ -242,7 +241,7 @@ def loadODS(fpath, headers, set_only):
                     if(not repeat):
                         repeat = 1
 
-                    ps = cell.getElementsByType(P)
+                    ps = cell.getElementsByType(tablib.packages.odf.text.P)
                     textContent = ""
 
                     # for each text node
@@ -278,7 +277,7 @@ def loadODS(fpath, headers, set_only):
         def getSheet(self, name):
             return self.SHEETS[name]
     from tablib.packages.xlrd import timemachine
-    dbook = tablib.Databook()
+    dbook = tablib.core.Databook()
     f = open(fpath, 'rb')
     od = ODSReader(timemachine.BYTES_IO(f.read()))  # returns dict with sheetnames as keys
     for sheet in sorted(od.SHEETS.iterkeys()):
@@ -308,7 +307,7 @@ def loadODS(fpath, headers, set_only):
 
 def writeCSV(data, fpath):
     outputfile = open(fpath + '.csv', 'wb')
-    print 'c'
+
     try:
         outputfile.write(data.csv)
         outputfile.close()
@@ -321,7 +320,7 @@ def writeCSV(data, fpath):
 
 def writeTSV(data, fpath):
     outputfile = open(fpath + '.tsv', 'wb')
-    print 't'
+
     try:
         outputfile.write(data.tsv)
         outputfile.close()
