@@ -163,16 +163,14 @@ class SBtabTable():
             for entry in row:
                 if str(entry).startswith('!!!'):
                     doc_row = row
-                    break
+                    doc_row_dq = self.dequote(doc_row)
+                    return doc_row_dq
                 elif str(entry).startswith('"!!!'):
                     rm1 = row.replace('""', '#')
                     rm2 = row.remove('"')
                     doc_row = rm2.replace('#', '"')
-                    break
-
-        doc_row_dq = self.dequote(doc_row)
-
-        return doc_row_dq
+                    doc_row_dq = self.dequote(doc_row)
+                    return doc_row_dq
     
     def _get_header_row(self):
         '''
@@ -227,7 +225,7 @@ class SBtabTable():
         #    header += x + ' '
         #header += header_row[-1]
 
-        return header
+        return row
 
     def get_table_information(self):
         '''
