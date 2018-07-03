@@ -339,6 +339,8 @@ class SBtabTable():
         try: self.value_rows[row - 1][column - 1] = str(new)
         except:
             raise SBtabError('Could not set the given value.')
+
+        return True
         
     def change_value_by_name(self, name, column_name, new):
         '''
@@ -367,6 +369,8 @@ class SBtabTable():
 
         if not success:
             raise SBtabError('Row %s was not found in the SBtab.' % name)
+
+        return True
 
     def create_list(self):
         '''
@@ -400,6 +404,9 @@ class SBtabTable():
         if len(row_list) != len(self.columns):
             raise SBtabError('Given row %s has not the correct length.' % row_list)
 
+        if position != None and type(position) != int:
+            raise SBtabError('Please provide an integer row position.')
+
         for element in row_list:
             if type(element) != str:
                 raise SBtabError('Please only provide string elements in the list')
@@ -409,6 +416,8 @@ class SBtabTable():
             self.value_rows.append(row_list)
         else:
             self.value_rows.insert(position, row_list)
+
+        return True
 
     def remove_row(self, position):
         '''
@@ -426,6 +435,8 @@ class SBtabTable():
             raise SBtabError('The SBtab only has %s row/s.' % len(self.value_rows))
        
         del self.value_rows[position-1]
+
+        return True
 
     def add_column(self, column_list, position=None):
         '''
@@ -459,6 +470,8 @@ class SBtabTable():
             self.columns_dict[str(column_list[0])] = position - 1
             self.columns.insert(position - 1, str(column_list[0]))
 
+        return True
+
     def remove_column(self, position):
         '''
         Removes column from the table.
@@ -485,6 +498,8 @@ class SBtabTable():
         # Remove column from columns dict
         self.columns_dict.pop(column_to_remove)
 
+        return True
+
     def write(self, filename):
         '''
         write SBtab to hard disk
@@ -504,6 +519,7 @@ class SBtabTable():
             f = open(filename, 'w')
             f.write(self.return_table_string())
             f.close()
+            return True
         except:
             raise SBtabError('The file could not be written.')
 
@@ -541,6 +557,8 @@ class SBtabTable():
         self.columns = trans_columns
         self.columns_dict = trans_columns_dict
         self.value_rows = trans_value_rows
+
+        return True
 
     def to_data_frame(self):
         '''
