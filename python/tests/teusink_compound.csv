@@ -1,0 +1,28 @@
+!!SBtab SBtabVersion='1.0' Document='BIOMD0000000064' TableType='Compound' TableName='Compound',,,,,,,
+!ID,!Name,!Location,!Charge,!IsConstant,!InitialConcentration,!hasOnlySubstanceUnits,!Identifiers:kegg.compound
+GLCi,Glucose in Cytosol,cytosol,0,False,0.1,False,C00293
+G6P,Glucose 6 Phosphate,cytosol,0,False,2.5,False,C00668
+F6P,Fructose 6 Phosphate,cytosol,0,False,0.6,False,C05345
+F16P,"Fructose-1,6 bisphosphate",cytosol,0,False,5.5,False,C00354
+TRIO,Triose-phosphate,cytosol,0,False,1,False,C00118
+BPG,"1,3-bisphosphoglycerate",cytosol,0,False,0,False,C00236
+P3G,3-phosphoglycerate,cytosol,0,False,0.9,False,C00197
+P2G,2-phosphoglycerate,cytosol,0,False,0.1,False,C00631
+PEP,Phosphoenolpyruvate,cytosol,0,False,0.1,False,C00074
+PYR,Pyruvate,cytosol,0,False,1.9,False,C00022
+ACE,Acetaldehyde,cytosol,0,False,0.2,False,C00084
+P,High energy phosphates,cytosol,0,False,6.3,False,C00008
+NAD,NAD,cytosol,0,False,1.2,False,C00003
+NADH,NADH,cytosol,0,False,0.4,False,C00004
+Glyc,Glycogen,cytosol,0,False,0,False,C00182
+Trh,Trehalose,cytosol,0,False,0,False,C01083
+CO2,CO2,cytosol,0,False,1,False,C00011
+SUCC,Succinate,cytosol,0,False,0,False,
+GLCo,Extracellular Glucose,extracellular,0,False,50,False,C00293
+ETOH,Ethanol,cytosol,0,False,50,False,C00469
+GLY,Glycerol,cytosol,0,False,0.2,False,C00116
+ATP,ATP concentration,cytosol,0,False,0,False,C00002
+ADP,ADP concentration,cytosol,0,False,0,False,C00008
+AMP,AMP concentration,cytosol,0,False,0,False,C00020
+SUM_P,sum of AXP conc,cytosol,0,True,4.1,False,C00002
+F26BP,"F2,6P",cytosol,0,True,0,False,C00665
