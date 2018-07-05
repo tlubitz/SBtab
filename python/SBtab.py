@@ -567,7 +567,11 @@ class SBtabTable():
         '''
         try:
             import pandas as pd
+            rows = self.get_rows()
+            n_cols = max(map(len, rows))
             column_names = list(map(lambda s: s[1:], self.columns))
+            while len(column_names) < n_cols:
+                column_names += ['Col%d' % len(column_names)]
             df = pd.DataFrame(data=self.get_rows(), columns=column_names)
             return df
         except:
