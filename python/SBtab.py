@@ -11,6 +11,7 @@ See specification for further information.
 import re
 import copy
 import tablib
+import logging
 try:
     from . import tablibIO
     from . import misc
@@ -566,12 +567,23 @@ class SBtabTable():
         '''
         try:
             import pandas as pd
-            column_names = map(lambda s: s[1:], self.columns)
+            column_names = list(map(lambda s: s[1:], self.columns))
             df = pd.DataFrame(data=self.get_rows(), columns=column_names)
             return df
         except:
             raise SBtabError('Pandas dataframe could not be built.')
 
+    @staticmethod
+    def from_data_frame(df, document_name, table_type, table_name,
+                        document, unit, sbtab_version='1.0'):
+        table = tablib.Dataset()
+        header = "!!SBtab DocumentName='%s' TableType='%s' TableName='%s' Document='%s' Unit='%s' SBtabVersion='%s'" % \
+            (document_name, table_type, table_name, document, unit, sbtab_version)
+        table.rpush([header] + [''] * (df.shape[1]-1))
+        table.rpush(list(map(lambda s: '!' + s, df.columns)))
+        for i, row in df.iterrows():
+            table.append(row.tolist())
+        return SBtabTable(table, 'unnamed_sbtab.tsv')
 
 class SBtabDocument:
     '''
@@ -586,13 +598,12 @@ class SBtabDocument:
         self.name_to_sbtab = {}
         self.types = []
         self.type_to_sbtab = {}
-        self.warnings = []
         self.doc_row = False
 
         # if there is an initial sbtab given, see if it is
         # a string or an SBtab object
         if sbtab_init and type(sbtab_init) == str:
-            self.add_sbtab_string(string_init)
+            self.add_sbtab_string(sbtab_init, filename)
         elif sbtab_init:
             self.add_sbtab(sbtab_init)
         
@@ -600,29 +611,36 @@ class SBtabDocument:
         '''
         add an SBtab Table object to the SBtab Document
         '''
-        if sbtab.filename not in self.name_to_sbtab and \
-           sbtab.table_type not in self.type_to_sbtab:
-            valid_type = self.check_type_validity(sbtab.table_type)
-            if valid_type:
-                self.name_to_sbtab[sbtab.filename] = sbtab
-                self.sbtabs.append(sbtab)
-                self.types.append(sbtab.table_type)
-                self.type_to_sbtab[sbtab.table_type] = sbtab
+        if sbtab.filename in self.name_to_sbtab:
+            logging.warning('The SBtab could not be added it has the '
+                            'same filename as an existing SBtab:'
+                            ' %s.' % (sbtab.filename))
+            return
+        
+        if sbtab.table_type in self.type_to_sbtab:
+            logging.warning('An SBtab with the same type already exists '
+                            'in the SBtabDocumenty:'
+                            ' %s.' % (sbtab.table_type))
+            
+        valid_type = self.check_type_validity(sbtab.table_type)
+        if valid_type:
+            self.name_to_sbtab[sbtab.table_name] = sbtab
+            self.sbtabs.append(sbtab)
+            self.types.append(sbtab.table_type)
+            self.type_to_sbtab[sbtab.table_type] = sbtab
 
-                # actualise the document declaration row
-                if sbtab.doc_row and not self.doc_row:
-                    self.doc_row = sbtab.doc_row
-                elif sbtab.doc_row:
-                    self.doc_row = sbtab.doc_row
-                    self.warnings.append('Warning: The current document decla'\
-                                         'ration line %s is overridden with d'
-                                         'eclaration line '
-                                         '%s.' % (self.doc_row,
-                                                  sbtab.doc_row))
-                if self.doc_row:
-                    self._get_doc_row()
-        else:
-            self.warnings.append('The SBtab %s could not be added since either the name or the table type is already present in this SBtab Document.')
+            # actualise the document declaration row
+            if sbtab.doc_row and not self.doc_row:
+                self.doc_row = sbtab.doc_row
+            elif sbtab.doc_row:
+                self.doc_row = sbtab.doc_row
+                logging.warning('Warning: The current document decla'\
+                                'ration line %s is overridden with d'
+                                'eclaration line '
+                                '%s.' % (self.doc_row,
+                                         sbtab.doc_row))
+            if self.doc_row:
+                self._get_doc_row()
 
     def _get_doc_row(self):
         '''
@@ -637,31 +655,30 @@ class SBtabDocument:
         add one or multiple SBtab files as string
         '''
         # set filename if not given
-        if not filename: filename = 'unnamed_sbtab'
+        if not filename: filename = 'unnamed_sbtab.tsv'
 
         # see if there are more than one SBtabs in the string
         try: sbtab_amount = misc.count_tabs(sbtab_string)
         except:
-            self.warnings.append('The SBtab file could not be read properly.')
+            logging.warning('The SBtab file could not be read properly.')
 
         # if there are more than one SBtabs, cut them in single SBtabs
-        if sbtab_amount > 1:
-            try:
+        try:
+            if sbtab_amount > 1:
                 sbtab_strings = misc.split_sbtabs(sbtab_string)
                 for i, sbtab_s in enumerate(sbtab_strings):
-                    name_single = filename + '_' + str(i)
-                    sbtab_single = SBtab.SBtabTable(sbtab_s, name_single)
+                    # %elad: had to change this because the file extension has 
+                    # to remain .tsv (or csv/xls)
+                    name_single = str(i) + '_' + filename
+                    sbtab_single = SBtabTable(sbtab_s, name_single)
+                    logging.debug('name = %s, type = %s' % (sbtab_single.table_name, sbtab_single.table_type))
                     self.add_sbtab(sbtab_single)
-            except:
-                self.warnings.append('The SBtab Table object could not be cre'\
-                                     'ated properly.')
-        else:
-            try:
-                sbtab = SBtab.SBtabTable(sbtab_string, filename)
+            else:
+                sbtab = SBtabTable(sbtab_string, filename)
                 self.add_sbtab(sbtab)
-            except:
-                self.warnings.append('The SBtab Table object could not be cre'\
-                                     'ated properly.')
+        except Exception as e:
+            logging.warning('The SBtab Table object could not be cre'\
+                            'ated properly: ' + str(e))
             
     def check_type_validity(self, ttype):
         '''
@@ -675,7 +692,7 @@ class SBtabDocument:
         if ttype in supported_types:
             return True
         else:
-            self.warnings.append('The table type %s is not supported.' % ttype)
+            logging.warning('The table type %s is not supported.' % ttype)
             return False
             
     def remove_sbtab_by_name(self, name):
@@ -701,12 +718,6 @@ class SBtabDocument:
                 del self.types[i]
                 del self.type_to_sbtab[sbtab.table_type]
                 break
-
-    def return_warnings(self):
-        '''
-        return the list of possible warnings
-        '''
-        return self.warnings
 
     def get_sbtab_by_name(self, name):
         '''
