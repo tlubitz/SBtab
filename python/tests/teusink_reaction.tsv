@@ -1,0 +1,20 @@
+!!SBtab SBtabVersion='1.0' Document='BIOMD0000000064' TableType='Reaction' TableName='Reaction'														
+!ID	!Name	!ReactionFormula	!Regulator	!KineticLaw	!IsReversible	!Identifiers:ec-code								
+vGLK	Hexokinase	GLCi + P <=> G6P	ATP|ADP	cytosol * VmGLK / (KmGLKGLCi * KmGLKATP) * (GLCi * ATP - G6P * ADP / KeqGLK) / ((1 + GLCi / KmGLKGLCi + G6P / KmGLKG6P) * (1 + ATP / KmGLKATP + ADP / KmGLKADP))	True	2.7.1.2								
+vPGI	Glucose-6-phosphate isomerase	G6P <=> F6P		cytosol * VmPGI_2 / KmPGIG6P_2 * (G6P - F6P / KeqPGI_2) / (1 + G6P / KmPGIG6P_2 + F6P / KmPGIF6P_2)	True	5.3.1.9								
+vGLYCO	Glycogen synthesis	G6P + P <=> Glyc		cytosol * KGLYCOGEN_3	False									
+vTreha	Trehalose 6-phosphate synthase	2.0 G6P + P <=> Trh		cytosol * KTREHALOSE	False									
+vPFK	Phosphofructokinase	F6P + P <=> F16P	AMP|ATP|F26BP	cytosol * VmPFK * gR * (F6P / KmPFKF6P) * (ATP / KmPFKATP) * R_PFK(KmPFKF6P, KmPFKATP, gR, ATP, F6P) / (pow(R_PFK(KmPFKF6P, KmPFKATP, gR, ATP, F6P), 2) + L_PFK(Lzero, CiPFKATP, KiPFKATP, CPFKAMP, KPFKAMP, CPFKF26BP, KPFKF26BP, CPFKF16BP, KPFKF16BP, ATP, AMP, F16P, F26BP) * pow(T_PFK(CPFKATP, KmPFKATP, ATP), 2))	False	2.7.1.11								
+vALD	Aldolase	F16P <=> 2.0 TRIO		cytosol * VmALD / KmALDF16P * (F16P - KeqTPI / (1 + KeqTPI) * TRIO * (1 / (1 + KeqTPI)) * TRIO / KeqALD) / (1 + F16P / KmALDF16P + KeqTPI / (1 + KeqTPI) * TRIO / KmALDGAP + 1 / (1 + KeqTPI) * TRIO / KmALDDHAP + KeqTPI / (1 + KeqTPI) * TRIO * (1 / (1 + KeqTPI)) * TRIO / (KmALDGAP * KmALDDHAP) + F16P * (KeqTPI / (1 + KeqTPI)) * TRIO / (KmALDGAPi * KmALDF16P))	True	4.1.2.13								
+vGAPDH	Glyceraldehyde 3-phosphate dehydrogenase	TRIO + NAD <=> BPG + NADH		cytosol * (VmGAPDHf * (KeqTPI / (1 + KeqTPI)) * TRIO * NAD / (KmGAPDHGAP * KmGAPDHNAD) - VmGAPDHr * BPG * NADH / (KmGAPDHBPG * KmGAPDHNADH)) / ((1 + KeqTPI / (1 + KeqTPI) * TRIO / KmGAPDHGAP + BPG / KmGAPDHBPG) * (1 + NAD / KmGAPDHNAD + NADH / KmGAPDHNADH))	True	1.2.1.12								
+vPGK	Phosphoglycerate kinase	BPG <=> P3G + P	ATP|ADP	cytosol * VmPGK / (KmPGKP3G * KmPGKATP) * (KeqPGK * BPG * ADP - P3G * ATP) / ((1 + BPG / KmPGKBPG + P3G / KmPGKP3G) * (1 + ATP / KmPGKATP + ADP / KmPGKADP))	True	2.7.2.3								
+vPGM	Phosphoglycerate mutase	P3G <=> P2G		cytosol * VmPGM / KmPGMP3G * (P3G - P2G / KeqPGM) / (1 + P3G / KmPGMP3G + P2G / KmPGMP2G)	True	5.4.2.1								
+vENO	Enolase	P2G <=> PEP		cytosol * VmENO / KmENOP2G * (P2G - PEP / KeqENO) / (1 + P2G / KmENOP2G + PEP / KmENOPEP)	True	4.2.1.11								
+vPYK	Pyruvate kinase	PEP <=> PYR + P	ATP|ADP	cytosol * VmPYK / (KmPYKPEP * KmPYKADP) * (PEP * ADP - PYR * ATP / KeqPYK) / ((1 + PEP / KmPYKPEP + PYR / KmPYKPYR) * (1 + ATP / KmPYKATP + ADP / KmPYKADP))	True	2.7.1.40								
+vPDC	Pyruvate decarboxylase	PYR <=> ACE + CO2		cytosol * VmPDC * (pow(PYR, nPDC) / pow(KmPDCPYR, nPDC)) / (1 + pow(PYR, nPDC) / pow(KmPDCPYR, nPDC))	False	4.1.1.1								
+vSUC	Succinate synthesis	2.0 ACE + 3.0 NAD + 4.0 P <=> 3.0 NADH + SUCC		cytosol * KSUCC * ACE	False									
+vGLT	Glucose transport	GLCo <=> GLCi		VmGLT / KmGLTGLCo * (GLCo - GLCi / KeqGLT) / (1 + GLCo / KmGLTGLCo + GLCi / KmGLTGLCi + 0.91 * GLCo * GLCi / (KmGLTGLCo * KmGLTGLCi))	True									
+vADH	Alcohol dehydrogenase	ACE + NADH <=> NAD + ETOH		-cytosol * (VmADH / (KiADHNAD * KmADHETOH) * (NAD * ETOH - NADH * ACE / KeqADH) / (1 + NAD / KiADHNAD + KmADHNAD * ETOH / (KiADHNAD * KmADHETOH) + KmADHNADH * ACE / (KiADHNADH * KmADHACE) + NADH / KiADHNADH + NAD * ETOH / (KiADHNAD * KmADHETOH) + KmADHNADH * NAD * ACE / (KiADHNAD * KiADHNADH * KmADHACE) + KmADHNAD * ETOH * NADH / (KiADHNAD * KmADHETOH * KiADHNADH) + NADH * ACE / (KiADHNADH * KmADHACE) + NAD * ETOH * ACE / (KiADHNAD * KmADHETOH * KiADHACE) + ETOH * NADH * ACE / (KiADHETOH * KiADHNADH * KmADHACE)))	True	1.1.1.2								
+vG3PDH	Glycerol 3-phosphate dehydrogenase	TRIO + NADH <=> NAD + GLY		cytosol * VmG3PDH / (KmG3PDHDHAP * KmG3PDHNADH) * (1 / (1 + KeqTPI) * TRIO * NADH - GLY * NAD / KeqG3PDH) / ((1 + 1 / (1 + KeqTPI) * TRIO / KmG3PDHDHAP + GLY / KmG3PDHGLY) * (1 + NADH / KmG3PDHNADH + NAD / KmG3PDHNAD))	False	1.1.1.8								
+vATP	ATPase activity	P <=>	ATP	cytosol * KATPASE * ATP	True	3.6.1.3								
+														
