@@ -89,7 +89,7 @@ class ValidateTable:
         '''
         # read in provided definition table or open default
         if def_table:
-            try: self.definitions = def_table.sbtab_list
+            try: self.definitions = def_table.create_list()
             except:
                 print('Definition file could not be loaded, so the validation'\
                       'could not be started. Please provide definition file'\
@@ -97,12 +97,13 @@ class ValidateTable:
                 sys.exit() 
         else:
             try:
-                d = os.path.dirname(os.path.abspath(__file__)) + '/files/default_'\
+                d = os.path.dirname(os.path.abspath(__file__)) + '/../static/files/default_'\
                     'files/definitions.tsv'
+                print(d)
                 def_file = open(d, 'r')
                 def_table = def_file.read()
                 sbtab_def = SBtab.SBtabTable(def_table, d)
-                self.definitions = sbtab_def.sbtab_list
+                self.definitions = sbtab_def.create_list()
             except:
                 print('''Definition file could not be loaded, so the validation
                 could not be started. Please provide definition file
