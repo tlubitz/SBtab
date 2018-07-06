@@ -620,18 +620,18 @@ class SBtabDocument:
                             'same filename as an existing SBtab:'
                             ' %s.' % (sbtab.filename))
             return
-        
-        if sbtab.table_type in self.type_to_sbtab:
-            logging.warning('An SBtab with the same type already exists '
-                            'in the SBtabDocumenty:'
-                            ' %s.' % (sbtab.table_type))
-            
+          
         valid_type = self.check_type_validity(sbtab.table_type)
         if valid_type:
             self.name_to_sbtab[sbtab.table_name] = sbtab
             self.sbtabs.append(sbtab)
             self.types.append(sbtab.table_type)
-            self.type_to_sbtab[sbtab.table_type] = sbtab
+            if sbtab.table_type in self.type_to_sbtab:
+                tabs = self.type_to_sbtab[sbtab.table_type]
+                tabs.append(sbtab)
+                self.type_to_sbtab[sbtab.table_type] = tabs
+            else:
+                self.type_to_sbtab[sbtab.table_type] = [sbtab]
 
             # actualise the document declaration row
             if sbtab.doc_row and not self.doc_row:
@@ -704,23 +704,17 @@ class SBtabDocument:
         remove SBtab Table from SBtab Document
         '''
         for i, sbtab in enumerate(self.sbtabs):
-            if sbtab.filename == name:
+            if sbtab.table_name == name:
                 del self.sbtabs[i]
-                del self.name_to_sbtab[sbtab.filename]
+                del self.name_to_sbtab[sbtab.table_name]
                 del self.types[i]
-                del self.type_to_sbtab[sbtab.table_type]
-                break
+                tabs = self.type_to_sbtab[sbtab.table_type]
+                for tab in tabs:
+                    if tab.table_name == sbtab.table_name:
+                        tabs.remove(tab)
+                        break
+                self.type_to_sbtab[sbtab.table_type] = tabs
 
-    def remove_sbtab_by_type(self, ttype):
-        '''
-        remove SBtab Table from SBtab Document
-        '''
-        for i, sbtab in enumerate(self.sbtabs):
-            if sbtab.table_type == ttype:
-                del self.sbtabs[i]
-                del self.name_to_sbtab[sbtab.filename]
-                del self.types[i]
-                del self.type_to_sbtab[sbtab.table_type]
                 break
 
     def get_sbtab_by_name(self, name):
@@ -732,7 +726,7 @@ class SBtabDocument:
 
     def get_sbtab_by_type(self, ttype):
         '''
-        return sbtab by given table type
+        returns list of sbtab objects by given table type
         '''
         try: return self.type_to_sbtab[ttype]
         except: return None
