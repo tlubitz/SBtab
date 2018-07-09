@@ -2,27 +2,44 @@
 import unittest
 import SBtab
 import copy
+      
+            
 
-
-class TestSBtab(unittest.TestCase):
+class TestSBtabTable(unittest.TestCase):
 
     def setUp(self):
         '''
-        setup SBtab class with files from test directory
+        setup SBtabTable class with files from test directory
         '''
-        files = ['teusink_compartment.csv',
-                 'teusink_compound.csv',
-                 'teusink_data.tsv',
-                 'teusink_reaction.tsv',
-                 'ecoli_ccm_aerobic_ProteinComposition_haverkorn_ECM_Model.tsv']
+        tables = ['teusink_compartment.csv',
+                  'teusink_compound.csv',
+                  'teusink_data.tsv',
+                  'teusink_reaction.tsv']
+
         self.sbtabs = []
-        for f in files:
-            p = open('tests/' + f, 'r')
+        for t in tables:
+            p = open('tests/' + t, 'r')
             p_content = p.read()
-            sbtab = SBtab.SBtabTable(p_content, files[2])
+            sbtab = SBtab.SBtabTable(p_content, t)
             self.sbtabs.append(sbtab)
             p.close()
-        
+
+    def test_extension_validator(self):
+        '''
+        test if the extension is correct or not
+        '''
+        correct = ['test.tsv', 'test.csv', 'test.xls']
+        incorrect = ['test.xlsx', 'test.xml', 'test.txt', 'test.rtf']
+
+        random_sbtab = self.sbtabs[0]
+        for c in correct:
+            self.assertTrue(random_sbtab.validate_extension(test=c))
+
+        for ic in incorrect:
+            with self.assertRaises(SBtab.SBtabError):
+                random_sbtab.validate_extension(test=ic)
+
+            
     def test_columns_and_dict(self):
         '''
         test if columns and column dict hold the same columns
@@ -104,15 +121,14 @@ class TestSBtab(unittest.TestCase):
         function writes SBtab to hard drive
         '''
         for sbtab in self.sbtabs:
-            test_name = 'test.tsv'
-            self.assertTrue(sbtab.write(test_name))
+            self.assertTrue(sbtab.write(sbtab.filename))
 
-            get_back = open(test_name, 'r')
+            get_back = open(sbtab.filename, 'r')
             get_back_content = get_back.read()
-            get_back_sbtab = SBtab.SBtabTable(get_back_content, test_name)
+            get_back_sbtab = SBtab.SBtabTable(get_back_content, sbtab.filename)
             get_back.close()
 
-            self.assertEqual(sbtab.header_row, get_back_sbtab.header_row)
+            self.assertEqual(sbtab.header_row.rstrip(), get_back_sbtab.header_row.rstrip())
             self.assertEqual(sbtab.columns, get_back_sbtab.columns)
             self.assertEqual(sbtab.value_rows, get_back_sbtab.value_rows)
 
@@ -135,6 +151,29 @@ class TestSBtab(unittest.TestCase):
         '''
         pass
 
-        
+
+class TestSBtabDocument(unittest.TestCase):
+
+    def setUp(self):
+        '''
+        setup SBtabDocument class with files from test directory
+        '''
+        docs = ['ecoli_ccm_aerobic_ProteinComposition_haverkorn_ECM_Model.tsv']
+
+        self.sbtab_documents = []
+        for d in docs:
+            p = open('tests/' + t, 'r')
+            p_content = p.read()
+            sbtab = SBtab.SBtabTable(p_content, t)
+            self.sbtabs.append(sbtab)
+            p.close()
+
+    def tearDown(self):
+        '''
+        tear down function
+        '''
+        pass
+
+    
 if __name__ == '__main__':
     unittest.main()

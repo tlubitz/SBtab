@@ -72,13 +72,18 @@ class SBtabTable():
 
         self.sbtab_dataset = []
 
-    def validate_extension(self):
+    def validate_extension(self, test=None):
         '''
         Checks the extension of the file for invalid formats.
         '''
         valid_extensions = ['tsv', 'csv', 'xls']
-        if self.filename[-3:] not in valid_extensions:
+        if test: filename = test
+        else: filename = self.filename
+
+        if filename[-3:] not in valid_extensions:
             raise SBtabError('The file extension is not valid for an SBtab file.')
+
+        return True
         
     def cut_table_string(self, table_string):
         '''
@@ -88,7 +93,16 @@ class SBtabTable():
         table_list = []
         for row in table_string.split('\n'):
             if row.replace(self.delimiter, '') != '':
-                table_list.append(row.split(self.delimiter))
+                if not row.startswith('"!') and not row.startswith('!'):
+                    if '"' in row:
+                        if self.delimiter == ',' or self.delimiter == ';':
+                            c_row = row.split('"')
+                            no_quote_row = c_row[0][:-1].split(self.delimiter) + ['"'+c_row[1]+'"'] + c_row[2][1:].split(self.delimiter)
+                            table_list.append(no_quote_row)
+                        else: table_list.append(row.split(self.delimiter))
+                    else: table_list.append(row.split(self.delimiter))
+                else:
+                    table_list.append(row.split(self.delimiter))
 
         return table_list
 
@@ -121,8 +135,6 @@ class SBtabTable():
         
         # Read the columns of the table
         (self.columns, self.columns_dict) = self.get_columns()
-
-        self.delimiter = misc.check_delimiter('\n'.join(self.str_tab))
 
         # Read data rows
         self.value_rows = self.get_rows(self.table_type)
@@ -182,14 +194,21 @@ class SBtabTable():
         for row in self.table:
             for entry in row:
                 if str(entry).startswith('!!'):
+                    #print('FOUNDBUT!',row)
                     header_row = row
                     break
                 elif str(entry).startswith('"!!'):
+                    #print('FOUNDBUT!',row)
                     rm1 = row.replace('""', '#')
                     rm2 = row.remove('"')
                     header_row = rm2.replace('#', '"')
                     break
 
+        #print(self.table)
+        #print(header_row)
+        #print('\n')
+        #input()
+                
         # Save string or raise error
         if not header_row:
             raise SBtabError('''This is not a valid SBtab table, please use
@@ -310,7 +329,7 @@ class SBtabTable():
                     break
                 else:
                     if len(row) == i + 1:
-                        value_rows.append(list(row))
+                        value_rows.append(list(filter(lambda a: a != '', row)))
 
         return value_rows
 
