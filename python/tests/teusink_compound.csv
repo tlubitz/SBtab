@@ -1,4 +1,4 @@
-!!SBtab SBtabVersion='1.0' Document='BIOMD0000000064' TableType='Compound' TableName='Compound',,,,,,,
+!!SBtab SBtabVersion='1.0' Document='BIOMD0000000064' TableType='Compound' TableName='Compound'
 !ID,!Name,!Location,!Charge,!IsConstant,!InitialConcentration,!hasOnlySubstanceUnits,!Identifiers:kegg.compound
 GLCi,Glucose in Cytosol,cytosol,0,False,0.1,False,C00293
 G6P,Glucose 6 Phosphate,cytosol,0,False,2.5,False,C00668

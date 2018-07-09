@@ -1,4 +1,4 @@
-!!SBtab SBtabVersion='1.0' Document='BIOMD0000000064' TableType='Compartment' TableName='Compartment',
+!!SBtab SBtabVersion='1.0' Document='BIOMD0000000064' TableType='Compartment' TableName='Compartment'
 !ID,!Size
 extracellular,1
 cytosol,1

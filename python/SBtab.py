@@ -46,31 +46,19 @@ class SBtabTable():
         filename : str
             Filename with extension.
         '''
-        # Needed to be able to adress it from outside of the class for
-        # writing and reading
         self.filename = filename
+        self.table_string = table_string
         
         # validate file extension
         self.validate_extension()
         
         # process string
         self.delimiter = misc.check_delimiter(table_string)
-        table_list = self.cut_table_string(table_string)
-        
-        # check if ascii stuff is violated
-        try: (self.table, self.str_tab) = self.check_ascii(table_list)
-        except: raise SBtabError('This is not a valid SBtab file. Try to chec'\
-                                 'k your file with the SBtab validator or rea'\
-                                 'd the SBtab specification.')
+        self.table = self.cut_table_string(table_string)
 
-        # Delete tablib header to avoid complications
-        if self.table.headers: self.table.headers = None
-
-        # Create all necessary variables
+        # Initialise table
         self.tables_without_name = []
         self.initialize_table()
-
-        self.sbtab_dataset = []
 
     def validate_extension(self, test=None):
         '''
@@ -85,24 +73,27 @@ class SBtabTable():
 
         return True
         
-    def cut_table_string(self, table_string):
+    def cut_table_string(self, table_string, delimiter_test=None):
         '''
         the SBtab is initially given as one long string;
         cut down string into list to harvest content
         '''
+        if delimiter_test: delimiter = delimiter_test
+        else: delimiter = self.delimiter
+
         table_list = []
         for row in table_string.split('\n'):
-            if row.replace(self.delimiter, '') != '':
+            if row.replace(delimiter, '') != '':
                 if not row.startswith('"!') and not row.startswith('!'):
                     if '"' in row:
-                        if self.delimiter == ',' or self.delimiter == ';':
+                        if delimiter == ',' or delimiter == ';':
                             c_row = row.split('"')
-                            no_quote_row = c_row[0][:-1].split(self.delimiter) + ['"'+c_row[1]+'"'] + c_row[2][1:].split(self.delimiter)
+                            no_quote_row = c_row[0][:-1].split(delimiter) + ['"'+c_row[1]+'"'] + c_row[2][1:].split(delimiter)
                             table_list.append(no_quote_row)
-                        else: table_list.append(row.split(self.delimiter))
-                    else: table_list.append(row.split(self.delimiter))
+                        else: table_list.append(row.split(delimiter))
+                    else: table_list.append(row.split(delimiter))
                 else:
-                    table_list.append(row.split(self.delimiter))
+                    table_list.append(row.split(delimiter))
 
         return table_list
 
@@ -138,33 +129,6 @@ class SBtabTable():
 
         # Read data rows
         self.value_rows = self.get_rows(self.table_type)
-        
-    def check_ascii(self, table):
-        '''
-        Checks for ASCII violations, so that the parser will not crash
-        if these occur.
-
-        Parameters
-        ----------
-        table : list of str
-            SBtab table as a list of row strings.
-        '''
-        new_table = []
-
-        for row in table:
-            new_row = []
-            for entry in row:
-                try:
-                    new_row.append(str(entry).strip())
-                except:
-                    new_row.append('''Ascii violation error!
-                                      Please check input file!''')
-            new_table.append('\t'.join(new_row))
-
-        tablibtable = tablibIO.importSetNew('\n'.join(new_table),
-                                            self.filename + '.csv')
-        
-        return tablibtable, new_table
 
     def _get_doc_row(self):
         '''
@@ -194,21 +158,14 @@ class SBtabTable():
         for row in self.table:
             for entry in row:
                 if str(entry).startswith('!!'):
-                    #print('FOUNDBUT!',row)
                     header_row = row
                     break
                 elif str(entry).startswith('"!!'):
-                    #print('FOUNDBUT!',row)
                     rm1 = row.replace('""', '#')
                     rm2 = row.remove('"')
                     header_row = rm2.replace('#', '"')
                     break
 
-        #print(self.table)
-        #print(header_row)
-        #print('\n')
-        #input()
-                
         # Save string or raise error
         if not header_row:
             raise SBtabError('''This is not a valid SBtab table, please use
@@ -329,7 +286,7 @@ class SBtabTable():
                     break
                 else:
                     if len(row) == i + 1:
-                        value_rows.append(list(filter(lambda a: a != '', row)))
+                        value_rows.append(list(row))
 
         return value_rows
 

@@ -39,7 +39,19 @@ class TestSBtabTable(unittest.TestCase):
             with self.assertRaises(SBtab.SBtabError):
                 random_sbtab.validate_extension(test=ic)
 
-            
+    def test_return_table_string(self):
+        '''
+        test the function that returns the table string
+        '''
+        for sbtab in self.sbtabs:
+            table_string = sbtab.return_table_string()
+            rows = table_string.split('\n')
+            self.assertEqual(rows[0][:2],'!!')
+            self.assertEqual(rows[1][:1],'!')
+            self.assertTrue(len(rows)>2)
+            for row in rows[2:]:
+                self.assertEqual(len(row.split('\t')),len(sbtab.columns))
+
     def test_columns_and_dict(self):
         '''
         test if columns and column dict hold the same columns
