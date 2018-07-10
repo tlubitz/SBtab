@@ -9,8 +9,6 @@ import re
 import libsbml
 try: from . import SBtab
 except: import SBtab
-try: from . import tablibIO
-except: import tablibIO
 import string
 import random
 import sys
