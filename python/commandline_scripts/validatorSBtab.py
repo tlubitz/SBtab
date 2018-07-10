@@ -32,8 +32,7 @@ class SBtabError(Exception):
 
 class ValidateTable:
     '''
-    Validator (version 0.9 06/10/2015).
-    Checks SBtab file and SBtab object.
+    Validates SBtab file and SBtab object.
     '''
     def __init__(self, sbtab, def_table=None):
         '''
@@ -97,9 +96,9 @@ class ValidateTable:
                 sys.exit() 
         else:
             try:
-                d = os.path.dirname(os.path.abspath(__file__)) + '/../static/files/default_'\
-                    'files/definitions.tsv'
-                print(d)
+                #d = os.path.dirname(os.path.abspath(__file__)) + '/../static/files/default_'\
+                #    'files/definitions.tsv'
+                d = 'definitions.tsv'
                 def_file = open(d, 'r')
                 def_table = def_file.read()
                 sbtab_def = SBtab.SBtabTable(def_table, d)
@@ -286,6 +285,39 @@ class ValidateTable:
         '''
         return self.warnings
 
+
+class ValidateDocument:
+    '''
+    Validates SBtabDocument object
+    '''
+    def __init__(self, sbtab_doc):
+        '''
+        Initialises validator and starts check for file and table format.
+
+        Parameters
+        ----------
+        sbtab_doc:
+            SBtabDocument object
+        '''
+        self.sbtab_doc = sbtab_doc
+        #self.validate_document()
+
+    def validate_document(self):
+        '''
+        validate SBtabDocument
+        '''
+        warnings = []
+        for sbtab in self.sbtab_doc.sbtabs:
+            warnings_s = ['Warnings for %s:\n' % sbtab.filename]
+            vt = ValidateTable(sbtab)
+            try:
+                warnings_s.append(vt.return_output())
+            except:
+                raise SBtabError('SBtab %s cannot be validated.' % (sbtab.filename))
+            warnings.append(warnings_s)
+            
+        return warnings
+    
 
 if __name__ == '__main__':
     try: sys.argv[1]

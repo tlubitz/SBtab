@@ -273,13 +273,11 @@ class SBtabTable():
         for row in self.table:
             if str(row[0]).startswith('!'):
                 continue
-            for i, entry in enumerate(row):
-                if str(entry).startswith('%'):
-                    self.comments.append(list(row))
-                    break
-                else:
-                    if len(row) == i + 1:
-                        value_rows.append(list(row))
+            elif str(row[0]).startswith('%'):
+                self.comments.append(list(row))
+                break
+            else:
+                value_rows.append(list(row)[:len(self.columns)])
 
         return value_rows
 
@@ -566,8 +564,9 @@ class SBtabDocument:
         '''
         simple initialisation of SBtabDocument with an optional SBtab Table object
         '''
-        self.sbtabs = []
         self.name = name
+        self.filename = filename
+        self.sbtabs = []
         self.name_to_sbtab = {}
         self.types = []
         self.type_to_sbtab = {}
@@ -579,7 +578,6 @@ class SBtabDocument:
             self.add_sbtab_string(sbtab_init, filename)
         elif sbtab_init:
             self.add_sbtab(sbtab_init)
-            
         
     def add_sbtab(self, sbtab):
         '''
@@ -590,6 +588,9 @@ class SBtabDocument:
                             'same filename as an existing SBtab:'
                             ' %s.' % (sbtab.filename))
             return
+
+        if not self.filename:
+            self.filename = sbtab.filename
           
         valid_type = self.check_type_validity(sbtab.table_type)
         if valid_type:
@@ -624,14 +625,16 @@ class SBtabDocument:
             self.doc_row = '!!!SBtab SBtabVersion="1.0" Document="..."'
         else:
             pass
-            #extract attributes; later
+            # extract attributes; later
+            # also: add set functions for all attributes
             
     def add_sbtab_string(self, sbtab_string, filename):
         '''
         add one or multiple SBtab files as string
         '''
         # set filename if not given
-        if not filename: filename = 'unnamed_sbtab.tsv'
+        if not filename:
+            self.filename = 'unnamed_sbtab.tsv'
 
         # see if there are more than one SBtabs in the string
         try: sbtab_amount = misc.count_tabs(sbtab_string)
@@ -650,13 +653,13 @@ class SBtabDocument:
                         continue
                     
                     # then, go on with the cut SBtabs
-                    name_single = str(i) + '_' + filename
+                    name_single = str(i) + '_' + self.filename
                     sbtab_single = SBtabTable(sbtab_s, name_single)
                     logging.debug('name = %s, type = %s' % (sbtab_single.table_name, sbtab_single.table_type))
                     self.add_sbtab(sbtab_single)
                 self._get_doc_row_attributes()
             else:
-                sbtab = SBtabTable(sbtab_string, filename)
+                sbtab = SBtabTable(sbtab_string, self.filename)
                 self.add_sbtab(sbtab)
         except Exception as e:
             logging.warning('The SBtab Table object could not be cre'\
@@ -714,3 +717,25 @@ class SBtabDocument:
         set name of SBtab Document
         '''
         self.name = name
+
+    def write(self):
+        '''
+        write SBtabDocument to hard disk
+        '''
+        if not self.filename.endswith('tsv') and not self.filename.endswith('csv'):
+            if self.delimiter == '\t': self.filename += '.tsv'
+            elif self.delimiter == ',': self.filename += '.csv'
+            elif self.delimiter == ';': self.filename += '.csv'
+            else:
+                raise SBtabError('The file extension is missing and the '\
+                                 'delimiter is not set.')
+
+        try:
+            f = open(self.filename, 'w')
+            f.write(self.doc_row)
+            for sbtab in self.sbtabs:
+                f.write(sbtab.return_table_string() + '\n\n')
+            f.close()
+            return True
+        except:
+            raise SBtabError('The file could not be written.')

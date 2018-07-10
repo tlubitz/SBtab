@@ -12,15 +12,15 @@ class TestSBtabTable(unittest.TestCase):
         '''
         setup SBtabTable class with files from test directory
         '''
-        self.tables = ['teusink_compartment.csv',
+        self.table_names = ['teusink_compartment.csv',
                        'teusink_compound.csv',
                        'teusink_data.tsv',
                        'teusink_reaction.tsv']
 
-        docs = ['ecoli_ccm_aerobic_ProteinComposition_haverkorn_ECM_Model.tsv']
+        self.doc_names = ['ecoli_ccm_aerobic_ProteinComposition_haverkorn_ECM_Model.tsv']
         
         self.sbtabs = []
-        for t in self.tables:
+        for t in self.table_names:
             p = open('tests/' + t, 'r')
             p_content = p.read()
             sbtab = SBtab.SBtabTable(p_content, t)
@@ -28,7 +28,7 @@ class TestSBtabTable(unittest.TestCase):
             p.close()
 
         self.docs = []
-        for i, d in enumerate(docs):
+        for i, d in enumerate(self.doc_names):
             p = open('tests/' + d, 'r')
             p_content = p.read()
             sbtab = SBtab.SBtabDocument('test_'+str(i),sbtab_init=p_content, filename=d)
@@ -254,9 +254,15 @@ class TestSBtabTable(unittest.TestCase):
         '''
         close file/s
         '''
-        for table in self.tables:
+        for table in self.table_names:
             try:
                 os.remove(table)
+            except OSError:
+                pass
+
+        for doc in self.doc_names:
+            try:
+                os.remove(doc)
             except OSError:
                 pass
 
