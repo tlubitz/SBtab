@@ -2,6 +2,7 @@
 import unittest
 import SBtab
 import copy
+import os
       
             
 
@@ -11,19 +12,29 @@ class TestSBtabTable(unittest.TestCase):
         '''
         setup SBtabTable class with files from test directory
         '''
-        tables = ['teusink_compartment.csv',
-                  'teusink_compound.csv',
-                  'teusink_data.tsv',
-                  'teusink_reaction.tsv']
+        self.tables = ['teusink_compartment.csv',
+                       'teusink_compound.csv',
+                       'teusink_data.tsv',
+                       'teusink_reaction.tsv']
 
+        docs = ['ecoli_ccm_aerobic_ProteinComposition_haverkorn_ECM_Model.tsv']
+        
         self.sbtabs = []
-        for t in tables:
+        for t in self.tables:
             p = open('tests/' + t, 'r')
             p_content = p.read()
             sbtab = SBtab.SBtabTable(p_content, t)
             self.sbtabs.append(sbtab)
             p.close()
 
+        self.docs = []
+        for i, d in enumerate(docs):
+            p = open('tests/' + d, 'r')
+            p_content = p.read()
+            sbtab = SBtab.SBtabDocument('test_'+str(i),sbtab_init=p_content, filename=d)
+            self.docs.append(sbtab)
+            p.close()
+            
     def test_extension_validator(self):
         '''
         test if the extension is correct or not
@@ -52,13 +63,95 @@ class TestSBtabTable(unittest.TestCase):
             for row in rows[2:]:
                 self.assertEqual(len(row.split('\t')),len(sbtab.columns))
 
-    def test_columns_and_dict(self):
+    def test_doc_row(self):
         '''
-        test if columns and column dict hold the same columns
+        test if the document has a doc row (!!!) and extract it
+        '''
+        # single SBtabs usually have no doc row
+        for sbtab in self.sbtabs:
+            self.assertIsNone(sbtab.doc_row)
+
+        # SBtabDocuments always have a doc row; either given in
+        # the file or generated automatically in the initialisation
+        for sbtab in self.docs:
+            self.assertIsNotNone(sbtab.doc_row)
+            self.assertEqual(sbtab.doc_row[:8], '!!!SBtab')
+            # test doc attributes here
+            # self.assertIsNotNone(sbtab.doc_name, e.g.)
+            # ...
+
+    def test_header_row(self):
+        '''
+        test if the SBtab has a valid header row
+        '''
+        valid_table_types = ['Reaction', 'Compound', 'Quantity',
+                             'QuantityType', 'Compartment']
+        
+        for sbtab in self.sbtabs:
+            self.assertIsNotNone(sbtab._get_header_row())
+            self.assertIsNotNone(sbtab.table_type)
+            self.assertIn(sbtab.table_type, valid_table_types)
+            self.assertIsNotNone(sbtab.table_name)
+            self.assertEqual(sbtab.header_row[:7], '!!SBtab')
+            self.assertIsNotNone(sbtab.header_row.find("'"))
+            self.assertEqual(sbtab.header_row.find('"'), -1)
+
+    def test_custom_table_information(self):
+        '''
+        test if custom table information can be extracted
         '''
         for sbtab in self.sbtabs:
+            self.assertIsNotNone(sbtab.get_custom_table_information('TableType'))
+            self.assertEqual(sbtab.get_custom_table_information('TableType'), sbtab.table_type)
+            with self.assertRaises(SBtab.SBtabError):
+                sbtab.get_custom_table_information('Rubbish')
+
+    def test_dequote(self):
+        '''
+        test if this function can find and replace bad quotes
+        '''
+        test_rows = ['"test"', '\xe2\x80\x9dtest\xe2\x80\x9d',
+                     '\xe2\x80\x99test\xe2\x80\x99']
+        random_sbtab = self.sbtabs[0]
+        for row in test_rows:
+            self.assertEqual((random_sbtab.dequote(row)).find('"'), -1)
+            self.assertEqual((random_sbtab.dequote(row)).find('\xe2\x80\x9d'), -1)
+            self.assertEqual((random_sbtab.dequote(row)).find('\xe2\x80\x99'), -1)
+            self.assertNotEqual((random_sbtab.dequote(row)).find("'"), -1)
+
+    def test_get_columns(self):
+        '''
+        test if the columns are extracted correctly
+        '''
+        for sbtab in self.sbtabs:
+            (column_names, columns) = sbtab.get_columns()
+            self.assertIsNotNone(column_names)
+            self.assertIsNotNone(columns)
+            self.assertNotIn('', column_names)
+            for index in columns.values():
+                self.assertEqual(type(index), int)
+            self.assertEqual(len(column_names), len(columns))
             self.assertEqual(sorted(sbtab.columns), sorted(sbtab.columns_dict.keys()))
 
+    def test_get_rows(self):
+        '''
+        test if the value rows are extracted correctly
+        '''
+        for sbtab in self.sbtabs:
+            value_rows = sbtab.get_rows()
+            self.assertIsNotNone(value_rows)
+            self.assertNotEqual(len(value_rows), 0)
+            for row in value_rows:
+                self.assertEqual(len(row), len(sbtab.columns))
+
+    def test_to_data_frame(self):
+        '''
+        test export to pandas dataframe (still rather simple)
+        '''
+        for sbtab in self.sbtabs:
+            df = sbtab.to_data_frame()
+            self.assertIsNotNone(df)
+            
     def test_change_value(self):
         '''
         function changes a value in the SBtab file
@@ -161,7 +254,11 @@ class TestSBtabTable(unittest.TestCase):
         '''
         close file/s
         '''
-        pass
+        for table in self.tables:
+            try:
+                os.remove(table)
+            except OSError:
+                pass
 
 
 class TestSBtabDocument(unittest.TestCase):

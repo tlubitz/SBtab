@@ -13,10 +13,8 @@ import copy
 import tablib
 import logging
 try:
-    from . import tablibIO
     from . import misc
 except:
-    import tablibIO
     import misc
 
 
@@ -57,7 +55,6 @@ class SBtabTable():
         self.table = self.cut_table_string(table_string)
 
         # Initialise table
-        self.tables_without_name = []
         self.initialize_table()
 
     def validate_extension(self, test=None):
@@ -202,14 +199,10 @@ class SBtabTable():
         try: table_type = self.get_custom_table_information('TableType')
         except: raise SBtabError('The TableType of the SBtab is not defined!')
 
-        # Save table name, otherwise give name with number of unnamed tables
+        # Save table name, otherwise create name
         try: table_name = self.get_custom_table_information('TableName')
         except:
-            self.tables_without_name.append(table_type)
-            for table_no_name in self.tables_without_name:
-                if table_type == table_no_name:
-                    no_name_counter = no_name_counter + 1
-            table_name = table_type.capitalize() + '_' + str(no_name_counter)
+            table_name = table_type.capitalize() + '_unnamed'
             self.header_row += " TableName='" + table_name + "'"
 
         # Save table document, otherwise return None
@@ -586,6 +579,7 @@ class SBtabDocument:
             self.add_sbtab_string(sbtab_init, filename)
         elif sbtab_init:
             self.add_sbtab(sbtab_init)
+            
         
     def add_sbtab(self, sbtab):
         '''
@@ -619,16 +613,18 @@ class SBtabDocument:
                                 'eclaration line '
                                 '%s.' % (self.doc_row,
                                          sbtab.doc_row))
-            if self.doc_row:
-                self._get_doc_row()
 
-    def _get_doc_row(self):
+            self._get_doc_row_attributes()
+
+    def _get_doc_row_attributes(self):
         '''
         read content of the !!!-document declaration row
         '''
-        # update this as soon as we know the attributes we allow in the
-        # declaration row
-        pass
+        if not self.doc_row:
+            self.doc_row = '!!!SBtab SBtabVersion="1.0" Document="..."'
+        else:
+            pass
+            #extract attributes; later
             
     def add_sbtab_string(self, sbtab_string, filename):
         '''
@@ -647,12 +643,18 @@ class SBtabDocument:
             if sbtab_amount > 1:
                 sbtab_strings = misc.split_sbtabs(sbtab_string)
                 for i, sbtab_s in enumerate(sbtab_strings):
-                    # %elad: had to change this because the file extension has 
-                    # to remain .tsv (or csv/xls)
+
+                    # here, we find a possible doc row
+                    if sbtab_s.startswith('!!!'):
+                        self.doc_row = sbtab_s
+                        continue
+                    
+                    # then, go on with the cut SBtabs
                     name_single = str(i) + '_' + filename
                     sbtab_single = SBtabTable(sbtab_s, name_single)
                     logging.debug('name = %s, type = %s' % (sbtab_single.table_name, sbtab_single.table_type))
                     self.add_sbtab(sbtab_single)
+                self._get_doc_row_attributes()
             else:
                 sbtab = SBtabTable(sbtab_string, filename)
                 self.add_sbtab(sbtab)
