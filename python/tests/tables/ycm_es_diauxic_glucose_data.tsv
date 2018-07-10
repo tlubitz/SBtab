@@ -1,0 +1,86 @@
+!!SBtab TableType="Quantity"									
+!QuantityType	!Compound	!Reaction	!Unit	!Median	!Mean	!Std	!Lower	!Upper	!Compound:Identifiers:kegg.compound
+standard chemical potential	ATP		kJ/mol	-2304.722	-2304.722	10	NaN	NaN	C00002
+standard chemical potential	Pyruvate		kJ/mol	-354.41783	-354.41783	10	NaN	NaN	C00022
+standard chemical potential	Phosphoenolpyruvate		kJ/mol	-1208.5251	-1208.5251	10	NaN	NaN	C00074
+standard chemical potential	ADP		kJ/mol	-1427.0814	-1427.0814	10	NaN	NaN	C00008
+standard chemical potential	Acetaldehyde		kJ/mol	18.131616	18.131616	10	NaN	NaN	C00084
+standard chemical potential	CO2		kJ/mol	-386	-386	10	NaN	NaN	C00011
+standard chemical potential	Oxaloacetate		kJ/mol	-710.99879	-710.99879	10	NaN	NaN	C00036
+standard chemical potential	(S)-Malate		kJ/mol	-665.4645	-665.4645	10	NaN	NaN	C00149
+standard chemical potential	NAD+		kJ/mol	251.0055	251.0055	10	NaN	NaN	C00003
+standard chemical potential	NADH		kJ/mol	321.18965	321.18965	10	NaN	NaN	C00004
+standard chemical potential	H+		kJ/mol	-2.0135944e-12	-2.0135944e-12	10	NaN	NaN	C00080
+standard chemical potential	Orthophosphate		kJ/mol	-1037.3655	-1037.3655	10	NaN	NaN	C00009
+standard chemical potential	Citrate		kJ/mol	-955.2957	-955.2957	10	NaN	NaN	C00158
+standard chemical potential	CoA		kJ/mol	47.645916	47.645916	10	NaN	NaN	C00010
+standard chemical potential	Acetyl-CoA		kJ/mol	-28.130532	-28.130532	10	NaN	NaN	C00024
+standard chemical potential	H2O		kJ/mol	-130.6675	-130.6675	10	NaN	NaN	C00001
+standard chemical potential	Succinate		kJ/mol	-504.80569	-504.80569	10	NaN	NaN	C00042
+standard chemical potential	Succinyl-CoA		kJ/mol	-299.90814	-299.90814	10	NaN	NaN	C00091
+standard chemical potential	Glyoxylate		kJ/mol	-436.83801	-436.83801	10	NaN	NaN	C00048
+standard chemical potential	Isocitrate		kJ/mol	-947.65425	-947.65425	10	NaN	NaN	C00311
+standard chemical potential	2-Phospho-D-glycerate		kJ/mol	-1335.4422	-1335.4422	10	NaN	NaN	C00631
+standard chemical potential	2-Oxoglutarate		kJ/mol	-642.74136	-642.74136	10	NaN	NaN	C00026
+standard chemical potential	Ethanol		kJ/mol	72.258782	72.258782	10	NaN	NaN	C00469
+standard chemical potential	D-Glyceraldehyde 3-phosphate		kJ/mol	-1093.9623	-1093.9623	10	NaN	NaN	C00118
+standard chemical potential	Glycerone phosphate		kJ/mol	-1097.2338	-1097.2338	10	NaN	NaN	C00111
+standard chemical potential	D-Ribose 5-phosphate		kJ/mol	-1234.5129	-1234.5129	10	NaN	NaN	C00117
+standard chemical potential	D-Ribulose 5-phosphate		kJ/mol	-1235.0965	-1235.0965	10	NaN	NaN	C00199
+standard chemical potential	3-Phospho-D-glyceroyl phosphate		kJ/mol	-2198.9434	-2198.9434	10	NaN	NaN	C00236
+standard chemical potential	Fumarate		kJ/mol	-531.50443	-531.50443	10	NaN	NaN	C00122
+standard chemical potential	3-Phospho-D-glycerate		kJ/mol	-1340.2567	-1340.2567	10	NaN	NaN	C00197
+standard chemical potential	6-Phospho-D-gluconate		kJ/mol	-1543.1748	-1543.1748	10	NaN	NaN	C00345
+standard chemical potential	NADP+		kJ/mol	-635.14385	-635.14385	10	NaN	NaN	C00006
+standard chemical potential	NADPH		kJ/mol	-561.97673	-561.97673	10	NaN	NaN	C00005
+standard chemical potential	D-Xylulose 5-phosphate		kJ/mol	-1236.8547	-1236.8547	10	NaN	NaN	C00231
+standard chemical potential	Sedoheptulose 7-phosphate		kJ/mol	-1379.2397	-1379.2397	10	NaN	NaN	C05382
+standard chemical potential	D-Erythrose 4-phosphate		kJ/mol	-1160.9545	-1160.9545	10	NaN	NaN	C00279
+standard chemical potential	D-Glucono-1,5-lactone 6-phosphate		kJ/mol	-1389.9327	-1389.9327	10	NaN	NaN	C01236
+standard chemical potential	NH3		kJ/mol	105.22605	105.22605	10	NaN	NaN	C00014
+standard chemical potential	Diphosphate		kJ/mol	-1928.4329	-1928.4329	10	NaN	NaN	C00013
+standard chemical potential	Acetate		kJ/mol	-239.95997	-239.95997	10	NaN	NaN	C00033
+standard chemical potential	AMP		kJ/mol	-547.86228	-547.86228	10	NaN	NaN	C00020
+standard chemical potential	EthanolExt		kJ/mol	72.258782	72.258782	10	NaN	NaN	C00469
+Michaelis constant	Phosphoenolpyruvate	R00200	mM	0.08	0.086853919	0.036714457	NaN	NaN	C00074
+Michaelis constant	GTP	R00200	mM	0.28	0.30398872	0.1285006	NaN	NaN	C00044
+Michaelis constant	L-Glutamine	R00224	mM	0.04	0.043426959	0.018357228	NaN	NaN	C00064
+Michaelis constant	D-Xylulose 5-phosphate	R00341	mM	0.04	0.043426959	0.018357228	NaN	NaN	C00231
+Michaelis constant	Acetaldehyde	R00351	mM	0.03	0.03257022	0.013767921	NaN	NaN	C00084
+Michaelis constant	(S)-Malate	R00432	mM	1	1.085674	0.45893071	NaN	NaN	C00149
+Michaelis constant	GlycerolExt	R00432	mM	0.00519	0.005634648	0.0023818504	NaN	NaN	C00116
+Michaelis constant	HCO3-	R00472	mM	0.02	0.02171348	0.0091786142	NaN	NaN	C00288
+Michaelis constant	ATP	R00479	mM	0.04	0.043426959	0.018357228	NaN	NaN	C00002
+Michaelis constant	Sedoheptulose 7-phosphate	R01518	mM	0.405	0.43969796	0.18586694	NaN	NaN	C05382
+Michaelis constant	beta-D-Glucose 6-phosphate	R01529	mM	3.5	3.7998589	1.6062575	NaN	NaN	C01172
+Michaelis constant	ATP	R01641	mM	0.3	0.3257022	0.13767921	NaN	NaN	C00002
+Michaelis constant	Reduced acceptor	R01827	mM	1.63	1.7696486	0.74805706	NaN	NaN	C00030
+Michaelis constant	GlycerolExt	R02736	mM	1.79	1.9433564	0.82148598	NaN	NaN	C00116
+Michaelis constant	Pyruvate	R02739	mM	49	53.198025	22.487605	NaN	NaN	C00022
+Michaelis constant	sn-Glycerol 3-phosphate	R02739	mM	10	10.85674	4.5893071	NaN	NaN	C00093
+Michaelis constant	UDP	R01324	mM	0.5	0.54283699	0.22946536	NaN	NaN	C00015
+concentration	ATP		mM	1.4456832	1.5695406	0.66346842	NaN	NaN	C00002
+concentration	Pyruvate		mM	1.6	1.7370784	0.73428914	NaN	NaN	C00022
+concentration	Phosphoenolpyruvate		mM	0.03	0.03257022	0.013767921	NaN	NaN	C00074
+concentration	ADP		mM	0.64498062	0.70023868	0.29600142	NaN	NaN	C00008
+concentration	Oxaloacetate		mM	0.05	0.054283699	0.022946536	NaN	NaN	C00036
+concentration	NAD+		mM	1.2649111	1.3732811	0.58050655	NaN	NaN	C00003
+concentration	Orthophosphate		mM	22	23.884828	10.096476	NaN	NaN	C00009
+concentration	Citrate		mM	0.7	0.75997179	0.3212515	NaN	NaN	C00158
+concentration	2-Phospho-D-glycerate		mM	0.67970582	0.73793893	0.31193788	NaN	NaN	C00631
+concentration	2-Oxoglutarate		mM	1	1.085674	0.45893071	NaN	NaN	C00026
+concentration	Glycerone phosphate		mM	0.33	0.35827241	0.15144714	NaN	NaN	C00111
+concentration	3-Phospho-D-glycerate		mM	0.16124515	0.17505966	0.074000352	NaN	NaN	C00197
+concentration	6-Phospho-D-gluconate		mM	0.17320508	0.18804425	0.079489131	NaN	NaN	C00345
+concentration	NADP+		mM	0.054772256	0.059464813	0.02513667	NaN	NaN	C00006
+concentration	NADPH		mM	0.08660254	0.094022125	0.039744565	NaN	NaN	C00005
+concentration	L-Glutamate		mM	22.912878	24.875916	10.515423	NaN	NaN	C00025
+concentration	NH3		mM	30	32.57022	13.767921	NaN	NaN	C00014
+concentration	L-Glutamine		mM	22.912878	24.875916	10.515423	NaN	NaN	C00064
+concentration	L-Alanine		mM	13.228757	14.362117	6.0710829	NaN	NaN	C00041
+concentration	D-Glucose 1-phosphate		mM	0.1	0.1085674	0.045893071	NaN	NaN	C00103
+concentration	UDP-glucose		mM	0.3	0.3257022	0.13767921	NaN	NaN	C00029
+concentration	AMP		mM	0.2258318	0.24517971	0.10364115	NaN	NaN	C00020
+concentration	L-AlanineExt		mM	13.228757	14.362117	6.0710829	NaN	NaN	C00041
+reaction affinity		R01015	kJ/mol	0	0	2	-2	2	
+reaction affinity		R03321	kJ/mol	0	0	2	-2	2	

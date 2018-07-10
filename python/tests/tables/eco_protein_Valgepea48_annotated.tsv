@@ -1,0 +1,28 @@
+!!SBtab Organism='"Escherichia coli"' TableType='Quantity'											
+!QuantityType	!GeneSystematic	!Abundance	!Value	!SizeWeightedAbundance	!SizeWeightedAbundancePPM	!Size	!Gene	!KOnumber	!KOcategory	!Reaction	!Reaction:Identifiers:kegg.reaction
+concentration of enzyme	b4232	1193	277.862466697	396076	323.381757965	332	Fbp	K03841	Glycolysis and gluconeogenesis	FBP_R00762	R00762
+concentration of enzyme	b1852	1823	424.59620854	895093	730.811126861	491	Zwf	K00036	Pentose phosphate metabolism	ZWF_R00835	R00835
+concentration of enzyme	b1612	2080	484.454258784	1139840	930.638218421	548	FumA	K01676	TCA cycle and anaplerotic enzymes	FUM_R01082	R01082
+concentration of enzyme	b0767	2320	540.352827105	767920	626.978962565	331	Pgl	K07404	Pentose phosphate metabolism	GLH_R02035	R02035
+concentration of enzyme	b2465	2338	544.545219729	1559446	1273.23137209	667	TktB	K00615	Pentose phosphate metabolism	TXT_R01067	R01067
+concentration of enzyme	b3386	3066	714.104210303	689850	563.237625437	225	Rpe	K01783	Pentose phosphate metabolism	RPE_R01529	R01529
+concentration of enzyme	b3916	3203	746.012976387	1024960	836.842844919	320	PfkA	K00850	Glycolysis and gluconeogenesis	PFK_R04779	R04779
+concentration of enzyme	b0723	4187	975.197106504	2461956	2010.09821174	588	SdhA	K00239	TCA cycle and anaplerotic enzymes	SDH_R02164	R02164
+concentration of enzyme	b2914	4710	1097.0094033	1031490	842.174354224	219	RpiA	K01807	Pentose phosphate metabolism	RPI_R01056	R01056
+concentration of enzyme	b4025	5760	1341.56563971	3162240	2581.85482157	549	Pgi	K01810	Glycolysis and gluconeogenesis	PGI_R02740	R02740
+concentration of enzyme	b2416	6866	1599.16487539	3947950	3223.35867702	575	PtsI	K08483	Phosphotransferase system (PTS)	PTS_RPTSsy	RPTSsy
+concentration of enzyme	b0727	6900	1607.08383923	2794500	2281.60838484	405	SucB	K00658	TCA cycle and anaplerotic enzymes	KGD_R08549	R08549
+concentration of enzyme	b0118	7847	1827.6502734	6787655	5541.87531273	865	AcnB	K01682	TCA cycle and anaplerotic enzymes	ACN_R01900	R01900
+concentration of enzyme	b0720	7855	1829.51355901	3354085	2738.48933959	427	GltA	K01647	TCA cycle and anaplerotic enzymes	CSN_R00351	R00351
+concentration of enzyme	b3919	7978	1858.16157528	2034390	1661.00600538	255	TpiA	K01803	Glycolysis and gluconeogenesis	TIM_R01015	R01015
+concentration of enzyme	b0728	9887	2302.78810413	3836156	3132.08291113	388	SucC	K01903	TCA cycle and anaplerotic enzymes	SCS_R00405	R00405
+concentration of enzyme	b1676	9967	2321.42096024	4684490	3824.71700222	470	PykF	K00873	Glycolysis and gluconeogenesis	PYK_R00200	R00200
+concentration of enzyme	b0114	10114	2355.65883334	8971118	7324.59404194	887	AceE	K00163	Glycolysis and gluconeogenesis	PDH_R00209	R00209
+concentration of enzyme	b0755	10490	2443.23325704	2622500	2141.17659304	250	GpmA	K01834	Glycolysis and gluconeogenesis	PGM_R01518	R01518
+concentration of enzyme	b0008	12880	2999.88983324	4082960	3333.58946895	317	TalB	K00616	Pentose phosphate metabolism	TAL_R08575	R08575
+concentration of enzyme	b2029	17503	4076.63600553	8191404	6687.98570407	468	Gnd	K00033	Pentose phosphate metabolism	PGD_R01528	R01528
+concentration of enzyme	b2926	18874	4395.95657706	7304238	5963.64668659	387	Pgk	K00927	Glycolysis and gluconeogenesis	PGK_R01512	R01512
+concentration of enzyme	b1136	23278	5421.69530575	9683648	7906.34906876	416	Icd	K00031	TCA cycle and anaplerotic enzymes	ICD_R00709	R00709
+concentration of enzyme	b1779	31313	7293.13279101	10364603	8462.32424776	331	GapA	K00134	Glycolysis and gluconeogenesis	GAP_R01061	R01061
+concentration of enzyme	b3236	31413	7316.42386114	9800856	8002.04517024	312	Mdh	K00024	TCA cycle and anaplerotic enzymes	MDH_R00342	R00342
+concentration of enzyme	b2779	32376	7540.71686653	13986432	11419.4168993	432	Eno	K01689	Glycolysis and gluconeogenesis	PGH_R00658	R00658

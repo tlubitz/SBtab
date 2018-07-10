@@ -3,7 +3,6 @@ import unittest
 import SBtab
 import copy
 import os
-      
             
 
 class TestSBtabTable(unittest.TestCase):
@@ -12,16 +11,21 @@ class TestSBtabTable(unittest.TestCase):
         '''
         setup SBtabTable class with files from test directory
         '''
-        self.table_names = ['teusink_compartment.csv',
-                       'teusink_compound.csv',
-                       'teusink_data.tsv',
-                       'teusink_reaction.tsv']
+        self.table_names = [f for f in os.listdir('tests/tables/') if os.path.isfile(os.path.join('tests/tables/', f))]
+        self.doc_names = [f for f in os.listdir('tests/docs/') if os.path.isfile(os.path.join('tests/docs/', f))]
 
-        self.doc_names = ['ecoli_ccm_aerobic_ProteinComposition_haverkorn_ECM_Model.tsv']
+
+
+
         
+        #self.table_names = ['teusink_compartment.csv',
+        #                    'teusink_compound.csv',
+        #                    'teusink_data.tsv',
+        #                    'teusink_reaction.tsv']
+
         self.sbtabs = []
         for t in self.table_names:
-            p = open('tests/' + t, 'r')
+            p = open('tests/tables/' + t, 'r')
             p_content = p.read()
             sbtab = SBtab.SBtabTable(p_content, t)
             self.sbtabs.append(sbtab)
@@ -29,7 +33,7 @@ class TestSBtabTable(unittest.TestCase):
 
         self.docs = []
         for i, d in enumerate(self.doc_names):
-            p = open('tests/' + d, 'r')
+            p = open('tests/docs/' + d, 'r')
             p_content = p.read()
             sbtab = SBtab.SBtabDocument('test_'+str(i),sbtab_init=p_content, filename=d)
             self.docs.append(sbtab)
@@ -85,7 +89,9 @@ class TestSBtabTable(unittest.TestCase):
         test if the SBtab has a valid header row
         '''
         valid_table_types = ['Reaction', 'Compound', 'Quantity',
-                             'QuantityType', 'Compartment']
+                             'QuantityType', 'Compartment', 'Relationship',
+                             'Position', 'Definition', 'QuantityInfo',
+                             'Regulator', 'Relation', 'Enzyme', 'Gene']
         
         for sbtab in self.sbtabs:
             self.assertIsNotNone(sbtab._get_header_row())

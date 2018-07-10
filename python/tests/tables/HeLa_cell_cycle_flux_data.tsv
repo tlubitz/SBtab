@@ -1,0 +1,47 @@
+!!SBtab TableName='Flux' TableType='Quantity' Unit='mM/h' !Organism='Homo sapiens' !Reference='Data from Tomer'
+!Reaction	!ReactionName	!Typical	!Total	!G1	!G1S	!earlyS	!lateS	!G2	!M	!Source
+%
+% Tomer
+GCS_RGLCsy	Glycogen synthesis	nan	2.67	nan	nan	nan	nan	nan	nan	Tomer
+GCD_RGLCde	Glycogen degradation	nan	0	nan	nan	nan	nan	nan	nan	Tomer
+SES_SERIsy	Serine synthesis	nan	1	nan	nan	nan	nan	nan	nan	Tomer
+PYX_PYRUex	Pyruvate export	nan	20	nan	nan	nan	nan	nan	nan	Tomer
+R_SUCD2_u6m	Fumarate synthesis	2.7	nan	nan	2.4	3	3	nan	nan	Tomer
+PUS_PURIsy	Purine synthesis	1.2	nan	nan	0.8	1.6	1.6	nan	nan	Tomer
+FattyAcidProd	Fatty acid production	2	nan	nan	nan	nan	nan	nan	nan	Tomer says: between 1 and 5
+%
+% Old values, discarded:
+%R_G6PDH2	Pentose phosphate pathway	nan	2	nan	nan	nan	nan	nan	nan	Tomer
+%LAX_LACTex	Lactate export	nan	370	nan	300	420	nan	nan	nan	Tomer
+%R_CSm	Citrate synthesis	1.5	nan	nan	2	1	nan	nan	nan	Tomer
+%ASS_ASPAsy	Aspartate synthesis	3.8	nan	nan	3.2	4.6	4.6	nan	nan	Tomer
+%PYS_PYRIsy	Pyrimidine synthesis	0.7	nan	nan	0.4	1	1	nan	nan	Tomer
+%R_ME1m	Malic enzyme NAD mitochondrial	-0.1	nan	nan	nan	nan	nan	nan	nan	Tomer says: "5% of glutamate anaplerotic flux"
+%
+% Tomer, "time-dependent flux data"
+LAX_LACTex	lactate secretion	nan	nan	312.7896	368.5668	295.5957	310.1967	339.9092	276.4721	Tomer, time-dependent flux data
+R_CSm	citrate synthase	nan	nan	3.2452199	3.8128417	3.1240704	2.0009633	2.0599976	2.5953914	Tomer, time-dependent flux data !!! R_CSc not mapped!
+R_ICDHxm	IDH oxidative	nan	nan	5.2452022	5.4973674	4.6517014	2.6002497	2.6659534	5.0087908	Tomer, time-dependent flux data
+R_ICDHym	IDH reductive	nan	nan	0.66703047	0.69693679	0.72790887	0.57261309	0.57730058	0.69130564	Tomer, time-dependent flux data /R_ICDHy NOT MAPPED!
+ASS_ASPAsy	aspartate synthesis	nan	nan	15.543784	16.525617	20.133195	21.271405	18.541193	16.631488	Tomer, time-dependent flux data
+PYS_PYRIsy	pyrimidine biosynthesis	nan	nan	1.2668624	1.376613	1.8676788	1.8104963	1.3776817	1.2459601	Tomer, time-dependent flux data
+R_ME1m	malic enzyme	nan	nan	-7.3068762	-6.5535099	-6.8256754	-7.4476968	-7.7961491	-7.7926745	Tomer, time-dependent flux data
+RibDrain	Ribose 5 phosphate drain	2.7	nan	2.4	2.1	3.4	3.4	1.57	1.44	% Sum of purine and pyrimidine values (rough estimates)
+%
+% Won (original)
+%R_CSm	Citrate synthesis	nan	0.81	nan	nan	nan	nan	nan	nan	Won Fig 6 COMMENTED OUT BCS OF CONFLICT WITH TOMERS DATA
+R_SUCD2_u6m	Fumarate synthesis	3.2	nan	nan	3.2	3.2	nan	nan	nan	Won Fig 6
+R_ICDHxm	Isocitrate dehydrogenase  NAD 	nan	0.68 	nan	0.68 	0.68	nan	nan	nan	Won Fig 6
+R_ICDHym	Isocitrate dehydrogenase  NADP 	nan	-0.07 	nan	-0.07 	-0.07	nan	nan	nan	Won Fig 6
+R_ICDHy	Isocitrate dehydrogenase (NADP)	nan	-0.08	nan	-0.08	-0.08	nan	nan	nan	Won Fig 6
+CitTrans	Citrate transport 	nan	-0.21	nan	nan	nan	nan	nan	nan	Won Fig 6
+GLI_GLUNim	Glutamine_ex <=> Glutamine	nan	2.67	nan	nan	nan	nan	nan	nan	Inferred from Won Fig 6
+%
+% Other
+OxPhos	Oxidative phosphorylation	nan	nan	nan	nan	nan	nan	nan	nan	Ask Praveen
+%
+% Assumed zero fluxes
+R_FBP	Fructose bisphosphatase	0	nan	nan	nan	nan	nan	nan	nan	Assume zero flux
+R_PFK_3	Phosphofructokinase (s7p)	0	nan	nan	nan	nan	nan	nan	nan	Assume zero flux
+R_SBP	Sedoheptulose 1,7-bisphosphatase	0	nan	nan	nan	nan	nan	nan	nan	Assume zero flux
+R_CITtcm	M_cit_c + M_icit_m <=> M_cit_m + M_icit_c	0	nan	nan	nan	nan	nan	nan	nan	Assume zero flux

@@ -1,0 +1,169 @@
+!!SBtab TableType="Quantity"									
+!QuantityType	!Compound	!Reaction	!Unit	!Median	!Mean	!Std	!Lower	!Upper	!Compound:Identifiers:kegg.compound
+standard chemical potential	M_10fthf_c		kJ/mol	-119.74826	-119.74826	10	NaN	NaN	C00234
+standard chemical potential	M_13dpg_c		kJ/mol	-2198.9434	-2198.9434	10	NaN	NaN	C00236
+standard chemical potential	M_2pg_c		kJ/mol	-1335.4422	-1335.4422	10	NaN	NaN	C00631
+standard chemical potential	M_3pg_c		kJ/mol	-1340.2567	-1340.2567	10	NaN	NaN	C00197
+standard chemical potential	M_5mthf_c		kJ/mol	76.903294	76.903294	10	NaN	NaN	C00440
+standard chemical potential	M_6pgc_c		kJ/mol	-1543.1748	-1543.1748	10	NaN	NaN	C00345
+standard chemical potential	M_6pgl_c		kJ/mol	-1389.9327	-1389.9327	10	NaN	NaN	C01236
+standard chemical potential	M_acald_c		kJ/mol	18.131616	18.131616	10	NaN	NaN	C00084
+standard chemical potential	M_acald_m		kJ/mol	18.131616	18.131616	10	NaN	NaN	C00084
+standard chemical potential	M_accoa_c		kJ/mol	-28.130532	-28.130532	10	NaN	NaN	C00024
+standard chemical potential	M_accoa_m		kJ/mol	-28.130532	-28.130532	10	NaN	NaN	C00024
+standard chemical potential	M_ac_c		kJ/mol	-239.95997	-239.95997	10	NaN	NaN	C00033
+standard chemical potential	M_ac_e		kJ/mol	-239.95997	-239.95997	10	NaN	NaN	C00033
+standard chemical potential	M_ac_m		kJ/mol	-239.95997	-239.95997	10	NaN	NaN	C00033
+standard chemical potential	M_adp_c		kJ/mol	-1427.0814	-1427.0814	10	NaN	NaN	C00008
+standard chemical potential	M_adp_m		kJ/mol	-1427.0814	-1427.0814	10	NaN	NaN	C00008
+standard chemical potential	M_akg_c		kJ/mol	-642.74136	-642.74136	10	NaN	NaN	C00026
+standard chemical potential	M_akg_m		kJ/mol	-642.74136	-642.74136	10	NaN	NaN	C00026
+standard chemical potential	M_amp_c		kJ/mol	-547.86228	-547.86228	10	NaN	NaN	C00020
+standard chemical potential	M_amp_m		kJ/mol	-547.86228	-547.86228	10	NaN	NaN	C00020
+standard chemical potential	M_atp_c		kJ/mol	-2304.722	-2304.722	10	NaN	NaN	C00002
+standard chemical potential	M_atp_m		kJ/mol	-2304.722	-2304.722	10	NaN	NaN	C00002
+standard chemical potential	M_cit_c		kJ/mol	-955.2957	-955.2957	10	NaN	NaN	C00158
+standard chemical potential	M_cit_m		kJ/mol	-955.2957	-955.2957	10	NaN	NaN	C00158
+standard chemical potential	M_co2_c		kJ/mol	-386	-386	10	NaN	NaN	C00011
+standard chemical potential	M_co2_e		kJ/mol	-386	-386	10	NaN	NaN	C00011
+standard chemical potential	M_co2_m		kJ/mol	-386	-386	10	NaN	NaN	C00011
+standard chemical potential	M_coa_c		kJ/mol	47.645916	47.645916	10	NaN	NaN	C00010
+standard chemical potential	M_coa_m		kJ/mol	47.645916	47.645916	10	NaN	NaN	C00010
+standard chemical potential	M_dhap_c		kJ/mol	-1097.2338	-1097.2338	10	NaN	NaN	C00111
+standard chemical potential	M_e4p_c		kJ/mol	-1160.9545	-1160.9545	10	NaN	NaN	C00279
+standard chemical potential	M_etoh_c		kJ/mol	72.258782	72.258782	10	NaN	NaN	C00469
+standard chemical potential	M_etoh_e		kJ/mol	72.258782	72.258782	10	NaN	NaN	C00469
+standard chemical potential	M_etoh_m		kJ/mol	72.258782	72.258782	10	NaN	NaN	C00469
+standard chemical potential	M_f6p_c		kJ/mol	-1311.9222	-1311.9222	10	NaN	NaN	C00085
+standard chemical potential	M_fdp_c		kJ/mol	-2210.9234	-2210.9234	10	NaN	NaN	C00354
+standard chemical potential	M_for_c		kJ/mol	-289.84831	-289.84831	10	NaN	NaN	C00058
+standard chemical potential	M_fum_c		kJ/mol	-531.50443	-531.50443	10	NaN	NaN	C00122
+standard chemical potential	M_fum_m		kJ/mol	-531.50443	-531.50443	10	NaN	NaN	C00122
+standard chemical potential	M_g3p_c		kJ/mol	0	0	10	NaN	NaN	C00661
+standard chemical potential	M_g6p_c		kJ/mol	-1313.8295	-1313.8295	10	NaN	NaN	C00092
+standard chemical potential	M_glc_D_c		kJ/mol	-420.16808	-420.16808	10	NaN	NaN	C00031
+standard chemical potential	M_glc_D_e		kJ/mol	-420.16808	-420.16808	10	NaN	NaN	C00031
+standard chemical potential	M_glx_c		kJ/mol	-436.83801	-436.83801	10	NaN	NaN	C00048
+standard chemical potential	M_glx_m		kJ/mol	-436.83801	-436.83801	10	NaN	NaN	C00048
+standard chemical potential	M_gly_c		kJ/mol	-187.35277	-187.35277	10	NaN	NaN	C00037
+standard chemical potential	M_gly_m		kJ/mol	-187.35277	-187.35277	10	NaN	NaN	C00037
+standard chemical potential	M_h2o_c		kJ/mol	-130.6675	-130.6675	10	NaN	NaN	C00001
+standard chemical potential	M_h2o_e		kJ/mol	-130.6675	-130.6675	10	NaN	NaN	C00001
+standard chemical potential	M_h2o_m		kJ/mol	-130.6675	-130.6675	10	NaN	NaN	C00001
+standard chemical potential	M_hcyt_c		kJ/mol	-2.0135944e-12	-2.0135944e-12	10	NaN	NaN	C00080
+standard chemical potential	M_h_c		kJ/mol	-2.0135944e-12	-2.0135944e-12	10	NaN	NaN	C00080
+standard chemical potential	M_h_e		kJ/mol	-2.0135944e-12	-2.0135944e-12	10	NaN	NaN	C00080
+standard chemical potential	M_h_m		kJ/mol	-2.0135944e-12	-2.0135944e-12	10	NaN	NaN	C00080
+standard chemical potential	M_icit_c		kJ/mol	-947.65425	-947.65425	10	NaN	NaN	C00311
+standard chemical potential	M_icit_m		kJ/mol	-947.65425	-947.65425	10	NaN	NaN	C00311
+standard chemical potential	M_mal_L_c		kJ/mol	-665.4645	-665.4645	10	NaN	NaN	C00149
+standard chemical potential	M_mal_L_m		kJ/mol	-665.4645	-665.4645	10	NaN	NaN	C00149
+standard chemical potential	M_methf_c		kJ/mol	4.9345083	4.9345083	10	NaN	NaN	C00445
+standard chemical potential	M_mlthf_c		kJ/mol	54.682392	54.682392	10	NaN	NaN	C00143
+standard chemical potential	M_nadh_c		kJ/mol	321.18965	321.18965	10	NaN	NaN	C00004
+standard chemical potential	M_nadh_m		kJ/mol	321.18965	321.18965	10	NaN	NaN	C00004
+standard chemical potential	M_nadph_c		kJ/mol	-561.97673	-561.97673	10	NaN	NaN	C00005
+standard chemical potential	M_nadph_m		kJ/mol	-561.97673	-561.97673	10	NaN	NaN	C00005
+standard chemical potential	M_nadp_c		kJ/mol	-635.14385	-635.14385	10	NaN	NaN	C00006
+standard chemical potential	M_nadp_m		kJ/mol	-635.14385	-635.14385	10	NaN	NaN	C00006
+standard chemical potential	M_nad_c		kJ/mol	251.0055	251.0055	10	NaN	NaN	C00003
+standard chemical potential	M_nad_m		kJ/mol	251.0055	251.0055	10	NaN	NaN	C00003
+standard chemical potential	M_oaa_c		kJ/mol	-710.99879	-710.99879	10	NaN	NaN	C00036
+standard chemical potential	M_oaa_m		kJ/mol	-710.99879	-710.99879	10	NaN	NaN	C00036
+standard chemical potential	M_pep_c		kJ/mol	-1208.5251	-1208.5251	10	NaN	NaN	C00074
+standard chemical potential	M_pi_c		kJ/mol	-1037.3655	-1037.3655	10	NaN	NaN	C00009
+standard chemical potential	M_pi_e		kJ/mol	-1037.3655	-1037.3655	10	NaN	NaN	C00009
+standard chemical potential	M_pi_m		kJ/mol	-1037.3655	-1037.3655	10	NaN	NaN	C00009
+standard chemical potential	M_ppi_c		kJ/mol	-1928.4329	-1928.4329	10	NaN	NaN	C00013
+standard chemical potential	M_ppi_m		kJ/mol	-1928.4329	-1928.4329	10	NaN	NaN	C00013
+standard chemical potential	M_pyr_c		kJ/mol	-354.41783	-354.41783	10	NaN	NaN	C00022
+standard chemical potential	M_pyr_e		kJ/mol	-354.41783	-354.41783	10	NaN	NaN	C00022
+standard chemical potential	M_pyr_m		kJ/mol	-354.41783	-354.41783	10	NaN	NaN	C00022
+standard chemical potential	M_q6h2_m		kJ/mol	-10.902805	-10.902805	10	NaN	NaN	C00390
+standard chemical potential	M_r5p_c		kJ/mol	-1234.5129	-1234.5129	10	NaN	NaN	C00117
+standard chemical potential	M_ru5p_D_c		kJ/mol	-1235.0965	-1235.0965	10	NaN	NaN	C00199
+standard chemical potential	M_ser_L_c		kJ/mol	-225.69027	-225.69027	10	NaN	NaN	C00065
+standard chemical potential	M_succoa_m		kJ/mol	-299.90814	-299.90814	10	NaN	NaN	C00091
+standard chemical potential	M_succ_c		kJ/mol	-504.80569	-504.80569	10	NaN	NaN	C00042
+standard chemical potential	M_succ_e		kJ/mol	-504.80569	-504.80569	10	NaN	NaN	C00042
+standard chemical potential	M_succ_m		kJ/mol	-504.80569	-504.80569	10	NaN	NaN	C00042
+standard chemical potential	M_thf_c		kJ/mol	-9.2980926	-9.2980926	10	NaN	NaN	C00101
+standard chemical potential	M_xu5p_D_c		kJ/mol	-1236.8547	-1236.8547	10	NaN	NaN	C00231
+Michaelis constant	M_acglu_m	R_OCBTi	mM	0.024	0.026056176	0.011014337	NaN	NaN	C00624
+Michaelis constant	M_h2o_c	R_OCBTi	mM	0.024	0.026056176	0.011014337	NaN	NaN	C00001
+Michaelis constant	M_ala_L_m	R_GLU5K	mM	0.024	0.026056176	0.011014337	NaN	NaN	C00041
+Michaelis constant	M_hom_L_c	R_GLU5K	mM	0.024	0.026056176	0.011014337	NaN	NaN	C00263
+Michaelis constant	M_nadp_m	R_CSm	mM	1.79	1.9433564	0.82148598	NaN	NaN	C00006
+Michaelis constant	M_nadh_m	R_MTHFC	mM	0.028	0.030398872	0.01285006	NaN	NaN	C00004
+Michaelis constant	M_o2_m	R_FTHFL	mM	0.028	0.030398872	0.01285006	NaN	NaN	C00007
+Michaelis constant	M_hcit_m	R_PSERT	mM	0.04	0.043426959	0.018357228	NaN	NaN	C01251
+Michaelis constant	M_icit_m	R_PGCD	mM	0.04	0.043426959	0.018357228	NaN	NaN	C00311
+Michaelis constant	M_dtmp_c	R_GHMT2r	mM	0.044	0.047769655	0.020192951	NaN	NaN	C00364
+Michaelis constant	M_fum_c	R_CYSTS	mM	0.044	0.047769655	0.020192951	NaN	NaN	C00122
+Michaelis constant	M_coa_c	R_ENO	mM	1.7	1.8456458	0.78018221	NaN	NaN	C00010
+Michaelis constant	M_coa_c	R_PRPPS	mM	1.7	1.8456458	0.78018221	NaN	NaN	C00010
+Michaelis constant	M_glu5p_c	R_PRMICIi	mM	0.08	0.086853919	0.036714457	NaN	NaN	C03287
+Michaelis constant	M_o2_c	R_PRMICIi	mM	0.28	0.30398872	0.1285006	NaN	NaN	C00007
+Michaelis constant	M_h2o_m	R_PRATPP	mM	0.08	0.086853919	0.036714457	NaN	NaN	C00001
+Michaelis constant	M_pep_c	R_PRATPP	mM	0.28	0.30398872	0.1285006	NaN	NaN	C00074
+Michaelis constant	M_prbatp_c	R_PPND2	mM	1.3	1.4113762	0.59660993	NaN	NaN	C02739
+Michaelis constant	M_acg5sa_m	R_ANPRT	mM	0.27	0.29313198	0.12391129	NaN	NaN	C01250
+Michaelis constant	M_b124tc_m	R_LEUTA	mM	0.405	0.43969796	0.18586694	NaN	NaN	C04002
+Michaelis constant	M_cys_L_c	R_KARA2im	mM	0.405	0.43969796	0.18586694	NaN	NaN	C00097
+Michaelis constant	M_23dhmb_m	R_DHAD1m	mM	1	1.085674	0.45893071	NaN	NaN	C04272
+Michaelis constant	M_23dhmp_m	R_DHAD1m	mM	1	1.085674	0.45893071	NaN	NaN	C06007
+Michaelis constant	M_3c2hmp_c	R_ACLSm	mM	1	1.085674	0.45893071	NaN	NaN	C04411
+Michaelis constant	M_3c3hmp_c	R_ACLSm	mM	1	1.085674	0.45893071	NaN	NaN	C02504
+Michaelis constant	M_hcyt_c	R_PIt2r	mM	0.00519	0.005634648	0.0023818504	NaN	NaN	C00080
+Michaelis constant	M_succoa_m	R_PIt2r	mM	0.514	0.55803643	0.23589039	NaN	NaN	C00091
+Michaelis constant	M_imacp_c	R_O2t	mM	0.00519	0.005634648	0.0023818504	NaN	NaN	C01267
+Michaelis constant	M_xu5p_D_c	R_O2t	mM	0.514	0.55803643	0.23589039	NaN	NaN	C00231
+Michaelis constant	M_orn_m	R_ATPS	mM	0.03	0.03257022	0.013767921	NaN	NaN	C01602
+Michaelis constant	M_pi_e	R_ACt2r	mM	0.03	0.03257022	0.013767921	NaN	NaN	C00009
+Michaelis constant	M_ala_L_c	R_NH4tm	mM	0.04	0.043426959	0.018357228	NaN	NaN	C00041
+Michaelis constant	M_34hpp_c	R_dtmpSYN	mM	1.63	1.7696486	0.74805706	NaN	NaN	C01179
+Michaelis constant	M_succ_m	proton_leakage_m	mM	1.7	1.8456458	0.78018221	NaN	NaN	C00042
+Michaelis constant	M_succ_m	proton_leakage_c	mM	1.7	1.8456458	0.78018221	NaN	NaN	C00042
+concentration	M_2pg_c		mM	0.67970582	0.73793893	0.31193788	NaN	NaN	C00631
+concentration	M_3pg_c		mM	0.16124515	0.17505966	0.074000352	NaN	NaN	C00197
+concentration	M_6pgc_c		mM	0.17320508	0.18804425	0.079489131	NaN	NaN	C00345
+concentration	M_adp_c		mM	0.64498062	0.70023868	0.29600142	NaN	NaN	C00008
+concentration	M_adp_m		mM	0.64498062	0.70023868	0.29600142	NaN	NaN	C00008
+concentration	M_akg_c		mM	1	1.085674	0.45893071	NaN	NaN	C00026
+concentration	M_akg_m		mM	1	1.085674	0.45893071	NaN	NaN	C00026
+concentration	M_ala_L_c		mM	13.228757	14.362117	6.0710829	NaN	NaN	C00041
+concentration	M_ala_L_m		mM	13.228757	14.362117	6.0710829	NaN	NaN	C00041
+concentration	M_amp_c		mM	0.2258318	0.24517971	0.10364115	NaN	NaN	C00020
+concentration	M_amp_m		mM	0.2258318	0.24517971	0.10364115	NaN	NaN	C00020
+concentration	M_arg_L_c		mM	18	19.542132	8.2607528	NaN	NaN	C00062
+concentration	M_asn_L_c		mM	6.244998	6.7800319	2.8660214	NaN	NaN	C00152
+concentration	M_atp_c		mM	1.4456832	1.5695406	0.66346842	NaN	NaN	C00002
+concentration	M_atp_m		mM	1.4456832	1.5695406	0.66346842	NaN	NaN	C00002
+concentration	M_citr_L_c		mM	5	5.4283699	2.2946536	NaN	NaN	C00327
+concentration	M_cit_c		mM	0.7	0.75997179	0.3212515	NaN	NaN	C00158
+concentration	M_cit_m		mM	0.7	0.75997179	0.3212515	NaN	NaN	C00158
+concentration	M_dhap_c		mM	0.33	0.35827241	0.15144714	NaN	NaN	C00111
+concentration	M_f6p_c		mM	0.65	0.70568809	0.29830496	NaN	NaN	C00085
+concentration	M_fdp_c		mM	2.7658633	3.0028258	1.2693396	NaN	NaN	C00354
+concentration	M_g3p_c		mM	0.69282032	0.752177	0.31795652	NaN	NaN	C00661
+concentration	M_g6p_c		mM	2.3	2.4970502	1.0555406	NaN	NaN	C00092
+concentration	M_gln_L_c		mM	22.912878	24.875916	10.515423	NaN	NaN	C00064
+concentration	M_gln_L_m		mM	22.912878	24.875916	10.515423	NaN	NaN	C00064
+concentration	M_glu_L_c		mM	22.912878	24.875916	10.515423	NaN	NaN	C00025
+concentration	M_glu_L_m		mM	22.912878	24.875916	10.515423	NaN	NaN	C00025
+concentration	M_nadph_c		mM	0.08660254	0.094022125	0.039744565	NaN	NaN	C00005
+concentration	M_nadph_m		mM	0.08660254	0.094022125	0.039744565	NaN	NaN	C00005
+concentration	M_nadp_c		mM	0.054772256	0.059464813	0.02513667	NaN	NaN	C00006
+concentration	M_nadp_m		mM	0.054772256	0.059464813	0.02513667	NaN	NaN	C00006
+concentration	M_nad_c		mM	1.2649111	1.3732811	0.58050655	NaN	NaN	C00003
+concentration	M_nad_m		mM	1.2649111	1.3732811	0.58050655	NaN	NaN	C00003
+concentration	M_oaa_c		mM	0.05	0.054283699	0.022946536	NaN	NaN	C00036
+concentration	M_oaa_m		mM	0.05	0.054283699	0.022946536	NaN	NaN	C00036
+concentration	M_pep_c		mM	0.03	0.03257022	0.013767921	NaN	NaN	C00074
+concentration	M_pi_c		mM	22	23.884828	10.096476	NaN	NaN	C00009
+concentration	M_pi_e		mM	22	23.884828	10.096476	NaN	NaN	C00009
+concentration	M_pi_m		mM	22	23.884828	10.096476	NaN	NaN	C00009
+concentration	M_pyr_c		mM	1.6	1.7370784	0.73428914	NaN	NaN	C00022
+concentration	M_pyr_e		mM	1.6	1.7370784	0.73428914	NaN	NaN	C00022
+concentration	M_pyr_m		mM	1.6	1.7370784	0.73428914	NaN	NaN	C00022
+reaction affinity		R_TPI	kJ/mol	0	0	2	-2	2	

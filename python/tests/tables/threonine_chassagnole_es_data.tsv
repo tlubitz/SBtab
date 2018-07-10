@@ -1,0 +1,13 @@
+!!SBtab TableType="Quantity"									
+!QuantityType	!Compound	!Reaction	!Unit	!Median	!Mean	!Std	!Lower	!Upper	!Compound:Identifiers:kegg.compound
+standard chemical potential	phos		kJ/mol	-1037.3655	-1037.3655	10	NaN	NaN	C00009
+standard chemical potential	nadp		kJ/mol	-635.14385	-635.14385	10	NaN	NaN	C00006
+standard chemical potential	nadph		kJ/mol	-561.97673	-561.97673	10	NaN	NaN	C00005
+standard chemical potential	adp		kJ/mol	-1427.0814	-1427.0814	10	NaN	NaN	C00008
+standard chemical potential	atp		kJ/mol	-2304.722	-2304.722	10	NaN	NaN	C00002
+concentration	thr		mM	0.179	0.19433564	0.082148598	NaN	NaN	C00188
+concentration	asp		mM	4.23	4.5924009	1.9412769	NaN	NaN	C00049
+concentration	nadp		mM	0.00208	0.0022582019	0.00095457588	NaN	NaN	C00006
+concentration	nadph		mM	0.121	0.13136655	0.055530616	NaN	NaN	C00005
+concentration	adp		mM	0.555	0.60254906	0.25470655	NaN	NaN	C00008
+concentration	atp		mM	9.63	10.45504	4.4195028	NaN	NaN	C00002

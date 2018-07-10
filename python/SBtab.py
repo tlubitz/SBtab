@@ -275,7 +275,6 @@ class SBtabTable():
                 continue
             elif str(row[0]).startswith('%'):
                 self.comments.append(list(row))
-                break
             else:
                 value_rows.append(list(row)[:len(self.columns)])
 
@@ -673,7 +672,7 @@ class SBtabDocument:
         supported_types = ['Compound', 'Enzyme', 'Protein', 'Gene', 'Regulator',
                            'Compartment', 'Reaction', 'ReactionStoichiometry',
                            'Relation', 'Quantity', 'QuantityMatrix',
-                           'Defintion', 'PbConfig']
+                           'Definition', 'PbConfig']
         if ttype in supported_types:
             return True
         else:

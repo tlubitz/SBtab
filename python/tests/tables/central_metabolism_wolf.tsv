@@ -1,0 +1,31 @@
+!!SBtab TableType='Quantity' Unit='kJ/mol' StandardConcentration='1mM'
+!QuantityType	!SBML:reaction:id	!Reaction:Identifiers:kegg.reaction	!Value	!StdDev	!SBML:species:id	
+standard chemical potential difference	PTS_RPTSsy	RPTSsy	-44.281981	0.60995603	
+standard chemical potential difference	PGI_R02740	R02740	2.5085872	0.3865508	
+standard chemical potential difference	PFK_R04779	R04779	-18.532265	0.6819382 	
+standard chemical potential difference	ALD_R01070	R01070	4.1312497	0.53547225	
+standard chemical potential difference	TIM_R01015	R01015	5.532567	0.555379	
+standard chemical potential difference	GAP_R01061	R01061	19.713742	0.40966824	
+standard chemical potential difference	PGK_R01512	R01512	-18.693815	0.44568663	
+standard chemical potential difference	PGM_R01518	R01518	4.141437	0.36449054	
+standard chemical potential difference	PGH_R00658	R00658	-4.0880322	0.30794491	
+standard chemical potential difference	PYK_R00200	R00200	-24.824142	0.42791245	
+standard chemical potential difference	PDH_R00209	R00209	-35.52045	3.2558771	
+standard chemical potential difference	ZWF_R00835	R00835	-6.3424698	1.3346802	
+standard chemical potential difference	GLH_R02035	R02035	-24.640924	1.6762888	
+standard chemical potential difference	PGD_R01528	R01528	-6.2273125	3.2257379	
+standard chemical potential difference	RPI_R01056	R01056	-2.025962	0.77241951	
+standard chemical potential difference	RPE_R01529	R01529	-3.375387	1.165111	
+standard chemical potential difference	TXT_R01641	R01641	-3.8530008	1.940247	
+standard chemical potential difference	TAL_R08575	R08575	-0.68723705	1.4271649	
+standard chemical potential difference	TXT_R01067	R01067	-10.134004	1.940247	
+standard chemical potential difference	FBP_R00762	R00762	-26.77204	0.69893312	
+standard chemical potential difference	CSN_R00351	R00351	-38.436142	0.44201018	
+standard chemical potential difference	ACN_R00351	R00351	8.3203188	1.1452684	
+standard chemical potential difference	ACN_R01900	R01900	-0.68653834	1.1460673	
+standard chemical potential difference	ICD_R00709	R00709	-11.421378	3.2323886	
+standard chemical potential difference	KGD_R08549	R08549	-28.348586	3.9240918	
+standard chemical potential difference	SCS_R00405	R00405	1.3379814	1.3466258	
+standard chemical potential difference	SDH_R02164	R02164	-21.576753	3.6172438	
+standard chemical potential difference	FUM_R01082	R01082	-3.4457364	0.28097435	
+standard chemical potential difference	MDH_R00342	R00342	26.896024	0.3078889	

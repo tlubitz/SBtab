@@ -1,0 +1,35 @@
+!!SBtab TableType='Quantity'							
+!QuantityType	!SystematicName	!Abundance	!Value	!SizeWeightedAbundance	!SizeWeightedAbundancePPM	!Size	!Gene	!KOnumber	!KOcategory	!Reaction	!Reaction:Identifiers:kegg.reaction
+concentration of enzyme	b3236	19723.0	9234.02924476	6153576.0	9352.45845595	312	Mdh	K00024	Citrate cycle	MDH_R00342	R00342
+concentration of enzyme	b2779	13564.0	6350.47268042	5859648.0	8905.7345658	432	Eno	K01689	Glycolysis / Gluconeogenesis	PGH_R00658	R00658
+concentration of enzyme	b1779	11721.0	5487.60618455	3879651.0	5896.45350948	331	GapA	K00134	Glycolysis / Gluconeogenesis	GAP_R01061	R01061
+concentration of enzyme	b2926	10328.0	4835.42331491	3996936.0	6074.70808698	387	Pgk	K00927	Glycolysis / Gluconeogenesis	PGK_R01512	R01512
+concentration of enzyme	b1136	8613.0	4032.48460605	3583008.0	5445.60325042	416	Icd	K00031	Citrate cycle	ICD_R00709	R00709
+concentration of enzyme	b0755	7607.0	3561.48965497	1901750.0	2890.35804036	250	GpmA	K01834	Glycolysis / Gluconeogenesis	PGM_R01518	R01518
+concentration of enzyme	b0118	6572.0	3076.91731464	5684780.0	8639.96297132	865	AcnB	K01682	Citrate cycle	ACN_R01900	R01900
+concentration of enzyme	b0720	6048.0	2831.58793654	2582496.0	3924.9838716	427	GltA	K01647	Citrate cycle	ACL_R00352	R00352
+concentration of enzyme	b1676	5559.0	2602.6450627	2612730.0	3970.93475105	470	PykF	K00873	Glycolysis / Gluconeogenesis	PYK_R00200	R00200
+concentration of enzyme	b1241	5506.0	2577.83121339	4905846.0	7456.10697036	891	AdhE	K04072	Glycolysis / Gluconeogenesis	ADH_R00754	R00754
+concentration of enzyme	b0728	5470.0	2560.97652329	2122360.0	3225.65021194	388	SucC	K01903	Citrate cycle	SCS_R00405	R00405
+concentration of enzyme	b3919	4784.0	2239.80103975	1219920.0	1854.08470125	255	TpiA	K01803	Glycolysis / Gluconeogenesis	TIM_R01015	R01015
+concentration of enzyme	b0008	4554.0	2132.11829745	1443618.0	2194.07014251	317	TalB	K00616	Pentose phosphate pathway	TAL_R08575	R08575
+concentration of enzyme	b3403	4264.0	1996.34440499	2302560.0	3499.5255998	540	Pck	K01610	Glycolysis / Gluconeogenesis	PCK_R00341	R00341
+concentration of enzyme	b0114	4254.0	1991.66254663	3773298.0	5734.8138362	887	AceE	K00163	Glycolysis / Gluconeogenesis	PDH_R00209	R00209
+concentration of enzyme	b2029	3344.0	1565.61343581	1564992.0	2378.53935076	468	Gnd	K00033	Pentose phosphate pathway	PGD_R01528	R01528
+concentration of enzyme	b4025	2919.0	1366.63445548	1602531.0	2435.59267032	549	Pgi	K01810	Glycolysis / Gluconeogenesis	PGI_R02740	R02740
+concentration of enzyme	b0727	2577.0	1206.51489955	1043685.0	1586.23548382	405	SucB	K00658		KGD_R08549	R08549
+concentration of enzyme	b2416	2376.0	1112.4095465	1366200.0	2076.40707493	575	PtsI	K08483	Transporters	PTS_RPTSsy	RPTSsy
+concentration of enzyme	b0683	2343.0	1096.95941391	346764.0	527.026220854	148	Fur	K03711	Transcription factors	FUR_R00402	R00402
+concentration of enzyme	b2914	2338.0	1094.61848473	512022.0	778.192141209	219	RpiA	K01807	Pentose phosphate pathway	RPI_R01056	R01056
+concentration of enzyme	b2465	2136.0	1000.04494584	1424712.0	2165.3360244	667	TktB	K00615	Pentose phosphate pathway	TXT_R01067	R01067
+concentration of enzyme	b0723	2134.0	999.108574168	1254792.0	1907.08460428	588	SdhA	K00239	Citrate cycle	SDH_R02164	R02164
+concentration of enzyme	b0767	1989.0	931.221627938	658359.0	1000.60114584	331	Pgl	K07404	Pentose phosphate pathway	GLH_R01519	R01519
+concentration of enzyme	b3956	1684.0	788.424947938	1486972.0	2259.96133877	883	Ppc	K01595	Pyruvate metabolism	PPC_R00345	R00345
+concentration of enzyme	b3916	1264.0	591.786896789	404480.0	614.745376714	320	PfkA	K00850	Glycolysis / Gluconeogenesis	PFK_R04779	R04779
+concentration of enzyme	b3386	1236.0	578.677693379	278100.0	422.667843316	225	Rpe	K01783	Pentose phosphate pathway	rpe_rpe	rpe
+concentration of enzyme	b1852	985.0	461.163048527	483635.0	735.048408493	491	Zwf	K00036	Pentose phosphate pathway	ZWF_R00835	R00835
+concentration of enzyme	b1612	858.0	401.703447346	470184.0	714.605024241	548	FumA	K01676	Citrate cycle	FUM_R01082	R01082
+concentration of enzyme	b1062	822.0	384.848757248	286056.0	434.759700063	348	PyrC	K01465	Pyrimidine metabolism	pyrc_pyrc	pyrc
+concentration of enzyme	b1380	596.0	279.038758296	196084.0	298.016545806	329	LdhA	K03778	Pyruvate metabolism	LDH_R00704	R00704
+concentration of enzyme	b0469	510.0	238.774776394	93330.0	141.846781074	183	Apt	K00759	Purine metabolism	APT_R00315	R00315
+concentration of enzyme	b4232	448.0	209.747254558	148736.0	226.055103716	332	Fbp	K03841	Glycolysis / Gluconeogenesis	fbp_fbp	fbp
