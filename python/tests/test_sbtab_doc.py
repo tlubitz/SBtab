@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 import unittest
-import SBtab
 import os
+import sys            
+
+sys.path.insert(0,'/home/timo/Desktop/projects/SBtab/python/')
+import SBtab
 
 class TestSBtabDocument(unittest.TestCase):
 
@@ -9,15 +12,15 @@ class TestSBtabDocument(unittest.TestCase):
         '''
         setup SBtabDocument class with files from test directory
         '''
-        #self.table_names = [f for f in os.listdir('tests/tables/') if os.path.isfile(os.path.join('tests/tables/', f))]
+        #self.table_names = [f for f in os.listdir('tables/') if os.path.isfile(os.path.join('tables/', f))]
         self.table_names = ['teusink_compartment.csv', 'teusink_compound.csv',
                             'teusink_data.tsv', 'teusink_reaction.tsv',
                             'BIOMD0000000061_modeldata.tsv']
-        self.doc_names = [f for f in os.listdir('tests/docs/') if os.path.isfile(os.path.join('tests/docs/', f))]
+        self.doc_names = [f for f in os.listdir('docs/') if os.path.isfile(os.path.join('docs/', f))]
 
         self.sbtabs = []
         for t in self.table_names:
-            p = open('tests/tables/' + t, 'r')
+            p = open('tables/' + t, 'r')
             p_content = p.read()
             sbtab = SBtab.SBtabTable(p_content, t)
             self.sbtabs.append(sbtab)
@@ -25,7 +28,7 @@ class TestSBtabDocument(unittest.TestCase):
 
         self.docs = []
         for i, d in enumerate(self.doc_names):
-            p = open('tests/docs/' + d, 'r')
+            p = open('docs/' + d, 'r')
             p_content = p.read()
             sbtab_doc = SBtab.SBtabDocument('test_'+str(i),sbtab_init=p_content, filename=d)
             self.docs.append(sbtab_doc)
