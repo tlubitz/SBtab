@@ -14,15 +14,6 @@ class TestSBtabTable(unittest.TestCase):
         self.table_names = [f for f in os.listdir('tests/tables/') if os.path.isfile(os.path.join('tests/tables/', f))]
         self.doc_names = [f for f in os.listdir('tests/docs/') if os.path.isfile(os.path.join('tests/docs/', f))]
 
-
-
-
-        
-        #self.table_names = ['teusink_compartment.csv',
-        #                    'teusink_compound.csv',
-        #                    'teusink_data.tsv',
-        #                    'teusink_reaction.tsv']
-
         self.sbtabs = []
         for t in self.table_names:
             p = open('tests/tables/' + t, 'r')
@@ -271,29 +262,6 @@ class TestSBtabTable(unittest.TestCase):
                 os.remove(doc)
             except OSError:
                 pass
-
-
-class TestSBtabDocument(unittest.TestCase):
-
-    def setUp(self):
-        '''
-        setup SBtabDocument class with files from test directory
-        '''
-        docs = ['ecoli_ccm_aerobic_ProteinComposition_haverkorn_ECM_Model.tsv']
-
-        self.sbtab_documents = []
-        for d in docs:
-            p = open('tests/' + t, 'r')
-            p_content = p.read()
-            sbtab = SBtab.SBtabTable(p_content, t)
-            self.sbtabs.append(sbtab)
-            p.close()
-
-    def tearDown(self):
-        '''
-        tear down function
-        '''
-        pass
 
     
 if __name__ == '__main__':
