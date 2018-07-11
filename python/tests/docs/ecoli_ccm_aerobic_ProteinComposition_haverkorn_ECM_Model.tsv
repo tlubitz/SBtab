@@ -1,4 +1,4 @@
-!!!SBtab Document='E. coli central carbon metabolism - balanced parameters'
+!!!SBtab Document='E. coli central carbon metabolism - balanced parameters' DocumentType='Oho' Date='12.12.12' SBtabVersion='1.0'
 !!SBtab TableName='Reaction' TableType='Reaction' Document='E. coli central carbon metabolism - balanced parameters' SBtabVersion='1.0'							
 !ID	!ReactionFormula	!Identifiers:kegg.reaction	!IsReversible	!Gene	!NameForPlots		
 PTS_RPTSsy	D_Glucose + Phosphoenolpyruvate <=> Pyruvate + D_Glucose_6_phosphate	RPTSsy	True	PTS	pts		

@@ -623,10 +623,50 @@ class SBtabDocument:
         if not self.doc_row:
             self.doc_row = '!!!SBtab SBtabVersion="1.0" Document="..."'
         else:
-            pass
-            # extract attributes; later
-            # also: add set functions for all attributes
+            # savet document name, otherwise raise error
+            # (overrides name given at document initialisation)
+            try: self.name = self.get_custom_doc_information('Document')
+            except: pass
+
+            # save SBtabVersion
+            try: self.version = self.get_custom_doc_information('SBtabVersion')
+            except: self.version = None
             
+            # save date
+            try: self.date = self.get_custom_doc_information('Date')
+            except: self.date = None
+
+            # save document type
+            try: self.doc_type = self.get_custom_doc_information('DocumentType')
+            except: self.doc_type = None
+            
+    def set_version(self, version):
+        '''
+        set SBtabVersion of the document
+        '''
+        try:
+            self.version = version
+        except:
+            raise SBtabError('Version could not be set to %s' % version)
+            
+    def set_date(self, date):
+        '''
+        set date of the document
+        '''
+        try:
+            self.date = date
+        except:
+            raise SBtabError('Date could not be set to %s' % date)
+            
+    def set_doc_type(self, doc_type):
+        '''
+        set doc_type of the document
+        '''
+        try:
+            self.doc_type = doc_type
+        except:
+            raise SBtabError('Doc type could not be set to %s' % doc_type)
+        
     def add_sbtab_string(self, sbtab_string, filename):
         '''
         add one or multiple SBtab files as string
@@ -738,3 +778,21 @@ class SBtabDocument:
             return True
         except:
             raise SBtabError('The file could not be written.')
+
+    def get_custom_doc_information(self, attribute_name):
+        '''
+        Retrieves the value of a doc attribute in the doc line
+
+        Parameters
+        ----------
+        attribute_name : str
+           Name of the table attribute.
+        '''
+        if re.search("%s='([^']*)'" % attribute_name,
+                     self.doc_row) is not None:
+            return re.search("%s='([^']*)'" % attribute_name,
+                             self.doc_row).group(1)
+        else:
+            raise SBtabError('''The %s of the Document is
+                                not defined!''' % attribute_name)
+        
