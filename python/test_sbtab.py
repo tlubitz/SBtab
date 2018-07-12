@@ -158,6 +158,25 @@ class TestSBtabTable(unittest.TestCase):
             df = sbtab.to_data_frame()
             self.assertIsNotNone(df)
             
+    def test_from_data_frame(self):
+        '''
+        test import from pandas dataframe
+        '''
+        from pandas import DataFrame
+        
+        df = DataFrame(columns=['name', 'height', 'length'], index=[0, 1],
+                       data=[['patchkins', 76, 103], ['puddles', 43, 78]])
+        
+        sbtab = SBtab.SBtabTable.from_data_frame(df,
+            'Animals',
+            table_type='Quantity',
+            table_name='Dogs',
+            document='Animal facts',
+            unit='cm')
+        column_names, columns = sbtab.get_columns()
+        
+        self.assertListEqual(column_names, ['!name', '!height', '!length\r'])
+
     def test_change_value(self):
         '''
         function changes a value in the SBtab file
@@ -204,7 +223,7 @@ class TestSBtabTable(unittest.TestCase):
         for sbtab in self.sbtabs:
             self.assertTrue(sbtab.remove_row(1))
             with self.assertRaises(SBtab.SBtabError): sbtab.remove_row('4')
-            with self.assertRaises(SBtab.SBtabError): sbtab.remove_row(5000)
+            with self.assertRaises(SBtab.SBtabError): sbtab.remove_row(len(sbtab.value_rows) + 1)
 
     def test_add_column(self):
         '''
@@ -218,7 +237,7 @@ class TestSBtabTable(unittest.TestCase):
             with self.assertRaises(SBtab.SBtabError): sbtab.add_column(test_column[:(len(test_column)-1)])
             with self.assertRaises(SBtab.SBtabError): sbtab.add_column(test_column[0], '4')
             
-    def test_remove_row(self):
+    def test_remove_column(self):
         '''
         function removes a column from the SBtab table
         '''
@@ -273,6 +292,7 @@ class TestSBtabTable(unittest.TestCase):
                 pass
 
 
+
 class TestSBtabDocument(unittest.TestCase):
 
     def setUp(self):
@@ -283,9 +303,9 @@ class TestSBtabDocument(unittest.TestCase):
 
         self.sbtab_documents = []
         for d in docs:
-            p = open('tests/' + t, 'r')
+            p = open('tests/' + d, 'r')
             p_content = p.read()
-            sbtab = SBtab.SBtabTable(p_content, t)
+            sbtab = SBtab.SBtabTable(p_content, d)
             self.sbtabs.append(sbtab)
             p.close()
 

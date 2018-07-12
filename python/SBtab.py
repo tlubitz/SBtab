@@ -9,8 +9,8 @@ information into Python objects to process and manipulate it.
 See specification for further information.
 '''
 import re
-import copy
-import tablib
+import csv
+from io import StringIO
 import logging
 try:
     from . import misc
@@ -546,14 +546,24 @@ class SBtabTable():
     @staticmethod
     def from_data_frame(df, document_name, table_type, table_name,
                         document, unit, sbtab_version='1.0'):
-        table = tablib.Dataset()
-        header = "!!SBtab DocumentName='%s' TableType='%s' TableName='%s' Document='%s' Unit='%s' SBtabVersion='%s'" % \
-            (document_name, table_type, table_name, document, unit, sbtab_version)
-        table.rpush([header] + [''] * (df.shape[1]-1))
-        table.rpush(list(map(lambda s: '!' + s, df.columns)))
-        for i, row in df.iterrows():
-            table.append(row.tolist())
-        return SBtabTable(table, 'unnamed_sbtab.tsv')
+        table_string = StringIO()
+        csv_writer = csv.writer(table_string, delimiter=',')
+
+        header = [('DocumentName', document_name),
+                  ('TableType', table_type),
+                  ('TableName', table_name),
+                  ('Document', document),
+                  ('Unit', unit),
+                  ('SBtabVersion', sbtab_version)]
+        
+        header_strings = ['!!SBtab'] + list(map(lambda x: "%s='%s'" % x, header))
+        
+        csv_writer.writerow([' '.join(header_strings)] + [''] * (df.shape[1]-1))
+        csv_writer.writerow(map(lambda s: '!' + s, df.columns))
+        csv_writer.writerows([row.tolist() for _, row in df.iterrows()])
+        table_string.flush()
+        
+        return SBtabTable(table_string.getvalue(), 'unnamed_sbtab.tsv')
 
 class SBtabDocument:
     '''
