@@ -4,7 +4,7 @@ import copy
 import os
 import sys            
 
-sys.path.insert(0,'/home/timo/Desktop/projects/SBtab/python/')
+sys.path.insert(0,os.path.join(os.path.dirname(__file__), '..'))
 import SBtab
 
 class TestSBtabTable(unittest.TestCase):
