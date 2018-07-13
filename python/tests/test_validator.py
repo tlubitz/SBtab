@@ -119,13 +119,6 @@ class TestSBtabTable(unittest.TestCase):
             self.assertEqual(vto.sbtab_def.columns, vto.definitions[1])
             self.assertEqual(vto.sbtab_def.value_rows, vto.definitions[2])
 
-            
-
-            
-
-        #with self.assertRaises(SBtab.SBtabError):
-        #    random_sbtab.validate_extension(test=ic)
-        
     def tearDown(self):
         '''
         close file/s

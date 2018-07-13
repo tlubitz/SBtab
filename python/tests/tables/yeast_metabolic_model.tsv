@@ -1,5 +1,5 @@
 !!SBtab TableName='Reaction' TableType='Reaction' Document='YeastMetabolicModel' SBtabVersion='0.9'						
-!Reaction	!ReactionFormula	!Name	!Identifiers:kegg.reaction	!IsReversible	!GeneAssociation	
+!ID	!ReactionFormula	!Name	!Identifiers:kegg.reaction	!IsReversible	!GeneAssociation	
 R_ASPTA	M_akg_c + M_asp_L_c <=> M_glu_L_c + M_oaa_c	aspartate transaminase	R00355	True	YLR027C|YKL106W|YLR027C	
 R_ASPKi	M_asp_L_c + M_atp_c <=> M_4pasp_c + M_adp_c	aspartate kinase	R00480	False	YER052C	
 R_ASNS1	M_asp_L_c + M_atp_c + M_gln_L_c <=> M_amp_c + M_asn_L_c + M_glu_L_c + M_h_c + M_ppi_c	asparagine synthase (glutamine-hydrolysing)	R00578	False	YGR124W|YPR145W	
@@ -230,7 +230,7 @@ R_UTR1	M_atp_c + M_nadh_c <=> M_adp_c + M_h_c + M_nadph_c	NADH kinase	R00105	Fal
 R_YEF1	M_atp_c + M_nad_c <=> M_adp_c + M_h_c + M_nadp_c	NAD kinase	R00104	False	YEL041W|YJR049C|YEL041W|YJR049C|YPL188W	
 %						
 !!SBtab TableName='Compound' TableType='Compound' Document='YeastMetabolicModel' SBtabVersion='0.9'						
-!Compound	!Name	!Identifiers:kegg.compound	!IsConstant	!External	!Location	!Quantifiable
+!ID	!Name	!Identifiers:kegg.compound	!IsConstant	!External	!Location	!Quantifiable
 M_10fthf_c	10-Formyltetrahydrofolate	C00234	False	0	c	0
 M_13BDglcn_c	1,3-beta-D-Glucan	C00965	False	0	c	0
 M_13dpg_c	3-Phospho-D-glyceroyl phosphate	C00236	False	0	c	0

@@ -42,7 +42,7 @@ class TestSBtabTable(unittest.TestCase):
 
     def test_object_creation(self):
         '''
-        test if the SBtabs have arrived safely
+        test if the SBtabs have arrived safely in the conversion object
         '''
         for i, vto in enumerate(self.convert_document_objects):
             previous_sbtab_doc = self.sbtab_docs[i]
@@ -62,6 +62,49 @@ class TestSBtabTable(unittest.TestCase):
         '''
         test if the conversion can be processed
         '''
+        for i, vto in enumerate(self.convert_document_objects):
+            print(vto.sbtab_doc.filename)
+            previous_sbtab_doc = self.sbtab_docs[i]
+            for v in ['24','31']:
+                (sbml_string, warnings) = vto.convert_to_sbml(v)
+                sbml_doc = vto.new_document
+                sbml_model = sbml_doc.getModel()
+
+                # check document and model details
+                level = sbml_doc.getLevel()
+                version = sbml_doc.getVersion()
+                self.assertEqual(level, int(v[0]))
+                self.assertEqual(version, int(v[1]))
+                self.assertTrue(sbml_model.isSetId())
+                self.assertTrue(sbml_model.isSetName())
+
+                # check compartment details
+                self.assertNotEqual(sbml_model.getNumCompartments(), 0)
+                if 'Compartment' in previous_sbtab_doc.type_to_sbtab.keys():
+                    sbtab_compartments = previous_sbtab_doc.type_to_sbtab['Compartment']
+                    for sbtab_compartment in sbtab_compartments:
+                        self.assertEqual(len(sbtab_compartment.value_rows), sbml_model.getNumCompartments())
+                    for compartment in sbml_model.getListOfCompartments():
+                        self.assertTrue(compartment.isSetId())
+                        self.assertTrue(compartment.isSetName())
+                        self.assertTrue(compartment.isSetSize())
+
+                # check compound details
+                self.assertNotEqual(sbml_model.getNumSpecies(), 0)
+                if 'Compound' in previous_sbtab_doc.type_to_sbtab.keys():
+                    sbtab_compounds = previous_sbtab_doc.type_to_sbtab['Compound']
+
+                    for sbtab_compound in sbtab_compounds:
+
+                        self.assertEqual(len(sbtab_compound.value_rows), sbml_model.getNumSpecies())
+
+
+                    for species in sbml_model.getListOfSpecies():
+                        #print(species)
+                        self.assertTrue(species.isSetId())
+                        self.assertTrue(species.isSetName())
+                        self.assertTrue(species.isSetCompartment())
+            
                 
                 
     def tearDown(self):

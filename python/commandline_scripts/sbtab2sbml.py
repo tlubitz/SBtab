@@ -7,11 +7,13 @@ Python script that converts SBtab file/s to SBML.
 #!/usr/bin/env python
 import re
 import libsbml
-try: from . import SBtab
-except: import SBtab
 import string
 import random
 import sys
+import os
+sys.path.insert(0,os.path.join(os.path.dirname(__file__), '..'))
+import SBtab
+
 
 # all allowed secondary SBtab table types
 sbtab_types = ['Quantity', 'Event', 'Rule']
@@ -89,7 +91,7 @@ class SBtabDocument:
         #self.compound_sbtab()
 
         try:
-            if 'Compound' in self.sbtab_doc.types:
+            if 'Compound' in self.sbtab_doc.type_to_sbtab.keys():
                 self.compound_sbtab()
         except:
             self.warnings.append('Warning: The provided compounds could not b'\
@@ -97,7 +99,7 @@ class SBtabDocument:
                                  'lid compound information.')
         # 3. build reactions
         try:
-            if 'Reaction' in self.sbtab_doc.types:
+            if 'Reaction' in self.sbtab_doc.type_to_sbtab.keys():
                 self.reaction_sbtab()
         except:
             self.warnings.append('Error: The provided reaction information co'\
@@ -106,7 +108,7 @@ class SBtabDocument:
 
         # 4. check for secondary SBtab table types
         for table_type in sbtab_types:
-            if table_type in self.sbtab_doc.types:
+            if table_type in self.sbtab_doc.type_to_sbtab.keys():
                 try:
                     name = 'self.' + table_type.lower() + '_sbtab()'
                     eval(name)
@@ -133,7 +135,7 @@ class SBtabDocument:
         '''
         def_comp_set = False
         #1. check for compartment SBtab
-        if 'Compartment' in self.sbtab_doc.types:
+        if 'Compartment' in self.sbtab_doc.type_to_sbtab.keys():
             try:
                 self.compartment_sbtab()
                 return True
@@ -145,7 +147,7 @@ class SBtabDocument:
         #2. if there was no compartment SBtab given, check whether it is given
         # in the other SBtabs; if we find a compartment, we return True since
         # the compartment will be built upon SBtab Compound procession
-        if 'Compound' in self.sbtab_doc.types:
+        if 'Compound' in self.sbtab_doc.type_to_sbtab.keys():
             sbtab_compounds = self.sbtab_doc.type_to_sbtab['Compound']
             for sbtab_compound in sbtab_compounds:
                 if '!Location' in sbtab_compound.columns:
@@ -157,7 +159,7 @@ class SBtabDocument:
         # compound SBtab, check whether it is given
         # in the other SBtabs; if we find a compartment, we return True since
         # the compartment will be built upon SBtab Reaction procession
-        if 'Reaction' in self.sbtab_doc.types:
+        if 'Reaction' in self.sbtab_doc.type_to_sbtab.keys():
             sbtab_reactions = self.sbtab_doc.type_to_sbtab['Reaction']
             for sbtab_reaction in sbtab_reactions:
                 if '!Location' in sbtab_reaction.columns:
@@ -172,6 +174,7 @@ class SBtabDocument:
         default_compartment.setName('Default_Compartment')
         default_compartment.setSize(1)
         self.compartment_list.append('Default_Compartment')
+
         return True
 
     def set_annotation(self, element, annotation, urn, elementtype):
@@ -203,6 +206,25 @@ class SBtabDocument:
 
         return cv_term
 
+    def check_id(self, sbtab):
+        '''
+        IDs have to be handled with care in SBML;
+        this function preprocesses the ID field of SBtab to circumvent problems
+        in SBML
+        '''
+        invalid = [' ','-','_',',','.','+']
+        
+        for row in sbtab.value_rows:
+            for iv in invalid:
+                if iv in row[sbtab.columns_dict['!ID']]:
+                    pass
+                    #print('XXXX')
+                    #raise ConversionError('There is an invalid character in the ID of row %s.'\
+                    #                      'Please remove in order to proceed.' % row)
+                    #print('There is an invalid character in the ID of row %s.'\
+                    #                      'Please remove in order to proceed.' % row)
+
+                       
     def compartment_sbtab(self):
         '''
         extract information from the Compartment SBtab
@@ -211,6 +233,9 @@ class SBtabDocument:
 
         # build compartments
         for sbtab_compartment in sbtab_compartments:
+            #print('1')
+            self.check_id(sbtab_compartment)
+            #print('2')
             for row in sbtab_compartment.value_rows:
                 # name and id of compartment (optional SBML id)
                 if row[sbtab_compartment.columns_dict['!ID']] not in self.compartment_list:
@@ -224,8 +249,9 @@ class SBtabDocument:
                        row[sbtab_compartment.columns_dict['!Name']] != '':
                         compartment.setName(str(row[sbtab_compartment.columns_dict['!Name']]))
                     else:
-                        compartment.setName(str(row[sbtab_compartment.columns_dict['!Compartment']]))
+                        compartment.setName(str(row[sbtab_compartment.columns_dict['!ID']]))
                 self.compartment_list.append(row[sbtab_compartment.columns_dict['!ID']])
+               
 
                 # set the compartment size and SBOterm if given
                 if '!Size' in sbtab_compartment.columns and \
@@ -259,13 +285,15 @@ class SBtabDocument:
         extract information from the Compound SBtab and writes it to the model
         '''
         sbtab_compounds = self.sbtab_doc.type_to_sbtab['Compound']
-
+        
         # build compounds
         for sbtab_compound in sbtab_compounds:
-            for row in sbtab_compound.value_rows:
+            #print('1')
+            self.check_id(sbtab_compound)
+            #print('2')
+            for i, row in enumerate(sbtab_compound.value_rows):
                 if row[sbtab_compound.columns_dict['!ID']] not in self.species_list:
                     species = self.new_model.createSpecies()
-
                     # name and id of compartment (optional SBML id)
                     if '!SBML:species:id' in sbtab_compound.columns and \
                        row[sbtab_compound.columns_dict['!SBML:species:id']] != '':
@@ -278,7 +306,10 @@ class SBtabDocument:
                        not row[sbtab_compound.columns_dict['!Name']] == '':
                         if '|' in row[sbtab_compound.columns_dict['!Name']]:
                             species.setName(str(row[sbtab_compound.columns_dict['!Name']].split('|')[0]))
-                        else: species.setName(str(row[sbtab_compound.columns_dict['!Name']]))
+                        else:
+                            species.setName(str(row[sbtab_compound.columns_dict['!Name']]))
+                    else:
+                        species.setName(str(row[sbtab_compound.columns_dict['!ID']]))
                     self.species_list.append(species.getId())
 
                     # speciestype (if given)
@@ -294,6 +325,8 @@ class SBtabDocument:
                         if not row[sbtab_compound.columns_dict['!Location']] in self.compartment_list:
                             new_comp = self.new_model.createCompartment()
                             new_comp.setId(str(row[sbtab_compound.columns_dict['!Location']]))
+                            new_comp.setName(str(row[sbtab_compound.columns_dict['!Location']]))
+                            new_comp.setSize(1)
                             self.compartment_list.append(row[sbtab_compound.columns_dict['!Location']])
                         species.setCompartment(row[sbtab_compound.columns_dict['!Location']])
                     elif self.def_comp_set:
