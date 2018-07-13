@@ -88,7 +88,9 @@ class ValidateTable:
         '''
         # read in provided definition table or open default
         if def_table:
-            try: self.definitions = def_table.create_list()
+            try:
+                self.sbtab_def = def_table
+                self.definitions = self.sbtab_def.create_list()
             except:
                 print('Definition file could not be loaded, so the validation'\
                       'could not be started. Please provide definition file'\
@@ -99,8 +101,8 @@ class ValidateTable:
                 path_ = os.path.join(os.path.dirname(__file__), '../../definition_table/definitions.tsv')
                 def_file = open(path_, 'r')
                 def_table = def_file.read()
-                sbtab_def = SBtab.SBtabTable(def_table, 'definitions.tsv')
-                self.definitions = sbtab_def.create_list()
+                self.sbtab_def = SBtab.SBtabTable(def_table, 'definitions.tsv')
+                self.definitions = self.sbtab_def.create_list()
                 def_file.close()
             except:
                 print('''Definition file could not be loaded, so the validation
@@ -121,7 +123,8 @@ class ValidateTable:
                   '\xe2\x80\xb5', '\xe2\x80\xb6', '\xe2\x80\xb7']
 
         for quote in quotes:
-            try: header = header.replace(quote, "'")
+            try:
+                header = header.replace(quote, "'")
             except: pass
 
         # check for valid header row
@@ -308,9 +311,9 @@ class ValidateDocument:
         warnings = []
         for sbtab in self.sbtab_doc.sbtabs:
             warnings_s = ['Warnings for %s:\n' % sbtab.filename]
-            vt = ValidateTable(sbtab)
+            self.vt = ValidateTable(sbtab)
             try:
-                warnings_s.append(vt.return_output())
+                warnings_s.append(self.vt.return_output())
             except:
                 raise SBtabError('SBtab %s cannot be validated.' % (sbtab.filename))
             warnings.append(warnings_s)

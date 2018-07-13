@@ -30,6 +30,7 @@ KineticLaw	Column	Reaction	string	Kinetic law of the reaction
 KineticLaw:Name	Column	Reaction	string	Name of the kinetic law
 KineticLaw:Formula	Column	Reaction	string	Rate law formula
 Gene	Column	Reaction	string	Name of the gene for the catalysing enzyme
+Gene:Symbol	Column	Reaction	string	Name of the gene for the catalysing enzyme
 Operon	Column	Reaction	string	Operon for the gene of the catalysing enzyme
 Enzyme:SBML:species:id	Column	Reaction	string	SBML ID of enzyme
 Enzyme:SBML:parameter:id	Column	Reaction	string	SBML ID of enzyme
@@ -49,6 +50,7 @@ Type	Column	Compound	string	Biochemical type of entity
 Symbol	Column	Compound	string	Short symbol (e.g. gene symbol)
 PositionX	Column	Compound	float	x coordinate for graphical display
 PositionY	Column	Compound	float	y coordinate for graphical display
+CompoundReactionFormula	Column	Compound	string	Chemical reaction formula
 ID	Column	Compound	string	Compound shortname
 SBML:species:id	Column	Compound	string	SBML species ID of the entity
 SBML:speciestype:id	Column	Compound	string	SBML speciestype ID of the entity
@@ -130,6 +132,8 @@ Symbol	Column	Quantity	string	Short symbol (e.g. gene symbol)
 PositionX	Column	Quantity	float	x coordinate for graphical display
 PositionY	Column	Quantity	float	y coordinate for graphical display
 ID	Column	Quantity	string	Quantity shortname
+Quantity	Column	Quantity	string	Quantity name
+Reference	Column	Quantity	string	Reference name
 QuantityName	Column	Quantity	string	Quantity (name)
 QuantityType	Column	Quantity	string	Quantity type (e.g. from SBO)
 Value	Column	Quantity	float	Simple value
@@ -163,6 +167,21 @@ Organism	Column	Quantity	string	Organism
 Provenance	Column	Quantity	string	Provenance of the entity
 SBOTerm	Column	Quantity	string	SBO term of the entity
 Identifiers	Column	Quantity	string	Annotation of the entity
+BiologicalElement	Column	Quantity	string	Biological element
+MathematicalType	Column	Quantity	string	Mathematical type
+DataGeometricStd	Column	Quantity	float	Data geometric standard error
+PriorMedian	Column	Quantity	float	Prior Median
+PriorStd	Column	Quantity	float	Prior Std
+PriorGeometricStd	Column	Quantity	float	Prior Geometric Std
+LowerBound	Column	Quantity	float	Lower bound
+UpperBound	Column	Quantity	float	Lower bound
+DataStd	Column	Quantity	float	Data Standard Error
+PhysicalType	Column	Quantity	string	Physical Type
+Dependence	Column	Quantity	string	Dependence
+UseAsPriorInformation	Column	Quantity	Boolean	Use as prior information
+SBMLElement	Column	Quantity	string	SBML element
+Abbreviation	Column	Quantity	string	Abbreviation
+MatrixInfo	Column	Quantity	string	Matrix build up information
 Comment	Column	Regulator	string	Comment
 ReferenceName	Column	Regulator	string	Reference title, authors, etc. (as free text)
 ReferencePubMed	Column	Regulator	string	Reference PubMed ID
@@ -263,3 +282,45 @@ Time	Column	Measurement	string	Time at which measurement was taken
 Unit	Column	Measurement	string	Measurement unit
 ValueType	Column	Measurement	string	Type of value (mean, standard deviation, etc)
 Description	Column	Measurement	string	Description of data value
+QuantityType	Column	QuantityInfo	string	QuantityType (e.g. from SBO)
+Symbol	Column	QuantityInfo	symbol	Symbol for the quantity type
+Unit	Column	QuantityInfo	string	Unit for the Median value
+Constant	Column	QuantityInfo	str	Is this value constant
+Element	Column	QuantityInfo	string	A related element
+RelatedElement	Column	QuantityInfo	string	A related element
+Scaling	Column	QuantityInfo	str	A scaling factor
+Dependence	Column	QuantityInfo	string	Is this value dependent on something
+PriorMedian	Column	QuantityInfo	float	Prior median value
+PriorStd	Column	QuantityInfo	float	Prior median standard deviation
+LowerBound	Column	QuantityInfo	float	Lower bound for this quantity type
+UpperBound	Column	QuantityInfo	float	Upper bound for this quantity type
+ErrorStd	Column	QuantityInfo	float	Error of standard deviation
+DataStd	Column	QuantityInfo	float	Error of standard deviation
+SBMLElement	Column	QuantityInfo	string	Corresponding SBML element
+SBMLElementType	Column	QuantityInfo	string	Corresponding SBML element
+Abbreviation	Column	QuantityInfo	string	Abbreviation of quantity type
+ID	Column	QuantityInfo	string	Abbreviation of quantity type
+MatrixInfo	Column	QuantityInfo	string	Information on the matrix production
+Option	Column	PbConfig	string	Which option is addressed
+Value	Column	PbConfig	string	What value is the option set to
+UID:Contingency	Column	rxnconContingencyList	integer	ID for contingency
+Target	Column	rxnconContingencyList	string	Contingency target
+Contingency	Column	rxnconContingencyList	string	Contingency type
+Modifier	Column	rxnconContingencyList	string	Target modifier
+Reference:Identifiers:pubmed	Column	rxnconContingencyList	string	Pubmed ID
+Quality	Column	rxnconContingencyList	string	Contingency quality
+Comment	Column	rxnconContingencyList	string	Comment
+InternalComplexID	Column	rxnconContingencyList	string	Internal ID for processing
+ID	Column	rxnconReactionList	integer	ID for reaction
+UID:Reaction	Column	rxnconReactionList	string	Reaction string
+ComponentA:Name	Column	rxnconReactionList	string	Name for Component A
+ComponentA:Domain	Column	rxnconReactionList	string	Domain of Component A
+ComponentA:Residue	Column	rxnconReactionList	string	Residue of Component A
+Reaction	Column	rxnconReactionList	string	Reaction type
+ComponentB:Name	Column	rxnconReactionList	string	Name for Component B
+ComponentB:Domain	Column	rxnconReactionList	string	Domain of Component B
+ComponentB:Residue	Column	rxnconReactionList	string	Residue of Component B
+Quality	Column	rxnconReactionList	string	Quality of reaction
+Literature:Identifiers:pubmed	Column	rxnconReactionList	string	Pubmed ID
+Comment	Column	rxnconReactionList	string	Comment
+ID	Column	Position	string	Position ID
