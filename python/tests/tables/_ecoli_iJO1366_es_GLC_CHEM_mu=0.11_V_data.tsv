@@ -1,0 +1,97 @@
+!!SBtab TableType="Quantity"									
+!QuantityType	!Compound	!Reaction	!Unit	!Median	!Mean	!Std	!Lower	!Upper	!Compound:Identifiers:kegg.compound
+standard chemical potential	M_10fthf_c		kJ/mol	-119.74826	-119.74826	10	NaN	NaN	C00234
+standard chemical potential	M_13dpg_c		kJ/mol	-2198.9434	-2198.9434	10	NaN	NaN	C00236
+standard chemical potential	M_2pg_c		kJ/mol	-1335.4422	-1335.4422	10	NaN	NaN	C00631
+standard chemical potential	M_3pg_c		kJ/mol	-1340.2567	-1340.2567	10	NaN	NaN	C00197
+standard chemical potential	M_5mthf_c		kJ/mol	76.903294	76.903294	10	NaN	NaN	C00440
+standard chemical potential	M_6pgc_c		kJ/mol	-1543.1748	-1543.1748	10	NaN	NaN	C00345
+standard chemical potential	M_6pgl_c		kJ/mol	-1389.9327	-1389.9327	10	NaN	NaN	C01236
+standard chemical potential	M_ac_c		kJ/mol	-239.95997	-239.95997	10	NaN	NaN	C00033
+standard chemical potential	M_accoa_c		kJ/mol	-28.130532	-28.130532	10	NaN	NaN	C00024
+standard chemical potential	M_adp_c		kJ/mol	-1427.0814	-1427.0814	10	NaN	NaN	C00008
+standard chemical potential	M_akg_c		kJ/mol	-642.74136	-642.74136	10	NaN	NaN	C00026
+standard chemical potential	M_amp_c		kJ/mol	-547.86228	-547.86228	10	NaN	NaN	C00020
+standard chemical potential	M_atp_c		kJ/mol	-2304.722	-2304.722	10	NaN	NaN	C00002
+standard chemical potential	M_cit_c		kJ/mol	-955.2957	-955.2957	10	NaN	NaN	C00158
+standard chemical potential	M_co2_c		kJ/mol	-386	-386	10	NaN	NaN	C00011
+standard chemical potential	M_coa_c		kJ/mol	47.645916	47.645916	10	NaN	NaN	C00010
+standard chemical potential	M_dhap_c		kJ/mol	-1097.2338	-1097.2338	10	NaN	NaN	C00111
+standard chemical potential	M_e4p_c		kJ/mol	-1160.9545	-1160.9545	10	NaN	NaN	C00279
+standard chemical potential	M_f6p_c		kJ/mol	-1311.9222	-1311.9222	10	NaN	NaN	C00085
+standard chemical potential	M_fdp_c		kJ/mol	-2210.9234	-2210.9234	10	NaN	NaN	C00354
+standard chemical potential	M_for_c		kJ/mol	-289.84831	-289.84831	10	NaN	NaN	C00058
+standard chemical potential	M_fum_c		kJ/mol	-531.50443	-531.50443	10	NaN	NaN	C00122
+standard chemical potential	M_g3p_c		kJ/mol	-1093.9623	-1093.9623	10	NaN	NaN	C00118
+standard chemical potential	M_g6p_c		kJ/mol	-1313.8295	-1313.8295	10	NaN	NaN	C00092
+standard chemical potential	M_gly_c		kJ/mol	-187.35277	-187.35277	10	NaN	NaN	C00037
+standard chemical potential	M_h_c		kJ/mol	-2.0135944e-12	-2.0135944e-12	10	NaN	NaN	C00080
+standard chemical potential	M_h2o_c		kJ/mol	-130.6675	-130.6675	10	NaN	NaN	C00001
+standard chemical potential	M_icit_c		kJ/mol	-947.65425	-947.65425	10	NaN	NaN	C00311
+standard chemical potential	M_methf_c		kJ/mol	4.9345083	4.9345083	10	NaN	NaN	C00445
+standard chemical potential	M_mlthf_c		kJ/mol	54.682392	54.682392	10	NaN	NaN	C00143
+standard chemical potential	M_nad_c		kJ/mol	251.0055	251.0055	10	NaN	NaN	C00003
+standard chemical potential	M_nadh_c		kJ/mol	321.18965	321.18965	10	NaN	NaN	C00004
+standard chemical potential	M_nadp_c		kJ/mol	-635.14385	-635.14385	10	NaN	NaN	C00006
+standard chemical potential	M_nadph_c		kJ/mol	-561.97673	-561.97673	10	NaN	NaN	C00005
+standard chemical potential	M_oaa_c		kJ/mol	-710.99879	-710.99879	10	NaN	NaN	C00036
+standard chemical potential	M_pep_c		kJ/mol	-1208.5251	-1208.5251	10	NaN	NaN	C00074
+standard chemical potential	M_pi_c		kJ/mol	-1037.3655	-1037.3655	10	NaN	NaN	C00009
+standard chemical potential	M_ppi_c		kJ/mol	-1928.4329	-1928.4329	10	NaN	NaN	C00013
+standard chemical potential	M_pyr_c		kJ/mol	-354.41783	-354.41783	10	NaN	NaN	C00022
+standard chemical potential	M_q8_c		kJ/mol	10.902805	10.902805	10	NaN	NaN	C00399
+standard chemical potential	M_q8h2_c		kJ/mol	-10.902805	-10.902805	10	NaN	NaN	C00390
+standard chemical potential	M_r5p_c		kJ/mol	-1234.5129	-1234.5129	10	NaN	NaN	C00117
+standard chemical potential	M_s7p_c		kJ/mol	-1379.2397	-1379.2397	10	NaN	NaN	C05382
+standard chemical potential	M_succ_c		kJ/mol	-504.80569	-504.80569	10	NaN	NaN	C00042
+standard chemical potential	M_succoa_c		kJ/mol	-299.90814	-299.90814	10	NaN	NaN	C00091
+standard chemical potential	M_thf_c		kJ/mol	-9.2980926	-9.2980926	10	NaN	NaN	C00101
+standard chemical potential	M_h_p		kJ/mol	-2.0135944e-12	-2.0135944e-12	10	NaN	NaN	C00080
+concentration	M_3pg_c		mM	1.54	1.6719379	0.7067533	NaN	NaN	C00197
+concentration	M_4hbz_c		mM	0.0522	0.056672182	0.023956183	NaN	NaN	C00156
+concentration	M_6pgc_c		mM	3.81	4.1364179	1.748526	NaN	NaN	C00345
+concentration	M_accoa_c		mM	0.606	0.65791843	0.27811201	NaN	NaN	C00024
+concentration	M_acgam1p_c		mM	0.0819	0.088916699	0.037586425	NaN	NaN	C04256
+concentration	M_ade_c		mM	0.00147	0.0015959408	0.00067462815	NaN	NaN	C00147
+concentration	M_adn_c		mM	0.000131	0.00014222329	6.0119923e-05	NaN	NaN	C00212
+concentration	M_adp_c		mM	0.555	0.60254906	0.25470655	NaN	NaN	C00008
+concentration	M_akg_c		mM	0.443	0.48095357	0.20330631	NaN	NaN	C00026
+concentration	M_amet_c		mM	0.184	0.19976401	0.084443251	NaN	NaN	C00019
+concentration	M_amp_c		mM	0.281	0.30507439	0.12895953	NaN	NaN	C00020
+concentration	M_anth_c		mM	0.00348	0.0037781455	0.0015970789	NaN	NaN	C00108
+concentration	M_aps_c		mM	0.00663	0.0071980185	0.0030427106	NaN	NaN	C00224
+concentration	M_atp_c		mM	9.63	10.45504	4.4195028	NaN	NaN	C00002
+concentration	M_cit_c		mM	1.96	2.127921	0.8995042	NaN	NaN	C00158
+concentration	M_cmp_c		mM	0.36	0.39084263	0.16521506	NaN	NaN	C00055
+concentration	M_coa_c		mM	1.37	1.4873734	0.62873508	NaN	NaN	C00010
+concentration	M_ctp_c		mM	2.73	2.96389	1.2528808	NaN	NaN	C00063
+concentration	M_dhap_c		mM	0.374	0.40604207	0.17164009	NaN	NaN	C00111
+concentration	M_dtdp_c		mM	0.378	0.41038477	0.17347581	NaN	NaN	C00363
+concentration	M_fad_c		mM	0.173	0.1878216	0.079395013	NaN	NaN	C00016
+concentration	M_fdp_c		mM	15.2	16.502245	6.9757468	NaN	NaN	C00354
+concentration	M_fmn_c		mM	0.0537	0.058300693	0.024644579	NaN	NaN	C00061
+concentration	M_fum_c		mM	0.115	0.12485251	0.052777032	NaN	NaN	C00122
+concentration	M_g6p_c		mM	8.75	9.4996474	4.0156437	NaN	NaN	C00092
+concentration	M_gam6p_c		mM	1.15	1.2485251	0.52777032	NaN	NaN	C00352
+concentration	M_gdp_c		mM	0.676	0.73391561	0.31023716	NaN	NaN	C00035
+concentration	M_gmp_c		mM	0.0238	0.025839041	0.010922551	NaN	NaN	C00144
+concentration	M_gtp_c		mM	4.87	5.2872323	2.2349926	NaN	NaN	C00044
+concentration	M_histd_c		mM	0.0128	0.013896627	0.0058743131	NaN	NaN	C00860
+concentration	M_icit_c		mM	0.02	0.02171348	0.0091786142	NaN	NaN	C00311
+concentration	M_imp_c		mM	0.272	0.29530332	0.12482915	NaN	NaN	C00130
+concentration	M_nad_c		mM	2.55	2.7684687	1.1702733	NaN	NaN	C00003
+concentration	M_nadh_c		mM	0.0832	0.090328075	0.038183035	NaN	NaN	C00004
+concentration	M_nadp_c		mM	0.00208	0.0022582019	0.00095457588	NaN	NaN	C00006
+concentration	M_nadph_c		mM	0.121	0.13136655	0.055530616	NaN	NaN	C00005
+concentration	M_pep_c		mM	0.184	0.19976401	0.084443251	NaN	NaN	C00074
+concentration	M_phpyr_c		mM	0.0898	0.097493524	0.041211978	NaN	NaN	C00166
+concentration	M_prpp_c		mM	0.258	0.28010389	0.11840412	NaN	NaN	C00119
+concentration	M_pyr_c		mM	0.39	0.42341285	0.17898298	NaN	NaN	C00022
+concentration	M_quln_c		mM	0.0119	0.01291952	0.0054612755	NaN	NaN	C03722
+concentration	M_r5p_c		mM	1.32	1.4330897	0.60578854	NaN	NaN	C00117
+concentration	M_ribflv_c		mM	0.019	0.020627806	0.0087196835	NaN	NaN	C00255
+concentration	M_succ_c		mM	0.569	0.6177485	0.26113158	NaN	NaN	C00042
+concentration	M_succoa_c		mM	0.233	0.25296204	0.10693086	NaN	NaN	C00091
+concentration	M_uacgam_c		mM	9.24	10.031628	4.2405198	NaN	NaN	C00043
+concentration	M_udp_c		mM	1.79	1.9433564	0.82148598	NaN	NaN	C00015
+concentration	M_utp_c		mM	8.29	9.0002373	3.8045356	NaN	NaN	C00075

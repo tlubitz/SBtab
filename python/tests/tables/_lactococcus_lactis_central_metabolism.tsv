@@ -1,0 +1,1311 @@
+!!SBtab TableName='Reaction' TableType='Reaction' Document='Lactococcus lactis central metabolism' SBtabVersion='0.9'			
+!Reaction	!SumFormula	!Name	!IsReversible
+biomass_LLA1	0.01 CPS_LLA + 0.00 DNA_LLA + 0.00 LTAAlaGal_LLA + 0.12 PG + 0.00 RNA_LLA + 18.15 atp + 0.00 clpn_LLA + 0.00 coa + 0.00 d12dg_LLA + 18.15 h2o + 0.00 lyspg_LLA + 0.00 m12dg_LLA + 0.00 nad + 0.00 pg_LLA + 0.00 prot_LLA + 0.00 thf + 0.00 thmpp + 0.00 udcpdp <=> 18.15 adp + 18.15 h + 18.15 pi	biomass equation LLA specific	False
+EX_2aeppn_e_	_2aeppn <=> 	(2-Aminoethyl)phosphonate exchange	True
+EX_2hxic_L_e_	_2hxic_L <=> 	L-2-hydroxyisocaproate exchange	True
+EX_4abut_e_	_4abut <=> 	4-Aminobutanoate exchange	True
+EX_ac_e_	ac <=> 	Acetate exchange	True
+EX_acald_e_	acald <=> 	Acetaldehyde exchange	True
+EX_acgala_e_	acgala <=> 	N-Acetyl-D-galactosamine exchange	True
+EX_acgam_e_	acgam <=> 	N-Acetyl-D-glucosamine exchange	True
+EX_acmana_e_	acmana <=> 	N-Acetyl-D-mannosamine exchange	True
+EX_actn_R_e_	actn_R <=> 	(R)-Acetoin exchange	True
+EX_ade_e_	ade <=> 	Adenine exchange	True
+EX_ala_D_e_	ala_D <=> 	D-Alanine exchange	True
+EX_ala_L_e_	ala_L <=> 	L-Alanine exchange	True
+EX_arg_L_e_	arg_L <=> 	L-Arginine exchange	True
+EX_asn_L_e_	asn_L <=> 	L-Asparagine exchange	True
+EX_asp_L_e_	asp_L <=> 	L-Aspartate exchange	True
+EX_btd_RR_e_	btd_RR <=> 	(R,R)-2,3-Butanediol exchange	True
+EX_cellb_e_	cellb <=> 	cellobiose exchange	True
+EX_chol_e_	chol <=> 	Choline exchange	True
+EX_co2_e_	co2 <=> 	CO2 exchange	True
+EX_cys_L_e_	cys_L <=> 	L-Cysteine exchange	True
+EX_dha_e_	dha <=> 	Dihydroxyacetone exchange	True
+EX_diact_e_	diact <=> 	Diacetyl exchange	True
+EX_drib_e_	drib <=> 	Deoxyribose exchange	True
+EX_etoh_e_	etoh <=> 	Ethanol exchange	True
+EX_fe2_e_	fe2 <=> 	Fe2+ exchange	True
+EX_fe3_e_	fe3 <=> 	Fe3+ exchange	True
+EX_fol_e_	fol <=> 	Folate exchange	True
+EX_for_e_	for <=> 	Formate exchange	True
+EX_fru_e_	fru <=> 	D-Fructose exchange	True
+EX_gal_e_	gal <=> 	D-Galactose exchange	True
+EX_galt_e_	galt <=> 	Galactitol exchange	True
+EX_glc_e_	glc_D <=> 	D-Glucose exchange	True
+EX_glcn_D_e_	glcn_D <=> 	D-Gluconate exchange	True
+EX_gln_L_e_	gln_L <=> 	L-Glutamine exchange	True
+EX_glu_L_e_	glu_L <=> 	L-Glutamate exchange	True
+EX_gly_e_	gly <=> 	Glycine exchange	True
+EX_glyb_e_	glyb <=> 	Glycine betaine exchange	True
+EX_glyc_e_	glyc <=> 	Glycerol exchange	True
+EX_glyc3p_e_	glyc3p <=> 	sn-Glycerol 3-phosphate exchange	True
+EX_gua_e_	gua <=> 	Guanine exchange	True
+EX_h_e_	h <=> 	H+ exchange	True
+EX_h2o_e_	h2o <=> 	H2O exchange	True
+EX_his_L_e_	his_L <=> 	L-Histidine exchange	True
+EX_hxan_e_	hxan <=> 	Hypoxanthine exchange	True
+EX_ile_L_e_	ile_L <=> 	L-Isoleucine exchange	True
+EX_ins_e_	ins <=> 	Inosine exchange	True
+EX_lac_L_e_	lac_L <=> 	L-Lactate exchange	True
+EX_lcts_e_	lcts <=> 	Lactose exchange	True
+EX_leu_L_e_	leu_L <=> 	L-Leucine exchange	True
+EX_lys_L_e_	lys_L <=> 	L-Lysine exchange	True
+EX_mal_L_e_	mal_L <=> 	L-Malate exchange	True
+EX_malt_e_	malt <=> 	Maltose exchange	True
+EX_man_e_	man <=> 	D-Mannose exchange	True
+EX_met_D_e_	met_D <=> 	D-Methionine exchange	True
+EX_met_L_e_	met_L <=> 	L-Methionine exchange	True
+EX_mn2_e_	mn2 <=> 	Mn2+ exchange	True
+EX_mnl_e_	mnl <=> 	D-Mannitol exchange	True
+EX_nac_e_	nac <=> 	Nicotinate exchange	True
+EX_nh4_e_	nh4 <=> 	Ammonium exchange	True
+EX_nmn_e_	nmn <=> 	NMN exchange	True
+EX_o2_e_	o2 <=> 	O2 exchange	True
+EX_orn_L_e_	orn_L <=> 	Ornithine exchange	True
+EX_orot_e_	orot <=> 	Orotate exchange	True
+EX_pacald_e_	pacald <=> 	Phenylacetaldehyde exchange	True
+EX_pea_e_	pea <=> 	Phenylethyl alcohol exchange	True
+EX_phe_L_e_	phe_L <=> 	L-Phenylalanine exchange	True
+EX_pi_e_	pi <=> 	Phosphate exchange	True
+EX_pnto_R_e_	pnto_R <=> 	(R)-Pantothenate exchange	True
+EX_ppi_e_	ppi <=> 	Diphosphate exchange	True
+EX_pro_L_e_	pro_L <=> 	L-Proline exchange	True
+EX_ptrc_e_	ptrc <=> 	Putrescine exchange	True
+EX_pyr_e_	pyr <=> 	Pyruvate exchange	True
+EX_rib_D_e_	rib_D <=> 	D-Ribose exchange	True
+EX_ribflv_e_	ribflv <=> 	Riboflavin exchange	True
+EX_sbt_D_e_	sbt_D <=> 	D-Sorbitol exchange	True
+EX_ser_D_e_	ser_D <=> 	D-Serine exchange	True
+EX_ser_L_e_	ser_L <=> 	Exchange for Serine	True
+EX_so4_e_	so4 <=> 	Sulfate exchange	True
+EX_spmd_e_	spmd <=> 	Spermidine exchange	True
+EX_succ_e_	succ <=> 	Succinate exchange	True
+EX_sucr_e_	sucr <=> 	Sucrose exchange	True
+EX_thm_e_	thm <=> 	Thiamin exchange	True
+EX_thr_L_e_	thr_L <=> 	L-Threonine exchange	True
+EX_thymd_e_	thymd <=> 	Thymidine exchange	True
+EX_tre_e_	tre <=> 	Trehalose exchange	True
+EX_trp_L_e_	trp_L <=> 	L-Tryptophan exchange	True
+EX_tyr_L_e_	tyr_L <=> 	L-Tyrosine exchange	True
+EX_ura_e_	ura <=> 	Uracil exchange	True
+EX_val_L_e_	val_L <=> 	L-Valine exchange	True
+EX_xan_e_	xan <=> 	Xanthine exchange	True
+EX_zn2_e_	zn2 <=> 	Zinc exchange	True
+_2HXICDH	_4mop + h + nadh <=> _2hxic_L + nad	L-2-hydroxyisocaproate dehydrogenase	True
+_2S6HCC	akg + h + ichor <=> _2shchc + co2 + pyr	2-succinyl-6-hydroxy-2,4-cyclohexadiene-1-carboxylate synthase	True
+_2hxict6	_2hxic_L + h <=> _2hxic_L + h	L-2-hydroxyisocaproate transport (H+ symport)	True
+AALDH	h + nadh + pacald <=> nad + pea	aryl-alcohol dehydrogenase	True
+AB6PGH	arbt6p + h2o <=> g6p + hqn	Arbutin 6-phosphate glucohydrolase	False
+ACACT1r	2 accoa <=> aacoa + coa	acetyl-CoA C-acetyltransferase	True
+ACALD	acald + coa + nad <=> accoa + h + nadh	acetaldehyde dehydrogenase (acetylating)	True
+ACALDt	acald <=> acald	acetaldehyde reversible transport	True
+ACCOAC	accoa + atp + hco3 <=> adp + h + malcoa + pi	acetyl-CoA carboxylase	False
+ACGALpts	pep + acgala <=> acgal6p + pyr	N-acetylgalactosamine PTS	False
+ACGAMT	uacgam + udcpp <=> ump + unaga	UDP-N-acetylglucosamine:undecaprenylphosphate N-acetylglucosamine -1-phosphate transferase	False
+ACGApts	pep + acgam <=> acgam6p + pyr	N-Acetyl-D-glucosamine transport via PEP:Pyr PTS	False
+ACGK	acglu + atp <=> acg5p + adp	acetylglutamate kinase	False
+ACHBS	_2obut + h + pyr <=> _2ahbut + co2	2-aceto-2-hydroxybutanoate synthase	False
+ACKr	ac + atp <=> actp + adp	acetate kinase	True
+ACLDC	alac_S + h <=> actn_R + co2	acetolactate decarboxylase	False
+ACLS	h + 2 pyr <=> alac_S + co2	acetolactate synthase (Also catalyzes ACHBS)	False
+ACMANApts	pep + acmana <=> acmanap + pyr	N-acetyl-D-mannosamine transport via PTS	False
+ACOATA	ACP + accoa <=> acACP + coa	Acetyl-CoA ACP transacylase	True
+ACODA	acorn + h2o <=> ac + orn_L	acetylornithine deacetylase	False
+ACONT	cit <=> icit	aconitase	True
+ACOTA	acorn + akg <=> acg5sa + glu_L	acetylornithine transaminase	True
+ACPS2	apoACP + coa <=> acp + h + pap	acyl-carrier protein synthase	False
+ACPSc	ACP_#2 + h2o <=> apoACP + h + pan4p	[acyl-carrier-protein] phosphodiesterase	False
+ACTD	actn_R + nad <=> diact + h + nadh	acetoin dehydrogenase	True
+ACTNdiff	actn_R <=> actn_R	(R)-acetoin diffusion	True
+ACt6	ac + h <=> ac + h	acetate transport in/out via proton symport	True
+ADA	adn + h + h2o <=> ins + nh4	Adenosine deaminase	False
+ADAD	atp + dcyt <=> adp + dcmp + h	deoxycytidine kinase	True
+ADCS	chor + gln_L <=> _4adcho + glu_L	4-amino-4-deoxychorismate synthase	False
+ADEt2	ade + h <=> ade + h	adenine transport via proton symport (reversible)	True
+ADK1	amp + atp <=> 2 adp	adenylate kinase	True
+ADK2	amp + pppi <=> adp + ppi	adenylate kinase (Inorganic triphosphate)	True
+ADPDS	al26da + h + h2o <=> _26dap_LL + ac	acetyl-diaminopimelate deacetylase	False
+ADPRDP	adprib + h2o <=> amp + 2 h + r5p	ADPribose diphosphatase	False
+ADPT	ade + prpp <=> amp + ppi	adenine phosphoribosyltransferase	False
+ADPTA	akg + al26da + h <=> acamoxm + glu_L	acetyldiaminopimelate transaminase	True
+ADSL1	dcamp <=> amp + fum	adenylosuccinate lyase	False
+ADSL2	_25aics <=> aicar + fum	adenylosuccinate lyase	False
+ADSS	asp_L + gtp + imp <=> dcamp + gdp + 2 h + pi	adenylosuccinate synthetase	False
+AEPabc	atp + h2o + _2aeppn <=> _2aeppn + adp + h + pi	2-Aminoethyl phosphonate (AEP) transport via ABC system	False
+AGAT_LLA	0.03 _2chdeacp + 0.44 _2cocdacp + 0.01 _2ctdeacp + 0.01 agly3p_LLA + 0.13 cpocdacp + 0.29 hdeacp + 0.01 ocdacp + 0.09 tdeacp <=> acp + 0.01 pa_LLA	1-Acyl-glycerol-3-phosphate acyltransferase (lactis specific specific)	False
+AGDC	acgam6p + h2o <=> ac + gam6p	N-acetylglucosamine-6-phosphate deacetylase	False
+AGPR	acg5sa + nadp + pi <=> acg5p + h + nadph	N-acetyl-g-glutamyl-phosphate reductase	True
+AHCYSNS	ahcys + h2o <=> ade + rhcys	adenosylhomocysteine nucleosidase	False
+AHMMPS	air + h2o <=> _4ahmmp + gcald + 0.50 o2 + pi	4-amino-5-hydroxymethyl-2-methylpyrimidine synthetase	False
+AICART	_10fthf + aicar <=> fprica + thf	phosphoribosylaminoimidazolecarboxamide formyltransferase	True
+AIRC	air + co2 <=> _5aizc + h	phosphoribosylaminoimidazole carboxylase	False
+AKGTA3	akg + trp_L <=> glu_L + indpyr	aromatic-amino-acid transaminase (Trp: aKG)	True
+ALAALA	2 ala_D + atp <=> adp + alaala + h + pi	D-alanine-D-alanine ligase (reversible)	True
+ALAR	ala_L <=> ala_D	alanine racemase	True
+ALATA_L	akg + ala_L <=> glu_L + pyr	L-alanine transaminase	True
+ALATRS	ala_L + atp + trnaala <=> alatrna + amp + h + ppi	Alanyl-tRNA synthetase	False
+ALA_Dt6	ala_D + h <=> ala_D + h	D-alanine transport in/out via proton symport	True
+ALA_Lt6	ala_L + h <=> ala_L + h	L-alanine transport in/out via proton symport	True
+ALAt2	ala_L + h <=> ala_L + h	L-alanine transport in via proton symport	False
+ALCD19	glyald + h + nadh <=> glyc + nad	alcohol dehydrogenase (glycerol)	True
+ALCD2x	etoh + nad <=> acald + h + nadh	alcohol dehydrogenase (ethanol: NAD)	True
+ALOX	alac_S + h + 0.50 o2 <=> co2 + diact + h2o	oxidative decarboxylation of acetolacate (chemical)	False
+AMALT1	malt + malttr <=> glc_D + maltttr	Amylomaltase (maltotriose)	False
+AMALT2	malt + maltttr <=> glc_D + maltpt	Amylomaltase (maltotetraose)	False
+AMALT3	malt + maltpt <=> glc_D + malthx	Amylomaltase (maltopentaose)	False
+AMALT4	malt + malthx <=> glc_D + malthp	Amylomaltase (maltohexaose)	False
+AMANAPE	acmanap <=> acgam6p	N-acetylmannosamine 6-phoshpate epimerase	False
+ANPRT	anth + prpp <=> ppi + pran	anthranilate phosphoribosyltransferase	False
+ANS1	chor + gln_L <=> anth + glu_L + h + pyr	anthranilate synthase	False
+APAT	accoa + h2o + thdp <=> acamoxm + coa	apolipoprotein N-acyl transferase	True
+APRAUR	_5apru + h + nadph <=> _5aprbu + nadp	5-amino-6-(5-phosphoribosylamino)uracil reductase	False
+ARGDI	arg_L + h2o <=> citr_L + h + nh3	arginine deiminase	False
+ARGORNt3	orn_L + arg_L <=> arg_L + orn_L	Arginine/ornithine antiporter	True
+ARGSL	argsuc <=> arg_L + fum	argininosuccinate lyase	True
+ARGSS	asp_L + atp + citr_L <=> amp + argsuc + h + ppi	argininosuccinate synthase	False
+ARGTRS	arg_L + atp + trnaarg <=> amp + argtrna + h + ppi	Arginyl-tRNA synthetase	False
+ARGabc	atp + h2o + arg_L <=> adp + arg_L + h + pi	L-arginine transport via ABC system	False
+ARGt2	arg_L + h <=> arg_L + h	L-arginine transport in via proton symport	False
+ASAD	aspsa + nadp + pi <=> _4pasp + h + nadph	aspartate-semialdehyde dehydrogenase	True
+ASNN	asn_L + h2o <=> asp_L + nh4	L-asparaginase	False
+ASNS1	asp_L + atp + gln_L + h2o <=> amp + asn_L + glu_L + h + ppi	asparagine synthase (glutamine-hydrolysing)	False
+ASNTRS	asn_L + atp + trnaasn <=> amp + asntrna + h + ppi	Asparaginyl-tRNA synthetase	False
+ASNt2	asn_L + h <=> asn_L + h	L-asparagine transport in via proton symport	False
+ASPCT	asp_L + cbp <=> cbasp + h + pi	aspartate carbamoyltransferase	False
+ASPK	asp_L + atp <=> _4pasp + adp	aspartate kinase	True
+ASPR	asp_D <=> asp_L	aspartase racemase	True
+ASPTA1	akg + asp_L <=> glu_L + oaa	aspartate transaminase	True
+ASPTA2	_4hglu + akg <=> _4h2oxg + glu_L	aspartate transaminase	True
+ASPTA4	akg + cys_L + h <=> glu_L + mercppyr	aspartate transaminase	True
+ASPTA5	akg + tyr_L <=> _34hpp + glu_L	aspartate transaminase	True
+ASPTA6	akg + phe_L <=> glu_L + phpyr	aspartate transaminase	True
+ASPTRS	asp_L + atp + trnaasp <=> amp + asptrna + h + ppi	Aspartyl-tRNA synthetase	False
+ASPt2	asp_L + h <=> asp_L + h	L-aspartate transport in via proton symport	False
+ATPM	atp + h2o <=> adp + h + pi	ATP maintenance requirment	False
+ATPPRT	atp + prpp <=> ppi + prbatp	ATP phosphoribosyltransferase	False
+ATPS3r	adp + pi + 3 h <=> atp + 2 h + h2o	ATP synthase (three protons for one ATP)	True
+BG_CELLB_	cellb + h2o <=> 2 glc_D	beta-glucosidase (cellobiose)	False
+BTDD_RR	btd_RR + nad <=> actn_R + h + nadh	(R,R)-butanediol dehydrogenase	True
+BTDt1_RR	btd_RR <=> btd_RR	(R,R)-butanediol transport in/out via diffusion reversible	True
+BTMAT1	_2beacp + h + nadh <=> butacp + nad	Butyryl-[acyl-carrier protein]:malonyl-CoA C-acyltransferase	False
+CARORSr	h + nadph + orn_L + pyr <=> carorn + h2o + nadp	N5-carboxyethyl-ornithine synthase	True
+CBMK2	atp + co2 + nh4 <=> adp + cbp + 2 h	Carbamate kinase	False
+CBPS	2 atp + gln_L + h2o + hco3 <=> 2 adp + cbp + glu_L + 2 h + pi	carbamoyl-phosphate synthase (glutamine-hydrolysing)	False
+CELBpts	pep + cellb <=> _6pgg + pyr	cellobiose transport via PEP:Pyr PTS	False
+CFAS180	_2cocdacp + amet <=> ahcys + cpocdacp + h	cyclopropane fatty acid synthase (n18:0)	False
+CGPT	cdpglyc + unagama <=> cmp + h + unagamagp	CDP-glycerol glycerophosphotransferase	False
+CHITN1	chitin + h2o <=> acgam	chitinase (intracellular)	False
+CHLabc	atp + h2o + chol <=> adp + chol + h + pi	choline transport via ABC system	False
+CHORM	chor <=> pphn	chorismate mutase	False
+CHORS	_3psme <=> chor + pi	chorismate synthase	False
+CLPNS_LLA	0.02 pg_LLA <=> 0.01 clpn_LLA + glyc	Cardiolipin Synthase (lactis specific)	True
+CMLDC	_2c25dho <=> _5odhf2a + co2 + h	4-carboxymuconolactone decarboxylase	False
+CO2t	co2 <=> co2	CO2 transport out via diffusion	True
+CPPPGO	cpppg3 + 2 h + o2 <=> 2 co2 + 2 h2o + pppg9	coproporphyrinogen oxidase	False
+CPSS_LLA	dtdp6dm + 4 h2o + 2 udpg + udpgal <=> CPS_LLA + dtdp + 5 h + 2 udp + ump	CPS synthase complex, LLA specific	True
+CRPT_25	25 cdprbtl + unagamagp <=> 25 cmp + 25 h + unRTA	CDP-ribitol phosphoribitoltransferase (25 units with ribitol-P)	False
+CS	accoa + h2o + oaa <=> cit + coa + h	citrate synthase	False
+CSND	csn + h + h2o <=> nh4 + ura	Cytosine deaminase	False
+CTPS1_#1	atp + nh4 + utp <=> adp + ctp + 2 h + pi	CTP synthase (NH3)	False
+CTPS2	atp + gln_L + h2o + utp <=> adp + ctp + glu_L + 2 h + pi	CTP synthase (glutamine)	False
+CYSS	acser + h2s <=> ac + cys_L + h	cysteine synthase	False
+CYSTGL	cysth_L + h2o <=> _2obut + cys_L + nh4	cystathionine g-lyase	False
+CYSTL	cysth_L + h2o <=> hcys_L + nh4 + pyr	cystathionine b-lyase	False
+CYSTRS	atp + cys_L + trnacys <=> amp + cystrna + h + ppi	Cysteinyl-tRNA synthetase	False
+CYSt2	cys_L + h <=> cys_L + h	L-cysteine transport in via proton symport	False
+CYTB_B2	2 h + mql7 + 0.50 o2 <=> h2o + mqn7 + 2 h	menaquinol oxidase (7:1 protons)	False
+CYTD	cytd + h + h2o <=> nh4 + uri	cytidine deaminase	False
+CYTDK1	atp + cytd <=> adp + cmp + h	cytidine kinase (ATP)	False
+CYTDK2	cytd + gtp <=> cmp + gdp + h	cytidine kinase (GTP)	False
+CYTDK3	cytd + itp <=> cmp + h + idp	cytidine kinase (ITP)	False
+CYTK1	atp + cmp <=> adp + cdp	cytidylate kinase (CMP)	True
+CYTK2	atp + dcmp <=> adp + dcdp	cytidylate kinase (dCMP)	True
+DADA	dad_2 + h + h2o <=> din + nh4	Deoxyadenosine deaminase	False
+DADK	atp + damp <=> adp + dadp	deoxyadenylate kinase	True
+DADNK	atp + dad_2 <=> adp + damp + h	deoxyadenosine kinase	False
+DAGGT_LLA	0.01 _12dgr_LLA + 2 udpg <=> 0.01 d12dg_LLA + 2 h + 2 udp	1,2-diacylglycerol 3-glucosyltransferase (Lactis specific)	False
+DAGK_LLA	0.01 _12dgr_LLA + atp <=> adp + h + 0.01 pa_LLA	Diacylglycerol kinase (Lactis specific)	False
+DAHPS	e4p + h2o + pep <=> _2dda7p + pi	3-deoxy-D-arabino-heptulosonate 7-phosphate synthetase	False
+DALTAL_LLA	0.01 LTA_LLA + 6 ala_D + 6 atp <=> 0.01 LTAala_LLA + 6 adp + 6 pi	D-Alanine lipoteichoic acid ligase	False
+DAPDC	_26dap_M + h <=> co2 + lys_L	diaminopimelate decarboxylase	False
+DAPE	_26dap_LL <=> _26dap_M	diaminopimelate epimerase	True
+DASYN_LLA	ctp + h + 0.01 pa_LLA <=> 0.01 cdpdag_LLA + ppi	CDP-Diacylglycerol synthetase (Lactis specific)	True
+DB4PS	ru5p_D <=> db4p + for + h	3,4-Dihydroxy-2-butanone-4-phosphate	False
+DCMPDA	dcmp + h2o <=> dump + nh3	dCMP deaminase	False
+DCYTD	dcyt + h + h2o <=> duri + nh4	deoxycytidine deaminase	False
+DDMAT5	_2tddacp + h + nadh <=> ddeacp + nad	Dodecanoyl-[acyl-carrier protein]: malonyl-CoA  C-acyltransferase	False
+DEMAT4	_2tdeacp + h + nadh <=> decacp + nad	Decanoyl-[acyl-carrier protein]:malonyl-CoA  C-acyltransferase	False
+DGNSK	atp + dgsn <=> adp + dgmp + h	deoxyguanosine kinase	False
+DHAD1	_23dhmb <=> _3mob + h2o	dihydroxy-acid dehydratase (2,3-dihydroxy-3-methylbutanoate)	False
+DHAD2	_23dhmp <=> _3mop + h2o	Dihydroxy-acid dehydratase (2,3-dihydroxy-3-methylpentanoate)	False
+DHAPT	dha + pep <=> dhap + pyr	Dihydroxyacetone phosphotransferase	False
+DHAt	dha <=> dha	Dihydroxyacetone transport via facilitated diffusion	True
+DHDPRy	_23dhdp + h + nadph <=> nadp + thdp	dihydrodipicolinate reductase (NADPH)	False
+DHDPS	aspsa + pyr <=> _23dhdp + h + 2 h2o	dihydrodipicolinate synthase	False
+DHFOR2	dhf + nadp <=> fol + nadph	dihydrofolate reductase	True
+DHFR	dhf + h + nadph <=> nadp + thf	dihydrofolate reductase	True
+DHFS	atp + dhpt + glu_L <=> adp + dhf + h + pi	dihydrofolate synthase	False
+DHNAOT	dhna + nad + octdp <=> _2dmmq8 + co2 + nadh + ppi	1,4-dihydroxy-2-naphthoate octaprenyltransferase	False
+DHNPA	dhnpt <=> _2ahhmp + gcald	dihydroneopterin aldolase	False
+DHORD1	dhor_S + o2 <=> h2o2 + orot	dihydoorotic acid dehydrogenase	True
+DHORD6	dhor_S + nad <=> h + nadh + orot	dihydoorotic acid dehydrogenase (NAD)	True
+DHORTS	dhor_S + h2o <=> cbasp + h	dihydroorotase	True
+DHPPDA_#1	_25dhpp + h + h2o <=> _5apru + nh4	diaminohydroxyphosphoribosylaminopyrimidine deaminase	False
+DHPS3	_2ahhmd + _4abz <=> dhpt + ppi	dihydropteroate synthase	False
+DHQD	_3dhq <=> _3dhsk + h2o	3-dehydroquinate dehydratase	True
+DHQS	_2dda7p <=> _3dhq + pi	3-dehydroquinate synthase	False
+DIACTt	diact <=> diact	diacetyl diffusion	True
+DINSK	atp + din <=> adp + dimp	deoxyinosine kinase	False
+DMATT	dmpp + ipdp <=> grdp + ppi	dimethylallyltranstransferase	False
+DNAS_LLA	1.37 atp + 0.32 datp + 0.18 dctp + 0.18 dgtp + 0.32 dttp + 1.37 h2o <=> 0.01 DNA_LLA + 1.37 adp + 1.37 h + 1.37 pi + ppi	DNA synthesis, LLA specific	False
+DPCOAK	atp + dpcoa <=> adp + coa + h	dephospho-CoA kinase	False
+DPMVD	_5dpmev + atp <=> adp + co2 + ipdp + pi	diphosphomevalonate decarboxylase	False
+DPR	_2dhp + h + nadph <=> nadp + pant_R	2-dehydropantoate 2-reductase	False
+DRBK	atp + drib <=> _2dr5p + adp + h	Deoxyribokinase	False
+DRIBt2	drib + h <=> drib + h	deoxyribose transport in via proton symporter	False
+DRPA	_2dr5p <=> acald + g3p	deoxyribose-phosphate aldolase	False
+DTMPK	atp + dtmp <=> adp + dtdp	dTMP kinase	True
+DURIK1	atp + duri <=> adp + dump + h	deoxyuridine kinase (ATP:Deoxyuridine)	False
+DURIPP	duri + pi <=> _2dr1p + ura	purine-nucleoside phosphatase (deoxyuridine)	True
+DUTPDP	dutp + h2o <=> dump + h + ppi	dUTP diphosphatase	False
+DXPS	g3p + h + pyr <=> co2 + dxyl5p	1-deoxy-D-xylulose 5-phosphate synthase	False
+EDA	_2ddg6p <=> g3p + pyr	2-dehydro-3-deoxy-phosphogluconate aldolase	False
+ENO	_2pg <=> h2o + pep	enolase	True
+ETOHt1	etoh <=> etoh	ethanol transport in/out via diffusion	True
+F1PK	atp + f1p <=> adp + fdp + h	fructose-1-phosphate kinase	False
+FABM	_2ttdeacp <=> _2ctdeacp	Fatty acid enoyl isomerase (FabM reaction)	True
+FABM1	_2thdeacp <=> _2chdeacp	Fatty acid enoyl isomerase (FabM reaction)	True
+FABM2	_2tocdacp <=> _2cocdacp	Fatty acid enoyl isomerase (FabM reaction, 18:1)	True
+FBA	fdp <=> dhap + g3p	fructose-bisphosphate aldolase	True
+FBP	fdp + h2o <=> f6p + pi	fructose-bisphosphatase	False
+FCCabc	atp + h2o + fe3 <=> adp + fe3 + h + pi	ferrichrome transport via ABC system	False
+FE2abc	atp + h2o + fe2 <=> adp + fe2 + h + pi	iron (II) transport via ABC system	False
+FLVR	h + nadph + ribflv <=> nadp + ribflvRD	flavin reductase	False
+FMETDF	fmet + h2o <=> for + met_L	formylmethionine deformylase	False
+FMNAT	atp + fmn + h <=> fad + ppi	FMN adenylyltransferase	False
+FOLt	fol + h <=> fol + h	folate transport via proton simport	True
+FORt2	for + h <=> for + h	formate transport in via proton symport	True
+FRDx	fum + h + nadh <=> nad + succ	fumarate reductase (NADH)	True
+FRUK	atp + fru <=> adp + f6p + h	fructokinase	False
+FRUpts	pep + fru <=> f1p + pyr	D-fructose transport via PEP:Pyr PTS	False
+FTHFCL	_5fothf + atp <=> adp + methf + pi	5-formyltetrahydrofolate cyclo-ligase	False
+FTHFL	atp + for + thf <=> _10fthf + adp + pi	formate-tetrahydrofolate ligase	False
+G1PACT	accoa + gam1p <=> acgam1p + coa + h	glucosamine-1-phosphate N-acetyltransferase	False
+G1PTMT	dttp + g1p + h <=> dtdpglc + ppi	glucose-1-phosphate thymidylyltransferase	False
+G3PCT	ctp + glyc3p + h <=> cdpglyc + ppi	glycerol-3-phosphate cytidylyltransferase	False
+G3PD1	glyc3p + nad <=> dhap + h + nadh	glycerol-3-phosphate dehydrogenase (NAD)	True
+G3PD2	glyc3p + nadp <=> dhap + h + nadph	glycerol-3-phosphate dehydrogenase (NADP)	True
+G3PD4	glyc3p + mqn7 <=> dhap + mql7	glycerol-3-phosphate dehydrogenase (menaquinone 7)	False
+G3PD8	fad + glyc3p <=> dhap + fadh2	glycerol 3-phosphate dehydrogenase (FAD)	True
+G5SADs	glu5sa <=> _1pyr5c + h + h2o	L-glutamate 5-semialdehyde dehydratase (spontaneous)	True
+G5SD	glu5p + h + nadph <=> glu5sa + nadp + pi	glutamate-5-semialdehyde dehydrogenase	False
+G6PDA	gam6p + h2o <=> f6p + nh4	glucosamine-6-phosphate deaminase	False
+G6PDHy	g6p + nadp <=> _6pgl + h + nadph	glucose 6-phosphate dehydrogenase	True
+G6PI	g6p <=> g6p_B	Glucose-6-phosphate isomerase	True
+GABAt6	_4abut + h <=> _4abut + h	4-aminobutyrate transport in/out via proton symport	True
+GALK2	a_gal_D + atp <=> adp + gal1p + h	galactokinase	False
+GALM	gal <=> a_gal_D	aldose 1-epimerase	True
+GALT	gal1p + h + utp <=> ppi + udpgal	galactose-1-phosphate uridylyltransferase	True
+GALTAL	0.01 LTAala_LLA + 9.80 udpgal <=> 0.01 LTAAlaGal_LLA + 9.80 h + 9.80 udp	Galactose lipoteichoic acid ligase	False
+GALTpts	pep + galt <=> galt1p + pyr	Galactitol transport via PEP:Pyr PTS	False
+GALU	g1p + h + utp <=> ppi + udpg	UTP-glucose-1-phosphate uridylyltransferase	True
+GALt2	gal + h <=> gal + h	D-galactose transport in via proton symport	False
+GAPD	g3p + nad + pi <=> _13dpg + h + nadh	glyceraldehyde-3-phosphate dehydrogenase (NAD)	True
+GARFT	_10fthf + gar <=> fgam + h + thf	phosphoribosylglycinamide formyltransferase	True
+GAT1_LLA	0.03 _2chdeacp + 0.44 _2cocdacp + 0.01 _2ctdeacp + 0.13 cpocdacp + glyc3p + 0.29 hdeacp + 0.01 ocdacp + 0.09 tdeacp <=> acp + 0.01 agly3p_LLA	glycerol 3-phosphate acyltransferase (Lactis specific)	False
+GF6PTA	f6p + gln_L <=> gam6p + glu_L	glutamine-fructose-6-phosphate transaminase	False
+GHMT	ser_L + thf <=> gly + h2o + mlthf	glycine hydroxymethyltransferase	True
+GK1	atp + gmp <=> adp + gdp	guanylate kinase (GMP:ATP)	True
+GK2	datp + gmp <=> dadp + gdp	guanylate kinase (GMP:dATP)	True
+GLCNt2	glcn_D + h <=> glcn_D + h	D-gluconate transport via proton symport, reversible	True
+GLCP	glycogen + pi <=> g1p	glycogen phosphorylase	False
+GLCS1	adpglc <=> adp + glycogen + h	glycogen synthase (ADPGlc)	False
+GLCpts	pep + glc_D <=> g6p + pyr	D-glucose transport via PEP:Pyr PTS	False
+GLGC	atp + g1p + h <=> adpglc + ppi	glucose-1-phosphate adenylyltransferase	False
+GLNS	atp + glu_L + nh4 <=> adp + gln_L + h + pi	glutamine synthetase	False
+GLNTRS2	atp + glutrnagln + nh4 <=> amp + glntrna + h + ppi	Glutaminyl-tRNA synthetase	False
+GLNabc	atp + h2o + gln_L <=> adp + gln_L + h + pi	L-glutamine transport via ABC system	False
+GLU5K	atp + glu_L <=> adp + glu5p	glutamate 5-kinase	False
+GLUABUTt7	_4abut + glu_L <=> glu_L + _4abut	4-aminobutyrate/glutamate antiport	True
+GLUDC	glu_L + h <=> _4abut + co2	glutamate decarboxylase	False
+GLUPRT	gln_L + h2o + prpp <=> glu_L + ppi + pram	glutamine phosphoribosyldiphosphate amidotransferase	False
+GLUR	glu_D <=> glu_L	glutamate racemase	True
+GLUSy	akg + gln_L + h + nadph <=> 2 glu_L + nadp	glutamate synthase (NADPH)	False
+GLUTRS	atp + glu_L + trnaglu <=> amp + glutrna + h + ppi	Glutamyl-tRNA synthetase	False
+GLUTRS2	atp + glu_L + trnagln <=> amp + glutrnagln + h + ppi	Glutamyl-tRNAgln synthetase	False
+GLUabc	atp + h2o + glu_L <=> adp + glu_L + h + pi	L-glutamate transport via ABC system	False
+GLYBabc	atp + h2o + glyb <=> adp + glyb + h + pi	glycine betaine transport via ABC system	False
+GLYC3Pt6	pi + glyc3p <=> glyc3p + pi	Glycerol-3-phosphate : phosphate antiporter	False
+GLYCt1	glyc <=> glyc	glycerol transport via uniport (facilitated diffusion)	False
+GLYK	atp + glyc <=> adp + glyc3p + h	glycerol kinase	False
+GLYTRS	atp + gly + trnagly <=> amp + glytrna + h + ppi	Glycyl-tRNA synthetase	False
+GLYt2	gly + h <=> gly + h	glycine transport in via proton symport	False
+GLYt6	gly + h <=> gly + h	glycine transport in/out via proton symport	True
+GMPR	gmp + 2 h + nadph <=> imp + nadp + nh4	GMP reductase	False
+GMPS2	atp + gln_L + h2o + xmp <=> amp + glu_L + gmp + 2 h + ppi	GMP synthase (glutamine-hydrolysing)	False
+GNK	atp + glcn_D <=> _6pgc + adp + h	gluconokinase	False
+GPDDA1	g3pc + h2o <=> chol + glyc3p + h	Glycerophosphodiester phosphodiesterase (sn-Glycero-3-phosphocholine)	False
+GPDDA2	g3pe + h2o <=> etha + glyc3p + h	Glycerophosphodiester phosphodiesterase (Glycerophosphoethanolamine)	False
+GPDDA3	g3ps + h2o <=> glyc3p + h + ser_L	Glycerophosphodiester phosphodiesterase (Glycerophosphoserine)	False
+GPDDA4	g3pg + h2o <=> glyc + glyc3p + h	Glycerophosphodiester phosphodiesterase (Glycerophosphoglycerol)	False
+GPDDA5	g3pi + h2o <=> glyc3p + h + inost	Glycerophosphodiester phosphodiesterase (Glycerophosphoinositol)	False
+GRTT	grdp + ipdp <=> frdp + ppi	geranyltranstransferase	False
+GSHPO	2 gthrd + h2o2 <=> gthox + 2 h2o	glutathione peroxidase	False
+GTHRD	2 gthrd + nadp <=> gthox + h + nadph	glutathione-disulfide reductase	True
+GTPCI	gtp + h2o <=> ahdt + for + h	GTP cyclohydrolase I	False
+GTPCII	gtp + 3 h2o <=> _25dhpp + for + 2 h + ppi	GTP cyclohydrolase II	False
+GTPDPK	atp + gtp <=> amp + gdptp + h	GTP diphosphokinase	False
+GUAPRT	gua + prpp <=> gmp + ppi	guanine phosphoribosyltransferase	False
+GUAt2	gua + h <=> gua + h	guanine transport in via proton symport	False
+GUI1	glcur <=> fruur	glucuronate isomerase (D-glucuronate)	True
+GUI2	galur <=> tagur	glucuronate isomerase (D-galacturonate)	True
+HARAAT	accoa + haram <=> acara + coa	N-hydroxyarylamine O-acetyltransferase	False
+HBUHL1	_3hbacp <=> _2beacp + h2o	(3R)-3-Hydroxybutanoyl-[acyl-carrier-protein] hydro-lyase	False
+HBUR1	aaacp + h + nadph <=> _3hbacp + nadp	(3R)-3-Hydroxybutanoyl-[acyl-carrier protein]:NADP+ oxidoreductase	False
+HCO3E	co2 + h2o <=> h + hco3	carbonate dehydratase (HCO3 equilibration reaction)	True
+HCYSMT	amet + hcys_L <=> ahcys + h + met_L	homocysteine S-methyltransferase	False
+HDDHL5	_3hddacp <=> _2tddacp + h2o	(3R)-3-Hydroxybutanoyl-[acyl-carrier-protein] hydro-lyase	False
+HDDR5	_3oxddacp + h + nadph <=> _3hddacp + nadp	3R)-3-Hydroxydodecanoyl-[acyl-carrier-protein]:NADP+ oxidoreductase	False
+HDEHL4	_3hdeacp <=> _2tdeacp + h2o	(3R)-3-Hydroxybutanoyl-[acyl-carrier-protein] hydro-lyase	False
+HDER4	_3oxdeacp + h + nadph <=> _3hdeacp + nadp	(3R)-3-Hydroxydecanoyl-[acyl-carrier-protein]:NADP+ oxidoreductase	False
+HDMAT7	_2thdeacp + h + nadh <=> hdeacp + nad	Hexadecanoyl-[acyl-carrier protein]:malonyl-CoA  C-acyltransferase	False
+HEMAT2	_2theacp + h + nadh <=> hexacp + nad	Hexanoyl-[acyl-carrier protein]:malonyl-CoA C-acyltransferase	False
+HETZK	_4mhetz + atp <=> _4mpetz + adp + h	hydroxyethylthiazole kinase	False
+HEX1	atp + glc_D <=> adp + g6p + h	hexokinase (D-glucose:ATP)	False
+HHDHL7	_3hpaacp <=> _2thdeacp + h2o	(3R)-3-Hydroxypalmitoyl-[acyl-carrier-protein] hydro-lyase	False
+HHDR7	_3oxhdacp + h + nadph <=> _3hpaacp + nadp	(3R)-3-Hydroxypalmitoyl-[acyl-carrier-protein]:NADP+ oxidoreductase	False
+HHYHL2	_3hhacp <=> _2theacp + h2o	(3R)-3-Hydroxybutanoyl-[acyl-carrier-protein] hydro-lyase	False
+HHYR2	_3oxhacp + h + nadph <=> _3hhacp + nadp	(3R)-3-Hydroxyhexanoyl-[acyl-carrier-protein]:NADP+ oxidoreductase	False
+HIBD	_3hmp + nad <=> _2mop + h + nadh	3-hydroxyisobutyrate dehydrogenase	False
+HISTD	h2o + histd + 2 nad <=> 3 h + his_L + 2 nadh	histidinol dehydrogenase	False
+HISTP	h2o + hisp <=> histd + pi	histidinol-phosphatase	False
+HISTRS	atp + his_L + trnahis <=> amp + h + histrna + ppi	Histidyl-tRNA synthetase	False
+HISt2	h + his_L <=> h + his_L	L-histidine transport in via proton symport	False
+HMGCOAR	coa + mev_R + 2 nadp <=> 2 h + hmgcoa + 2 nadph	Hydroxymethylglutaryl CoA reductase	True
+HMGCOAS	coa + h + hmgcoa <=> aacoa + accoa + h2o	Hydroxymethylglutaryl CoA synthase	True
+HMPK1	_4ahmmp + atp <=> _4ampm + adp + h	hydroxymethylpyrimidine kinase (ATP)	False
+HOCHL3	_3hocacp <=> _2toceacp + h2o	((3R)-3-Hydroxybutanoyl-[acyl-carrier-protein] hydro-lyase	False
+HOCR3	_3oxocacp + h + nadph <=> _3hocacp + nadp	(3R)-3-Hydroxyoctanoyl-[acyl-carrier-protein]:NADP+ oxidoreductase	False
+HODHL8	_3hocdacp <=> _2tocdacp + h2o	(3R)-3-Hydroxyoctadecanoyl-[acyl-carrier-protein] hydro-lyase	False
+HODR8	_3oxocdacp + h + nadph <=> _3hocdacp + nadp	(3R)-3-Hydroxyoctadecanoyl-[acyl-carrier-protein]:NADP+ oxidoreductase	False
+HSAT	accoa + hom_L <=> achms + coa	Acetyl-CoA:L-homoserine O-acetyltransferase	True
+HSDy	hom_L + nadp <=> aspsa + h + nadph	homoserine dehydrogenase (NADPH)	True
+HSK	atp + hom_L <=> adp + h + phom	homoserine kinase	False
+HSST	hom_L + succoa <=> coa + suchms	homoserine O-succinyltransferase	False
+HSTPT	glu_L + imacp <=> akg + h + hisp	histidinol-phosphate transaminase	False
+HTDHL6	_3htdacp <=> _2ttdeacp + h2o	(3R)-3-Hydroxypalmitoyl-[acyl-carrier-protein] hydro-lyase	False
+HTDR6	_3oxtdacp + h + nadph <=> _3htdacp + nadp	3R)-3-Hydroxytetradecanoyl-[acyl-carrier-protein]:NADP+ oxidoreductase	False
+HXANt2	h + hxan <=> h + hxan	hypoxanthine transport in via proton symport	False
+HXPRT	hxan + prpp <=> imp + ppi	hypoxanthine phosphoribosyltransferase (Hypoxanthine)	False
+ICDHy	icit + nadp <=> akg + co2 + nadph	isocitrate dehydrogenase (NADP)	True
+ICHORS	chor <=> ichor	isochorismate synthase	True
+IG3PS	gln_L + prlp <=> aicar + eig3p + glu_L + 2 h	Imidazole-glycerol-3-phosphate synthase	False
+IGPDH	eig3p + h <=> h2o + imacp	imidazoleglycerol-phosphate dehydratase	False
+IGPS	_2cpr5p + h <=> _3ig3p + co2 + h2o	indole-3-glycerol-phosphate synthase	False
+ILETA	akg + ile_L <=> _3mop + glu_L	isoleucine transaminase	True
+ILETRS	atp + ile_L + trnaile <=> amp + h + iletrna + ppi	Isoleucyl-tRNA synthetase	False
+ILEt2	h + ile_L <=> h + ile_L	L-isoleucine transport in via proton symport	False
+ILEt6	h + ile_L <=> h + ile_L	L-isoeucine transport in/out via proton symport	True
+IMPC	h2o + imp <=> fprica	IMP cyclohydrolase	True
+IMPD	h2o + imp + nad <=> h + nadh + xmp	IMP dehydrogenase	False
+INSt2r	h + ins <=> h + ins	inosine transport in via proton symport, reversible	True
+IPDDI	ipdp <=> dmpp	isopentenyl-diphosphate D-isomerase	True
+IPPMIa	_3c2hmp <=> _2ippm + h2o	3-isopropylmalate dehydratase	True
+IPPMIb	_2ippm + h2o <=> _3c3hmp	2-isopropylmalate hydratase	True
+KARA1	_23dhmb + nadp <=> alac_S + h + nadph	ketol-acid reductoisomerase (2,3-dihydroxy-3-methylbutanoate)	True
+KARA2	_2ahbut + h + nadph <=> _23dhmp + nadp	ketol-acid reductoisomerase (2-Acetolactate)	True
+L_LACt2	h + lac_L <=> h + lac_L	L-lactate reversible transport via proton symport	True
+LACZ	h2o + lcts <=> gal + glc_D	lactase	False
+LCTSt6	h + lcts <=> h + lcts	lactose transport in/out via proton symport	True
+LDH_L	lac_L + nad <=> h + nadh + pyr	L-lactate dehydrogenase	True
+LEUTA	akg + leu_L <=> _4mop + glu_L	leucine transaminase	True
+LEUTRS	atp + leu_L + trnaleu <=> amp + h + leutrna + ppi	Leucyl-tRNA synthetase	False
+LEUt2	h + leu_L <=> h + leu_L	L-leucine transport in via proton symport	False
+LEUt6	h + leu_L <=> h + leu_L	L-leucine transport in/out via proton symport	True
+LPGS_LLA	lystrna + 0.01 pg_LLA <=> 0.01 lyspg_LLA + trnalys	lysylphosphatidyl-glycerol synthetase	False
+LTAS_LLA	0.01 d12dg_LLA + 0.16 pg_LLA <=> 0.16 _12dgr_LLA + 0.01 LTA_LLA	Lipoteichoic acid synthase (LPL specific)	False
+LYSTRS	atp + lys_L + trnalys <=> amp + h + lystrna + ppi	Lysyl-tRNA synthetase	False
+LYSt6	h + lys_L <=> h + lys_L	L-lysine transport in/out via proton symport	True
+M1PD	mnl1p + nad <=> f6p + h + nadh	mannitol-1-phosphate 5-dehydrogenase	True
+MACPMT	acp + malcoa <=> coa + malacp	Malonyl-CoA:[acyl-carrier-protein] S-malonyltransferase	False
+MALLAC	h + mal_L <=> co2 + lac_L	malolactic enzyme	False
+MALP	malt + pi <=> g1p_B + glc_D	maltose phosphorylase	True
+MALT	h2o + malt <=> 2 glc_D	alpha-glucosidase	False
+MALTAT	accoa + malt <=> acmalt + coa	maltose O-acetyltransferase	False
+MALTabc	atp + h2o + malt <=> adp + h + malt + pi	maltose transport via ABC system	False
+MALt2	h + mal_L <=> h + mal_L	L-malate transport in via proton symport	False
+MAN6PI	man6p <=> f6p	mannose-6-phosphate isomerase	True
+MANAO	mana + nad <=> fruur + h + nadh	Mannonate oxidoreductase	True
+MANpts	pep + man <=> man6p + pyr	D-mannose transport via PEP:Pyr PTS	False
+MCMAT2	butacp + h + malacp <=> _3oxhacp + acp + co2	Butyryl-[acyl-carrier protein]:malonyl-[acyl-carrier-protein]C-acyltransferase (decarboxylating)	False
+MCMAT3	h + hexacp + malacp <=> _3oxocacp + acp + co2	Hexanoyl-[acyl-carrier protein]:malonyl-[acyl-carrier-protein] C-acyltransferase	False
+MCMAT4	h + malacp + octacp <=> _3oxdeacp + acp + co2	Octanoyl-[acyl-carrier protein]:malonyl-[acyl-carrier-protein]   C-acyltransferase (decarboxylating)	False
+MCMAT5	decacp + h + malacp <=> _3oxddacp + acp + co2	Decanoyl-[acyl-carrier protein]:malonyl-[acyl-carrier-protein] C-acyltransferase	False
+MCMAT6	ddeacp + h + malacp <=> _3oxtdacp + acp + co2	Dodecanoyl-[acyl-carrier-protein]:malonyl-[acyl-carrier-protein]  C-acyltransferase	False
+MCMAT7	h + malacp + tdeacp <=> _3oxhdacp + acp + co2	Tetradecanoyl-[acyl-carrier-protein]:malonyl-[acyl-carrier-protein]  C-acyltransferase	False
+MCMAT8	h + hdeacp + malacp <=> _3oxocdacp + acp + co2	Hexadecanoyl-[acyl-carrier-protein]:malonyl-[acyl-carrier-protein]  C-acyltransferase	False
+METACH	achms + h2s <=> ac + h + hcys_L	O-Acetyl-L-homoserine acetate-lyase (adding methanethiol)	True
+METAT	atp + h2o + met_L <=> amet + pi + ppi	methionine adenosyltransferase	False
+METDabc	atp + h2o + met_D <=> adp + h + met_D + pi	D-methionine transport via ABC system	False
+METFR	_5mthf + nadp <=> 2 h + mlthf + nadph	methylenetetrahydrofolate reductase (NADPH2)	True
+METS	_5mthf + hcys_L <=> h + met_L + thf	methionine synthase	False
+METTRS	atp + met_L + trnamet <=> amp + h + mettrna + ppi	Methionyl-tRNA synthetase	False
+METabc	atp + h2o + met_L <=> adp + h + met_L + pi	L-methionine transport via ABC system	False
+METt2	h + met_L <=> h + met_L	L-methionine transport in via proton symport	False
+MEVK	atp + mev_R <=> _5pmev + adp + h	mevalonate kinase	False
+MI1PP	h2o + mi1p_D <=> inost + pi	myo-inositol 1-phosphatase	False
+MNLpts	pep + mnl <=> mnl1p + pyr	mannitol transport via PEP:Pyr PTS	False
+MNNH	mana <=> _2ddglcn + h2o	D-mannonate hydrolyase	False
+MNabc	atp + h2o + mn2 <=> adp + h + mn2 + pi	manganese transport via ABC system	False
+MTAN	_5mta + h2o <=> _5mtr + ade	methylthioadenosine nucleosidase	False
+MTHFC	h2o + methf <=> _10fthf + h	methenyltetrahydrofolate cyclohydrolase	True
+MTHFD	mlthf + nadp <=> methf + nadph	methylenetetrahydrofolate dehydrogenase (NADP)	True
+MTHPTGHM	_5mthglu + hcys_L <=> met_L + thglu	5-methyltetrahydropteroyltriglutamate-homocysteine S-methyltransferase	False
+NACUP	nac <=> nac	Nicotinic acid uptake	False
+NADH4	h + mqn7 + nadh <=> mql7 + nad	NADH dehydrogenase (Menaquinone 7 & no proton)	False
+NADK	atp + nad <=> adp + h + nadp	NAD kinase	False
+NADN	h2o + nad <=> adprib + h + ncam	NAD nucleosidase	False
+NADS1	atp + dnad + nh4 <=> amp + h + nad + ppi	NAD synthase (nh4)	False
+NAPRT	h + nac + prpp <=> nicrnt + ppi	NAPRTase	False
+NDPK1	atp + gdp <=> adp + gtp	nucleoside-diphosphate kinase (ATP:GDP)	True
+NDPK2	atp + udp <=> adp + utp	nucleoside-diphosphate kinase (ATP:UDP)	True
+NDPK3	atp + cdp <=> adp + ctp	nucleoside-diphosphate kinase (ATP:CDP)	True
+NDPK4	atp + dtdp <=> adp + dttp	nucleoside-diphosphate kinase (ATP:dTDP)	True
+NDPK5	atp + dgdp <=> adp + dgtp	nucleoside-diphosphate kinase (ATP:dGDP)	True
+NDPK6	atp + dudp <=> adp + dutp	nucleoside-diphosphate kinase (ATP:dUDP)	True
+NDPK7	atp + dcdp <=> adp + dctp	nucleoside-diphosphate kinase (ATP:dCDP)	True
+NDPK8	atp + dadp <=> adp + datp	nucleoside-diphosphate kinase (ATP:dADP)	True
+NH4t	nh4 <=> nh4	ammonia transport via diffusion	True
+NMNAT	atp + h + nmn <=> nad + ppi	nicotinamide-nucleotide adenylyltransferase	False
+NMNP	nmn <=> nmn	NMN permease	False
+NNAMr	h2o + ncam <=> nac + nh4	nicotinamidase, reversible	True
+NNAT	atp + h + nicrnt <=> dnad + ppi	nicotinate-nucleotide adenylyltransferase	False
+NOX1	h + nadh + o2 <=> h2o2 + nad	NADH oxidase (H2O2 forming)	False
+NOX2	2 h + 2 nadh + o2 <=> 2 h2o + 2 nad	NADH oxidase (H2O forming)	False
+NPHS	sbzcoa <=> coa + dhna	naphthoate synthase	False
+NPR	h + h2o2 + nadh <=> 2 h2o + nad	NADH peroxidase	False
+O2t	o2 <=> o2	O2 transport in via diffusion	True
+OCBT	cbp + orn_L <=> citr_L + h + pi	ornithine carbamoyltransferase	True
+OCDMAT8	_2tocdacp + h + nadh <=> nad + ocdacp	Octadecanoyl-[acyl-carrier protein]:malonyl-CoA  C-acyltransferase	False
+OCMAT3	_2toceacp + h + nadh <=> nad + octacp	Octanoyl-[acyl-carrier protein]:malonyl-CoA C-acyltransferase	False
+OHPBAT	glu_L + ohpb <=> akg + phthr	O-Phospho-4-hydroxy-L-threonine:2-oxoglutarate aminotransferase	True
+OMPDC	h + orot5p <=> co2 + ump	orotidine-5'-phosphate decarboxylase	False
+ORNCD	orn_L <=> h + nh3 + pro_L	ornithine cyclodeaminase	False
+ORNTAC	acorn + glu_L <=> acglu + orn_L	ornithine transacetylase	True
+OROt6	h + orot <=> h + orot	Orotic acid transport in/out via proton symporter	True
+ORPT	orot5p + ppi <=> orot + prpp	orotate phosphoribosyltransferase	True
+P5CR	_1pyr5c + 2 h + nadph <=> nadp + pro_L	pyrroline-5-carboxylate reductase	False
+PACALDt	pacald <=> pacald	phenylacetaldehyde transport	True
+PAPPT1	uAgla + udcpp <=> uaAgla + ump	phospho-N-acetylmuramoyl-pentapeptide-transferase (alpha-glutamate)	False
+PAP_LLA	h2o + 0.01 pa_LLA <=> 0.01 _12dgr_LLA + pi	phosphatidic acid phosphatase	False
+PC	atp + hco3 + pyr <=> adp + h + oaa + pi	pyruvate carboxylase	False
+PDH	coa + nad + pyr <=> accoa + co2 + nadh	pyruvate dehydrogenase	False
+PEAt	pea <=> pea	phenylethylalcohol transport	True
+PFK	atp + f6p <=> adp + fdp + h	phosphofructokinase	False
+PFK_2	atp + tag6p_D <=> adp + h + tagdp_D	Phosphofructokinase	False
+PFL	coa + pyr <=> accoa + for	Formate C-acetyltransferase	True
+PGAMT	gam1p <=> gam6p	phosphoglucosamine mutase	True
+PGCD	_3pg + nad <=> _3php + h + nadh	phosphoglycerate dehydrogenase	False
+PGDH	_6pgc + nadp <=> co2 + nadph + ru5p_D	phosphogluconate dehydrogenase	False
+PGGH	_6pgg + h2o <=> g6p + glc_D	6-phospho-beta-glucosidase	False
+PGGT2	uaaAgla <=> PG + udcpdp	peptidoglycan glycosyltransferase	False
+PGI	g6p <=> f6p	glucose-6-phosphate isomerase	True
+PGK	_13dpg + adp <=> _3pg + atp	phosphoglycerate kinase	True
+PGL	_6pgl + h2o <=> _6pgc + h	6-phosphogluconolactonase	False
+PGM	_3pg <=> _2pg	phosphoglycerate mutase	True
+PGMT	g1p <=> g6p	phosphoglucomutase	True
+PGMT_B	g6p_B <=> g1p_B	b-phosphoglucomutase	True
+PGPP_LLA	h2o + 0.01 pgp_LLA <=> 0.01 pg_LLA + pi	Phosphatidylglycerol phosphate phosphatase (Lactis specific)	False
+PGSA_LLA	0.01 cdpdag_LLA + glyc3p <=> cmp + h + 0.01 pgp_LLA	Phosphatidylglycerol synthase (lactis specific)	True
+PHETA1	akg + phe_L <=> glu_L + phpyr	phenylalanine transaminase	True
+PHETRS	atp + phe_L + trnaphe <=> amp + h + phetrna + ppi	Phenylalanyl-tRNA synthetase	False
+PHEt6	h + phe_L <=> h + phe_L	L-phenylalanine transport in/out via proton symport	True
+PHPDC	h + phpyr <=> co2 + pacald	Phenylpyruvate decarboxylase	False
+PIabc	atp + h2o + pi <=> adp + h + 2 pi	phosphate transport via ABC system	False
+PMEVK	_5pmev + atp <=> _5dpmev + adp	phosphomevalonate kinase	False
+PMPK	_4ampm + atp <=> _2mahmp + adp	phosphomethylpyrimidine kinase	False
+PNTK	atp + pnto_R <=> _4ppan + adp + h	pantothenate kinase	False
+PNTOt2	h + pnto_R <=> h + pnto_R	Pantothenate reversible transport via proton symport	True
+POR	coa + fdxo_4_2 + pyr <=> accoa + co2 + fdxr_4_2 + h	pyruvate synthase	True
+PPA	h2o + ppi <=> h + 2 pi	inorganic diphosphatase	False
+PPCDC	_4ppcys + h <=> co2 + pan4p	phosphopantothenoylcysteine decarboxylase	False
+PPIabc	atp + h2o + ppi <=> adp + h + pi + ppi	diphosphate transport in via ABC system	False
+PPM	r1p <=> r5p	phosphopentomutase	True
+PPM2	_2dr1p <=> _2dr5p	phosphopentomutase (deoxyribose)	True
+PPNCL	_4ppan + ctp + cys_L <=> _4ppcys + cdp + h + pi	phosphopantothenate-cysteine ligase	False
+PPND	nad + pphn <=> _34hpp + co2 + nadh	prephenate dehydrogenase	False
+PPNDH	h + pphn <=> co2 + h2o + phpyr	prephenate dehydratase	False
+PRAGS	atp + gly + pram <=> adp + gar + h + pi	phosphoribosylglycinamide synthetase	False
+PRAI	pran <=> _2cpr5p	phosphoribosylanthranilate isomerase	True
+PRAIS	atp + fpram <=> adp + air + h + pi	phosphoribosylaminoimidazole synthetase	False
+PRAMPC	h + h2o + prbamp <=> prfp	phosphoribosyl-AMP cyclohydrolase	False
+PRASCS	_5aizc + asp_L + atp <=> _25aics + adp + h + pi	phosphoribosylaminoimidazolesuccinocarboxamide synthase	True
+PRATPP	h2o + prbatp <=> h + ppi + prbamp	phosphoribosyl-ATP pyrophosphatase	False
+PREN	frdp + 4 ipdp <=> hepdp + 4 ppi	prenyl transferase	False
+PRFGS	atp + fgam + gln_L + h2o <=> adp + fpram + glu_L + 2 h + pi	phosphoribosylformylglycinamidine synthase	False
+PRMICI	prfp <=> prlp	1-(5-phosphoribosyl)-5-[(5-phosphoribosylamino)methylideneamino)imidazole-4-carboxamide isomerase	True
+PROTRS	atp + pro_L + trnapro <=> amp + h + ppi + protrna	Prolyl-tRNA synthetase	False
+PROTS_LLA	0.09 alatrna + 0.04 argtrna + 0.06 asntrna + 0.03 asptrna + 0.31 atp + 0.03 cystrna + 0.06 glntrna + 0.04 glutrna + 0.09 glytrna + 2 gtp + 2.31 h2o + 0.01 histrna + 0.06 iletrna + 0.09 leutrna + 0.07 lystrna + 0.03 mettrna + 0.04 phetrna + 0.04 protrna + 0.05 sertrna + 0.06 thrtrna + 0.02 trptrna + 0.03 tyrtrna + 0.07 valtrna <=> 0.31 adp + 2 gdp + 2.31 h + 2.31 pi + 0.00 prot_LLA + 0.09 trnaala + 0.04 trnaarg + 0.06 trnaasn + 0.03 trnaasp + 0.03 trnacys + 0.06 trnagln + 0.04 trnaglu + 0.09 trnagly + 0.01 trnahis + 0.06 trnaile + 0.09 trnaleu + 0.07 trnalys + 0.03 trnamet + 0.04 trnaphe + 0.04 trnapro + 0.05 trnaser + 0.06 trnathr + 0.02 trnatrp + 0.03 trnatyr + 0.07 trnaval	protein synthesis_LLA for lactis	False
+PROabc	atp + h2o + pro_L <=> adp + h + pi + pro_L	L-proline transport via ABC system	False
+PRPPS	atp + r5p <=> amp + h + prpp	phosphoribosylpyrophosphate synthetase	True
+PSCVT	pep + skm5p <=> _3psme + pi	3-phosphoshikimate 1-carboxyvinyltransferase	True
+PSERT	_3php + glu_L <=> akg + pser_L	phosphoserine transaminase	False
+PSP_L	h2o + pser_L <=> pi + ser_L	phosphoserine phosphatase (L-serine)	False
+PSUDS	r5p + ura <=> h2o + psd5p	pseudouridylate synthase	False
+PTAr	accoa + pi <=> actp + coa	phosphotransacetylase	True
+PTPAT	atp + h + pan4p <=> dpcoa + ppi	pantetheine-phosphate adenylyltransferase	True
+PTRCabc	atp + h2o + ptrc <=> adp + h + pi + ptrc	putrescine transport via ABC system	False
+PUNP1	adn + pi <=> ade + r1p	purine-nucleoside phosphorylase (Adenosine)	True
+PUNP2	dad_2 + pi <=> _2dr1p + ade	purine-nucleoside phosphorylase (Deoxyadenosine)	True
+PUNP3	gsn + pi <=> gua + r1p	purine-nucleoside phosphorylase (Guanosine)	True
+PUNP4	dgsn + pi <=> _2dr1p + gua	purine-nucleoside phosphorylase (Deoxyguanosine)	True
+PUNP5	ins + pi <=> hxan + r1p	purine-nucleoside phosphorylase (Inosine)	True
+PUNP6	din + pi <=> _2dr1p + hxan	purine-nucleoside phosphorylase (Deoxyinosine)	True
+PUNP7	pi + xtsn <=> r1p + xan	purine-nucleoside phosphorylase (Xanthosine)	True
+PYK	adp + h + pep <=> atp + pyr	pyruvate kinase	False
+PYNP1	csn + r1p <=> cytd + pi	pyrimidine-nucleoside phosphorylase (cytosine)	False
+PYNP1r	csn + r1p <=> cytd + pi	pyrimidine-nucleoside phosphorylase (cytosine)	True
+PYNP2	pi + uri <=> r1p + ura	pyrimidine-nucleoside phosphorylase (uracil)	True
+PYNP4	pi + pyrin <=> pyrimid + r1p	pyrimidine-nucleoside phosphorylase (pyrimidine nucleoside)	True
+PYROX	h + o2 + pi + pyr <=> actp + co2 + h2o2	pyruvate oxidase	False
+PYRt2	h + pyr <=> h + pyr	pyruvate reversible transport via proton symport	True
+RBFK	atp + ribflv <=> adp + fmn + h	riboflavin kinase	False
+RBFSa	_4r5au + db4p <=> dmlz + 2 h2o + pi	riboflavin synthase	False
+RBFSb	2 dmlz <=> _4r5au + ribflv	riboflavin synthase	False
+RBK	atp + rib_D <=> adp + h + r5p	ribokinase	False
+RHC	h2o + rhcys <=> hcys_L + rib_D	ribosylhomocysteinase	False
+RIBFLVt2	h + ribflv <=> h + ribflv	riboflavin transport in via proton symport	False
+RIBabc	atp + h2o + rib_D <=> adp + h + pi + rib_D	D-ribose transport via ABC system	False
+RIBt2	h + rib_D <=> h + rib_D	ribose transport in via proton symporter	False
+RNAS_LLA	0.66 atp + 0.20 ctp + 0.32 gtp + 0.40 h2o + 0.22 utp <=> 0.01 RNA_LLA + 0.40 adp + 0.40 h + 0.40 pi + ppi	RNA synthesis, lactis specific	False
+RNDR1	adp + trdrd <=> dadp + h2o + trdox	ribonucleoside-diphosphate reductase (ADP)	False
+RNDR2	gdp + trdrd <=> dgdp + h2o + trdox	ribonucleoside-diphosphate reductase (GDP)	False
+RNDR3	cdp + trdrd <=> dcdp + h2o + trdox	ribonucleoside-diphosphate reductase (CDP)	False
+RNDR4	trdrd + udp <=> dudp + h2o + trdox	ribonucleoside-diphosphate reductase (UDP)	False
+RNTR1	atp + trdrd <=> datp + h2o + trdox	ribonucleoside-triphosphate reductase (ATP)	False
+RNTR2	gtp + trdrd <=> dgtp + h2o + trdox	ribonucleoside-triphosphate reductase (GTP)	False
+RNTR3	ctp + trdrd <=> dctp + h2o + trdox	ribonucleoside-triphosphate reductase (CTP)	False
+RNTR4	trdrd + utp <=> dutp + h2o + trdox	ribonucleoside-triphosphate reductase (UTP)	False
+RPE	ru5p_D <=> xu5p_D	ribulose 5-phosphate 3-epimerase	True
+RPI	r5p <=> ru5p_D	ribose-5-phosphate isomerase	True
+S6PG	h2o + salc6p <=> _2hxmp + g6p	Salicin 6-phosphate glucohydrolase	False
+S7PI	s7p <=> gmh7p	sedoheptulose 7-phosphate isomerase	True
+SBTpts	pep + sbt_D <=> pyr + sbt6p	D-sorbitol transport via PEP:Pyr PTS	False
+SERAT	accoa + ser_L <=> acser + coa	serine O-acetyltransferase	True
+SERD_L	ser_L <=> nh4 + pyr	L-serine deaminase	False
+SERTRS	atp + ser_L + trnaser <=> amp + h + ppi + sertrna	Seryl-tRNA synthetase	False
+SER_Dt6	h + ser_D <=> h + ser_D	D-serine transport in/out via proton symport	True
+SERt6	h + ser_L <=> h + ser_L	L-serine transport in/out via proton symport	True
+SHK3D	_3dhsk + h + nadph <=> nadp + skm	shikimate dehdrogenase	True
+SHKK	atp + skm <=> adp + h + skm5p	shikimate kinase	False
+SHSL1	cys_L + suchms <=> cysth_L + h + succ	O-succinylhomoserine lyase (L-cysteine)	False
+SHSL5	achms + cys_L <=> ac + cysth_L + h	O-acetylhomoserine lysase (L-cysteine)	False
+SO4t2	h + so4 <=> h + so4	sulfate transport in via proton symport	False
+SOD	2 h + 2 o2_ <=> h2o2 + o2	superoxide dismutase	False
+SPMDAT1	accoa + spmd <=> N1aspmd + coa + h	Spermidine acetyltransferase	False
+SPMDAT2	accoa + spmd <=> N8aspmd + coa + h	Spermidine acetyltransferase (N8)	False
+SPMDabc	atp + h2o + spmd <=> adp + h + pi + spmd	spermidine transport via ABC system	False
+SUC6PH	h2o + suc6p <=> pi + sucr	sucrose 6-phosphate hydrolase	False
+SUCBZL	atp + coa + sucbz <=> amp + ppi + sbzcoa	o-succinylbenzoate-CoA ligase	False
+SUCBZS	_2shchc <=> h2o + sucbz	O-succinylbenzoate-CoA synthase	False
+SUCCt6	h + succ <=> h + succ	succinate transporter in/out via proton symport	True
+SUCD1	fad + succ <=> fadh2 + fum	succinate dehydrogenase	True
+SUCH	h2o + sucr <=> fru + glc_D	alpha-glucoside glucohydrolase	False
+SUCpts	pep + sucr <=> pyr + suc6p	sucrose transport via PEP:Pyr PTS	False
+TDMAT6	_2ttdeacp + h + nadh <=> nad + tdeacp	Tetradecanoyl-[acyl-carrier protein]:malonyl-CoA  C-acyltransferase	False
+TDPDRE	dtdpddg <=> dtdpddm	dTDP-4-dehydrorhamnose 3,5-epimerase	True
+TDPDRR	dtdp6dm + nadp <=> dtdpddm + h + nadph	dTDP-4-dehydrorhamnose reductase	True
+TDPGDH	dtdpglc <=> dtdpddg + h2o	dTDPglucose 4,6-dehydratase	False
+THDPS	h2o + succoa + thdp <=> coa + sl2a6o	tetrahydropicolinate succinylase	False
+THFGLUS	atp + glu_L + thf <=> adp + h + pi + thfglu	Tetrahydrofolate:L-glutamate gamma-ligase (ADP-forming)	True
+THMDt2	h + thymd <=> h + thymd	thymidine transport in via proton symport	False
+THMabc	atp + h2o + thm <=> adp + h + pi + thm	thiamine transport via ABC system	False
+THRA	thr_L <=> acald + gly	threonine aldolase	True
+THRS	h2o + phom <=> pi + thr_L	threonine synthase	False
+THRTRS	atp + thr_L + trnathr <=> amp + h + ppi + thrtrna	Threonyl-tRNA synthetase	False
+THRt2	h + thr_L <=> h + thr_L	L-threonine transport in via proton symport	False
+THRt6	h + thr_L <=> h + thr_L	L-threonine transport in/out via proton symporter	True
+TKT1	r5p + xu5p_D <=> g3p + s7p	transketolase	True
+TKT2	e4p + xu5p_D <=> f6p + g3p	transketolase	True
+TMDK1	atp + thymd <=> adp + dtmp + h	thymidine kinase (ATP:thymidine)	False
+TMDK2	gtp + thymd <=> dtmp + gdp + h	thymidine kinase (GTP:Thymidine)	False
+TMDPK	atp + thm <=> amp + h + thmpp	thiamine diphosphokinase	False
+TMDPP	pi + thymd <=> _2dr1p + thym	thymidine phosphorylase	True
+TMDS	dump + mlthf <=> dhf + dtmp	thymidylate synthase	False
+TMPKr	atp + thmmp <=> adp + thmpp	thiamine-phosphate kinase	True
+TMPPP	_2mahmp + _4mpetz + h <=> ppi + thmmp	thiamine-phosphate diphosphorylase	False
+TPI	dhap <=> g3p	triose-phosphate isomerase	True
+TRDR	h + nadph + trdox <=> nadp + trdrd	thioredoxin reductase (NADPH)	False
+TRE6PH	h2o + tre6p <=> g6p + glc_D	trehalose-6-phosphate hydrolase	False
+TREpts	pep + tre <=> pyr + tre6p	trehalose transport via PEP:Pyr PTS	False
+TRPS1	_3ig3p + ser_L <=> g3p + h2o + trp_L	tryptophan synthase (indoleglycerol phosphate)	False
+TRPS2	indole + ser_L <=> h2o + trp_L	tryptophan synthase (indole)	False
+TRPTRS	atp + trnatrp + trp_L <=> amp + h + ppi + trptrna	Tryptophanyl-tRNA synthetase	False
+TRPt6	h + trp_L <=> h + trp_L	L-tryptophan transport in/out via proton symport	True
+TYRTA	akg + tyr_L <=> _34hpp + glu_L	tyrosine transaminase	True
+TYRTRS	atp + trnatyr + tyr_L <=> amp + h + ppi + tyrtrna	Tyrosyl-tRNA synthetase	False
+TYRt6	h + tyr_L <=> h + tyr_L	L-tyrosine transport in/out via proton symport	True
+UAAGDS	_26dap_M + atp + uamag <=> adp + h + pi + ugmd	UDP-N-acetylmuramoyl-L-alanyl-D-glutamyl-meso-2,6-diaminopimelate synthetase	False
+UAAGLS1	atp + lys_L + uamag <=> adp + 2 h + pi + uAgl	UDP-N-acetylmuramoyl-L-alanyl-D-glutamate-lysine synthetase (alpha-glutamate)	False
+UAGCVT	pep + uacgam <=> pi + uaccg	UDP-N-acetylglucosamine 1-carboxyvinyltransferase	False
+UAGDP	acgam1p + h + utp <=> ppi + uacgam	UDP-N-acetylglucosamine diphosphorylase	False
+UAGPT1	uaAgla + uacgam <=> h + uaaAgla + udp	UDP-N-acetylglucosamine-N-acetylmuramyl-(pentapeptide)pyrophosphoryl-undecaprenol N-acetylglucosamine transferase	False
+UAMAGS	atp + glu_D + uama <=> adp + h + pi + uamag	UDP-N-acetylmuramoyl-L-alanyl-D-glutamate synthetase	False
+UAMAS	ala_L + atp + uamr <=> adp + h + pi + uama	UDP-N-acetylmuramoyl-L-alanine synthetase	False
+UAPGR	h + nadph + uaccg <=> nadp + uamr	UDP-N-acetylenolpyruvoylglucosamine reductase	False
+UDCPDP	h2o + udcpdp <=> h + pi + udcpp	undecaprenyl-diphosphatase	False
+UDCPDPS	frdp + 8 ipdp <=> 8 ppi + udcpdp	Undecaprenyl diphosphate synthase	False
+UDCPK	atp + udcp <=> adp + h + udcpp	undecaprenol kinase	False
+UDPG4E	udpg <=> udpgal	UDPglucose 4-epimerase	True
+UDPGALM	udpgal <=> udpgalfur	UDPgalactopyranose mutase	False
+UDPGD	h2o + 2 nad + udpg <=> 3 h + 2 nadh + udpglcur	UDPglucose 6-dehydrogenase	True
+UGLDDS1	alaala + atp + uAgl <=> adp + pi + uAgla	UDP-N-acetylmuramoyl-L-alanyl-D-glutamyl-L-lysyl-D-alanyl-D-alanine synthetase (alpha-glutamate)	False
+UGT1_LLA	0.01 _12dgr_LLA + udpg <=> h + 0.01 m12dg_LLA + udp	UDP-glucosyltransferase (monoacylglycerol)	False
+UGT2_LLA	0.01 m12dg_LLA + udpg <=> 0.01 d12dg_LLA + h + udp	UDP-glucosyltransferase (diacylglycerol)	False
+UPPRT	prpp + ura <=> ppi + ump	uracil phosphoribosyltransferase	False
+URAt2	h + ura <=> h + ura	uracil transport in via proton symport	False
+URIDK1	atp + ump <=> adp + udp	uridylate kinase (UMP)	False
+URIDK2	atp + dump <=> adp + dudp	uridylate kinase (dUMP)	False
+URIK1	atp + uri <=> adp + h + ump	uridine kinase (ATP:Uridine)	False
+URIK2	gtp + uri <=> gdp + h + ump	uridine kinase (GTP:Uridine)	False
+URIK3	itp + uri <=> h + idp + ump	uridine kinase (ITP:Uridine)	False
+VALTA	akg + val_L <=> _3mob + glu_L	valine transaminase	True
+VALTRS	atp + trnaval + val_L <=> amp + h + ppi + valtrna	Valyl-tRNA synthetase	False
+VALt2	h + val_L <=> h + val_L	L-valine transport in via proton symport	False
+VALt6	h + val_L <=> h + val_L	L-valine transport in/out via proton symport	True
+XANt2	h + xan <=> h + xan	xanthine transport in via proton symport	False
+XPPT	prpp + xan <=> ppi + xmp	xanthine phosphoribosyltransferase	False
+XYLI1	xyl_D <=> xylu_D	xylose isomerase	True
+XYLI2	glc_D <=> fru	xylose isomerase	True
+YUMPS	r5p + ura <=> h2o + psd5p	yUMP synthetase	True
+ZN2abc2	atp + h2o + zn2 <=> adp + h + pi + zn2	zinc transport in via ABC system	False
+araphe1	_4mop + phe_L <=> leu_L + phpyr	aromatic amino acid aminotransferase - phenylalanine	True
+araphe2	_3mop + phe_L <=> ile_L + phpyr	aromatic amino acid aminotransferase - phenylalanine	True
+araphe3	indpyr + phe_L <=> phpyr + trp_L	aromatic amino acid aminotransferase - phenylalanine	True
+aratry1	_4mop + trp_L <=> indpyr + leu_L	aromatic amino acid aminotransferase - tryptophan	True
+aratry2	_3mop + trp_L <=> ile_L + indpyr	aromatic amino acid aminotransferase - tryptophan	True
+aratyr1	_4mop + tyr_L <=> _34hpp + leu_L	aromatic amino acid aminotransferase - tyrosine	True
+aratyr2	_3mop + tyr_L <=> _34hpp + ile_L	aromatic amino acid aminotransferase - tyrosine	True
+aratyr3	phpyr + tyr_L <=> _34hpp + phe_L	aromatic amino acid aminotransferase - tyrosine	True
+aratyr4	indpyr + tyr_L <=> _34hpp + trp_L	aromatic amino acid aminotransferase - tyrosine	True
+kaasIII	accoa + h + malacp <=> aaacp + co2 + coa	beta-ketoacyl-ACP synthase III	False
+%			
+!!SBtab TableName='Compound' TableType='Compound' Document='Lactococcus lactis central metabolism' SBtabVersion='0.9'			
+!Compound	!Name	!IsConstant	
+_10fthf	10-Formyltetrahydrofolate	False	
+_12dgr_LLA	1,2-diacylglycerol (lactis specific)	False	
+_13dpg	3-Phospho-D-glyceroyl phosphate	False	
+_1pyr5c	1-Pyrroline-5-carboxylate	False	
+_23dhdp	2,3-Dihydrodipicolinate	False	
+_23dhmb	(R)-2,3-Dihydroxy-3-methylbutanoate	False	
+_23dhmp	(R)-2,3-Dihydroxy-3-methylpentanoate	False	
+_25aics	(S)-2-[5-Amino-1-(5-phospho-D-ribosyl)imidazole-4-carboxamido]succinate	False	
+_25dhpp	2,5-Diamino-6-hydroxy-4-(5'-phosphoribosylamino)-pyrimidine	False	
+_26dap_LL	LL-2,6-Diaminoheptanedioate	False	
+_26dap_M	meso-2,6-Diaminoheptanedioate	False	
+_2aeppn	(2-Aminoethyl)phosphonate	True	
+_2ahbut	(S)-2-Aceto-2-hydroxybutanoate	False	
+_2ahhmd	2-Amino-4-hydroxy-6-hydroxymethyl-7,8-dihydropteridine diphosphate	True	
+_2ahhmp	2-Amino-4-hydroxy-6-hydroxymethyl-7,8-dihydropteridine	True	
+_2beacp	But-2-enoyl-[acyl-carrier protein]	False	
+_2c25dho	2-Carboxy-2,5-dihydro-5-oxofuran-2-acetate	True	
+_2chdeacp	cis-Hexadec-2-enoyl-[acyl-carrier protein]	False	
+_2cocdacp	cis-Octadec-2-enoyl-[acyl-carrier-protein]	False	
+_2cpr5p	1-(2-Carboxyphenylamino)-1-deoxy-D-ribulose 5-phosphate	False	
+_2ctdeacp	cis-Tetradec-2-enoyl-[acyl-carrier protein]	False	
+_2dda7p	2-Dehydro-3-deoxy-D-arabino-heptonate 7-phosphate	False	
+_2ddg6p	2-Dehydro-3-deoxy-D-gluconate 6-phosphate	True	
+_2ddglcn	2-Dehydro-3-deoxy-D-gluconate	True	
+_2dhp	2-Dehydropantoate	True	
+_2dmmq8	2-Demethylmenaquinone 8	True	
+_2dr1p	2-Deoxy-D-ribose 1-phosphate	False	
+_2dr5p	2-Deoxy-D-ribose 5-phosphate	False	
+_2hxic_L	L-2-hydroxyisocaproate	False	
+_2hxmp	2-(Hydroxymethyl)phenol	True	
+_2ippm	2-Isopropylmaleate	False	
+_2mahmp	2-Methyl-4-amino-5-hydroxymethylpyrimidine diphosphate	False	
+_2mop	2-Methyl-3-oxopropanoate	True	
+_2obut	2-Oxobutanoate	False	
+_2pg	D-Glycerate 2-phosphate	False	
+_2shchc	2-Succinyl-6-hydroxy-2,4-cyclohexadiene-1-carboxylate	False	
+_2tddacp	trans-Dodec-2-enoyl-[acyl-carrier protein]	False	
+_2tdeacp	trans-Dec-2-enoyl-[acyl-carrier protein]	False	
+_2thdeacp	trans-Hexadec-2-enoyl-[acyl-carrier protein]	False	
+_2theacp	trans-Hex-2-enoyl-[acp]	False	
+_2tocdacp	trans-Octadec-2-enoyl-[acyl-carrier-protein]	False	
+_2toceacp	trans-Oct-2-enoyl-[acp]	False	
+_2ttdeacp	trans-Tetradec-2-enoyl-[acyl-carrier protein]	False	
+_34hpp	3-(4-Hydroxyphenyl)pyruvate	False	
+_3c2hmp	3-Carboxy-2-hydroxy-4-methylpentanoate	True	
+_3c3hmp	3-Carboxy-3-hydroxy-4-methylpentanoate	True	
+_3dhq	3-Dehydroquinate	False	
+_3dhsk	3-Dehydroshikimate	False	
+_3hbacp	(3R)-3-Hydroxybutanoyl-[acyl-carrier protein]	False	
+_3hddacp	(R)-3-Hydroxydodecanoyl-[acyl-carrier protein]	False	
+_3hdeacp	(3R)-3-Hydroxydecanoyl-[acyl-carrier protein]	False	
+_3hhacp	(R)-3-Hydroxyhexanoyl-[acp]	False	
+_3hmp	3-Hydroxy-2-methylpropanoate	True	
+_3hocacp	(R)-3-Hydroxyoctanoyl-[acyl-carrier protein]	False	
+_3hocdacp	(3R)-3-Hydroxyoctadecanoyl-[acyl-carrier protein	False	
+_3hpaacp	(3R)-3-Hydroxypalmitoyl-[acyl-carrier protein]	False	
+_3htdacp	(3R)-3-Hydroxytetradecanoyl-[acyl-carrier protein]	False	
+_3ig3p	C'-(3-Indolyl)-glycerol 3-phosphate	False	
+_3mob	3-Methyl-2-oxobutanoate	False	
+_3mop	(S)-3-Methyl-2-oxopentanoate	False	
+_3oxddacp	3-Oxododecanoyl-[acyl-carrier protein]	False	
+_3oxdeacp	3-Oxodecanoyl-[acyl-carrier protein]	False	
+_3oxhacp	3-Oxohexanoyl-[acyl-carrier protein]	False	
+_3oxhdacp	3-Oxohexadecanoyl-[acp]	False	
+_3oxocacp	3-Oxooctanoyl-[acyl-carrier protein]	False	
+_3oxocdacp	3-Oxooctadecanoyl-[acp]	False	
+_3oxtdacp	3-Oxotetradecanoyl-[acyl-carrier protein]	False	
+_3pg	3-Phospho-D-glycerate	False	
+_3php	3-Phosphohydroxypyruvate	False	
+_3psme	5-O-(1-Carboxyvinyl)-3-phosphoshikimate	False	
+_4abut	4-Aminobutanoate	False	
+_4abz	4-Aminobenzoate	True	
+_4adcho	4-amino-4-deoxychorismate	True	
+_4ahmmp	4-Amino-5-hydroxymethyl-2-methylpyrimidine	False	
+_4ampm	4-Amino-2-methyl-5-phosphomethylpyrimidine	False	
+_4h2oxg	D-4-Hydroxy-2-oxoglutarate	True	
+_4hglu	4-Hydroxy-L-glutamate	True	
+_4mhetz	4-Methyl-5-(2-hydroxyethyl)-thiazole	True	
+_4mop	4-Methyl-2-oxopentanoate	False	
+_4mpetz	4-Methyl-5-(2-phosphoethyl)-thiazole	False	
+_4pasp	4-Phospho-L-aspartate	False	
+_4ppan	D-4'-Phosphopantothenate	False	
+_4ppcys	N-((R)-4-Phosphopantothenoyl)-L-cysteine	False	
+_4r5au	4-(1-D-Ribitylamino)-5-aminouracil	False	
+_5aizc	5-amino-1-(5-phospho-D-ribosyl)imidazole-4-carboxylate	False	
+_5aprbu	5-Amino-6-(5'-phosphoribitylamino)uracil	True	
+_5apru	5-Amino-6-(5'-phosphoribosylamino)uracil	False	
+_5dpmev	(R)-5-Diphosphomevalonate	False	
+_5fothf	5-Formyltetrahydrofolate	True	
+_5mta	5-Methylthioadenosine	True	
+_5mthf	5-Methyltetrahydrofolate	False	
+_5mthglu	5-Methyltetrahydropteroyltri-L-glutamate	True	
+_5mtr	5-Methylthio-D-ribose	True	
+_5odhf2a	5-Oxo-4,5-dihydrofuran-2-acetate	True	
+_5pmev	(R)-5-Phosphomevalonate	False	
+_6pgc	6-Phospho-D-gluconate	False	
+_6pgg	6-Phospho-beta-D-glucosyl-(1,4)-D-glucose	False	
+_6pgl	6-phospho-D-glucono-1,5-lactone	False	
+ACP	acyl carrier protein	True	
+ACP_#2	acyl carrier protein	True	
+CPS_LLA	Polysaccharide units Lactis specific	False	
+DNA_LLA	DNA composition (lactis specific)	False	
+LTAAlaGal_LLA	Lipoteichoic acid (n=16, with 0,38 ala and 0.62 gal)	False	
+LTA_LLA	Lipoteichoic acid (n=16, Lactis specific)	False	
+LTAala_LLA	Lipoteichoic acid (n=16, with 0.38 ala substitutions)	False	
+N1aspmd	N1-Acetylspermidine	True	
+N8aspmd	N8-Acetylspermidine	True	
+PG	peptidoglycan	False	
+RNA_LLA	RNA biosynthesis (lactis)	False	
+a_gal_D	alpha-D galactose	False	
+aaacp	Acetoacetyl-[acyl-carrier protein]	False	
+aacoa	Acetoacetyl-CoA	False	
+ac	Acetate	False	
+acACP	Acetyl-ACP	True	
+acald	Acetaldehyde	False	
+acamoxm	N-Acetyl-L-2-amino-6-oxopimelate	False	
+acara	N-Acetoxyarylamine	True	
+accoa	Acetyl-CoA	False	
+acg5p	N-Acetyl-L-glutamyl 5-phosphate	False	
+acg5sa	N-Acetyl-L-glutamate 5-semialdehyde	False	
+acgal6p	N-acetylgalactosamine 6-phosphate	True	
+acgam	N-Acetyl-D-glucosamine	True	
+acgam1p	N-Acetyl-D-glucosamine 1-phosphate	False	
+acgam6p	N-Acetyl-D-glucosamine 6-phosphate	False	
+acglu	N-Acetyl-L-glutamate	False	
+achms	O-Acetyl-L-homoserine	False	
+acmalt	Acetyl-maltose	True	
+acmanap	N-Acetyl-D-mannosamine 6-phosphate	False	
+acorn	N2-Acetyl-L-ornithine	False	
+acp	Acyl-carrier Protein	False	
+acser	O-Acetyl-L-serine	False	
+actn_R	(R)-Acetoin	False	
+actp	Acetyl phosphate	False	
+ade	Adenine	False	
+adn	Adenosine	False	
+adp	ADP	False	
+adpglc	ADPglucose	False	
+adprib	ADPribose	False	
+agly3p_LLA	1-Acyl-sn-glycerol 3-phosphate (lactis specific)	False	
+ahcys	S-Adenosyl-L-homocysteine	False	
+ahdt	2-Amino-4-hydroxy-6-(erythro-1,2,3-trihydroxypropyl)dihydropteridine triphosphate	True	
+aicar	5-Amino-1-(5-Phospho-D-ribosyl)imidazole-4-carboxamide	False	
+air	5-amino-1-(5-phospho-D-ribosyl)imidazole	False	
+akg	2-Oxoglutarate	False	
+al26da	N6-Acetyl-LL-2,6-diaminoheptanedioate	False	
+ala_D	D-Alanine	False	
+ala_L	L-Alanine	False	
+alaala	D-Alanyl-D-alanine	False	
+alac_S	(S)-2-Acetolactate	False	
+alatrna	L-Alanyl-tRNA(Ala)	False	
+amet	S-Adenosyl-L-methionine	False	
+amp	AMP	False	
+anth	Anthranilate	False	
+apoACP	apoprotein [acyl carrier protein]	False	
+arbt6p	Arbutin 6-phosphate	True	
+arg_L	L-Arginine	False	
+argsuc	N(omega)-(L-Arginino)succinate	False	
+argtrna	L-Arginyl-tRNA(Arg)	False	
+asn_L	L-Asparagine	False	
+asntrna	L-Asparaginyl-tRNA(Asn)	False	
+asp_D	D-Aspartate	True	
+asp_L	L-Aspartate	False	
+aspsa	L-Aspartate 4-semialdehyde	False	
+asptrna	L-Aspartyl-tRNA(Asp)	False	
+atp	ATP	False	
+btd_RR	(R,R)-2,3-Butanediol	False	
+butacp	Butyryl-[acyl-carrier protein]	False	
+carorn	N5-(L-1-carboxyethyl)-L-ornithine	True	
+cbasp	N-Carbamoyl-L-aspartate	False	
+cbp	Carbamoyl phosphate	False	
+cdp	CDP	False	
+cdpdag_LLA	CDPdiacylglycerol (lactis specific	False	
+cdpglyc	CDPglycerol	False	
+cdprbtl	CDPribitol	True	
+chitin	Chitin	True	
+chol	Choline	True	
+chor	Chorismate	False	
+cit	Citrate	False	
+citr_L	L-Citrulline	False	
+clpn_LLA	Cardiolipin (lactis specific)	False	
+cmp	CMP	False	
+co2	CO2	False	
+coa	Coenzyme A	False	
+cpocdacp	cyclopropanoyl octadecanoyl-[acyl-carrier protein]	False	
+cpppg3	Coproporphyrinogen III	True	
+csn	Cytosine	False	
+ctp	CTP	False	
+cys_L	L-Cysteine	False	
+cysth_L	L-Cystathionine	False	
+cystrna	L-Cysteinyl-tRNA(Cys)	False	
+cytd	Cytidine	False	
+d12dg_LLA	diglucosyl-1,2 diacylglycerol	False	
+dad_2	Deoxyadenosine	False	
+dadp	dADP	False	
+damp	dAMP	False	
+datp	dATP	False	
+db4p	3,4-dihydroxy-2-butanone 4-phosphate	False	
+dcamp	N6-(1,2-Dicarboxyethyl)-AMP	False	
+dcdp	dCDP	False	
+dcmp	dCMP	False	
+dctp	dCTP	False	
+dcyt	Deoxycytidine	False	
+ddeacp	Dodecanoyl-[acyl-carrier protein]	False	
+decacp	Decanoyl-[acyl-carrier protein]	False	
+dgdp	dGDP	False	
+dgmp	dGMP	True	
+dgsn	Deoxyguanosine	False	
+dgtp	dGTP	False	
+dha	Dihydroxyacetone	False	
+dhap	Dihydroxyacetone phosphate	False	
+dhf	7,8-Dihydrofolate	False	
+dhna	1,4-Dihydroxy-2-naphthoate	False	
+dhnpt	2-Amino-4-hydroxy-6-(D-erythro-1,2,3-trihydroxypropyl)-7,8-dihydropteridine	True	
+dhor_S	(S)-Dihydroorotate	False	
+dhpt	Dihydropteroate	False	
+diact	Diacetyl	False	
+dimp	dIMP	True	
+din	Deoxyinosine	False	
+dmlz	6,7-Dimethyl-8-(1-D-ribityl)lumazine	False	
+dmpp	Dimethylallyl diphosphate	False	
+dnad	Deamino-NAD+	False	
+dpcoa	Dephospho-CoA	False	
+drib	Deoxyribose	False	
+dtdp	dTDP	False	
+dtdp6dm	dTDP-6-deoxy-L-mannose	False	
+dtdpddg	dTDP-4-dehydro-6-deoxy-D-glucose	False	
+dtdpddm	dTDP-4-dehydro-6-deoxy-L-mannose	False	
+dtdpglc	dTDPglucose	False	
+dtmp	dTMP	False	
+dttp	dTTP	False	
+dudp	dUDP	False	
+dump	dUMP	False	
+duri	Deoxyuridine	False	
+dutp	dUTP	False	
+dxyl5p	1-deoxy-D-xylulose 5-phosphate	True	
+e4p	D-Erythrose 4-phosphate	False	
+eig3p	D-erythro-1-(Imidazol-4-yl)glycerol 3-phosphate	False	
+etha	Ethanolamine	True	
+etoh	Ethanol	False	
+f1p	D-Fructose 1-phosphate	False	
+f6p	D-Fructose 6-phosphate	False	
+fad	FAD	False	
+fadh2	FADH2	False	
+fdp	D-Fructose 1,6-bisphosphate	False	
+fdxo_4_2	ferrodoxin (oxidized form 4:2)	True	
+fdxr_4_2	ferrodoxin (reduced form 4:2)	True	
+fe2	Fe2+	True	
+fe3	Fe3+	True	
+fgam	N2-Formyl-N1-(5-phospho-D-ribosyl)glycinamide	False	
+fmet	N-Formyl-L-methionine	True	
+fmn	flavin mononucleotide	False	
+fol	Folate	False	
+for	Formate	False	
+fpram	2-(Formamido)-N1-(5-phospho-D-ribosyl)acetamidine	False	
+fprica	5-Formamido-1-(5-phospho-D-ribosyl)imidazole-4-carboxamide	False	
+frdp	Farnesyl diphosphate	False	
+fru	D-Fructose	False	
+fruur	D-Fructuronate	False	
+fum	Fumarate	False	
+g1p	D-Glucose 1-phosphate	False	
+g1p_B	beta-D-Glucose 1-phosphate	False	
+g3p	Glyceraldehyde 3-phosphate	False	
+g3pc	sn-Glycero-3-phosphocholine	True	
+g3pe	sn-Glycero-3-phosphoethanolamine	True	
+g3pg	Glycerophosphoglycerol	True	
+g3pi	sn-Glycero-3-phospho-1-inositol	True	
+g3ps	Glycerophosphoserine	True	
+g6p	D-Glucose 6-phosphate	False	
+g6p_B	beta-D-glucose 6-phosphate	False	
+gal	D-Galactose	False	
+gal1p	alpha-D-Galactose 1-phosphate	False	
+galt1p	Galactitol 1-phosphate	True	
+galur	D-Galacturonate	True	
+gam1p	D-Glucosamine 1-phosphate	False	
+gam6p	D-Glucosamine 6-phosphate	False	
+gar	N1-(5-Phospho-D-ribosyl)glycinamide	False	
+gcald	Glycolaldehyde	True	
+gdp	GDP	False	
+gdptp	Guanosine 3'-diphosphate 5'-triphosphate	True	
+glc_D	D-Glucose	False	
+glcn_D	D-Gluconate	False	
+glcur	D-Glucuronate	True	
+gln_L	L-Glutamine	False	
+glntrna	L-Glutaminyl-tRNA(Gln)	False	
+glu_D	D-Glutamate	False	
+glu_L	L-Glutamate	False	
+glu5p	L-Glutamate 5-phosphate	False	
+glu5sa	L-Glutamate 5-semialdehyde	False	
+glutrna	L-Glutamyl-tRNA(Glu)	False	
+glutrnagln	glutamine-tRNA charged with glutamate	False	
+gly	Glycine	False	
+glyald	D-Glyceraldehyde	True	
+glyb	Glycine betaine	True	
+glyc	Glycerol	False	
+glyc3p	sn-Glycerol 3-phosphate	False	
+glycogen	glycogen	False	
+glytrna	Glycyl-tRNA(Gly)	False	
+gmh7p	D-Glycero-D-manno-heptose 7-phosphate	True	
+gmp	GMP	False	
+grdp	Geranyl diphosphate	False	
+gsn	Guanosine	True	
+gthox	Oxidized glutathione	False	
+gthrd	Reduced glutathione	False	
+gtp	GTP	False	
+gua	Guanine	False	
+h	H+	False	
+h2o	H2O	False	
+h2o2	Hydrogen peroxide	False	
+h2s	Hydrogen sulfide	False	
+haram	N-Hydroxyarylamine	True	
+hco3	Bicarbonate	False	
+hcys_L	L-Homocysteine	False	
+hdeacp	Hexadecanoyl-[acyl-carrier protein]	False	
+hepdp	all-trans-Heptaprenyl diphosphate	True	
+hexacp	Hexanoyl-[acyl-carrier protein]	False	
+his_L	L-Histidine	False	
+hisp	L-Histidinol phosphate	False	
+histd	L-Histidinol	False	
+histrna	L-Histidyl-tRNA(His)	False	
+hmgcoa	Hydroxymethylglutaryl-CoA	False	
+hom_L	L-Homoserine	False	
+hqn	Hydroquinone	True	
+hxan	Hypoxanthine	False	
+ichor	Isochorismate	False	
+icit	Isocitrate	False	
+idp	IDP	True	
+ile_L	L-Isoleucine	False	
+iletrna	L-Isoleucyl-tRNA(Ile)	False	
+imacp	3-(Imidazol-4-yl)-2-oxopropyl phosphate	False	
+imp	IMP	False	
+indole	Indole	True	
+indpyr	Indolepyruvate	False	
+inost	myo-Inositol	True	
+ins	Inosine	False	
+ipdp	Isopentenyl diphosphate	False	
+itp	ITP	True	
+lac_L	L-Lactate	False	
+lcts	Lactose	False	
+leu_L	L-Leucine	False	
+leutrna	L-Leucyl-tRNA(Leu)	False	
+lys_L	L-Lysine	False	
+lyspg_LLA	1-lysyl-phosphatidyl glycerol (lactis specific)	False	
+lystrna	L-Lysine-tRNA (Lys)	False	
+m12dg_LLA	monoglucosyl-1,2 diacylglycerol	False	
+mal_L	L-Malate	False	
+malacp	Malonyl-[acyl-carrier protein]	False	
+malcoa	Malonyl-CoA	False	
+malt	Maltose	False	
+malthp	Maltoheptaose	True	
+malthx	Maltohexaose	False	
+maltpt	Maltopentaose	False	
+malttr	Maltotriose	True	
+maltttr	Maltotetraose	False	
+man6p	D-Mannose 6-phosphate	False	
+mana	D-Mannonate	False	
+mercppyr	Mercaptopyruvate	True	
+met_D	D-Methionine	True	
+met_L	L-Methionine	False	
+methf	5,10-Methenyltetrahydrofolate	False	
+mettrna	L-Methionyl-tRNA (Met)	False	
+mev_R	(R)-Mevalonate	False	
+mi1p_D	1D-myo-Inositol 1-phosphate	True	
+mlthf	5,10-Methylenetetrahydrofolate	False	
+mn2	Mn2+	True	
+mnl1p	D-Mannitol 1-phosphate	False	
+mql7	Menaquinol 7	False	
+mqn7	Menaquinone 7	False	
+nac	Nicotinate	False	
+nad	Nicotinamide adenine dinucleotide	False	
+nadh	Nicotinamide adenine dinucleotide - reduced	False	
+nadp	Nicotinamide adenine dinucleotide phosphate	False	
+nadph	Nicotinamide adenine dinucleotide phosphate - reduced	False	
+ncam	Nicotinamide	False	
+nh3	Ammonia	True	
+nh4	Ammonium	False	
+nicrnt	Nicotinate D-ribonucleotide	False	
+nmn	NMN	False	
+o2	O2	False	
+o2_	Superoxide	True	
+oaa	Oxaloacetate	False	
+ocdacp	Octadecanoyl-[acyl-carrier protein]	False	
+octacp	Octanoyl-[acyl-carrier protein]	False	
+octdp	all-trans-Octaprenyl diphosphate	True	
+ohpb	2-Oxo-3-hydroxy-4-phosphobutanoate	True	
+orn_L	L-Ornithine	False	
+orot	Orotate	False	
+orot5p	Orotidine 5'-phosphate	False	
+pa_LLA	phosphatidic acid (Lactis specific)	False	
+pacald	Phenylacetaldehyde	False	
+pan4p	Pantetheine 4'-phosphate	False	
+pant_R	(R)-Pantoate	True	
+pap	Adenosine 3',5'-bisphosphate	True	
+pea	Phenylethyl alcohol	False	
+pep	Phosphoenolpyruvate	False	
+pg_LLA	Phospatidylglycerol (Lactis specific)	False	
+pgp_LLA	Phosphatidylglycerophosphate (lactis specific)	False	
+phe_L	L-Phenylalanine	False	
+phetrna	L-Phenylalanyl-tRNA(Phe)	False	
+phom	O-Phospho-L-homoserine	False	
+phpyr	Phenylpyruvate	False	
+phthr	O-Phospho-4-hydroxy-L-threonine	True	
+pi	Phosphate	False	
+pnto_R	(R)-Pantothenate	False	
+pphn	Prephenate	False	
+ppi	Diphosphate	False	
+pppg9	Protoporphyrinogen IX	True	
+pppi	Inorganic triphosphate	True	
+pram	5-Phospho-beta-D-ribosylamine	False	
+pran	N-(5-Phospho-D-ribosyl)anthranilate	False	
+prbamp	1-(5-Phosphoribosyl)-AMP	False	
+prbatp	1-(5-Phosphoribosyl)-ATP	False	
+prfp	1-(5-Phosphoribosyl)-5-[(5-phosphoribosylamino)methylideneamino]imidazole-4-carboxamide	False	
+prlp	5-[(5-phospho-1-deoxyribulos-1-ylamino)methylideneamino]-1-(5-phosphoribosyl)imidazole-4-carboxamide	False	
+pro_L	L-Proline	False	
+prot_LLA	Protein for biomass (Lactis specific)	False	
+protrna	L-Prolyl-tRNA(Pro)	False	
+prpp	5-Phospho-alpha-D-ribose 1-diphosphate	False	
+psd5p	Pseudouridine 5'-phosphate	False	
+pser_L	O-Phospho-L-serine	False	
+ptrc	Putrescine	True	
+pyr	Pyruvate	False	
+pyrimid	Pyrimidine	True	
+pyrin	Pyrimidine nucleoside	True	
+r1p	alpha-D-Ribose 1-phosphate	False	
+r5p	alpha-D-Ribose 5-phosphate	False	
+rhcys	S-Ribosyl-L-homocysteine	False	
+rib_D	D-Ribose	False	
+ribflv	Riboflavin	False	
+ribflvRD	Reduced riboflavin	True	
+ru5p_D	D-Ribulose 5-phosphate	False	
+s7p	Sedoheptulose 7-phosphate	False	
+salc6p	Salicin 6-phosphate	True	
+sbt6p	D-Sorbitol 6-phosphate	True	
+sbzcoa	O-Succinylbenzoyl-CoA	False	
+ser_D	D-Serine	True	
+ser_L	L-Serine	False	
+sertrna	L-Seryl-tRNA(Ser)	False	
+skm	Shikimate	False	
+skm5p	Shikimate 5-phosphate	False	
+sl2a6o	N-Succinyl-2-L-amino-6-oxoheptanedioate	True	
+so4	Sulfate	True	
+spmd	Spermidine	False	
+suc6p	Sucrose 6-phosphate	False	
+sucbz	o-Succinylbenzoate	False	
+succ	Succinate	False	
+succoa	Succinyl-CoA	True	
+suchms	O-Succinyl-L-homoserine	False	
+sucr	Sucrose	False	
+tag6p_D	D-Tagatose 6-phosphate	True	
+tagdp_D	D-Tagatose 1,6-biphosphate	True	
+tagur	D-Tagaturonate	True	
+tdeacp	Tetradecanoyl-[acyl-carrier protein]	False	
+thdp	2,3,4,5-Tetrahydrodipicolinate	False	
+thf	5,6,7,8-Tetrahydrofolate	False	
+thfglu	Tetrahydrofolyl-[Glu](2)	True	
+thglu	Tetrahydropteroyltri-L-glutamate	True	
+thm	Thiamin	False	
+thmmp	Thiamin monophosphate	False	
+thmpp	Thiamine diphosphate	False	
+thr_L	L-Threonine	False	
+thrtrna	L-Threonyl-tRNA(Thr)	False	
+thym	Thymine	True	
+thymd	Thymidine	False	
+trdox	Oxidized thioredoxin	False	
+trdrd	Reduced thioredoxin	False	
+tre6p	alpha,alpha'-Trehalose 6-phosphate	False	
+trnaala	tRNA(Ala)	False	
+trnaarg	tRNA(Arg)	False	
+trnaasn	tRNA(Asn)	False	
+trnaasp	tRNA(Asp)	False	
+trnacys	tRNA(Cys)	False	
+trnagln	tRNA(Gln)	False	
+trnaglu	tRNA (Glu)	False	
+trnagly	tRNA(Gly)	False	
+trnahis	tRNA(His)	False	
+trnaile	tRNA(Ile)	False	
+trnaleu	tRNA(Leu)	False	
+trnalys	tRNA(Lys)	False	
+trnamet	tRNA(Met)	False	
+trnaphe	tRNA(Phe)	False	
+trnapro	tRNA(Pro)	False	
+trnaser	tRNA(Ser)	False	
+trnathr	tRNA(Thr)	False	
+trnatrp	tRNA(Trp)	False	
+trnatyr	tRNA(Tyr)	False	
+trnaval	tRNA(Val)	False	
+trp_L	L-Tryptophan	False	
+trptrna	L-Tryptophanyl-tRNA(Trp)	False	
+tyr_L	L-Tyrosine	False	
+tyrtrna	L-Tyrosyl-tRNA(Tyr)	False	
+uAgl	UDP-N-acetylmuramoyl-L-alanyl-D-glutamyl-L-lysine	False	
+uAgla	UDP-N-acetylmuramoyl-L-alanyl-D-glutamyl-L-lysyl-D-alanyl-D-alanine	False	
+uaAgla	Undecaprenyl-diphospho-N-acetylmuramoyl-L-alanyl-D-glutamyl-L-lysyl-D-alanyl-D-alanine	False	
+uaaAgla	Undecaprenyl-diphospho-N-acetylmuramoyl-(N-acetylglucosamine)-L-alanyl-D-glutamyl-L-lysyl-D-alanyl-D-alanine	False	
+uaccg	UDP-N-acetyl-3-O-(1-carboxyvinyl)-D-glucosamine	False	
+uacgam	UDP-N-acetyl-D-glucosamine	False	
+uama	UDP-N-acetylmuramoyl-L-alanine	False	
+uamag	UDP-N-acetylmuramoyl-L-alanyl-D-glutamate	False	
+uamr	UDP-N-acetylmuramate	False	
+udcp	Undecaprenol	True	
+udcpdp	Undecaprenyl diphosphate	False	
+udcpp	Undecaprenyl phosphate	False	
+udp	UDP	False	
+udpg	UDPglucose	False	
+udpgal	UDPgalactose	False	
+udpgalfur	UDP-D-galacto-1,4-furanose	True	
+udpglcur	UDP-D-glucuronate	True	
+ugmd	UDP-N-acetylmuramoyl-L-alanyl-D-gamma-glutamyl-meso-2,6-diaminopimelate	True	
+ump	UMP	False	
+unRTA	undecaprenyl-teichoic acid with ribitol	True	
+unaga	Undecaprenyl diphospho N-acetyl-glucosamine	True	
+unagama	Undecaprenyl-diphospho-N-acetylglucosamine-N-acetylmannosamine	True	
+unagamagp	Undecaprenyl-diphospho-N-acetylglucosamine-N-acetylmannosamine-glycerolphosphate	False	
+ura	Uracil	False	
+uri	Uridine	False	
+utp	UTP	False	
+val_L	L-Valine	False	
+valtrna	L-Valyl-tRNA(Val)	False	
+xan	Xanthine	False	
+xmp	Xanthosine 5'-phosphate	False	
+xtsn	Xanthosine	True	
+xu5p_D	D-Xylulose 5-phosphate	False	
+xyl_D	D-Xylose	True	
+xylu_D	D-Xylulose	True	
+zn2	Zinc	True	
+_2aeppn	(2-Aminoethyl)phosphonate	False	
+_2hxic_L	L-2-hydroxyisocaproate	False	
+_4abut	4-Aminobutanoate	False	
+ac	Acetate	False	
+acald	Acetaldehyde	False	
+acgala	N-Acetyl-D-galactosamine	False	
+acgam	N-Acetyl-D-glucosamine	False	
+acmana	N-Acetyl-D-mannosamine	False	
+actn_R	(R)-Acetoin	False	
+ade	Adenine	False	
+ala_D	D-Alanine	False	
+ala_L	L-Alanine	False	
+arg_L	L-Arginine	False	
+asn_L	L-Asparagine	False	
+asp_L	L-Aspartate	False	
+btd_RR	(R,R)-2,3-Butanediol	False	
+cellb	cellobiose	False	
+chol	Choline	False	
+co2	CO2	False	
+cys_L	L-Cysteine	False	
+dha	Dihydroxyacetone	False	
+diact	Diacetyl	False	
+drib	Deoxyribose	False	
+etoh	Ethanol	False	
+fe2	Fe2+	False	
+fe3	Fe3+	False	
+fol	Folate	False	
+for	Formate	False	
+fru	D-Fructose	False	
+gal	D-Galactose	False	
+galt	Galactitol	False	
+glc_D	D-Glucose	False	
+glcn_D	D-Gluconate	False	
+gln_L	L-Glutamine	False	
+glu_L	L-Glutamate	False	
+gly	Glycine	False	
+glyb	Glycine betaine	False	
+glyc	Glycerol	False	
+glyc3p	sn-Glycerol 3-phosphate	False	
+gua	Guanine	False	
+h	H+	False	
+h2o	H2O	False	
+his_L	L-Histidine	False	
+hxan	Hypoxanthine	False	
+ile_L	L-Isoleucine	False	
+ins	Inosine	False	
+lac_L	L-Lactate	False	
+lcts	Lactose	False	
+leu_L	L-Leucine	False	
+lys_L	L-Lysine	False	
+mal_L	L-Malate	False	
+malt	Maltose	False	
+man	D-Mannose	False	
+met_D	D-Methionine	False	
+met_L	L-Methionine	False	
+mn2	Mn2+	False	
+mnl	D-Mannitol	False	
+nac	Nicotinate	False	
+nh4	Ammonium	False	
+nmn	NMN	False	
+o2	O2	False	
+orn_L	L-Ornithine	False	
+orot	Orotate	False	
+pacald	Phenylacetaldehyde	False	
+pea	Phenylethyl alcohol	False	
+phe_L	L-Phenylalanine	False	
+pi	Phosphate	False	
+pnto_R	(R)-Pantothenate	False	
+ppi	Diphosphate	False	
+pro_L	L-Proline	False	
+ptrc	Putrescine	False	
+pyr	Pyruvate	False	
+rib_D	D-Ribose	False	
+ribflv	Riboflavin	False	
+sbt_D	D-Sorbitol	False	
+ser_D	D-Serine	False	
+ser_L	L-Serine	False	
+so4	Sulfate	False	
+spmd	Spermidine	False	
+succ	Succinate	False	
+sucr	Sucrose	False	
+thm	Thiamin	False	
+thr_L	L-Threonine	False	
+thymd	Thymidine	False	
+tre	Trehalose	False	
+trp_L	L-Tryptophan	False	
+tyr_L	L-Tyrosine	False	
+ura	Uracil	False	
+val_L	L-Valine	False	
+xan	Xanthine	False	
+zn2	Zinc	False	

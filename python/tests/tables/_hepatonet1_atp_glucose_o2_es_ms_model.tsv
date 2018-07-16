@@ -1,0 +1,508 @@
+!!SBtab TableName='Reaction' TableType='Reaction' Document='Model' SBtabVersion='1.0'					
+!ID	!ReactionFormula	!IsReversible	!SBML:reaction:id	!KineticLaw:Name	!KineticLaw:Formula
+r0017	O2__m_ + 4 Hplus_PG___m_ + 4 Ferrocytochrome_C__m_ <=> 2 H2O__m_ + 4 Hplus_PG___c_ + 4 Ferricytochrome_C__m_	True	r0017	Simultaneous binding (SM)	u_R1 * ( kC_R1 * sqrt( kEQ_R1  * kM_R1_O2__m_ * power( kM_R1_Hplus_PG___m_ , 4 ) * power( kM_R1_Ferrocytochrome_C__m_ , 4 ) / power( kM_R1_H2O__m_ , 2 ) / power( kM_R1_Hplus_PG___c_ , 4 ) / power( kM_R1_Ferricytochrome_C__m_ , 4 ) ) * ( O2__m_ / kM_R1_O2__m_ ) * power( Hplus_PG___m_ / kM_R1_Hplus_PG___m_ , 4 ) * power( Ferrocytochrome_C__m_ / kM_R1_Ferrocytochrome_C__m_ , 4 ) - kC_R1 / sqrt( kEQ_R1  * kM_R1_O2__m_ * power( kM_R1_Hplus_PG___m_ , 4 ) * power( kM_R1_Ferrocytochrome_C__m_ , 4 ) / power( kM_R1_H2O__m_ , 2 ) / power( kM_R1_Hplus_PG___c_ , 4 ) / power( kM_R1_Ferricytochrome_C__m_ , 4 ) ) * power( H2O__m_ / kM_R1_H2O__m_ , 2 ) * power( Hplus_PG___c_ / kM_R1_Hplus_PG___c_ , 4 ) * power( Ferricytochrome_C__m_ / kM_R1_Ferricytochrome_C__m_ , 4 ) ) / ( ( 1 + O2__m_ / kM_R1_O2__m_ ) * power( 1 + Hplus_PG___m_ / kM_R1_Hplus_PG___m_ , 4 ) * power( 1 + Ferrocytochrome_C__m_ / kM_R1_Ferrocytochrome_C__m_ , 4 ) * power( 1 + H2O__m_ / kM_R1_H2O__m_ , 2 ) * power( 1 + Hplus_PG___c_ / kM_R1_Hplus_PG___c_ , 4 ) * power( 1 + Ferricytochrome_C__m_ / kM_R1_Ferricytochrome_C__m_ , 4 ) )
+r0019	H2O__m_ + ATP__m_ + 3 Hplus_PG___m_ <=> ADP__m_ + Pi__m_ + 3 Hplus_PG___c_	True	r0019	Simultaneous binding (SM)	u_R2 * ( kC_R2 * sqrt( kEQ_R2  * kM_R2_H2O__m_ * kM_R2_ATP__m_ * power( kM_R2_Hplus_PG___m_ , 3 ) / kM_R2_ADP__m_ / kM_R2_Pi__m_ / power( kM_R2_Hplus_PG___c_ , 3 ) ) * ( H2O__m_ / kM_R2_H2O__m_ ) * ( ATP__m_ / kM_R2_ATP__m_ ) * power( Hplus_PG___m_ / kM_R2_Hplus_PG___m_ , 3 ) - kC_R2 / sqrt( kEQ_R2  * kM_R2_H2O__m_ * kM_R2_ATP__m_ * power( kM_R2_Hplus_PG___m_ , 3 ) / kM_R2_ADP__m_ / kM_R2_Pi__m_ / power( kM_R2_Hplus_PG___c_ , 3 ) ) * ( ADP__m_ / kM_R2_ADP__m_ ) * ( Pi__m_ / kM_R2_Pi__m_ ) * power( Hplus_PG___c_ / kM_R2_Hplus_PG___c_ , 3 ) ) / ( ( 1 + H2O__m_ / kM_R2_H2O__m_ ) * ( 1 + ATP__m_ / kM_R2_ATP__m_ ) * power( 1 + Hplus_PG___m_ / kM_R2_Hplus_PG___m_ , 3 ) * ( 1 + ADP__m_ / kM_R2_ADP__m_ ) * ( 1 + Pi__m_ / kM_R2_Pi__m_ ) * power( 1 + Hplus_PG___c_ / kM_R2_Hplus_PG___c_ , 3 ) )
+r0054	ATP__c_ + Pyruvate__c_ <=> ADP__c_ + PEP__c_	True	r0054	Simultaneous binding (SM)	u_R3 * ( kC_R3 * sqrt( kEQ_R3  * kM_R3_ATP__c_ * kM_R3_Pyruvate__c_ / kM_R3_ADP__c_ / kM_R3_PEP__c_ ) * ( ATP__c_ / kM_R3_ATP__c_ ) * ( Pyruvate__c_ / kM_R3_Pyruvate__c_ ) - kC_R3 / sqrt( kEQ_R3  * kM_R3_ATP__c_ * kM_R3_Pyruvate__c_ / kM_R3_ADP__c_ / kM_R3_PEP__c_ ) * ( ADP__c_ / kM_R3_ADP__c_ ) * ( PEP__c_ / kM_R3_PEP__c_ ) ) / ( ( 1 + ATP__c_ / kM_R3_ATP__c_ ) * ( 1 + Pyruvate__c_ / kM_R3_Pyruvate__c_ ) * ( 1 + ADP__c_ / kM_R3_ADP__c_ ) * ( 1 + PEP__c_ / kM_R3_PEP__c_ ) )
+r0056	NADplus__m_ + CoA__m_ + Pyruvate__m_ <=> NADH__m_ + CO2__m_ + Acetyl_CoA__m_	True	r0056	Simultaneous binding (SM)	u_R4 * ( kC_R4 * sqrt( kEQ_R4  * kM_R4_NADplus__m_ * kM_R4_CoA__m_ * kM_R4_Pyruvate__m_ / kM_R4_NADH__m_ / kM_R4_CO2__m_ / kM_R4_Acetyl_CoA__m_ ) * ( NADplus__m_ / kM_R4_NADplus__m_ ) * ( CoA__m_ / kM_R4_CoA__m_ ) * ( Pyruvate__m_ / kM_R4_Pyruvate__m_ ) - kC_R4 / sqrt( kEQ_R4  * kM_R4_NADplus__m_ * kM_R4_CoA__m_ * kM_R4_Pyruvate__m_ / kM_R4_NADH__m_ / kM_R4_CO2__m_ / kM_R4_Acetyl_CoA__m_ ) * ( NADH__m_ / kM_R4_NADH__m_ ) * ( CO2__m_ / kM_R4_CO2__m_ ) * ( Acetyl_CoA__m_ / kM_R4_Acetyl_CoA__m_ ) ) / ( ( 1 + NADplus__m_ / kM_R4_NADplus__m_ ) * ( 1 + CoA__m_ / kM_R4_CoA__m_ ) * ( 1 + Pyruvate__m_ / kM_R4_Pyruvate__m_ ) * ( 1 + NADH__m_ / kM_R4_NADH__m_ ) * ( 1 + CO2__m_ / kM_R4_CO2__m_ ) * ( 1 + Acetyl_CoA__m_ / kM_R4_Acetyl_CoA__m_ ) )
+r0083	Oxalosuccinate__m_ <=> CO2__m_ + AKG__m_	True	r0083	Simultaneous binding (SM)	u_R5 * ( kC_R5 * sqrt( kEQ_R5  * kM_R5_Oxalosuccinate__m_ / kM_R5_CO2__m_ / kM_R5_AKG__m_ ) * ( Oxalosuccinate__m_ / kM_R5_Oxalosuccinate__m_ ) - kC_R5 / sqrt( kEQ_R5  * kM_R5_Oxalosuccinate__m_ / kM_R5_CO2__m_ / kM_R5_AKG__m_ ) * ( CO2__m_ / kM_R5_CO2__m_ ) * ( AKG__m_ / kM_R5_AKG__m_ ) ) / ( ( 1 + Oxalosuccinate__m_ / kM_R5_Oxalosuccinate__m_ ) * ( 1 + CO2__m_ / kM_R5_CO2__m_ ) * ( 1 + AKG__m_ / kM_R5_AKG__m_ ) )
+r0099	ATP__c_ + GDP__c_ <=> ADP__c_ + GTP__c_	True	r0099	Simultaneous binding (SM)	u_R6 * ( kC_R6 * sqrt( kEQ_R6  * kM_R6_ATP__c_ * kM_R6_GDP__c_ / kM_R6_ADP__c_ / kM_R6_GTP__c_ ) * ( ATP__c_ / kM_R6_ATP__c_ ) * ( GDP__c_ / kM_R6_GDP__c_ ) - kC_R6 / sqrt( kEQ_R6  * kM_R6_ATP__c_ * kM_R6_GDP__c_ / kM_R6_ADP__c_ / kM_R6_GTP__c_ ) * ( ADP__c_ / kM_R6_ADP__c_ ) * ( GTP__c_ / kM_R6_GTP__c_ ) ) / ( ( 1 + ATP__c_ / kM_R6_ATP__c_ ) * ( 1 + GDP__c_ / kM_R6_GDP__c_ ) * ( 1 + ADP__c_ / kM_R6_ADP__c_ ) * ( 1 + GTP__c_ / kM_R6_GTP__c_ ) )
+r0105	NADplus__m_ + Malate__m_ <=> NADH__m_ + OAA__m_	True	r0105	Simultaneous binding (SM)	u_R7 * ( kC_R7 * sqrt( kEQ_R7  * kM_R7_NADplus__m_ * kM_R7_Malate__m_ / kM_R7_NADH__m_ / kM_R7_OAA__m_ ) * ( NADplus__m_ / kM_R7_NADplus__m_ ) * ( Malate__m_ / kM_R7_Malate__m_ ) - kC_R7 / sqrt( kEQ_R7  * kM_R7_NADplus__m_ * kM_R7_Malate__m_ / kM_R7_NADH__m_ / kM_R7_OAA__m_ ) * ( NADH__m_ / kM_R7_NADH__m_ ) * ( OAA__m_ / kM_R7_OAA__m_ ) ) / ( ( 1 + NADplus__m_ / kM_R7_NADplus__m_ ) * ( 1 + Malate__m_ / kM_R7_Malate__m_ ) * ( 1 + NADH__m_ / kM_R7_NADH__m_ ) * ( 1 + OAA__m_ / kM_R7_OAA__m_ ) )
+r0107	CoA__m_ + Citrate__m_ <=> H2O__m_ + Acetyl_CoA__m_ + OAA__m_	True	r0107	Simultaneous binding (SM)	u_R8 * ( kC_R8 * sqrt( kEQ_R8  * kM_R8_CoA__m_ * kM_R8_Citrate__m_ / kM_R8_H2O__m_ / kM_R8_Acetyl_CoA__m_ / kM_R8_OAA__m_ ) * ( CoA__m_ / kM_R8_CoA__m_ ) * ( Citrate__m_ / kM_R8_Citrate__m_ ) - kC_R8 / sqrt( kEQ_R8  * kM_R8_CoA__m_ * kM_R8_Citrate__m_ / kM_R8_H2O__m_ / kM_R8_Acetyl_CoA__m_ / kM_R8_OAA__m_ ) * ( H2O__m_ / kM_R8_H2O__m_ ) * ( Acetyl_CoA__m_ / kM_R8_Acetyl_CoA__m_ ) * ( OAA__m_ / kM_R8_OAA__m_ ) ) / ( ( 1 + CoA__m_ / kM_R8_CoA__m_ ) * ( 1 + Citrate__m_ / kM_R8_Citrate__m_ ) * ( 1 + H2O__m_ / kM_R8_H2O__m_ ) * ( 1 + Acetyl_CoA__m_ / kM_R8_Acetyl_CoA__m_ ) * ( 1 + OAA__m_ / kM_R8_OAA__m_ ) )
+r0125	CoA__m_ + Succinate__m_ + GTP__m_ <=> Pi__m_ + GDP__m_ + Succinyl_CoA__m_	True	r0125	Simultaneous binding (SM)	u_R9 * ( kC_R9 * sqrt( kEQ_R9  * kM_R9_CoA__m_ * kM_R9_Succinate__m_ * kM_R9_GTP__m_ / kM_R9_Pi__m_ / kM_R9_GDP__m_ / kM_R9_Succinyl_CoA__m_ ) * ( CoA__m_ / kM_R9_CoA__m_ ) * ( Succinate__m_ / kM_R9_Succinate__m_ ) * ( GTP__m_ / kM_R9_GTP__m_ ) - kC_R9 / sqrt( kEQ_R9  * kM_R9_CoA__m_ * kM_R9_Succinate__m_ * kM_R9_GTP__m_ / kM_R9_Pi__m_ / kM_R9_GDP__m_ / kM_R9_Succinyl_CoA__m_ ) * ( Pi__m_ / kM_R9_Pi__m_ ) * ( GDP__m_ / kM_R9_GDP__m_ ) * ( Succinyl_CoA__m_ / kM_R9_Succinyl_CoA__m_ ) ) / ( ( 1 + CoA__m_ / kM_R9_CoA__m_ ) * ( 1 + Succinate__m_ / kM_R9_Succinate__m_ ) * ( 1 + GTP__m_ / kM_R9_GTP__m_ ) * ( 1 + Pi__m_ / kM_R9_Pi__m_ ) * ( 1 + GDP__m_ / kM_R9_GDP__m_ ) * ( 1 + Succinyl_CoA__m_ / kM_R9_Succinyl_CoA__m_ ) )
+r0164	_2PG__c_ <=> H2O__c_ + PEP__c_	True	r0164	Simultaneous binding (SM)	u_R10 * ( kC_R10 * sqrt( kEQ_R10  * kM_R10__2PG__c_ / kM_R10_H2O__c_ / kM_R10_PEP__c_ ) * ( _2PG__c_ / kM_R10__2PG__c_ ) - kC_R10 / sqrt( kEQ_R10  * kM_R10__2PG__c_ / kM_R10_H2O__c_ / kM_R10_PEP__c_ ) * ( H2O__c_ / kM_R10_H2O__c_ ) * ( PEP__c_ / kM_R10_PEP__c_ ) ) / ( ( 1 + _2PG__c_ / kM_R10__2PG__c_ ) * ( 1 + H2O__c_ / kM_R10_H2O__c_ ) * ( 1 + PEP__c_ / kM_R10_PEP__c_ ) )
+r0171	NADplus__c_ + L_Lactate__c_ <=> NADH__c_ + Pyruvate__c_	True	r0171	Simultaneous binding (SM)	u_R11 * ( kC_R11 * sqrt( kEQ_R11  * kM_R11_NADplus__c_ * kM_R11_L_Lactate__c_ / kM_R11_NADH__c_ / kM_R11_Pyruvate__c_ ) * ( NADplus__c_ / kM_R11_NADplus__c_ ) * ( L_Lactate__c_ / kM_R11_L_Lactate__c_ ) - kC_R11 / sqrt( kEQ_R11  * kM_R11_NADplus__c_ * kM_R11_L_Lactate__c_ / kM_R11_NADH__c_ / kM_R11_Pyruvate__c_ ) * ( NADH__c_ / kM_R11_NADH__c_ ) * ( Pyruvate__c_ / kM_R11_Pyruvate__c_ ) ) / ( ( 1 + NADplus__c_ / kM_R11_NADplus__c_ ) * ( 1 + L_Lactate__c_ / kM_R11_L_Lactate__c_ ) * ( 1 + NADH__c_ / kM_R11_NADH__c_ ) * ( 1 + Pyruvate__c_ / kM_R11_Pyruvate__c_ ) )
+r0172	NADplus__m_ + L_Lactate__m_ <=> NADH__m_ + Pyruvate__m_	True	r0172	Simultaneous binding (SM)	u_R12 * ( kC_R12 * sqrt( kEQ_R12  * kM_R12_NADplus__m_ * kM_R12_L_Lactate__m_ / kM_R12_NADH__m_ / kM_R12_Pyruvate__m_ ) * ( NADplus__m_ / kM_R12_NADplus__m_ ) * ( L_Lactate__m_ / kM_R12_L_Lactate__m_ ) - kC_R12 / sqrt( kEQ_R12  * kM_R12_NADplus__m_ * kM_R12_L_Lactate__m_ / kM_R12_NADH__m_ / kM_R12_Pyruvate__m_ ) * ( NADH__m_ / kM_R12_NADH__m_ ) * ( Pyruvate__m_ / kM_R12_Pyruvate__m_ ) ) / ( ( 1 + NADplus__m_ / kM_R12_NADplus__m_ ) * ( 1 + L_Lactate__m_ / kM_R12_L_Lactate__m_ ) * ( 1 + NADH__m_ / kM_R12_NADH__m_ ) * ( 1 + Pyruvate__m_ / kM_R12_Pyruvate__m_ ) )
+r0192	Glucose_6P__c_ <=> Fructose_6P__c_	True	r0192	Simultaneous binding (SM)	u_R13 * ( kC_R13 * sqrt( kEQ_R13  * kM_R13_Glucose_6P__c_ / kM_R13_Fructose_6P__c_ ) * ( Glucose_6P__c_ / kM_R13_Glucose_6P__c_ ) - kC_R13 / sqrt( kEQ_R13  * kM_R13_Glucose_6P__c_ / kM_R13_Fructose_6P__c_ ) * ( Fructose_6P__c_ / kM_R13_Fructose_6P__c_ ) ) / ( ( 1 + Glucose_6P__c_ / kM_R13_Glucose_6P__c_ ) * ( 1 + Fructose_6P__c_ / kM_R13_Fructose_6P__c_ ) )
+r0243	GAP__c_ <=> DHAP__c_	True	r0243	Simultaneous binding (SM)	u_R14 * ( kC_R14 * sqrt( kEQ_R14  * kM_R14_GAP__c_ / kM_R14_DHAP__c_ ) * ( GAP__c_ / kM_R14_GAP__c_ ) - kC_R14 / sqrt( kEQ_R14  * kM_R14_GAP__c_ / kM_R14_DHAP__c_ ) * ( DHAP__c_ / kM_R14_DHAP__c_ ) ) / ( ( 1 + GAP__c_ / kM_R14_GAP__c_ ) * ( 1 + DHAP__c_ / kM_R14_DHAP__c_ ) )
+r0253	NADplus__c_ + Pi__c_ + GAP__c_ <=> NADH__c_ + _1_3DPG__c_	True	r0253	Simultaneous binding (SM)	u_R15 * ( kC_R15 * sqrt( kEQ_R15  * kM_R15_NADplus__c_ * kM_R15_Pi__c_ * kM_R15_GAP__c_ / kM_R15_NADH__c_ / kM_R15__1_3DPG__c_ ) * ( NADplus__c_ / kM_R15_NADplus__c_ ) * ( Pi__c_ / kM_R15_Pi__c_ ) * ( GAP__c_ / kM_R15_GAP__c_ ) - kC_R15 / sqrt( kEQ_R15  * kM_R15_NADplus__c_ * kM_R15_Pi__c_ * kM_R15_GAP__c_ / kM_R15_NADH__c_ / kM_R15__1_3DPG__c_ ) * ( NADH__c_ / kM_R15_NADH__c_ ) * ( _1_3DPG__c_ / kM_R15__1_3DPG__c_ ) ) / ( ( 1 + NADplus__c_ / kM_R15_NADplus__c_ ) * ( 1 + Pi__c_ / kM_R15_Pi__c_ ) * ( 1 + GAP__c_ / kM_R15_GAP__c_ ) * ( 1 + NADH__c_ / kM_R15_NADH__c_ ) * ( 1 + _1_3DPG__c_ / kM_R15__1_3DPG__c_ ) )
+r0256	Fructose_1_6PP__c_ <=> DHAP__c_ + GAP__c_	True	r0256	Simultaneous binding (SM)	u_R16 * ( kC_R16 * sqrt( kEQ_R16  * kM_R16_Fructose_1_6PP__c_ / kM_R16_DHAP__c_ / kM_R16_GAP__c_ ) * ( Fructose_1_6PP__c_ / kM_R16_Fructose_1_6PP__c_ ) - kC_R16 / sqrt( kEQ_R16  * kM_R16_Fructose_1_6PP__c_ / kM_R16_DHAP__c_ / kM_R16_GAP__c_ ) * ( DHAP__c_ / kM_R16_DHAP__c_ ) * ( GAP__c_ / kM_R16_GAP__c_ ) ) / ( ( 1 + Fructose_1_6PP__c_ / kM_R16_Fructose_1_6PP__c_ ) * ( 1 + DHAP__c_ / kM_R16_DHAP__c_ ) * ( 1 + GAP__c_ / kM_R16_GAP__c_ ) )
+r0259	Malate__m_ <=> H2O__m_ + Fumarate__m_	True	r0259	Simultaneous binding (SM)	u_R17 * ( kC_R17 * sqrt( kEQ_R17  * kM_R17_Malate__m_ / kM_R17_H2O__m_ / kM_R17_Fumarate__m_ ) * ( Malate__m_ / kM_R17_Malate__m_ ) - kC_R17 / sqrt( kEQ_R17  * kM_R17_Malate__m_ / kM_R17_H2O__m_ / kM_R17_Fumarate__m_ ) * ( H2O__m_ / kM_R17_H2O__m_ ) * ( Fumarate__m_ / kM_R17_Fumarate__m_ ) ) / ( ( 1 + Malate__m_ / kM_R17_Malate__m_ ) * ( 1 + H2O__m_ / kM_R17_H2O__m_ ) * ( 1 + Fumarate__m_ / kM_R17_Fumarate__m_ ) )
+r0316	Citrate__m_ <=> Isocitrate__m_	True	r0316	Simultaneous binding (SM)	u_R18 * ( kC_R18 * sqrt( kEQ_R18  * kM_R18_Citrate__m_ / kM_R18_Isocitrate__m_ ) * ( Citrate__m_ / kM_R18_Citrate__m_ ) - kC_R18 / sqrt( kEQ_R18  * kM_R18_Citrate__m_ / kM_R18_Isocitrate__m_ ) * ( Isocitrate__m_ / kM_R18_Isocitrate__m_ ) ) / ( ( 1 + Citrate__m_ / kM_R18_Citrate__m_ ) * ( 1 + Isocitrate__m_ / kM_R18_Isocitrate__m_ ) )
+r0337	ATP__c_ + _3PG__c_ <=> ADP__c_ + _1_3DPG__c_	True	r0337	Simultaneous binding (SM)	u_R19 * ( kC_R19 * sqrt( kEQ_R19  * kM_R19_ATP__c_ * kM_R19__3PG__c_ / kM_R19_ADP__c_ / kM_R19__1_3DPG__c_ ) * ( ATP__c_ / kM_R19_ATP__c_ ) * ( _3PG__c_ / kM_R19__3PG__c_ ) - kC_R19 / sqrt( kEQ_R19  * kM_R19_ATP__c_ * kM_R19__3PG__c_ / kM_R19_ADP__c_ / kM_R19__1_3DPG__c_ ) * ( ADP__c_ / kM_R19_ADP__c_ ) * ( _1_3DPG__c_ / kM_R19__1_3DPG__c_ ) ) / ( ( 1 + ATP__c_ / kM_R19_ATP__c_ ) * ( 1 + _3PG__c_ / kM_R19__3PG__c_ ) * ( 1 + ADP__c_ / kM_R19_ADP__c_ ) * ( 1 + _1_3DPG__c_ / kM_R19__1_3DPG__c_ ) )
+r0341	_2PG__c_ <=> _3PG__c_	True	r0341	Simultaneous binding (SM)	u_R20 * ( kC_R20 * sqrt( kEQ_R20  * kM_R20__2PG__c_ / kM_R20__3PG__c_ ) * ( _2PG__c_ / kM_R20__2PG__c_ ) - kC_R20 / sqrt( kEQ_R20  * kM_R20__2PG__c_ / kM_R20__3PG__c_ ) * ( _3PG__c_ / kM_R20__3PG__c_ ) ) / ( ( 1 + _2PG__c_ / kM_R20__2PG__c_ ) * ( 1 + _3PG__c_ / kM_R20__3PG__c_ ) )
+r0353	ATP__c_ + Glucose__c_ <=> ADP__c_ + Glucose_6P__c_	True	r0353	Simultaneous binding (SM)	u_R21 * ( kC_R21 * sqrt( kEQ_R21  * kM_R21_ATP__c_ * kM_R21_Glucose__c_ / kM_R21_ADP__c_ / kM_R21_Glucose_6P__c_ ) * ( ATP__c_ / kM_R21_ATP__c_ ) * ( Glucose__c_ / kM_R21_Glucose__c_ ) - kC_R21 / sqrt( kEQ_R21  * kM_R21_ATP__c_ * kM_R21_Glucose__c_ / kM_R21_ADP__c_ / kM_R21_Glucose_6P__c_ ) * ( ADP__c_ / kM_R21_ADP__c_ ) * ( Glucose_6P__c_ / kM_R21_Glucose_6P__c_ ) ) / ( ( 1 + ATP__c_ / kM_R21_ATP__c_ ) * ( 1 + Glucose__c_ / kM_R21_Glucose__c_ ) * ( 1 + ADP__c_ / kM_R21_ADP__c_ ) * ( 1 + Glucose_6P__c_ / kM_R21_Glucose_6P__c_ ) )
+r0425	NADplus__m_ + Isocitrate__m_ <=> NADH__m_ + Oxalosuccinate__m_	True	r0425	Simultaneous binding (SM)	u_R22 * ( kC_R22 * sqrt( kEQ_R22  * kM_R22_NADplus__m_ * kM_R22_Isocitrate__m_ / kM_R22_NADH__m_ / kM_R22_Oxalosuccinate__m_ ) * ( NADplus__m_ / kM_R22_NADplus__m_ ) * ( Isocitrate__m_ / kM_R22_Isocitrate__m_ ) - kC_R22 / sqrt( kEQ_R22  * kM_R22_NADplus__m_ * kM_R22_Isocitrate__m_ / kM_R22_NADH__m_ / kM_R22_Oxalosuccinate__m_ ) * ( NADH__m_ / kM_R22_NADH__m_ ) * ( Oxalosuccinate__m_ / kM_R22_Oxalosuccinate__m_ ) ) / ( ( 1 + NADplus__m_ / kM_R22_NADplus__m_ ) * ( 1 + Isocitrate__m_ / kM_R22_Isocitrate__m_ ) * ( 1 + NADH__m_ / kM_R22_NADH__m_ ) * ( 1 + Oxalosuccinate__m_ / kM_R22_Oxalosuccinate__m_ ) )
+r0507	4 Hplus_PG___m_ + 2 Ferricytochrome_C__m_ + Ubiquinol__m_ <=> 4 Hplus_PG___c_ + 2 Ferrocytochrome_C__m_ + Ubiquinone__m_	True	r0507	Simultaneous binding (SM)	u_R23 * ( kC_R23 * sqrt( kEQ_R23  * power( kM_R23_Hplus_PG___m_ , 4 ) * power( kM_R23_Ferricytochrome_C__m_ , 2 ) * kM_R23_Ubiquinol__m_ / power( kM_R23_Hplus_PG___c_ , 4 ) / power( kM_R23_Ferrocytochrome_C__m_ , 2 ) / kM_R23_Ubiquinone__m_ ) * power( Hplus_PG___m_ / kM_R23_Hplus_PG___m_ , 4 ) * power( Ferricytochrome_C__m_ / kM_R23_Ferricytochrome_C__m_ , 2 ) * ( Ubiquinol__m_ / kM_R23_Ubiquinol__m_ ) - kC_R23 / sqrt( kEQ_R23  * power( kM_R23_Hplus_PG___m_ , 4 ) * power( kM_R23_Ferricytochrome_C__m_ , 2 ) * kM_R23_Ubiquinol__m_ / power( kM_R23_Hplus_PG___c_ , 4 ) / power( kM_R23_Ferrocytochrome_C__m_ , 2 ) / kM_R23_Ubiquinone__m_ ) * power( Hplus_PG___c_ / kM_R23_Hplus_PG___c_ , 4 ) * power( Ferrocytochrome_C__m_ / kM_R23_Ferrocytochrome_C__m_ , 2 ) * ( Ubiquinone__m_ / kM_R23_Ubiquinone__m_ ) ) / ( power( 1 + Hplus_PG___m_ / kM_R23_Hplus_PG___m_ , 4 ) * power( 1 + Ferricytochrome_C__m_ / kM_R23_Ferricytochrome_C__m_ , 2 ) * ( 1 + Ubiquinol__m_ / kM_R23_Ubiquinol__m_ ) * power( 1 + Hplus_PG___c_ / kM_R23_Hplus_PG___c_ , 4 ) * power( 1 + Ferrocytochrome_C__m_ / kM_R23_Ferrocytochrome_C__m_ , 2 ) * ( 1 + Ubiquinone__m_ / kM_R23_Ubiquinone__m_ ) )
+r0508	NADplus__m_ + 4 Hplus_PG___c_ + Ubiquinol__m_ <=> NADH__m_ + 4 Hplus_PG___m_ + Ubiquinone__m_	True	r0508	Simultaneous binding (SM)	u_R24 * ( kC_R24 * sqrt( kEQ_R24  * kM_R24_NADplus__m_ * power( kM_R24_Hplus_PG___c_ , 4 ) * kM_R24_Ubiquinol__m_ / kM_R24_NADH__m_ / power( kM_R24_Hplus_PG___m_ , 4 ) / kM_R24_Ubiquinone__m_ ) * ( NADplus__m_ / kM_R24_NADplus__m_ ) * power( Hplus_PG___c_ / kM_R24_Hplus_PG___c_ , 4 ) * ( Ubiquinol__m_ / kM_R24_Ubiquinol__m_ ) - kC_R24 / sqrt( kEQ_R24  * kM_R24_NADplus__m_ * power( kM_R24_Hplus_PG___c_ , 4 ) * kM_R24_Ubiquinol__m_ / kM_R24_NADH__m_ / power( kM_R24_Hplus_PG___m_ , 4 ) / kM_R24_Ubiquinone__m_ ) * ( NADH__m_ / kM_R24_NADH__m_ ) * power( Hplus_PG___m_ / kM_R24_Hplus_PG___m_ , 4 ) * ( Ubiquinone__m_ / kM_R24_Ubiquinone__m_ ) ) / ( ( 1 + NADplus__m_ / kM_R24_NADplus__m_ ) * power( 1 + Hplus_PG___c_ / kM_R24_Hplus_PG___c_ , 4 ) * ( 1 + Ubiquinol__m_ / kM_R24_Ubiquinol__m_ ) * ( 1 + NADH__m_ / kM_R24_NADH__m_ ) * power( 1 + Hplus_PG___m_ / kM_R24_Hplus_PG___m_ , 4 ) * ( 1 + Ubiquinone__m_ / kM_R24_Ubiquinone__m_ ) )
+r0509	Succinate__m_ + Ubiquinone__m_ <=> Fumarate__m_ + Ubiquinol__m_	True	r0509	Simultaneous binding (SM)	u_R25 * ( kC_R25 * sqrt( kEQ_R25  * kM_R25_Succinate__m_ * kM_R25_Ubiquinone__m_ / kM_R25_Fumarate__m_ / kM_R25_Ubiquinol__m_ ) * ( Succinate__m_ / kM_R25_Succinate__m_ ) * ( Ubiquinone__m_ / kM_R25_Ubiquinone__m_ ) - kC_R25 / sqrt( kEQ_R25  * kM_R25_Succinate__m_ * kM_R25_Ubiquinone__m_ / kM_R25_Fumarate__m_ / kM_R25_Ubiquinol__m_ ) * ( Fumarate__m_ / kM_R25_Fumarate__m_ ) * ( Ubiquinol__m_ / kM_R25_Ubiquinol__m_ ) ) / ( ( 1 + Succinate__m_ / kM_R25_Succinate__m_ ) * ( 1 + Ubiquinone__m_ / kM_R25_Ubiquinone__m_ ) * ( 1 + Fumarate__m_ / kM_R25_Fumarate__m_ ) * ( 1 + Ubiquinol__m_ / kM_R25_Ubiquinol__m_ ) )
+r0736	ATP__c_ + Fructose_6P__c_ <=> ADP__c_ + Fructose_1_6PP__c_	True	r0736	Simultaneous binding (SM)	u_R26 * ( kC_R26 * sqrt( kEQ_R26  * kM_R26_ATP__c_ * kM_R26_Fructose_6P__c_ / kM_R26_ADP__c_ / kM_R26_Fructose_1_6PP__c_ ) * ( ATP__c_ / kM_R26_ATP__c_ ) * ( Fructose_6P__c_ / kM_R26_Fructose_6P__c_ ) - kC_R26 / sqrt( kEQ_R26  * kM_R26_ATP__c_ * kM_R26_Fructose_6P__c_ / kM_R26_ADP__c_ / kM_R26_Fructose_1_6PP__c_ ) * ( ADP__c_ / kM_R26_ADP__c_ ) * ( Fructose_1_6PP__c_ / kM_R26_Fructose_1_6PP__c_ ) ) / ( ( 1 + ATP__c_ / kM_R26_ATP__c_ ) * ( 1 + Fructose_6P__c_ / kM_R26_Fructose_6P__c_ ) * ( 1 + ADP__c_ / kM_R26_ADP__c_ ) * ( 1 + Fructose_1_6PP__c_ / kM_R26_Fructose_1_6PP__c_ ) )
+r0801	GDP__m_ + GTP__c_ <=> GDP__c_ + GTP__m_	True	r0801	Simultaneous binding (SM)	u_R27 * ( kC_R27 * sqrt( kEQ_R27  * kM_R27_GDP__m_ * kM_R27_GTP__c_ / kM_R27_GDP__c_ / kM_R27_GTP__m_ ) * ( GDP__m_ / kM_R27_GDP__m_ ) * ( GTP__c_ / kM_R27_GTP__c_ ) - kC_R27 / sqrt( kEQ_R27  * kM_R27_GDP__m_ * kM_R27_GTP__c_ / kM_R27_GDP__c_ / kM_R27_GTP__m_ ) * ( GDP__c_ / kM_R27_GDP__c_ ) * ( GTP__m_ / kM_R27_GTP__m_ ) ) / ( ( 1 + GDP__m_ / kM_R27_GDP__m_ ) * ( 1 + GTP__c_ / kM_R27_GTP__c_ ) * ( 1 + GDP__c_ / kM_R27_GDP__c_ ) * ( 1 + GTP__m_ / kM_R27_GTP__m_ ) )
+r0849	H2O__s_ <=> H2O__c_	True	r0849	Simultaneous binding (SM)	u_R28 * ( kC_R28 * sqrt( kEQ_R28  * kM_R28_H2O__s_ / kM_R28_H2O__c_ ) * ( H2O__s_ / kM_R28_H2O__s_ ) - kC_R28 / sqrt( kEQ_R28  * kM_R28_H2O__s_ / kM_R28_H2O__c_ ) * ( H2O__c_ / kM_R28_H2O__c_ ) ) / ( ( 1 + H2O__s_ / kM_R28_H2O__s_ ) * ( 1 + H2O__c_ / kM_R28_H2O__c_ ) )
+r0851	H2O__m_ <=> H2O__c_	True	r0851	Simultaneous binding (SM)	u_R29 * ( kC_R29 * sqrt( kEQ_R29  * kM_R29_H2O__m_ / kM_R29_H2O__c_ ) * ( H2O__m_ / kM_R29_H2O__m_ ) - kC_R29 / sqrt( kEQ_R29  * kM_R29_H2O__m_ / kM_R29_H2O__c_ ) * ( H2O__c_ / kM_R29_H2O__c_ ) ) / ( ( 1 + H2O__m_ / kM_R29_H2O__m_ ) * ( 1 + H2O__c_ / kM_R29_H2O__c_ ) )
+r0855	O2__s_ <=> O2__c_	True	r0855	Simultaneous binding (SM)	u_R30 * ( kC_R30 * sqrt( kEQ_R30  * kM_R30_O2__s_ / kM_R30_O2__c_ ) * ( O2__s_ / kM_R30_O2__s_ ) - kC_R30 / sqrt( kEQ_R30  * kM_R30_O2__s_ / kM_R30_O2__c_ ) * ( O2__c_ / kM_R30_O2__c_ ) ) / ( ( 1 + O2__s_ / kM_R30_O2__s_ ) * ( 1 + O2__c_ / kM_R30_O2__c_ ) )
+r0856	O2__m_ <=> O2__c_	True	r0856	Simultaneous binding (SM)	u_R31 * ( kC_R31 * sqrt( kEQ_R31  * kM_R31_O2__m_ / kM_R31_O2__c_ ) * ( O2__m_ / kM_R31_O2__m_ ) - kC_R31 / sqrt( kEQ_R31  * kM_R31_O2__m_ / kM_R31_O2__c_ ) * ( O2__c_ / kM_R31_O2__c_ ) ) / ( ( 1 + O2__m_ / kM_R31_O2__m_ ) * ( 1 + O2__c_ / kM_R31_O2__c_ ) )
+r0867	CO2__c_ <=> CO2__s_	True	r0867	Simultaneous binding (SM)	u_R32 * ( kC_R32 * sqrt( kEQ_R32  * kM_R32_CO2__c_ / kM_R32_CO2__s_ ) * ( CO2__c_ / kM_R32_CO2__c_ ) - kC_R32 / sqrt( kEQ_R32  * kM_R32_CO2__c_ / kM_R32_CO2__s_ ) * ( CO2__s_ / kM_R32_CO2__s_ ) ) / ( ( 1 + CO2__c_ / kM_R32_CO2__c_ ) * ( 1 + CO2__s_ / kM_R32_CO2__s_ ) )
+r0868	CO2__c_ <=> CO2__m_	True	r0868	Simultaneous binding (SM)	u_R33 * ( kC_R33 * sqrt( kEQ_R33  * kM_R33_CO2__c_ / kM_R33_CO2__m_ ) * ( CO2__c_ / kM_R33_CO2__c_ ) - kC_R33 / sqrt( kEQ_R33  * kM_R33_CO2__c_ / kM_R33_CO2__m_ ) * ( CO2__m_ / kM_R33_CO2__m_ ) ) / ( ( 1 + CO2__c_ / kM_R33_CO2__c_ ) * ( 1 + CO2__m_ / kM_R33_CO2__m_ ) )
+r1032	Glucose__s_ <=> Glucose__c_	True	r1032	Simultaneous binding (SM)	u_R34 * ( kC_R34 * sqrt( kEQ_R34  * kM_R34_Glucose__s_ / kM_R34_Glucose__c_ ) * ( Glucose__s_ / kM_R34_Glucose__s_ ) - kC_R34 / sqrt( kEQ_R34  * kM_R34_Glucose__s_ / kM_R34_Glucose__c_ ) * ( Glucose__c_ / kM_R34_Glucose__c_ ) ) / ( ( 1 + Glucose__s_ / kM_R34_Glucose__s_ ) * ( 1 + Glucose__c_ / kM_R34_Glucose__c_ ) )
+r1047	Pi__c_ + Hplus_PG___c_ <=> Pi__m_ + Hplus_PG___m_	True	r1047	Simultaneous binding (SM)	u_R35 * ( kC_R35 * sqrt( kEQ_R35  * kM_R35_Pi__c_ * kM_R35_Hplus_PG___c_ / kM_R35_Pi__m_ / kM_R35_Hplus_PG___m_ ) * ( Pi__c_ / kM_R35_Pi__c_ ) * ( Hplus_PG___c_ / kM_R35_Hplus_PG___c_ ) - kC_R35 / sqrt( kEQ_R35  * kM_R35_Pi__c_ * kM_R35_Hplus_PG___c_ / kM_R35_Pi__m_ / kM_R35_Hplus_PG___m_ ) * ( Pi__m_ / kM_R35_Pi__m_ ) * ( Hplus_PG___m_ / kM_R35_Hplus_PG___m_ ) ) / ( ( 1 + Pi__c_ / kM_R35_Pi__c_ ) * ( 1 + Hplus_PG___c_ / kM_R35_Hplus_PG___c_ ) * ( 1 + Pi__m_ / kM_R35_Pi__m_ ) * ( 1 + Hplus_PG___m_ / kM_R35_Hplus_PG___m_ ) )
+r1114	NADplus__m_ + CoA__m_ + AKG__m_ <=> NADH__m_ + CO2__m_ + Succinyl_CoA__m_	True	r1114	Simultaneous binding (SM)	u_R36 * ( kC_R36 * sqrt( kEQ_R36  * kM_R36_NADplus__m_ * kM_R36_CoA__m_ * kM_R36_AKG__m_ / kM_R36_NADH__m_ / kM_R36_CO2__m_ / kM_R36_Succinyl_CoA__m_ ) * ( NADplus__m_ / kM_R36_NADplus__m_ ) * ( CoA__m_ / kM_R36_CoA__m_ ) * ( AKG__m_ / kM_R36_AKG__m_ ) - kC_R36 / sqrt( kEQ_R36  * kM_R36_NADplus__m_ * kM_R36_CoA__m_ * kM_R36_AKG__m_ / kM_R36_NADH__m_ / kM_R36_CO2__m_ / kM_R36_Succinyl_CoA__m_ ) * ( NADH__m_ / kM_R36_NADH__m_ ) * ( CO2__m_ / kM_R36_CO2__m_ ) * ( Succinyl_CoA__m_ / kM_R36_Succinyl_CoA__m_ ) ) / ( ( 1 + NADplus__m_ / kM_R36_NADplus__m_ ) * ( 1 + CoA__m_ / kM_R36_CoA__m_ ) * ( 1 + AKG__m_ / kM_R36_AKG__m_ ) * ( 1 + NADH__m_ / kM_R36_NADH__m_ ) * ( 1 + CO2__m_ / kM_R36_CO2__m_ ) * ( 1 + Succinyl_CoA__m_ / kM_R36_Succinyl_CoA__m_ ) )
+r1422	Hplus_PG___c_ + L_Lactate__c_ <=> Hplus_PG___m_ + L_Lactate__m_	True	r1422	Simultaneous binding (SM)	u_R37 * ( kC_R37 * sqrt( kEQ_R37  * kM_R37_Hplus_PG___c_ * kM_R37_L_Lactate__c_ / kM_R37_Hplus_PG___m_ / kM_R37_L_Lactate__m_ ) * ( Hplus_PG___c_ / kM_R37_Hplus_PG___c_ ) * ( L_Lactate__c_ / kM_R37_L_Lactate__c_ ) - kC_R37 / sqrt( kEQ_R37  * kM_R37_Hplus_PG___c_ * kM_R37_L_Lactate__c_ / kM_R37_Hplus_PG___m_ / kM_R37_L_Lactate__m_ ) * ( Hplus_PG___m_ / kM_R37_Hplus_PG___m_ ) * ( L_Lactate__m_ / kM_R37_L_Lactate__m_ ) ) / ( ( 1 + Hplus_PG___c_ / kM_R37_Hplus_PG___c_ ) * ( 1 + L_Lactate__c_ / kM_R37_L_Lactate__c_ ) * ( 1 + Hplus_PG___m_ / kM_R37_Hplus_PG___m_ ) * ( 1 + L_Lactate__m_ / kM_R37_L_Lactate__m_ ) )
+r2418	ATP__m_ + ADP__c_ <=> ATP__c_ + ADP__m_	True	r2418	Simultaneous binding (SM)	u_R38 * ( kC_R38 * sqrt( kEQ_R38  * kM_R38_ATP__m_ * kM_R38_ADP__c_ / kM_R38_ATP__c_ / kM_R38_ADP__m_ ) * ( ATP__m_ / kM_R38_ATP__m_ ) * ( ADP__c_ / kM_R38_ADP__c_ ) - kC_R38 / sqrt( kEQ_R38  * kM_R38_ATP__m_ * kM_R38_ADP__c_ / kM_R38_ATP__c_ / kM_R38_ADP__m_ ) * ( ATP__c_ / kM_R38_ATP__c_ ) * ( ADP__m_ / kM_R38_ADP__m_ ) ) / ( ( 1 + ATP__m_ / kM_R38_ATP__m_ ) * ( 1 + ADP__c_ / kM_R38_ADP__c_ ) * ( 1 + ATP__c_ / kM_R38_ATP__c_ ) * ( 1 + ADP__m_ / kM_R38_ADP__m_ ) )
+%					
+!!SBtab TableName='Compound' TableType='Compound' Document='Model' SBtabVersion='1.0'					
+!ID	!SBML:species:id	!IsConstant			
+H2O__c_	HC00011_c	False			
+H2O__m_	HC00011_m	False			
+H2O__s_	HC00011_s	True			
+ATP__c_	HC00012_c	True			
+ATP__m_	HC00012_m	False			
+NADplus__c_	HC00013_c	False			
+NADplus__m_	HC00013_m	False			
+NADH__c_	HC00014_c	False			
+NADH__m_	HC00014_m	False			
+O2__c_	HC00017_c	False			
+O2__m_	HC00017_m	False			
+O2__s_	HC00017_s	True			
+ADP__c_	HC00018_c	True			
+ADP__m_	HC00018_m	False			
+Pi__c_	HC00019_c	True			
+Pi__m_	HC00019_m	False			
+CoA__m_	HC00020_m	False			
+CO2__c_	HC00021_c	False			
+CO2__m_	HC00021_m	False			
+CO2__s_	HC00021_s	True			
+Pyruvate__c_	HC00032_c	False			
+Pyruvate__m_	HC00032_m	False			
+Acetyl_CoA__m_	HC00033_m	False			
+AKG__m_	HC00035_m	False			
+Glucose__c_	HC00040_c	False			
+Glucose__s_	HC00040_s	True			
+GDP__c_	HC00043_c	False			
+GDP__m_	HC00043_m	False			
+OAA__m_	HC00044_m	False			
+Succinate__m_	HC00049_m	False			
+GTP__c_	HC00051_c	False			
+GTP__m_	HC00051_m	False			
+PEP__c_	HC00076_c	False			
+Hplus_PG___c_	HC00083_c	False			
+Hplus_PG___m_	HC00083_m	False			
+Fructose_6P__c_	HC00088_c	False			
+Succinyl_CoA__m_	HC00093_m	False			
+Glucose_6P__c_	HC00094_c	False			
+DHAP__c_	HC00109_c	False			
+GAP__c_	HC00116_c	False			
+Fumarate__m_	HC00120_m	False			
+Ferricytochrome_C__m_	HC00123_m	False			
+Ferrocytochrome_C__m_	HC00124_m	False			
+Malate__m_	HC00146_m	False			
+Citrate__m_	HC00153_m	False			
+L_Lactate__c_	HC00177_c	False			
+L_Lactate__m_	HC00177_m	False			
+_3PG__c_	HC00186_c	False			
+_1_3DPG__c_	HC00214_c	False			
+Isocitrate__m_	HC00266_m	False			
+Fructose_1_6PP__c_	HC00300_c	False			
+Ubiquinol__m_	HC00324_m	False			
+Ubiquinone__m_	HC00329_m	False			
+_2PG__c_	HC00463_c	False			
+Oxalosuccinate__m_	HC01434_m	False			
+%					
+!!SBtab TableName='Parameter' TableType='Quantity' Document='Model' SBtabVersion='1.0'					
+!QuantityType	!Reaction	!Compound	!Value	!Unit	!ID
+equilibrium constant	r0017		0.00093502726	dimensionless	kEQ_R1
+equilibrium constant	r0019		0.016576071	dimensionless	kEQ_R2
+equilibrium constant	r0054		0.00049377436	dimensionless	kEQ_R3
+equilibrium constant	r0056		165.34712	dimensionless	kEQ_R4
+equilibrium constant	r0083		505.1572	dimensionless	kEQ_R5
+equilibrium constant	r0099		0.16349093	dimensionless	kEQ_R6
+equilibrium constant	r0105		6.6300454e-05	dimensionless	kEQ_R7
+equilibrium constant	r0107		3.9605506e-06	dimensionless	kEQ_R8
+equilibrium constant	r0125		0.63623991	dimensionless	kEQ_R9
+equilibrium constant	r0164		87.608354	dimensionless	kEQ_R10
+equilibrium constant	r0171		8.3069891e-05	dimensionless	kEQ_R11
+equilibrium constant	r0172		0.0038478709	dimensionless	kEQ_R12
+equilibrium constant	r0192		1.4388336	dimensionless	kEQ_R13
+equilibrium constant	r0243		5.9684699	dimensionless	kEQ_R14
+equilibrium constant	r0253		0.14569746	dimensionless	kEQ_R15
+equilibrium constant	r0256		0.0029646384	dimensionless	kEQ_R16
+equilibrium constant	r0259		0.040307896	dimensionless	kEQ_R17
+equilibrium constant	r0316		0.094033522	dimensionless	kEQ_R18
+equilibrium constant	r0337		0.00010818437	dimensionless	kEQ_R19
+equilibrium constant	r0341		3.3355988	dimensionless	kEQ_R20
+equilibrium constant	r0353		1.5529914	dimensionless	kEQ_R21
+equilibrium constant	r0425		0.26899772	dimensionless	kEQ_R22
+equilibrium constant	r0507		9.9274908e-06	dimensionless	kEQ_R23
+equilibrium constant	r0508		4.0956297e-06	dimensionless	kEQ_R24
+equilibrium constant	r0509		760364.59	dimensionless	kEQ_R25
+equilibrium constant	r0736		185.27589	dimensionless	kEQ_R26
+equilibrium constant	r0801		0.39222774	dimensionless	kEQ_R27
+equilibrium constant	r0849		2.1037871	dimensionless	kEQ_R28
+equilibrium constant	r0851		1.6590355	dimensionless	kEQ_R29
+equilibrium constant	r0855		8.1792482	dimensionless	kEQ_R30
+equilibrium constant	r0856		0.13113291	dimensionless	kEQ_R31
+equilibrium constant	r0867		1.4441884	dimensionless	kEQ_R32
+equilibrium constant	r0868		0.39836745	dimensionless	kEQ_R33
+equilibrium constant	r1032		14.492004	dimensionless	kEQ_R34
+equilibrium constant	r1047		198.87615	dimensionless	kEQ_R35
+equilibrium constant	r1114		6.0987369	dimensionless	kEQ_R36
+equilibrium constant	r1422		302.48786	dimensionless	kEQ_R37
+equilibrium constant	r2418		30.990943	dimensionless	kEQ_R38
+catalytic rate constant geometric mean	r0017		50.186171	1/s	kC_R1
+catalytic rate constant geometric mean	r0019		205.71562	1/s	kC_R2
+catalytic rate constant geometric mean	r0054		0.14167778	1/s	kC_R3
+catalytic rate constant geometric mean	r0056		0.56144136	1/s	kC_R4
+catalytic rate constant geometric mean	r0083		1.1296815	1/s	kC_R5
+catalytic rate constant geometric mean	r0099		1.0685001	1/s	kC_R6
+catalytic rate constant geometric mean	r0105		0.82157726	1/s	kC_R7
+catalytic rate constant geometric mean	r0107		0.27505702	1/s	kC_R8
+catalytic rate constant geometric mean	r0125		4.1753418	1/s	kC_R9
+catalytic rate constant geometric mean	r0164		0.11409353	1/s	kC_R10
+catalytic rate constant geometric mean	r0171		0.14925868	1/s	kC_R11
+catalytic rate constant geometric mean	r0172		2.3929009	1/s	kC_R12
+catalytic rate constant geometric mean	r0192		0.018412728	1/s	kC_R13
+catalytic rate constant geometric mean	r0243		0.23656488	1/s	kC_R14
+catalytic rate constant geometric mean	r0253		0.30938953	1/s	kC_R15
+catalytic rate constant geometric mean	r0256		0.20406167	1/s	kC_R16
+catalytic rate constant geometric mean	r0259		0.99975198	1/s	kC_R17
+catalytic rate constant geometric mean	r0316		0.095358638	1/s	kC_R18
+catalytic rate constant geometric mean	r0337		0.15255969	1/s	kC_R19
+catalytic rate constant geometric mean	r0341		0.091187027	1/s	kC_R20
+catalytic rate constant geometric mean	r0353		0.071927955	1/s	kC_R21
+catalytic rate constant geometric mean	r0425		2.5287084	1/s	kC_R22
+catalytic rate constant geometric mean	r0507		12.728926	1/s	kC_R23
+catalytic rate constant geometric mean	r0508		2.9502458	1/s	kC_R24
+catalytic rate constant geometric mean	r0509		0.13790483	1/s	kC_R25
+catalytic rate constant geometric mean	r0736		0.072890932	1/s	kC_R26
+catalytic rate constant geometric mean	r0801		1.0636936	1/s	kC_R27
+catalytic rate constant geometric mean	r0849		2.5090136	1/s	kC_R28
+catalytic rate constant geometric mean	r0851		8.9788739	1/s	kC_R29
+catalytic rate constant geometric mean	r0855		0.30569193	1/s	kC_R30
+catalytic rate constant geometric mean	r0856		0.31089849	1/s	kC_R31
+catalytic rate constant geometric mean	r0867		0.15682998	1/s	kC_R32
+catalytic rate constant geometric mean	r0868		0.11687614	1/s	kC_R33
+catalytic rate constant geometric mean	r1032		0.036407097	1/s	kC_R34
+catalytic rate constant geometric mean	r1047		2.3198164	1/s	kC_R35
+catalytic rate constant geometric mean	r1114		1.997395	1/s	kC_R36
+catalytic rate constant geometric mean	r1422		0.16603987	1/s	kC_R37
+catalytic rate constant geometric mean	r2418		2.5867194	1/s	kC_R38
+Michaelis constant	r0164	H2O__c_	0.98957315	mM	kM_R10_H2O__c_
+Michaelis constant	r0849	H2O__c_	0.98957315	mM	kM_R28_H2O__c_
+Michaelis constant	r0851	H2O__c_	0.98957315	mM	kM_R29_H2O__c_
+Michaelis constant	r0017	H2O__m_	0.98127592	mM	kM_R1_H2O__m_
+Michaelis constant	r0019	H2O__m_	0.98127592	mM	kM_R2_H2O__m_
+Michaelis constant	r0107	H2O__m_	0.98127592	mM	kM_R8_H2O__m_
+Michaelis constant	r0259	H2O__m_	0.98127592	mM	kM_R17_H2O__m_
+Michaelis constant	r0851	H2O__m_	0.98127592	mM	kM_R29_H2O__m_
+Michaelis constant	r0849	H2O__s_	0.086517578	mM	kM_R28_H2O__s_
+Michaelis constant	r0054	ATP__c_	9.6300001	mM	kM_R3_ATP__c_
+Michaelis constant	r0099	ATP__c_	9.6300001	mM	kM_R6_ATP__c_
+Michaelis constant	r0337	ATP__c_	9.6300001	mM	kM_R19_ATP__c_
+Michaelis constant	r0353	ATP__c_	9.6300001	mM	kM_R21_ATP__c_
+Michaelis constant	r0736	ATP__c_	9.6300001	mM	kM_R26_ATP__c_
+Michaelis constant	r2418	ATP__c_	9.6300001	mM	kM_R38_ATP__c_
+Michaelis constant	r0019	ATP__m_	9.6300003	mM	kM_R2_ATP__m_
+Michaelis constant	r2418	ATP__m_	9.6300003	mM	kM_R38_ATP__m_
+Michaelis constant	r0171	NADplus__c_	2.55	mM	kM_R11_NADplus__c_
+Michaelis constant	r0253	NADplus__c_	2.55	mM	kM_R15_NADplus__c_
+Michaelis constant	r0056	NADplus__m_	2.55	mM	kM_R4_NADplus__m_
+Michaelis constant	r0105	NADplus__m_	2.55	mM	kM_R7_NADplus__m_
+Michaelis constant	r0172	NADplus__m_	2.55	mM	kM_R12_NADplus__m_
+Michaelis constant	r0425	NADplus__m_	2.55	mM	kM_R22_NADplus__m_
+Michaelis constant	r0508	NADplus__m_	2.55	mM	kM_R24_NADplus__m_
+Michaelis constant	r1114	NADplus__m_	2.55	mM	kM_R36_NADplus__m_
+Michaelis constant	r0171	NADH__c_	0.0832	mM	kM_R11_NADH__c_
+Michaelis constant	r0253	NADH__c_	0.0832	mM	kM_R15_NADH__c_
+Michaelis constant	r0056	NADH__m_	0.083200001	mM	kM_R4_NADH__m_
+Michaelis constant	r0105	NADH__m_	0.083200001	mM	kM_R7_NADH__m_
+Michaelis constant	r0172	NADH__m_	0.083200001	mM	kM_R12_NADH__m_
+Michaelis constant	r0425	NADH__m_	0.083200001	mM	kM_R22_NADH__m_
+Michaelis constant	r0508	NADH__m_	0.083200001	mM	kM_R24_NADH__m_
+Michaelis constant	r1114	NADH__m_	0.083200001	mM	kM_R36_NADH__m_
+Michaelis constant	r0855	O2__c_	0.10448599	mM	kM_R30_O2__c_
+Michaelis constant	r0856	O2__c_	0.10448599	mM	kM_R31_O2__c_
+Michaelis constant	r0017	O2__m_	0.098647409	mM	kM_R1_O2__m_
+Michaelis constant	r0856	O2__m_	0.098647409	mM	kM_R31_O2__m_
+Michaelis constant	r0855	O2__s_	0.10594493	mM	kM_R30_O2__s_
+Michaelis constant	r0054	ADP__c_	0.555	mM	kM_R3_ADP__c_
+Michaelis constant	r0099	ADP__c_	0.555	mM	kM_R6_ADP__c_
+Michaelis constant	r0337	ADP__c_	0.555	mM	kM_R19_ADP__c_
+Michaelis constant	r0353	ADP__c_	0.555	mM	kM_R21_ADP__c_
+Michaelis constant	r0736	ADP__c_	0.555	mM	kM_R26_ADP__c_
+Michaelis constant	r2418	ADP__c_	0.555	mM	kM_R38_ADP__c_
+Michaelis constant	r0019	ADP__m_	0.555	mM	kM_R2_ADP__m_
+Michaelis constant	r2418	ADP__m_	0.555	mM	kM_R38_ADP__m_
+Michaelis constant	r0253	Pi__c_	39.333556	mM	kM_R15_Pi__c_
+Michaelis constant	r1047	Pi__c_	39.333556	mM	kM_R35_Pi__c_
+Michaelis constant	r0019	Pi__m_	39.750471	mM	kM_R2_Pi__m_
+Michaelis constant	r0125	Pi__m_	39.750471	mM	kM_R9_Pi__m_
+Michaelis constant	r1047	Pi__m_	39.750471	mM	kM_R35_Pi__m_
+Michaelis constant	r0056	CoA__m_	1.37	mM	kM_R4_CoA__m_
+Michaelis constant	r0107	CoA__m_	1.37	mM	kM_R8_CoA__m_
+Michaelis constant	r0125	CoA__m_	1.37	mM	kM_R9_CoA__m_
+Michaelis constant	r1114	CoA__m_	1.37	mM	kM_R36_CoA__m_
+Michaelis constant	r0867	CO2__c_	4.3623902	mM	kM_R32_CO2__c_
+Michaelis constant	r0868	CO2__c_	4.3623902	mM	kM_R33_CO2__c_
+Michaelis constant	r0056	CO2__m_	79.690559	mM	kM_R4_CO2__m_
+Michaelis constant	r0083	CO2__m_	79.690559	mM	kM_R5_CO2__m_
+Michaelis constant	r0868	CO2__m_	79.690559	mM	kM_R33_CO2__m_
+Michaelis constant	r1114	CO2__m_	79.690559	mM	kM_R36_CO2__m_
+Michaelis constant	r0867	CO2__s_	0.23926417	mM	kM_R32_CO2__s_
+Michaelis constant	r0054	Pyruvate__c_	0.39	mM	kM_R3_Pyruvate__c_
+Michaelis constant	r0171	Pyruvate__c_	0.39	mM	kM_R11_Pyruvate__c_
+Michaelis constant	r0056	Pyruvate__m_	0.38999999	mM	kM_R4_Pyruvate__m_
+Michaelis constant	r0172	Pyruvate__m_	0.38999999	mM	kM_R12_Pyruvate__m_
+Michaelis constant	r0056	Acetyl_CoA__m_	0.606	mM	kM_R4_Acetyl_CoA__m_
+Michaelis constant	r0107	Acetyl_CoA__m_	0.606	mM	kM_R8_Acetyl_CoA__m_
+Michaelis constant	r0083	AKG__m_	0.44299999	mM	kM_R5_AKG__m_
+Michaelis constant	r1114	AKG__m_	0.44299999	mM	kM_R36_AKG__m_
+Michaelis constant	r0353	Glucose__c_	17.363	mM	kM_R21_Glucose__c_
+Michaelis constant	r1032	Glucose__c_	17.363	mM	kM_R34_Glucose__c_
+Michaelis constant	r1032	Glucose__s_	17.363	mM	kM_R34_Glucose__s_
+Michaelis constant	r0099	GDP__c_	0.676	mM	kM_R6_GDP__c_
+Michaelis constant	r0801	GDP__c_	0.676	mM	kM_R27_GDP__c_
+Michaelis constant	r0125	GDP__m_	0.676	mM	kM_R9_GDP__m_
+Michaelis constant	r0801	GDP__m_	0.676	mM	kM_R27_GDP__m_
+Michaelis constant	r0105	OAA__m_	0.0010429952	mM	kM_R7_OAA__m_
+Michaelis constant	r0107	OAA__m_	0.0010429952	mM	kM_R8_OAA__m_
+Michaelis constant	r0125	Succinate__m_	0.569	mM	kM_R9_Succinate__m_
+Michaelis constant	r0509	Succinate__m_	0.569	mM	kM_R25_Succinate__m_
+Michaelis constant	r0099	GTP__c_	4.87	mM	kM_R6_GTP__c_
+Michaelis constant	r0801	GTP__c_	4.87	mM	kM_R27_GTP__c_
+Michaelis constant	r0125	GTP__m_	4.87	mM	kM_R9_GTP__m_
+Michaelis constant	r0801	GTP__m_	4.87	mM	kM_R27_GTP__m_
+Michaelis constant	r0054	PEP__c_	0.184	mM	kM_R3_PEP__c_
+Michaelis constant	r0164	PEP__c_	0.184	mM	kM_R10_PEP__c_
+Michaelis constant	r0017	Hplus_PG___c_	0.048791064	mM	kM_R1_Hplus_PG___c_
+Michaelis constant	r0019	Hplus_PG___c_	0.048791064	mM	kM_R2_Hplus_PG___c_
+Michaelis constant	r0507	Hplus_PG___c_	0.048791064	mM	kM_R23_Hplus_PG___c_
+Michaelis constant	r0508	Hplus_PG___c_	0.048791064	mM	kM_R24_Hplus_PG___c_
+Michaelis constant	r1047	Hplus_PG___c_	0.048791064	mM	kM_R35_Hplus_PG___c_
+Michaelis constant	r1422	Hplus_PG___c_	0.048791064	mM	kM_R37_Hplus_PG___c_
+Michaelis constant	r0017	Hplus_PG___m_	0.22018516	mM	kM_R1_Hplus_PG___m_
+Michaelis constant	r0019	Hplus_PG___m_	0.22018516	mM	kM_R2_Hplus_PG___m_
+Michaelis constant	r0507	Hplus_PG___m_	0.22018516	mM	kM_R23_Hplus_PG___m_
+Michaelis constant	r0508	Hplus_PG___m_	0.22018516	mM	kM_R24_Hplus_PG___m_
+Michaelis constant	r1047	Hplus_PG___m_	0.22018516	mM	kM_R35_Hplus_PG___m_
+Michaelis constant	r1422	Hplus_PG___m_	0.22018516	mM	kM_R37_Hplus_PG___m_
+Michaelis constant	r0192	Fructose_6P__c_	0.24642704	mM	kM_R13_Fructose_6P__c_
+Michaelis constant	r0736	Fructose_6P__c_	0.24642704	mM	kM_R26_Fructose_6P__c_
+Michaelis constant	r0125	Succinyl_CoA__m_	0.233	mM	kM_R9_Succinyl_CoA__m_
+Michaelis constant	r1114	Succinyl_CoA__m_	0.233	mM	kM_R36_Succinyl_CoA__m_
+Michaelis constant	r0192	Glucose_6P__c_	8.75	mM	kM_R13_Glucose_6P__c_
+Michaelis constant	r0353	Glucose_6P__c_	8.75	mM	kM_R21_Glucose_6P__c_
+Michaelis constant	r0243	DHAP__c_	0.374	mM	kM_R14_DHAP__c_
+Michaelis constant	r0256	DHAP__c_	0.374	mM	kM_R16_DHAP__c_
+Michaelis constant	r0243	GAP__c_	0.036556846	mM	kM_R14_GAP__c_
+Michaelis constant	r0253	GAP__c_	0.036556846	mM	kM_R15_GAP__c_
+Michaelis constant	r0256	GAP__c_	0.036556846	mM	kM_R16_GAP__c_
+Michaelis constant	r0259	Fumarate__m_	0.115	mM	kM_R17_Fumarate__m_
+Michaelis constant	r0509	Fumarate__m_	0.115	mM	kM_R25_Fumarate__m_
+Michaelis constant	r0017	Ferricytochrome_C__m_	0.052048242	mM	kM_R1_Ferricytochrome_C__m_
+Michaelis constant	r0507	Ferricytochrome_C__m_	0.052048242	mM	kM_R23_Ferricytochrome_C__m_
+Michaelis constant	r0017	Ferrocytochrome_C__m_	0.20571276	mM	kM_R1_Ferrocytochrome_C__m_
+Michaelis constant	r0507	Ferrocytochrome_C__m_	0.20571276	mM	kM_R23_Ferrocytochrome_C__m_
+Michaelis constant	r0105	Malate__m_	1.68	mM	kM_R7_Malate__m_
+Michaelis constant	r0259	Malate__m_	1.68	mM	kM_R17_Malate__m_
+Michaelis constant	r0107	Citrate__m_	1.96	mM	kM_R8_Citrate__m_
+Michaelis constant	r0316	Citrate__m_	1.96	mM	kM_R18_Citrate__m_
+Michaelis constant	r0171	L_Lactate__c_	3.0753259	mM	kM_R11_L_Lactate__c_
+Michaelis constant	r1422	L_Lactate__c_	3.0753259	mM	kM_R37_L_Lactate__c_
+Michaelis constant	r0172	L_Lactate__m_	5.0740143	mM	kM_R12_L_Lactate__m_
+Michaelis constant	r1422	L_Lactate__m_	5.0740143	mM	kM_R37_L_Lactate__m_
+Michaelis constant	r0337	_3PG__c_	1.54	mM	kM_R19__3PG__c_
+Michaelis constant	r0341	_3PG__c_	1.54	mM	kM_R20__3PG__c_
+Michaelis constant	r0253	_1_3DPG__c_	0.13806852	mM	kM_R15__1_3DPG__c_
+Michaelis constant	r0337	_1_3DPG__c_	0.13806852	mM	kM_R19__1_3DPG__c_
+Michaelis constant	r0316	Isocitrate__m_	0.02	mM	kM_R18_Isocitrate__m_
+Michaelis constant	r0425	Isocitrate__m_	0.02	mM	kM_R22_Isocitrate__m_
+Michaelis constant	r0256	Fructose_1_6PP__c_	15.2	mM	kM_R16_Fructose_1_6PP__c_
+Michaelis constant	r0736	Fructose_1_6PP__c_	15.2	mM	kM_R26_Fructose_1_6PP__c_
+Michaelis constant	r0507	Ubiquinol__m_	75.887102	mM	kM_R23_Ubiquinol__m_
+Michaelis constant	r0508	Ubiquinol__m_	75.887102	mM	kM_R24_Ubiquinol__m_
+Michaelis constant	r0509	Ubiquinol__m_	75.887102	mM	kM_R25_Ubiquinol__m_
+Michaelis constant	r0507	Ubiquinone__m_	0.001170179	mM	kM_R23_Ubiquinone__m_
+Michaelis constant	r0508	Ubiquinone__m_	0.001170179	mM	kM_R24_Ubiquinone__m_
+Michaelis constant	r0509	Ubiquinone__m_	0.001170179	mM	kM_R25_Ubiquinone__m_
+Michaelis constant	r0164	_2PG__c_	0.04659591	mM	kM_R10__2PG__c_
+Michaelis constant	r0341	_2PG__c_	0.04659591	mM	kM_R20__2PG__c_
+Michaelis constant	r0083	Oxalosuccinate__m_	0.10993048	mM	kM_R5_Oxalosuccinate__m_
+Michaelis constant	r0425	Oxalosuccinate__m_	0.10993048	mM	kM_R22_Oxalosuccinate__m_
+concentration		H2O__c_	0.98957315	mM	c_H2O__c_
+concentration		H2O__m_	0.98127592	mM	c_H2O__m_
+concentration		H2O__s_	0.086517578	mM	c_H2O__s_
+concentration		ATP__c_	9.6300001	mM	c_ATP__c_
+concentration		ATP__m_	9.6300003	mM	c_ATP__m_
+concentration		NADplus__c_	2.55	mM	c_NADplus__c_
+concentration		NADplus__m_	2.55	mM	c_NADplus__m_
+concentration		NADH__c_	0.0832	mM	c_NADH__c_
+concentration		NADH__m_	0.083200001	mM	c_NADH__m_
+concentration		O2__c_	0.10448599	mM	c_O2__c_
+concentration		O2__m_	0.098647409	mM	c_O2__m_
+concentration		O2__s_	0.10594493	mM	c_O2__s_
+concentration		ADP__c_	0.555	mM	c_ADP__c_
+concentration		ADP__m_	0.555	mM	c_ADP__m_
+concentration		Pi__c_	39.333556	mM	c_Pi__c_
+concentration		Pi__m_	39.750471	mM	c_Pi__m_
+concentration		CoA__m_	1.37	mM	c_CoA__m_
+concentration		CO2__c_	4.3623902	mM	c_CO2__c_
+concentration		CO2__m_	79.690559	mM	c_CO2__m_
+concentration		CO2__s_	0.23926417	mM	c_CO2__s_
+concentration		Pyruvate__c_	0.39	mM	c_Pyruvate__c_
+concentration		Pyruvate__m_	0.38999999	mM	c_Pyruvate__m_
+concentration		Acetyl_CoA__m_	0.606	mM	c_Acetyl_CoA__m_
+concentration		AKG__m_	0.44299999	mM	c_AKG__m_
+concentration		Glucose__c_	17.363	mM	c_Glucose__c_
+concentration		Glucose__s_	17.363	mM	c_Glucose__s_
+concentration		GDP__c_	0.676	mM	c_GDP__c_
+concentration		GDP__m_	0.676	mM	c_GDP__m_
+concentration		OAA__m_	0.0010429952	mM	c_OAA__m_
+concentration		Succinate__m_	0.569	mM	c_Succinate__m_
+concentration		GTP__c_	4.87	mM	c_GTP__c_
+concentration		GTP__m_	4.87	mM	c_GTP__m_
+concentration		PEP__c_	0.184	mM	c_PEP__c_
+concentration		Hplus_PG___c_	0.048791064	mM	c_Hplus_PG___c_
+concentration		Hplus_PG___m_	0.22018516	mM	c_Hplus_PG___m_
+concentration		Fructose_6P__c_	0.24642704	mM	c_Fructose_6P__c_
+concentration		Succinyl_CoA__m_	0.233	mM	c_Succinyl_CoA__m_
+concentration		Glucose_6P__c_	8.75	mM	c_Glucose_6P__c_
+concentration		DHAP__c_	0.374	mM	c_DHAP__c_
+concentration		GAP__c_	0.036556846	mM	c_GAP__c_
+concentration		Fumarate__m_	0.115	mM	c_Fumarate__m_
+concentration		Ferricytochrome_C__m_	0.052048242	mM	c_Ferricytochrome_C__m_
+concentration		Ferrocytochrome_C__m_	0.20571276	mM	c_Ferrocytochrome_C__m_
+concentration		Malate__m_	1.68	mM	c_Malate__m_
+concentration		Citrate__m_	1.96	mM	c_Citrate__m_
+concentration		L_Lactate__c_	3.0753259	mM	c_L_Lactate__c_
+concentration		L_Lactate__m_	5.0740143	mM	c_L_Lactate__m_
+concentration		_3PG__c_	1.54	mM	c__3PG__c_
+concentration		_1_3DPG__c_	0.13806852	mM	c__1_3DPG__c_
+concentration		Isocitrate__m_	0.02	mM	c_Isocitrate__m_
+concentration		Fructose_1_6PP__c_	15.2	mM	c_Fructose_1_6PP__c_
+concentration		Ubiquinol__m_	75.887102	mM	c_Ubiquinol__m_
+concentration		Ubiquinone__m_	0.001170179	mM	c_Ubiquinone__m_
+concentration		_2PG__c_	0.04659591	mM	c__2PG__c_
+concentration		Oxalosuccinate__m_	0.10993048	mM	c_Oxalosuccinate__m_
+concentration of enzyme	r0017		1	mM	u_R1
+concentration of enzyme	r0019		1	mM	u_R2
+concentration of enzyme	r0054		1	mM	u_R3
+concentration of enzyme	r0056		1	mM	u_R4
+concentration of enzyme	r0083		1	mM	u_R5
+concentration of enzyme	r0099		1	mM	u_R6
+concentration of enzyme	r0105		1	mM	u_R7
+concentration of enzyme	r0107		1	mM	u_R8
+concentration of enzyme	r0125		1	mM	u_R9
+concentration of enzyme	r0164		1	mM	u_R10
+concentration of enzyme	r0171		1	mM	u_R11
+concentration of enzyme	r0172		1	mM	u_R12
+concentration of enzyme	r0192		1	mM	u_R13
+concentration of enzyme	r0243		1	mM	u_R14
+concentration of enzyme	r0253		1	mM	u_R15
+concentration of enzyme	r0256		1	mM	u_R16
+concentration of enzyme	r0259		1	mM	u_R17
+concentration of enzyme	r0316		1	mM	u_R18
+concentration of enzyme	r0337		1	mM	u_R19
+concentration of enzyme	r0341		1	mM	u_R20
+concentration of enzyme	r0353		1	mM	u_R21
+concentration of enzyme	r0425		1	mM	u_R22
+concentration of enzyme	r0507		1	mM	u_R23
+concentration of enzyme	r0508		1	mM	u_R24
+concentration of enzyme	r0509		1	mM	u_R25
+concentration of enzyme	r0736		1	mM	u_R26
+concentration of enzyme	r0801		1	mM	u_R27
+concentration of enzyme	r0849		1	mM	u_R28
+concentration of enzyme	r0851		1	mM	u_R29
+concentration of enzyme	r0855		1	mM	u_R30
+concentration of enzyme	r0856		1	mM	u_R31
+concentration of enzyme	r0867		1	mM	u_R32
+concentration of enzyme	r0868		1	mM	u_R33
+concentration of enzyme	r1032		1	mM	u_R34
+concentration of enzyme	r1047		1	mM	u_R35
+concentration of enzyme	r1114		1	mM	u_R36
+concentration of enzyme	r1422		1	mM	u_R37
+concentration of enzyme	r2418		1	mM	u_R38
+%					
+!!SBtab TableName='Layouts' TableType='Position' Document='Model' SBtabVersion='1.0'					
+!Element	!PositionX	!PositionY			
+H2O__c_	0.34965	0.532324			
+H2O__m_	0.38623	0.359076			
+H2O__s_	0.277106	0.522204			
+ATP__c_	0.280139	0.735579			
+ATP__m_	0.073409	0.572872			
+NADplus__c_	0.59116	0.702865			
+NADplus__m_	0.72381	0.406847			
+NADH__c_	0.590567	0.652594			
+NADH__m_	0.744268	0.384554			
+O2__c_	0.065776	0.129583			
+O2__m_	0.067252	0.226553			
+O2__s_	0.067913	0.012604			
+ADP__c_	0.282021	0.812741			
+ADP__m_	0.155648	0.572872			
+Pi__c_	0.410493	0.648293			
+Pi__m_	0.185859	0.467334			
+CoA__m_	0.528836	0.121383			
+CO2__c_	0.785194	0.085191			
+CO2__m_	0.628026	0.088376			
+CO2__s_	0.905581	0.085191			
+Pyruvate__c_	0.493964	0.449732			
+Pyruvate__m_	0.53213	0.284348			
+Acetyl_CoA__m_	0.567711	0.237868			
+AKG__m_	0.618674	-0.020075			
+Glucose__c_	0.439595	0.999441			
+Glucose__s_	0.220737	1			
+GDP__c_	0.179224	0.811306			
+GDP__m_	0.091402	0.811306			
+OAA__m_	0.513493	0.226931			
+Succinate__m_	0.408877	0.044351			
+GTP__c_	0.178981	0.73965			
+GTP__m_	0.089809	0.73965			
+PEP__c_	0.493964	0.512791			
+Hplus_PG___c_	0.184308	0.433218			
+Hplus_PG___m_	0.07033	0.434344			
+Fructose_6P__c_	0.439595	0.892514			
+Succinyl_CoA__m_	0.488171	-0.023379			
+Glucose_6P__c_	0.439595	0.94872			
+DHAP__c_	0.392024	0.774622			
+GAP__c_	0.493964	0.774622			
+Fumarate__m_	0.397314	0.125296			
+Ferricytochrome_C__m_	0.124202	0.305052			
+Ferrocytochrome_C__m_	0.14729	0.292738			
+Malate__m_	0.433861	0.19959			
+Citrate__m_	0.635483	0.209159			
+L_Lactate__c_	0.493162	0.386877			
+L_Lactate__m_	0.53213	0.344498			
+_3PG__c_	0.493964	0.648505			
+_1_3DPG__c_	0.493964	0.715676			
+Isocitrate__m_	0.693424	0.149795			
+Fructose_1_6PP__c_	0.439595	0.841793			
+Ubiquinol__m_	0.11035	0.184994			
+Ubiquinone__m_	0.170378	0.206543			
+_2PG__c_	0.493952	0.587109			
+Oxalosuccinate__m_	0.688056	0.034439			
+r0017	0.133438	0.40356			
+r0019	0.130359	0.528236			
+r0054	0.493964	0.484004			
+r0056	0.53213	0.258374			
+r0083	0.664929	0.003052			
+r0099	0.21879	0.774682			
+r0105	0.472829	0.220096			
+r0107	0.601868	0.218195			
+r0125	0.443568	-0.005207			
+r0164	0.493964	0.548433			
+r0171	0.493964	0.420945			
+r0172	0.53213	0.310322			
+r0192	0.439595	0.922673			
+r0243	0.440109	0.761927			
+r0253	0.493964	0.745834			
+r0256	0.439595	0.806151			
+r0259	0.408877	0.163291			
+r0316	0.673078	0.181259			
+r0337	0.493964	0.682775			
+r0341	0.493964	0.615605			
+r0353	0.439595	0.973394			
+r0425	0.701271	0.082346			
+r0507	0.07033	0.260415			
+r0508	0.195006	0.258876			
+r0509	0.397314	0.079042			
+r0736	0.439595	0.865097			
+r0801	0.139172	0.776274			
+r0849	0.3201	0.5333			
+r0851	0.379738	0.448697			
+r0855	0.068855	0.068015			
+r0856	0.064708	0.175759			
+r0867	0.840454	0.085191			
+r0868	0.745723	0.085191			
+r1032	0.37522	1			
+r1047	0.131898	0.46205			
+r1114	0.532727	-0.03742			
+r1422	0.513493	0.365004			
+r2418	0.191927	0.677538			

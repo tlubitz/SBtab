@@ -213,16 +213,26 @@ class SBtabDocument:
         in SBML
         '''
         invalid = [' ','-','_',',','.','+']
+        sbml_column = False
+        
+        for i, column in enumerate(sbtab.columns):
+            if column.startswith('!SBML:'):
+                sbml_column = i
+                
         
         for row in sbtab.value_rows:
             for iv in invalid:
                 if iv in row[sbtab.columns_dict['!ID']]:
-                    pass
-                    #print('XXXX')
-                    #raise ConversionError('There is an invalid character in the ID of row %s.'\
-                    #                      'Please remove in order to proceed.' % row)
+                    print('XXXX')
+                    raise ConversionError('There is an invalid character in the ID of row %s.'\
+                                          'Please remove in order to proceed.' % row)
                     #print('There is an invalid character in the ID of row %s.'\
                     #                      'Please remove in order to proceed.' % row)
+                if sbml_column != False:
+                    if iv in row[i]:
+                        print('XXXX2')
+                        raise ConversionError('There is an invalid character in the ID of row %s.'\
+                                              'Please remove in order to proceed.' % row)
 
                        
     def compartment_sbtab(self):

@@ -21,6 +21,7 @@ class TestSBtabTable(unittest.TestCase):
         self.convert_document_objects = []
 
         for i, t in enumerate(self.table_names):
+            if t.startswith('_'): continue
             p = open('tables/' + t, 'r')
             p_content = p.read()
             sbtab_doc = SBtab.SBtabDocument('test_' + str(i), sbtab_init=p_content, filename=t)

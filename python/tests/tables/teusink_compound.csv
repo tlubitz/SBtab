@@ -24,5 +24,5 @@ GLY,Glycerol,cytosol,0,False,0.2,False,C00116
 ATP,ATP concentration,cytosol,0,False,0,False,C00002
 ADP,ADP concentration,cytosol,0,False,0,False,C00008
 AMP,AMP concentration,cytosol,0,False,0,False,C00020
-SUM_P,sum of AXP conc,cytosol,0,True,4.1,False,C00002
+SUMP,sum of AXP conc,cytosol,0,True,4.1,False,C00002
 F26BP,"F2,6P",cytosol,0,True,0,False,C00665
