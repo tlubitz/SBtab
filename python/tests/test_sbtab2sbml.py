@@ -66,8 +66,14 @@ class TestSBtabTable(unittest.TestCase):
         for i, vto in enumerate(self.convert_document_objects):
             print(vto.sbtab_doc.filename)
             previous_sbtab_doc = self.sbtab_docs[i]
-            for v in ['24','31']:
+            for v in ['24', '31']:
                 (sbml_string, warnings) = vto.convert_to_sbml(v)
+
+
+                #f = open('sbml/' + vto.sbtab_doc.filename+'.xml','w')
+                #f.write(sbml_string)
+                #f.close()
+                
                 sbml_doc = vto.new_document
                 sbml_model = sbml_doc.getModel()
 
@@ -89,23 +95,41 @@ class TestSBtabTable(unittest.TestCase):
                         self.assertTrue(compartment.isSetId())
                         self.assertTrue(compartment.isSetName())
                         self.assertTrue(compartment.isSetSize())
+                        self.assertTrue(compartment.isSetConstant())
 
                 # check compound details
                 self.assertNotEqual(sbml_model.getNumSpecies(), 0)
                 if 'Compound' in previous_sbtab_doc.type_to_sbtab.keys():
                     sbtab_compounds = previous_sbtab_doc.type_to_sbtab['Compound']
-
                     for sbtab_compound in sbtab_compounds:
-
                         self.assertEqual(len(sbtab_compound.value_rows), sbml_model.getNumSpecies())
 
-
                     for species in sbml_model.getListOfSpecies():
-                        #print(species)
                         self.assertTrue(species.isSetId())
                         self.assertTrue(species.isSetName())
                         self.assertTrue(species.isSetCompartment())
-            
+                        self.assertTrue(species.isSetConstant())
+                        self.assertTrue(species.isSetBoundaryCondition())
+
+                # check reaction details
+                if 'Reaction' in previous_sbtab_doc.type_to_sbtab.keys():
+                    self.assertNotEqual(sbml_model.getNumReactions(), 0)
+                    sbtab_reactions = previous_sbtab_doc.type_to_sbtab['Reaction']
+                    for sbtab_reaction in sbtab_reactions:
+                        self.assertEqual(len(sbtab_reaction.value_rows), sbml_model.getNumReactions())
+
+                    for reaction in sbml_model.getListOfReactions():
+                        self.assertTrue(reaction.isSetId())
+                        self.assertTrue(reaction.isSetName())
+                        self.assertTrue(reaction.isSetFast())
+                        self.assertTrue(reaction.isSetReversible())
+                        for substrate in reaction.getListOfReactants():
+                            self.assertTrue(substrate.isSetSpecies())
+                            if v == '31': self.assertTrue(substrate.isSetConstant())
+                        for product in reaction.getListOfProducts():
+                            self.assertTrue(product.isSetSpecies())
+                            if v == '31': self.assertTrue(product.isSetConstant())
+                        
                 
                 
     def tearDown(self):
