@@ -84,7 +84,8 @@ class TestSBtabTable(unittest.TestCase):
         valid_table_types = ['Reaction', 'Compound', 'Quantity',
                              'QuantityType', 'Compartment', 'Relationship',
                              'Position', 'Definition', 'QuantityInfo',
-                             'Regulator', 'Relation', 'Enzyme', 'Gene']
+                             'Regulator', 'Relation', 'Enzyme', 'Gene',
+                             'PbConfig']
         
         for sbtab in self.sbtabs:
             self.assertIsNotNone(sbtab._get_header_row())
