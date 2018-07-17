@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model id="default_id" name="default_name">
+    <listOfCompartments>
+      <compartment id="Default_Compartment" name="Default_Compartment" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="X1" name="X1" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="true"/>
+      <species id="S1" name="S1" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="S2" name="S2" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="S3" name="S3" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="S4" name="S4" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="X2" name="X2" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="true"/>
+    </listOfSpecies>
+    <listOfReactions>
+      <reaction id="E1" name="E1" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="X1" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="S1" stoichiometry="1"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="E2" name="E2" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="S1" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="S2" stoichiometry="1"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="E3" name="E3" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="S2" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="S3" stoichiometry="1"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="E4" name="E4" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="S1" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="S3" stoichiometry="1"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="E5" name="E5" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="S3" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="S4" stoichiometry="1"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="E6" name="E6" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="S4" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="X2" stoichiometry="1"/>
+        </listOfProducts>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

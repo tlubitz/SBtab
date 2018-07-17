@@ -47,6 +47,8 @@ class SBtabDocument:
         self.sbtab_doc = sbtab_doc
         self.filename = sbtab_doc.name
         self.warnings = []
+        self.model_ids = []
+        self.parameter_names = []
 
     def convert_to_sbml(self, sbml_version):
         '''
@@ -111,11 +113,23 @@ class SBtabDocument:
                     name = 'self.' + table_type.lower() + '_sbtab()'
                     eval(name)
                 except:
-                    self.warnings.append('Warning: Could not process informat'\
+                    self.warnings.append('Warnings: Could not process informat'\
                                          'ion from SBtab %s.' % table_type)
 
+        # 5. See if there are parameters from a possible kinetic rate law
+        # that need to be initialised manually
+        if self.parameter_names:
+            for name in set(self.parameter_names):
+                if name not in self.model_ids:
+                    parameter = self.new_model.createParameter()
+                    parameter.setId(name)
+                    parameter.setConstant(True)
+                    parameter.setValue(1)
+                    #parameter.setUnits('per_second')
+                    
         # write generated information to SBML model
         new_sbml_model = libsbml.writeSBMLToString(self.new_document)
+        
         return (new_sbml_model, self.warnings)
 
     def return_warnings(self):
@@ -173,6 +187,7 @@ class SBtabDocument:
         default_compartment.setSize(True)
         default_compartment.setConstant(True)
         self.compartment_list.append('Default_Compartment')
+        self.model_ids.append(default_compartment.getId())
 
         return True
 
@@ -218,7 +233,6 @@ class SBtabDocument:
             if column.startswith('!SBML:'):
                 sbml_column = i
                 
-        
         for row in sbtab.value_rows:
             for iv in invalid:
                 if iv in row[sbtab.columns_dict['!ID']]:
@@ -229,7 +243,6 @@ class SBtabDocument:
                         raise ConversionError('There is an invalid character in the ID of row %s.'\
                                               'Please remove in order to proceed.' % row)
 
-                       
     def compartment_sbtab(self):
         '''
         extract information from the Compartment SBtab
@@ -254,8 +267,8 @@ class SBtabDocument:
                     else:
                         compartment.setName(str(row[sbtab_compartment.columns_dict['!ID']]))
                 self.compartment_list.append(row[sbtab_compartment.columns_dict['!ID']])
-               
-
+                self.model_ids.append(compartment.getId())
+                
                 # set the compartment size and SBOterm if given
                 if '!Size' in sbtab_compartment.columns and \
                    row[sbtab_compartment.columns_dict['!Size']] != '':
@@ -325,6 +338,7 @@ class SBtabDocument:
                     else:
                         species.setName(str(row[sbtab_compound.columns_dict['!ID']]))
                     self.species_list.append(species.getId())
+                    self.model_ids.append(species.getId())
 
                     # speciestype (if given)
                     if '!SBML:speciestype:id' in sbtab_compound.columns and \
@@ -467,10 +481,14 @@ class SBtabDocument:
                             sp.setId(str(educt))
                             sp.setName(str(educt))
                             sp.setInitialConcentration(1)
+                            sp.setConstant(False)
+                            sp.setBoundaryCondition(False)
+                            sp.setHasOnlySubstanceUnits(False)                            
                             if compartment: sp.setCompartment(compartment)
                             elif self.def_comp_set:
                                 sp.setCompartment('Default_Compartment')
                             self.species_list.append(educt)
+                            self.model_ids.append(sp.getId())
                     products = self.reaction2reactants[reaction][1]
                     for product in products:
                         if product == '': continue
@@ -480,10 +498,14 @@ class SBtabDocument:
                             sp.setId(str(product))
                             sp.setName(str(product))
                             sp.setInitialConcentration(1)
+                            sp.setConstant(False)
+                            sp.setBoundaryCondition(False)
+                            sp.setHasOnlySubstanceUnits(False)
                             if compartment: sp.setCompartment(compartment)
                             elif self.def_comp_set:
                                 sp.setCompartment('Default_Compartment')
                             self.species_list.append(product)
+                            self.model_ids.append(sp.getId())
 
             #if compartments are given for the reactions and these compartments are not built yet:
             if '!Location' in sbtab_reaction.columns:
@@ -497,6 +519,7 @@ class SBtabDocument:
                         compartment.setSize(1)
                         compartment.setConstant(True)
                         self.compartment_list.append(row[sbtab_reaction.columns_dict['!Location']])
+                        self.model_ids.append(compartment.getId())
 
             try:
                 sbtab_reaction.columns_dict['!KineticLaw']
@@ -679,13 +702,11 @@ class SBtabDocument:
                         for pattern in urns:
                             if pattern in column:
                                 urn = pattern
-                        print urn
                         try:
                             cv_term = self.set_annotation(react,annot,urn,'Biological')
                             react.addCVTerm(cv_term)
                         except:
-                            print 'There was an annotation that I could not assign properly: ',react.getId(),annot #,urn
-
+                            pass
                 '''
                 #since local parameters need to be entered *after* reaction creation, but *before* setting
                 try:
@@ -694,23 +715,40 @@ class SBtabDocument:
                         kl = react.createKineticLaw()
                         formula = row[sbtab_reaction.columns_dict['!KineticLaw']]
                         kl.setFormula(formula)
-                        # here we need to get the formula and implement the parameters!
-
-                       
                         react.setKineticLaw(kl)
 
-                        print(react.getKineticLaw())
-                        print(react.getKineticLaw().getListOfAllElements())
-                        
-                        for param in react.getKineticLaw().getListOfParameters():
-                            print(param.getId())
-                        
+                        # extract parameters from the Math object to see if they
+                        # need to be initialised manually
+                        parameter_names = self.extract_parameters_from_formula(react.getKineticLaw().getMath())
+                        for p in parameter_names:
+                            self.parameter_names.append(p)
+
                         #for erraneous laws: remove them
                         if react.getKineticLaw().getFormula() == '':
                             react.unsetKineticLaw()
                 except: pass
 
-            
+    def extract_parameters_from_formula(self, formula):
+        '''
+        extracts the parameters from the formula in order to create proper SBML
+        parameters. Parameters that only appear in a formula but not in a parameter
+        list yield errors in SBML3
+        '''
+        parameter_names = []
+        for i in range(formula.getNumChildren()):
+            name = formula.getChild(i).getName()
+            if name != None: parameter_names.append(name)
+            else:
+                parameters_rec = self.extract_parameters_from_formula(formula.getChild(i))
+                for p in parameters_rec:
+                    parameter_names.append(p)
+
+        return parameter_names
+
+        
+        
+
+                
     def unit_def_mm(self):
         '''
         build unit definition
@@ -845,6 +883,7 @@ class SBtabDocument:
                         if row[sbtab.columns_dict['!SBML:reaction:parameter:id']] in formula:
                             lp = kl.createParameter()
                             lp.setId(row[sbtab.columns_dict['!SBML:reaction:parameter:id']])
+                            self.model_ids.append(lp.getId())
                             try: lp.setValue(float(row[sbtab.columns_dict['!Value']]))
                             except: lp.setValue(1.0)
                             try: lp.setUnits(row[sbtab.columns_dict['!Unit']])
@@ -864,12 +903,14 @@ class SBtabDocument:
                     parameter.setId(row[sbtab.columns_dict['!SBML:reaction:parameter:id']])
                     parameter.setUnits(row[sbtab.columns_dict['!Unit']])
                     parameter.setValue(float(row[sbtab.columns_dict['!Value']]))
+                    self.model_ids.append(parameter.getId())
                     if '!SBOTerm' in sbtab.columns and row[sbtab.columns_dict['!SBOTerm']] != '':
                         try: parameter.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
                         except: pass
             except:
                 parameter = self.new_model.createParameter()
                 parameter.setId(row[sbtab.columns_dict['!SBML:reaction:parameter:id']])
+                self.model_ids.append(parameter.getId())
                 try: parameter.setValue(float(row[sbtab.columns_dict['!Value']]))
                 except: parameter.setValue(1.0)
                 try: parameter.setUnits(row[sbtab.columns_dict['!Unit']])
@@ -887,6 +928,7 @@ class SBtabDocument:
         for row in sbtab.value_rows:
             event = self.new_model.createEvent()
             event.setId(row[sbtab.columns_dict['!Event']])
+            self.model_ids.append(event.getId())
             try: event.setName(row[sbtab.columns_dict['!Name']])
             except: pass
             try:

@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model id="default_id" name="default_name">
+    <listOfCompartments>
+      <compartment id="Default_Compartment" name="Default_Compartment" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species metaid="Glcin_meta" id="Glcin" name="Glucose in" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="MgATP_meta" id="MgATP" name="MgATP" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="Glc6P_meta" id="Glc6P" name="Glucose 6-phosphate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="MgADP_meta" id="MgADP" name="MgADP" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="Fru6P_meta" id="Fru6P" name="Fructose 6-phosphate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="Fru16P2_meta" id="Fru16P2" name="Fructose 1,6-phosphate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="GraP_meta" id="GraP" name="Glyceraldehyde 3-phosphate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="DHAP_meta" id="DHAP" name="Dihydroxyacetone phosphate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="Phi" name="Phosphate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="true"/>
+      <species metaid="NAD_meta" id="NAD" name="NAD" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="Gri13P2_meta" id="Gri13P2" name="1,3-Bisphospho-D-glycerate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="NADH_meta" id="NADH" name="NADH" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="Gri3P_meta" id="Gri3P" name="3-Phospho-D-glycerate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="Gri23P2f_meta" id="Gri23P2f" name="2,3-Bisphospho-D-glycerate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="Gri2P_meta" id="Gri2P" name="2-Phospho-D-glycerate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="PEP_meta" id="PEP" name="Phosphoenolpyruvate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="Pyr_meta" id="Pyr" name="Pyruvate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="Lac_meta" id="Lac" name="Lactate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="NADPHf_meta" id="NADPHf" name="NADPH" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="NADPf_meta" id="NADPf" name="NADP" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="GlcA6P_meta" id="GlcA6P" name="Phospho-D-glucono-1,5-lactone" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="Rul5P_meta" id="Rul5P" name="Ribulose 5-phosphate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="GSSG_meta" id="GSSG" name="Oxidized Glutathione" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="GSH_meta" id="GSH" name="Reduced Glutathione" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="Xul5P_meta" id="Xul5P" name="Xylulose 5-phosphate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="Rib5P_meta" id="Rib5P" name="Ribose 5-phosphate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="Sed7P_meta" id="Sed7P" name="Sedoheptulose 7-phosphate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="E4P_meta" id="E4P" name="Erythrose 4-phosphate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="Lacex_meta" id="Lacex" name="External Lactate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="true"/>
+      <species metaid="Glcout_meta" id="Glcout" name="Glucose outside" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="true"/>
+    </listOfSpecies>
+    <listOfReactions>
+      <reaction id="vGLT" name="Glucose transport" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Glcout" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Glcin" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="vHEX" name="Hexokinase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Glcin" stoichiometry="1" constant="false"/>
+          <speciesReference species="MgATP" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Glc6P" stoichiometry="1" constant="false"/>
+          <speciesReference species="MgADP" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="vGPI" name="Glucosephosphate isomerase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Glc6P" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Fru6P" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="vPFK" name="Phosphofructokinase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="MgATP" stoichiometry="1" constant="false"/>
+          <speciesReference species="Fru6P" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="MgADP" stoichiometry="1" constant="false"/>
+          <speciesReference species="Fru16P2" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="vALD" name="Aldolase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Fru16P2" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="GraP" stoichiometry="1" constant="false"/>
+          <speciesReference species="DHAP" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="vTPI" name="Triosephosphate isomerase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="DHAP" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="GraP" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="vGAPDH" name="Glyceraldehyde 3-phosphate dehydrogenase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="GraP" stoichiometry="1" constant="false"/>
+          <speciesReference species="Phi" stoichiometry="1" constant="false"/>
+          <speciesReference species="NAD" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Gri13P2" stoichiometry="1" constant="false"/>
+          <speciesReference species="NADH" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="vPGK" name="Phosphoglycerate kinase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="MgADP" stoichiometry="1" constant="false"/>
+          <speciesReference species="Gri13P2" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="MgATP" stoichiometry="1" constant="false"/>
+          <speciesReference species="Gri3P" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="vBPGM" name="Bisphosphoglycerate mutase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Gri13P2" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Gri23P2f" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="vBPGP" name="Bisphosphoglycerate phosphatase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Gri23P2f" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Phi" stoichiometry="1" constant="false"/>
+          <speciesReference species="Gri3P" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="vPGM" name="Phosphoglycerate mutase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Gri3P" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Gri2P" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="vENO" name="Enolase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Gri2P" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="PEP" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="vPK" name="Pyruvate kinase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="MgADP" stoichiometry="1" constant="false"/>
+          <speciesReference species="PEP" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="MgATP" stoichiometry="1" constant="false"/>
+          <speciesReference species="Pyr" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="vLDHNADH" name="Lactate dehydrogenase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="NADH" stoichiometry="1" constant="false"/>
+          <speciesReference species="Pyr" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="NAD" stoichiometry="1" constant="false"/>
+          <speciesReference species="Lac" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="vATPase" name="ATPase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="MgATP" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="MgADP" stoichiometry="1" constant="false"/>
+          <speciesReference species="Phi" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="vG6PDH" name="Glucose 6-phosphate dehydrogenase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Glc6P" stoichiometry="1" constant="false"/>
+          <speciesReference species="NADPf" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="NADPHf" stoichiometry="1" constant="false"/>
+          <speciesReference species="GlcA6P" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="vPGLDH" name="Phosphogluconate dehydrogenase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="NADPf" stoichiometry="1" constant="false"/>
+          <speciesReference species="GlcA6P" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="NADPHf" stoichiometry="1" constant="false"/>
+          <speciesReference species="Rul5P" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="vGSSGRD" name="Glutathione reductase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="NADPHf" stoichiometry="1" constant="false"/>
+          <speciesReference species="GSSG" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="NADPf" stoichiometry="1" constant="false"/>
+          <speciesReference species="GSH" stoichiometry="2" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="vGSHox" name="Glutathione oxidation" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="GSH" stoichiometry="2" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="GSSG" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="vRibPepi" name="Phosphoribulose epimerase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Rul5P" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Xul5P" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="vRibPiso" name="Ribose phosphate isomerase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Rul5P" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Rib5P" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="vTrKet1" name="Transketolase 1" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Xul5P" stoichiometry="1" constant="false"/>
+          <speciesReference species="Rib5P" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="GraP" stoichiometry="1" constant="false"/>
+          <speciesReference species="Sed7P" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="vTrAld" name="Transaldolase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="GraP" stoichiometry="1" constant="false"/>
+          <speciesReference species="Sed7P" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Fru6P" stoichiometry="1" constant="false"/>
+          <speciesReference species="E4P" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="vTrKet2" name="Transketolase 2" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Xul5P" stoichiometry="1" constant="false"/>
+          <speciesReference species="E4P" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Fru6P" stoichiometry="1" constant="false"/>
+          <speciesReference species="GraP" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="vLacexch" name="Lactate exchange" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Lacex" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Lac" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

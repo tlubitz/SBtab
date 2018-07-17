@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model id="default_id" name="default_name">
+    <listOfCompartments>
+      <compartment id="cytosol" name="cytosol" size="1" constant="true"/>
+      <compartment id="extracellular" name="extracellular" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species metaid="GLCi_meta" id="GLCi" name="Glucose in Cytosol" compartment="cytosol" initialConcentration="0.1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="G6P_meta" id="G6P" name="Glucose 6 Phosphate" compartment="cytosol" initialConcentration="2.5" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="F6P_meta" id="F6P" name="Fructose 6 Phosphate" compartment="cytosol" initialConcentration="0.6" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="F16P_meta" id="F16P" name="&quot;Fructose-1,6 bisphosphate&quot;" compartment="cytosol" initialConcentration="5.5" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="TRIO_meta" id="TRIO" name="Triose-phosphate" compartment="cytosol" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="BPG_meta" id="BPG" name="&quot;1,3-bisphosphoglycerate&quot;" compartment="cytosol" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="P3G_meta" id="P3G" name="3-phosphoglycerate" compartment="cytosol" initialConcentration="0.9" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="P2G_meta" id="P2G" name="2-phosphoglycerate" compartment="cytosol" initialConcentration="0.1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="PEP_meta" id="PEP" name="Phosphoenolpyruvate" compartment="cytosol" initialConcentration="0.1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="PYR_meta" id="PYR" name="Pyruvate" compartment="cytosol" initialConcentration="1.9" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="ACE_meta" id="ACE" name="Acetaldehyde" compartment="cytosol" initialConcentration="0.2" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="P_meta" id="P" name="High energy phosphates" compartment="cytosol" initialConcentration="6.3" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="NAD_meta" id="NAD" name="NAD" compartment="cytosol" initialConcentration="1.2" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="NADH_meta" id="NADH" name="NADH" compartment="cytosol" initialConcentration="0.4" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="Glyc_meta" id="Glyc" name="Glycogen" compartment="cytosol" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="Trh_meta" id="Trh" name="Trehalose" compartment="cytosol" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="CO2_meta" id="CO2" name="CO2" compartment="cytosol" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="SUCC" name="Succinate" compartment="cytosol" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="GLCo_meta" id="GLCo" name="Extracellular Glucose" compartment="extracellular" initialConcentration="50" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="ETOH_meta" id="ETOH" name="Ethanol" compartment="cytosol" initialConcentration="50" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="GLY_meta" id="GLY" name="Glycerol" compartment="cytosol" initialConcentration="0.2" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="ATP_meta" id="ATP" name="ATP concentration" compartment="cytosol" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="ADP_meta" id="ADP" name="ADP concentration" compartment="cytosol" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="AMP_meta" id="AMP" name="AMP concentration" compartment="cytosol" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="SUMP_meta" id="SUMP" name="sum of AXP conc" compartment="cytosol" initialConcentration="4.1" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="true"/>
+      <species metaid="F26BP_meta" id="F26BP" name="&quot;F2,6P&quot;" compartment="cytosol" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="true"/>
+    </listOfSpecies>
+  </model>
+</sbml>

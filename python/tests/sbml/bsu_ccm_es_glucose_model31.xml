@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model id="default_id" name="default_name">
+    <listOfCompartments>
+      <compartment id="Default_Compartment" name="Default_Compartment" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="ADP" name="ADP" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="ATP" name="ATP" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="AcetateExt" name="AcetateExt" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="true"/>
+      <species id="Biomass" name="Biomass" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="true"/>
+      <species id="Citrate" name="Citrate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="F6P" name="F6P" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="FBP" name="FBP" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="GlucoseExt" name="GlucoseExt" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="true"/>
+      <species id="Glutamate" name="Glutamate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="true"/>
+      <species id="Malate" name="Malate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="MalateExt" name="MalateExt" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="true"/>
+      <species id="Oxaloacetate" name="Oxaloacetate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="PEP" name="PEP" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="Pyruvate" name="Pyruvate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="PyruvateExt" name="PyruvateExt" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="true"/>
+      <species id="Ribose5Phosphate" name="Ribose5Phosphate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="true"/>
+      <species id="ThreePhosphoGlycerate" name="ThreePhosphoGlycerate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="TwoOxoglutarate" name="TwoOxoglutarate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfReactions>
+      <reaction id="GlucoseTransport" name="GlucoseTransport" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="GlucoseExt" stoichiometry="1" constant="false"/>
+          <speciesReference species="PEP" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="F6P" stoichiometry="1" constant="false"/>
+          <speciesReference species="Pyruvate" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="PPP" name="PPP" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="F6P" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Ribose5Phosphate" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="PFK" name="PFK" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="ATP" stoichiometry="1" constant="false"/>
+          <speciesReference species="F6P" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="ADP" stoichiometry="1" constant="false"/>
+          <speciesReference species="FBP" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="FBPase" name="FBPase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="FBP" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="F6P" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="GapA" name="GapA" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="FBP" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="ThreePhosphoGlycerate" stoichiometry="2" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="GapB" name="GapB" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="ThreePhosphoGlycerate" stoichiometry="2" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="FBP" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="LowerGlycolysis" name="LowerGlycolysis" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="ADP" stoichiometry="1" constant="false"/>
+          <speciesReference species="ThreePhosphoGlycerate" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="ATP" stoichiometry="1" constant="false"/>
+          <speciesReference species="PEP" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="PyruvateKinase" name="PyruvateKinase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="ADP" stoichiometry="1" constant="false"/>
+          <speciesReference species="PEP" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="ATP" stoichiometry="1" constant="false"/>
+          <speciesReference species="Pyruvate" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="PyruvateExcretion" name="PyruvateExcretion" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Pyruvate" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="PyruvateExt" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="AcetateExcretion" name="AcetateExcretion" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="ADP" stoichiometry="1" constant="false"/>
+          <speciesReference species="Pyruvate" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="ATP" stoichiometry="1" constant="false"/>
+          <speciesReference species="AcetateExt" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="Anaplerotic" name="Anaplerotic" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="ATP" stoichiometry="1" constant="false"/>
+          <speciesReference species="Pyruvate" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="ADP" stoichiometry="1" constant="false"/>
+          <speciesReference species="Oxaloacetate" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="TCA1" name="TCA1" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Oxaloacetate" stoichiometry="1" constant="false"/>
+          <speciesReference species="Pyruvate" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Citrate" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="TCA2" name="TCA2" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Citrate" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="TwoOxoglutarate" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="TCA3" name="TCA3" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="ADP" stoichiometry="3" constant="false"/>
+          <speciesReference species="TwoOxoglutarate" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="ATP" stoichiometry="3" constant="false"/>
+          <speciesReference species="Malate" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="TCA4" name="TCA4" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Malate" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Oxaloacetate" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="MalateImport" name="MalateImport" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="MalateExt" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Malate" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="PEPcarboxykin" name="PEPcarboxykin" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="ATP" stoichiometry="1" constant="false"/>
+          <speciesReference species="Oxaloacetate" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="ADP" stoichiometry="1" constant="false"/>
+          <speciesReference species="PEP" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="Maintenance" name="Maintenance" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="ATP" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="ADP" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="BiomassProduction" name="BiomassProduction" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Pyruvate" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Biomass" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="AminoAcidProduction" name="AminoAcidProduction" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="TwoOxoglutarate" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Glutamate" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

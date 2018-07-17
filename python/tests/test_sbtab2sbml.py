@@ -64,15 +64,15 @@ class TestSBtabTable(unittest.TestCase):
         test if the conversion can be processed
         '''
         for i, vto in enumerate(self.convert_document_objects):
-            print(vto.sbtab_doc.filename)
             previous_sbtab_doc = self.sbtab_docs[i]
             for v in ['24', '31']:
                 (sbml_string, warnings) = vto.convert_to_sbml(v)
 
-
-                #f = open('sbml/' + vto.sbtab_doc.filename+'.xml','w')
-                #f.write(sbml_string)
-                #f.close()
+                # this can be uncommented to check the sbml files manually
+                # for syntactic correctness, e.g. via SBML online validator
+                # f = open('sbml/' + vto.sbtab_doc.filename[:-4]+v+'.xml','w')
+                # f.write(sbml_string)
+                # f.close()
                 
                 sbml_doc = vto.new_document
                 sbml_model = sbml_doc.getModel()
@@ -129,8 +129,6 @@ class TestSBtabTable(unittest.TestCase):
                         for product in reaction.getListOfProducts():
                             self.assertTrue(product.isSetSpecies())
                             if v == '31': self.assertTrue(product.isSetConstant())
-                        
-                
                 
     def tearDown(self):
         '''

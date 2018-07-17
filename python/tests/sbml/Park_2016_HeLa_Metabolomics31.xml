@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model id="default_id" name="default_name">
+    <listOfCompartments>
+      <compartment id="Default_Compartment" name="Default_Compartment" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="a2dehydroDgluconate" name="a2dehydroDgluconate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="a3phosphoglycerate_meta" id="a3phosphoglycerate" name="a3phosphoglycerate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="a3phosphoserine" name="a3phosphoserine" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="a6phosphoDgluconate_meta" id="a6phosphoDgluconate" name="a6phosphoDgluconate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="acetylCoA_meta" id="acetylCoA" name="acetylCoA" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="aconitate" name="aconitate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="ADP_meta" id="ADP" name="ADP" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="aketoglutarate_meta" id="aketoglutarate" name="aketoglutarate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="AMP" name="AMP" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="aspartate_meta" id="aspartate" name="aspartate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="ATP_meta" id="ATP" name="ATP" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="citrate_meta" id="citrate" name="citrate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="CMP" name="CMP" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="CTP" name="CTP" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="cyclicAMP" name="cyclicAMP" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="dATP" name="dATP" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="dCMP" name="dCMP" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="dCTP" name="dCTP" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="dTMP" name="dTMP" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="FAD" name="FAD" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="fructose16bisphosphate_meta" id="fructose16bisphosphate" name="fructose16bisphosphate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="fumarate_meta" id="fumarate" name="fumarate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="GDP" name="GDP" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="hexosePc" name="hexosePc" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="glutamate_meta" id="glutamate" name="glutamate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="glutathione" name="glutathione" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="glutathionedisulfide" name="glutathionedisulfide" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="GMP" name="GMP" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="GTP" name="GTP" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="IMP" name="IMP" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="inosine" name="inosine" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="malate_meta" id="malate" name="malate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="malonylCoA" name="malonylCoA" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="Methylmalonicacid" name="Methylmalonicacid" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="Nacetylglucosamine1P" name="Nacetylglucosamine1P" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="Nacetylglutamine" name="Nacetylglutamine" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="NAcetylLalanine" name="NAcetylLalanine" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="NAD_meta" id="NAD" name="NAD" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="NADH_meta" id="NADH" name="NADH" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="NADP_meta" id="NADP" name="NADP" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="phosphoenolpyruvate_meta" id="phosphoenolpyruvate" name="phosphoenolpyruvate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="pyruvate_meta" id="pyruvate" name="pyruvate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="SadenosylLhomoCysteine" name="SadenosylLhomoCysteine" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="thymidine" name="thymidine" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="UDP" name="UDP" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="UDPglucose" name="UDPglucose" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="UDPglucaronate" name="UDPglucaronate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="UDPNacetylglucosamine" name="UDPNacetylglucosamine" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="UMP" name="UMP" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="UTP" name="UTP" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="xylulosephosphate" name="xylulosephosphate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="gluconate" name="gluconate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="ribosephosphate_meta" id="ribosephosphate" name="ribosephosphate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="succinate_meta" id="succinate" name="succinate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="a23diphosphoglycerate_meta" id="a23diphosphoglycerate" name="a23diphosphoglycerate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species metaid="Sedoheptoluse7Phosphate_meta" id="Sedoheptoluse7Phosphate" name="Sedoheptoluse7Phosphate" compartment="Default_Compartment" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+  </model>
+</sbml>

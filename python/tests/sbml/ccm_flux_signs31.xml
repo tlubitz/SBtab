@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model id="default_id" name="default_name">
+    <listOfCompartments>
+      <compartment id="Default_Compartment" name="Default_Compartment" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="M6pglc" name="M6pglc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mh2oc" name="Mh2oc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="M6pgcc" name="M6pgcc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mhc" name="Mhc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mnadpc" name="Mnadpc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mco2c" name="Mco2c" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mnadphc" name="Mnadphc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mru5pDc" name="Mru5pDc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="M3pgc" name="M3pgc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Matpc" name="Matpc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="M13dpgc" name="M13dpgc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Madpc" name="Madpc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="MglcDc" name="MglcDc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mg6pc" name="Mg6pc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mr5pc" name="Mr5pc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="MmalLc" name="MmalLc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mnadc" name="Mnadc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mnadhc" name="Mnadhc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Moaac" name="Moaac" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mxu5pDc" name="Mxu5pDc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mg3pc" name="Mg3pc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Ms7pc" name="Ms7pc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mcoam" name="Mcoam" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mnadm" name="Mnadm" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mpyrm" name="Mpyrm" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Maccoam" name="Maccoam" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mco2m" name="Mco2m" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mnadhm" name="Mnadhm" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mdhapc" name="Mdhapc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="MgluLm" name="MgluLm" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mh2om" name="Mh2om" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mnadpm" name="Mnadpm" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Makgm" name="Makgm" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mhm" name="Mhm" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mnadphm" name="Mnadphm" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mnh4m" name="Mnh4m" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Maccoac" name="Maccoac" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mcitc" name="Mcitc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mcoac" name="Mcoac" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mf6pc" name="Mf6pc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mfdpc" name="Mfdpc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Me4pc" name="Me4pc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Micitm" name="Micitm" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Lactate" name="Lactate" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Lactateex" name="Lactateex" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mpyrc" name="Mpyrc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="M2pgc" name="M2pgc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mpepc" name="Mpepc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Matpm" name="Matpm" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Msuccm" name="Msuccm" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Madpm" name="Madpm" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mpim" name="Mpim" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Msuccoam" name="Msuccoam" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="MmalLm" name="MmalLm" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mpic" name="Mpic" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Micitc" name="Micitc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Makgc" name="Makgc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="MaspLc" name="MaspLc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Pyrimidines" name="Pyrimidines" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mcitm" name="Mcitm" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mo2e" name="Mo2e" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mq6h2m" name="Mq6h2m" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mq6m" name="Mq6m" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mpyre" name="Mpyre" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="MglcDe" name="MglcDe" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Moaam" name="Moaam" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Purines" name="Purines" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mfumc" name="Mfumc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Glutamine" name="Glutamine" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="MgluLc" name="MgluLc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Glycogen" name="Glycogen" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Serine" name="Serine" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="M2oxoadpm" name="M2oxoadpm" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="M2oxoadpc" name="M2oxoadpc" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Glutamineex" name="Glutamineex" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mcoa" name="Mcoa" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="FattyAcids" name="FattyAcids" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mfumm" name="Mfumm" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Mhco3c" name="Mhco3c" compartment="Default_Compartment" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfReactions>
+      <reaction id="RGAPD" name="Glyceraldehyde-3-phosphate dehydrogenase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Mg3pc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mnadc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mpic" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M13dpgc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mhc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mnadhc" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RTKT1" name="Transketolase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Mr5pc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mxu5pDc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Mg3pc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Ms7pc" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RTKT2" name="Transketolase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Me4pc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mxu5pDc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Mf6pc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mg3pc" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RG6PDH2" name="Glucose 6-phosphate dehydrogenase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Mg6pc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mnadpc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M6pglc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mhc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mnadphc" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RFUM" name="Fumarase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Mfumc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mh2oc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="MmalLc" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RRPE" name="Ribulose 5-phosphate 3-epimerase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Mru5pDc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Mxu5pDc" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RRPI" name="Ribose-5-phosphate isomerase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Mr5pc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Mru5pDc" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RCSc" name="Citrate synthase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Maccoac" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mh2oc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Moaac" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Mcitc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mcoac" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mhc" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RPGM" name="Phosphoglycerate mutase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="M2pgc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M3pgc" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RPGL" name="6-phosphogluconolactonase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="M6pglc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mh2oc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M6pgcc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mhc" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RPGK" name="Phosphoglycerate kinase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="M3pgc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Matpc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M13dpgc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Madpc" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RPGI" name="Glucose-6-phosphate isomerase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Mg6pc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Mf6pc" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RPC" name="Pyruvate carboxylase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Matpc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mhco3c" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mpyrc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Madpc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mhc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Moaac" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mpic" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RFBA" name="Fructose-bisphosphate aldolase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Mfdpc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Mdhapc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mg3pc" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RFUMm" name="Fumarase  mitochondrial" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Mfumm" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mh2om" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="MmalLm" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RCSm" name="Citrate synthase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Maccoam" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mh2om" stoichiometry="1" constant="false"/>
+          <speciesReference species="Moaam" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Mcitm" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mcoam" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mhm" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RICDHxm" name="Isocitrate dehydrogenase  NAD " reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Micitm" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mnadm" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Makgm" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mco2m" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mnadhm" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RTALA" name="Transaldolase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Mg3pc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Ms7pc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Me4pc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mf6pc" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RACONT" name="Aconitase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Mcitc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Micitc" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RHEX1" name="Hexokinase (D-glucose:ATP)" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Matpc" stoichiometry="1" constant="false"/>
+          <speciesReference species="MglcDc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Madpc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mg6pc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mhc" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RPFK" name="Phosphofructokinase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Matpc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mf6pc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Madpc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mfdpc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mhc" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RACONTm" name="Aconitate hydratase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Mcitm" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Micitm" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RAKGDam" name="Oxoglutarate dehydrogenase  lipoamide " reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Makgm" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mcoam" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mnadm" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Mco2m" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mnadhm" stoichiometry="1" constant="false"/>
+          <speciesReference species="Msuccoam" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RTPI" name="Triose-phosphate isomerase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Mdhapc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Mg3pc" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RMDH" name="Malate dehydrogenase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="MmalLc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mnadc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Mhc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mnadhc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Moaac" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RMDHm" name="Malate dehydrogenase  mitochondrial" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="MmalLm" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mnadm" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Mhm" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mnadhm" stoichiometry="1" constant="false"/>
+          <speciesReference species="Moaam" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RPYK" name="Pyruvate kinase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Madpc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mhc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mpepc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Matpc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mpyrc" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RENO" name="Enolase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="M2pgc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Mh2oc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mpepc" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RSUCOAS1m" name="SUCOAS1m" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Matpm" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mcoam" stoichiometry="1" constant="false"/>
+          <speciesReference species="Msuccm" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Madpm" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mpim" stoichiometry="1" constant="false"/>
+          <speciesReference species="Msuccoam" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RGND" name="Phosphogluconate dehydrogenase" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="M6pgcc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mnadpc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Mco2c" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mnadphc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mru5pDc" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RICDHym" name="Isocitrate dehydrogenase  NADP " reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Micitm" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mnadpm" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Makgm" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mco2m" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mnadphm" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RGLCt1" name="Glucose transport  uniport " reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="MglcDe" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="MglcDc" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RSUCD2u6m" name="Succinate dehydrogenase  ubiquinone 6   mitochondrial" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Mq6m" stoichiometry="1" constant="false"/>
+          <speciesReference species="Msuccm" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Mfumm" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mq6h2m" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RPYRt2m" name="Pyruvate mitochondrial transport via proton symport   mitochondrial" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Mhc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mpyrc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Mhm" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mpyrm" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RMALtm" name="Malate transport  mitochondrial" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="MmalLc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mpim" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="MmalLm" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mpic" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RALCD2m" name="ALCD2m" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Mcoam" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mnadm" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mpyrm" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Maccoam" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mco2m" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mnadhm" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RGLUDym" name="GLUDym" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="MgluLm" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mh2om" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mnadpm" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Makgm" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mhm" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mnadphm" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mnh4m" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R2OXOADPtim" name="2 oxoadipate transport out of mitochondria via diffusion" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="M2oxoadpm" stoichiometry="1" constant="false"/>
+          <speciesReference species="Makgc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M2oxoadpc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Makgm" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RICDHy" name="Isocitrate dehydrogenase (NADP)" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Micitc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mnadpc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Makgc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mco2c" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mnadphc" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RME1m" name="Malic enzyme  NAD   mitochondrial" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="MmalLm" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mnadm" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Mco2m" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mnadhm" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mpyrm" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="GCSRGLCsy" name="GCSRGLCsy" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Mg6pc" stoichiometry="1" constant="false"/>
+          <speciesReference species="Matpc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Glycogen" stoichiometry="1" constant="false"/>
+          <speciesReference species="Madpc" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="SESSERIsy" name="SESSERIsy" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Mg3pc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Serine" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="PYXPYRUex" name="PYXPYRUex" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Mpyrc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Mpyre" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="LASLACTsy" name="LASLACTsy" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Mpyrc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Lactate" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="LAXLACTex" name="LAXLACTex" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Lactate" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Lactateex" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="ASSASPAsy" name="ASSASPAsy" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Moaac" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="MaspLc" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="PYSPYRIsy" name="PYSPYRIsy" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="MaspLc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Pyrimidines" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mco2c" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="PUSPURIsy" name="PUSPURIsy" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="MaspLc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Purines" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mfumc" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="GLIGLUNim" name="GLIGLUNim" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Glutamineex" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Glutamine" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="GTSGLTEsy" name="GTSGLTEsy" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Glutamine" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="MgluLc" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="GTTGLTEtr" name="GTTGLTEtr" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="MgluLc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="MgluLm" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="RibDrain" name="RibDrain" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Mr5pc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+      </reaction>
+      <reaction id="CitTrans" name="Citrate mitochondrial transport (SIMPLIFIED!)" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Mcitc" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Mcitm" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="FattyAcidProd" name="FattyAcidProd" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Maccoac" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Mcoa" stoichiometry="1" constant="false"/>
+          <speciesReference species="FattyAcids" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="OxPhos" name="OxPhos" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="Mo2e" stoichiometry="1" constant="false"/>
+          <speciesReference species="Mq6h2m" stoichiometry="1" constant="false"/>
+          <speciesReference species="Madpc" stoichiometry="3" constant="false"/>
+          <speciesReference species="Mpic" stoichiometry="3" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Mq6m" stoichiometry="1" constant="false"/>
+          <speciesReference species="Matpc" stoichiometry="3" constant="false"/>
+          <speciesReference species="Mco2c" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>
