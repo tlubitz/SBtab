@@ -38,7 +38,6 @@ class TestSBMLConversion(unittest.TestCase):
         test if the conversion can be processed
         '''
         for i, sbml_doc in enumerate(self.sbml_docs):
-            print(self.sbml_names[i])
             # get previous SBML to compare to
             previous_sbml = self.sbml_docs[i].getModel()
             sbml_level = previous_sbml.getLevel()
