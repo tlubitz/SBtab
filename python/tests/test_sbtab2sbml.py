@@ -8,7 +8,7 @@ sys.path.insert(0,os.path.join(os.path.dirname(__file__), '..'))
 import SBtab
 import commandline_scripts.sbtab2sbml as sbtab2sbml
 
-class TestSBtabTable(unittest.TestCase):
+class TestSBtabConversion(unittest.TestCase):
 
     def setUp(self):
         '''

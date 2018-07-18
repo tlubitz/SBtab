@@ -83,8 +83,9 @@ class SBMLDocument:
         for compartment in self.model.getListOfCompartments():
             value_row = [''] * len(columns)
             value_row[0] = compartment.getId()
-            try: value_row[1] = compartment.getName()
-            except: pass
+            if compartment.getName() != '':
+                value_row[1] = compartment.getName()
+            else: value_row[1] = compartment.getId()
             try: value_row[2] = str(compartment.getSize())
             except: pass
             try: value_row[3] = str(species.getUnits())

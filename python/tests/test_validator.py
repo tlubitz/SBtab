@@ -8,7 +8,7 @@ sys.path.insert(0,os.path.join(os.path.dirname(__file__), '..'))
 import SBtab
 import commandline_scripts.validatorSBtab as validator
 
-class TestSBtabTable(unittest.TestCase):
+class TestValidator(unittest.TestCase):
 
     def setUp(self):
         '''

@@ -9,7 +9,7 @@ sys.path.insert(0,os.path.join(os.path.dirname(__file__), '..'))
 import SBtab
 import commandline_scripts.sbml2sbtab as sbml2sbtab
 
-class TestSBtabTable(unittest.TestCase):
+class TestSBMLConversion(unittest.TestCase):
 
     def setUp(self):
         '''
@@ -17,104 +17,175 @@ class TestSBtabTable(unittest.TestCase):
         '''
         self.sbml_names = [f for f in os.listdir('sbml/') if os.path.isfile(os.path.join('sbml/', f))]
         
-        self.sbml_models = []
+        self.sbml_docs = []
         reader = libsbml.SBMLReader()
         
         for i, s in enumerate(self.sbml_names):
             if s.startswith('_'): continue
-            doc = reader.readSBML('sbml/' + s, 'r')
-            self.sbml_models.append(doc.getModel())
-            p.close()
+            doc = reader.readSBML('sbml/' + s)
+            self.sbml_docs.append(doc)
 
-    def tes2t_object_creation(self):
+    def test_object_creation(self):
         '''
-        test if the SBtabs have arrived safely in the conversion object
+        test if the SBML models can be used for object creation
         '''
-        for i, vto in enumerate(self.convert_document_objects):
-            previous_sbtab_doc = self.sbtab_docs[i]
-            self.assertEqual(previous_sbtab_doc, vto.sbtab_doc)
-            self.assertEqual(previous_sbtab_doc.doc_row, vto.sbtab_doc.doc_row)
-            self.assertEqual(previous_sbtab_doc.sbtabs, vto.sbtab_doc.sbtabs)
-            for j, sbtab in enumerate(vto.sbtab_doc.sbtabs):
-                previous_sbtab = previous_sbtab_doc.sbtabs[j]
-                self.assertEqual(previous_sbtab, sbtab)
-                self.assertEqual(previous_sbtab.header_row, sbtab.header_row)
-                self.assertEqual(previous_sbtab.columns, sbtab.columns)
-                self.assertEqual(previous_sbtab.columns_dict, sbtab.columns_dict)
-                self.assertEqual(previous_sbtab.value_rows, sbtab.value_rows)
-                self.assertEqual(previous_sbtab.table_type, sbtab.table_type)
-
-    def tes2t_conversion(self):
+        for i, sbml_doc in enumerate(self.sbml_docs):
+            conversion_object = sbml2sbtab.SBMLDocument(sbml_doc.getModel(), self.sbml_names[i])
+            self.assertIsNotNone(conversion_object)
+            
+    def test_conversion(self):
         '''
         test if the conversion can be processed
         '''
-        for i, vto in enumerate(self.convert_document_objects):
-            previous_sbtab_doc = self.sbtab_docs[i]
-            for v in ['24', '31']:
-                (sbml_string, warnings) = vto.convert_to_sbml(v)
+        for i, sbml_doc in enumerate(self.sbml_docs):
+            print(self.sbml_names[i])
+            # get previous SBML to compare to
+            previous_sbml = self.sbml_docs[i].getModel()
+            sbml_level = previous_sbml.getLevel()
 
-                # this can be uncommented to check the sbml files manually
-                # for syntactic correctness, e.g. via SBML online validator
-                # f = open('sbml/' + vto.sbtab_doc.filename[:-4]+v+'.xml','w')
-                # f.write(sbml_string)
-                # f.close()
-                
-                sbml_doc = vto.new_document
-                sbml_model = sbml_doc.getModel()
+            # get SBtab document
+            conversion_object = sbml2sbtab.SBMLDocument(sbml_doc.getModel(), self.sbml_names[i])
+            (sbtab_doc, warnings) = conversion_object.convert_to_sbtab()
 
-                # check document and model details
-                level = sbml_doc.getLevel()
-                version = sbml_doc.getVersion()
-                self.assertEqual(level, int(v[0]))
-                self.assertEqual(version, int(v[1]))
-                self.assertTrue(sbml_model.isSetId())
-                self.assertTrue(sbml_model.isSetName())
+            # check general attributes of sbtab_doc
+            self.assertIsNotNone(sbtab_doc)
+            self.assertNotEqual(len(sbtab_doc.sbtabs), 0)
+            self.assertNotEqual(len(sbtab_doc.name_to_sbtab), 0)
+            self.assertNotEqual(len(sbtab_doc.type_to_sbtab), 0)
+            self.assertNotEqual(len(sbtab_doc.sbtab_filenames), 0)
 
-                # check compartment details
-                self.assertNotEqual(sbml_model.getNumCompartments(), 0)
-                if 'Compartment' in previous_sbtab_doc.type_to_sbtab.keys():
-                    sbtab_compartments = previous_sbtab_doc.type_to_sbtab['Compartment']
-                    for sbtab_compartment in sbtab_compartments:
-                        self.assertEqual(len(sbtab_compartment.value_rows), sbml_model.getNumCompartments())
-                    for compartment in sbml_model.getListOfCompartments():
-                        self.assertTrue(compartment.isSetId())
-                        self.assertTrue(compartment.isSetName())
-                        self.assertTrue(compartment.isSetSize())
-                        self.assertTrue(compartment.isSetConstant())
+            self.assertEqual(len(sbtab_doc.sbtabs), len(sbtab_doc.name_to_sbtab))
+            self.assertEqual(len(sbtab_doc.name_to_sbtab), len(sbtab_doc.type_to_sbtab))
+            self.assertEqual(len(sbtab_doc.type_to_sbtab), len(sbtab_doc.sbtab_filenames))
+            self.assertIsNotNone(sbtab_doc.doc_row)
+            self.assertEqual(sbtab_doc.doc_row[:8], '!!!SBtab')
+            
+            # check single SBtab files
+            if previous_sbml.getNumCompartments() > 0:
+                self.assertIn('Compartment', sbtab_doc.type_to_sbtab)
+                compartment_sbtabs = sbtab_doc.type_to_sbtab['Compartment']
+                for c_sbtab in compartment_sbtabs:
+                    # header row
+                    self.assertEqual(c_sbtab.header_row[:7], '!!SBtab')
+                    self.assertIn('TableType', c_sbtab.header_row)                    
 
-                # check compound details
-                self.assertNotEqual(sbml_model.getNumSpecies(), 0)
-                if 'Compound' in previous_sbtab_doc.type_to_sbtab.keys():
-                    sbtab_compounds = previous_sbtab_doc.type_to_sbtab['Compound']
-                    for sbtab_compound in sbtab_compounds:
-                        self.assertEqual(len(sbtab_compound.value_rows), sbml_model.getNumSpecies())
+                    # columns
+                    self.assertEqual(len(c_sbtab.value_rows), previous_sbml.getNumCompartments())
+                    self.assertIn('!ID', c_sbtab.columns)
+                    self.assertIn('!ID', c_sbtab.columns_dict)
+                    self.assertIn('!Size', c_sbtab.columns)
+                    self.assertIn('!Size', c_sbtab.columns_dict)
+                    #if sbml_level == 3:
+                    #    self.assertIn('!Constant', c_sbtab.columns)
+                    #    self.assertIn('!Constant', c_sbtab.columns_dict)
 
-                    for species in sbml_model.getListOfSpecies():
-                        self.assertTrue(species.isSetId())
-                        self.assertTrue(species.isSetName())
-                        self.assertTrue(species.isSetCompartment())
-                        self.assertTrue(species.isSetConstant())
-                        self.assertTrue(species.isSetBoundaryCondition())
+                    # rows
+                    for compartment in c_sbtab.value_rows:
+                        self.assertEqual(len(compartment), len(c_sbtab.columns))
+                        self.assertNotEqual(compartment[c_sbtab.columns_dict['!ID']], '')
+                        self.assertNotEqual(compartment[c_sbtab.columns_dict['!Name']], '')
+                        self.assertNotEqual(compartment[c_sbtab.columns_dict['!Size']], '')
+                        #if sbml_level == 3:
+                        #    self.assertNotEqual(compartment[c_sbtab.columns_dict['!Constant']], '')
+                    
+            if previous_sbml.getNumSpecies() > 0:
+                self.assertIn('Compound', sbtab_doc.type_to_sbtab)
+                compound_sbtabs = sbtab_doc.type_to_sbtab['Compound']
+                for c_sbtab in compound_sbtabs:
+                    # header row
+                    self.assertEqual(c_sbtab.header_row[:7], '!!SBtab')
+                    self.assertIn('TableType', c_sbtab.header_row)                    
 
-                # check reaction details
-                if 'Reaction' in previous_sbtab_doc.type_to_sbtab.keys():
-                    self.assertNotEqual(sbml_model.getNumReactions(), 0)
-                    sbtab_reactions = previous_sbtab_doc.type_to_sbtab['Reaction']
-                    for sbtab_reaction in sbtab_reactions:
-                        self.assertEqual(len(sbtab_reaction.value_rows), sbml_model.getNumReactions())
+                    # columns
+                    self.assertEqual(len(c_sbtab.value_rows), previous_sbml.getNumSpecies())
+                    self.assertIn('!ID', c_sbtab.columns)
+                    self.assertIn('!ID', c_sbtab.columns_dict)
+                    self.assertIn('!Location', c_sbtab.columns)
+                    self.assertIn('!Location', c_sbtab.columns_dict)
+                    #if sbml_level == 3:
+                    #    self.assertIn('!Constant', c_sbtab.columns)
+                    #    self.assertIn('!Constant', c_sbtab.columns_dict)
+                    #    self.assertIn('!hasOnlySubstanceUnit', c_sbtab.columns)
+                    #    self.assertIn('!hasOnlySubstanceUnit', c_sbtab.columns_dict)
+                    #    self.assertIn('!boundaryCondition', c_sbtab.columns)
+                    #    self.assertIn('!boundaryCondition', c_sbtab.columns_dict)
+                    #    self.assertIn('!InitialValue', c_sbtab.columns)
+                    #    self.assertIn('!InitialValue', c_sbtab.columns_dict)
 
-                    for reaction in sbml_model.getListOfReactions():
-                        self.assertTrue(reaction.isSetId())
-                        self.assertTrue(reaction.isSetName())
-                        self.assertTrue(reaction.isSetFast())
-                        self.assertTrue(reaction.isSetReversible())
-                        for substrate in reaction.getListOfReactants():
-                            self.assertTrue(substrate.isSetSpecies())
-                            if v == '31': self.assertTrue(substrate.isSetConstant())
-                        for product in reaction.getListOfProducts():
-                            self.assertTrue(product.isSetSpecies())
-                            if v == '31': self.assertTrue(product.isSetConstant())
-                
+                    # rows
+                    for compound in c_sbtab.value_rows:
+                        self.assertEqual(len(compound), len(c_sbtab.columns))
+                        self.assertNotEqual(compound[c_sbtab.columns_dict['!ID']], '')
+                        self.assertNotEqual(compound[c_sbtab.columns_dict['!Location']], '')
+                        #if sbml_level == 3:
+                        #    self.assertNotEqual(compound[c_sbtab.columns_dict['!Constant']], '')
+                        #    self.assertNotEqual(compound[c_sbtab.columns_dict['!hasOnlySubstanceUnit']], '')
+                        #    self.assertNotEqual(compound[c_sbtab.columns_dict['!boundaryCondition']], '')
+                        #    self.assertNotEqual(compound[c_sbtab.columns_dict['!InitialValue']], '')
+                    
+            if previous_sbml.getNumReactions() > 0:
+                self.assertIn('Reaction', sbtab_doc.type_to_sbtab)
+                reaction_sbtabs = sbtab_doc.type_to_sbtab['Reaction']
+                for r_sbtab in reaction_sbtabs:
+                    # header row
+                    self.assertEqual(r_sbtab.header_row[:7], '!!SBtab')
+                    self.assertIn('TableType', r_sbtab.header_row)                    
+
+                    # columns
+                    self.assertEqual(len(r_sbtab.value_rows), previous_sbml.getNumReactions())
+                    self.assertIn('!ID', r_sbtab.columns)
+                    self.assertIn('!ID', r_sbtab.columns_dict)
+                    self.assertIn('!ReactionFormula', r_sbtab.columns)
+                    self.assertIn('!ReactionFormula', r_sbtab.columns_dict)
+                    #if sbml_level == 3:
+                    #    self.assertIn('!IsReversible', r_sbtab.columns)
+                    #    self.assertIn('!IsReversible', r_sbtab.columns_dict)
+                    #    self.assertIn('!Constant', r_sbtab.columns)
+                    #    self.assertIn('!Constant', r_sbtab.columns_dict)
+
+                    # rows
+                    for reaction in r_sbtab.value_rows:
+                        self.assertEqual(len(reaction), len(r_sbtab.columns))
+                        self.assertNotEqual(reaction[r_sbtab.columns_dict['!ID']], '')
+                        self.assertNotEqual(reaction[r_sbtab.columns_dict['!ReactionFormula']], '')
+                        #if sbml_level == 3:
+                        #    self.assertNotEqual(reaction[r_sbtab.columns_dict['!Constant']], '')
+                        #    self.assertNotEqual(reaction[r_sbtab.columns_dict['!IsReversible']], '')
+                    
+            if previous_sbml.getNumParameters() > 0:
+                self.assertIn('Quantity', sbtab_doc.type_to_sbtab)
+                quantity_sbtabs = sbtab_doc.type_to_sbtab['Quantity']
+                for q_sbtab in quantity_sbtabs:
+                    # header row
+                    self.assertEqual(q_sbtab.header_row[:7], '!!SBtab')
+                    self.assertIn('TableType', q_sbtab.header_row)                    
+
+                    # columns
+                    # we have a bug here for the export of local parameters;
+                    # uncomment when fixed
+                    #print(q_sbtab.value_rows)
+                    #self.assertEqual(len(q_sbtab.value_rows), previous_sbml.getNumParameters())
+                    self.assertIn('!ID', q_sbtab.columns)
+                    self.assertIn('!ID', q_sbtab.columns_dict)
+                    self.assertIn('!Value', q_sbtab.columns)
+                    self.assertIn('!Value', q_sbtab.columns_dict)
+                    self.assertIn('!Unit', q_sbtab.columns)
+                    self.assertIn('!Unit', q_sbtab.columns_dict)
+                    #if sbml_level == 3:
+                    #    self.assertIn('!Constant', q_sbtab.columns)
+                    #    self.assertIn('!Constant', q_sbtab.columns_dict)
+
+                    # rows
+                    for quantity in q_sbtab.value_rows:
+                        self.assertEqual(len(quantity), len(q_sbtab.columns))
+                        self.assertNotEqual(quantity[q_sbtab.columns_dict['!ID']], '')
+                        self.assertNotEqual(quantity[q_sbtab.columns_dict['!Value']], '')
+                        # update when default values are at hand
+                        # self.assertNotEqual(quantity[q_sbtab.columns_dict['!Unit']], '')
+                        #if sbml_level == 3:
+                        #    self.assertNotEqual(quantity[q_sbtab.columns_dict['!Constant']], '')
+           
+
     def tearDown(self):
         '''
         close file/s

@@ -14,8 +14,7 @@ class TestSBtabDocument(unittest.TestCase):
         '''
         #self.table_names = [f for f in os.listdir('tables/') if os.path.isfile(os.path.join('tables/', f))]
         self.table_names = ['teusink_compartment.csv', 'teusink_compound.csv',
-                            'teusink_data.tsv', 'teusink_reaction.tsv',
-                            'BIOMD0000000061_modeldata.tsv']
+                            'teusink_data.tsv', 'teusink_reaction.tsv']
         self.doc_names = [f for f in os.listdir('docs/') if os.path.isfile(os.path.join('docs/', f))]
 
         self.sbtabs = []
