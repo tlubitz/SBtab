@@ -210,9 +210,6 @@ def id_checker(sbtab, sbml):
     return sbtabid2sbmlid
 
 
-
-
-
 def xml2html(sbml_file):
     '''
     generates html view out of xml file
@@ -504,7 +501,7 @@ def xlsx_to_tsv(file_object):
     '''
     import openpyxl
 
-    wb = openpyxl.load_workbook(filename = file_object)
+    wb = openpyxl.load_workbook(filename = file_object, read_only=True)
     ws = wb.active
     ranges = wb[ws.title]
     table_string = ''
@@ -520,3 +517,19 @@ def xlsx_to_tsv(file_object):
         
     return table_string
 
+def tab_to_xlsx(sbtab_object):
+    '''
+    converts SBtab object to xlsx file object
+    '''
+    import openpyxl
+
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    
+    ws['A1'] = sbtab_object.header_row
+    ws.append(sbtab_object.columns)
+    for row in sbtab_object.value_rows:
+        ws.append(row)
+
+    return wb
+    
