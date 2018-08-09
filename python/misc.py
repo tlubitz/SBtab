@@ -500,12 +500,14 @@ def xlsx_to_tsv(file_object):
     convert xlsx SBtab file to tsv format
     '''
     import openpyxl
-
-    wb = openpyxl.load_workbook(filename = file_object, read_only=True)
+    from io import BytesIO
+    print('in')
+    
+    wb = openpyxl.load_workbook(filename = BytesIO(file_object))#, read_only=True)
     ws = wb.active
     ranges = wb[ws.title]
     table_string = ''
-    
+
     for row in ranges:
         for column in row:
             if str(row[0].value).startswith('!'):

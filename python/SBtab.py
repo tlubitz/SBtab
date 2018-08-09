@@ -46,10 +46,10 @@ class SBtabTable():
         '''
         self.filename = filename
         self.table_string = table_string
-        
+
         # validate file extension
         self.validate_extension()
-        
+
         # process string
         self.delimiter = misc.check_delimiter(table_string)
         self.table = self.cut_table_string(table_string)
@@ -61,11 +61,11 @@ class SBtabTable():
         '''
         Checks the extension of the file for invalid formats.
         '''
-        valid_extensions = ['tsv', 'csv', 'xls']
+        valid_extensions = ['tsv', 'csv', 'xlsx']
         if test: filename = test
         else: filename = self.filename
 
-        if filename[-3:] not in valid_extensions:
+        if filename[-3:] not in valid_extensions and filename[-4:] not in valid_extensions :
             raise SBtabError('The file extension is not valid for an SBtab file.')
 
         return True
@@ -109,9 +109,10 @@ class SBtabTable():
         '''
         Loads table informations and class variables.
         '''
+
         # read a potential document row
         self.doc_row = self._get_doc_row()
-        
+
         # Read the header row from table
         self.header_row = self._get_header_row()
 
@@ -120,7 +121,7 @@ class SBtabTable():
          self.table_name,
          self.table_document,
          self.table_version) = self.get_table_information()
-        
+
         # Read the columns of the table
         (self.columns, self.columns_dict) = self.get_columns()
 
@@ -181,7 +182,7 @@ class SBtabTable():
         stupid_quotes = ['"', '\xe2\x80\x9d', '\xe2\x80\x98', '\xe2\x80\x99',
                          '\xe2\x80\x9b', '\xe2\x80\x9c', '\xe2\x80\x9f',
                          '\xe2\x80\xb2', '\xe2\x80\xb3', '\xe2\x80\xb4',
-                         '\xe2\x80\xb5', '\xe2\x80\xb6', '\xe2\x80\xb7']
+                         '\xe2\x80\xb5', '\xe2\x80\xb6', '\xe2\x80\xb7', '”']
 
         for squote in stupid_quotes:
             try: row = row.replace(squote, "'")
