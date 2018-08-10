@@ -566,6 +566,7 @@ class SBtabTable():
         
         return SBtabTable(table_string.getvalue(), 'unnamed_sbtab.tsv')
 
+
 class SBtabDocument:
     '''
     The SBtab document class can consist of one or more SBtab Table objects

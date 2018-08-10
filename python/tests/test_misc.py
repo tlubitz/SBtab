@@ -68,6 +68,34 @@ class TestMiscFunctions(unittest.TestCase):
         for bad_name in ['test.txt', 'test.xls', 'test.rtf', 'test.pdf', 'test.m']:
             self.assertFalse(misc.validate_file_extension(bad_name, 'sbml'))
             self.assertFalse(misc.validate_file_extension(bad_name, 'sbtab'))
+
+    def test_delimiter_check(self):
+        '''
+        test if the delimiter can be determined
+        '''
+        for sbtab in self.sbtabs:
+            self.assertNotEqual(misc.check_delimiter(sbtab.return_table_string()), False)
+
+        for doc in self.docs:
+            for sbtab in doc.sbtabs:
+                self.assertNotEqual(misc.check_delimiter(sbtab.return_table_string()), False)
+
+        for sbml in self.sbml_docs:
+            self.assertFalse(misc.check_delimiter(sbml))
+
+        
+    def test_sbtab_splitter(self):
+        '''
+        test if multiple sbtabs in one input file can be splitted correctly
+        '''
+        p = open('tables/teusink.tsv', 'r')
+        p_content = p.read()
+        sbtabs = misc.split_sbtabs(p_content)
+        self.assertEqual(4, len(sbtabs))
+        for sbtab in sbtabs:
+            self.assertEqual(sbtab[0:7],'!!SBtab')
+        p.close()       
+        
     
     def tearDown(self):
         '''
