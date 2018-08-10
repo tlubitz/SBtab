@@ -10,25 +10,8 @@ import random
 import copy
 import math
 
-try:
-    from . import SBtab
-except:
-    import SBtab
-
-
-def table_type(sbtab):
-    '''
-    determines table_type of SBtab file
-    '''
-    for row in sbtab.split('\n'):
-        if row.startswith('!!'):
-            try:
-                row = row.replace('"', "'")
-                tabletype = re.search("TableType='([^']*)'", row).group(1)
-                return tabletype
-            except: pass
-    return False
-
+try: from . import SBtab
+except: import SBtab
 
 def count_tabs(sbtab_string):
     '''
@@ -45,7 +28,7 @@ def validate_file_extension(file_name, file_type):
     '''
     returns Boolean to evaluate if the file has the correct extension:
     sbml => xml
-    sbtab => tsv
+    sbtab => tsv, csv, xlsx
     '''
     # check extension for sbml file
     if file_type == 'sbml' and file_name[-3:] == 'xml': return True
@@ -54,6 +37,8 @@ def validate_file_extension(file_name, file_type):
 
     # check extension for sbtab file
     if file_type == 'sbtab' and file_name[-3:] == 'tsv': return True
+    elif file_type == 'sbtab' and file_name[-3:] == 'csv': return True
+    elif file_type == 'sbtab' and file_name[-4:] == 'xlsx': return True
     elif file_type == 'sbtab': return False
     else: pass
 
@@ -67,210 +52,28 @@ def check_delimiter(sbtab_file):
     '''
     sep = False
 
-    for row in sbtab_file.split('\n'):
-        if row.startswith('!!'): continue
-        if row.startswith('!'):
-            s = re.search('(.)(!)', row[1:])
-            # if there is only 1 column, we have to define a default separator
-            # let's use a tab.
-            try: sep = s.group(1)
-            except: sep = '\t'
+    try:
+        for row in sbtab_file.split('\n'):
+            if row.startswith('!!'): continue
+            if row.startswith('!'):
+                s = re.search('(.)(!)', row[1:])
+                # if there is only 1 column, we have to define a default separator
+                # let's use a tab.
+                try: sep = s.group(1)
+                except: sep = '\t'
+    except: pass
 
     return sep
 
 
-def valid_prior(sbtab_prior):
-    '''
-    if the given SBtab file is a prior for parameter balancing, it needs to be
-    checked thorougly for the validity of several features
-    '''
-    validity = []
-
-    # check table type
-    if sbtab_prior.table_type != 'Quantity':
-        validity.append('Error: The TableType of the prior file is not '\
-                        'correct: %s. '\
-                        'It should be Quantity' % sbtab_prior.table_type)
-
-    # check for required columns
-    required_columns = ['!QuantityType', '!Unit', '!MathematicalType',
-                        '!PriorMedian', '!PriorStd', '!PriorGeometricStd',
-                        '!DataStd', '!Dependence',
-                        '!UseAsPriorInformation', '!MatrixInfo']
-    for column in required_columns:
-        if column not in sbtab_prior.columns_dict:
-            validity.append('Error: The crucial column %s is missing in'\
-                            ' the prior file.' % column)
-
-    # check for required row entries
-    required_rows = ['standard chemical potential',
-                     'catalytic rate constant geometric mean',
-                     'concentration', 'concentration of enzyme',
-                     'Michaelis constant', 'inhibitory constant',
-                     'activation constant', 'chemical potential',
-                     'product catalytic rate constant',
-                     'substrate catalytic rate constant',
-                     'equilibrium constant', 'forward maximal velocity',
-                     'reverse maximal velocity', 'reaction affinity']
-    for row in sbtab_prior.value_rows:
-        try: required_rows.remove(row[sbtab_prior.columns_dict['!QuantityType']])
-        except: pass
-
-    for row in required_rows:
-        validity.append('Error: The prior file is missing an entry for th'\
-                        'crucial value %s.' % row)
-
-    return validity
-
-
-def extract_pseudos_priors(sbtab_prior):
-    '''
-    extracts the priors and pseudos of a given SBtab prior table
-    '''
-    pseudo_list = ['chemical potential', 'product catalytic rate constant',
-                   'substrate catalytic rate constant',
-                   'equilibrium constant', 'forward maximal velocity',
-                   'reverse maximal velocity', 'reaction affinity']
-    pmin = {}
-    pmax = {}
-    pseudos = {}
-    priors = {}
-    
-    for row in sbtab_prior.value_rows:
-        pmin[row[sbtab_prior.columns_dict['!QuantityType']]] = float(row[sbtab_prior.columns_dict['!LowerBound']])
-        pmax[row[sbtab_prior.columns_dict['!QuantityType']]] = float(row[sbtab_prior.columns_dict['!UpperBound']])
-        if row[sbtab_prior.columns_dict['!MathematicalType']] == 'Additive':
-            std = row[sbtab_prior.columns_dict['!PriorStd']]
-        else:
-            std = row[sbtab_prior.columns_dict['!PriorGeometricStd']]
-        median = row[sbtab_prior.columns_dict['!PriorMedian']]
-
-        if row[sbtab_prior.columns_dict['!QuantityType']] in pseudo_list:
-            pseudos[row[sbtab_prior.columns_dict['!QuantityType']]] = [float(median),
-                                                                       float(std)]
-        else:
-            priors[row[sbtab_prior.columns_dict['!QuantityType']]] = [float(median),
-                                                                      float(std)]
-       
-    return pseudos, priors, pmin, pmax
-
-
-def id_checker(sbtab, sbml):
-    '''
-    this function checks, whether all the entries of the SBML ID columns of
-    the SBtab file can also be found in the SBML file. If not, these are
-    omitted during the balancing. But there should be a warning to raise user
-    awareness.
-    '''
-    sbtabid2sbmlid = []
-    reaction_ids_sbml = []
-    species_ids_sbml = []
-    s_id = None
-    r_id = None
-
-    for reaction in sbml.getListOfReactions():
-        reaction_ids_sbml.append(reaction.getId())
-    for species in sbml.getListOfSpecies():
-        species_ids_sbml.append(species.getId())
-
-    for row in sbtab.split('\n'):
-        splitrow = row.split('\t')
-        if len(splitrow) < 3: continue
-        if row.startswith('!!'): continue
-        elif row.startswith('!'):
-            for i, element in enumerate(splitrow):
-                if element == '!Compound:SBML:species:id': s_id = i
-                elif element == '!Reaction:SBML:reaction:id': r_id = i
-            if s_id is None:
-                sbtabid2sbmlid.append('''Error: The SBtab file lacks the obliga
-                tory column "'"!Compound:SBML:species:id"'" to link the paramet
-                er entries to the SBML model species.''')
-            if r_id is None:
-                sbtabid2sbmlid.append('''Error: The SBtab file lacks the obliga
-                tory column "'"!Reaction:SBML:reaction:id"'" to link the parame
-                ter entries to the SBML model reactions.''')
-        else:
-            try:
-                if splitrow[s_id] != '' \
-                   and splitrow[s_id] not in species_ids_sbml \
-                   and splitrow[s_id] != 'nan' and splitrow[s_id] != 'None':
-                    sbtabid2sbmlid.append('''Warning: The SBtab file holds a sp
-                    ecies ID which does not comply to any species ID in the SBM
-                    L file: %s''' % (splitrow[s_id]))
-            except: pass
-            try:
-                if splitrow[r_id] != '' \
-                   and splitrow[r_id] not in reaction_ids_sbml \
-                   and splitrow[r_id] != 'nan' and splitrow[r_id] != 'None':
-                    sbtabid2sbmlid.append('''Warning: The SBtab file holds a re
-                    action ID which does not comply to any reaction ID in the S
-                    BML file: %s''' % (splitrow[r_id]))
-            except: pass
-
-    return sbtabid2sbmlid
-
-
-def xml2html(sbml_file):
-    '''
-    generates html view out of xml file
-    '''
-    old_sbml = str(sbml_file).split('\\n')
-    new_sbml = '<xmp>'
-
-    for row in old_sbml:
-        new_sbml += row + '\n'
-
-    new_sbml += '</xmp>'
-        
-    return new_sbml
-
-
-def id_checker(sbtab, sbml):
-    '''
-    this function checks, whether all the entries of the SBML ID columns of the SBtab file can also be
-    found in the SBML file. If not, these are omitted during the balancing. But there should be a warning
-    to raise user awareness.
-    '''
-    sbtabid2sbmlid = []
-
-    reaction_ids_sbml = []
-    species_ids_sbml  = []
-
-    s_id = None
-    r_id = None
-
-    for reaction in sbml.getListOfReactions():
-        reaction_ids_sbml.append(reaction.getId())
-    for species in sbml.getListOfSpecies():
-        species_ids_sbml.append(species.getId())
-
-    for row in sbtab.value_rows:
-        if len(row) < 3: continue
-        try:
-            s_id = sbtab.columns_dict['!Compound:SBML:species:id']
-            r_id = sbtab.columns_dict['!Reaction:SBML:reaction:id']
-        except:
-            sbtabid2sbmlid.append('Error: The SBtab file lacks either of the obligatory columns "'"!Compound:SBML:species:id"'" or "'"!Reaction:SBML:reaction:id"'" to link the parameter entries to the SBML model species.')
-        try:
-            if row[s_id] != '' and row[s_id] not in species_ids_sbml and row[s_id] != 'nan' and row[s_id] != 'None':
-                sbtabid2sbmlid.append('Warning: The SBtab file holds a species ID which does not comply to any species ID in the SBML file: %s'%(row[s_id]))
-        except: pass
-        try:
-            if row[r_id] != '' and row[r_id] not in reaction_ids_sbml and row[r_id] != 'nan' and row[r_id] != 'None':
-                sbtabid2sbmlid.append('Warning: The SBtab file holds a reaction ID which does not comply to any reaction ID in the SBML file: %s'%(row[r_id]))
-        except: pass
-            
-    return sbtabid2sbmlid
-
-
 def split_sbtabs(sbtab_strings):
     '''
-    cuts an SBtab document in single SBtab files
+    cuts an large SBtab string in single SBtab strings if necessary
     '''
     sbtabs = []
     sbtab_string = ''
     counter = 1
-
+    
     for row in sbtab_strings.split('\n'):
         if row.startswith('!!'):
             if sbtab_string == '':
@@ -535,3 +338,162 @@ def tab_to_xlsx(sbtab_object):
 
     return wb
     
+urns = ["obo.chebi","kegg.compound","kegg.reaction","obo.go","obo.sgd","biomodels.sbo","ec-code","kegg.orthology","uniprot","hmdb"]
+
+def csv2html(sbtab_file,file_name,delimiter,sbtype,def_file=None,def_file_name=None):
+    '''
+    generates html view out of csv file
+    '''
+    # remove validator here; not required anymore
+    # improve interface: provide SBtab, use sbtab.delimiter
+    if def_file:
+        FileValidClass = validatorSBtab.ValidateFile(def_file,def_file_name)
+        def_delimiter  = FileValidClass.checkseparator()
+    else:
+        def_file_open = open('./definitions/definitions.tsv','r')
+        def_file      = def_file_open.read()
+        def_delimiter = '\t'
+
+    col2description = findDescriptions(def_file,def_delimiter,sbtype)
+
+    ugly_sbtab = sbtab_file.split('\n')
+    nice_sbtab = '<p><h2><b>'+file_name+'</b></h2></p>'
+    nice_sbtab += '<a style="background-color:#00BFFF">'+ugly_sbtab[0]+'</a><br>'
+    nice_sbtab += '<table>'
+
+    ident_url  = False
+    ident_cols = []
+    col2urn    = {}
+
+    for row in ugly_sbtab[1:]:
+        if row.startswith('!'):
+            nice_sbtab += '<tr bgcolor="#87CEFA">'
+            splitrow = row.split(delimiter)
+            for i,element in enumerate(splitrow):
+                if 'Identifiers:' in element:
+                    try:
+                        searcher  = re.search('Identifiers:(.*)',element)
+                        ident_url = 'http://identifiers.org/'+searcher.group(1)+'/'
+                        #ident_cols.append(i)
+                        col2urn[i] = ident_url
+                    except: pass
+        elif row.startswith('%'):
+            nice_sbtab += '<tr bgcolor="#C0C0C0">'
+        else: nice_sbtab += '<tr>'
+        
+        for i,thing in enumerate(row.split(delimiter)):
+            try: title = col2description[thing[1:]]
+            except: title = ''
+            if not ident_url:
+                new_row = '<td title="'+str(title)+'">'+str(thing)+'</\td>'
+                nice_sbtab += new_row
+            else:
+                if i in col2urn.keys() and not thing.startswith('!'):
+                    ref_string = col2urn[i]+thing
+                    new_row = '<td><a href="'+ref_string+'" target="_blank">'+str(thing)+'</a></\td>'
+                else:
+                    new_row = '<td title="'+title+'">'+str(thing)+'</\td>'
+                nice_sbtab += new_row
+                
+        nice_sbtab += '</tr>'
+    nice_sbtab += '</table>'
+    
+    return nice_sbtab
+
+
+def xls2html(xls_sbtab,file_name,sbtype,def_file=None,def_file_name=None):
+    '''
+    generates html view out of xls file
+    '''
+    # remove validator here; not required anymore
+    # improve interface: provide SBtab, use sbtab.delimiter
+    if def_file:
+        FileValidClass = validatorSBtab.ValidateFile(def_file,def_file_name)
+        def_delimiter  = FileValidClass.checkseparator(def_file)
+    else:
+        def_file_open = open('./definitions/definitions.tsv','r')
+        def_file      = def_file_open.read()
+        def_delimiter = '\t'
+
+    col2description = findDescriptions(def_file,def_delimiter,sbtype)
+
+    nice_sbtab = '<p><h2><b>'+file_name+'</b></h2></p>'
+    ident_url = False
+    
+    print('I HAVE EXCLUDED TABLIB.XLRD HERE BECAUSE IT DOES NOT EXIST ANYMORE; GO TO MAKEHTML.PY AND FIX!')
+    dbook = tablib.Databook()
+    #xl = xlrd.open_workbook(file_contents=xls_sbtab)
+
+    for sheetname in xl.sheet_names():
+        dset = tablib.Dataset()
+        dset.title = sheetname
+        sheet = xl.sheet_by_name(sheetname)
+        for row in range(sheet.nrows):
+            if row == 0:
+                new_row = ''
+                for thing in sheet.row_values(row):
+                    if not thing == '': new_row += thing
+                nice_sbtab += '<a style="background-color:#00BFFF">'+new_row+'</a><br>'
+                nice_sbtab += '<table>'
+            elif row == 1:
+                new_row = ''
+                for i,thing in enumerate(sheet.row_values(row)):
+                    try: title = col2description[thing[1:]]
+                    except: title = ''
+                    if not thing == '': new_row += '<td title="'+title+'">'+str(thing)+'</\td>'
+                    if "Identifiers:" in thing:
+                        urn_str = re.search("\w*\.\w*",thing)
+                        urn     = urn_str.group(0)
+                        ident_url = 'http://identifiers.org/'+urn+'/'
+                        ident_col = i
+                nice_sbtab += '<tr bgcolor="#87CEFA">'+new_row+'</tr>'
+            else:
+                new_row = ''
+                for i,thing in enumerate(sheet.row_values(row)):
+                    if not ident_url:
+                        new_row += '<td>'+str(thing)+'</td>'
+                    else:
+                        if i == ident_col:
+                            ref_string  = ident_url+thing
+                            new_row    += '<td><a href="'+ref_string+'" target="_blank">'+str(thing)+'</a></\td>'
+                        else:
+                            new_row    += '<td>'+str(thing)+'</td>'
+                nice_sbtab += '<tr>'+new_row+'</tr>'
+                        
+    return nice_sbtab    
+
+def xml2html(sbml_file):
+    '''
+    generates html view out of xml file
+    '''
+    old_sbml = sbml_file.split('\n')
+    new_sbml = '<xmp>'
+    for row in old_sbml:
+        new_sbml += row + '\n'
+    new_sbml += '</xmp>'
+
+    return new_sbml
+
+def findDescriptions(def_file,def_delimiter,sbtype):
+    '''
+    preprocesses the definition file in order to enable some nice mouseover effects for the known column names
+    '''    
+    col2description = {}
+    col_dsc         = False
+
+    columnrow = def_file.split('\n')[1]
+    columnrowspl = columnrow.split(def_delimiter)
+
+    for row in def_file.split('\n'):
+        splitrow = row.split(def_delimiter)
+        if len(splitrow) != len(columnrowspl): continue
+        if row.startswith('!!'): continue
+        if row.startswith('!'):
+            for i,elem in enumerate(splitrow):
+                if elem == "!Description":
+                    col_dsc = i
+        if not string.capitalize(splitrow[2]) == string.capitalize(sbtype): continue
+        if col_dsc and not splitrow[2].startswith('!'): col2description[splitrow[0]] = splitrow[col_dsc]
+
+    return col2description
+            
