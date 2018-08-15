@@ -44,6 +44,7 @@ class SBMLDocument:
             Filename with extension.
         '''
         self.model = sbml_model
+        self.fbc = False
         if filename.endswith('.xml') or filename.endswith('.sbml'):
             cut = re.search('(.*)\.', filename)
             self.filename = cut.group(1)
@@ -55,6 +56,11 @@ class SBMLDocument:
         '''
         self.warnings = []
         sbtab_doc = SBtab.SBtabDocument(self.filename)
+
+        try:
+            fbc = self.model.getPlugin('fbc')
+            self.fbc = True
+        except: pass
 
         for table_type in supported_table_types:
             try:
@@ -132,6 +138,9 @@ class SBMLDocument:
         # columns
         columns = ['!ID', '!Name', '!Location', '!Charge', '!IsConstant',
                    '!SBOTerm', '!InitialConcentration', '!hasOnlySubstanceUnits']
+        if self.fbc:
+            columns = columns + ['!SBML:fbc:chemicalFormula', '!SBML:fbc:charge']
+            
         sbtab_compound += '\t'.join(columns) + '\n'
 
         # value rows
@@ -152,7 +161,17 @@ class SBMLDocument:
             except: pass
             try: value_row[7] = str(species.getHasOnlySubstanceUnits())
             except: pass
+
+            if self.fbc:
+                try:
+                    fbc_plugin = species.getPlugin('fbc')
+                    value_row[8] = str(fbc_plugin.getChemicalFormula())
+                    value_row[9] = str(fbc_plugin.getCharge())
+                except:
+                    self.warnings.append('FBC Species information could not be read.')
+
             sbtab_compound += '\t'.join(value_row) + '\n'
+
 
         sbtab_compound = SBtab.SBtabTable(sbtab_compound,
                                           self.filename + '_compound.tsv')
@@ -342,6 +361,10 @@ class SBMLDocument:
         # columns
         columns = ['!ID', '!Name', '!ReactionFormula', '!Location',
                    '!Regulator', '!KineticLaw', '!SBOTerm', '!IsReversible']
+        if self.fbc:
+            columns = columns + ['!SBML:fbc:GeneAssociation', '!SBML:fbc:LowerBound',
+                                 '!SBML:fbc:UpperBound']
+            
         sbtab_reaction += '\t'.join(columns) + '\n'
 
         for reaction in self.model.getListOfReactions():
@@ -375,6 +398,34 @@ class SBMLDocument:
                 value_row[6] ='SBO:%.7d' % reaction.getSBOTerm()
             try: value_row[7] = str(reaction.getReversible())
             except: pass
+
+            if self.fbc:
+                try:
+                    fbc_plugin = reaction.getPlugin('fbc')
+                    try:
+                        ga = fbc_plugin.getGeneProductAssociation()
+                        fbc_object = libsbml.FbcExtension()
+                        try:
+                            type_code = ga.getAssociation().getTypeCode()
+                            ass_name = fbc_object.getStringFromTypeCode(type_code)
+                        except: ass_name = '|'
+                        print(ass_name)
+                        if ass_name == 'FbcOr' or ass_name == 'FbcAnd':
+                            k = ga.getAssociation()
+                            associations = k.getListOfAssociations()
+                            ass_list = ''
+                            for a in associations:
+                                ass_list += a.getGeneProduct() + ' ' + ass_name + ' '
+                            value_row[8] = ' '.join(ass_list.split(' ')[:-2])
+                        elif ass_name == 'GeneProductRef':
+                            gpr = ga.getAssociation()
+                            value_row[8] = gpr.getGeneProduct()
+                    except: pass
+                    value_row[9] = str(fbc_plugin.getLowerFluxBound())
+                    value_row[10] = str(fbc_plugin.getUpperFluxBound())
+                except:
+                    self.warnings.append('FBC Reaction information could not be read.')
+            
             sbtab_reaction += '\t'.join(value_row) + '\n'
 
         sbtab_reaction = SBtab.SBtabTable(sbtab_reaction,
