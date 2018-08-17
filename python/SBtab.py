@@ -624,7 +624,8 @@ class SBtabDocument:
         '''
         # set filename if not given
         if not filename:
-            filename = 'unnamed_sbtab.tsv'
+            sbtab_count = len(self.sbtabs)
+            filename = 'unnamed_sbtab_%s.tsv'%(str(sbtab_count))
 
         # see if there are more than one SBtabs in the string
         try: sbtab_amount = misc.count_tabs(sbtab_string)

@@ -409,7 +409,6 @@ class SBMLDocument:
                             type_code = ga.getAssociation().getTypeCode()
                             ass_name = fbc_object.getStringFromTypeCode(type_code)
                         except: ass_name = '|'
-                        print(ass_name)
                         if ass_name == 'FbcOr' or ass_name == 'FbcAnd':
                             k = ga.getAssociation()
                             associations = k.getListOfAssociations()

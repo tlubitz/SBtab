@@ -90,6 +90,8 @@ class SBtabDocument:
             return (False, self.warnings)
 
         # 2. build compounds
+        if 'Compound' in self.sbtab_doc.type_to_sbtab.keys():
+            self.compound_sbtab()
         try:
             if 'Compound' in self.sbtab_doc.type_to_sbtab.keys():
                 self.compound_sbtab()
@@ -226,7 +228,8 @@ class SBtabDocument:
         this function preprocesses the ID field of SBtab to circumvent problems
         in SBML
         '''
-        invalid = [' ','-','_',',','.','+']
+        #invalid = [' ','-','_',',','.','+']
+        invalid = [' ','-',',','.','+']
         sbml_column = False
         
         for i, column in enumerate(sbtab.columns):
