@@ -1,0 +1,3 @@
+!!SBtab SBtabVersion='0.9.1' Document='lac_Operon' TableType='Regulator' TableName='Regulator'				
+!ID	!State	!TargetOperon	!TargetPromoter	!Description
+lac1	inactive	lac	lacP	Repressor

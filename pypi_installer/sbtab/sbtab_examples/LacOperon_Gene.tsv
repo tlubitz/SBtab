@@ -1,0 +1,5 @@
+!!SBtab SBtabVersion='0.9.1' Document='lac_Operon' TableType='Gene' TableName='Gene'			
+!ID	!GeneLocus	!GeneProduct	!Operon
+lacZ	b0342	beta-galactosidase	lac
+lacY	b0343	beta-galactoside permease	lac
+lacA	b0344	beta-galactoside transacetylase	lac

@@ -1,0 +1,17 @@
+Metadata-Version: 1.2
+Name: sbtab
+Version: 0.9.13
+Summary: SBtab - Standardised Data Tables for Systems Biology
+Home-page: https://www.sbtab.net
+Author: Timo Lubitz
+Author-email: timo.lubitz@gmail.com
+License: MIT
+Description-Content-Type: UNKNOWN
+Description: SBtab - Standardised Data Tables for Systems Biology
+Keywords: modelling systems biology standard format data table
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development
+Classifier: Programming Language :: Python :: 3.0
+Requires-Python: >=3.0
