@@ -59,7 +59,7 @@ class SBMLDocument:
 
         try:
             fbc = self.model.getPlugin('fbc')
-            self.fbc = True
+            if fbc: self.fbc = True
         except: pass
 
         for table_type in supported_table_types:
@@ -78,6 +78,12 @@ class SBMLDocument:
                     sbtab_doc.add_sbtab(sbtab)
             except:
                 self.warnings.append('Could not generate SBtab FBC Objective Function.')
+            try:
+                sbtab = self.fbc_gene()
+                if sbtab != False:
+                    sbtab_doc.add_sbtab(sbtab)
+            except:
+                self.warnings.append('Could not generate SBtab FBC Gene.')
                 
         return (sbtab_doc, self.warnings)
 
@@ -317,11 +323,8 @@ class SBMLDocument:
 
     def fbc_objective(self):
         '''
-        builds a (preliminary?) SBtab of the (not established) TableType FbcObjective
+        builds a SBtab of the TableType FbcObjective
         '''
-        if self.model.getPlugin('fbc') == None:
-            return False
-
         fbc_plugin = self.model.getPlugin('fbc')
         active_obj = fbc_plugin.getActiveObjectiveId()
 
@@ -330,29 +333,65 @@ class SBMLDocument:
                     '"FbcObjective" TableName="FBC Objective"\n' % self.filename
 
         # columns
-        columns = ['!ID', '!Name', '!Type', '!Active']
+        columns = ['!ID', '!Name', '!Type', '!Active', '!FluxObjectiveCoefficient', '!FluxObjectiveReaction']
             
         sbtab_fbc += '\t'.join(columns) + '\n'
 
         # value rows
-        for obj in self.model.getListOfObjectives():
+        for obj in fbc_plugin.getListOfObjectives():
             value_row = [''] * len(columns)
             value_row[0] = obj.getId()
             try: value_row[1] = obj.getName()
             except: pass
             try: value_row[2] = obj.getType()
             except: pass
-            if obj.getId() == active_obj: value[3] = 'True'
-            else: value[3] = 'False'
+            if obj.getId() == active_obj: value_row[3] = 'True'
+            else: value_row[3] = 'False'
+            for fo in obj.getListOfFluxObjectives():
+                value_row[4] = str(fo.getCoefficient())
+                value_row[5] = fo.getReaction()
 
             sbtab_fbc += '\t'.join(value_row) + '\n'
 
-
         sbtab_fbc = SBtab.SBtabTable(sbtab_fbc,
                                      self.filename + '_fbc_objective.tsv')
-
-        return sbtab_fbc
         
+        return sbtab_fbc
+
+
+    def fbc_gene(self):
+        '''
+        builds a gene SBtab for the content of the fbc plugin
+        '''
+        fbc_plugin = self.model.getPlugin('fbc')
+
+        # header row
+        sbtab_fbc_gene = '!!SBtab SBtabVersion="1.0" Document="%s" TableType='\
+                         '"Gene" TableName="FBC Gene"\n' % self.filename
+
+        # columns
+        columns = ['!ID', '!SBML:fbc:ID', '!SBML:fbc:Name', '!SBML:fbc:GeneProduct','!SBML:fbc:label']
+            
+        sbtab_fbc_gene += '\t'.join(columns) + '\n'
+
+        # value rows
+        for gp in fbc_plugin.getListOfGeneProducts():
+            value_row = [''] * len(columns)
+            value_row[0] = gp.getId()
+            value_row[1] = gp.getId()
+            try: value_row[2] = gp.getName()
+            except: pass
+            value_row[3] = 'True'
+            try: value_row[4] = gp.getLabel()
+            except: pass
+            sbtab_fbc_gene += '\t'.join(value_row) + '\n'
+
+        sbtab_fbc_gene = SBtab.SBtabTable(sbtab_fbc_gene,
+                                          self.filename + '_fbc_gene.tsv')
+        
+        return sbtab_fbc_gene
+
+    
     def get_annotations(self, element):
         '''
         Tries to extract an annotation from an SBML element.

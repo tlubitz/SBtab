@@ -1,4 +1,4 @@
-!!SBtab SBtabVersion='1.0' TableType='Definition' TableName='Allowed_types'
+!!SBtab SBtabVersion='1.0' TableType='Definition' TableName='Allowed_types'				
 !ComponentName	!ComponentType	!IsPartOf	!Format	!Description
 Comment	Column	Reaction	string	Comment
 ReferenceName	Column	Reaction	string	Reference title, authors, etc. (as free text)
@@ -50,7 +50,6 @@ Type	Column	Compound	string	Biochemical type of entity
 Symbol	Column	Compound	string	Short symbol (e.g. gene symbol)
 PositionX	Column	Compound	float	x coordinate for graphical display
 PositionY	Column	Compound	float	y coordinate for graphical display
-CompoundReactionFormula	Column	Compound	string	Chemical reaction formula
 ID	Column	Compound	string	Compound shortname
 SBML:species:id	Column	Compound	string	SBML species ID of the entity
 SBML:speciestype:id	Column	Compound	string	SBML speciestype ID of the entity
@@ -323,4 +322,3 @@ ComponentB:Residue	Column	rxnconReactionList	string	Residue of Component B
 Quality	Column	rxnconReactionList	string	Quality of reaction
 Literature:Identifiers:pubmed	Column	rxnconReactionList	string	Pubmed ID
 Comment	Column	rxnconReactionList	string	Comment
-ID	Column	Position	string	Position ID

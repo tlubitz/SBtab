@@ -49,25 +49,38 @@ class SBtabDocument:
         '''
         Generates the SBML file using the provided SBtab file/s.
         '''
+        # initialize SBML document
+        if 'FbcObjective' in self.sbtab_doc.type_to_sbtab.keys() or 'Gene' in self.sbtab_doc.type_to_sbtab.keys():
+            if sbml_version == '24':
+                sbmlns = libsbml.SBMLNamespaces(2,4,'fbc',1)
+                self.new_document = libsbml.SBMLDocument(sbmlns)
+                self.new_document.setPackageRequired("fbc", False)
+
+            else:
+                sbmlns = libsbml.SBMLNamespaces(3,1,'fbc',1)
+                self.new_document = libsbml.SBMLDocument(sbmlns)
+                self.new_document.setPackageRequired("fbc", False)
+
+        else:
+            if sbml_version == '24':
+                sbmlns = libsbml.SBMLNamespaces(2,4)
+                self.new_document = libsbml.SBMLDocument(sbmlns)
+            else:
+                sbmlns = libsbml.SBMLNamespaces(3,1)
+                self.new_document = libsbml.SBMLDocument(sbmlns)
+
         # initialize new model
-        self.new_document = libsbml.SBMLDocument()
         self.new_model = self.new_document.createModel()
         self.new_model.setId('default_id')
         self.new_model.setName('default_name')
-        if sbml_version == '24':
-            self.new_document.setLevelAndVersion(2,4)
-        elif sbml_version == '31':
-            self.new_document.setLevelAndVersion(3,1)
-        else:
-            self.warnings.append('The given SBML version %s could not be gene'\
-                                 'rated.' % sbml_version)
-            return (False, self.warnings)
 
         # initialize some required variables for conversion
         self.reaction_list = []
         self.species_list = []
         self.compartment_list = []
         self.modifier_list = []
+        self.fbc_objectives_list = []
+        self.fbc_genes_list = []
         self.id2sbmlid = {}
 
         # 1. build compartment
@@ -121,6 +134,16 @@ class SBtabDocument:
                     parameter.setConstant(True)
                     parameter.setValue(1)
                     #parameter.setUnits('per_second')
+
+        # 6. check for fbc plugin content
+        try:
+            if 'FbcObjective' in self.sbtab_doc.type_to_sbtab.keys():
+                self.fbc_objective_sbtab()
+        except:
+            self.warnings.append('Error: The provided fbc objective information co'\
+                                 'uld not be converted. Please check for vali'\
+                                 'd fbc objective information.')
+                    
                     
         # write generated information to SBML model
         new_sbml_model = libsbml.writeSBMLToString(self.new_document)
@@ -304,7 +327,30 @@ class SBtabDocument:
                         except:
                             print('There was an annotation that could not be assi'\
                                   'gned properly: ',compartment.getId(), annot)
-           
+
+    def fbc_objective_sbtab(self):
+        '''
+        extract information from the FBC Objective SBtab and writes it to the model
+        '''
+        sbtab_fbc_objectives = self.sbtab_doc.type_to_sbtab['FbcObjective']
+        
+        # build compounds
+        for sbtab_fbc_objective in sbtab_fbc_objectives:
+            self.check_id(sbtab_fbc_objective)
+
+            
+            for i, row in enumerate(sbtab_fbc_objective.value_rows):
+                if row[sbtab_objective.columns_dict['!ID']] not in self.fbc_objectives_list:
+                    
+                    species = self.new_model.createSpecies()
+
+
+
+                    self.fbc_objectives_list.append(row[sbtab_objective.columns_dict['!ID']])
+
+
+                    
+                            
     def compound_sbtab(self):
         '''
         extract information from the Compound SBtab and writes it to the model
@@ -421,6 +467,20 @@ class SBtabDocument:
                             self.unit_def_mpdw()
                             self.unit_mpdw = True
 
+                    if '!SBML:fbc:charge' in sbtab_compound.columns and \
+                       row[sbtab_compound.columns_dict['!SBML:fbc:charge']] != '':
+                        splugin = species.getPlugin('fbc')
+                        if splugin is not None:
+                            try: splugin.setCharge(int(row[sbtab_compound.columns_dict['!SBML:fbc:charge']]))
+                            except: pass
+
+                    if '!SBML:fbc:chemicalFormula' in sbtab_compound.columns and \
+                       row[sbtab_compound.columns_dict['!SBML:fbc:chemicalFormula']] != '':
+                        splugin = species.getPlugin('fbc')
+                        if splugin is not None:
+                            try: splugin.setChemicalFormula(row[sbtab_compound.columns_dict['!SBML:fbc:chemicalFormula']])
+                            except: pass
+                            
                     # search for identifiers and annotations
                     for column in sbtab_compound.columns_dict.keys():
                         if 'Identifiers' in column:
@@ -740,10 +800,6 @@ class SBtabDocument:
                     parameter_names.append(p)
 
         return parameter_names
-
-        
-        
-
                 
     def unit_def_mm(self):
         '''

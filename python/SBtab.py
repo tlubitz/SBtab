@@ -126,7 +126,7 @@ class SBtabTable():
         (self.columns, self.columns_dict) = self.get_columns()
 
         # Read data rows
-        self.value_rows = self.get_rows(self.table_type)
+        self.value_rows = self.get_rows()
 
     def _get_doc_row(self):
         '''
@@ -252,22 +252,11 @@ class SBtabTable():
 
         return column_names, columns
 
-    def get_rows(self, table_type='table', inserted=False):
+    def get_rows(self):
         '''
-        Extract the rows of the SBtab, add first column if necessary.
-
-        Parameters
-        ----------
-        table_type : str (default 'table')
-            Attribute TableType of the SBtab table. Only necessary, if first
-            column was set automatically.
-        inserted : Boolean
-            True, if mandatory first column was set automatically.
+        Extract the rows of the SBtab
         '''
-        # Add row to list value_rows
-        # if row doesn't contain entries starting with '!'
         value_rows = []
-
         # Add to comments, if row starts with '%'
         self.comments = []
 
@@ -664,7 +653,7 @@ class SBtabDocument:
                            'Compartment', 'Reaction', 'ReactionStoichiometry',
                            'Relation', 'Quantity', 'QuantityMatrix',
                            'Definition', 'PbConfig', 'Relationship',
-                           'QuantityInfo', 'QuantityType', 'Position']
+                           'QuantityInfo', 'QuantityType', 'Position', 'FbcObjective']
 
         if ttype in supported_types:
             return True
