@@ -1,4 +1,5 @@
 # Command-line Scripts
+(PLEASE NOTE THAT THIS CONTENT IS DEPRECATED! It is currently being renewed completely to make SBtab bigger and better. So please stay tuned for the new version and documentation which will be due in a matter of very few weeks. *2018-8-28)
 ## Introduction
 
 The scripts in this directory will allow you to convert SBML files to SBtab files and vice versa. The prerequisites for these scripts are:
