@@ -304,7 +304,6 @@ def xlsx_to_tsv(file_object):
     '''
     import openpyxl
     from io import BytesIO
-    print('in')
     
     wb = openpyxl.load_workbook(filename = BytesIO(file_object))#, read_only=True)
     ws = wb.active
@@ -336,7 +335,11 @@ def tab_to_xlsx(sbtab_object):
     for row in sbtab_object.value_rows:
         ws.append(row)
 
-    return wb
+    wb.save('transition.xlsx')
+    
+    fileobject = open('transition.xlsx','rb')
+
+    return fileobject.read()
     
 urns = ["obo.chebi","kegg.compound","kegg.reaction","obo.go","obo.sgd","biomodels.sbo","ec-code","kegg.orthology","uniprot","hmdb"]
 

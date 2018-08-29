@@ -70,6 +70,14 @@ class SBMLDocument:
                     sbtab_doc.add_sbtab(sbtab)
             except:
                 self.warnings.append('Could not generate SBtab %s.' % table_type)
+
+        if self.fbc:
+            try:
+                sbtab = self.fbc_objective()
+                if sbtab != False:
+                    sbtab_doc.add_sbtab(sbtab)
+            except:
+                self.warnings.append('Could not generate SBtab FBC Objective Function.')
                 
         return (sbtab_doc, self.warnings)
 
@@ -307,6 +315,44 @@ class SBMLDocument:
             
         return [rule_SBtab,'rule']
 
+    def fbc_objective(self):
+        '''
+        builds a (preliminary?) SBtab of the (not established) TableType FbcObjective
+        '''
+        if self.model.getPlugin('fbc') == None:
+            return False
+
+        fbc_plugin = self.model.getPlugin('fbc')
+        active_obj = fbc_plugin.getActiveObjectiveId()
+
+        # header row
+        sbtab_fbc = '!!SBtab SBtabVersion="1.0" Document="%s" TableType='\
+                    '"FbcObjective" TableName="FBC Objective"\n' % self.filename
+
+        # columns
+        columns = ['!ID', '!Name', '!Type', '!Active']
+            
+        sbtab_fbc += '\t'.join(columns) + '\n'
+
+        # value rows
+        for obj in self.model.getListOfObjectives():
+            value_row = [''] * len(columns)
+            value_row[0] = obj.getId()
+            try: value_row[1] = obj.getName()
+            except: pass
+            try: value_row[2] = obj.getType()
+            except: pass
+            if obj.getId() == active_obj: value[3] = 'True'
+            else: value[3] = 'False'
+
+            sbtab_fbc += '\t'.join(value_row) + '\n'
+
+
+        sbtab_fbc = SBtab.SBtabTable(sbtab_fbc,
+                                     self.filename + '_fbc_objective.tsv')
+
+        return sbtab_fbc
+        
     def get_annotations(self, element):
         '''
         Tries to extract an annotation from an SBML element.
@@ -474,7 +520,7 @@ class SBMLDocument:
         columns = ['!ID', '!Parameter:SBML:parameter:id', '!Value',
                    '!Unit', '!Type']
         sbtab_quantity += '\t'.join(columns) + '\n'
-
+        
         # required for later iteration of parameter annotations
         local_parameters = []
         
@@ -493,10 +539,8 @@ class SBMLDocument:
                     local_parameters.append(parameter)
                 sbtab_quantity += '\t'.join(value_row) + '\n'
                 
-
         sbtab_quantity = SBtab.SBtabTable(sbtab_quantity,
                                           self.filename + '_quantity.tsv')
-                    
 
         # test and extend for annotations of local parameters
         for i, quantity in enumerate(local_parameters):
@@ -550,7 +594,10 @@ class SBMLDocument:
                 self.warnings.append('Could not add the annotation %s for'\
                                      'quantity %s' % annotations[1],
                                      parameter.getId())
-                
+
+        if sbtab_quantity.value_rows == []:
+            return False
+        
         return sbtab_quantity
 
     def make_sum_formula(self, reaction):
