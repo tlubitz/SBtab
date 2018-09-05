@@ -11,7 +11,7 @@ import string
 import sys
 
 # all allowed secondary SBtab table types
-sbtab_types = ['Quantity', 'Event', 'Rule']
+sbtab_types = ['Event', 'Rule']
 urns = ['obo.chebi', 'kegg.compound', 'kegg.reaction', 'obo.go', 'obo.sgd',
         'biomodels.sbo', 'ec-code', 'kegg.orthology', 'uniprot']
 
@@ -43,7 +43,9 @@ class SBtabDocument:
         self.filename = sbtab_doc.name
         self.warnings = []
         self.model_ids = []
-        self.parameter_names = []
+        self.parameters_local = []
+        self.parameters_global = []
+        self.gene_products = []
 
     def convert_to_sbml(self, sbml_version):
         '''
@@ -52,12 +54,12 @@ class SBtabDocument:
         # initialize SBML document
         if 'FbcObjective' in self.sbtab_doc.type_to_sbtab.keys() or 'Gene' in self.sbtab_doc.type_to_sbtab.keys():
             if sbml_version == '24':
-                sbmlns = libsbml.SBMLNamespaces(2,4,'fbc',1)
+                sbmlns = libsbml.SBMLNamespaces(2,4,'fbc',2)
                 self.new_document = libsbml.SBMLDocument(sbmlns)
                 self.new_document.setPackageRequired("fbc", False)
 
             else:
-                sbmlns = libsbml.SBMLNamespaces(3,1,'fbc',1)
+                sbmlns = libsbml.SBMLNamespaces(3,1,'fbc',2)
                 self.new_document = libsbml.SBMLDocument(sbmlns)
                 self.new_document.setPackageRequired("fbc", False)
 
@@ -105,6 +107,25 @@ class SBtabDocument:
             self.warnings.append('Warning: The provided compounds could not b'\
                                  'e initialised properly. Please check for va'\
                                  'lid compound information.')
+
+        # 2b. build quantities/parameters
+        try:
+            if 'Quantity' in self.sbtab_doc.type_to_sbtab.keys():
+                self.quantity_sbtab()
+        except:
+            self.warnings.append('Warning: The provided quantities could not b'\
+                                 'e initialised properly. Please check for va'\
+                                 'lid quantity information.') 
+        
+        # 2c. build FBC gene products
+        try:
+            if 'Gene' in self.sbtab_doc.type_to_sbtab.keys():
+                self.gene_sbtab()
+        except:
+            self.warnings.append('Warning: The provided genes could not b'\
+                                 'e initialised properly. Please check for va'\
+                                 'lid gene information.') 
+            
         # 3. build reactions
         try:
             if 'Reaction' in self.sbtab_doc.type_to_sbtab.keys():
@@ -124,18 +145,7 @@ class SBtabDocument:
                     self.warnings.append('Warnings: Could not process informat'\
                                          'ion from SBtab %s.' % table_type)
 
-        # 5. See if there are parameters from a possible kinetic rate law
-        # that need to be initialised manually
-        if self.parameter_names:
-            for name in set(self.parameter_names):
-                if name not in self.model_ids:
-                    parameter = self.new_model.createParameter()
-                    parameter.setId(name)
-                    parameter.setConstant(True)
-                    parameter.setValue(1)
-                    #parameter.setUnits('per_second')
-
-        # 6. check for fbc plugin content
+        # 5. check for fbc plugin content
         try:
             if 'FbcObjective' in self.sbtab_doc.type_to_sbtab.keys():
                 self.fbc_objective_sbtab()
@@ -333,21 +343,29 @@ class SBtabDocument:
         extract information from the FBC Objective SBtab and writes it to the model
         '''
         sbtab_fbc_objectives = self.sbtab_doc.type_to_sbtab['FbcObjective']
-        
+
         # build compounds
         for sbtab_fbc_objective in sbtab_fbc_objectives:
             self.check_id(sbtab_fbc_objective)
-
-            
-            for i, row in enumerate(sbtab_fbc_objective.value_rows):
-                if row[sbtab_objective.columns_dict['!ID']] not in self.fbc_objectives_list:
-                    
-                    species = self.new_model.createSpecies()
-
-
-
-                    self.fbc_objectives_list.append(row[sbtab_objective.columns_dict['!ID']])
-
+            mplugin = self.new_model.getPlugin('fbc')
+            for row in sbtab_fbc_objective.value_rows:
+                if row[sbtab_fbc_objective.columns_dict['!ID']] not in self.fbc_objectives_list:
+                    objective = mplugin.createObjective()
+                    objective.setId(row[sbtab_fbc_objective.columns_dict['!ID']])
+                    try: objective.setName(row[sbtab_fbc_objective.columns_dict['!Name']])
+                    except: pass
+                    try: objective.setType(row[sbtab_fbc_objective.columns_dict['!Type']])
+                    except: pass
+                    try:
+                        if row[sbtab_fbc_objective.columns_dict['!Type']].capitalize() == 'True':
+                            mplugin.setActiveObjectiveId(row[sbtab_fbc_objective.columns_dict['!ID']])
+                    except: pass
+                    flux_objective = objective.createFluxObjective()
+                    try:
+                        flux_objective.setReaction(row[sbtab_fbc_objective.columns_dict['!FluxObjectiveReaction']])
+                        flux_objective.setCoefficient(float(row[sbtab_fbc_objective.columns_dict['!FluxObjectiveCoefficient']]))
+                    except: pass
+                    self.fbc_objectives_list.append(row[sbtab_fbc_objective.columns_dict['!ID']])
 
                     
                             
@@ -595,7 +613,8 @@ class SBtabDocument:
                    row[sbtab_reaction.columns_dict['!SBML:reaction:id']] != '' and \
                                                                             not self.is_number(row[sbtab_reaction.columns_dict['!SBML:reaction:id']]):
                     react.setId(str(row[sbtab_reaction.columns_dict['!SBML:reaction:id']]))
-                else: react.setId(str(row[sbtab_reaction.columns_dict['!ID']]))
+                else:
+                    react.setId(str(row[sbtab_reaction.columns_dict['!ID']]))
 
                 if '!Name' in sbtab_reaction.columns:
                     if row[sbtab_reaction.columns_dict['!Name']] != '':
@@ -777,13 +796,112 @@ class SBtabDocument:
                         # need to be initialised manually
                         parameter_names = self.extract_parameters_from_formula(react.getKineticLaw().getMath())
                         for p in parameter_names:
-                            self.parameter_names.append(p)
+                            if p not in self.parameters_global and p not in self.parameters_local:
+                                self.create_parameter(p)
 
                         #for erraneous laws: remove them
                         if react.getKineticLaw().getFormula() == '':
                             react.unsetKineticLaw()
                 except: pass
 
+                # Attributes for FBC package
+
+                if '!SBML:fbc:LowerBound' in sbtab_reaction.columns and \
+                   row[sbtab_reaction.columns_dict['!SBML:fbc:LowerBound']] != '':
+                    rplugin = react.getPlugin('fbc')
+                    try:
+                        parameter = row[sbtab_reaction.columns_dict['!SBML:fbc:LowerBound']].strip()
+                        rplugin.setLowerFluxBound(parameter)
+                        if parameter not in self.parameters_global:
+                            self.create_parameter(parameter)                        
+                    except:
+                        self.warnings.append('Could not set FBC LowerFluxBound of Reaction %s' % (react.getId()))
+
+                if '!SBML:fbc:UpperBound' in sbtab_reaction.columns and \
+                   row[sbtab_reaction.columns_dict['!SBML:fbc:UpperBound']] != '':
+                    rplugin = react.getPlugin('fbc')
+                    try:
+                        parameter = row[sbtab_reaction.columns_dict['!SBML:fbc:UpperBound']].strip()
+                        rplugin.setUpperFluxBound(parameter)
+                        if parameter not in self.parameters_global:
+                            self.create_parameter(parameter)
+                    except:
+                        self.warnings.append('Could not set FBC UpperFluxBound of Reaction %s' % (react.getId()))                
+
+                
+                if '!SBML:fbc:GeneAssociation' in sbtab_reaction.columns and \
+                   row[sbtab_reaction.columns_dict['!SBML:fbc:GeneAssociation']] != '':
+                    rplugin = react.getPlugin('fbc')
+                    if rplugin is not None:
+                        try:
+                            ga = rplugin.createGeneProductAssociation()
+                            ga_content = row[sbtab_reaction.columns_dict['!SBML:fbc:GeneAssociation']]
+                            # case 1: there are ANDs and possible ORs in the association column
+                            if 'FbcAnd' in ga_content:
+                                ands = ga_content.split('FbcAnd')     # create an " - AND - "
+                                # case 1a: there are only ANDs
+                                if not 'FbcOr' in ga_content:
+                                    ga_and = ga.createAnd()
+                                    for a in ands:
+                                        ga_and_gpr = ga_and.createGeneProductRef()
+                                        ga_and_gpr.setGeneProduct(a.strip())
+                                        if a.strip() not in self.gene_products:
+                                            self.create_gene_product(a.strip())
+                                else:
+                                    # case 1b: there are ANDs and ORs
+                                    ga_and = ga.createAnd()
+                                    for a in ands:
+                                        if 'FbcOr' not in a:
+                                            ga_and_gpr = ga_and.createGeneProductRef()
+                                            ga_and_gpr.setGeneProduct(a.strip())
+                                            if a.strip() not in self.gene_products:
+                                                self.create_gene_product(a.strip())
+                                        else:
+                                            ga_or = ga.createOr()
+                                            ors = a.split('FbcOr')
+                                            for o in ors:
+                                                ga_or_gpr = ga_or.createGeneProductRef()
+                                                ga_or_gpr.setGeneProduct(o.strip())
+                                                if o.strip() not in self.gene_products:
+                                                    self.create_gene_product(o.strip())
+                            elif 'FbcOr' in ga_content:
+                                # case 2: there are no ANDs, but ORs in the association column
+                                ga_or = ga.createOr()
+                                ors = ga_content.split('FbcOr')
+                                for o in ors:
+                                    ga_or_gpr = ga_or.createGeneProductRef()
+                                    ga_or_gpr.setGeneProduct(o.strip())
+                                    if o.strip() not in self.gene_products:
+                                        self.create_gene_product(o.strip())
+                            else:
+                                # case 3: there are not ANDs and no ORs, only 1 GA
+                                ga_gpr = ga.createGeneProductRef()
+                                ga_gpr.setGeneProduct(ga_content.strip())
+                                if ga_content.strip() not in self.gene_products:
+                                    self.create_gene_product(ga_content.strip())
+                        except:
+                            self.warnings.append('Could not set FBC GeneAssociation %s of Reaction %s' % (row[sbtab_reaction.columns_dict['!SBML:fbc:GeneAssociation']],
+                                                                                                          react.getId()))
+              
+
+    def create_gene_product(self, gene_product):
+        '''
+        creates an FBC gene product
+        '''
+        
+        self.gene_products.append(gene_product)
+
+    def create_parameter(self, parameter):
+        '''
+        creates a default global parameter (if it is used by a reaction but not provided
+        by an accompanying Quantity SBtab)
+        '''
+        new_parameter = self.new_model.createParameter()
+        new_parameter.setId(parameter)
+        new_parameter.setConstant(True)
+        new_parameter.setValue(1)
+        self.parameters_global.append(new_parameter.getId())
+                                    
     def extract_parameters_from_formula(self, formula):
         '''
         extracts the parameters from the formula in order to create proper SBML
@@ -918,58 +1036,93 @@ class SBtabDocument:
 
             self.reaction2reactants[r_id] = [educts,products]
 
-    def quantitySBtab(self):
+    def gene_sbtab(self):
+        '''
+        Extracts the information from the Gene SBtab and writes it to the model.
+        Currently, this has an emphasis on the FBC gene products, not general
+        gene information
+        '''
+        sbtabs_gene = self.sbtab_doc.type_to_sbtab['Gene']
+        
+        for sbtab_gene in sbtabs_gene:
+            self.check_id(sbtab_gene)
+            mplugin = self.new_model.getPlugin('fbc')
+            for row in sbtab_gene.value_rows:
+                if row[sbtab_gene.columns_dict['!SBML:fbc:GeneProduct']].capitalize() == 'True':
+                    gene_product = mplugin.createGeneProduct()
+                    try: gene_product.setId(row[sbtab_gene.columns_dict['!SBML:fbc:ID']])
+                    except: gene_product.setId(row[sbtab_gene.columns_dict['!ID']])
+                    try: gene_product.setName(row[sbtab_gene.columns_dict['!SBML:fbc:Name']])
+                    except: pass
+                    try: gene_product.setLabel(row[sbtab_gene.columns_dict['!SBML:fbc:Label']])
+                    except: pass
+                    self.gene_products.append(gene_product.getId())
+                elif row[sbtab_gene.columns_dict['!SBML:fbc:GeneAssociation']].capitalize() == 'True':
+                    gene_association = mplugin.createGeneAssociation()
+                    try: gene_association.setId(row[sbtab_gene.columns_dict['!SBML:fbc:ID']])
+                    except: gene_association.setId(row[sbtab_gene.columns_dict['!ID']])
+                    try: gene_association.setName(row[sbtab_gene.columns_dict['!SBML:fbc:Name']])
+                    except: pass
+            
+    def quantity_sbtab(self):
         '''
         Extracts the information from the Quantity SBtab and writes it to the model.
         '''
-        sbtabs_quantity = self.type2sbtab['Quantity']
-
+        sbtabs_quantity = self.sbtab_doc.type_to_sbtab['Quantity']
+        
         for sbtab_quantity in sbtabs_quantity:
             self.check_id(sbtab_quantity)
-            try:
-                row[sbtab.columns_dict['!Description']]
-                if row[sbtab.columns_dict['!Description']] == 'local parameter':
-                    for reaction in self.new_model.getListOfReactions():
-                        kl      = reaction.getKineticLaw()
-                        formula = kl.getFormula()
-                        if row[sbtab.columns_dict['!SBML:reaction:parameter:id']] in formula:
-                            lp = kl.createParameter()
-                            lp.setId(row[sbtab.columns_dict['!SBML:reaction:parameter:id']])
-                            self.model_ids.append(lp.getId())
-                            try: lp.setValue(float(row[sbtab.columns_dict['!Value']]))
-                            except: lp.setValue(1.0)
-                            try: lp.setUnits(row[sbtab.columns_dict['!Unit']])
-                            except: pass
-                            if '!Unit' in sbtab.columns and self.unit_mM == False:
-                                if row[sbtab.columns_dict['!Unit']] == 'mM':
-                                    self.unit_def_mm()
-                                    self.unit_mM = True
-                                elif row[sbtab.columns_dict['!Unit']].lower().startswith('molecules'):
-                                    self.unit_def_mpdw()
-                                    self.unit_mpdw = True
-                            if '!SBOTerm' in sbtab.columns and row[sbtab.columns_dict['!SBOTerm']] != '':
-                                try: lp.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
+            for row in sbtab_quantity.value_rows:
+                try:
+                    if row[sbtab_quantity.columns_dict['!Type']] == 'local parameter':
+                        for reaction in self.new_model.getListOfReactions():
+                            kl      = reaction.getKineticLaw()
+                            formula = kl.getFormula()
+                            if row[sbtab_quantity.columns_dict['!SBML:reaction:parameter:id']] in formula:
+                                lp = kl.createParameter()
+                                lp.setId(row[sbtab_quantity.columns_dict['!SBML:reaction:parameter:id']])
+                                self.model_ids.append(lp.getId())
+                                try: lp.setValue(float(row[sbtab_quantity.columns_dict['!Value']]))
+                                except: lp.setValue(1.0)
+                                try: lp.setUnits(row[sbtab_quantity.columns_dict['!Unit']])
                                 except: pass
-                else:
-                    parameter = self.new_model.createParameter()
-                    parameter.setId(row[sbtab.columns_dict['!SBML:reaction:parameter:id']])
-                    parameter.setUnits(row[sbtab.columns_dict['!Unit']])
-                    parameter.setValue(float(row[sbtab.columns_dict['!Value']]))
-                    self.model_ids.append(parameter.getId())
-                    if '!SBOTerm' in sbtab.columns and row[sbtab.columns_dict['!SBOTerm']] != '':
-                        try: parameter.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
+                                if '!Unit' in sbtab_quantity.columns and self.unit_mM == False:
+                                    if row[sbtab_quantity.columns_dict['!Unit']] == 'mM':
+                                        self.unit_def_mm()
+                                        self.unit_mM = True
+                                    elif row[sbtab_quantity.columns_dict['!Unit']].lower().startswith('molecules'):
+                                        self.unit_def_mpdw()
+                                        self.unit_mpdw = True
+                                if '!SBOTerm' in sbtab_quantity.columns and row[sbtab_quantity.columns_dict['!SBOTerm']] != '':
+                                    try: lp.setSBOTerm(int(row[sbtab_quantity.columns_dict['!SBOTerm']][4:]))
+                                    except: pass
+                                self.parameters_local.append(lp.getId())
+                    else:
+                        parameter = self.new_model.createParameter()
+                        try: parameter.setId(row[sbtab_quantity.columns_dict['!Parameter:SBML:parameter:id']])
+                        except: parameter.setId(row[sbtab_quantity.columns_dict['!ID']])
+                        self.model_ids.append(parameter.getId())
+                        try: parameter.setValue(float(row[sbtab_quantity.columns_dict['!Value']]))
+                        except: parameter.setValue(1.0)
+                        try: parameter.setUnits(row[sbtab_quantity.columns_dict['!Unit']])
                         except: pass
-            except:
-                parameter = self.new_model.createParameter()
-                parameter.setId(row[sbtab.columns_dict['!SBML:reaction:parameter:id']])
-                self.model_ids.append(parameter.getId())
-                try: parameter.setValue(float(row[sbtab.columns_dict['!Value']]))
-                except: parameter.setValue(1.0)
-                try: parameter.setUnits(row[sbtab.columns_dict['!Unit']])
-                except: pass
-                if '!SBOTerm' in sbtab.columns and row[sbtab.columns_dict['!SBOTerm']] != '':
-                    try: parameter.setSBOTerm(int(row[sbtab.columns_dict['!SBOTerm']][4:]))
+                        if '!SBOTerm' in sbtab_quantity.columns and row[sbtab_quantity.columns_dict['!SBOTerm']] != '':
+                            try: parameter.setSBOTerm(int(row[sbtab_quantity.columns_dict['!SBOTerm']][4:]))
+                            except: pass
+                        self.parameters_global.append(parameter.getId())
+                except:
+                    parameter = self.new_model.createParameter()
+                    try: parameter.setId(row[sbtab_quantity.columns_dict['!Parameter:SBML:parameter:id']])
+                    except: parameter.setId(row[sbtab_quantity.columns_dict['!ID']])
+                    self.model_ids.append(parameter.getId())
+                    try: parameter.setValue(float(row[sbtab_quantity.columns_dict['!Value']]))
+                    except: parameter.setValue(1.0)
+                    try: parameter.setUnits(row[sbtab_quantity.columns_dict['!Unit']])
                     except: pass
+                    if '!SBOTerm' in sbtab_quantity.columns and row[sbtab_quantity.columns_dict['!SBOTerm']] != '':
+                        try: parameter.setSBOTerm(int(row[sbtab_quantity.columns_dict['!SBOTerm']][4:]))
+                        except: pass
+                    self.parameters_global.append(parameter.getId())
 
     def eventSBtab(self):
         '''

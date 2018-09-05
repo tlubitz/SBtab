@@ -370,7 +370,7 @@ class SBMLDocument:
                          '"Gene" TableName="FBC Gene"\n' % self.filename
 
         # columns
-        columns = ['!ID', '!SBML:fbc:ID', '!SBML:fbc:Name', '!SBML:fbc:GeneProduct','!SBML:fbc:label']
+        columns = ['!ID', '!SBML:fbc:ID', '!SBML:fbc:Name', '!SBML:fbc:GeneProduct','!SBML:fbc:Label']
             
         sbtab_fbc_gene += '\t'.join(columns) + '\n'
 
