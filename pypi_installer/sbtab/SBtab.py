@@ -10,6 +10,7 @@ See specification for further information.
 '''
 import re
 import csv
+import datetime
 from io import StringIO
 import logging
 try:
@@ -50,6 +51,9 @@ class SBtabTable():
         # validate file extension
         self.validate_extension()
 
+        # validate singular SBtab
+        self._singular()
+
         # process string
         self.delimiter = misc.check_delimiter(table_string)
         self.table = self.cut_table_string(table_string)
@@ -69,7 +73,23 @@ class SBtabTable():
             raise SBtabError('The file extension is not valid for an SBtab file.')
 
         return True
-        
+
+    def _singular(self):
+        '''
+        SBtabTables are only for singular SBtabs.
+        If more than one SBtabs are contained, an error is issued and 
+        the usage of SBtabDocument is suggested
+        '''
+        header_row_count = 0
+        for row in self.table_string.split('\n'):
+            if row.startswith('!!SBtab'):
+                header_row_count += 1
+
+        if header_row_count > 1:
+            raise SBtabError('There are more than one SBtab tables in this file. Please'\
+                             ' use the SBtabDocument class instead of SBtabTable.')
+
+    
     def cut_table_string(self, table_string, delimiter_test=None):
         '''
         the SBtab is initially given as one long string;
@@ -138,13 +158,13 @@ class SBtabTable():
             for entry in row:
                 if str(entry).startswith('!!!'):
                     doc_row = row
-                    doc_row_dq = self.dequote(doc_row)
+                    doc_row_dq = self._dequote(doc_row)
                     return doc_row_dq
                 elif str(entry).startswith('"!!!'):
                     rm1 = row.replace('""', '#')
                     rm2 = row.remove('"')
                     doc_row = rm2.replace('#', '"')
-                    doc_row_dq = self.dequote(doc_row)
+                    doc_row_dq = self._dequote(doc_row)
                     return doc_row_dq
     
     def _get_header_row(self):
@@ -171,11 +191,11 @@ class SBtabTable():
         else:
             header_row = ' '.join(header_row)
 
-        header_row_dq = self.dequote(header_row)
+        header_row_dq = self._dequote(header_row)
 
         return header_row_dq
             
-    def dequote(self, row):
+    def _dequote(self, row):
         '''
         bring consistency in the multifarious quotation mark problems
         '''
@@ -204,7 +224,7 @@ class SBtabTable():
         try: table_name = self.get_custom_table_information('TableName')
         except:
             table_name = table_type.capitalize() + '_unnamed'
-            self.header_row += " TableName='" + table_name + "'"
+            self.header_row += " TableName='%s'" % table_name
 
         # Save table document, otherwise return None
         try: table_document = self.get_custom_table_information('Document')
@@ -214,6 +234,14 @@ class SBtabTable():
         try: table_version = self.get_custom_table_information('SBtabVersion')
         except: table_version = None
 
+        # save date
+        try: self.date = self.get_custom_table_information('Date')
+        except:
+            now = datetime.datetime.now()
+            self.date = '-'.join([str(now.year),str(now.month),str(now.day)])
+            if 'Date=' not in self.header_row:
+                self.header_row = self.header_row[:-1] + " Date='%s'\n" % self.date
+                
         return table_type, table_name, table_document, table_version
 
     def get_custom_table_information(self, attribute_name):
@@ -662,8 +690,11 @@ class SBtabDocument:
         '''
         read content of the !!!-document declaration row
         '''
+        now = datetime.datetime.now()
+        self.date = '-'.join([str(now.year),str(now.month),str(now.day)])
+
         if not self.doc_row:
-            self.doc_row = '!!!SBtab SBtabVersion="1.0" Document="%s"\n' % self.filename
+            self.doc_row = '!!!SBtab SBtabVersion="1.0" Document="%s" Date="%s"\n' % (self.filename, self.date)
         else:
             # save document name, otherwise raise error
             # (overrides name given at document initialisation)
@@ -676,7 +707,9 @@ class SBtabDocument:
             
             # save date
             try: self.date = self.get_custom_doc_information('Date')
-            except: self.date = None
+            except:
+                if 'Date=' not in self.doc_row:
+                    self.doc_row = self.doc_row[:-1] + ' Date="%s"\n' % self.date
 
             # save document type
             try: self.doc_type = self.get_custom_doc_information('DocumentType')
