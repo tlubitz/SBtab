@@ -389,6 +389,7 @@ class SBtabDocument:
                     else:
                         species.setId(str(row[sbtab_compound.columns_dict['!ID']]))
                         self.id2sbmlid[row[sbtab_compound.columns_dict['!ID']]] = None
+                        
                     if '!Name' in sbtab_compound.columns and \
                        not row[sbtab_compound.columns_dict['!Name']] == '':
                         if '|' in row[sbtab_compound.columns_dict['!Name']]:
@@ -420,6 +421,8 @@ class SBtabDocument:
                         species.setCompartment(row[sbtab_compound.columns_dict['!Location']])
                     elif self.def_comp_set:
                         species.setCompartment('Default_Compartment')
+                    else:
+                        self.warnings.append('Could not set compartment for species %s.' % species.getId())
 
                     # some more options
                     if '!InitialConcentration' in sbtab_compound.columns \
@@ -456,7 +459,7 @@ class SBtabDocument:
                                 species.setHasOnlySubstanceUnits(True)
                             except: pass
                     else:
-                        species.setHasOnlySubstanceUnits(True)
+                        species.setHasOnlySubstanceUnits(False)
 
                     if '!Comment' in sbtab_compound.columns and \
                        row[sbtab_compound.columns_dict['!Comment']] != '':
@@ -554,7 +557,6 @@ class SBtabDocument:
                             sp = self.new_model.createSpecies()
                             sp.setId(str(educt))
                             sp.setName(str(educt))
-                            sp.setInitialConcentration(1)
                             sp.setConstant(False)
                             sp.setBoundaryCondition(False)
                             sp.setHasOnlySubstanceUnits(False)                            
@@ -571,7 +573,6 @@ class SBtabDocument:
                             sp = self.new_model.createSpecies()
                             sp.setId(str(product))
                             sp.setName(str(product))
-                            sp.setInitialConcentration(1)
                             sp.setConstant(False)
                             sp.setBoundaryCondition(False)
                             sp.setHasOnlySubstanceUnits(False)

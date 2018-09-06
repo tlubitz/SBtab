@@ -9,6 +9,7 @@ import scipy.optimize
 import random
 import copy
 import math
+import os
 
 try: from . import SBtab
 except: import SBtab
@@ -500,3 +501,27 @@ def findDescriptions(def_file,def_delimiter,sbtype):
 
     return col2description
             
+def extract_supported_table_types():
+    '''
+    extracts all allowed SBtab TableTypes from the definition file
+    '''
+    try_paths = ['definitions.tsv',
+                 os.path.join(os.path.dirname(__file__), '../static/files/default_files/definitions.tsv'),
+                 os.path.join(os.path.dirname(__file__), '../definition_table/definitions.tsv')]
+
+    for path in try_paths:
+        try:
+            def_file = open(path, 'r')
+            break
+        except:
+            pass
+
+    sbtab_def = SBtab.SBtabTable(def_file.read(), 'definitions.tsv')
+
+    supported_types = []
+    for row in sbtab_def.value_rows:
+        t = row[sbtab_def.columns_dict['!IsPartOf']]
+        if t not in supported_types:
+            supported_types.append(t)
+
+    return supported_types

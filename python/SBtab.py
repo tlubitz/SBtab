@@ -555,7 +555,7 @@ class SBtabTable():
         
         return SBtabTable(table_string.getvalue(), 'unnamed_sbtab.tsv')
 
-
+    
 class SBtabDocument:
     '''
     The SBtab document class can consist of one or more SBtab Table objects
@@ -649,16 +649,14 @@ class SBtabDocument:
         only certain table types are valid; this function checks if the
         given one is
         '''
-        supported_types = ['Compound', 'Enzyme', 'Protein', 'Gene', 'Regulator',
-                           'Compartment', 'Reaction', 'ReactionStoichiometry',
-                           'Relation', 'Quantity', 'QuantityMatrix',
-                           'Definition', 'PbConfig', 'Relationship',
-                           'QuantityInfo', 'QuantityType', 'Position', 'FbcObjective']
-
-        if ttype in supported_types:
-            return True
-        else:
-            raise SBtabError('The table type %s is not supported.' % ttype)
+        try:
+            supported_types = misc.extract_supported_table_types()
+        except:
+            raise SBtabError('The definition file could not be found to'\
+                             ' establish supported table types.')
+        
+        if ttype in supported_types: return True
+        else: raise SBtabError('The table type %s is not supported.' % ttype)
 
     def _get_doc_row_attributes(self):
         '''
