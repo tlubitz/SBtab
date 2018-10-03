@@ -56,7 +56,7 @@ class SBtabTable():
 
         # process string
         self.delimiter = misc.check_delimiter(table_string)
-        self.table = self.cut_table_string(table_string)
+        self.table = self._cut_table_string(table_string)
 
         # Initialise table
         self._initialize_table()
@@ -90,7 +90,7 @@ class SBtabTable():
                              ' use the SBtabDocument class instead of SBtabTable.')
 
     
-    def cut_table_string(self, table_string, delimiter_test=None):
+    def _cut_table_string(self, table_string, delimiter_test=None):
         '''
         the SBtab is initially given as one long string;
         cut down string into list to harvest content
