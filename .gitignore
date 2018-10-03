@@ -1,3 +1,5 @@
 *.pyc
 *~
 .Rproj.user
+pypi_installer/dist/
+pypi_installer/sbtab.egg-info/
