@@ -1,54 +1,73 @@
 SBtab Python Code
 =================
-This directory holds all SBtab files implemented in Python3. For directory content please see the main directory.
+Here, we show you how to use SBtab in your own Python code. If you have questions that are not answered in this short summary, please refer to the [SBtab specification](https://www.sbtab.net/sbtab/default/specification.html) or send a mail to timo.lubitz@gmail.com and wolfram.liebermeister@gmail.com. Also, you can always feel free to add bug reports and feature requests to this Github repo.
+
+<h3>Preliminaries</h3>
+- python3
+- libsbml (SBML manipulation for python)
+- numpy (numerical operations for python)
+- scipy (numerical operations for python)
+
 <h3>How to embed SBtab Tables into your code</h3>
 
 ```python
+    # SBtab classes source code
     import SBtab
+    
+    # SBtab validator
     import validatorSBtab
-
+    
+    # Converter SBtab -> SBML
+    import sbtab2sbml
+    
+    # Converter SBML -> SBtab
+    import sbml2sbtab
+``` 
+<h3>Create an SBtab Table (recommended for single tables)</h3>
+    
+```python
     # open a file and read it
     file_name = 'your_file.tsv'
     sbtab_file = open(file_name, 'r')
     file_content = sbtab_file.read()
     sbtab_file.close()
 
-    # create an SBtab Object
-    Sbtab_obj = SBtab.SBtabTable(file_content, file_name)
+    # create an SBtab Table Object St
+    St = SBtab.SBtabTable(file_content, file_name)
+``` 
+<h3>Alternatively, create an SBtab Document (recommended for larger documents with >1 tables)</h3>
+    
+```python
+    # open a file and read it
+    file_name = 'your_file.tsv'
+    sbtab_file = open(file_name, 'r')
+    file_content = sbtab_file.read()
+    sbtab_file.close()
 
+    # create an SBtab Document Object Sd
+    Sd = SBtab.SBtabDocument('your_document_name', file_content, file_name)
+    # you can also create an empty SBtab Document by
+    # omitting the file_content and file_name.
+    # you can add SBtab tables or strings to the document
+    # by using the functions add_sbtab() or add_sbtab_string, respectively.
+``` 
+
+<h3>Validate your SBtab objects</h3>
+
+```python
     # validate the file
-    ValidateClass = validatorSBtab.validateTable(Sbtab_obj)
-    warnings = ValidateClass.return_output()
+    ValidateTable = validatorSBtab.ValidateTable(St)
+    warnings = ValidateTable.return_output()
     print(warnings)
 
-    # alternatively, create an SBtab Document (if you have more than one SBtab belonging to one document)
-    Sbtab_doc = SBtab.SBtabDocument()
-
-    # add an SBtab as object
-    Sbtab_doc.add_sbtab(Sbtab_obj)
-    # or as string:
-    Sbtab_doc.add_sbtab_string(file_content, file_name)
-
     # validate all SBtabs from the document
-    for sbtab in Sbtab_doc.sbtabs:
-        ValidateClass = validatorSBtab.validateTable(Sbtab_obj)
-        warnings = ValidateClass.return_output()
-        print(warnings)
+    ValidateDocument = validatorSBtab.ValidateDocument(Sd)
+    warnings = ValidateDocument.validate_document()
+    print(warnings)
 ```
 
-# Command-line Scripts
-(PLEASE NOTE THAT THIS CONTENT IS DEPRECATED! It is currently being renewed completely to make SBtab bigger and better. So please stay tuned for the new version and documentation which will be due in a matter of very few weeks. *2018-8-28)
-## Introduction
 
-The scripts in this directory will allow you to convert SBML files to SBtab files and vice versa. The prerequisites for these scripts are:
 
-- python 2.7 or higher
-- numpy (numerical operations for python)
-- libsbml (SBML manipulation for python)
-- re (regular expression module for python)
-- xlrd (module for manipulating xls files)
-
-These scripts can be embedded in your own code easily. Just follow the instructions on how to use the interface:
 
 ## Starting the scripts from commandline:
 
