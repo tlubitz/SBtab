@@ -51,7 +51,7 @@ Here, we show you how to use SBtab in your own Python code. If you have question
     # you can also create an empty SBtab Document by
     # omitting the file_content and file_name.
     # you can add SBtab tables or strings to the document
-    # by using the functions add_sbtab() or add_sbtab_string, respectively.
+    # by using the functions add_sbtab() or add_sbtab_string(), respectively.
 ``` 
 
 <h3>Validate your SBtab objects</h3>
