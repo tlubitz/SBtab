@@ -3,17 +3,17 @@ SBtab - Table format for Systems Biology
 Python code and example files by
 <b>Timo Lubitz, Jens Hahn, Elad Noor, Frank Bergmann (2018)</b>.
 
-Welcome to the SBtab respository. In short, SBtab is a table format for
-Systems Biology. Its specification can be found on the [SBtab homepage](https://www.sbtab.net/sbtab/default/specification.html).
-Data tables in the form of spreadsheets or delimited text files are the most utilised data format in
-Systems Biology. However, they are often not sufficiently structured and lack clear naming conventions
+Welcome to the SBtab respository. Data tables in the form of spreadsheets or delimited text files are the most utilised data format in Systems Biology. However, they are often not sufficiently structured and lack clear naming conventions
 that would be required for modelling. We propose the SBtab format as an attempt to establish an
 easy-to-use table format that is both flexible and clearly structured. It comprises defined table types
 for different kinds of data; syntax rules for usage of names, shortnames, and database identifiers used
 for annotation; and standardised formulae for reaction stoichiometries. Predefined table types can be
 used to define biochemical network models and the biochemical constants therein. The user can also
-define own table types, adjusting SBtab to other types of data. SBtab comes
-along with software tools which can be employed in 3 different ways:
+define own table types, adjusting SBtab to other types of data.
+
+The SBtab specification can be found on the [SBtab homepage](https://www.sbtab.net/sbtab/default/specification.html).
+
+SBtab comes along with software tools which can be employed in 3 different ways:
 
 ---
 
