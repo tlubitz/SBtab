@@ -53,7 +53,7 @@ SBtab comes along with software tools which can be employed in 3 different ways:
 
 ---
 
-The directories and their contents are:
+The SBtab repository consists of the following directories and contents:
 
 <b>definition table:</b><br>
 Default definitions of predefined SBtab table types.
