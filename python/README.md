@@ -3,10 +3,12 @@ SBtab Python Code
 Here, we show you how to use SBtab in your own Python code. If you have questions that are not answered in this short summary, please refer to the [SBtab specification](https://www.sbtab.net/sbtab/default/specification.html) or send a mail to timo.lubitz@gmail.com and wolfram.liebermeister@gmail.com. Also, you can always feel free to add bug reports and feature requests to this Github repo.
 
 <h3>Preliminaries</h3>
-- python3
-- libsbml (SBML manipulation for python)
-- numpy (numerical operations for python)
-- scipy (numerical operations for python)
+<ul>
+    <li>python3</li>
+    <li>libsbml (SBML manipulation for python)</li>
+    <li>numpy (numerical operations for python)</li>
+    <li>scipy (numerical operations for python)</li>
+ </ul>
 
 <h3>How to embed SBtab Tables into your code</h3>
 
