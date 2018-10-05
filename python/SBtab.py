@@ -240,7 +240,7 @@ class SBtabTable():
             now = datetime.datetime.now()
             self.date = '-'.join([str(now.year),str(now.month),str(now.day)])
             if 'Date=' not in self.header_row:
-                self.header_row = self.header_row + " Date='%s'\n" % self.date
+                self.header_row = self.header_row + " Date='%s'" % self.date
                 
         return table_type, table_name, table_document, table_version
 

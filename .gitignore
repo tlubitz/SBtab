@@ -3,3 +3,12 @@
 .Rproj.user
 pypi_installer/dist/
 pypi_installer/sbtab.egg-info/
+
+python/extended_core2.tsv
+python/hynne.xml
+python/single_test.tsv
+python/ts.tsv
+sbtab_examples/e_coli_core.xml
+sbtab_examples/example.xlsx
+sbtab_examples/mm.xlsx
+sbtab_examples/models.tgz

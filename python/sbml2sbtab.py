@@ -689,6 +689,8 @@ class SBMLDocument:
 
 if __name__ == '__main__':
 
+
+    # this main function is deprecated!
     try: sys.argv[1]
     except:
         print('You have not provided input arguments. Please start the script by also providing an SBML file and an optional SBtab output filename: >python sbml2sbtab.py SBMLfile.xml Output')
