@@ -98,7 +98,7 @@ class ValidateTable:
                 sys.exit() 
         else:
             try:
-                path_ = os.path.join(os.path.dirname(__file__), '../../definition_table/definitions.tsv')
+                path_ = os.path.join(os.path.dirname(__file__), '../definition_table/definitions.tsv')
                 def_file = open(path_, 'r')
                 def_table = def_file.read()
                 self.sbtab_def = SBtab.SBtabTable(def_table, 'definitions.tsv')
@@ -322,6 +322,8 @@ class ValidateDocument:
     
 
 if __name__ == '__main__':
+
+    # this main function is deprecated!    
     try: sys.argv[1]
     except:
         print('''You have not provided input arguments. Please start the script
