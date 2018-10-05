@@ -507,7 +507,7 @@ def extract_supported_table_types():
     '''
     try_paths = ['definitions.tsv',
                  os.path.join(os.path.dirname(__file__), '../static/files/default_files/definitions.tsv'),
-                 os.path.join(os.path.dirname(__file__), '../definition_table/definitions.tsv')]
+                 os.path.join(os.path.dirname(__file__), '../definition_table/definitions.tsv'),
                  os.path.join(os.path.dirname(__file__), 'definitions.tsv')]
 
     for path in try_paths:
