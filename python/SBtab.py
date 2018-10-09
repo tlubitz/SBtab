@@ -122,7 +122,9 @@ class SBtabTable():
         table_string = [self.header_row]
         table_string.append('\t'.join(self.columns))
         for row in self.value_rows:
-            table_string.append('\t'.join(row))
+            row = '\t'.join(row)
+            table_string.append(row)
+            
         return '\n'.join(table_string)
 
     def _initialize_table(self):
