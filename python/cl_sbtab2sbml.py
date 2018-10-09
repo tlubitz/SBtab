@@ -28,7 +28,7 @@ class SBtabError(Exception):
 
 def converter_sbtab2sbml_wrapper(args):
     '''
-    commandline wrapper for the SBtab to SBML validator
+    commandline wrapper for the SBtab to SBML converter
     '''
     # open and create SBtab
     try:
@@ -37,7 +37,7 @@ def converter_sbtab2sbml_wrapper(args):
         raise SBtabError('SBtab file %s could not be found.' % args.sbtab)
     
     try:
-        sbtab_doc = SBtab.SBtabDocument('validation_document', f, args.sbtab)
+        sbtab_doc = SBtab.SBtabDocument('conversion_document', f, args.sbtab)
     except:
         raise SBtabError('SBtab Document %s could not be created.' % args.sbtab)
 
