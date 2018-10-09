@@ -296,7 +296,10 @@ class SBtabTable():
             elif str(row[0]).startswith('%'):
                 self.comments.append(list(row))
             else:
-                value_rows.append(list(row)[:len(self.columns)])
+                if len(list(row)) >= len(self.columns):
+                    value_rows.append(list(row)[:len(self.columns)])
+                else:
+                    value_rows.append(list(row) + ['']*(len(self.columns)-len(list(row))))
 
         return value_rows
 
@@ -532,7 +535,9 @@ class SBtabTable():
 
         try:
             f = open(filename, 'w')
-            f.write(self.return_table_string())
+            table_string = self.return_table_string()
+            table_string_lb = table_string.replace('^M','\n')
+            f.write(table_string_lb)
             f.close()
             return True
         except:
