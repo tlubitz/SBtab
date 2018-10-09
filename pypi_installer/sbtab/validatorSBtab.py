@@ -292,7 +292,7 @@ class ValidateDocument:
     '''
     Validates SBtabDocument object
     '''
-    def __init__(self, sbtab_doc):
+    def __init__(self, sbtab_doc, def_table=None):
         '''
         Initialises validator and starts check for file and table format.
 
@@ -302,6 +302,7 @@ class ValidateDocument:
             SBtabDocument object
         '''
         self.sbtab_doc = sbtab_doc
+        self.sbtab_def = def_table
         #self.validate_document()
 
     def validate_document(self):
@@ -311,7 +312,7 @@ class ValidateDocument:
         warnings = []
         for sbtab in self.sbtab_doc.sbtabs:
             warnings_s = ['Warnings for %s:\n' % sbtab.filename]
-            self.vt = ValidateTable(sbtab)
+            self.vt = ValidateTable(sbtab, self.sbtab_def)
             try:
                 warnings_s.append(self.vt.return_output())
             except:
