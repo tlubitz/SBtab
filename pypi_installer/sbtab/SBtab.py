@@ -102,18 +102,87 @@ class SBtabTable():
         for row in table_string.split('\n'):
             if row.replace(delimiter, '') != '':
                 if not row.startswith('"!') and not row.startswith('!'):
-                    if '"' in row:
-                        if delimiter == ',' or delimiter == ';':
-                            c_row = row.split('"')
-                            no_quote_row = c_row[0][:-1].split(delimiter) + ['"'+c_row[1]+'"'] + c_row[2][1:].split(delimiter)
-                            table_list.append(no_quote_row)
-                        else: table_list.append(row.split(delimiter))
+                    if '"' in row or '{' in row:
+                        cut_row = self._handle_row(row, delimiter)
+                        table_list.append(cut_row)
                     else: table_list.append(row.split(delimiter))
                 else:
                     table_list.append(row.split(delimiter))
 
         return table_list
+    
+    def _handle_row(self, row, delimiter):
+        '''
+        some rows may contain characters that cause format troubles:
+        quotes, commas, JSON strings, and combinations of them. this
+        function carefully handles these issues and cuts the row into
+        its correct single pieces (which are the columns)
+        '''
+        # provide an anchor for the end of the row to support our regex
+        row += delimiter
 
+        # first, unify the employed quotes to '
+        row = self._dequote(row)
+
+        # then, find all quoted columns
+        if "'" in row:
+            # find beginning and start of quoted columns
+            iterators = re.finditer(r"('.*?')%s" % delimiter, row)
+            indices = [0]
+
+            for i in iterators:
+                indices.append(i.start())
+                indices.append(i.end())
+
+            # remove duplicates
+            indices_set = list(sorted(set(indices)))
+            
+            # cut row at the beginning and start indices
+            items_pre = [row[i:j-1] for i,j in zip(indices_set, indices_set[1:]+[len(row)+1])]
+
+            # further cut row at the delimiter and finish off items
+            items = []
+            jsons = []
+            running_json = False
+            
+            for item in items_pre:
+                # in the case of a comma as separator, we need to be careful
+                # with the JSONs which naturally hold commas
+                if delimiter == ',':
+                    # 1st case: we have a currently open JSON column
+                    if running_json and not item.endswith("}'"):
+                        jsons.append(item)
+                    # 2nd case: we have a JSON column start
+                    elif item.startswith("'{"):
+                        jsons.append(item)
+                        running_json = True
+                    # 3rd case: we have a JSON column end
+                    elif running_json and item.endswith("}'"):
+                        jsons.append(item)
+                        items.append(','.join(jsons))
+                        jsons = []
+                        running_json = False
+                    # 4th case: we have a quoted column
+                    elif item.startswith("'") and not item.startswith("'{") and not item.endswith("}'"):
+                        items.append(item)
+                    
+                    # 5th case: we have a normal column
+                    else: items = items + item.split(delimiter)
+                    
+                else:
+                    # for all other delimiters we are comparably easy going:
+                    if item.startswith("'"):
+                        items.append(item)
+                    else:
+                        items = items + item.split(delimiter)
+
+        # remove the last element which was added in the beginning
+        items.pop()
+
+        return items
+        
+
+        
     def return_table_string(self):
         '''
         sometimes the file is required as a string (e. g. for
