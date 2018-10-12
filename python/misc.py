@@ -141,66 +141,23 @@ def tsv_to_html_improved(sbtab, filename=None):
     '''
     generates html view out of tsv file
     '''
-    sbtab_html = '''
-    <html lang="en">
-    <head>
-    <meta charset="utf-8">
-    <meta name="author" content="Timo Lubitz">
-    <meta name="description"  content="Parameter Balancing Website">
+    html_template = open('template.html', 'r').read()
+    #print(html_template)
+    header = re.search('(<html lang="en">.*style="padding-top:50px">)', html_template, re.MULTILINE)
+    print(header)
     
-    <!-- this is required for responsiveness -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    head = ''
+    sbtab_html = head
 
-    <title>Parameter Balancing for Kinetic Models of Cell Metabolism</title>
-    <!--<link rel="stylesheet" type="text/css" href="css/pb.css">-->
-    <link href="../../static/css/css_template/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../../static/css/css_template/css/custom.css" rel="stylesheet">
-    <link rel="shortcut icon" href="/pb/static/css/css_template/img/pb-logo.png" type="image/icon">
-    <link rel="icon" href="/pb/static/css/css_template/img/pb-logo.png" type="image/icon">
-    </head>
-
-    <body>
-    <!-- navbar: this is a navbar; navbar-inverse: it's dark; navbar-static-top: it's always at the top -->
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-    <!-- setting a max-width by using a container -->
-      <div class="container">
-        <div class="navbar-header">
-	  <!-- button is hidden on desktop, becomes a hamburger on mobile! the span items are the hamburger lines --> 
-	  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-	    <span class="sr-only">Toggle navigation</span>
-	    <span class="icon-bar"></span>
-	    <span class="icon-bar"></span>
-	    <span class="icon-bar"></span>
-	  </button>
-	  <a class="navbar-brand" href="#">Parameter Balancing</a>
-	</div>
-	
-	<!-- simple right aligned list-->
-	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	  <ul class="nav navbar-nav navbar-right">
-	    <li> <a href="../../default/balancing.html" title="Go to online balancing">Online Balancing</a></li>
-	    <li> <a href="../../static/css/css_template/documentation.html" title="Documentation and Manuals">Documentation</a></li>
-	    <li> <a href="../../static/css/css_template/download.html" title="Installation and Downloads">Download</a></li>
-	    <li> <a href="../../static/css/css_template/contact.html" title="Contact the balancing team">Contact</a></li>
-	  </ul>
-	</div>
-      </div>
-    </nav>
-
-    <header>
-    <div class="container-fluid bg-1 text-center" style="padding-top:50px">
-
-    '''    
     if type(sbtab) == str and filename:
         ugly_sbtab = sbtab.split('\n')
         #nice_sbtab = '<p><h2><b>%s</b></h2></p>' % filename
-        sbtab_html += '<h2><small>%s</small></h2></div></header>'
+        sbtab_html += '<h2><small>%s</small></h2></div></header>' % filename
         delimiter = check_delimiter(sbtab)
     else:
         ugly_sbtab = sbtab.return_table_string().split('\n')
         #nice_sbtab = '<p><h2><b>'+sbtab.filename+'</b></h2></p>'
-        sbtab_html += '<h2><small>'+sbtab.filename+'</small></h2></div></header>'
+        sbtab_html += '<h2><small>%s</small></h2></div></header>' % sbtab.filename
         delimiter = sbtab.delimiter
 
     sbtab_html += '<main><table class="table-striped">'
@@ -249,54 +206,11 @@ def tsv_to_html_improved(sbtab, filename=None):
             #nice_sbtab += new_row
         #nice_sbtab += '</tr>'
         '''
-    sbtab_html += '''
-    </table>
-    </main>
-    <hr>
-    <footer class="container-fluid bg-3 text-center">
-    <p>Thanks to <a href="https://getbootstrap.com/" target="_blank">Bootstrap</a> and <a href="http://web2py.com/" target="_blank">Web2py</a>. Code and further information on <a href="https://github.com/tlubitz/parameter_balancing" target="_blank">Github</a>.</p> 
-    </footer>
+        
+    footer = ''
+    sbtab_html += footer
     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    </body>
-    </html>
-    '''
     return sbtab_html
-
-
-def csv2xls(sbtab):
-    '''
-    Converts SBtab file to xls file.
-    Parameters
-    ----------
-    sbtab_file : SBtab
-       SBtab object
-    '''
-    import xlwt
-
-    # open workbook
-    book  = xlwt.Workbook()
-    sheet = book.add_sheet('Sheet 1')
-
-    # write header and columns
-    first_row = sheet.row(0)
-    first_row.write(0,sbtab.header_row)
-
-    second_row = sheet.row(1)
-    for i, element in enumerate(sbtab.columns):
-        second_row.write(i, element)
-
-    # write the rows of the SBtab
-    for i, row in enumerate(sbtab.value_rows):
-        new_row = sheet.row(i+2)
-        for j, element in enumerate(row):
-            new_row.write(j,element)
-
-    book.save('simple.xls')
-    fileobject = open('simple.xls','r')
-
-    return fileobject
 
 
 def xlsx_to_tsv(file_object):
@@ -322,6 +236,7 @@ def xlsx_to_tsv(file_object):
         
     return table_string
 
+
 def tab_to_xlsx(sbtab_object):
     '''
     converts SBtab object to xlsx file object
@@ -341,7 +256,8 @@ def tab_to_xlsx(sbtab_object):
     fileobject = open('transition.xlsx','rb')
 
     return fileobject.read()
-    
+
+
 urns = ["obo.chebi","kegg.compound","kegg.reaction","obo.go","obo.sgd","biomodels.sbo","ec-code","kegg.orthology","uniprot","hmdb"]
 
 def csv2html(sbtab_file,file_name,delimiter,sbtype,def_file=None,def_file_name=None):
