@@ -147,7 +147,7 @@ Min	Column	Quantity	float	Lower bound
 Max	Column	Quantity	float	Upper bound
 Median	Column	Quantity	float	Median
 GeometricMean	Column	Quantity	float	Geometric mean
-Sign	Column	Quantity	{+,-,0}	Sign
+Sign	Column	Quantity	"{+,-,0}"	Sign
 ProbDist	Column	Quantity	string	Probability distribution
 SBML:parameter:id	Column	Quantity	string	Parameter ID in SBML file
 Unit	Column	Quantity	string	Physical unit
@@ -265,7 +265,7 @@ Min	Column	QuantityMatrix	float	Lower bound
 Max	Column	QuantityMatrix	float	Upper bound
 Median	Column	QuantityMatrix	float	Median
 GeometricMean	Column	QuantityMatrix	float	Geometric mean
-Sign	Column	QuantityMatrix	{+,-,0}	Sign
+Sign	Column	QuantityMatrix	"{+,-,0}"	Sign
 ProbDist	Column	QuantityMatrix	string	Probability distribution
 SBML:parameter:id	Column	QuantityMatrix	string	Parameter ID in SBML file
 Unit	Column	QuantityMatrix	string	Physical unit

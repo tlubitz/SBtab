@@ -98,6 +98,8 @@ class SBtabTable():
         if delimiter_test: delimiter = delimiter_test
         else: delimiter = self.delimiter
 
+        table_string = table_string.replace('^M','\n')
+
         table_list = []
         for row in table_string.split('\n'):
             if row.replace(delimiter, '') != '':
@@ -125,7 +127,7 @@ class SBtabTable():
         row = self._dequote(row)
 
         # then, find all quoted columns
-        if "'" in row:
+        if "'" in row or "{" in row:
             # find beginning and start of quoted columns
             iterators = re.finditer(r"('.*?')%s" % delimiter, row)
             indices = [0]
@@ -136,7 +138,7 @@ class SBtabTable():
 
             # remove duplicates
             indices_set = list(sorted(set(indices)))
-            
+
             # cut row at the beginning and start indices
             items_pre = [row[i:j-1] for i,j in zip(indices_set, indices_set[1:]+[len(row)+1])]
 
@@ -144,7 +146,7 @@ class SBtabTable():
             items = []
             jsons = []
             running_json = False
-            
+
             for item in items_pre:
                 # in the case of a comma as separator, we need to be careful
                 # with the JSONs which naturally hold commas
@@ -200,7 +202,6 @@ class SBtabTable():
         '''
         Loads table informations and class variables.
         '''
-
         # read a potential document row
         self.doc_row = self._get_doc_row()
 
@@ -762,7 +763,6 @@ class SBtabDocument:
                     if sbtab_s.startswith('!!!'):
                         self.doc_row = sbtab_s
                         continue
-                    
                     # then, go on with the cut SBtabs
                     name_single = str(i) + '_' + self.filename
                     sbtab_single = SBtabTable(sbtab_s, name_single)

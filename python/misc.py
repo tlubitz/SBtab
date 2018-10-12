@@ -518,7 +518,6 @@ def extract_supported_table_types():
             pass
 
     sbtab_def = SBtab.SBtabTable(def_file.read(), 'definitions.tsv')
-
     supported_types = []
     for row in sbtab_def.value_rows:
         t = row[sbtab_def.columns_dict['!IsPartOf']]
