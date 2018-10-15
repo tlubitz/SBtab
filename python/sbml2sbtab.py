@@ -333,7 +333,7 @@ class SBMLDocument:
                     '"FbcObjective" TableName="FBC Objective"\n' % self.filename
 
         # columns
-        columns = ['!ID', '!Name', '!Type', '!Active', '!FluxObjectiveCoefficient', '!FluxObjectiveReaction']
+        columns = ['!ID', '!Name', '!Type', '!Active', '!Objective']
             
         sbtab_fbc += '\t'.join(columns) + '\n'
 
@@ -347,9 +347,10 @@ class SBMLDocument:
             except: pass
             if obj.getId() == active_obj: value_row[3] = 'True'
             else: value_row[3] = 'False'
+            objective = ''
             for fo in obj.getListOfFluxObjectives():
-                value_row[4] = str(fo.getCoefficient())
-                value_row[5] = fo.getReaction()
+                objective += '%s * %s +' % (str(fo.getCoefficient()), fo.getReaction())
+            value_row[4] = objective[:-2]
 
             sbtab_fbc += '\t'.join(value_row) + '\n'
 

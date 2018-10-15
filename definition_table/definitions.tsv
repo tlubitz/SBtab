@@ -336,6 +336,6 @@ ID	Column	FbcObjective	string	Unique identifier of objective in FBC package
 Name	Column	FbcObjective	string	Name of objective in FBC package
 Type	Column	FbcObjective	string	Type of objective in FBC package
 Active	Column	FbcObjective	Boolean	Flag indicating if the objective is active
-FluxObjectiveCoefficient	Column	FbcObjective	float	Coefficient for FBC objective
-FluxObjectiveReaction	Column	FbcObjective	string	Reaction identifier for objective
+Objective	Column	FbcObjective	string	FBC objective as sum of coefficients times reaction IDs
+
 

@@ -763,6 +763,11 @@ class SBtabDocument:
                     if sbtab_s.startswith('!!!'):
                         self.doc_row = sbtab_s
                         continue
+                    elif sbtab_s.startswith('"!!!'):
+                        rm1 = sbtab_s.replace('""', '#')
+                        rm2 = rm1.replace('"','')
+                        self.doc_row = rm2.replace('#', '"')                     
+                        continue
                     # then, go on with the cut SBtabs
                     name_single = str(i) + '_' + self.filename
                     sbtab_single = SBtabTable(sbtab_s, name_single)

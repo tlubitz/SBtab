@@ -360,10 +360,21 @@ class SBtabDocument:
                         if row[sbtab_fbc_objective.columns_dict['!Type']].capitalize() == 'True':
                             mplugin.setActiveObjectiveId(row[sbtab_fbc_objective.columns_dict['!ID']])
                     except: pass
-                    flux_objective = objective.createFluxObjective()
                     try:
-                        flux_objective.setReaction(row[sbtab_fbc_objective.columns_dict['!FluxObjectiveReaction']])
-                        flux_objective.setCoefficient(float(row[sbtab_fbc_objective.columns_dict['!FluxObjectiveCoefficient']]))
+                        if '+' in row[sbtab_fbc_objective.columns_dict['!Objective']]:
+                            pairs = row[sbtab_fbc_objective.columns_dict['!Objective']].split('+')
+                            for pair in pairs:
+                                singles = pair.split('*')
+                                flux_objective = objective.createFluxObjective()
+                                flux_objective.setCoefficient(float(singles[0].strip()))
+                                flux_objective.setReaction(singles[1].strip())
+
+                        else:
+                            singles = row[sbtab_fbc_objective.columns_dict['!Objective']].split('*')
+                            flux_objective = objective.createFluxObjective()
+                            flux_objective.setCoefficient(float(singles[0].strip()))
+                            flux_objective.setReaction(singles[1].strip())
+
                     except: pass
                     self.fbc_objectives_list.append(row[sbtab_fbc_objective.columns_dict['!ID']])
 
