@@ -8,6 +8,7 @@ python/extended_core2.tsv
 python/hynne.xml
 python/single_test.tsv
 python/ts.tsv
+python/current_tests
 sbtab_examples/e_coli_core.xml
 sbtab_examples/example.xlsx
 sbtab_examples/mm.xlsx

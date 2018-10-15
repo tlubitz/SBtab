@@ -56,7 +56,8 @@ class SBtabTable():
 
         # process string
         self.delimiter = misc.check_delimiter(table_string)
-        self.table = self._cut_table_string(table_string)
+        preprocess = self._preprocess_table_string(table_string)
+        self.table = self._cut_table_string(preprocess)
 
         # Initialise table
         self._initialize_table()
@@ -89,7 +90,24 @@ class SBtabTable():
             raise SBtabError('There are more than one SBtab tables in this file. Please'\
                              ' use the SBtabDocument class instead of SBtabTable.')
 
-    
+    def _preprocess_table_string(self, table_string):
+        '''
+        there is so much stuff that can be made wrong with the input files. This
+        function tries to catch some of the common problems
+        '''
+        table_string = table_string.replace('\r','')
+        table_string = table_string.replace('^M','')
+        table_string_prep = ''
+        
+        for row in table_string.split('\n'):
+            row = self._dequote(row)
+            while "''" in row:
+                row = row.replace("''","'")
+            table_string_prep += row +'\n'
+
+        return table_string_prep
+        
+        
     def _cut_table_string(self, table_string, delimiter_test=None):
         '''
         the SBtab is initially given as one long string;
@@ -98,13 +116,11 @@ class SBtabTable():
         if delimiter_test: delimiter = delimiter_test
         else: delimiter = self.delimiter
 
-        table_string = table_string.replace('^M','\n')
-
         table_list = []
         for row in table_string.split('\n'):
-            if row.replace(delimiter, '') != '':
+            if row.replace(delimiter, '') != '' and row.replace(delimiter, '') != '[]':
                 if not row.startswith('"!') and not row.startswith('!'):
-                    if '"' in row or '{' in row:
+                    if "'" in row or '{' in row:
                         cut_row = self._handle_row(row, delimiter)
                         table_list.append(cut_row)
                     else: table_list.append(row.split(delimiter))
@@ -158,6 +174,10 @@ class SBtabTable():
                     elif item.startswith("'{"):
                         jsons.append(item)
                         running_json = True
+                        if item.endswith("}'"):
+                            items.append(','.join(jsons))
+                            jsons = []
+                            running_json = False
                     # 3rd case: we have a JSON column end
                     elif running_json and item.endswith("}'"):
                         jsons.append(item)
@@ -167,9 +187,9 @@ class SBtabTable():
                     # 4th case: we have a quoted column
                     elif item.startswith("'") and not item.startswith("'{") and not item.endswith("}'"):
                         items.append(item)
-                    
                     # 5th case: we have a normal column
-                    else: items = items + item.split(delimiter)
+                    else:
+                        items = items + item.split(delimiter)
                     
                 else:
                     # for all other delimiters we are comparably easy going:
@@ -312,7 +332,7 @@ class SBtabTable():
             now = datetime.datetime.now()
             self.date = '-'.join([str(now.year),str(now.month),str(now.day)])
             if 'Date=' not in self.header_row:
-                self.header_row = self.header_row + " Date='%s'" % self.date
+                self.header_row = self.header_row.replace(self.delimiter,'') + " Date='%s'" % self.date
                 
         return table_type, table_name, table_document, table_version
 
@@ -762,6 +782,11 @@ class SBtabDocument:
                     # here, we find a possible doc row
                     if sbtab_s.startswith('!!!'):
                         self.doc_row = sbtab_s
+                        continue
+                    elif sbtab_s.startswith('"!!!'):
+                        rm1 = sbtab_s.replace('""', '#')
+                        rm2 = rm1.replace('"','')
+                        self.doc_row = rm2.replace('#', '"')                     
                         continue
                     # then, go on with the cut SBtabs
                     name_single = str(i) + '_' + self.filename
