@@ -93,51 +93,9 @@ def split_sbtabs(sbtab_strings):
     sbtabs.append(sbtab_string) 
                     
     return sbtabs
-    
+
 
 def tsv_to_html(sbtab, filename=None):
-    '''
-    generates html view out of tsv file
-    '''
-    if type(sbtab) == str and filename:
-        ugly_sbtab = sbtab.split('\n')
-        nice_sbtab = '<p><h2><b>%s</b></h2></p>' % filename
-        delimiter = check_delimiter(sbtab)
-    else:
-        ugly_sbtab = sbtab.return_table_string().split('\n')
-        nice_sbtab = '<p><h2><b>'+sbtab.filename+'</b></h2></p>'
-        delimiter = sbtab.delimiter
-
-    first = True
-    for row in ugly_sbtab:
-        if row.startswith('!!') and first:
-            nice_sbtab += '<a style="background-color:#00BFFF">'+row+'</a><br>'
-            nice_sbtab += '<table>'
-            first = False
-        elif row.startswith('!!'):
-            nice_sbtab += '</table>'
-            nice_sbtab += '<a style="background-color:#00BFFF">'+row+'</a><br>'
-            nice_sbtab += '<table>'
-        elif row.startswith('!'):
-            nice_sbtab += '<tr bgcolor="#87CEFA">'
-            splitrow = row.split(delimiter)
-        elif row.startswith('%'):
-            nice_sbtab += '<tr bgcolor="#C0C0C0">'
-        elif row.startswith('Parameter balancing log file'):
-            nice_sbtab += '<table><tr>'
-        else: nice_sbtab += '<tr>'
-        
-        for i,thing in enumerate(row.split(delimiter)):
-            if thing.startswith('!!'): continue
-            new_row = '<td>'+str(thing)+'</td>'
-            nice_sbtab += new_row
-        nice_sbtab += '</tr>'
-    nice_sbtab += '</table>'     
-
-    return nice_sbtab  
-
-
-def tsv_to_html_improved(sbtab, filename=None):
     '''
     generates html view out of tsv file
     '''
@@ -149,73 +107,70 @@ def tsv_to_html_improved(sbtab, filename=None):
     except:
         print('Cannot read required template.html.')
     html_template.close()
-    
-    sbtab_html = header
+    html = header
 
-    try:
-        ugly_sbtab = sbtab.return_table_string().split('\n')
-        sbtab_html += '<h2><small>%s</small></h2></div></header>' % sbtab.filename
-        delimiter = sbtab.delimiter
-    except:
-        print('SBtab object cannot be read properly. Is it valid?')
+    # read in definitions file for nice mouse over
+    try_paths = ['definitions.tsv',
+                 os.path.join(os.path.dirname(__file__), '../static/files/default_files/definitions.tsv'),
+                 os.path.join(os.path.dirname(__file__), '../definition_table/definitions.tsv'),
+                 os.path.join(os.path.dirname(__file__), 'definitions.tsv')]
 
-    sbtab_html += '<main><table class="table-striped">'
+    for path in try_paths:
+        try:
+            def_file = open(path, 'r')
+            break
+        except: pass
 
+    sbtab_def = SBtab.SBtabTable(def_file.read(), 'definitions.tsv')
 
+    # now build the html file
+    if sbtab.object_type == 'table':
+        # finish header with title
+        try:
+            sbtab = sbtab.return_table_string().split('\n')
+            html += '<h2><small>%s</small></h2></div></header>' % sbtab.filename
+            delimiter = sbtab.delimiter
+        except:
+            print('SBtab object cannot be read properly. Is it valid?')
 
-    
-    first = True
+        # start main
+        html += '<main><table class="table-striped">'
 
+        # header row
+        html += '<tr><th colspan="%s">%s</th></tr>' % (len(sbtab.columns), sbtab.header_row)
 
-    
-    for i, row in enumerate(ugly_sbtab):
-        # declaration of first SBtab in document
-        if row.startswith('!!') and first:
-            sbtab_html += '<tr><th colspan="%s">%s</th></tr>' % (len(ugly_sbtab[i+2]), row)
-            first = False
+        # columns
+        html += '<tr>'
+        for col in sbtab.columns:
+            html += '<th>%s</th>' % col
+        html += '</tr>'
 
-        # conclusion of SBtab and beginning of new SBtab (if there are more than one)
-        elif row.startswith('!!'):
-            sbtab_html += '</table><table class="table-striped">'
-            sbtab_html += '<tr><th colspan="%s">%s</th></tr>' % (len(ugly_sbtab[i+2]), row)
+        # value rows
+        for row in sbtab.value_rows:
+            html += '<tr>'
+            for col in row:
+                html += '<td>%s</td>' % col
+            html += '</tr>'
 
-        # column header row
-        elif row.startswith('!'):
-            splitrow = row.split(delimiter)
-            sbtab_html += '<tr>'
-            for col in splitrow:
-                sbtab_html += '<th>%s</th>' % col
-            sbtab_html += '</tr>'
+        # comment rows
+        for row in sbtab.comments:
+            html += '<tr>'
+            for col in row:
+                html += '<td>%s</td>' % col
+            html += '</tr>'
 
-        # comment row
-        elif row.startswith('%'):
-            sbtab_html += '<tr bgcolor="#C0C0C0">%s</tr>' % row
+        # close table
+        html += '</table>'
 
-        # log file header
-        elif row.startswith('Parameter balancing log file'):
-            sbtab_html += '<tr>%s</tr>'
-
-        # normal row
-        else:
-            splitrow = row.split(delimiter)
-            sbtab_html += '<tr>'
-            for col in splitrow:
-                sbtab_html += '<td>%s</td>' % col
-            sbtab_html += '</tr>'
-
-        '''
-        # normal row
-        for i,thing in enumerate(row.split(delimiter)):
-            if thing.startswith('!!'): continue
-            #new_row = '<td>'+str(thing)+'</td>'
-            #nice_sbtab += new_row
-        #nice_sbtab += '</tr>'
-        '''
+    elif sbtab.object_type == 'doc':
+        pass
         
-    footer = ''
-    sbtab_html += footer
+    else:
+        print('The given SBtab object is invalid.')
+            
+    html += footer
     
-    return sbtab_html
+    return html
 
 
 def xlsx_to_tsv(file_object):
@@ -225,7 +180,7 @@ def xlsx_to_tsv(file_object):
     import openpyxl
     from io import BytesIO
     
-    wb = openpyxl.load_workbook(filename = BytesIO(file_object))#, read_only=True)
+    wb = openpyxl.load_workbook(filename = BytesIO(file_object))
     ws = wb.active
     ranges = wb[ws.title]
     table_string = ''
@@ -281,16 +236,16 @@ def csv2html(sbtab_file,file_name,delimiter,sbtype,def_file=None,def_file_name=N
 
     col2description = findDescriptions(def_file,def_delimiter,sbtype)
 
-    ugly_sbtab = sbtab_file.split('\n')
+    sbtab = sbtab_file.split('\n')
     nice_sbtab = '<p><h2><b>'+file_name+'</b></h2></p>'
-    nice_sbtab += '<a style="background-color:#00BFFF">'+ugly_sbtab[0]+'</a><br>'
+    nice_sbtab += '<a style="background-color:#00BFFF">'+sbtab[0]+'</a><br>'
     nice_sbtab += '<table>'
 
     ident_url  = False
     ident_cols = []
     col2urn    = {}
 
-    for row in ugly_sbtab[1:]:
+    for row in sbtab[1:]:
         if row.startswith('!'):
             nice_sbtab += '<tr bgcolor="#87CEFA">'
             splitrow = row.split(delimiter)
@@ -326,67 +281,6 @@ def csv2html(sbtab_file,file_name,delimiter,sbtype,def_file=None,def_file_name=N
     return nice_sbtab
 
 
-def xls2html(xls_sbtab,file_name,sbtype,def_file=None,def_file_name=None):
-    '''
-    generates html view out of xls file
-    '''
-    # remove validator here; not required anymore
-    # improve interface: provide SBtab, use sbtab.delimiter
-    if def_file:
-        FileValidClass = validatorSBtab.ValidateFile(def_file,def_file_name)
-        def_delimiter  = FileValidClass.checkseparator(def_file)
-    else:
-        def_file_open = open('./definitions/definitions.tsv','r')
-        def_file      = def_file_open.read()
-        def_delimiter = '\t'
-
-    col2description = findDescriptions(def_file,def_delimiter,sbtype)
-
-    nice_sbtab = '<p><h2><b>'+file_name+'</b></h2></p>'
-    ident_url = False
-    
-    print('I HAVE EXCLUDED TABLIB.XLRD HERE BECAUSE IT DOES NOT EXIST ANYMORE; GO TO MAKEHTML.PY AND FIX!')
-    dbook = tablib.Databook()
-    #xl = xlrd.open_workbook(file_contents=xls_sbtab)
-
-    for sheetname in xl.sheet_names():
-        dset = tablib.Dataset()
-        dset.title = sheetname
-        sheet = xl.sheet_by_name(sheetname)
-        for row in range(sheet.nrows):
-            if row == 0:
-                new_row = ''
-                for thing in sheet.row_values(row):
-                    if not thing == '': new_row += thing
-                nice_sbtab += '<a style="background-color:#00BFFF">'+new_row+'</a><br>'
-                nice_sbtab += '<table>'
-            elif row == 1:
-                new_row = ''
-                for i,thing in enumerate(sheet.row_values(row)):
-                    try: title = col2description[thing[1:]]
-                    except: title = ''
-                    if not thing == '': new_row += '<td title="'+title+'">'+str(thing)+'</\td>'
-                    if "Identifiers:" in thing:
-                        urn_str = re.search("\w*\.\w*",thing)
-                        urn     = urn_str.group(0)
-                        ident_url = 'http://identifiers.org/'+urn+'/'
-                        ident_col = i
-                nice_sbtab += '<tr bgcolor="#87CEFA">'+new_row+'</tr>'
-            else:
-                new_row = ''
-                for i,thing in enumerate(sheet.row_values(row)):
-                    if not ident_url:
-                        new_row += '<td>'+str(thing)+'</td>'
-                    else:
-                        if i == ident_col:
-                            ref_string  = ident_url+thing
-                            new_row    += '<td><a href="'+ref_string+'" target="_blank">'+str(thing)+'</a></\td>'
-                        else:
-                            new_row    += '<td>'+str(thing)+'</td>'
-                nice_sbtab += '<tr>'+new_row+'</tr>'
-                        
-    return nice_sbtab    
-
 def xml2html(sbml_file):
     '''
     generates html view out of xml file
@@ -398,6 +292,7 @@ def xml2html(sbml_file):
     new_sbml += '</xmp>'
 
     return new_sbml
+
 
 def findDescriptions(def_file,def_delimiter,sbtype):
     '''

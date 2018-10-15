@@ -62,6 +62,8 @@ class SBtabTable():
         # Initialise table
         self._initialize_table()
 
+        self.object_type = 'table'
+
     def _validate_extension(self, test=None):
         '''
         Checks the extension of the file for invalid formats.
@@ -202,9 +204,7 @@ class SBtabTable():
         items.pop()
 
         return items
-        
 
-        
     def return_table_string(self):
         '''
         sometimes the file is required as a string (e. g. for
@@ -227,7 +227,7 @@ class SBtabTable():
 
         # Read the header row from table
         self.header_row = self._get_header_row()
-
+        
         # Read the table information from header row
         (self.table_type,
          self.table_name,
@@ -267,24 +267,21 @@ class SBtabTable():
         # Find header row
         for row in self.table:
             for entry in row:
-                if str(entry).startswith('!!'):
-                    header_row = row
+                if str(entry).startswith('!!') and not str(entry).startswith('!!!'):
+                    header_row = ''.join(row).rstrip('\n')
                     break
-                elif str(entry).startswith('"!!'):
-                    rm1 = row.replace('""', '#')
-                    rm2 = row.remove('"')
-                    header_row = rm2.replace('#', '"')
+                elif str(entry).startswith("'!!") and not str(entry).startswith("'!!!"):
+                    rm1 = entry.replace("''", '#')
+                    rm2 = rm1.replace("'",'')
+                    header_row = rm2.replace('#', "'")
                     break
 
         # Save string or raise error
         if not header_row:
             raise SBtabError('''This is not a valid SBtab table, please use
             validator to check format or have a look in the specification!''')
-        else:
-            header_row = ' '.join(header_row)
 
         header_row_dq = self._dequote(header_row)
-
         return header_row_dq
             
     def _dequote(self, row):
@@ -731,6 +728,8 @@ class SBtabDocument:
             self.add_sbtab_string(sbtab_init, filename)
         elif sbtab_init:
             self.add_sbtab(sbtab_init)
+
+        self.object_type = 'doc'
         
     def add_sbtab(self, sbtab):
         '''
