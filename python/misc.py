@@ -141,28 +141,33 @@ def tsv_to_html_improved(sbtab, filename=None):
     '''
     generates html view out of tsv file
     '''
+    # read in header and footer from HTML template
     html_template = open('template.html', 'r').read()
-    #print(html_template)
-    header = re.search('(<html lang="en">.*style="padding-top:50px">)', html_template, re.MULTILINE)
-    print(header)
+    try:
+        header = re.search('(<html lang="en">.*style="padding-top:50px">)', html_template, re.DOTALL).group(0)
+        footer = re.search('(</table>.*</html>)', html_template, re.DOTALL).group(0)
+    except:
+        print('Cannot read required template.html.')
+    html_template.close()
     
-    head = ''
-    sbtab_html = head
+    sbtab_html = header
 
-    if type(sbtab) == str and filename:
-        ugly_sbtab = sbtab.split('\n')
-        #nice_sbtab = '<p><h2><b>%s</b></h2></p>' % filename
-        sbtab_html += '<h2><small>%s</small></h2></div></header>' % filename
-        delimiter = check_delimiter(sbtab)
-    else:
+    try:
         ugly_sbtab = sbtab.return_table_string().split('\n')
-        #nice_sbtab = '<p><h2><b>'+sbtab.filename+'</b></h2></p>'
         sbtab_html += '<h2><small>%s</small></h2></div></header>' % sbtab.filename
         delimiter = sbtab.delimiter
+    except:
+        print('SBtab object cannot be read properly. Is it valid?')
 
     sbtab_html += '<main><table class="table-striped">'
-        
+
+
+
+    
     first = True
+
+
+    
     for i, row in enumerate(ugly_sbtab):
         # declaration of first SBtab in document
         if row.startswith('!!') and first:
