@@ -624,9 +624,12 @@ class SBtabDocument:
                 if '!SBML:reaction:id' in sbtab_reaction.columns and \
                    row[sbtab_reaction.columns_dict['!SBML:reaction:id']] != '' and \
                                                                             not self.is_number(row[sbtab_reaction.columns_dict['!SBML:reaction:id']]):
-                    react.setId(str(row[sbtab_reaction.columns_dict['!SBML:reaction:id']]))
+                    r_id = str(row[sbtab_reaction.columns_dict['!SBML:reaction:id']])
+                    react.setId(r_id)
+
                 else:
-                    react.setId(str(row[sbtab_reaction.columns_dict['!ID']]))
+                    r_id = str(row[sbtab_reaction.columns_dict['!ID']])
+                    react.setId(r_id)
 
                 if '!Name' in sbtab_reaction.columns:
                     if row[sbtab_reaction.columns_dict['!Name']] != '':
@@ -823,9 +826,15 @@ class SBtabDocument:
                     rplugin = react.getPlugin('fbc')
                     try:
                         parameter = row[sbtab_reaction.columns_dict['!SBML:fbc:LowerBound']].strip()
-                        rplugin.setLowerFluxBound(parameter)
-                        if parameter not in self.parameters_global:
-                            self.create_parameter(parameter)                        
+                        # special case for Frank TB: if only a number is given, create parameter
+                        if re.match("\d*", parameter) != None:
+                            parameter_name = '%s_fbc_lb' % r_id
+                            rplugin.setLowerFluxBound(parameter_name)
+                            self.create_parameter(parameter_name, value=float(parameter))
+                        else:
+                            rplugin.setLowerFluxBound(parameter)
+                            if parameter not in self.parameters_global:
+                                self.create_parameter(parameter)                        
                     except:
                         self.warnings.append('Could not set FBC LowerFluxBound of Reaction %s' % (react.getId()))
 
@@ -834,9 +843,15 @@ class SBtabDocument:
                     rplugin = react.getPlugin('fbc')
                     try:
                         parameter = row[sbtab_reaction.columns_dict['!SBML:fbc:UpperBound']].strip()
-                        rplugin.setUpperFluxBound(parameter)
-                        if parameter not in self.parameters_global:
-                            self.create_parameter(parameter)
+                        # special case for Frank TB: if only a number is given, create parameter
+                        if re.match("\d*", parameter) != None:
+                            parameter_name = '%s_fbc_ub' % r_id
+                            rplugin.setUpperFluxBound(parameter_name)
+                            self.create_parameter(parameter_name, value=float(parameter))
+                        else:                        
+                            rplugin.setUpperFluxBound(parameter)
+                            if parameter not in self.parameters_global:
+                                self.create_parameter(parameter)
                     except:
                         self.warnings.append('Could not set FBC UpperFluxBound of Reaction %s' % (react.getId()))                
 
@@ -903,7 +918,7 @@ class SBtabDocument:
         
         self.gene_products.append(gene_product)
 
-    def create_parameter(self, parameter):
+    def create_parameter(self, parameter, value=1):
         '''
         creates a default global parameter (if it is used by a reaction but not provided
         by an accompanying Quantity SBtab)
@@ -911,7 +926,7 @@ class SBtabDocument:
         new_parameter = self.new_model.createParameter()
         new_parameter.setId(parameter)
         new_parameter.setConstant(True)
-        new_parameter.setValue(1)
+        new_parameter.setValue(value)
         self.parameters_global.append(new_parameter.getId())
                                     
     def extract_parameters_from_formula(self, formula):
