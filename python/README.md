@@ -81,11 +81,12 @@ Here, we show you how to use SBtab in your own Python code. If you have question
     # read SBML model
     import libsbml
     f = open('hynne.xml','r').read()
+    reader = libsbml.SBMLReader()
     doc = reader.readSBMLFromString(f)
     model = doc.getModel()
     
     # convert model to SBtab Document Sd
-    Cd = sbml2sbtab.SBMLDocument(model)
+    Cd = sbml2sbtab.SBMLDocument(model, 'hynne.xml')
     (Sd,warnings) = Cd.convert_to_sbtab()
 ```
 <h3>The scripts can also be called from commandline</h3>
