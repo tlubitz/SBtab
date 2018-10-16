@@ -205,7 +205,7 @@ class SBtabTable():
 
         return items
 
-    def return_table_string(self):
+    def to_str(self):
         '''
         sometimes the file is required as a string (e. g. for
         writing files to harddisk; return string
@@ -622,7 +622,7 @@ class SBtabTable():
 
         try:
             f = open(filename, 'w')
-            table_string = self.return_table_string()
+            table_string = self.to_str()
             table_string_lb = table_string.replace('^M','\n')
             f.write(table_string_lb)
             f.close()
@@ -953,7 +953,7 @@ class SBtabDocument:
             f = open(self.filename, 'w')
             f.write(self.doc_row)
             for sbtab in self.sbtabs:
-                f.write(sbtab.return_table_string() + '\n\n')
+                f.write(sbtab.to_str() + '\n\n')
             f.close()
             return True
         except:
@@ -961,6 +961,16 @@ class SBtabDocument:
 
         return True
 
+    def to_str(self):
+        '''
+        returns SBtab Document as one large string
+        '''
+        sbtab_document = ''
+        for sbtab in self.sbtabs:
+            sbtab_document += sbtab.to_str() + '\n\n'
+
+        return sbtab_document
+    
     def get_custom_doc_information(self, attribute_name, test_row=None):
         '''
         Retrieves the value of a doc attribute in the doc line

@@ -47,12 +47,12 @@ class TestSBtabTable(unittest.TestCase):
             with self.assertRaises(SBtab.SBtabError):
                 random_sbtab.validate_extension(test=ic)
 
-    def test_return_table_string(self):
+    def test_to_str(self):
         '''
         test the function that returns the table string
         '''
         for sbtab in self.sbtabs:
-            table_string = sbtab.return_table_string()
+            table_string = sbtab.to_str()
             rows = table_string.split('\n')
             self.assertEqual(rows[0][:2],'!!')
             self.assertEqual(rows[1][:1],'!')

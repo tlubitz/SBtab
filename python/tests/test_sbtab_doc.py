@@ -71,7 +71,7 @@ class TestSBtabDocument(unittest.TestCase):
             # add sbtabs, test if amount is correct
             amount_sbtabs_before = len(doc.sbtabs)
             for sbtab in self.sbtabs:
-                self.assertTrue(doc.add_sbtab_string(sbtab.return_table_string(), sbtab.filename))
+                self.assertTrue(doc.add_sbtab_string(sbtab.to_str(), sbtab.filename))
                 self.assertIn(sbtab.table_name, doc.name_to_sbtab)
                 self.assertIn(sbtab.table_type, doc.type_to_sbtab)
                 self.assertIn(sbtab.filename, doc.sbtab_filenames)

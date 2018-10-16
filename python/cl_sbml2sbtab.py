@@ -50,7 +50,7 @@ def converter_sbml2sbtab_wrapper(args):
         print(warnings)
         p = open('sbtab.tsv','w')
         for sbtab in sbtab_doc.sbtabs:        
-            p.write(sbtab.return_table_string()+'\n\n')
+            p.write(sbtab.to_str()+'\n\n')
         p.close()            
     except:
         raise SBtabError('SBML Document %s could not be converted to SBtab.' % args.sbml)

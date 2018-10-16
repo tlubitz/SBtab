@@ -49,7 +49,7 @@ class TestMiscFunctions(unittest.TestCase):
         test if the amount of SBtabs in one file can be determined
         '''
         for sbtab in self.sbtabs:
-            amount = misc.count_tabs(sbtab.return_table_string())
+            amount = misc.count_tabs(sbtab.to_str())
             self.assertEqual(amount,1)
 
     def test_extension_validator(self):
@@ -74,11 +74,11 @@ class TestMiscFunctions(unittest.TestCase):
         test if the delimiter can be determined
         '''
         for sbtab in self.sbtabs:
-            self.assertNotEqual(misc.check_delimiter(sbtab.return_table_string()), False)
+            self.assertNotEqual(misc.check_delimiter(sbtab.to_str()), False)
 
         for doc in self.docs:
             for sbtab in doc.sbtabs:
-                self.assertNotEqual(misc.check_delimiter(sbtab.return_table_string()), False)
+                self.assertNotEqual(misc.check_delimiter(sbtab.to_str()), False)
 
         for sbml in self.sbml_docs:
             self.assertFalse(misc.check_delimiter(sbml))

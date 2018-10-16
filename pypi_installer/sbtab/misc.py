@@ -127,7 +127,7 @@ def tsv_to_html(sbtab, filename=None):
     if sbtab.object_type == 'table':
         # finish header with title
         try:
-            sbtab = sbtab.return_table_string().split('\n')
+            sbtab = sbtab.to_str().split('\n')
             html += '<h2><small>%s</small></h2></div></header>' % sbtab.filename
             delimiter = sbtab.delimiter
         except:
