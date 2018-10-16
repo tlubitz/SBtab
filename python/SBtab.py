@@ -100,13 +100,15 @@ class SBtabTable():
         table_string = table_string.replace('\r','')
         table_string = table_string.replace('^M','')
         table_string_prep = ''
-        
+
         for row in table_string.split('\n'):
             row = self._dequote(row)
             while "''" in row:
                 row = row.replace("''","'")
+            row.replace("%s,%s" % (self.delimiter,self.delimiter),
+                        "%s%s" % (self.delimiter,self.delimiter))
             table_string_prep += row +'\n'
-
+            
         return table_string_prep
         
         
@@ -122,7 +124,7 @@ class SBtabTable():
         for row in table_string.split('\n'):
             if row.replace(delimiter, '') != '' and row.replace(delimiter, '') != '[]':
                 if not row.startswith('"!') and not row.startswith('!'):
-                    if "'" in row or '{' in row:
+                    if "'" in row or '{' in row or '[' in row:
                         cut_row = self._handle_row(row, delimiter)
                         table_list.append(cut_row)
                     else: table_list.append(row.split(delimiter))
@@ -140,12 +142,12 @@ class SBtabTable():
         '''
         # provide an anchor for the end of the row to support our regex
         row += delimiter
-
+        
         # first, unify the employed quotes to '
         row = self._dequote(row)
-
+        
         # then, find all quoted columns
-        if "'" in row or "{" in row:
+        if "'" in row or "{" in row or '[' in row:
             # find beginning and start of quoted columns
             iterators = re.finditer(r"('.*?')%s" % delimiter, row)
             indices = [0]
@@ -156,14 +158,16 @@ class SBtabTable():
 
             # remove duplicates
             indices_set = list(sorted(set(indices)))
-
+            
             # cut row at the beginning and start indices
             items_pre = [row[i:j-1] for i,j in zip(indices_set, indices_set[1:]+[len(row)+1])]
 
             # further cut row at the delimiter and finish off items
             items = []
             jsons = []
+            jlist = []
             running_json = False
+            running_jlist = False
 
             for item in items_pre:
                 # in the case of a comma as separator, we need to be careful
@@ -186,13 +190,35 @@ class SBtabTable():
                         items.append(','.join(jsons))
                         jsons = []
                         running_json = False
+
+                    # 1bst case: we have a currently open Jlist column
+                    elif running_jlist and not item.endswith("]'"):
+                        if item.strip() != '':
+                            jlist.append(item)
+                    # 2bnd case: we have a Jlist column start
+                    elif item.startswith("'["):
+                        jlist.append(item)
+                        running_jlist = True
+                        if item.endswith("]'"):
+                            items.append(','.join(jlist))
+                            jlist = []
+                            running_jlist = False
+                    # 3brd case: we have a Jlist column end
+                    elif running_jlist and item.endswith("]'"):
+                        jlist.append(item)
+                        items.append(','.join(jlist))
+                        jlist = []
+                        running_jlist = False
+                        
                     # 4th case: we have a quoted column
-                    elif item.startswith("'") and not item.startswith("'{") and not item.endswith("}'"):
+                    elif item.startswith("'") and not item.startswith("'{") and not item.endswith("}'") and not item.startswith("'[") and not item.endswith("]'"):
                         items.append(item)
+
                     # 5th case: we have a normal column
+                    elif item == '':
+                        items += ['']
                     else:
                         items = items + item.split(delimiter)
-                    
                 else:
                     # for all other delimiters we are comparably easy going:
                     if item.startswith("'"):
@@ -715,7 +741,7 @@ class SBtabDocument:
         simple initialisation of SBtabDocument with an optional SBtab Table object
         '''
         self.name = name
-        self.filename = name
+        self.filename = filename
         self.sbtabs = []
         self.name_to_sbtab = {}
         self.type_to_sbtab = {}
@@ -941,16 +967,17 @@ class SBtabDocument:
         '''
         write SBtabDocument to hard disk
         '''
-        if not self.filename.endswith('tsv') and not self.filename.endswith('csv'):
-            if self.delimiter == '\t': self.filename += '.tsv'
-            elif self.delimiter == ',': self.filename += '.csv'
-            elif self.delimiter == ';': self.filename += '.csv'
+        if not self.name.endswith('tsv') and not self.name.endswith('csv'):
+            delimiter = self.sbtabs[0].delimiter            
+            if delimiter == '\t': self.name += '.tsv'
+            elif delimiter == ',': self.name += '.csv'
+            elif delimiter == ';': self.name += '.csv'
             else:
                 raise SBtabError('The file extension is missing and the '\
                                  'delimiter is not set.')
 
         try:
-            f = open(self.filename, 'w')
+            f = open(self.name, 'w')
             f.write(self.doc_row)
             for sbtab in self.sbtabs:
                 f.write(sbtab.to_str() + '\n\n')
