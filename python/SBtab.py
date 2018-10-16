@@ -715,7 +715,7 @@ class SBtabDocument:
         simple initialisation of SBtabDocument with an optional SBtab Table object
         '''
         self.name = name
-        self.filename = filename
+        self.filename = name
         self.sbtabs = []
         self.name_to_sbtab = {}
         self.type_to_sbtab = {}
@@ -822,7 +822,7 @@ class SBtabDocument:
         self.date = '-'.join([str(now.year),str(now.month),str(now.day)])
 
         if not self.doc_row:
-            self.doc_row = '!!!SBtab SBtabVersion="1.0" Document="%s" Date="%s"\n' % (self.filename, self.date)
+            self.doc_row = '!!!SBtab SBtabVersion="1.0" Document="%s" Date="%s"\n' % (self.name, self.date)
         else:
             # save document name, otherwise raise error
             # (overrides name given at document initialisation)

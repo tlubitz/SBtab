@@ -335,8 +335,8 @@ class SBtabDocument:
                                                           urn, 'Model')
                             compartment.addCVTerm(cv_term)
                         except:
-                            print('There was an annotation that could not be assi'\
-                                  'gned properly: ',compartment.getId(), annot)
+                            self.warnings.append('There was an annotation that could not be assi'\
+                                                 'gned properly: ',compartment.getId(), annot)
 
     def fbc_objective_sbtab(self):
         '''
@@ -526,8 +526,8 @@ class SBtabDocument:
                                                               urn, 'Biological')
                                 species.addCVTerm(cv_term)
                             except:
-                                print('There was an annotation that I could not a'\
-                                      'ssign properly: ',species.getId(), annot)
+                                self.warnings.append('There was an annotation that I could not a'\
+                                                     'ssign properly: ',species.getId(), annot)
 
         #species without compartments yield errors --> set them to the first available compartment
         for species in self.new_model.getListOfSpecies():
@@ -1212,7 +1212,7 @@ class SBtabDocument:
                         cv_term = self.set_annotation(event,annot,urn,'Biological')
                         event.addCVTerm(cv_term)
                     except:
-                        print('There was an annotation that I could not assign properly: ',event.getId(),annot)
+                        self.warnings.append('There was an annotation that I could not assign properly: ',event.getId(),annot)
 
     def ruleSBtab(self):
         '''
@@ -1253,28 +1253,6 @@ class SBtabDocument:
                         cv_term = self.set_annotation(event,annot,urn,'Biological')
                         rule.addCVTerm(cv_term)
                     except:
-                        print('There was an annotation that I could not assign properly: ',rule.getId(),annot)
-
-if __name__ == '__main__':
+                        self.warnings.append('There was an annotation that I could not assign properly: ',rule.getId(),annot)
 
 
-    # this main function is deprecated!
-    try: sys.argv[1]
-    except:
-        print('You have not provided input arguments. Please start the script by also providing an SBtab file and an optional SBML output filename: >python sbtab2sbml.py SBtabfile.csv Output')
-        sys.exit()
-        
-    file_name    = sys.argv[1]
-    sbtab_file_o = open(file_name,'r')
-    sbtab_file   = sbtab_file_o.read()
-
-    try: output_name = sys.argv[2]+'.xml'
-    except: output_name = file_name[:-4]+'.xml'
-
-    Converter_class = SBtabDocument(sbtab_file,file_name)
-    SBML_output     = Converter_class.makeSBML()
-    new_SBML_file   = open(output_name,'w')
-    new_SBML_file.write(SBML_output[0])
-    new_SBML_file.close()
-
-    print('The SBML file has been successfully written to your working directory or chosen output path.')

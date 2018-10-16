@@ -335,8 +335,8 @@ class SBtabDocument:
                                                           urn, 'Model')
                             compartment.addCVTerm(cv_term)
                         except:
-                            print('There was an annotation that could not be assi'\
-                                  'gned properly: ',compartment.getId(), annot)
+                            self.warnings.append('There was an annotation that could not be assi'\
+                                                 'gned properly: ',compartment.getId(), annot)
 
     def fbc_objective_sbtab(self):
         '''
@@ -360,10 +360,21 @@ class SBtabDocument:
                         if row[sbtab_fbc_objective.columns_dict['!Type']].capitalize() == 'True':
                             mplugin.setActiveObjectiveId(row[sbtab_fbc_objective.columns_dict['!ID']])
                     except: pass
-                    flux_objective = objective.createFluxObjective()
                     try:
-                        flux_objective.setReaction(row[sbtab_fbc_objective.columns_dict['!FluxObjectiveReaction']])
-                        flux_objective.setCoefficient(float(row[sbtab_fbc_objective.columns_dict['!FluxObjectiveCoefficient']]))
+                        if '+' in row[sbtab_fbc_objective.columns_dict['!Objective']]:
+                            pairs = row[sbtab_fbc_objective.columns_dict['!Objective']].split('+')
+                            for pair in pairs:
+                                singles = pair.split('*')
+                                flux_objective = objective.createFluxObjective()
+                                flux_objective.setCoefficient(float(singles[0].strip()))
+                                flux_objective.setReaction(singles[1].strip())
+
+                        else:
+                            singles = row[sbtab_fbc_objective.columns_dict['!Objective']].split('*')
+                            flux_objective = objective.createFluxObjective()
+                            flux_objective.setCoefficient(float(singles[0].strip()))
+                            flux_objective.setReaction(singles[1].strip())
+
                     except: pass
                     self.fbc_objectives_list.append(row[sbtab_fbc_objective.columns_dict['!ID']])
 
@@ -515,8 +526,8 @@ class SBtabDocument:
                                                               urn, 'Biological')
                                 species.addCVTerm(cv_term)
                             except:
-                                print('There was an annotation that I could not a'\
-                                      'ssign properly: ',species.getId(), annot)
+                                self.warnings.append('There was an annotation that I could not a'\
+                                                     'ssign properly: ',species.getId(), annot)
 
         #species without compartments yield errors --> set them to the first available compartment
         for species in self.new_model.getListOfSpecies():
@@ -613,9 +624,12 @@ class SBtabDocument:
                 if '!SBML:reaction:id' in sbtab_reaction.columns and \
                    row[sbtab_reaction.columns_dict['!SBML:reaction:id']] != '' and \
                                                                             not self.is_number(row[sbtab_reaction.columns_dict['!SBML:reaction:id']]):
-                    react.setId(str(row[sbtab_reaction.columns_dict['!SBML:reaction:id']]))
+                    r_id = str(row[sbtab_reaction.columns_dict['!SBML:reaction:id']])
+                    react.setId(r_id)
+
                 else:
-                    react.setId(str(row[sbtab_reaction.columns_dict['!ID']]))
+                    r_id = str(row[sbtab_reaction.columns_dict['!ID']])
+                    react.setId(r_id)
 
                 if '!Name' in sbtab_reaction.columns:
                     if row[sbtab_reaction.columns_dict['!Name']] != '':
@@ -812,9 +826,15 @@ class SBtabDocument:
                     rplugin = react.getPlugin('fbc')
                     try:
                         parameter = row[sbtab_reaction.columns_dict['!SBML:fbc:LowerBound']].strip()
-                        rplugin.setLowerFluxBound(parameter)
-                        if parameter not in self.parameters_global:
-                            self.create_parameter(parameter)                        
+                        # special case for Frank TB: if only a number is given, create parameter
+                        if re.match("\d*", parameter) != None:
+                            parameter_name = '%s_fbc_lb' % r_id
+                            rplugin.setLowerFluxBound(parameter_name)
+                            self.create_parameter(parameter_name, value=float(parameter))
+                        else:
+                            rplugin.setLowerFluxBound(parameter)
+                            if parameter not in self.parameters_global:
+                                self.create_parameter(parameter)                        
                     except:
                         self.warnings.append('Could not set FBC LowerFluxBound of Reaction %s' % (react.getId()))
 
@@ -823,9 +843,15 @@ class SBtabDocument:
                     rplugin = react.getPlugin('fbc')
                     try:
                         parameter = row[sbtab_reaction.columns_dict['!SBML:fbc:UpperBound']].strip()
-                        rplugin.setUpperFluxBound(parameter)
-                        if parameter not in self.parameters_global:
-                            self.create_parameter(parameter)
+                        # special case for Frank TB: if only a number is given, create parameter
+                        if re.match("\d*", parameter) != None:
+                            parameter_name = '%s_fbc_ub' % r_id
+                            rplugin.setUpperFluxBound(parameter_name)
+                            self.create_parameter(parameter_name, value=float(parameter))
+                        else:                        
+                            rplugin.setUpperFluxBound(parameter)
+                            if parameter not in self.parameters_global:
+                                self.create_parameter(parameter)
                     except:
                         self.warnings.append('Could not set FBC UpperFluxBound of Reaction %s' % (react.getId()))                
 
@@ -892,7 +918,7 @@ class SBtabDocument:
         
         self.gene_products.append(gene_product)
 
-    def create_parameter(self, parameter):
+    def create_parameter(self, parameter, value=1):
         '''
         creates a default global parameter (if it is used by a reaction but not provided
         by an accompanying Quantity SBtab)
@@ -900,7 +926,7 @@ class SBtabDocument:
         new_parameter = self.new_model.createParameter()
         new_parameter.setId(parameter)
         new_parameter.setConstant(True)
-        new_parameter.setValue(1)
+        new_parameter.setValue(value)
         self.parameters_global.append(new_parameter.getId())
                                     
     def extract_parameters_from_formula(self, formula):
@@ -1186,7 +1212,7 @@ class SBtabDocument:
                         cv_term = self.set_annotation(event,annot,urn,'Biological')
                         event.addCVTerm(cv_term)
                     except:
-                        print('There was an annotation that I could not assign properly: ',event.getId(),annot)
+                        self.warnings.append('There was an annotation that I could not assign properly: ',event.getId(),annot)
 
     def ruleSBtab(self):
         '''
@@ -1227,28 +1253,6 @@ class SBtabDocument:
                         cv_term = self.set_annotation(event,annot,urn,'Biological')
                         rule.addCVTerm(cv_term)
                     except:
-                        print('There was an annotation that I could not assign properly: ',rule.getId(),annot)
-
-if __name__ == '__main__':
+                        self.warnings.append('There was an annotation that I could not assign properly: ',rule.getId(),annot)
 
 
-    # this main function is deprecated!
-    try: sys.argv[1]
-    except:
-        print('You have not provided input arguments. Please start the script by also providing an SBtab file and an optional SBML output filename: >python sbtab2sbml.py SBtabfile.csv Output')
-        sys.exit()
-        
-    file_name    = sys.argv[1]
-    sbtab_file_o = open(file_name,'r')
-    sbtab_file   = sbtab_file_o.read()
-
-    try: output_name = sys.argv[2]+'.xml'
-    except: output_name = file_name[:-4]+'.xml'
-
-    Converter_class = SBtabDocument(sbtab_file,file_name)
-    SBML_output     = Converter_class.makeSBML()
-    new_SBML_file   = open(output_name,'w')
-    new_SBML_file.write(SBML_output[0])
-    new_SBML_file.close()
-
-    print('The SBML file has been successfully written to your working directory or chosen output path.')

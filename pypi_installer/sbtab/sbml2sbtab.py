@@ -215,7 +215,7 @@ class SBMLDocument:
 
     def event_sbtab(self):
         '''
-        Builds an Event SBtab.
+        Builds an Event SBtab (deprecated).
         '''
         if len(self.model.getListOfEvents()) == 0:
             return False
@@ -279,7 +279,7 @@ class SBMLDocument:
 
     def rule_sbtab(self):
         '''
-        Builds a Rule SBtab.
+        Builds a Rule SBtab (deprecated).
         '''
         if len(self.model.getListOfRules()) == 0:
             return False
@@ -333,7 +333,7 @@ class SBMLDocument:
                     '"FbcObjective" TableName="FBC Objective"\n' % self.filename
 
         # columns
-        columns = ['!ID', '!Name', '!Type', '!Active', '!FluxObjectiveCoefficient', '!FluxObjectiveReaction']
+        columns = ['!ID', '!Name', '!Type', '!Active', '!Objective']
             
         sbtab_fbc += '\t'.join(columns) + '\n'
 
@@ -347,9 +347,10 @@ class SBMLDocument:
             except: pass
             if obj.getId() == active_obj: value_row[3] = 'True'
             else: value_row[3] = 'False'
+            objective = ''
             for fo in obj.getListOfFluxObjectives():
-                value_row[4] = str(fo.getCoefficient())
-                value_row[5] = fo.getReaction()
+                objective += '%s * %s +' % (str(fo.getCoefficient()), fo.getReaction())
+            value_row[4] = objective[:-2]
 
             sbtab_fbc += '\t'.join(value_row) + '\n'
 
@@ -687,32 +688,3 @@ class SBMLDocument:
         return sumformula
         
 
-if __name__ == '__main__':
-
-
-    # this main function is deprecated!
-    try: sys.argv[1]
-    except:
-        print('You have not provided input arguments. Please start the script by also providing an SBML file and an optional SBtab output filename: >python sbml2sbtab.py SBMLfile.xml Output')
-        sys.exit()
-
-    file_name  = sys.argv[1]
-    try: output_name = sys.argv[2]+'.csv'
-    except: output_name = file_name[:-4]+'.csv'
-
-    reader     = libsbml.SBMLReader()
-    sbml       = reader.readSBML(file_name)
-    model      = sbml.getModel()
-    Sbml_class = SBMLDocument(model,file_name)
-
-    (sbtabs,warnings) = Sbml_class.makeSBtabs()
-
-    #print warnings
-
-    for sbtab in sbtabs:
-        sbtab_name = output_name[:-4]+'_'+sbtab[1]+output_name[-4:]
-        sbtab_file = open(sbtab_name,'w')
-        sbtab_file.write(sbtab[0])
-        sbtab_file.close()
-
-    print('The SBtab file/s have been successfully written to your working directory or chosen output path.')
