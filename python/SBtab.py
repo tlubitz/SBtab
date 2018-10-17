@@ -710,8 +710,8 @@ class SBtabTable():
             raise SBtabError('Pandas dataframe could not be built.')
 
     @staticmethod
-    def from_data_frame(df, document_name, table_type, table_name,
-                        document, unit, sbtab_version='1.0'):
+    def from_data_frame(df, table_type, document_name='', table_name='',
+                        document='', unit='', sbtab_version='1.0'):
         table_string = StringIO()
         csv_writer = csv.writer(table_string, delimiter=',')
 
