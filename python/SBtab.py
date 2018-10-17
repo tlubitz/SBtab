@@ -429,7 +429,7 @@ class SBtabTable():
             raise SBtabError('Please provide only strings as attribute and value.')
         
         if attribute not in self.header_row:
-            self.header_row = self.header_row[:-1] + ' ' + att_value_new + '\n'
+            self.header_row = self.header_row + ' ' + att_value_new
         else:
             try:
                 att_value = re.search("%s='([^']*)'" % attribute, self.header_row).group(0)
