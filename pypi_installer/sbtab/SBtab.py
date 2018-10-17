@@ -429,7 +429,7 @@ class SBtabTable():
             raise SBtabError('Please provide only strings as attribute and value.')
         
         if attribute not in self.header_row:
-            self.header_row = self.header_row[:-1] + ' ' + att_value_new + '\n'
+            self.header_row = self.header_row + ' ' + att_value_new
         else:
             try:
                 att_value = re.search("%s='([^']*)'" % attribute, self.header_row).group(0)
@@ -710,8 +710,8 @@ class SBtabTable():
             raise SBtabError('Pandas dataframe could not be built.')
 
     @staticmethod
-    def from_data_frame(df, document_name, table_type, table_name,
-                        document, unit, sbtab_version='1.0'):
+    def from_data_frame(df, table_type, document_name='', table_name='',
+                        document='', unit='', sbtab_version='1.0'):
         table_string = StringIO()
         csv_writer = csv.writer(table_string, delimiter=',')
 
