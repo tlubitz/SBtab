@@ -139,8 +139,11 @@ class SBtabTable():
             if row.replace(delimiter, '') != '' and row.replace(delimiter, '') != '[]':
                 if not row.startswith('"!') and not row.startswith('!'):
                     if "'" in row or '{' in row or '[' in row:
-                        cut_row = self._handle_row(row, delimiter)
-                        table_list.append(cut_row)
+                        try:
+                            cut_row = self._handle_row(row, delimiter)
+                            table_list.append(cut_row)
+                        except:
+                            self.warnings.append('Row %s could not be attached due to bad syntax.' % row)
                     else: table_list.append(row.split(delimiter))
                 else:
                     table_list.append(row.split(delimiter))
@@ -806,6 +809,8 @@ class SBtabDocument:
             sbtab_count = len(self.sbtabs)
             filename = 'unnamed_sbtab_%s.tsv'%(str(sbtab_count))
 
+        if not self.filename: self.filename = filename
+
         # see if there are more than one SBtabs in the string
         try: sbtab_amount = misc.count_tabs(sbtab_string)
         except:
@@ -975,21 +980,23 @@ class SBtabDocument:
         '''
         self.name = name
 
-    def write(self):
+    def write(self, filename=None):
         '''
         write SBtabDocument to hard disk
         '''
-        if not self.name.endswith('tsv') and not self.name.endswith('csv'):
+        if not filename: filename = self.filename
+        
+        if not filename.endswith('tsv') and not filename.endswith('csv'):
             delimiter = self.sbtabs[0].delimiter            
-            if delimiter == '\t': self.name += '.tsv'
-            elif delimiter == ',': self.name += '.csv'
-            elif delimiter == ';': self.name += '.csv'
+            if delimiter == '\t': filename += '.tsv'
+            elif delimiter == ',': filename += '.csv'
+            elif delimiter == ';': filename += '.csv'
             else:
                 raise SBtabError('The file extension is missing and the '\
                                  'delimiter is not set.')
 
         try:
-            f = open(self.name, 'w')
+            f = open(filename, 'w')
             f.write(self.doc_row)
             for sbtab in self.sbtabs:
                 f.write(sbtab.to_str() + '\n\n')

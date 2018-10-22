@@ -75,7 +75,11 @@ class SBtabDocument:
         self.new_model = self.new_document.createModel()
         self.new_model.setId('default_id')
         self.new_model.setName('default_name')
-
+        
+        if 'FbcObjective' in self.sbtab_doc.type_to_sbtab.keys():
+            mplugin = self.new_model.getPlugin('fbc')
+            mplugin.setStrict(True)
+        
         # initialize some required variables for conversion
         self.reaction_list = []
         self.species_list = []
@@ -100,13 +104,13 @@ class SBtabDocument:
             return (False, self.warnings)
 
         # 2. build compounds
-        try:
-            if 'Compound' in self.sbtab_doc.type_to_sbtab.keys():
-                self.compound_sbtab()
-        except:
-            self.warnings.append('Warning: The provided compounds could not b'\
-                                 'e initialised properly. Please check for va'\
-                                 'lid compound information.')
+        #try:
+        if 'Compound' in self.sbtab_doc.type_to_sbtab.keys():
+            self.compound_sbtab()
+        #except:
+        #    self.warnings.append('Warning: The provided compounds could not b'\
+        #                         'e initialised properly. Please check for va'\
+        #                         'lid compound information.')
 
         # 2b. build quantities/parameters
         try:
@@ -335,8 +339,8 @@ class SBtabDocument:
                                                           urn, 'Model')
                             compartment.addCVTerm(cv_term)
                         except:
-                            self.warnings.append('There was an annotation that could not be assi'\
-                                                 'gned properly: ',compartment.getId(), annot)
+                            self.warnings.append('The annotation %s could not be a'\
+                                                 'ssigned properly to %s.' % (annot, compartment.getId()))
 
     def fbc_objective_sbtab(self):
         '''
@@ -357,7 +361,7 @@ class SBtabDocument:
                     try: objective.setType(row[sbtab_fbc_objective.columns_dict['!Type']])
                     except: pass
                     try:
-                        if row[sbtab_fbc_objective.columns_dict['!Type']].capitalize() == 'True':
+                        if row[sbtab_fbc_objective.columns_dict['!Active']].capitalize() == 'True':
                             mplugin.setActiveObjectiveId(row[sbtab_fbc_objective.columns_dict['!ID']])
                     except: pass
                     try:
@@ -526,8 +530,8 @@ class SBtabDocument:
                                                               urn, 'Biological')
                                 species.addCVTerm(cv_term)
                             except:
-                                self.warnings.append('There was an annotation that I could not a'\
-                                                     'ssign properly: ',species.getId(), annot)
+                                self.warnings.append('The annotation %s could not be a'\
+                                                     'ssigned properly to %s.' % (annot, species.getId()))
 
         #species without compartments yield errors --> set them to the first available compartment
         for species in self.new_model.getListOfSpecies():
@@ -1103,7 +1107,7 @@ class SBtabDocument:
                 try:
                     if row[sbtab_quantity.columns_dict['!Type']] == 'local parameter':
                         for reaction in self.new_model.getListOfReactions():
-                            kl      = reaction.getKineticLaw()
+                            kl = reaction.getKineticLaw()
                             formula = kl.getFormula()
                             if row[sbtab_quantity.columns_dict['!SBML:reaction:parameter:id']] in formula:
                                 lp = kl.createParameter()
@@ -1123,6 +1127,11 @@ class SBtabDocument:
                                 if '!SBOTerm' in sbtab_quantity.columns and row[sbtab_quantity.columns_dict['!SBOTerm']] != '':
                                     try: lp.setSBOTerm(int(row[sbtab_quantity.columns_dict['!SBOTerm']][4:]))
                                     except: pass
+                                if '!IsConstant' in sbtab_quantity.columns and row[sbtab_quantity.columns_dict['!IsConstant']] != '':
+                                    if row[sbtab_quantity.columns_dict['!IsConstant']].lower() == 'true': lp.setConstant(True)
+                                    elif row[sbtab_quantity.columns_dict['!IsConstant']].lower() == 'false': lp.setConstant(False)
+                                    else: lp.setConstant(True)
+                                else: lp.setConstant(True)
                                 self.parameters_local.append(lp.getId())
                     else:
                         parameter = self.new_model.createParameter()
@@ -1136,6 +1145,11 @@ class SBtabDocument:
                         if '!SBOTerm' in sbtab_quantity.columns and row[sbtab_quantity.columns_dict['!SBOTerm']] != '':
                             try: parameter.setSBOTerm(int(row[sbtab_quantity.columns_dict['!SBOTerm']][4:]))
                             except: pass
+                        if '!IsConstant' in sbtab_quantity.columns and row[sbtab_quantity.columns_dict['!IsConstant']] != '':
+                            if row[sbtab_quantity.columns_dict['!IsConstant']].lower() == 'true': parameter.setConstant(True)
+                            elif row[sbtab_quantity.columns_dict['!IsConstant']].lower() == 'false': parameter.setConstant(False)
+                            else: parameter.setConstant(True)
+                        else: parameter.setConstant(True)
                         self.parameters_global.append(parameter.getId())
                 except:
                     parameter = self.new_model.createParameter()
@@ -1149,6 +1163,11 @@ class SBtabDocument:
                     if '!SBOTerm' in sbtab_quantity.columns and row[sbtab_quantity.columns_dict['!SBOTerm']] != '':
                         try: parameter.setSBOTerm(int(row[sbtab_quantity.columns_dict['!SBOTerm']][4:]))
                         except: pass
+                    if '!IsConstant' in sbtab_quantity.columns and row[sbtab_quantity.columns_dict['!IsConstant']] != '':
+                        if row[sbtab_quantity.columns_dict['!IsConstant']].lower() == 'true': parameter.setConstant(True)
+                        elif row[sbtab_quantity.columns_dict['!IsConstant']].lower() == 'false': parameter.setConstant(False)
+                        else: parameter.setConstant(True)
+                    else: parameter.setConstant(True)
                     self.parameters_global.append(parameter.getId())
 
     def eventSBtab(self):
@@ -1212,7 +1231,8 @@ class SBtabDocument:
                         cv_term = self.set_annotation(event,annot,urn,'Biological')
                         event.addCVTerm(cv_term)
                     except:
-                        self.warnings.append('There was an annotation that I could not assign properly: ',event.getId(),annot)
+                        self.warnings.append('The annotation %s could not be a'\
+                                             'ssigned properly to %s.' % (annot, event.getId()))
 
     def ruleSBtab(self):
         '''
@@ -1253,6 +1273,6 @@ class SBtabDocument:
                         cv_term = self.set_annotation(event,annot,urn,'Biological')
                         rule.addCVTerm(cv_term)
                     except:
-                        self.warnings.append('There was an annotation that I could not assign properly: ',rule.getId(),annot)
-
+                        self.warnings.append('The annotation %s could not be a'\
+                                             'ssigned properly to %s.' % (annot, rule.getId()))
 
