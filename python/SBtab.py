@@ -195,12 +195,14 @@ class SBtabTable():
                         jsons.append(item)
                         running_json = True
                         if item.endswith("}'"):
+                            while '' in jsons: jsons.remove('')
                             items.append(','.join(jsons))
                             jsons = []
                             running_json = False
                     # 3rd case: we have a JSON column end
                     elif running_json and item.endswith("}'"):
                         jsons.append(item)
+                        while '' in jsons: jsons.remove('')
                         items.append(','.join(jsons))
                         jsons = []
                         running_json = False
@@ -214,12 +216,14 @@ class SBtabTable():
                         jlist.append(item)
                         running_jlist = True
                         if item.endswith("]'"):
+                            while '' in jlist: jlist.remove('')
                             items.append(','.join(jlist))
                             jlist = []
                             running_jlist = False
                     # 3brd case: we have a Jlist column end
                     elif running_jlist and item.endswith("]'"):
                         jlist.append(item)
+                        while '' in jlist: jlist.remove('')
                         items.append(','.join(jlist))
                         jlist = []
                         running_jlist = False
