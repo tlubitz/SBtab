@@ -775,12 +775,6 @@ class SBtabDocument:
         '''
         add an SBtab Table object to the SBtab Document
         '''
-        if sbtab.filename in self.sbtab_filenames:
-            raise SBtabError('The SBtab could not be added it has the '
-                            'same table name as an existing SBtab:'
-                            ' %s.' % (sbtab.filename))
-            return
-
         if not self.filename:
             self.filename = sbtab.filename
           
