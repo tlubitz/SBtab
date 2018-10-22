@@ -173,14 +173,15 @@ def tsv_to_html(sbtab, filename=None):
     return html
 
 
-def xlsx_to_tsv(file_object):
+def xlsx_to_tsv(file_object, f='web'):
     '''
     convert xlsx SBtab file to tsv format
     '''
     import openpyxl
     from io import BytesIO
-    
-    wb = openpyxl.load_workbook(filename = BytesIO(file_object))
+
+    if f == 'web': wb = openpyxl.load_workbook(filename = BytesIO(file_object))
+    else: wb = openpyxl.load_workbook(filename = file_object)
     ws = wb.active
     ranges = wb[ws.title]
     table_string = ''
