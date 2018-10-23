@@ -490,21 +490,13 @@ class SBMLDocument:
                     fbc_plugin = reaction.getPlugin('fbc')
                     try:
                         ga = fbc_plugin.getGeneProductAssociation()
-                        fbc_object = libsbml.FbcExtension()
                         try:
-                            type_code = ga.getAssociation().getTypeCode()
-                            ass_name = fbc_object.getStringFromTypeCode(type_code)
-                        except: ass_name = '|'
-                        if ass_name == 'FbcOr' or ass_name == 'FbcAnd':
-                            k = ga.getAssociation()
-                            associations = k.getListOfAssociations()
-                            ass_list = ''
-                            for a in associations:
-                                ass_list += a.getGeneProduct() + ' ' + ass_name + ' '
-                            value_row[8] = ' '.join(ass_list.split(' ')[:-2])
-                        elif ass_name == 'GeneProductRef':
-                            gpr = ga.getAssociation()
-                            value_row[8] = gpr.getGeneProduct()
+                            ass_list = self._gene_ass_recursive(ga.getAssociation(),reaction.getId())
+                            value_row[8] = ass_list
+                        except: self.warnings.append('Gene Association Information for reaction %s'\
+                                                     ' could not be written.' & reaction.getId())
+                        
+                            
                     except: pass
                     value_row[9] = str(fbc_plugin.getLowerFluxBound())
                     value_row[10] = str(fbc_plugin.getUpperFluxBound())
@@ -538,6 +530,28 @@ class SBMLDocument:
                                      reaction.getId())
 
         return sbtab_reaction
+
+    def _gene_ass_recursive(self, ga, r_id):
+        '''
+        extract gene association nodes recursively
+        '''
+        dels = {libsbml.FbcAnd: 'FbcAnd',
+                libsbml.FbcOr: 'FbcOr'}
+        ass_list = ''
+
+        if type(ga) == libsbml.FbcOr or type(ga) == libsbml.FbcAnd:
+            associations = ga.getListOfAssociations()
+            sub_list = ''
+            for i,a in enumerate(associations):
+                sub_list += self._gene_ass_recursive(a, r_id)
+                if i < len(associations)-1:
+                    sub_list += ' ' + dels[type(ga)] + ' '
+                
+            ass_list += '(' + sub_list + ')'
+            return ass_list
+        elif type(ga) == libsbml.GeneProductRef:
+            ass_list += ga.getGeneProduct()
+            return ass_list
 
     def quantity_sbtab(self):
         '''
