@@ -46,6 +46,8 @@ class SBtabDocument:
         self.parameters_local = []
         self.parameters_global = []
         self.gene_products = []
+        self.unit_definitions = []
+        self.fbc = False
 
     def convert_to_sbml(self, sbml_version):
         '''
@@ -53,6 +55,7 @@ class SBtabDocument:
         '''
         # initialize SBML document
         if 'FbcObjective' in self.sbtab_doc.type_to_sbtab.keys() or 'Gene' in self.sbtab_doc.type_to_sbtab.keys():
+            self.fbc = True
             if sbml_version == '24':
                 sbmlns = libsbml.SBMLNamespaces(2,4,'fbc',2)
                 self.new_document = libsbml.SBMLDocument(sbmlns)
@@ -76,17 +79,17 @@ class SBtabDocument:
         self.new_model.setId('default_id')
         self.new_model.setName('default_name')
         
-        if 'FbcObjective' in self.sbtab_doc.type_to_sbtab.keys():
+        if self.fbc:
             mplugin = self.new_model.getPlugin('fbc')
             mplugin.setStrict(True)
+            self.fbc_objectives_list = []
+            self.fbc_genes_list = []
         
         # initialize some required variables for conversion
         self.reaction_list = []
         self.species_list = []
         self.compartment_list = []
         self.modifier_list = []
-        self.fbc_objectives_list = []
-        self.fbc_genes_list = []
         self.id2sbmlid = {}
 
         # 1. build compartment
@@ -151,7 +154,7 @@ class SBtabDocument:
 
         # 5. check for fbc plugin content
         try:
-            if 'FbcObjective' in self.sbtab_doc.type_to_sbtab.keys():
+            if self.fbc:
                 self.fbc_objective_sbtab()
         except:
             self.warnings.append('Error: The provided fbc objective information co'\
@@ -503,19 +506,21 @@ class SBtabDocument:
                             self.unit_def_mpdw()
                             self.unit_mpdw = True
 
-                    if '!SBML:fbc:charge' in sbtab_compound.columns and \
-                       row[sbtab_compound.columns_dict['!SBML:fbc:charge']] != '':
-                        splugin = species.getPlugin('fbc')
-                        if splugin is not None:
-                            try: splugin.setCharge(int(row[sbtab_compound.columns_dict['!SBML:fbc:charge']]))
-                            except: pass
+                    # FBC content
+                    if self.fbc:
+                        if '!SBML:fbc:charge' in sbtab_compound.columns and \
+                           row[sbtab_compound.columns_dict['!SBML:fbc:charge']] != '':
+                            splugin = species.getPlugin('fbc')
+                            if splugin is not None:
+                                try: splugin.setCharge(int(row[sbtab_compound.columns_dict['!SBML:fbc:charge']]))
+                                except: pass
 
-                    if '!SBML:fbc:chemicalFormula' in sbtab_compound.columns and \
-                       row[sbtab_compound.columns_dict['!SBML:fbc:chemicalFormula']] != '':
-                        splugin = species.getPlugin('fbc')
-                        if splugin is not None:
-                            try: splugin.setChemicalFormula(row[sbtab_compound.columns_dict['!SBML:fbc:chemicalFormula']])
-                            except: pass
+                        if '!SBML:fbc:chemicalFormula' in sbtab_compound.columns and \
+                           row[sbtab_compound.columns_dict['!SBML:fbc:chemicalFormula']] != '':
+                            splugin = species.getPlugin('fbc')
+                            if splugin is not None:
+                                try: splugin.setChemicalFormula(row[sbtab_compound.columns_dict['!SBML:fbc:chemicalFormula']])
+                                except: pass
                             
                     # search for identifiers and annotations
                     for column in sbtab_compound.columns_dict.keys():
@@ -572,7 +577,6 @@ class SBtabDocument:
                             sp = self.new_model.createSpecies()
                             sp.setId(str(educt))
                             sp.setName(str(educt))
-                            sp.setConstant(False)
                             sp.setBoundaryCondition(False)
                             sp.setHasOnlySubstanceUnits(False)                            
                             if compartment: sp.setCompartment(compartment)
@@ -684,11 +688,13 @@ class SBtabDocument:
                         else: reactant.setSpecies(educt)
 
                         reactant.setStoichiometry(self.rrps2stoichiometry[row[sbtab_reaction.columns_dict['!ID']],educt])
-                        reactant.setConstant(False)
+                        if self.fbc: reactant.setConstant(True)
+                        else: reactant.setConstant(False)
                     for product in self.reaction2reactants[row[sbtab_reaction.columns_dict['!ID']]][1]:
                         if product == '': continue
                         reactant = react.createProduct()
-                        reactant.setConstant(False)
+                        if self.fbc: reactant.setConstant(True)
+                        else: reactant.setConstant(False)
                         if product in self.id2sbmlid.keys():
                             if self.id2sbmlid[product] != None: reactant.setSpecies(self.id2sbmlid[product])
                             else: reactant.setSpecies(product)
@@ -824,95 +830,95 @@ class SBtabDocument:
                 except: pass
 
                 # Attributes for FBC package
-
-                if '!SBML:fbc:LowerBound' in sbtab_reaction.columns and \
-                   row[sbtab_reaction.columns_dict['!SBML:fbc:LowerBound']] != '':
-                    rplugin = react.getPlugin('fbc')
-                    try:
-                        parameter = row[sbtab_reaction.columns_dict['!SBML:fbc:LowerBound']].strip()
-                        # special case for Frank TB: if only a number is given, create parameter
-                        if re.match("\d*", parameter) != None:
-                            parameter_name = '%s_fbc_lb' % r_id
-                            rplugin.setLowerFluxBound(parameter_name)
-                            self.create_parameter(parameter_name, value=float(parameter))
-                        else:
-                            rplugin.setLowerFluxBound(parameter)
-                            if parameter not in self.parameters_global:
-                                self.create_parameter(parameter)                        
-                    except:
-                        self.warnings.append('Could not set FBC LowerFluxBound of Reaction %s' % (react.getId()))
-
-                if '!SBML:fbc:UpperBound' in sbtab_reaction.columns and \
-                   row[sbtab_reaction.columns_dict['!SBML:fbc:UpperBound']] != '':
-                    rplugin = react.getPlugin('fbc')
-                    try:
-                        parameter = row[sbtab_reaction.columns_dict['!SBML:fbc:UpperBound']].strip()
-                        # special case for Frank TB: if only a number is given, create parameter
-                        if re.match("\d*", parameter) != None:
-                            parameter_name = '%s_fbc_ub' % r_id
-                            rplugin.setUpperFluxBound(parameter_name)
-                            self.create_parameter(parameter_name, value=float(parameter))
-                        else:                        
-                            rplugin.setUpperFluxBound(parameter)
-                            if parameter not in self.parameters_global:
-                                self.create_parameter(parameter)
-                    except:
-                        self.warnings.append('Could not set FBC UpperFluxBound of Reaction %s' % (react.getId()))                
-
-                
-                if '!SBML:fbc:GeneAssociation' in sbtab_reaction.columns and \
-                   row[sbtab_reaction.columns_dict['!SBML:fbc:GeneAssociation']] != '':
-                    rplugin = react.getPlugin('fbc')
-                    if rplugin is not None:
+                if self.fbc:
+                    if '!SBML:fbc:LowerBound' in sbtab_reaction.columns and \
+                       row[sbtab_reaction.columns_dict['!SBML:fbc:LowerBound']] != '':
+                        rplugin = react.getPlugin('fbc')
                         try:
-                            ga = rplugin.createGeneProductAssociation()
-                            ga_content = row[sbtab_reaction.columns_dict['!SBML:fbc:GeneAssociation']]
-                            # case 1: there are ANDs and possible ORs in the association column
-                            if 'FbcAnd' in ga_content:
-                                ands = ga_content.split('FbcAnd')     # create an " - AND - "
-                                # case 1a: there are only ANDs
-                                if not 'FbcOr' in ga_content:
-                                    ga_and = ga.createAnd()
-                                    for a in ands:
-                                        ga_and_gpr = ga_and.createGeneProductRef()
-                                        ga_and_gpr.setGeneProduct(a.strip())
-                                        if a.strip() not in self.gene_products:
-                                            self.create_gene_product(a.strip())
-                                else:
-                                    # case 1b: there are ANDs and ORs
-                                    ga_and = ga.createAnd()
-                                    for a in ands:
-                                        if 'FbcOr' not in a:
+                            parameter = row[sbtab_reaction.columns_dict['!SBML:fbc:LowerBound']].strip()
+                            # special case for Frank TB: if only a number is given, create parameter
+                            if re.match("\d*", parameter).group(0) != '':
+                                parameter_name = '%s_fbc_lb' % r_id
+                                rplugin.setLowerFluxBound(parameter_name)
+                                self.create_parameter(parameter_name, value=float(parameter))
+                            else:
+                                rplugin.setLowerFluxBound(parameter)
+                                if parameter not in self.parameters_global:
+                                    self.create_parameter(parameter)                        
+                        except:
+                            self.warnings.append('Could not set FBC LowerFluxBound of Reaction %s' % (react.getId()))
+
+                    if '!SBML:fbc:UpperBound' in sbtab_reaction.columns and \
+                       row[sbtab_reaction.columns_dict['!SBML:fbc:UpperBound']] != '':
+                        rplugin = react.getPlugin('fbc')
+                        try:
+                            parameter = row[sbtab_reaction.columns_dict['!SBML:fbc:UpperBound']].strip()
+                            # special case for Frank TB: if only a number is given, create parameter
+                            if re.match("\d*", parameter).group(0) != '':
+                                parameter_name = '%s_fbc_ub' % r_id
+                                rplugin.setUpperFluxBound(parameter_name)
+                                self.create_parameter(parameter_name, value=float(parameter))
+                            else:
+                                rplugin.setUpperFluxBound(parameter)
+                                if parameter not in self.parameters_global:
+                                    self.create_parameter(parameter)
+                        except:
+                            self.warnings.append('Could not set FBC UpperFluxBound of Reaction %s' % (react.getId()))                
+
+
+                    if '!SBML:fbc:GeneAssociation' in sbtab_reaction.columns and \
+                       row[sbtab_reaction.columns_dict['!SBML:fbc:GeneAssociation']] != '':
+                        rplugin = react.getPlugin('fbc')
+                        if rplugin is not None:
+                            try:
+                                ga = rplugin.createGeneProductAssociation()
+                                ga_content = row[sbtab_reaction.columns_dict['!SBML:fbc:GeneAssociation']]
+                                # case 1: there are ANDs and possible ORs in the association column
+                                if 'FbcAnd' in ga_content:
+                                    ands = ga_content.split('FbcAnd')     # create an " - AND - "
+                                    # case 1a: there are only ANDs
+                                    if not 'FbcOr' in ga_content:
+                                        ga_and = ga.createAnd()
+                                        for a in ands:
                                             ga_and_gpr = ga_and.createGeneProductRef()
                                             ga_and_gpr.setGeneProduct(a.strip())
                                             if a.strip() not in self.gene_products:
                                                 self.create_gene_product(a.strip())
-                                        else:
-                                            ga_or = ga.createOr()
-                                            ors = a.split('FbcOr')
-                                            for o in ors:
-                                                ga_or_gpr = ga_or.createGeneProductRef()
-                                                ga_or_gpr.setGeneProduct(o.strip())
-                                                if o.strip() not in self.gene_products:
-                                                    self.create_gene_product(o.strip())
-                            elif 'FbcOr' in ga_content:
-                                # case 2: there are no ANDs, but ORs in the association column
-                                ga_or = ga.createOr()
-                                ors = ga_content.split('FbcOr')
-                                for o in ors:
-                                    ga_or_gpr = ga_or.createGeneProductRef()
-                                    ga_or_gpr.setGeneProduct(o.strip())
-                                    if o.strip() not in self.gene_products:
-                                        self.create_gene_product(o.strip())
-                            else:
-                                # case 3: there are not ANDs and no ORs, only 1 GA
-                                ga_gpr = ga.createGeneProductRef()
-                                ga_gpr.setGeneProduct(ga_content.strip())
-                                if ga_content.strip() not in self.gene_products:
-                                    self.create_gene_product(ga_content.strip())
-                        except:
-                            self.warnings.append('Could not set FBC GeneAssociation %s of Reaction %s' % (row[sbtab_reaction.columns_dict['!SBML:fbc:GeneAssociation']],
-                                                                                                          react.getId()))
+                                    else:
+                                        # case 1b: there are ANDs and ORs
+                                        ga_and = ga.createAnd()
+                                        for a in ands:
+                                            if 'FbcOr' not in a:
+                                                ga_and_gpr = ga_and.createGeneProductRef()
+                                                ga_and_gpr.setGeneProduct(a.strip())
+                                                if a.strip() not in self.gene_products:
+                                                    self.create_gene_product(a.strip())
+                                            else:
+                                                ga_or = ga.createOr()
+                                                ors = a.split('FbcOr')
+                                                for o in ors:
+                                                    ga_or_gpr = ga_or.createGeneProductRef()
+                                                    ga_or_gpr.setGeneProduct(o.strip())
+                                                    if o.strip() not in self.gene_products:
+                                                        self.create_gene_product(o.strip())
+                                elif 'FbcOr' in ga_content:
+                                    # case 2: there are no ANDs, but ORs in the association column
+                                    ga_or = ga.createOr()
+                                    ors = ga_content.split('FbcOr')
+                                    for o in ors:
+                                        ga_or_gpr = ga_or.createGeneProductRef()
+                                        ga_or_gpr.setGeneProduct(o.strip())
+                                        if o.strip() not in self.gene_products:
+                                            self.create_gene_product(o.strip())
+                                else:
+                                    # case 3: there are not ANDs and no ORs, only 1 GA
+                                    ga_gpr = ga.createGeneProductRef()
+                                    ga_gpr.setGeneProduct(ga_content.strip())
+                                    if ga_content.strip() not in self.gene_products:
+                                        self.create_gene_product(ga_content.strip())
+                            except:
+                                self.warnings.append('Could not set FBC GeneAssociation %s of Reaction %s' % (row[sbtab_reaction.columns_dict['!SBML:fbc:GeneAssociation']],
+                                                                                                              react.getId()))
               
 
     def create_gene_product(self, gene_product):
@@ -932,6 +938,9 @@ class SBtabDocument:
         new_parameter.setConstant(True)
         new_parameter.setValue(value)
         self.parameters_global.append(new_parameter.getId())
+
+        self.unit_def_mm()
+        self.unit_def_mpdw()
                                     
     def extract_parameters_from_formula(self, formula):
         '''
@@ -954,41 +963,51 @@ class SBtabDocument:
         '''
         build unit definition
         '''
-        ud = self.new_model.createUnitDefinition()
-        ud.setId('mM')
-        ud.setName('mM')
+        if not 'mM' in self.unit_definitions:
+            ud = self.new_model.createUnitDefinition()
+            ud.setId('mM')
+            ud.setName('mM')
+            self.unit_definitions.append(ud.getId())
 
-        mole = ud.createUnit()
-        mole.setScale(-3)
-        mole.setKind(libsbml.UNIT_KIND_MOLE)
+            mole = ud.createUnit()
+            mole.setScale(-3)
+            mole.setExponent(1)
+            mole.setMultiplier(1)
+            mole.setKind(libsbml.UNIT_KIND_MOLE)
 
-        litre = ud.createUnit()
-        litre.setExponent(-1)
-        litre.setKind(libsbml.UNIT_KIND_LITRE)
+            litre = ud.createUnit()
+            litre.setExponent(-1)
+            litre.setScale(1)
+            litre.setMultiplier(1)
+            litre.setKind(libsbml.UNIT_KIND_LITRE)
 
     def unit_def_mpdw(self):
         '''
         build unit definition
         '''
-        ud = self.new_model.createUnitDefinition()
-        ud.setId('mmol_per_gDW_per_hr')
-        ud.setName('mmol_per_gDW_per_hr')
+        if not 'mmol_per_gDW_per_hr' in self.unit_definitions:
+            ud = self.new_model.createUnitDefinition()
+            ud.setId('mmol_per_gDW_per_hr')
+            ud.setName('mmol_per_gDW_per_hr')
+            self.unit_definitions.append(ud.getId())
 
-        mole = ud.createUnit()
-        mole.setScale(-3)
-        mole.setExponent(1)
-        mole.setKind(libsbml.UNIT_KIND_MOLE)
+            mole = ud.createUnit()
+            mole.setScale(-3)
+            mole.setExponent(1)
+            mole.setMultiplier(1)
+            mole.setKind(libsbml.UNIT_KIND_MOLE)
 
-        litre = ud.createUnit()
-        litre.setScale(0)
-        litre.setExponent(-1)
-        litre.setKind(libsbml.UNIT_KIND_GRAM)
+            litre = ud.createUnit()
+            litre.setScale(0)
+            litre.setExponent(-1)
+            litre.setMultiplier(1)
+            litre.setKind(libsbml.UNIT_KIND_GRAM)
        
-        second = ud.createUnit()
-        second.setScale(0)
-        second.setExponent(-1)
-        second.setMultiplier(0.000277777777777778)
-        second.setKind(libsbml.UNIT_KIND_SECOND)
+            second = ud.createUnit()
+            second.setScale(0)
+            second.setExponent(-1)
+            second.setMultiplier(0.000277777777777778)
+            second.setKind(libsbml.UNIT_KIND_SECOND)
 
     def extractRegulators(self,mods):
         '''
@@ -1077,23 +1096,24 @@ class SBtabDocument:
         
         for sbtab_gene in sbtabs_gene:
             self.check_id(sbtab_gene)
-            mplugin = self.new_model.getPlugin('fbc')
-            for row in sbtab_gene.value_rows:
-                if row[sbtab_gene.columns_dict['!SBML:fbc:GeneProduct']].capitalize() == 'True':
-                    gene_product = mplugin.createGeneProduct()
-                    try: gene_product.setId(row[sbtab_gene.columns_dict['!SBML:fbc:ID']])
-                    except: gene_product.setId(row[sbtab_gene.columns_dict['!ID']])
-                    try: gene_product.setName(row[sbtab_gene.columns_dict['!SBML:fbc:Name']])
-                    except: pass
-                    try: gene_product.setLabel(row[sbtab_gene.columns_dict['!SBML:fbc:Label']])
-                    except: pass
-                    self.gene_products.append(gene_product.getId())
-                elif row[sbtab_gene.columns_dict['!SBML:fbc:GeneAssociation']].capitalize() == 'True':
-                    gene_association = mplugin.createGeneAssociation()
-                    try: gene_association.setId(row[sbtab_gene.columns_dict['!SBML:fbc:ID']])
-                    except: gene_association.setId(row[sbtab_gene.columns_dict['!ID']])
-                    try: gene_association.setName(row[sbtab_gene.columns_dict['!SBML:fbc:Name']])
-                    except: pass
+            if self.fbc:
+                mplugin = self.new_model.getPlugin('fbc')
+                for row in sbtab_gene.value_rows:
+                    if row[sbtab_gene.columns_dict['!SBML:fbc:GeneProduct']].capitalize() == 'True':
+                        gene_product = mplugin.createGeneProduct()
+                        try: gene_product.setId(row[sbtab_gene.columns_dict['!SBML:fbc:ID']])
+                        except: gene_product.setId(row[sbtab_gene.columns_dict['!ID']])
+                        try: gene_product.setName(row[sbtab_gene.columns_dict['!SBML:fbc:Name']])
+                        except: pass
+                        try: gene_product.setLabel(row[sbtab_gene.columns_dict['!SBML:fbc:Label']])
+                        except: pass
+                        self.gene_products.append(gene_product.getId())
+                    elif row[sbtab_gene.columns_dict['!SBML:fbc:GeneAssociation']].capitalize() == 'True':
+                        gene_association = mplugin.createGeneAssociation()
+                        try: gene_association.setId(row[sbtab_gene.columns_dict['!SBML:fbc:ID']])
+                        except: gene_association.setId(row[sbtab_gene.columns_dict['!ID']])
+                        try: gene_association.setName(row[sbtab_gene.columns_dict['!SBML:fbc:Name']])
+                        except: pass
             
     def quantity_sbtab(self):
         '''
@@ -1169,6 +1189,10 @@ class SBtabDocument:
                         else: parameter.setConstant(True)
                     else: parameter.setConstant(True)
                     self.parameters_global.append(parameter.getId())
+
+                # set unit definitions 
+                self.unit_def_mm()
+                self.unit_def_mpdw()
 
     def eventSBtab(self):
         '''
