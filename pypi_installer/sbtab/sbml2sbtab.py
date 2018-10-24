@@ -150,7 +150,7 @@ class SBMLDocument:
                          '"Compound" TableName="Compound"\n' % self.filename
 
         # columns
-        columns = ['!ID', '!Name', '!Location', '!Charge', '!IsConstant',
+        columns = ['!ID', '!Name', '!Location', '!IsConstant',
                    '!SBOTerm', '!InitialConcentration', '!hasOnlySubstanceUnits']
         if self.fbc:
             columns = columns + ['!SBML:fbc:chemicalFormula', '!SBML:fbc:charge']
@@ -165,22 +165,21 @@ class SBMLDocument:
             except: pass
             try: value_row[2] = species.getCompartment()
             except: pass
-            try: value_row[3] = str(species.getCharge())
-            except: pass
-            try: value_row[4] = str(species.getConstant())
+            try: value_row[3] = str(species.getConstant())
             except: pass
             if str(species.getSBOTerm()) != '-1':
-                value_row[5] ='SBO:%.7d'%species.getSBOTerm()
-            try: value_row[6] = str(species.getInitialConcentration())
+                value_row[4] ='SBO:%.7d'%species.getSBOTerm()
+            try: value_row[5] = str(species.getInitialConcentration())
             except: pass
-            try: value_row[7] = str(species.getHasOnlySubstanceUnits())
+            try: value_row[6] = str(species.getHasOnlySubstanceUnits())
             except: pass
 
             if self.fbc:
                 try:
                     fbc_plugin = species.getPlugin('fbc')
-                    value_row[8] = str(fbc_plugin.getChemicalFormula())
-                    value_row[9] = str(fbc_plugin.getCharge())
+                    value_row[7] = str(fbc_plugin.getChemicalFormula())
+                    if fbc_plugin.isSetCharge():
+                        value_row[8] = str(fbc_plugin.getCharge())
                 except:
                     self.warnings.append('FBC Species information could not be read.')
 
