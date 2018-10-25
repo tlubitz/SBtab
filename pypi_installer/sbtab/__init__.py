@@ -1,6 +1,5 @@
-import os
-with open(os.path.join('sbtab', 'VERSION')) as version_file:
-    __version__ = version_file.read().strip()
+#with open('VERSION') as version_file:
+#    __version__ = version_file.read().strip()
 
 from . import misc
 from . import sbml2sbtab
