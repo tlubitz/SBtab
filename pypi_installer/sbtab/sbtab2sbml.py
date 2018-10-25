@@ -13,12 +13,16 @@ import sys
 # all allowed secondary SBtab table types
 sbtab_types = ['Event', 'Rule']
 urns = ['obo.chebi', 'kegg.compound', 'kegg.reaction', 'obo.go', 'obo.sgd',
-        'biomodels.sbo', 'ec-code', 'kegg.orthology', 'uniprot']
+        'biomodels.sbo', 'ec-code', 'kegg.orthology', 'uniprot', 'hmdb',
+        'metanetx.chemical', 'metanetx.reaction', 'ncbigi', 'rhea',
+        'seed.compound', 'unipathway.compound', 'unipathway.reaction',
+        'umbbd.compound', 'asap', 'ecogene', 'ncbigene', 'ncbigi',
+        'bigg.reaction']
 
 class ConversionError(Exception):
     '''
     Base class for errors in the SBtab conversion class.
-    '''    
+    '''
     def __init__(self,message):
         self.message = message
         
@@ -76,8 +80,8 @@ class SBtabDocument:
 
         # initialize new model
         self.new_model = self.new_document.createModel()
-        self.new_model.setId('default_id')
-        self.new_model.setName('default_name')
+        self.new_model.setId(self.sbtab_doc.name)
+        self.new_model.setName(self.sbtab_doc.name)
         
         if self.fbc:
             mplugin = self.new_model.getPlugin('fbc')
@@ -243,11 +247,12 @@ class SBtabDocument:
         '''
         element.setMetaId(element.getId() + "_meta")
         cv_term = libsbml.CVTerm()
+
         if elementtype == 'Model':
-            cv_term.setQualifierType(False)
+            cv_term.setQualifierType(1)
             cv_term.setModelQualifierType(libsbml.BQB_IS)
         else:
-            cv_term.setQualifierType(False)
+            cv_term.setQualifierType(1)
             cv_term.setBiologicalQualifierType(libsbml.BQB_IS)
 
         resource_term = "http://identifiers.org/" + urn + '/' + annotation
@@ -790,24 +795,6 @@ class SBtabDocument:
                                 self.modifier_list.append(inhi)
                 except: pass
                 '''
-                #set annotations if given:
-                ####
-                ####commented out, because by some reason this crashes the reaction (!)
-                ####
-                '''
-                for column in sbtab_reaction.columns_dict.keys():
-                    if "Identifiers" in column:
-                        annot = row[sbtab_reaction.columns_dict[column]]
-                        if annot == '': continue
-                        for pattern in urns:
-                            if pattern in column:
-                                urn = pattern
-                        try:
-                            cv_term = self.set_annotation(react,annot,urn,'Biological')
-                            react.addCVTerm(cv_term)
-                        except:
-                            pass
-                '''
                 #since local parameters need to be entered *after* reaction creation, but *before* setting
                 try:
                     sbtab_reaction.columns_dict['!KineticLaw']
@@ -873,7 +860,22 @@ class SBtabDocument:
                             ga = rplugin.createGeneProductAssociation()
                             ga.setAssociation(row[sbtab_reaction.columns_dict['!SBML:fbc:GeneAssociation']])
                         except: pass
-
+                        
+                #set annotations if given:
+                for column in sbtab_reaction.columns_dict.keys():
+                    if "Identifiers" in column:
+                        annot = row[sbtab_reaction.columns_dict[column]]
+                        if annot == '': continue
+                        for pattern in urns:
+                            if pattern in column:
+                                urn = pattern
+                        try:
+                            cv_term = self.set_annotation(react,annot,urn,'Biological')
+                            react.addCVTerm(cv_term)
+                        except:
+                            self.warnings.append('The annotation %s could not be a'\
+                                                 'ssigned properly to %s.' % (annot, react.getId()))                        
+                
     def create_gene_product(self, gene_product):
         '''
         creates an FBC gene product.
@@ -960,7 +962,7 @@ class SBtabDocument:
             second = ud.createUnit()
             second.setScale(0)
             second.setExponent(-1)
-            second.setMultiplier(0.000277777777777778)
+            second.setMultiplier(3600)
             second.setKind(libsbml.UNIT_KIND_SECOND)
 
     def extractRegulators(self,mods):
@@ -1068,6 +1070,25 @@ class SBtabDocument:
                         except: gene_association.setId(row[sbtab_gene.columns_dict['!ID']])
                         try: gene_association.setName(row[sbtab_gene.columns_dict['!SBML:fbc:Name']])
                         except: pass
+                        
+                    for column in sbtab_gene.columns_dict.keys():
+                        if "Identifiers" in column:
+                            annot = row[sbtab_gene.columns_dict[column]]
+                            if annot == '': continue
+                            for pattern in urns:
+                                if pattern in column:
+                                    urn = pattern
+                            try:
+                                try:
+                                    cv_term = self.set_annotation(gene_association,annot,urn,'Biological')
+                                    gene_association.addCVTerm(cv_term)
+                                except:
+                                    cv_term = self.set_annotation(gene_product,annot,urn,'Biological')
+                                    gene_product.addCVTerm(cv_term)
+                            except:
+                                self.warnings.append('The annotation %s could not be a'\
+                                                     'ssigned properly.' % annot)
+
             
     def quantity_sbtab(self):
         '''
@@ -1133,7 +1154,7 @@ class SBtabDocument:
                     try: parameter.setValue(float(row[sbtab_quantity.columns_dict['!Value']]))
                     except: parameter.setValue(1.0)
                     try: parameter.setUnits(row[sbtab_quantity.columns_dict['!Unit']])
-                    except: pass
+                    except: pass                    
                     if '!SBOTerm' in sbtab_quantity.columns and row[sbtab_quantity.columns_dict['!SBOTerm']] != '':
                         try: parameter.setSBOTerm(int(row[sbtab_quantity.columns_dict['!SBOTerm']][4:]))
                         except: pass

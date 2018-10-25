@@ -880,7 +880,7 @@ class SBtabDocument:
             try: self.date = self.get_custom_doc_information('Date')
             except:
                 if 'Date=' not in self.doc_row:
-                    self.doc_row = self.doc_row[:-1] + " Date='%s'\n" % self.date
+                    self.doc_row = self.doc_row + " Date='%s'\n" % self.date
 
             # save document type
             try: self.doc_type = self.get_custom_doc_information('DocumentType')

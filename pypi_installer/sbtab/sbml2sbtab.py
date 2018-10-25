@@ -56,7 +56,9 @@ class SBMLDocument:
         '''
         self.warnings = []
         sbtab_doc = SBtab.SBtabDocument(self.filename)
-
+        doc_row = "!!!SBtab SBtabVersion='1.0' Document='%s' Name='%s'" % (self.model.getId(), self.model.getId())
+        sbtab_doc.set_doc_row(doc_row)
+        
         try:
             fbc = self.model.getPlugin('fbc')
             if fbc: self.fbc = True
@@ -388,6 +390,27 @@ class SBMLDocument:
 
         sbtab_fbc_gene = SBtab.SBtabTable(sbtab_fbc_gene,
                                           self.filename + '_fbc_gene.tsv')
+
+        # test and extend for annotations
+        for i, gene in enumerate(fbc_plugin.getListOfGeneProducts()):
+            try:
+                annotations = self.get_annotations(gene)
+                for j, annotation in enumerate(annotations):
+                    col_name = '!Identifiers:' + annotation[1]
+                    if col_name not in columns:
+                        new_column = [''] * (fbc_plugin.getNumGeneProducts() + 1)
+                        new_column[0] = col_name
+                        new_column[i + 1] = annotation[0]
+                        columns.append(col_name)
+                        sbtab_fbc_gene.add_column(new_column)
+                    else:
+                        sbtab_fbc_gene.change_value_by_name(gene.getId(),
+                                                            col_name,
+                                                            annotation[0])
+            except:
+                self.warnings.append('Could not add the annotation %s for '\
+                                     'gene %s' % annotations[1],
+                                     gene.getId())        
         
         return sbtab_fbc_gene
 
@@ -544,7 +567,7 @@ class SBMLDocument:
                          '"Quantity" TableName="Quantity"\n' % self.filename
         # columns
         columns = ['!ID', '!Parameter:SBML:parameter:id', '!Value',
-                   '!Unit', '!Type']
+                   '!Unit', '!Type', '!SBOTerm']
         sbtab_quantity += '\t'.join(columns) + '\n'
         
         # required for later iteration of parameter annotations
@@ -562,6 +585,8 @@ class SBMLDocument:
                     try: value_row[3] = parameter.getUnits()
                     except: pass
                     value_row[4] = 'local parameter'
+                    if str(parameter.getSBOTerm()) != '-1':
+                        value_row[5] = 'SBO:%.7d' % parameter.getSBOTerm()
                     local_parameters.append(parameter)
                 sbtab_quantity += '\t'.join(value_row) + '\n'
                 
@@ -598,6 +623,8 @@ class SBMLDocument:
             try: value_row[3] += parameter.getUnits()
             except: pass
             value_row[4] = 'global parameter'
+            if str(parameter.getSBOTerm()) != '-1':
+                value_row[5] = 'SBO:%.7d' % parameter.getSBOTerm()
             sbtab_quantity.add_row(value_row)
 
         # test and extend for annotations of global parameters
