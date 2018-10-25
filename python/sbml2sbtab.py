@@ -489,14 +489,9 @@ class SBMLDocument:
                     fbc_plugin = reaction.getPlugin('fbc')
                     try:
                         ga = fbc_plugin.getGeneProductAssociation()
-                        try:
-                            ass_list = self._gene_ass_recursive(ga.getAssociation(),reaction.getId())
-                            value_row[8] = ass_list
-                        except: self.warnings.append('Gene Association Information for reaction %s'\
-                                                     ' could not be written.' & reaction.getId())
-                        
-                            
-                    except: pass
+                        ass = ga.getAssociation().toInfix()
+                        value_row[8] = ass
+                    except: pass                       
                     value_row[9] = str(fbc_plugin.getLowerFluxBound())
                     value_row[10] = str(fbc_plugin.getUpperFluxBound())
                 except:
@@ -529,28 +524,6 @@ class SBMLDocument:
                                      reaction.getId())
 
         return sbtab_reaction
-
-    def _gene_ass_recursive(self, ga, r_id):
-        '''
-        extract gene association nodes recursively
-        '''
-        dels = {libsbml.FbcAnd: 'FbcAnd',
-                libsbml.FbcOr: 'FbcOr'}
-        ass_list = ''
-
-        if type(ga) == libsbml.FbcOr or type(ga) == libsbml.FbcAnd:
-            associations = ga.getListOfAssociations()
-            sub_list = ''
-            for i,a in enumerate(associations):
-                sub_list += self._gene_ass_recursive(a, r_id)
-                if i < len(associations)-1:
-                    sub_list += ' ' + dels[type(ga)] + ' '
-                
-            ass_list += '(' + sub_list + ')'
-            return ass_list
-        elif type(ga) == libsbml.GeneProductRef:
-            ass_list += ga.getGeneProduct()
-            return ass_list
 
     def quantity_sbtab(self):
         '''

@@ -868,64 +868,18 @@ class SBtabDocument:
 
                     if '!SBML:fbc:GeneAssociation' in sbtab_reaction.columns and \
                        row[sbtab_reaction.columns_dict['!SBML:fbc:GeneAssociation']] != '':
-                        rplugin = react.getPlugin('fbc')
-                        if rplugin is not None:
-                            try:
-                                ga = rplugin.createGeneProductAssociation()
-                                ga_content = row[sbtab_reaction.columns_dict['!SBML:fbc:GeneAssociation']]
-                                # case 1: there are ANDs and possible ORs in the association column
-                                if 'FbcAnd' in ga_content:
-                                    ands = ga_content.split('FbcAnd')     # create an " - AND - "
-                                    # case 1a: there are only ANDs
-                                    if not 'FbcOr' in ga_content:
-                                        ga_and = ga.createAnd()
-                                        for a in ands:
-                                            ga_and_gpr = ga_and.createGeneProductRef()
-                                            ga_and_gpr.setGeneProduct(a.strip())
-                                            if a.strip() not in self.gene_products:
-                                                self.create_gene_product(a.strip())
-                                    else:
-                                        # case 1b: there are ANDs and ORs
-                                        ga_and = ga.createAnd()
-                                        for a in ands:
-                                            if 'FbcOr' not in a:
-                                                ga_and_gpr = ga_and.createGeneProductRef()
-                                                ga_and_gpr.setGeneProduct(a.strip())
-                                                if a.strip() not in self.gene_products:
-                                                    self.create_gene_product(a.strip())
-                                            else:
-                                                ga_or = ga.createOr()
-                                                ors = a.split('FbcOr')
-                                                for o in ors:
-                                                    ga_or_gpr = ga_or.createGeneProductRef()
-                                                    ga_or_gpr.setGeneProduct(o.strip())
-                                                    if o.strip() not in self.gene_products:
-                                                        self.create_gene_product(o.strip())
-                                elif 'FbcOr' in ga_content:
-                                    # case 2: there are no ANDs, but ORs in the association column
-                                    ga_or = ga.createOr()
-                                    ors = ga_content.split('FbcOr')
-                                    for o in ors:
-                                        ga_or_gpr = ga_or.createGeneProductRef()
-                                        ga_or_gpr.setGeneProduct(o.strip())
-                                        if o.strip() not in self.gene_products:
-                                            self.create_gene_product(o.strip())
-                                else:
-                                    # case 3: there are not ANDs and no ORs, only 1 GA
-                                    ga_gpr = ga.createGeneProductRef()
-                                    ga_gpr.setGeneProduct(ga_content.strip())
-                                    if ga_content.strip() not in self.gene_products:
-                                        self.create_gene_product(ga_content.strip())
-                            except:
-                                self.warnings.append('Could not set FBC GeneAssociation %s of Reaction %s' % (row[sbtab_reaction.columns_dict['!SBML:fbc:GeneAssociation']],
-                                                                                                              react.getId()))
-              
+                        try:
+                            rplugin = react.getPlugin('fbc')
+                            ga = rplugin.createGeneProductAssociation()
+                            ga.setAssociation(row[sbtab_reaction.columns_dict['!SBML:fbc:GeneAssociation']])
+                        except: pass
 
     def create_gene_product(self, gene_product):
         '''
-        creates an FBC gene product
+        creates an FBC gene product.
+        was formerly employed for creating genes that occur in GeneAssociation
+        column without being declared elsewhere (deprecated?)
         '''
-        
         self.gene_products.append(gene_product)
 
     def create_parameter(self, parameter, value=1):
