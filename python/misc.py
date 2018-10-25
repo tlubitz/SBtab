@@ -97,7 +97,7 @@ def split_sbtabs(sbtab_strings):
 
 def tsv_to_html(sbtab, filename=None):
     '''
-    generates html view out of tsv file
+    generates html view out of tsv file XXX
     '''
     # read in header and footer from HTML template
     html_template = open('template.html', 'r').read()
@@ -106,7 +106,7 @@ def tsv_to_html(sbtab, filename=None):
         footer = re.search('(</table>.*</html>)', html_template, re.DOTALL).group(0)
     except:
         print('Cannot read required template.html.')
-    html_template.close()
+
     html = header
 
     # read in definitions file for nice mouse over
@@ -122,16 +122,21 @@ def tsv_to_html(sbtab, filename=None):
         except: pass
 
     sbtab_def = SBtab.SBtabTable(def_file.read(), 'definitions.tsv')
-
+  
+    
     # now build the html file
     if sbtab.object_type == 'table':
+
+        ###############################
+        # EXTRA FUNCTION?
+        ###############################
+        
+        # get column descriptions for this table type
+        try: col2description = find_descriptions(sbtab_def, sbtab.table_type)
+        except: col2description = False
+        
         # finish header with title
-        try:
-            sbtab = sbtab.to_str().split('\n')
-            html += '<h2><small>%s</small></h2></div></header>' % sbtab.filename
-            delimiter = sbtab.delimiter
-        except:
-            print('SBtab object cannot be read properly. Is it valid?')
+        html += '<h2><small>%s</small></h2></div></header>' % sbtab.filename
 
         # start main
         html += '<main><table class="table-striped">'
@@ -142,7 +147,9 @@ def tsv_to_html(sbtab, filename=None):
         # columns
         html += '<tr>'
         for col in sbtab.columns:
-            html += '<th>%s</th>' % col
+            try: title = col2description[col]
+            except: title = ''
+            html += '<th title=%s>%s</th>' % (title, col)
         html += '</tr>'
 
         # value rows
@@ -162,6 +169,10 @@ def tsv_to_html(sbtab, filename=None):
         # close table
         html += '</table>'
 
+        ###############################
+        # // EXTRA FUNCTION?
+        ###############################
+        
     elif sbtab.object_type == 'doc':
         pass
         
@@ -263,8 +274,10 @@ def csv2html(sbtab_file,file_name,delimiter,sbtype,def_file=None,def_file_name=N
         else: nice_sbtab += '<tr>'
         
         for i,thing in enumerate(row.split(delimiter)):
+
             try: title = col2description[thing[1:]]
             except: title = ''
+            
             if not ident_url:
                 new_row = '<td title="'+str(title)+'">'+str(thing)+'</\td>'
                 nice_sbtab += new_row
@@ -295,28 +308,18 @@ def xml2html(sbml_file):
     return new_sbml
 
 
-def findDescriptions(def_file,def_delimiter,sbtype):
+def find_descriptions(def_file, table_type):
     '''
     preprocesses the definition file in order to enable some nice mouseover effects for the known column names
-    '''    
+    '''
     col2description = {}
-    col_dsc         = False
 
-    columnrow = def_file.split('\n')[1]
-    columnrowspl = columnrow.split(def_delimiter)
-
-    for row in def_file.split('\n'):
-        splitrow = row.split(def_delimiter)
-        if len(splitrow) != len(columnrowspl): continue
-        if row.startswith('!!'): continue
-        if row.startswith('!'):
-            for i,elem in enumerate(splitrow):
-                if elem == "!Description":
-                    col_dsc = i
-        if not string.capitalize(splitrow[2]) == string.capitalize(sbtype): continue
-        if col_dsc and not splitrow[2].startswith('!'): col2description[splitrow[0]] = splitrow[col_dsc]
+    for row in def_file.value_rows:
+        if row[def_file.columns_dict['!IsPartOf']] == table_type:
+            col2description[def_file.columns_dict['!ComponentName']] = def_file.columns_dict['!Description']
 
     return col2description
+
             
 def extract_supported_table_types():
     '''
