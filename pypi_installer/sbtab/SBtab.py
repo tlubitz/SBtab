@@ -457,6 +457,23 @@ class SBtabTable():
             except:
                 raise SBtabError('Attribute value %s could not be replaced in the header.' % attribute)
 
+    def unset_attribute(self, attribute):
+        '''
+        remove attribute from header row
+        '''
+        obligatory_attributes = ['TableType', 'TableName']
+        if attribute in obligatory_attributes:
+            raise SBtabError('Attribute %s cannot be removed as it is obligatory.' % attribute)
+        
+        if attribute in self.header_row:
+            try:
+                att = re.search("%s='([^']*)'" % attribute, self.header_row).group(0)
+                self.header_row = self.header_row.replace(' ' + att,'')
+            except:
+                raise SBtabError('Attribute %s cannot be removed.' % attribute)
+        else:
+            raise SBtabError('Attribute %s is not in the header of the SBtabTable.' % attribute)
+            
     def get_attribute(self, attribute):
         '''
         get the value of an SBtab attribute
@@ -822,12 +839,12 @@ class SBtabDocument:
                 for i, sbtab_s in enumerate(sbtab_strings):
                     # here, we find a possible doc row
                     if sbtab_s.startswith('!!!'):
-                        self.doc_row = sbtab_s
+                        self.doc_row = self._dequote(sbtab_s)
                         continue
                     elif sbtab_s.startswith('"!!!'):
                         rm1 = sbtab_s.replace('""', '#')
                         rm2 = rm1.replace('"','')
-                        self.doc_row = rm2.replace('#', '"')                     
+                        self.doc_row = self._dequote(rm2.replace('#', '"'))
                         continue
                     # then, go on with the cut SBtabs
                     name_single = str(i) + '_' + self.filename
@@ -842,6 +859,21 @@ class SBtabDocument:
                             'ated properly: ' + str(e))
         return True
             
+    def _dequote(self, row):
+        '''
+        bring consistency in the multifarious quotation mark problems
+        '''
+        stupid_quotes = ['"', '\xe2\x80\x9d', '\xe2\x80\x98', '\xe2\x80\x99',
+                         '\xe2\x80\x9b', '\xe2\x80\x9c', '\xe2\x80\x9f',
+                         '\xe2\x80\xb2', '\xe2\x80\xb3', '\xe2\x80\xb4',
+                         '\xe2\x80\xb5', '\xe2\x80\xb6', '\xe2\x80\xb7', '”']
+
+        for squote in stupid_quotes:
+            try: row = row.replace(squote, "'")
+            except: pass
+
+        return row
+
     def check_type_validity(self, ttype):
         '''
         only certain table types are valid; this function checks if the
@@ -864,7 +896,7 @@ class SBtabDocument:
         self.date = '-'.join([str(now.year),str(now.month),str(now.day)])
 
         if not self.doc_row:
-            self.doc_row = '!!!SBtab SBtabVersion="1.0" Document="%s" Date="%s"\n' % (self.name, self.date)
+            self.doc_row = "!!!SBtab SBtabVersion='1.0' Document='%s' Date='%s'" % (self.name, self.date)
         else:
             # save document name, otherwise raise error
             # (overrides name given at document initialisation)
@@ -895,7 +927,7 @@ class SBtabDocument:
             raise SBtabError('Please provide only strings as attribute and value.')
         
         if attribute not in self.doc_row:
-            self.doc_row = self.doc_row[:-1] + ' ' + att_value_new + '\n'
+            self.doc_row = self.doc_row + ' ' + att_value_new
         else:
             try:
                 att_value = re.search("%s='([^']*)'" % attribute, self.doc_row).group(0)
@@ -903,6 +935,24 @@ class SBtabDocument:
             except:
                 raise SBtabError('Attribute value %s could not be replaced in the header.' % attribute)
 
+    def unset_attribute(self, attribute):
+        '''
+        remove attribute from doc row
+        '''
+        obligatory_attributes = ['Document']
+        if attribute in obligatory_attributes:
+            raise SBtabError('Attribute %s cannot be removed as it is obligatory.' % attribute)
+        
+        if attribute in self.doc_row:
+            try:
+                att = re.search("%s='([^']*)'" % attribute, self.doc_row).group(0)
+                self.doc_row = self.doc_row.replace(' ' + att,'')
+            except:
+                raise SBtabError('Attribute %s cannot be removed.' % attribute)
+        else:
+            raise SBtabError('Attribute %s is not in the header of the SBtabDocument.' % attribute)
+
+            
     def get_attribute(self, attribute):
         '''
         get the value of an SBtab attribute
