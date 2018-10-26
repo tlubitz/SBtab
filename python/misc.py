@@ -95,15 +95,23 @@ def split_sbtabs(sbtab_strings):
     return sbtabs
 
 
-def tsv_to_html(sbtab, filename=None):
+def tsv_to_html(sbtab, filename=None, mode='sbtab_online'):
     '''
     generates html view out of tsv file XXX
+    'mode' can be 'sbtab_online' for generating HTML for the SBtab homepage or
+    'standalone' for generating HTML as a standalone page
     '''
     # read in header and footer from HTML template
-    html_template = open('template.html', 'r').read()
+    if mode == 'sbtab_online':
+        html_template = open('template_sbtab_online.html', 'r').read()
+    elif mode == 'standalone':
+        html_template = open('template_standalone.html', 'r').read()
+    else:
+        print('Invalid mode %s. Please use either "sbtab_online" or "standalone".' % mode)
+        
     try:
-        header = re.search('(<html lang="en">.*style="padding-top:50px">)', html_template, re.DOTALL).group(0)
-        footer = re.search('(</table>.*</html>)', html_template, re.DOTALL).group(0)
+        header = re.search('(<html lang="en">.*<main>)', html_template, re.DOTALL).group(0)
+        footer = re.search('(</main>.*</html>)', html_template, re.DOTALL).group(0)
     except:
         print('Cannot read required template.html.')
 
@@ -135,8 +143,8 @@ def tsv_to_html(sbtab, filename=None):
         try: col2description = find_descriptions(sbtab_def, sbtab.table_type)
         except: col2description = False
         
-        # finish header with title
-        html += '<h2><small>%s</small></h2></div></header>' % sbtab.filename
+        # replace title placeholder with actual title
+        html = html.replace('TitlePlaceholder',sbtab.filename)
 
         # start main
         html += '<main><table class="table-striped">'
@@ -145,16 +153,18 @@ def tsv_to_html(sbtab, filename=None):
         html += '<tr><th colspan="%s">%s</th></tr>' % (len(sbtab.columns), sbtab.header_row)
 
         # columns
-        html += '<tr>'
+        html += '<tr style="line-height:2;">'
         for col in sbtab.columns:
-            try: title = col2description[col]
+            try: title = col2description[col[1:]]
             except: title = ''
-            html += '<th title=%s>%s</th>' % (title, col)
+            html += '<th title="%s">%s</th>' % (title, col)
         html += '</tr>'
 
         # value rows
         for row in sbtab.value_rows:
-            html += '<tr>'
+            # set anchor for internal jumps
+            try: html += '<tr id="%s" style="line-height:1.5;">' % row[sbtab.columns_dict['!ID']]
+            except: html += '<tr id="%s" style="line-height:1.5;">'
             for col in row:
                 html += '<td>%s</td>' % col
             html += '</tr>'
@@ -182,6 +192,19 @@ def tsv_to_html(sbtab, filename=None):
     html += footer
     
     return html
+
+
+def find_descriptions(def_file, table_type):
+    '''
+    preprocesses the definition file in order to enable some nice mouseover effects for the known column names
+    '''
+    col2description = {}
+
+    for row in def_file.value_rows:
+        if row[def_file.columns_dict['!IsPartOf']] == table_type:
+            col2description[row[def_file.columns_dict['!ComponentName']]] = row[def_file.columns_dict['!Description']]
+
+    return col2description
 
 
 def xlsx_to_tsv(file_object, f='web'):
@@ -308,17 +331,6 @@ def xml2html(sbml_file):
     return new_sbml
 
 
-def find_descriptions(def_file, table_type):
-    '''
-    preprocesses the definition file in order to enable some nice mouseover effects for the known column names
-    '''
-    col2description = {}
-
-    for row in def_file.value_rows:
-        if row[def_file.columns_dict['!IsPartOf']] == table_type:
-            col2description[def_file.columns_dict['!ComponentName']] = def_file.columns_dict['!Description']
-
-    return col2description
 
             
 def extract_supported_table_types():

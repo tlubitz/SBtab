@@ -252,19 +252,6 @@ class SBtabTable():
 
         return items
 
-    def to_str(self):
-        '''
-        sometimes the file is required as a string (e. g. for
-        writing files to harddisk; return string
-        '''
-        table_string = [self.header_row]
-        table_string.append('\t'.join(self.columns))
-        for row in self.value_rows:
-            row = '\t'.join(row)
-            table_string.append(row)
-            
-        return '\n'.join(table_string)
-
     def _initialize_table(self):
         '''
         Loads table informations and class variables.
@@ -439,7 +426,19 @@ class SBtabTable():
 
 
     # Here, the SBtab API starts
-
+    def to_str(self):
+        '''
+        sometimes the file is required as a string (e. g. for
+        writing files to harddisk; return string
+        '''
+        table_string = [self.header_row]
+        table_string.append('\t'.join(self.columns))
+        for row in self.value_rows:
+            row = '\t'.join(row)
+            table_string.append(row)
+            
+        return '\n'.join(table_string)
+    
     def change_attribute(self, attribute, value):
         '''
         change the value of an SBtab attribute
