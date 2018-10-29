@@ -95,12 +95,84 @@ def split_sbtabs(sbtab_strings):
     return sbtabs
 
 
-def tsv_to_html(sbtab, filename=None, mode='sbtab_online'):
+def sbtab_to_html(sbtab, filename=None, mode='sbtab_online'):
     '''
-    generates html view out of tsv file XXX
+    generates html view out of sbtab object
     'mode' can be 'sbtab_online' for generating HTML for the SBtab homepage or
     'standalone' for generating HTML as a standalone page
     '''
+    def _is_float(value):
+        '''
+        checks if an element is a float in string format
+        '''
+        try:
+            float(value)
+            return True
+        except: return False
+        
+    def _build_main(sbtab, sbtab_def):
+        '''
+        builds main body of HTML, which needs to be repeated
+        for SBtab Documents
+        '''
+        no_link = ['(',')','+','-','<=>','or','and','FbcOr','FbcAnd']
+
+        # get column descriptions for this table type and possible shortname links
+        try: (col2description,col2link) = find_descriptions(sbtab_def, sbtab.table_type)
+        except:
+            col2description = False
+            col2link = False
+        
+        # start main
+        html = '<table class="table-striped">'
+
+        # header row
+        html += '<tr><th colspan="%s">%s</th></tr>' % (len(sbtab.columns), sbtab.header_row)
+
+        # columns
+        html += '<tr style="line-height:2;">'
+        for col in sbtab.columns:
+            try: title = col2description[col[1:]]
+            except: title = ''
+            html += '<th title="%s">%s</th>' % (title, col)
+        html += '</tr>'
+
+        # value rows
+        for row in sbtab.value_rows:
+            # set anchor for internal jump links
+            try: html += '<tr id="%s" style="line-height:1.5;">' % row[sbtab.columns_dict['!ID']]
+            except: html += '<tr style="line-height:1.5;">'
+            for i,col in enumerate(row):
+                # try and set internal jump links via shortnames
+                try:
+                    col2link[sbtab.columns[i]]
+                    if col2link[sbtab.columns[i]] == 'True' and col != '' and col != False:
+                        try:
+                            html += '<td>'
+                            split_column = col.split(' ')
+                            for element in split_column:
+                                if element not in no_link and not _is_float(element):
+                                    html += '<a href="#%s">%s</a> ' % (element, element)
+                                else:
+                                    html += element + ' '
+                            html += '</td>'
+                        except: html += '<td>%s</td>' % (col)
+                    else: html += '<td>%s</td>' % (col)
+                except: html += '<td>%s</td>' % (col)
+            html += '</tr>'
+
+        # comment rows
+        for row in sbtab.comments:
+            html += '<tr>'
+            for col in row:
+                html += '<td>%s</td>' % col
+            html += '</tr>'
+
+        # close table
+        html += '</table>'
+
+        return html
+    
     # read in header and footer from HTML template
     if mode == 'sbtab_online':
         html_template = open('template_sbtab_online.html', 'r').read()
@@ -117,75 +189,32 @@ def tsv_to_html(sbtab, filename=None, mode='sbtab_online'):
 
     html = header
 
-    # read in definitions file for nice mouse over
-    try_paths = ['definitions.tsv',
-                 os.path.join(os.path.dirname(__file__), '../static/files/default_files/definitions.tsv'),
-                 os.path.join(os.path.dirname(__file__), '../definition_table/definitions.tsv'),
-                 os.path.join(os.path.dirname(__file__), 'definitions.tsv')]
+    # replace title placeholder with actual title
+    html = html.replace('TitlePlaceholder',sbtab.filename)
 
-    for path in try_paths:
-        try:
-            def_file = open(path, 'r')
-            break
-        except: pass
+    if mode == 'sbtab_online':
+        # read in definitions file for nice mouse over
+        try_paths = ['definitions.tsv',
+                     os.path.join(os.path.dirname(__file__), '../static/files/default_files/definitions.tsv'),
+                     os.path.join(os.path.dirname(__file__), '../definition_table/definitions.tsv'),
+                     os.path.join(os.path.dirname(__file__), 'definitions.tsv')]
+        
+        for path in try_paths:
+            try:
+                def_file = open(path, 'r')
+                break
+            except: pass
 
-    sbtab_def = SBtab.SBtabTable(def_file.read(), 'definitions.tsv')
-  
-    
+        sbtab_def = SBtab.SBtabTable(def_file.read(), 'definitions.tsv')
+    else: sbtab_def = False
+
     # now build the html file
     if sbtab.object_type == 'table':
-
-        ###############################
-        # EXTRA FUNCTION?
-        ###############################
-        
-        # get column descriptions for this table type
-        try: col2description = find_descriptions(sbtab_def, sbtab.table_type)
-        except: col2description = False
-        
-        # replace title placeholder with actual title
-        html = html.replace('TitlePlaceholder',sbtab.filename)
-
-        # start main
-        html += '<main><table class="table-striped">'
-
-        # header row
-        html += '<tr><th colspan="%s">%s</th></tr>' % (len(sbtab.columns), sbtab.header_row)
-
-        # columns
-        html += '<tr style="line-height:2;">'
-        for col in sbtab.columns:
-            try: title = col2description[col[1:]]
-            except: title = ''
-            html += '<th title="%s">%s</th>' % (title, col)
-        html += '</tr>'
-
-        # value rows
-        for row in sbtab.value_rows:
-            # set anchor for internal jumps
-            try: html += '<tr id="%s" style="line-height:1.5;">' % row[sbtab.columns_dict['!ID']]
-            except: html += '<tr id="%s" style="line-height:1.5;">'
-            for col in row:
-                html += '<td>%s</td>' % col
-            html += '</tr>'
-
-        # comment rows
-        for row in sbtab.comments:
-            html += '<tr>'
-            for col in row:
-                html += '<td>%s</td>' % col
-            html += '</tr>'
-
-        # close table
-        html += '</table>'
-
-        ###############################
-        # // EXTRA FUNCTION?
-        ###############################
-        
+        html += _build_main(sbtab, sbtab_def)
     elif sbtab.object_type == 'doc':
-        pass
-        
+        for sbtab in sbtab.sbtabs:
+            html += _build_main(sbtab, sbtab_def) + '<br><hr>'
+       
     else:
         print('The given SBtab object is invalid.')
             
@@ -199,12 +228,14 @@ def find_descriptions(def_file, table_type):
     preprocesses the definition file in order to enable some nice mouseover effects for the known column names
     '''
     col2description = {}
+    col2link = {}
 
     for row in def_file.value_rows:
         if row[def_file.columns_dict['!IsPartOf']] == table_type:
             col2description[row[def_file.columns_dict['!ComponentName']]] = row[def_file.columns_dict['!Description']]
+            col2link['!'+row[def_file.columns_dict['!ComponentName']]] = row[def_file.columns_dict['!linksShortname']]
 
-    return col2description
+    return (col2description,col2link)
 
 
 def xlsx_to_tsv(file_object, f='web'):
@@ -318,7 +349,7 @@ def csv2html(sbtab_file,file_name,delimiter,sbtype,def_file=None,def_file_name=N
     return nice_sbtab
 
 
-def xml2html(sbml_file):
+def xml_to_html(sbml_file):
     '''
     generates html view out of xml file
     '''
@@ -329,8 +360,6 @@ def xml2html(sbml_file):
     new_sbml += '</xmp>'
 
     return new_sbml
-
-
 
             
 def extract_supported_table_types():
