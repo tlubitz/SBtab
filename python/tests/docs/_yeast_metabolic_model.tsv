@@ -1,0 +1,1586 @@
+!!SBtab TableName='Reaction' TableType='Reaction' Document='YeastMetabolicModel' SBtabVersion='0.9'						
+!ID	!ReactionFormula	!Name	!Identifiers:kegg.reaction	!IsReversible	!GeneAssociation	
+R_ASPTA	M_akg_c + M_asp_L_c <=> M_glu_L_c + M_oaa_c	aspartate transaminase	R00355	True	YLR027C|YKL106W|YLR027C	
+R_ASPKi	M_asp_L_c + M_atp_c <=> M_4pasp_c + M_adp_c	aspartate kinase	R00480	False	YER052C	
+R_ASNS1	M_asp_L_c + M_atp_c + M_gln_L_c <=> M_amp_c + M_asn_L_c + M_glu_L_c + M_h_c + M_ppi_c	asparagine synthase (glutamine-hydrolysing)	R00578	False	YGR124W|YPR145W	
+R_ASADi	M_4pasp_c + M_h_c + M_nadph_c <=> M_aspsa_c + M_nadp_c + M_pi_c	aspartate-semialdehyde dehydrogenase	R02291	False	YDR158W	
+R_ALATA_Lm	M_glu_L_m + M_pyr_m <=> M_akg_m + M_ala_L_m	L-alanine transaminase	R00258	False	YLR089C	
+R_ALATA_L	M_glu_L_c + M_pyr_c <=> M_akg_c + M_ala_L_c	L-alanine transaminase	R00258	False	YLR089C	
+R_PPCK	M_atp_c + M_oaa_c <=> M_adp_c + M_co2_c + M_pep_c	phosphoenolpyruvate carboxykinase	R00341	False	YKR097W	
+R_PC	M_atp_c + M_co2_c + M_pyr_c <=> M_adp_c + M_h_c + M_oaa_c + M_pi_c	pyruvate carboxylase	R00344	False	YBR218C|YGL062W	
+R_ME2m	M_mal_L_m + M_nadp_m <=> M_co2_m + M_nadph_m + M_pyr_m	malic enzyme (NADP)	R00214	False	YKL029C|YKL029C	
+R_ICL	M_icit_c <=> M_glx_c + M_succ_c	isocitrate lyase	R00479	False	YER065C	
+R_FBP	M_fdp_c <=> M_f6p_c + M_pi_c	fructose-bisphosphatase	R00762	False	YLR377C	
+R_P5CR	M_1pyr5c_c + 2 M_h_c + M_nadph_c <=> M_nadp_c + M_pro_L_c			False		
+R_ORNTACim	M_acorn_m + M_glu_L_m <=> M_acglu_m + M_orn_m			False		
+R_OCBTi	M_cbp_c + M_orn_c <=> M_citr_L_c + M_h_c + M_pi_c			False		
+R_GLU5K	M_atp_c + M_glu_L_c <=> M_adp_c + M_glu5p_c	glutamate 5-kinase	R00239	False	YDR300C	
+R_G5SD	M_glu5p_c + M_h_c + M_nadph_c <=> M_glu5sa_c + M_nadp_c + M_pi_c	glutamate-5-semialdehyde dehydrogenase	R03313	False	YOR323C	
+R_G5SADr	M_glu5sa_c <=> M_1pyr5c_c + M_h_c			True		
+R_CBPS	2 M_atp_c + M_co2_c + M_gln_L_c <=> 2 M_adp_c + M_cbp_c + M_glu_L_c + 2 M_h_c + M_pi_c	carbamoyl-phosphate synthase (glutamine-hydrolysing)	R00575	False	YJL130C|YJR109C|YOR303W	
+R_ARGSSr	M_asp_L_c + M_atp_c + M_citr_L_c <=> M_amp_c + M_argsuc_c + M_h_c + M_ppi_c	argininosuccinate synthase	R01954	True	YOL058W	
+R_ARGSL	M_argsuc_c <=> M_arg_L_c + M_fum_c	argininosuccinate lyase	R01086	True	YHR018C	
+R_AGPRim	M_acg5p_m + M_h_m + M_nadph_m <=> M_acg5sa_m + M_nadp_m + M_pi_m	N-acetyl-g-glutamyl-phosphate reductase	R03443	False	YER069W	
+R_ACOTAim	M_acg5sa_m + M_glu_L_m <=> M_acorn_m + M_akg_m	acteylornithine transaminase	R02283	False	YOL140W	
+R_ACGKm	M_acglu_m + M_atp_m <=> M_acg5p_m + M_adp_m	acetylglutamate kinase	R02649	False	YER069W	
+R_SUCOAS1m	M_atp_m + M_coa_m + M_succ_m <=> M_adp_m + M_pi_m + M_succoa_m	succinate-CoA ligase (ADP-forming)	R00405	True	YGR244C|YOR142W	
+R_SUCD2_u6m	M_q6_m + M_succ_m <=> M_fum_m + M_q6h2_m		R02164	True		
+R_ICDHy	M_icit_c + M_nadp_c <=> M_akg_c + M_co2_c + M_nadph_c	isocitrate dehydrogenase	R00267	False	YNL009W|YDL066W	
+R_ICDHxm	M_icit_m + M_nad_m <=> M_akg_m + M_co2_m + M_nadh_m	isocitrate dehydrogenase (NAD+)	R00709	False	YNL037C|YOR136W	
+R_CSm	M_accoa_m + M_oaa_m <=> M_cit_m + M_coa_m + M_h_m			False		
+R_AKGDam	M_akg_m + M_coa_m + M_nad_m <=> M_co2_m + M_nadh_m + M_succoa_m		R01197	True	YIL125W	
+R_ACONTm	M_cit_m <=> M_icit_m		R01324	True	YLR304C	
+R_ACONT	M_cit_c <=> M_icit_c		R01324	True	YLR304C	
+R_SULR	M_h2s_c + 3 M_nadp_c <=> 5 M_h_c + 3 M_nadph_c + M_so3_c			True		
+R_SLFAT	M_adp_c + M_h_c + M_so4_c <=> M_aps_c + M_pi_c	sulfate adenylyltransferase (ADP)	R00530	True	YCL050C	
+R_PAPSR	M_nadph_c + M_paps_c <=> 2 M_h_c + M_nadp_c + M_pap_c + M_so3_c			False		
+R_BPNT	M_pap_c <=> M_amp_c + M_pi_c	3',5'-bisphosphate nucleotidase	R00188	False	YOL064C	
+R_ADSK	M_aps_c + M_atp_c <=> M_adp_c + M_h_c + M_paps_c	adenylyl-sulfate kinase	R00509	False	YKL001C	
+R_MTHFR3	M_h_c + M_mlthf_c + M_nadph_c <=> M_5mthf_c + M_nadp_c	5,10-methylenetetrahydrofolate reductase (NADPH)	R01224	False	YGL125W|YPL023C	
+R_MTHFD	M_mlthf_c + M_nadp_c <=> M_h_c + M_methf_c + M_nadph_c			True		
+R_MTHFC	M_methf_c <=> M_10fthf_c	methenyltetrahydrifikate cyclohydrolase	R01655	True	YBR084W|YGR204W	
+R_FTHFL	M_atp_c + M_for_c + M_thf_c <=> M_10fthf_c + M_adp_c + M_pi_c	formate-tetrahydrofolate ligase	R00943	True	YGR204W|YBR084W	
+R_GLUDy	M_glu_L_c + M_nadp_c <=> M_akg_c + M_h_c + M_nadph_c + M_nh4_c			True		
+R_GLNS	M_atp_c + M_glu_L_c + M_nh4_c <=> M_adp_c + M_gln_L_c + M_h_c + M_pi_c			False		
+R_ANS	M_chor_c + M_gln_L_c <=> M_anth_c + M_glu_L_c + M_h_c + M_pyr_c	anthranilate synthase	R00986	False	YER090W|YKL211C	
+R_GLYK	M_atp_c + M_glyc_c <=> M_adp_c + M_glyc3p_c + M_h_c	glycerol kinase	R00847	False	YHL032C	
+R_G3PT	M_glyc3p_c <=> M_glyc_c + M_pi_c	glycerol-3-phosphatase	R00841	False	YER062C|YIL053W	
+R_G3PD1ir	M_dhap_c + M_h_c + M_nadh_c <=> M_glyc3p_c + M_nad_c	glycerol-3-phosphate dehydrogenase (NAD)	R00842	False	YDL022W|YOL059W|YOL059W	
+R_ALCD2m	M_etoh_m + M_nad_m <=> M_acald_m + M_h_m + M_nadh_m	alcohol dehydrogenase (ethanol to acetaldehyde)	R00754	True	YMR303C|YGL256W|YMR083W|YBR145W|YOL086C	
+R_PSP_L	M_pser_L_c <=> M_pi_c + M_ser_L_c	phosphoserine phosphatase (L-serine)	R00582	False	YGR208W	
+R_PSERT	M_3php_c + M_glu_L_c <=> M_akg_c + M_pser_L_c	phosphoserine transaminase	R04173	False	YOR184W	
+R_PGCD	M_3pg_c + M_nad_c <=> M_3php_c + M_h_c + M_nadh_c	phosphoglycerate dehydrogenase	R01513	False	YER081W|YIL074C	
+R_HSK	M_atp_c + M_hom_L_c <=> M_adp_c + M_h_c + M_phom_c	homoserine kinase	R01771	False	YHR025W	
+R_HSDyi	M_aspsa_c + M_h_c + M_nadph_c <=> M_hom_L_c + M_nadp_c	homoserine dehydrogenase (NADP)	R01775	False	YJR139C|YJR139C	
+R_GHMT2r	M_ser_L_c + M_thf_c <=> M_gly_c + M_mlthf_c	glycine hydroxymethyltransferase	R00945	True	YLR058C|YBR263W	
+R_CYSTS	M_hcys_L_c + M_ser_L_c <=> M_cyst_L_c	cystathionine beta-synthase	R01290	False	YGR155W	
+R_TPI	M_dhap_c <=> M_g3p_c		R01015	True	YDR050C	
+R_PYK	M_adp_c + M_h_c + M_pep_c <=> M_atp_c + M_pyr_c	pyruvate kinase	R00200	False	YAL038W|YOR347C	
+R_PGM	M_2pg_c <=> M_3pg_c	phosphoglycerate mutase	R01518	True	YKL152C	
+R_PGK	M_3pg_c + M_atp_c <=> M_13dpg_c + M_adp_c	phosphoglycerate kinase	R01512	True	YCR012W	
+R_PGI	M_g6p_c <=> M_f6p_c	glucose-6-phosphate isomerase	R00771	True	YBR196C	
+R_PFK	M_atp_c + M_f6p_c <=> M_adp_c + M_fdp_c + M_h_c	phosphofructokinase	R00756	False	YGR240C|YMR205C	
+R_PDHm	M_coa_m + M_nad_m + M_pyr_m <=> M_accoa_m + M_co2_m + M_nadh_m	pyruvate dehydrogenase	R00209	False	YBR221C|YER178W|YFL018C|YGR193C|YNL071W	
+R_HEX1	M_atp_c + M_glc_D_c <=> M_adp_c + M_g6p_c + M_h_c	hexokinase (D-glucose:ATP)	R00299	False	YCL040W|YFR053C|YGL253W	
+R_GAPD	M_g3p_c + M_nad_c + M_pi_c <=> M_13dpg_c + M_h_c + M_nadh_c		R01061	True	YGR192C|YJL052W|YJR009C	
+R_FBA	M_fdp_c <=> M_dhap_c + M_g3p_c		R01070	True	YKL060C	
+R_ENO	M_2pg_c <=> M_pep_c	enolase	R00658	True	YGR254W|YHR174W	
+R_PRPPS	M_atp_c + M_r5p_c <=> M_amp_c + M_h_c + M_prpp_c			True		
+R_PRMICIi	M_prfp_c <=> M_prlp_c	1-(5-phosphoribosyl)-5-[(5-phosphoribosylamino)methylideneamino)imidazole-4-carboxamide isomerase	R04640	False	YIL020C	
+R_PRATPP	M_prbatp_c <=> M_h_c + M_ppi_c + M_prbamp_c	phosphoribosyl-ATP pyrophosphatase	R04035	False	YCL030C	
+R_PRAMPC	M_prbamp_c <=> M_prfp_c	phosphoribosyl-AMP cyclohydrolase	R04037	False	YCL030C	
+R_IGPDH	M_eig3p_c <=> M_imacp_c	imidazoleglycerol-phosphate dehydratase	R03457	False	YOR202W	
+R_IG3PS	M_gln_L_c + M_prlp_c <=> M_aicar_c + M_eig3p_c + M_glu_L_c + M_h_c	Imidazole-glycerol-3-phosphate synthase	R04558	False	YBR248C	
+R_HSTPT	M_glu_L_c + M_imacp_c <=> M_akg_c + M_hisp_c	histidinol-phosphate transaminase	R03243	False	YIL116W	
+R_HISTP	M_hisp_c <=> M_histd_c + M_pi_c	histidinol-phosphatase	R03013	False	YFR025C	
+R_HISTD	M_histd_c + 2 M_nad_c <=> M_his_L_c + 3 M_h_c + 2 M_nadh_c	histidinol dehydrogenase	R01158	False	YCL030C	
+R_ATPPRT	M_atp_c + M_prpp_c <=> M_ppi_c + M_prbatp_c	ATP phosphoribosyltransferase	R01071	False	YER055C	
+R_FDH	M_for_c + M_nad_c <=> M_co2_c + M_nadh_c	formate dehydrogenase	R00519	False	YOR388C	
+R_METS	M_5mthf_c + M_hcys_L_c <=> M_met_L_c + M_thf_c	methionine synthase	R00946	False	YER091C	
+R_HSERTA	M_accoa_c + M_hom_L_c <=> M_achms_c + M_coa_c	homoserine O-trans-acetylase	R01776	True	YNL277W	
+R_CYSTGL	M_cyst_L_c <=> M_2obut_c + M_cys_L_c + M_nh4_c			False		
+R_AHSERL2	M_achms_c + M_h2s_c <=> M_ac_c + M_hcys_L_c + M_h_c	O-acetylhomoserine (thiol)-lyase	R01287	False	YLR303W	
+R_ADK1m	M_amp_m + M_atp_m <=> 2 M_adp_m			True		
+R_ADK1	M_amp_c + M_atp_c <=> 2 M_adp_c			True		
+R_PPAm	M_ppi_m <=> M_h_m + 2 M_pi_m			False		
+R_PPA	M_ppi_c <=> M_h_c + 2 M_pi_c			False		
+R_NADH2_u6m	M_h_m + M_nadh_m + M_q6_m <=> M_nad_m + M_q6h2_m			False		
+R_NADH2_u6cm	M_h_c + M_nadh_c + M_q6_m <=> M_nad_c + M_q6h2_m			False		
+R_MDHm	M_mal_L_m + M_nad_m <=> M_h_m + M_nadh_m + M_oaa_m	malate dehydrogenase	R00342	True	YKL085W|YOL126C|YDL078C	
+R_MDH	M_mal_L_c + M_nad_c <=> M_h_c + M_nadh_c + M_oaa_c	malate dehydrogenase	R00342	True	YKL085W|YOL126C|YDL078C	
+R_FUMm	M_fum_m <=> M_mal_L_m	fumarase	R01082	True	YPL262W|YPL262W	
+R_FUM	M_fum_c <=> M_mal_L_c	fumarase	R01082	True	YPL262W|YPL262W	
+R_CYOR_u6m	2 M_ficytc_m + 1.50 M_h_m + M_q6h2_m <=> 2 M_focytc_m + 1.50 M_hcyt_c + M_q6_m			False		
+R_CYOOm	4 M_focytc_m + 6 M_h_m + M_o2_m <=> 4 M_ficytc_m + 6 M_hcyt_c	ferrocytochrome-c:oxygen oxidoreductase	R00081	False	YDL067C|YEL039C|YGL187C|YGL191W|YHR051W|YIL111W|YLR038C|YLR395C|YMR256C|YDL067C|YEL039C|YGL187C|YGL191W|YHR051W|YLR038C|YLR395C|YMR256C|YNL052W|YDL067C|YGL187C|YGL191W|YHR051W|YIL111W|YJR048W|YLR038C|YLR395C|YMR256C|YDL067C|YGL187C|YGL191W|YHR051W|YJR048W|YLR038C|YLR395C|YMR256C|YNL052W	
+R_ATPS3m	M_adp_m + 3 M_hcyt_c + M_pi_m <=> M_atp_m + 3 M_h_m			False		
+R_TKT2	M_e4p_c + M_xu5p_D_c <=> M_f6p_c + M_g3p_c		R01067	True	YBR117C	
+R_TKT1	M_r5p_c + M_xu5p_D_c <=> M_g3p_c + M_s7p_c		R01641	True	YPR074C	
+R_TALA	M_g3p_c + M_s7p_c <=> M_e4p_c + M_f6p_c			True		
+R_RPI	M_r5p_c <=> M_ru5p_D_c		R01056	True	YOR095C	
+R_RPE	M_ru5p_D_c <=> M_xu5p_D_c	ribulose 5-phosphate 3-epimerase	R01529	True	YJL121C	
+R_PGL	M_6pgl_c <=> M_6pgc_c + M_h_c	6-phosphogluconolactonase	R02035	False	YGR248W|YHR163W	
+R_GND	M_6pgc_c + M_nadp_c <=> M_co2_c + M_nadph_c + M_ru5p_D_c	phosphogluconate dehydrogenase	R01528	False	YGR256W|YHR183W	
+R_G6PDH2	M_g6p_c + M_nadp_c <=> M_6pgl_c + M_h_c + M_nadph_c	glucose 6-phosphate dehydrogenase	R00835	False	YNL241C	
+R_PYRDC	M_h_c + M_pyr_c <=> M_acald_c + M_co2_c	pyruvate decarboxylase	R00224	False	YGR087C|YLR044C|YLR134W	
+R_ALCD2x	M_etoh_c + M_nad_c <=> M_acald_c + M_h_c + M_nadh_c	alcohol dehydrogenase (ethanol to acetaldehyde)	R00754	True	YMR303C|YGL256W|YMR083W|YBR145W|YOL086C	
+R_ACSm	M_ac_m + M_atp_m + M_coa_m <=> M_accoa_m + M_amp_m + M_ppi_m	acetyl-CoA synthetase	R00235	False	YAL054C|YLR153C|YAL054C|YLR153C	
+R_ACS	M_ac_c + M_atp_c + M_coa_c <=> M_accoa_c + M_amp_c + M_ppi_c	acetyl-CoA synthetase	R00235	False	YAL054C|YLR153C|YAL054C|YLR153C	
+R_ACOAH	M_accoa_c <=> M_ac_c + M_coa_c + M_h_c	acetyl-CoA hydrolase	R00227	False	YBL015W	
+R_THRS	M_phom_c <=> M_pi_c + M_thr_L_c	threonine synthase	R01466	False	YCR053W	
+R_THRD_Lm	M_thr_L_m <=> M_2obut_m + M_nh4_m			False		
+R_THRA	M_acald_c + M_gly_c <=> M_thr_L_c	threonine aldolase	R00751	True	YEL046C	
+R_SACCD2	M_nad_c + M_saccrp_L_c <=> M_akg_c + M_h_c + M_lys_L_c + M_nadh_c	saccharopine dehydrogenase (NAD, L-lysine forming)	R00715	True	YIR034C	
+R_SACCD1	M_glu_L_c + M_h_c + M_L2aadp6sa_c + M_nadph_c <=> M_nadp_c + M_saccrp_L_c	saccharopine dehydrogenase (NADP, L-glutamate forming)	R02315	True	YNR050C	
+R_OXAGm	M_h_m + M_oxag_m <=> M_2oxoadp_m + M_co2_m			True		
+R_MCITDm	M_hcit_m <=> M_b124tc_m	2-methylcitrate dehydratase	R03444	True	YDR234W	
+R_HICITDm	M_hicit_m + M_nad_m <=> M_h_m + M_nadh_m + M_oxag_m			True		
+R_HACNHm	M_b124tc_m <=> M_hicit_m	homoacontinate hydratase	R04371	True	YDR234W	
+R_AATA	M_2oxoadp_c + M_glu_L_c <=> M_akg_c + M_L2aadp_c	2-aminoadipate transaminase	R01939	True	YER152C|YGL202W|YJL060W	
+R_AASAD1	M_atp_c + M_h_c + M_L2aadp_c + M_nadph_c <=> M_amp_c + M_L2aadp6sa_c + M_nadp_c + M_ppi_c			False		
+R_TYRTA	M_akg_c + M_tyr_L_c <=> M_34hpp_c + M_glu_L_c	tyrosine transaminase	R00734	True	YGL202W|YLR027C|YHR137W	
+R_TRPS1	M_3ig3p_c + M_ser_L_c <=> M_g3p_c + M_trp_L_c			False		
+R_SHKK	M_atp_c + M_skm_c <=> M_adp_c + M_h_c + M_skm5p_c	shikimate kinase	R02412	False	YDR127W	
+R_SHK3D	M_3dhsk_c + M_h_c + M_nadph_c <=> M_nadp_c + M_skm_c	shikimate dehydrogenase	R02413	False	YDR127W	
+R_PSCVTi	M_pep_c + M_skm5p_c <=> M_3psme_c + M_pi_c	3-phosphoshikimate 1-carboxyvinyltransferase	R03460	False	YDR127W	
+R_PRAIi	M_pran_c <=> M_2cpr5p_c	phosphoribosylanthranilate isomerase	R03509	False	YDR007W	
+R_PPNDH	M_h_c + M_pphn_c <=> M_co2_c + M_phpyr_c	prephenate dehydratase	R01373	False	YNL316C	
+R_PPND2	M_nadp_c + M_pphn_c <=> M_34hpp_c + M_co2_c + M_nadph_c	prephenate dehydrogenase (NADP)	R01730	False	YBR166C	
+R_PHETA1	M_akg_c + M_phe_L_c <=> M_glu_L_c + M_phpyr_c	phenylalanine transaminase	R00694	True	YGL202W|YHR137W	
+R_IGPS	M_2cpr5p_c + M_h_c <=> M_3ig3p_c + M_co2_c	indole-3-glycerol-phosphate synthase	R03508	False	YKL211C	
+R_DHQTi	M_3dhq_c <=> M_3dhsk_c	3-dehydroquinate dehydratase	R03084	False	YDR127W	
+R_DHQS	M_2dda7p_c <=> M_3dhq_c + M_pi_c	3-dehydroquinate synthase	R03083	False	YDR127W	
+R_DDPA	M_e4p_c + M_pep_c <=> M_2dda7p_c + M_pi_c	2-deoxy-D-arabino-heptulosonate 7-phosphate synthetase	R01826	False	YDR035W|YBR249C|YDR035W	
+R_CHORS	M_3psme_c <=> M_chor_c + M_pi_c	chorismate synthase	R01714	False	YGL148W	
+R_CHORM	M_chor_c <=> M_pphn_c	chorismate mutase	R01715	False	YPR060C	
+R_ANPRT	M_anth_c + M_prpp_c <=> M_ppi_c + M_pran_c	anthranilate phosphoribosyltransferase	R01073	False	YDR354W	
+R_ALDD2ym	M_acald_m + M_nadp_m <=> M_ac_m + 2 M_h_m + M_nadph_m	aldehyde dehydrogenase (acetaldehyde, NADP)	R00711	False	YPL061W|YER073W|YOR374W|YMR170C	
+R_ALDD2y	M_acald_c + M_nadp_c <=> M_ac_c + 2 M_h_c + M_nadph_c	aldehyde dehydrogenase (acetaldehyde, NADP)	R00711	False	YPL061W|YER073W|YOR374W|YMR170C	
+R_ALDD2xm	M_acald_m + M_nad_m <=> M_ac_m + 2 M_h_m + M_nadh_m			False		
+R_VALTA	M_akg_c + M_val_L_c <=> M_3mob_c + M_glu_L_c	valine transaminase	R01214	True	YJR148W|YHR208W	
+R_OMCDC	M_3c4mop_c + M_h_c <=> M_4mop_c + M_co2_c	2-oxo-4-methyl-3-carboxypentanoate decarboxylation	R01652	False	YJR148W|YHR208W	
+R_LEUTA	M_akg_c + M_leu_L_c <=> M_4mop_c + M_glu_L_c	leucine transaminase	R01090	True	YJR148W|YHR208W	
+R_KARA2im	M_2ahbut_m + M_h_m + M_nadph_m <=> M_23dhmp_m + M_nadp_m			False		
+R_KARA1im	M_alac_S_m + M_h_m + M_nadph_m <=> M_23dhmb_m + M_nadp_m			False		
+R_IPPS	M_3mob_c + M_accoa_c <=> M_3c3hmp_c + M_coa_c + M_h_c	2-isopropylmalate synthase	R01213	False	YNL104C|YOR108W|YNL104C	
+R_IPPMIb	M_2ippm_c <=> M_3c3hmp_c	2-isopropylmalate hydratase	R03968	True	YGL009C	
+R_IPPMIa	M_3c2hmp_c <=> M_2ippm_c	3-isopropylmalate dehydratase	R04001	True	YGL009C	
+R_IPMD	M_3c2hmp_c + M_nad_c <=> M_3c4mop_c + M_h_c + M_nadh_c	3-isopropylmalate dehydrogenase	R04426	False	YCL018W	
+R_ILETA	M_akg_c + M_ile_L_c <=> M_3mop_c + M_glu_L_c	isoleucine transaminase	R02199	True	YJR148W|YHR208W	
+R_DHAD2m	M_23dhmp_m <=> M_3mop_m	dihydroxy-acid dehydratase (2,3-dihydroxy-3-methylpentanoate)	R05070	False	YJR016C	
+R_DHAD1m	M_23dhmb_m <=> M_3mob_m	dihydroxy-acid dehydratase (2,3-dihydroxy-3-methylbutanoate)	R04441	False	YJR016C	
+R_ACLSm	M_h_m + 2 M_pyr_m <=> M_alac_S_m + M_co2_m			False		
+R_ACHBSm	M_2obut_m + M_h_m + M_pyr_m <=> M_2ahbut_m + M_co2_m	2-aceto-2-hydroxybutanoate synthase	R08648	False	YCL009C|YMR108W|YMR108W	
+R_GLUSxm	M_akg_m + M_gln_L_m + M_h_m + M_nadh_m <=> 2 M_glu_L_m + M_nad_m	glutamate synthase (NADH2)	R00093	False	YDL171C	
+R_AGTm	M_ala_L_m + M_glx_m <=> M_gly_m + M_pyr_m	alanine glyoxylate aminotransferase	R00369	True	YFL030W	
+R_HCITS	M_accoa_c + M_akg_c <=> M_coa_c + M_hcit_c + M_h_c	homocitrate synthase	R00271	True	YDL131W|YDL182W	
+R_MALS	M_accoa_c + M_glx_c <=> M_coa_c + M_h_c + M_mal_L_c	malate synthase	R00472	False	YIR031C|YNL117W|YNL117W	
+R_GLUDym	M_glu_L_m + M_nadp_m <=> M_akg_m + M_h_m + M_nadph_m + M_nh4_m			True		
+R_CSc	M_accoa_c + M_oaa_c <=> M_cit_c + M_coa_c + M_h_c		R00351	False	YCR005C|YNR001C|YPR001W	
+R_SUCCt2r	M_h_e + M_succ_e <=> M_h_c + M_succ_c			True		
+R_SO4ti	M_so4_e <=> M_so4_c			False		
+R_PYRt2	M_pyr_e <=> M_pyr_c			True		
+R_PIt2r	M_h_e + M_pi_e <=> M_h_c + M_pi_c			True		
+R_O2t	M_o2_e <=> M_o2_c			True		
+R_NH4t	M_nh4_e <=> M_nh4_c			True		
+R_H2Ot	 <=> 			True		
+R_GLYCt	M_glyc_c <=> M_glyc_e			True		
+R_GLCt1	M_glc_D_e <=> M_glc_D_c			False		
+R_ETOHt	M_etoh_e <=> M_etoh_c	alcohol acetyltransferase (ethanol)	R00754	True	YMR303C|YGL256W|YMR083W|YBR145W|YOL086C	
+R_CO2t	M_co2_e <=> M_co2_c			True		
+R_ATPS	M_atp_c <=> M_adp_c + M_h_e + M_pi_c			False		
+R_ACt2r	M_ac_e <=> M_ac_c			True		
+R_THRt2m	M_thr_L_c <=> M_thr_L_m			True		
+R_SUCFUMtm	M_fum_m + M_succ_c <=> M_fum_c + M_succ_m			False		
+R_SUCCtm	M_pi_m + M_succ_c <=> M_pi_c + M_succ_m	succinate transport	R00405	False	YGR244C|YOR142W	
+R_PYRt2m	M_h_c + M_pyr_c <=> M_h_m + M_pyr_m			True		
+R_PIt2m	M_h_c + M_pi_c <=> M_h_m + M_pi_m			True		
+R_ORNt3m	M_orn_m <=> M_orn_c			True		
+R_OAAt2m	2 M_h_c + M_oaa_c <=> 2 M_h_m + M_oaa_m			True		
+R_O2tm	M_o2_c <=> M_o2_m			True		
+R_NH4tm	M_nh4_c <=> M_nh4_m			True		
+R_MALtm	M_mal_L_c + M_pi_m <=> M_mal_L_m + M_pi_c			True		
+R_H2Otm	 <=> 			True		
+R_GLYt2m	M_gly_c <=> M_gly_m			True		
+R_GLUt2m	M_glu_L_c + M_h_c <=> M_glu_L_m + M_h_m			True		
+R_ETOHtm	M_etoh_c <=> M_etoh_m	alcohol acetyltransferase (ethanol)	R00754	True	YMR303C|YGL256W|YMR083W|YBR145W|YOL086C	
+R_CO2tm	M_co2_c <=> M_co2_m			True		
+R_CITtcm	M_cit_c + M_icit_m <=> M_cit_m + M_icit_c			True		
+R_CITtam	M_cit_c + M_mal_L_m <=> M_cit_m + M_mal_L_c			True		
+R_ATPtm_H	M_adp_c + M_atp_m <=> M_adp_m + M_atp_c			False		
+R_ACtm	M_ac_c <=> M_ac_m			True		
+R_3MOPtm	M_3mop_c <=> M_3mop_m			True		
+R_3MOBtm	M_3mob_c <=> M_3mob_m			True		
+R_2OXOADPtim	M_2oxoadp_m + M_akg_c <=> M_2oxoadp_c + M_akg_m	2-aminoadipate transaminase	R01939	False	YER152C|YGL202W|YJL060W	
+R_GLNt2m	M_gln_L_c <=> M_gln_L_m			True		
+R_2OBUTtm	M_2obut_c <=> M_2obut_m	2-aceto-2-hydroxybutanoate synthase	R08648	True	YCL009C|YMR108W|YMR108W	
+R_ALAt2m	M_ala_L_c <=> M_ala_L_m			True		
+R_HCITtm	M_hcit_c <=> M_hcit_m			True		
+R_GLXtm	M_glx_c <=> M_glx_m			True		
+R_ACALDtm	M_acald_c <=> M_acald_m			True		
+R_aicarSYN	M_10fthf_c + M_asp_L_c + 5 M_atp_c + M_co2_c + 2 M_gln_L_c + M_gly_c + M_r5p_c <=> 4 M_adp_c + M_aicar_c + M_amp_c + M_fum_c + 2 M_glu_L_c + 8 M_h_c + 4 M_pi_c + M_ppi_c + M_thf_c			False		
+R_ampSYN	M_10fthf_c + M_aicar_c + M_asp_L_c + M_atp_c <=> M_adp_c + M_amp_c + M_fum_c + 2 M_h_c + M_pi_c + M_thf_c			False		
+R_dampSYN	M_amp_c + M_h_c + M_nadph_c <=> M_damp_c + M_nadp_c			False		
+R_gmpSYN	M_10fthf_c + M_aicar_c + M_atp_c + M_gln_L_c + M_nad_c <=> M_amp_c + M_glu_L_c + M_gmp_c + 3 M_h_c + M_nadh_c + M_ppi_c + M_thf_c	GMP synthase	R01231	False	YMR217W	
+R_dgmpSYN	M_gmp_c + M_h_c + M_nadph_c <=> M_dgmp_c + M_nadp_c			False		
+R_umpSYN	M_asp_L_c + 3 M_atp_c + M_gln_L_c + 0.50 M_o2_c + M_r5p_c <=> 2 M_adp_c + M_amp_c + M_glu_L_c + 2 M_h_c + 2 M_pi_c + M_ppi_c + M_ump_c			False		
+R_cmpSYN	M_atp_c + M_nh4_c + M_ump_c <=> M_adp_c + M_cmp_c + 2 M_h_c + M_pi_c			False		
+R_dcmpSYN	M_cmp_c + M_h_c + M_nadph_c <=> M_dcmp_c + M_nadp_c			False		
+R_dtmpSYN	M_dcmp_c + 2 M_h_c + M_mlthf_c + M_nadph_c <=> M_dtmp_c + M_nadp_c + M_nh4_c + M_thf_c			False		
+R_13BDglcnSYN	M_atp_c + M_g6p_c <=> M_13BDglcn_c + M_adp_c + M_ppi_c	hexokinase (D-glucose:ATP)	R00299	False	YCL040W|YFR053C|YGL253W	
+R_mannanSYN	M_atp_c + M_f6p_c <=> M_adp_c + M_mannan_c + M_ppi_c			False		
+R_zymstSYN	18 M_accoa_c + 18 M_atp_c + 11 M_h_c + 26 M_nadph_c + 2 M_nad_c + 10 M_o2_c <=> 18 M_adp_c + 8 M_co2_c + 18 M_coa_c + M_for_c + 2 M_nadh_c + 26 M_nadp_c + 6 M_pi_c + 6 M_ppi_c + M_zymst_c			False		
+R_ergstSYN	2 M_atp_c + M_h_c + M_met_L_c + 3 M_nadph_c + 2 M_o2_c + M_zymst_c <=> M_adp_c + M_amp_c + M_ergst_c + M_hcys_L_c + 3 M_nadp_c + M_pi_c + M_ppi_c			False		
+R_paSYN	16.20 M_accoa_c + 14.20 M_atp_c + M_glyc3p_c + 15.38 M_h_c + 29.58 M_nadph_c + 1.18 M_o2_c <=> 14.20 M_adp_c + 16.20 M_coa_c + 29.58 M_nadp_c + M_pa_SC_c + 14.20 M_pi_c			False		
+R_psSYN	2 M_atp_c + M_pa_SC_c + M_ser_L_c <=> 2 M_adp_c + M_ppi_c + M_ps_SC_c			False		
+R_peSYN	M_h_c + M_ps_SC_c <=> M_co2_c + M_pe_SC_c			False		
+R_pcSYN	6 M_atp_c + 3 M_met_L_c + M_pe_SC_c <=> 3 M_adp_c + 3 M_amp_c + 3 M_hcys_L_c + 6 M_h_c + M_pc_SC_c + 3 M_pi_c + 3 M_ppi_c			False		
+R_ptd1inoSYN	2 M_atp_c + M_g6p_c + M_pa_SC_c <=> 2 M_adp_c + M_pi_c + M_ppi_c + M_ptd1ino_SC_c			False		
+R_triglycSYN	8.10 M_accoa_c + 7.10 M_atp_c + 7.69 M_h_c + 14.79 M_nadph_c + 0.59 M_o2_c + M_pa_SC_c <=> 7.10 M_adp_c + 8.10 M_coa_c + 14.79 M_nadp_c + 8.10 M_pi_c + M_triglyc_SC_c			False		
+R_biomass	1.13 M_13BDglcn_c + 0.46 M_ala_L_c + 0.05 M_amp_c + 0.16 M_arg_L_c + 0.10 M_asn_L_c + 0.30 M_asp_L_c + 59.28 M_atp_c + 0.04 M_cmp_c + 0.01 M_cys_L_c + 0.00 M_damp_c + 0.00 M_dcmp_c + 0.00 M_dgmp_c + 0.00 M_dtmp_c + 0.00 M_ergst_c + 0.11 M_gln_L_c + 0.30 M_glu_L_c + 0.29 M_gly_c + 0.05 M_gmp_c + 0.07 M_his_L_c + 0.19 M_ile_L_c + 0.30 M_leu_L_c + 0.29 M_lys_L_c + 0.81 M_mannan_c + 0.05 M_met_L_c + 0.00 M_pa_SC_c + 0.00 M_pc_SC_c + 0.00 M_pe_SC_c + 0.13 M_phe_L_c + 0.16 M_pro_L_c + 0.00 M_ps_SC_c + 0.00 M_ptd1ino_SC_c + 0.19 M_ser_L_c + 0.02 M_so4_c + 0.19 M_thr_L_c + 0.00 M_triglyc_SC_c + 0.03 M_trp_L_c + 0.10 M_tyr_L_c + 0.06 M_ump_c + 0.26 M_val_L_c + 0.00 M_zymst_c <=> 59.28 M_adp_c + 58.72 M_h_c + 59.30 M_pi_c			False		
+R_nadhs	2 M_h_m + 2 M_nadh_m + M_o2_m <=> 2 M_nad_m			False		
+R_nadphs	M_h_m + M_nadh_m + M_nadph_c + M_o2_m <=> M_nadp_c + M_nad_m			False		
+R_ASPTAm	M_akg_m + M_asp_L_m <=> M_glu_L_m + M_oaa_m	aspartate transaminase	R00355	True	YLR027C|YKL106W|YLR027C	
+R_ASPtm	M_h_m + M_asp_L_m <=> M_asp_L_c + M_h_c			True		
+R_AGC1tm	M_glu_L_c + M_asp_L_m <=> M_asp_L_c + M_glu_L_m			True		
+R_ALDD2x	M_acald_c + M_nad_c <=> M_ac_c + 2 M_h_c + M_nadh_c			False		
+R_GUT2	M_glyc3p_c + M_q6_m <=> M_dhap_c + M_q6h2_m			False		
+R_POS5m	M_atp_m + M_nad_m <=> M_adp_m + M_h_m + M_nadp_m	NAD kinase	R00104	False	YEL041W|YJR049C|YEL041W|YJR049C|YPL188W	
+R_POS5hm	M_atp_m + M_nadh_m <=> M_adp_m + M_h_m + M_nadph_m	NADH kinase	R00105	False	YEL041W|YJR049C|YEL041W|YJR049C|YPL188W	
+R_UTR1	M_atp_c + M_nadh_c <=> M_adp_c + M_h_c + M_nadph_c	NADH kinase	R00105	False	YEL041W|YJR049C|YEL041W|YJR049C|YPL188W	
+R_YEF1	M_atp_c + M_nad_c <=> M_adp_c + M_h_c + M_nadp_c	NAD kinase	R00104	False	YEL041W|YJR049C|YEL041W|YJR049C|YPL188W	
+%						
+!!SBtab TableName='Compound' TableType='Compound' Document='YeastMetabolicModel' SBtabVersion='0.9'						
+!ID	!Name	!Identifiers:kegg.compound	!IsConstant	!External	!Location	!Quantifiable
+M_10fthf_c	10-Formyltetrahydrofolate	C00234	False	0	c	0
+M_13BDglcn_c	1,3-beta-D-Glucan	C00965	False	0	c	0
+M_13dpg_c	3-Phospho-D-glyceroyl phosphate	C00236	False	0	c	0
+M_1pyr5c_c	1-Pyrroline-5-carboxylate	C04322	False	0	c	0
+M_23dhmb_m	(R)-2,3-Dihydroxy-3-methylbutanoate	C04272	False	0	m	0
+M_23dhmp_m	(R)-2,3-Dihydroxy-3-methylpentanoate	C06007	False	0	m	0
+M_2ahbut_m	(S)-2-Aceto-2-hydroxybutanoate	C06006	False	0	m	0
+M_2cpr5p_c	1-(2-Carboxyphenylamino)-1-deoxy-D-ribulose 5-phosphate	C01302	False	0	c	0
+M_2dda7p_c	2-Dehydro-3-deoxy-D-arabino-heptonate 7-phosphate	C04691	False	0	c	0
+M_2ippm_c	2-Isopropylmaleate	C02631	False	0	c	0
+M_2obut_c	2-Oxobutanoate	C00109	False	0	c	1
+M_2obut_m	2-Oxobutanoate	C00109	False	0	m	1
+M_2oxoadp_c	2-Oxoadipic acid	C00322	False	0	c	1
+M_2oxoadp_m	2-Oxoadipic acid	C00322	False	0	m	1
+M_2pg_c	D-Glycerate 2-phosphate	C00631	False	0	c	1
+M_34hpp_c	3-(4-Hydroxyphenyl)pyruvate	C01179	False	0	c	0
+M_3c2hmp_c	3-Carboxy-2-hydroxy-4-methylpentanoate	C04411	False	0	c	0
+M_3c3hmp_c	3-Carboxy-3-hydroxy-4-methylpentanoate	C02504	False	0	c	1
+M_3c4mop_c	3-Carboxy-4-methyl-2-oxopentanoate	C04236	False	0	c	0
+M_3dhq_c	3-Dehydroquinate	C00944	False	0	c	0
+M_3dhsk_c	3-Dehydroshikimate	C02637	False	0	c	0
+M_3ig3p_c	C'-(3-Indolyl)-glycerol 3-phosphate	C03506	False	0	c	0
+M_3mob_c	3-Methyl-2-oxobutanoate	C00141	False	0	c	1
+M_3mob_m	3-Methyl-2-oxobutanoate	C00141	False	0	m	1
+M_3mop_c	(S)-3-Methyl-2-oxopentanoate	C00671	False	0	c	0
+M_3mop_m	(S)-3-Methyl-2-oxopentanoate	C00671	False	0	m	0
+M_3pg_c	3-Phospho-D-glycerate	C00197	False	0	c	1
+M_3php_c	3-Phosphohydroxypyruvate	C03232	False	0	c	0
+M_3psme_c	5-O-(1-Carboxyvinyl)-3-phosphoshikimate	C01269	False	0	c	0
+M_4mop_c	4-Methyl-2-oxopentanoate	C00233	False	0	c	1
+M_4pasp_c	4-Phospho-L-aspartate	C03082	False	0	c	0
+M_5mthf_c	5-Methyltetrahydrofolate	C00440	False	0	c	1
+M_6pgc_c	6-Phospho-D-gluconate	C00345	False	0	c	1
+M_6pgl_c	6-phospho-D-glucono-1,5-lactone	C01236	False	0	c	0
+M_acald_c	Acetaldehyde	C00084	False	0	c	0
+M_acald_m	Acetaldehyde	C00084	False	0	m	0
+M_accoa_c	Acetyl-CoA	C00024	False	0	c	1
+M_accoa_m	Acetyl-CoA	C00024	False	0	m	1
+M_acg5p_m	N-Acetyl-L-glutamyl 5-phosphate	C04133	False	0	m	0
+M_acg5sa_m	N-Acetyl-L-glutamate 5-semialdehyde	C01250	False	0	m	0
+M_acglu_m	N-Acetyl-L-glutamate	C00624	False	0	m	1
+M_achms_c	O-Acetylhomoserine	C01077	False	0	c	0
+M_acorn_m	N2-Acetyl-L-ornithine	C00437	False	0	m	1
+M_ac_c	Acetate	C00033	False	0	c	0
+M_ac_e	Acetate	C00033	True	1	e	0
+M_ac_m	Acetate	C00033	False	0	m	0
+M_adp_c	ADP	C00008	False	0	c	1
+M_adp_m	ADP	C00008	False	0	m	1
+M_aicar_c	5-Amino-1-(5-Phospho-D-ribosyl)imidazole-4-carboxamide	C04677	False	0	c	1
+M_akg_c	2-Oxoglutarate	C00026	False	0	c	1
+M_akg_m	2-Oxoglutarate	C00026	False	0	m	1
+M_ala_L_c	L-Alanine	C00041	False	0	c	1
+M_ala_L_m	L-Alanine	C00041	False	0	m	1
+M_alac_S_m	(S)-2-Acetolactate	C06010	False	0	m	0
+M_amp_c	AMP	C00020	False	0	c	1
+M_amp_m	AMP	C00020	False	0	m	1
+M_anth_c	Anthranilate	C00108	False	0	c	1
+M_aps_c	Adenosine 5'-phosphosulfate	C00224	False	0	c	1
+M_arg_L_c	L-Arginine	C00062	False	0	c	1
+M_argsuc_c	N(omega)-(L-Arginino)succinate	C03406	False	0	c	1
+M_asn_L_c	L-Asparagine	C00152	False	0	c	1
+M_asp_L_c	L-Aspartate	C00049	False	0	c	1
+M_aspsa_c	L-Aspartate 4-semialdehyde	C00441	False	0	c	0
+M_atp_c	ATP	C00002	False	0	c	1
+M_atp_m	ATP	C00002	False	0	m	1
+M_b124tc_m	(Z)-1,2,4-But-1-enetricarboxylic acid	C04002	False	0	m	0
+M_cbp_c	Carbamoyl phosphate	C00169	False	0	c	1
+M_chor_c	Chorismate	C00251	False	0	c	0
+M_citr_L_c	L-Citrulline	C00327	False	0	c	1
+M_cit_c	Citrate	C00158	False	0	c	1
+M_cit_m	Citrate	C00158	False	0	m	1
+M_cmp_c	CMP	C00055	False	0	c	1
+M_co2_c	carbon dioxide	C00011	False	0	c	0
+M_co2_e	carbon dioxide	C00011	True	1	e	0
+M_co2_m	carbon dioxide	C00011	False	0	m	0
+M_coa_c	Coenzyme A	C00010	False	0	c	1
+M_coa_m	Coenzyme A	C00010	False	0	m	1
+M_cys_L_c	L-Cysteine	C00097	False	0	c	1
+M_cyst_L_c	L-Cystathionine	C02291	False	0	c	1
+M_damp_c	dAMP	C00360	False	0	c	1
+M_dcmp_c	dCMP	C00239	False	0	c	1
+M_dgmp_c	dGMP	C00362	False	0	c	0
+M_dhap_c	Dihydroxyacetone phosphate	C00111	False	0	c	1
+M_dtmp_c	dTMP	C00364	False	0	c	1
+M_e4p_c	D-Erythrose 4-phosphate	C00279	False	0	c	1
+M_eig3p_c	D-erythro-1-(Imidazol-4-yl)glycerol 3-phosphate	C04666	False	0	c	0
+M_ergst_c	Ergosterol	C01694	False	0	c	0
+M_etoh_c	Ethanol	C00469	False	0	c	0
+M_etoh_e	Ethanol	C00469	True	1	e	0
+M_etoh_m	Ethanol	C00469	False	0	m	0
+M_f6p_c	D-Fructose 6-phosphate	C00085	False	0	c	1
+M_fdp_c	D-Fructose 1,6-bisphosphate	C00354	False	0	c	1
+M_ficytc_m	Ferricytochrome c;	C00125	False	0	m	0
+M_focytc_m	Ferrocytochrome c;	C00126	False	0	m	0
+M_for_c	Formate	C00058	False	0	c	0
+M_fum_c	Fumarate	C00122	False	0	c	1
+M_fum_m	Fumarate	C00122	False	0	m	1
+M_g3p_c	Glyceraldehyde 3-phosphate	C00661	False	0	c	1
+M_g6p_c	D-Glucose 6-phosphate	C00092	False	0	c	1
+M_glc_D_c	D-Glucose	C00031	False	0	c	0
+M_glc_D_e	D-Glucose	C00031	True	1	e	0
+M_gln_L_c	L-Glutamine	C00064	False	0	c	1
+M_gln_L_m	L-Glutamine	C00064	False	0	m	1
+M_glu_L_c	L-Glutamate	C00025	False	0	c	1
+M_glu_L_m	L-Glutamate	C00025	False	0	m	1
+M_glu5p_c	L-Glutamate 5-phosphate	C03287	False	0	c	0
+M_glu5sa_c	L-Glutamate 5-semialdehyde	C01165	False	0	c	0
+M_glx_c	Glyoxylate	C00048	False	0	c	1
+M_glx_m	Glyoxylate	C00048	False	0	m	1
+M_glyc3p_c	Glycerol 3-phosphate	C00093	False	0	c	1
+M_glyc_c	Glycerol	C00116	False	0	c	0
+M_glyc_e	Glycerol	C00116	True	1	e	0
+M_gly_c	Glycine	C00037	False	0	c	1
+M_gly_m	Glycine	C00037	False	0	m	1
+M_gmp_c	GMP	C00144	False	0	c	1
+M_h2o_c	H2O	C00001	False	0	c	0
+M_h2o_e	H2O	C00001	True	1	e	0
+M_h2o_m	H2O	C00001	False	0	m	0
+M_h2s_c	Hydrogen sulfide	C00283	False	0	c	0
+M_hcit_c	Homocitric acid	C01251	False	0	c	0
+M_hcit_m	Homocitric acid	C01251	False	0	m	0
+M_hcys_L_c	L-Homocysteine	C00155	False	0	c	1
+M_hcyt_c	cytosolic Proton	C00080	False	0	c	0
+M_hicit_m	Homoisocitrate	C05662	False	0	m	0
+M_his_L_c	L-Histidine	C00135	False	0	c	1
+M_hisp_c	L-Histidinol phosphate	C01100	False	0	c	0
+M_histd_c	L-Histidinol	C00860	False	0	c	1
+M_hom_L_c	L-Homoserine	C00263	False	0	c	1
+M_h_c	H+	C00080	False	0	c	0
+M_h_e	H+	C00080	True	1	e	0
+M_h_m	H+	C00080	False	0	m	0
+M_icit_c	Isocitrate	C00311	False	0	c	1
+M_icit_m	Isocitrate	C00311	False	0	m	1
+M_ile_L_c	L-Isoleucine	C00407	False	0	c	1
+M_imacp_c	3-(Imidazol-4-yl)-2-oxopropyl phosphate	C01267	False	0	c	0
+M_L2aadp6sa_c	L-2-Aminoadipate 6-semialdehyde;	C04076	False	0	c	0
+M_L2aadp_c	L-2-Aminoadipic acid;	C00956	False	0	c	1
+M_leu_L_c	L-Leucine	C00123	False	0	c	1
+M_lys_L_c	L-Lysine	C00047	False	0	c	1
+M_mal_L_c	L-Malate	C00149	False	0	c	1
+M_mal_L_m	L-Malate	C00149	False	0	m	1
+M_mannan_c	Mannan	C00464	False	0	c	0
+M_met_L_c	L-Methionine	C00073	False	0	c	1
+M_methf_c	5,10-Methenyltetrahydrofolate	C00445	False	0	c	0
+M_mlthf_c	5,10-Methylenetetrahydrofolate	C00143	False	0	c	0
+M_nadh_c	Nicotinamide adenine dinucleotide - reduced	C00004	False	0	c	1
+M_nadh_m	Nicotinamide adenine dinucleotide - reduced	C00004	False	0	m	1
+M_nadph_c	Nicotinamide adenine dinucleotide phosphate - reduced	C00005	False	0	c	1
+M_nadph_m	Nicotinamide adenine dinucleotide phosphate - reduced	C00005	False	0	m	1
+M_nadp_c	Nicotinamide adenine dinucleotide phosphate	C00006	False	0	c	1
+M_nadp_m	Nicotinamide adenine dinucleotide phosphate	C00006	False	0	m	1
+M_nad_c	Nicotinamide adenine dinucleotide	C00003	False	0	c	1
+M_nad_m	Nicotinamide adenine dinucleotide	C00003	False	0	m	1
+M_nh4_c	ammonium	C01342	False	0	c	0
+M_nh4_e	ammonium	C01342	True	1	e	0
+M_nh4_m	ammonium	C01342	False	0	m	0
+M_o2_c	O2	C00007	False	0	c	0
+M_o2_e	O2	C00007	True	1	e	0
+M_o2_m	O2	C00007	False	0	m	0
+M_oaa_c	Oxaloacetate	C00036	False	0	c	0
+M_oaa_m	Oxaloacetate	C00036	False	0	m	0
+M_orn_c	Ornithine	C01602	False	0	c	0
+M_orn_m	Ornithine	C01602	False	0	m	0
+M_oxag_m	Oxaloglutarate	C05533	False	0	m	0
+M_paps_c	3'-Phosphoadenylyl sulfate	C00053	False	0	c	0
+M_pap_c	Adenosine 3',5'-bisphosphate	C00054	False	0	c	1
+M_pa_SC_c	Phosphatidic acid	C00416	False	0	c	0
+M_pc_SC_c	Phosphatidylcholine	C00157	False	0	c	0
+M_pep_c	Phosphoenolpyruvate	C00074	False	0	c	1
+M_pe_SC_c	Phosphatidylethanolamine	C00350	False	0	c	0
+M_phe_L_c	L-Phenylalanine	C00079	False	0	c	1
+M_phom_c	O-Phospho-L-homoserine	C01102	False	0	c	0
+M_phpyr_c	Phenylpyruvate	C00166	False	0	c	1
+M_pi_c	Phosphate	C00009	False	0	c	0
+M_pi_e	Phosphate	C00009	True	1	e	0
+M_pi_m	Phosphate	C00009	False	0	m	0
+M_pphn_c	Prephenate	C00254	False	0	c	0
+M_ppi_c	Diphosphate	C00013	False	0	c	0
+M_ppi_m	Diphosphate	C00013	False	0	m	0
+M_pran_c	N-(5-Phospho-D-ribosyl)anthranilate	C04302	False	0	c	0
+M_prbamp_c	1-(5-Phosphoribosyl)-AMP	C02741	False	0	c	0
+M_prbatp_c	1-(5-Phosphoribosyl)-ATP	C02739	False	0	c	0
+M_prfp_c	1-(5-Phosphoribosyl)-5-[(5-phosphoribosylamino)methylideneamino]imidazole-4-carboxamide	C04896	False	0	c	0
+M_prlp_c	5-[(5-phospho-1-deoxyribulos-1-ylamino)methylideneamino]-1-(5-phosphoribosyl)imidazole-4-carboxamide	C04916	False	0	c	0
+M_pro_L_c	L-Proline	C00148	False	0	c	1
+M_prpp_c	5-Phospho-alpha-D-ribose 1-diphosphate	C00119	False	0	c	1
+M_pser_L_c	O-Phospho-L-serine	C01005	False	0	c	1
+M_ps_SC_c	Phosphatidylserine	C02737	False	0	c	0
+M_ptd1ino_SC_c	Phosphatidylinositol	C01194	False	0	c	0
+M_pyr_c	Pyruvate	C00022	False	0	c	1
+M_pyr_e	Pyruvate	C00022	True	1	e	0
+M_pyr_m	Pyruvate	C00022	False	0	m	1
+M_q6h2_m	Ubiquinol	C00390	False	0	m	0
+M_q6_m	Ubiquinone-6	C17568	False	0	m	0
+M_r5p_c	alpha-D-Ribose 5-phosphate	C00117	False	0	c	1
+M_ru5p_D_c	D-Ribulose 5-phosphate	C00199	False	0	c	1
+M_s7p_c	Sedoheptulose 7-phosphate	C00281	False	0	c	0
+M_saccrp_L_c	L-Saccharopine	C00449	False	0	c	0
+M_ser_L_c	L-Serine	C00065	False	0	c	1
+M_skm5p_c	Shikimate 5-phosphate	C03175	False	0	c	0
+M_skm_c	Shikimate	C00493	False	0	c	1
+M_so3_c	Sulfite	C00094	False	0	c	0
+M_so4_c	Sulfate	C00059	False	0	c	0
+M_so4_e	Sulfate	C00059	True	1	e	0
+M_succoa_m	Succinyl-CoA	C00091	False	0	m	1
+M_succ_c	Succinate	C00042	False	0	c	1
+M_succ_e	Succinate	C00042	True	1	e	0
+M_succ_m	Succinate	C00042	False	0	m	1
+M_thf_c	5,6,7,8-Tetrahydrofolate	C00101	False	0	c	0
+M_thr_L_c	L-Threonine	C00188	False	0	c	1
+M_thr_L_m	L-Threonine	C00188	False	0	m	1
+M_triglyc_SC_c	Triacylglycerol	C00422	False	0	c	0
+M_trp_L_c	L-Tryptophan	C00078	False	0	c	1
+M_tyr_L_c	L-Tyrosine	C00082	False	0	c	1
+M_ump_c	UMP	C00105	False	0	c	1
+M_val_L_c	L-Valine	C00183	False	0	c	1
+M_xu5p_D_c	D-Xylulose 5-phosphate	C00231	False	0	c	0
+M_zymst_c	Zymosterol	C05437	False	0	c	0
+M_asp_L_m	L-Aspartate	C00049	False	0	m	1
+%						
+!!SBtab DocumentName='YeastMetabolicModel' TableName='Layout' TableType='Position' SBtabVersion='0.9'						
+!Element	!Position:x	!Position:y				
+M_10fthf_c	0.75603432	0.26719016				
+M_13BDglcn_c	0.57388965	0.37165549				
+M_13dpg_c	0.69777481	0.30669948				
+M_1pyr5c_c	0.7098285	0.27120806				
+M_23dhmb_m	0.50089785	0.75134677				
+M_23dhmp_m	0.49420135	0.81496348				
+M_2ahbut_m	0.5042461	0.72054289				
+M_2cpr5p_c	0.57790754	0.50491575				
+M_2dda7p_c	0.61540792	0.54241612				
+M_2ippm_c	0.7138464	0.62746161				
+M_2obut_c	0.59933633	0.68906937				
+M_2obut_m	0.56719315	0.80759733				
+M_2oxoadp_c	0.64822075	0.58393439				
+M_2oxoadp_m	0.57388965	0.86652649				
+M_2pg_c	0.88661598	0.65625654				
+M_34hpp_c	0.69308726	0.38303953				
+M_3c2hmp_c	0.68438182	0.47612082				
+M_3c3hmp_c	0.71317675	0.53839822				
+M_3c4mop_c	0.60871142	0.20089486				
+M_3dhq_c	0.57522895	0.60000598				
+M_3dhsk_c	0.61139002	0.39174498				
+M_3ig3p_c	0.60469353	0.33549441				
+M_3mob_c	0.68237287	0.61339897				
+M_3mob_m	0.59063089	0.87121404				
+M_3mop_c	0.63884565	0.82299927				
+M_3mop_m	0.55915736	0.88058913				
+M_3pg_c	0.77813275	0.54308577				
+M_3php_c	0.59130054	0.27790456				
+M_3psme_c	0.58192544	0.4339329				
+M_4mop_c	0.67366743	0.44799554				
+M_4pasp_c	0.6408546	0.12053692				
+M_5mthf_c	0.60268458	0.22567189				
+M_6pgc_c	0.62679196	0.36763759				
+M_6pgl_c	0.63616705	0.19085012				
+M_acald_c	0.90536616	0.52165698				
+M_acald_m	0.82099032	0.86049965				
+M_accoa_c	0.84041016	0.16138554				
+M_accoa_m	0.58594334	0.70112306				
+M_acg5p_m	0.48281731	0.73393589				
+M_acg5sa_m	0.48616556	0.70781955				
+M_acglu_m	0.45268308	0.76273081				
+M_achms_c	0.63281881	0.1379478				
+M_acorn_m	0.46942432	0.7881775				
+M_ac_c	0.77210591	0.55112156				
+M_ac_e	0.60067563	0.63750635				
+M_ac_m	0.66429233	0.75804327				
+M_adp_c	0.7881775	0.1392871				
+M_adp_m	0.60536318	0.87255334				
+M_aicar_c	0.65625654	0.18683222				
+M_akg_c	0.79755259	0.53705892				
+M_akg_m	0.64554215	0.88326773				
+M_ala_L_c	0.6475511	0.61339897				
+M_ala_L_m	0.62612231	0.94889338				
+M_alac_S_m	0.50759434	0.73326624				
+M_amp_c	0.73393589	0.11852797				
+M_amp_m	0.53304103	0.82366892				
+M_anth_c	0.59866668	0.39844147				
+M_aps_c	0.67031918	0.08571514				
+M_arg_L_c	0.61741687	0.37433409				
+M_argsuc_c	0.65156899	0.14397465				
+M_asn_L_c	0.57255035	0.38370918				
+M_asp_L_c	0.81429383	0.37031619				
+M_aspsa_c	0.62880091	0.037500374				
+M_atp_c	0.82701717	0.16607308				
+M_atp_m	0.59197018	0.83371367				
+M_b124tc_m	0.66764058	0.97902761				
+M_cbp_c	0.64554215	0.10245638				
+M_chor_c	0.61406862	0.33080687				
+M_citr_L_c	0.65089934	0.033482477				
+M_cit_c	0.90402687	0.76206117				
+M_cit_m	0.82701717	0.90335722				
+M_cmp_c	0.61674722	0.13995675				
+M_co2_c	0.87322299	0.31808353				
+M_co2_e	0.66697093	0.46339747				
+M_co2_m	0.7192036	0.8558121				
+M_coa_c	0.75670397	0.27723491				
+M_coa_m	0.62076511	0.70781955				
+M_cys_L_c	0.55781806	0.42790605				
+M_cyst_L_c	0.59933633	0.47812976				
+M_damp_c	0.59598808	0.25915437				
+M_dcmp_c	0.62210441	0.20424311				
+M_dgmp_c	0.57522895	0.25178822				
+M_dhap_c	0.76273081	0.7058106				
+M_dtmp_c	0.55313051	0.31607458				
+M_e4p_c	0.79755259	0.81697243				
+M_eig3p_c	0.59531843	0.24040418				
+M_ergst_c	0.54375542	0.28594035				
+M_etoh_c	0.76607906	0.69643551				
+M_etoh_e	0.58058614	0.72723939				
+M_etoh_m	0.72924834	0.89197317				
+M_f6p_c	0.86317824	0.63482775				
+M_fdp_c	0.7801417	0.59665773				
+M_ficytc_m	0.48951381	0.67031918				
+M_focytc_m	0.49821925	0.68906937				
+M_for_c	0.75201642	0.022098434				
+M_fum_c	0.7084892	0.4921924				
+M_fum_m	0.63415811	0.75804327				
+M_g3p_c	0.82232962	0.73996273				
+M_g6p_c	0.70514096	0.21964505				
+M_glc_D_c	0.54844297	0.40982551				
+M_glc_D_e	0.29330649	0.45937958				
+M_gln_L_c	0.70045341	0.32210142				
+M_gln_L_m	0.6421939	0.76206117				
+M_glu_L_c	0.80290979	0.46540642				
+M_glu_L_m	0.77612381	0.80491874				
+M_glu5p_c	0.65692619	0.13058166				
+M_glu5sa_c	0.70447131	0.13058166				
+M_glx_c	0.66964953	0.65826549				
+M_glx_m	0.60670247	0.91005371				
+M_glyc3p_c	0.70648025	0.29732439				
+M_glyc_c	0.66295303	0.57790754				
+M_glyc_e	0.58192544	0.68371217				
+M_gly_c	0.70380166	0.54777332				
+M_gly_m	0.62277406	0.90268757				
+M_gmp_c	0.62679196	0.18214467				
+M_h2o_c	0.87657124	0.34687846				
+M_h2o_e	0.53705892	0.40112007				
+M_h2o_m	0.7151857	0.89800002				
+M_h2s_c	0.70313201	0.070313201				
+M_hcit_c	0.70112306	0.62009546				
+M_hcit_m	0.67433708	0.89599107				
+M_hcys_L_c	0.66831023	0.29933334				
+M_hcyt_c	0.55848771	0.69174796				
+M_hicit_m	0.6475511	0.97166147				
+M_his_L_c	0.54107682	0.29866369				
+M_hisp_c	0.61005072	0.47344222				
+M_histd_c	0.60871142	0.17143028				
+M_hom_L_c	0.66027444	0.056250561				
+M_h_c	0.90268757	0.13593885				
+M_h_e	0.59866668	0.1379478				
+M_h_m	0.79487399	0.84710666				
+M_icit_c	0.82232962	0.75134677				
+M_icit_m	0.81831173	0.95157198				
+M_ile_L_c	0.61808652	0.60067563				
+M_imacp_c	0.57322	0.56853245				
+M_L2aadp6sa_c	0.72991799	0.046875467				
+M_L2aadp_c	0.63214916	0.25111857				
+M_leu_L_c	0.60804177	0.51027294				
+M_lys_L_c	0.65156899	0.19419836				
+M_mal_L_c	0.94554514	0.57924684				
+M_mal_L_m	0.85648175	0.83773156				
+M_mannan_c	0.55179121	0.35625355				
+M_met_L_c	0.63884565	0.29531544				
+M_methf_c	0.8504549	0.40112007				
+M_mlthf_c	0.75603432	0.13326026				
+M_nadh_c	0.91206266	0.1459836				
+M_nadh_m	0.70380166	0.98706341				
+M_nadph_c	0.87924983	0.029464579				
+M_nadph_m	0.59330948	0.8584907				
+M_nadp_c	0.90067862	0.045536168				
+M_nadp_m	0.61942582	0.81898138				
+M_nad_c	0.88996423	0.14397465				
+M_nad_m	0.67366743	0.93683969				
+M_nh4_c	0.73527518	0.4975496				
+M_nh4_e	0.43795079	0.58728264				
+M_nh4_m	0.69241761	0.76005222				
+M_o2_c	0.67701568	0.38772708				
+M_o2_e	0.47679047	0.52969278				
+M_o2_m	0.62344371	0.80090084				
+M_oaa_c	0.95826848	0.36428934				
+M_oaa_m	0.75603432	0.75335572				
+M_orn_c	0.59130054	0.51897839				
+M_orn_m	0.51362119	0.74799853				
+M_oxag_m	0.61005072	0.93884864				
+M_paps_c	0.60335423	0.04285757				
+M_pap_c	0.62210441	0.11785832				
+M_pa_SC_c	0.68572112	0.16406413				
+M_pc_SC_c	0.53438033	0.35089635				
+M_pep_c	0.82032067	0.36295005				
+M_pe_SC_c	0.62277406	0.2189754				
+M_phe_L_c	0.64688145	0.50893364				
+M_phom_c	0.66764058	0.30870843				
+M_phpyr_c	0.67500673	0.5718807				
+M_pi_c	0.83170472	0.29933334				
+M_pi_e	0.48281731	0.17477853				
+M_pi_m	0.73460553	0.69107832				
+M_pphn_c	0.66964953	0.29263684				
+M_ppi_c	0.72790904	0.10982252				
+M_ppi_m	0.54174647	0.69040867				
+M_pran_c	0.5055854	0.52768383				
+M_prbamp_c	0.61607757	0.38504848				
+M_prbatp_c	0.64822075	0.29531544				
+M_prfp_c	0.56853245	0.67969427				
+M_prlp_c	0.57522895	0.48482626				
+M_pro_L_c	0.56451455	0.32544967				
+M_prpp_c	0.65491724	0.21830575				
+M_pser_L_c	0.65357794	0.43326325				
+M_ps_SC_c	0.60871142	0.21428785				
+M_ptd1ino_SC_c	0.55246086	0.25781507				
+M_pyr_c	0.7178643	0.40647726				
+M_pyr_e	0.60536318	0.61674722				
+M_pyr_m	0.68103357	0.76340046				
+M_q6h2_m	0.64018495	0.50223715				
+M_q6_m	0.67232813	0.47076362				
+M_r5p_c	0.77545416	0.58393439				
+M_ru5p_D_c	0.84509771	0.71183745				
+M_s7p_c	0.69375691	0.91675021				
+M_saccrp_L_c	0.77210591	0.012053692				
+M_ser_L_c	0.68572112	0.3555839				
+M_skm5p_c	0.59933633	0.15602834				
+M_skm_c	0.58661299	0.083706191				
+M_so3_c	0.71049815	0				
+M_so4_c	0.65826549	0.28594035				
+M_so4_e	0.30870843	0.42254885				
+M_succoa_m	0.60737212	0.70380166				
+M_succ_c	0.64554215	0.48482626				
+M_succ_e	0.55112156	0.30201194				
+M_succ_m	0.62277406	0.68036392				
+M_thf_c	0.7192036	0.26986876				
+M_thr_L_c	0.7071499	0.63616705				
+M_thr_L_m	0.59063089	0.76674871				
+M_triglyc_SC_c	0.56451455	0.27522596				
+M_trp_L_c	0.55848771	0.40245937				
+M_tyr_L_c	0.65893514	0.42254885				
+M_ump_c	0.60737212	0.25111857				
+M_val_L_c	0.62880091	0.53371068				
+M_xu5p_D_c	0.83773156	0.84241911				
+M_zymst_c	0.63348846	0.20759135				
+M_asp_L_m	0.87724088	0.67567638				
+R_ASPTA	0.89130352	0.48817451				
+R_ASPKi	0.80625803	0.26652051				
+R_ASNS1	0.76540941	0.29598509				
+R_ASADi	0.74598958	0.05692021				
+R_ALATA_Lm	0.78081135	0.8544728				
+R_ALATA_L	0.80826698	0.55045191				
+R_PPCK	0.92813425	0.2812528				
+R_PC	0.96027743	0.21160925				
+R_ME2m	0.75268607	0.82032067				
+R_ICL	0.74866817	0.69375691				
+R_FBP	0.91273231	0.4962103				
+R_P5CR	0.74264133	0.14531395				
+R_ORNTACim	0.54710367	0.80157049				
+R_OCBTi	0.69308726	0.20893065				
+R_GLU5K	0.86652649	0.31272633				
+R_G5SD	0.79688294	0.046875467				
+R_G5SADr	0.82768682	0.24040418				
+R_CBPS	0.86183895	0.24442208				
+R_ARGSSr	0.76340046	0.050223715				
+R_ARGSL	0.69040867	0.37366444				
+R_AGPRim	0.60737212	0.75201642				
+R_ACOTAim	0.58728264	0.82032067				
+R_ACGKm	0.55112156	0.81496348				
+R_SUCOAS1m	0.68505147	0.73393589				
+R_SUCD2_u6m	0.65089934	0.59464878				
+R_ICDHy	0.94621479	0.37902163				
+R_ICDHxm	0.75067712	0.99710815				
+R_CSm	0.71853395	0.76674871				
+R_AKGDam	0.63147951	0.85514245				
+R_ACONTm	0.87724088	0.80090084				
+R_ACONT	0.92277705	0.72389114				
+R_SULR	0.86183895	0.091741986				
+R_SLFAT	0.81764208	0.16674273				
+R_PAPSR	0.74799853	0.038839673				
+R_BPNT	0.81496348	0.26116332				
+R_ADSK	0.76741836	0.087054439				
+R_MTHFR3	0.79018645	0.061607757				
+R_MTHFD	0.95893813	0.22634154				
+R_MTHFC	0.9314825	0.39442357				
+R_FTHFL	0.8531335	0.12857271				
+R_GLUDy	0.93617004	0.35089635				
+R_GLNS	0.87991948	0.30803878				
+R_ANS	0.7098285	0.34821776				
+R_GLYK	0.84375841	0.25915437				
+R_G3PT	0.78750785	0.44330799				
+R_G3PD1ir	0.87858018	0.33080687				
+R_ALCD2m	0.80357944	0.93483074				
+R_PSP_L	0.75536467	0.4935317				
+R_PSERT	0.75335572	0.46071888				
+R_PGCD	0.84978525	0.24442208				
+R_HSK	0.76607906	0.15937659				
+R_HSDyi	0.79152574	0.011384042				
+R_GHMT2r	0.77813275	0.43594184				
+R_CYSTS	0.78348995	0.36763759				
+R_TPI	0.88594633	0.75201642				
+R_PYK	0.94621479	0.20558241				
+R_PGM	0.89331247	0.68706042				
+R_PGK	0.79688294	0.4272364				
+R_PGI	0.81429383	0.48147801				
+R_PFK	0.88929458	0.38772708				
+R_PDHm	0.64554215	0.77679346				
+R_HEX1	0.73929308	0.25848472				
+R_GAPD	0.86652649	0.26250262				
+R_FBA	0.80424909	0.69241761				
+R_ENO	0.89666072	0.5042461				
+R_PRPPS	0.75134677	0.29263684				
+R_PRMICIi	0.59063089	0.61139002				
+R_PRATPP	0.7178643	0.28058315				
+R_PRAMPC	0.67835497	0.55982701				
+R_IGPDH	0.67165848	0.42120955				
+R_IG3PS	0.69777481	0.21428785				
+R_HSTPT	0.69844446	0.58594334				
+R_HISTP	0.69911411	0.34620881				
+R_HISTD	0.73393589	0.16071589				
+R_ATPPRT	0.72389114	0.25982402				
+R_FDH	0.89933932	0.21294855				
+R_METS	0.6368367	0.34888741				
+R_HSERTA	0.68438182	0.20223416				
+R_CYSTGL	0.66831023	0.56451455				
+R_AHSERL2	0.7111678	0.28192245				
+R_ADK1m	0.62880091	0.86853544				
+R_ADK1	0.94420584	0.18817152				
+R_PPAm	0.73393589	0.75536467				
+R_PPA	0.94219689	0.26652051				
+R_NADH2_u6m	0.67701568	0.70447131				
+R_NADH2_u6cm	0.74063238	0.29263684				
+R_MDHm	0.81898138	0.87724088				
+R_MDH	0.94621479	0.29129755				
+R_FUMm	0.77344521	0.7895168				
+R_FUM	0.93550039	0.51161224				
+R_CYOR_u6m	0.61473827	0.64018495				
+R_CYOOm	0.57322	0.79822224				
+R_ATPS3m	0.68170322	0.77612381				
+R_TKT2	0.91741986	0.81764208				
+R_TKT1	0.80759733	0.84107981				
+R_TALA	0.83639226	0.82768682				
+R_RPI	0.87724088	0.63348846				
+R_RPE	0.88661598	0.76875766				
+R_PGL	0.72590009	0.29397614				
+R_GND	0.84308876	0.34152126				
+R_G6PDH2	0.76875766	0.13125131				
+R_PYRDC	0.9314825	0.37031619				
+R_ALCD2x	0.90134827	0.44330799				
+R_ACSm	0.59263983	0.72924834				
+R_ACS	0.8491156	0.25245787				
+R_ACOAH	0.84844595	0.32411037				
+R_THRS	0.79353469	0.44799554				
+R_THRD_Lm	0.72790904	0.7908561				
+R_THRA	0.80960628	0.63884565				
+R_SACCD2	0.93617004	0.19486801				
+R_SACCD1	0.90536616	0.095090233				
+R_OXAGm	0.68170322	0.89933932				
+R_MCITDm	0.77411486	0.9274646				
+R_HICITDm	0.77478451	0.96228637				
+R_HACNHm	0.7908561	0.9234467				
+R_AATA	0.69375691	0.4962103				
+R_AASAD1	0.80491874	0.020759135				
+R_TYRTA	0.71451605	0.5002282				
+R_TRPS1	0.67634603	0.43594184				
+R_SHKK	0.7151857	0.066295303				
+R_SHK3D	0.74732888	0.11986727				
+R_PSCVTi	0.69978376	0.36696794				
+R_PRAIi	0.60402388	0.57656825				
+R_PPNDH	0.7178643	0.33951231				
+R_PPND2	0.80759733	0.25446682				
+R_PHETA1	0.81429383	0.60268458				
+R_IGPS	0.69375691	0.33348547				
+R_DHQTi	0.69710516	0.50759434				
+R_DHQS	0.69241761	0.51830874				
+R_DDPA	0.81161523	0.48951381				
+R_CHORS	0.68170322	0.41451306				
+R_CHORM	0.67835497	0.36361969				
+R_ANPRT	0.66094409	0.39509322				
+R_ALDD2ym	0.70514096	0.8571514				
+R_ALDD2y	0.9301432	0.29330649				
+R_ALDD2xm	0.7801417	0.87724088				
+R_VALTA	0.80759733	0.60871142				
+R_OMCDC	0.74331098	0.31741388				
+R_LEUTA	0.7178643	0.51496049				
+R_KARA2im	0.59799703	0.75335572				
+R_KARA1im	0.58795229	0.74331098				
+R_IPPS	0.73862343	0.33080687				
+R_IPPMIb	0.86384789	0.60067563				
+R_IPPMIa	0.87322299	0.53237138				
+R_IPMD	0.73996273	0.26852946				
+R_ILETA	0.77277556	0.68572112				
+R_DHAD2m	0.60000598	0.89063388				
+R_DHAD1m	0.62344371	0.83304402				
+R_ACLSm	0.65893514	0.78884715				
+R_ACHBSm	0.65893514	0.79554364				
+R_GLUSxm	0.76273081	0.97701866				
+R_AGTm	0.67768532	0.9207681				
+R_HCITS	0.88594633	0.37835198				
+R_MALS	0.90603581	0.38705743				
+R_GLUDym	0.74197168	0.80090084				
+R_CSc	0.93215215	0.31004773				
+R_SUCCt2r	0.68572112	0.31473528				
+R_SO4ti	0.56719315	0.41920061				
+R_PYRt2	0.67969427	0.59531843				
+R_PIt2r	0.65625654	0.20625206				
+R_O2t	0.61139002	0.52768383				
+R_NH4t	0.63080986	0.58393439				
+R_H2Ot	0.7098285	0.41183446				
+R_GLYCt	0.66563163	0.6475511				
+R_GLCt1	0.51228189	0.53906787				
+R_ETOHt	0.74398063	0.74732888				
+R_CO2t	0.74665923	0.49420135				
+R_ATPS	0.76139152	0.23035944				
+R_ACt2r	0.68505147	0.62679196				
+R_THRt2m	0.68639077	0.71049815				
+R_SUCFUMtm	0.67500673	0.62679196				
+R_SUCCtm	0.7138464	0.54777332				
+R_PYRt2m	0.76942731	0.60938107				
+R_PIt2m	0.87991948	0.5015675				
+R_ORNt3m	0.61005072	0.65424759				
+R_OAAt2m	0.91541091	0.51228189				
+R_O2tm	0.66563163	0.59130054				
+R_NH4tm	0.74531993	0.60536318				
+R_MALtm	0.90335722	0.62478301				
+R_H2Otm	0.86652649	0.59397913				
+R_GLYt2m	0.74732888	0.73393589				
+R_GLUt2m	0.9194288	0.56585385				
+R_ETOHtm	0.80826698	0.75938257				
+R_CO2tm	0.81161523	0.61875617				
+R_CITtcm	0.89733037	0.8558121				
+R_CITtam	0.93951829	0.77277556				
+R_ATPtm_H	0.68706042	0.50223715				
+R_ACtm	0.72790904	0.71049815				
+R_3MOPtm	0.71987324	0.80023119				
+R_3MOBtm	0.72523044	0.75737362				
+R_2OXOADPtim	0.68371217	0.75000747				
+R_GLNt2m	0.70313201	0.60938107				
+R_2OBUTtm	0.66697093	0.70112306				
+R_ALAt2m	0.73862343	0.7881775				
+R_HCITtm	0.76206117	0.78348995				
+R_GLXtm	0.74799853	0.78482925				
+R_ACALDtm	0.92143775	0.66228339				
+R_aicarSYN	0.73527518	0.30134229				
+R_ampSYN	0.82433857	0.24977927				
+R_dampSYN	0.8491156	0.11986727				
+R_gmpSYN	0.7908561	0.24509173				
+R_dgmpSYN	0.75670397	0.11852797				
+R_umpSYN	0.72991799	0.27321701				
+R_cmpSYN	0.72991799	0.23571663				
+R_dcmpSYN	0.78482925	0.093081285				
+R_dtmpSYN	0.73862343	0.24509173				
+R_13BDglcnSYN	0.70915885	0.26451156				
+R_mannanSYN	0.72656974	0.32411037				
+R_zymstSYN	0.85983	0.10915287				
+R_ergstSYN	0.70246236	0.20022521				
+R_paSYN	0.89398212	0.15870694				
+R_psSYN	0.68839972	0.12790306				
+R_peSYN	0.73929308	0.23973453				
+R_pcSYN	0.716525	0.25044892				
+R_ptd1inoSYN	0.73192694	0.15201044				
+R_triglycSYN	0.74665923	0.22567189				
+R_biomass	0.62143476	0.33683371				
+R_nadhs	0.66897988	0.99978675				
+R_nadphs	0.70447131	0.62545266				
+R_ASPTAm	0.80224014	0.79286504				
+R_ASPtm	0.89599107	0.54308577				
+R_AGC1tm	0.86518719	0.62009546				
+R_ALDD2x	0.96563462	0.34821776				
+R_GUT2	0.68706042	0.57656825				
+R_POS5m	0.72054289	0.88661598				
+R_POS5hm	0.72656974	0.86719614				
+R_UTR1	0.95224163	0.13727815				
+R_YEF1	0.93817899	0.097099182				
+%						
+!!SBtab DocumentName='YeastMetabolicModel' TableName='Flux' TableType='Quantity' Unit='mM/s' SBtabVersion='0.9'						
+!QuantityType	!Reaction	!Reaction:Identifiers:kegg.reaction	!Flux			
+flux	R_ASPTA	R00355	0.0061136623			
+flux	R_ASPKi	R00480	0.00012265307			
+flux	R_ASNS1	R00578	0.00021769314			
+flux	R_ASADi	R02291	0.00012265307			
+flux	R_ALATA_Lm	R00258	0			
+flux	R_ALATA_L	R00258	0.0019466519			
+flux	R_PPCK	R00341	0.077794747			
+flux	R_PC	R00344	0.095378119			
+flux	R_ME2m	R00214	0.013224115			
+flux	R_ICL	R00479	0.00096457111			
+flux	R_FBP	R00762	0			
+flux	R_P5CR		0.0003525473			
+flux	R_ORNTACim		0.00034398513			
+flux	R_OCBTi		0.00034398513			
+flux	R_GLU5K	R00239	0.0003525473			
+flux	R_G5SD	R03313	0.0003525473			
+flux	R_G5SADr		0.0003525473			
+flux	R_CBPS	R00575	0.00034398513			
+flux	R_ARGSSr	R01954	0.00034398513			
+flux	R_ARGSL	R01086	0.00034398513			
+flux	R_AGPRim	R03443	0.00034398513			
+flux	R_ACOTAim	R02283	0.00034398513			
+flux	R_ACGKm	R02649	0.00034398513			
+flux	R_SUCOAS1m	R00405	-0.036095501			
+flux	R_SUCD2_u6m	R02164	0.036095501			
+flux	R_ICDHy	R00267	0			
+flux	R_ICDHxm	R00709	0.038276285			
+flux	R_CSm		0.039240856			
+flux	R_AKGDam	R01197	0.036095501			
+flux	R_ACONTm	R01324	0			
+flux	R_ACONT	R01324	0.039240856			
+flux	R_SULR		-0.00012265307			
+flux	R_SLFAT	R00530	0.00012265307			
+flux	R_PAPSR		0.00012265307			
+flux	R_BPNT	R00188	0.00012265307			
+flux	R_ADSK	R00509	0.00012265307			
+flux	R_MTHFR3	R01224	0.00011040917			
+flux	R_MTHFD		0.00055675502			
+flux	R_MTHFC	R01655	0.00055675502			
+flux	R_FTHFL	R00943	4.7091928e-06			
+flux	R_GLUDy		0.00075990519			
+flux	R_GLNS		0.0017498932			
+flux	R_ANS	R00986	6.0791398e-05			
+flux	R_GLYK	R00847	0			
+flux	R_G3PT	R00841	0			
+flux	R_G3PD1ir	R00842	0			
+flux	R_ALCD2m	R00754	0.019480619			
+flux	R_PSP_L	R00582	0.0011469068			
+flux	R_PSERT	R04173	0.0011469068			
+flux	R_PGCD	R01513	0.0011469068			
+flux	R_HSK	R01771	0			
+flux	R_HSDyi	R01775	0.00012265307			
+flux	R_GHMT2r	R00945	0.00067487014			
+flux	R_CYSTS	R01290	1.4127578e-05			
+flux	R_TPI	R01015	0.078606733			
+flux	R_PYK	R00200	0.23219756			
+flux	R_PGM	R01518	-0.15553431			
+flux	R_PGK	R01512	-0.15668121			
+flux	R_PGI	R00771	0.080958005			
+flux	R_PFK	R00756	0.078607261			
+flux	R_PDHm	R00209	0.039240856			
+flux	R_HEX1	R00299	0.083387205			
+flux	R_GAPD	R01061	0.15668121			
+flux	R_FBA	R01070	0.078607261			
+flux	R_ENO	R00658	0.15553431			
+flux	R_PRPPS		0.00020270934			
+flux	R_PRMICIi	R04640	0.00014191795			
+flux	R_PRATPP	R04035	0.00014191795			
+flux	R_PRAMPC	R04037	0.00014191795			
+flux	R_IGPDH	R03457	0.00014191795			
+flux	R_IG3PS	R04558	0.00014191795			
+flux	R_HSTPT	R03243	0.00014191795			
+flux	R_HISTP	R03013	0.00014191795			
+flux	R_HISTD	R01158	0.00014191795			
+flux	R_ATPPRT	R01071	0.00014191795			
+flux	R_FDH	R00519	0			
+flux	R_METS	R00946	0.00011040917			
+flux	R_HSERTA	R01776	0.00012265307			
+flux	R_CYSTGL		1.4127578e-05			
+flux	R_AHSERL2	R01287	0.00012265307			
+flux	R_ADK1m		0			
+flux	R_ADK1		0.0036577927			
+flux	R_PPAm		0			
+flux	R_PPA		0.0077222007			
+flux	R_NADH2_u6m		0			
+flux	R_NADH2_u6cm		0			
+flux	R_MDHm	R00342	0.088264208			
+flux	R_MDH	R00342	-0.064590975			
+flux	R_FUMm	R01082	0.036095501			
+flux	R_FUM	R01082	0.0008018471			
+flux	R_CYOR_u6m		0.036094972			
+flux	R_CYOOm	R00081	0.018047486			
+flux	R_ATPS3m		0.054142458			
+flux	R_TKT2	R01067	-0.00059357234			
+flux	R_TKT1	R01641	-2.7827048e-05			
+flux	R_TALA		-2.7827048e-05			
+flux	R_RPI	R01056	-0.00062139939			
+flux	R_RPE	R01529	-0.00062139939			
+flux	R_PGL	R02035	0			
+flux	R_GND	R01528	0			
+flux	R_G6PDH2	R00835	0			
+flux	R_PYRDC	R00224	0.07819399			
+flux	R_ALCD2x	R00754	-0.094881081			
+flux	R_ACSm	R00235	0			
+flux	R_ACS	R00235	0.0014642079			
+flux	R_ACOAH	R00227	0			
+flux	R_THRS	R01466	0			
+flux	R_THRD_Lm		0.0003983549			
+flux	R_THRA	R00751	0.00080805467			
+flux	R_SACCD2	R00715	0.00061262317			
+flux	R_SACCD1	R02315	0.00061262317			
+flux	R_OXAGm		0.00061262317			
+flux	R_MCITDm	R03444	0.00061262317			
+flux	R_HICITDm		0.00061262317			
+flux	R_HACNHm	R04371	0.00061262317			
+flux	R_AATA	R01939	0.00061262317			
+flux	R_AASAD1		0.00061262317			
+flux	R_TYRTA	R00734	-0.0002183353			
+flux	R_TRPS1		6.0791398e-05			
+flux	R_SHKK	R02412	0.0005657453			
+flux	R_SHK3D	R02413	0.0005657453			
+flux	R_PSCVTi	R03460	0.0005657453			
+flux	R_PRAIi	R03509	6.0791398e-05			
+flux	R_PPNDH	R01373	0.0002866186			
+flux	R_PPND2	R01730	0.0002183353			
+flux	R_PHETA1	R00694	-0.0002866186			
+flux	R_IGPS	R03508	6.0791398e-05			
+flux	R_DHQTi	R03084	0.0005657453			
+flux	R_DHQS	R03083	0.0005657453			
+flux	R_DDPA	R01826	0.0005657453			
+flux	R_CHORS	R01714	0.0005657453			
+flux	R_CHORM	R01715	0.0005049539			
+flux	R_ANPRT	R01073	6.0791398e-05			
+flux	R_ALDD2ym	R00711	0			
+flux	R_ALDD2y	R00711	0.0019854737			
+flux	R_ALDD2xm		0			
+flux	R_VALTA	R01214	-0.00056638746			
+flux	R_OMCDC	R01652	0.0006344567			
+flux	R_LEUTA	R01090	-0.0006344567			
+flux	R_KARA2im		0.00041248248			
+flux	R_KARA1im		0.0012008442			
+flux	R_IPPS	R01213	0.0006344567			
+flux	R_IPPMIb	R03968	-0.0006344567			
+flux	R_IPPMIa	R04001	-0.0006344567			
+flux	R_IPMD	R04426	0.0006344567			
+flux	R_ILETA	R02199	-0.00041248248			
+flux	R_DHAD2m	R05070	0.00041248248			
+flux	R_DHAD1m	R04441	0.0012008442			
+flux	R_ACLSm		0.0012008442			
+flux	R_ACHBSm	R08648	0.00041248248			
+flux	R_GLUSxm	R00093	0			
+flux	R_AGTm	R00369	0.00096457111			
+flux	R_HCITS	R00271	0.00061262317			
+flux	R_MALS	R00472	0			
+flux	R_GLUDym		-0.011266804			
+flux	R_CSc	R00351	0			
+flux	R_SUCCt2r		-0.00096457111			
+flux	R_SO4ti		0.00016546391			
+flux	R_PYRt2		-0.028873252			
+flux	R_PIt2r		0.00038482881			
+flux	R_O2t		0.1292017			
+flux	R_NH4t		0.011945129			
+flux	R_H2Ot		0.021424352			
+flux	R_GLYCt		0			
+flux	R_GLCt1		0.083387205			
+flux	R_ETOHt	R00754	-0.075400462			
+flux	R_CO2t		-0.19035767			
+flux	R_ATPS		0			
+flux	R_ACt2r		-0.00064391888			
+flux	R_THRt2m		0.0003983549			
+flux	R_SUCFUMtm		0			
+flux	R_SUCCtm	R00405	0			
+flux	R_PYRt2m		0.027866341			
+flux	R_PIt2m		0.15432223			
+flux	R_ORNt3m		0.00034398513			
+flux	R_OAAt2m		-0.040893941			
+flux	R_O2tm		0.12903253			
+flux	R_NH4tm		0.010868449			
+flux	R_MALtm		0.064428251			
+flux	R_H2Otm		-0.12068859			
+flux	R_GLYt2m		-0.00096457111			
+flux	R_GLUt2m		-0.010578833			
+flux	R_ETOHtm	R00754	0.019480619			
+flux	R_CO2tm		-0.12906271			
+flux	R_CITtcm		-0.038276285			
+flux	R_CITtam		-0.00096457111			
+flux	R_ATPtm_H		0.089893974			
+flux	R_ACtm		0			
+flux	R_3MOPtm		-0.00041248248			
+flux	R_3MOBtm		-0.0012008442			
+flux	R_2OXOADPtim	R01939	0.00061262317			
+flux	R_GLNt2m		0			
+flux	R_2OBUTtm	R08648	1.4127578e-05			
+flux	R_ALAt2m		0.00096457111			
+flux	R_HCITtm		0.00061262317			
+flux	R_GLXtm		0.00096457111			
+flux	R_ACALDtm		-0.019480619			
+flux	R_aicarSYN		0.00020977313			
+flux	R_ampSYN		0.00024808884			
+flux	R_dampSYN		7.7059518e-06			
+flux	R_gmpSYN	R01231	0.00010360224			
+flux	R_dgmpSYN		5.1373012e-06			
+flux	R_umpSYN		0.00023674396			
+flux	R_cmpSYN		0.00010852549			
+flux	R_dcmpSYN		1.2843253e-05			
+flux	R_dtmpSYN		7.7059518e-06			
+flux	R_13BDglcnSYN	R00299	0.0024290873			
+flux	R_mannanSYN		0.001729344			
+flux	R_zymstSYN		4.7091928e-06			
+flux	R_ergstSYN		1.4983795e-06			
+flux	R_paSYN		5.2871392e-07			
+flux	R_psSYN		2.6114614e-07			
+flux	R_peSYN		2.2475693e-07			
+flux	R_pcSYN		1.2843253e-07			
+flux	R_ptd1inoSYN		1.1344874e-07			
+flux	R_triglycSYN		1.4127578e-07			
+flux	R_biomass		0.0021405422			
+flux	R_nadhs		0.11098505			
+flux	R_nadphs		0			
+flux	R_ASPTAm	R00355	-0.0081294109			
+flux	R_ASPtm		0			
+flux	R_AGC1tm		0.0081294109			
+flux	R_ALDD2x		0			
+flux	R_GUT2		0			
+flux	R_POS5m	R00104	0			
+flux	R_POS5hm	R00105	0			
+flux	R_UTR1	R00105	0			
+flux	R_YEF1	R00104	0			
+%						
+!!SBtab DocumentName='YeastMetabolicModel' TableName='GibbsEnergyOfReaction' TableType='Quantity' Unit='kJ/mol' StandardConcentration='1mM' SBtabVersion='0.9'						
+!QuantityType	!Reaction	!Reaction:Identifiers:kegg.reaction	!Mean	!Std	!ReactionFormula	
+standard Gibbs energy of reaction	R_ASPTA	R00355	-14.234027	0.55	M_akg_c + M_asp_L_c <=> M_Fluxsum_e + M_glu_L_c + M_oaa_c	
+standard Gibbs energy of reaction	R_ASPKi	R00480	1.3059726	2.96	M_atp_c + M_asp_L_c <=> M_4pasp_c + M_adp_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_ASNS1	R00578	-53.344027	4.34	M_asp_L_c + M_h2o_c + M_gln_L_c + M_atp_c <=> M_ppi_c + M_amp_c + M_Fluxsum_e + M_glu_L_c + M_asn_L_c + M_h_c	
+standard Gibbs energy of reaction	R_ASADi	R02291	-1.7540274	1.71	M_4pasp_c + M_nadph_c + M_h_c <=> M_pi_c + M_aspsa_c + M_Fluxsum_e + M_nadp_c	
+standard Gibbs energy of reaction	R_ALATA_Lm	R00258	-16.904027	0.54	M_glu_L_m + M_pyr_m <=> M_Fluxsum_e + M_ala_L_m + M_akg_m	
+standard Gibbs energy of reaction	R_ALATA_L	R00258	-16.904027	0.54	M_pyr_c + M_glu_L_c <=> M_akg_c + M_ala_L_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_PPCK	R00341	151.84597	3.29	M_oaa_c + M_atp_c + M_h2o_c <=> M_adp_c + M_Fluxsum_e + M_pep_c + M_co2_c	
+standard Gibbs energy of reaction	R_PC	R00344	-183.82403	3.27	M_pyr_c + M_atp_c + M_co2_c <=> M_pi_c + M_adp_c + M_oaa_c + M_Fluxsum_e + M_h_c	
+standard Gibbs energy of reaction	R_ME2m	R00214	155.49597	3.31	M_mal_L_m + M_h2o_m + M_nadp_m <=> M_pyr_m + M_co2_m + M_Fluxsum_e + M_nadph_m	
+standard Gibbs energy of reaction	R_ICL	R00479	-7.4940274	1.36	M_icit_c <=> M_succ_c + M_Fluxsum_e + M_glx_c	
+standard Gibbs energy of reaction	R_FBP	R00762	-27.554027	0.7	M_fdp_c + M_h2o_c <=> M_pi_c + M_f6p_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_P5CR		-69.154027	2.96	M_nadph_c + M_1pyr5c_c + 2.0 M_h_c <=> M_Fluxsum_e + M_nadp_c + M_pro_L_c	
+standard Gibbs energy of reaction	R_ORNTACim		-14.014027	2.96	M_acorn_m + M_glu_L_m <=> M_orn_m + M_acglu_m + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_OCBTi		-46.034027	2.96	M_cbp_c + M_orn_c <=> M_pi_c + M_Fluxsum_e + M_h_c + M_citr_L_c	
+standard Gibbs energy of reaction	R_GLU5K	R00239	9.3459726	2.27	M_atp_c + M_glu_L_c <=> M_Fluxsum_e + M_adp_c + M_glu5p_c	
+standard Gibbs energy of reaction	R_G5SD	R03313	-26.244027	1.6	M_h_c + M_glu5p_c + M_nadph_c <=> M_pi_c + M_Fluxsum_e + M_glu5sa_c + M_nadp_c	
+standard Gibbs energy of reaction	R_G5SADr		-5.6940274	4.66	M_glu5sa_c <=> M_1pyr5c_c + M_Fluxsum_e + M_h2o_c + M_h_c	
+standard Gibbs energy of reaction	R_CBPS	R00575	-192.91403	5.12	M_h2o_c + M_gln_L_c + 2.0 M_atp_c + M_co2_c <=> M_pi_c + 2.0 M_adp_c + M_cbp_c + M_Fluxsum_e + M_glu_L_c + 2.0 M_h_c	
+standard Gibbs energy of reaction	R_ARGSSr	R01954	-15.414027	1.48	M_asp_L_c + M_atp_c + M_citr_L_c <=> M_ppi_c + M_amp_c + M_argsuc_c + M_Fluxsum_e + M_h_c	
+standard Gibbs energy of reaction	R_ARGSL	R01086	-3.6640274	2.96	M_argsuc_c <=> M_fum_c + M_arg_L_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_AGPRim	R03443	-23.944027	1.6	M_acg5p_m + M_h_m + M_nadph_m <=> M_nadp_m + M_pi_m + M_acg5sa_m + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_ACOTAim	R02283	-5.5640274	3.25	M_acg5sa_m + M_glu_L_m <=> M_Fluxsum_e + M_akg_m + M_acorn_m	
+standard Gibbs energy of reaction	R_ACGKm	R02649	13.135973	2.99	M_atp_m + M_acglu_m <=> M_adp_m + M_acg5p_m + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_SUCOAS1m	R00405	-18.984027	1.35	M_succ_m + M_atp_m + M_coa_m <=> M_succoa_m + M_Fluxsum_e + M_pi_m + M_adp_m	
+standard Gibbs energy of reaction	R_SUCD2_u6m	R02164	-38.674027	3.62	M_succ_m + M_q6_m <=> M_q6h2_m + M_fum_m + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_ICDHy	R00267	147.88597	3.34	M_icit_c + M_h2o_c + M_nadp_c <=> M_akg_c + M_nadph_c + M_Fluxsum_e + M_co2_c	
+standard Gibbs energy of reaction	R_ICDHxm	R00709	146.90597	3.34	M_h2o_m + M_nad_m + M_icit_m <=> M_nadh_m + M_akg_m + M_co2_m + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_CSm		-51.734027	0.44	M_accoa_m + M_h2o_m + M_oaa_m <=> M_cit_m + M_h_m + M_Fluxsum_e + M_coa_m	
+standard Gibbs energy of reaction	R_AKGDam	R01197	113.26597	4.06	M_h2o_m + M_akg_m + M_nad_m + M_coa_m <=> M_nadh_m + M_co2_m + M_Fluxsum_e + M_succoa_m	
+standard Gibbs energy of reaction	R_ACONTm	R01324	-9.4940274	0.33	M_cit_m <=> M_icit_m + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_ACONT	R01324	-9.4940274	0.33	M_cit_c <=> M_icit_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_SULR		112.09597	4.79	3.0 M_nadp_c + 3.0 M_h2o_c + M_h2s_c <=> 3.0 M_nadph_c + M_Fluxsum_e + M_so3_c + 5.0 M_h_c	
+standard Gibbs energy of reaction	R_SLFAT	R00530	40.895973	1.2	M_adp_c + M_so4_c + M_h_c <=> M_pi_c + M_aps_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_PAPSR		-62.444027	6.03	M_nadph_c + M_paps_c <=> M_pap_c + M_Fluxsum_e + 2.0 M_h_c + M_so3_c + M_nadp_c	
+standard Gibbs energy of reaction	R_BPNT	R00188	-26.904027	3.07	M_pap_c + M_h2o_c <=> M_pi_c + M_amp_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_ADSK	R00509	-30.794027	5.86	M_aps_c + M_atp_c <=> M_adp_c + M_Fluxsum_e + M_paps_c + M_h_c	
+standard Gibbs energy of reaction	R_MTHFR3	R01224	-56.014027	4.23	M_nadph_c + M_mlthf_c + M_h_c <=> M_nadp_c + M_Fluxsum_e + M_5mthf_c	
+standard Gibbs energy of reaction	R_MTHFD		-7.2240274	1.15	M_mlthf_c + M_nadp_c <=> M_h_c + M_nadph_c + M_methf_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_MTHFC	R01655	-22.124027	0.92	M_h2o_c + M_methf_c <=> M_Fluxsum_e + M_10fthf_c	
+standard Gibbs energy of reaction	R_FTHFL	R00943	-21.964027	1.95	M_for_c + M_thf_c + M_atp_c <=> M_pi_c + M_adp_c + M_Fluxsum_e + M_10fthf_c	
+standard Gibbs energy of reaction	R_GLUDy		22.795973	0.38	M_glu_L_c + M_h2o_c + M_nadp_c <=> M_h_c + M_akg_c + M_nadph_c + M_Fluxsum_e + M_nh4_c	
+standard Gibbs energy of reaction	R_GLNS		-24.384027	3.22	M_atp_c + M_glu_L_c + M_nh4_c <=> M_pi_c + M_gln_L_c + M_adp_c + M_Fluxsum_e + M_h_c	
+standard Gibbs energy of reaction	R_ANS	R00986	-101.48403	6.8	M_gln_L_c + M_chor_c <=> M_pyr_c + M_Fluxsum_e + M_glu_L_c + M_anth_c + M_h_c	
+standard Gibbs energy of reaction	R_GLYK	R00847	-32.684027	2.1	M_atp_c + M_glyc_c <=> M_glyc3p_c + M_adp_c + M_Fluxsum_e + M_h_c	
+standard Gibbs energy of reaction	R_G3PT	R00841	-26.954027	2.1	M_glyc3p_c + M_h2o_c <=> M_pi_c + M_Fluxsum_e + M_glyc_c	
+standard Gibbs energy of reaction	R_G3PD1ir	R00842	-43.534027	0.74	M_dhap_c + M_nadh_c + M_h_c <=> M_glyc3p_c + M_nad_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_ALCD2m	R00754	4.5559726	0.33	M_etoh_m + M_nad_m <=> M_nadh_m + M_Fluxsum_e + M_acald_m + M_h_m	
+standard Gibbs energy of reaction	R_PSP_L	R00582	-26.544027	0.28	M_pser_L_c + M_h2o_c <=> M_pi_c + M_ser_L_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_PSERT	R04173	-28.634027	0.38	M_3php_c + M_glu_L_c <=> M_pser_L_c + M_akg_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_PGCD	R01513	17.455973	0.57	M_3pg_c + M_nad_c <=> M_nadh_c + M_Fluxsum_e + M_3php_c + M_h_c	
+standard Gibbs energy of reaction	R_HSK	R01771	-48.194027	4.51	M_atp_c + M_hom_L_c <=> M_adp_c + M_Fluxsum_e + M_phom_c + M_h_c	
+standard Gibbs energy of reaction	R_HSDyi	R01775	-41.034027	1.71	M_aspsa_c + M_nadph_c + M_h_c <=> M_nadp_c + M_Fluxsum_e + M_hom_L_c	
+standard Gibbs energy of reaction	R_GHMT2r	R00945	-23.644027	1.26	M_ser_L_c + M_thf_c <=> M_mlthf_c + M_Fluxsum_e + M_h2o_c + M_gly_c	
+standard Gibbs energy of reaction	R_CYSTS	R01290	-48.044027	2.69	M_ser_L_c + M_hcys_L_c <=> M_Fluxsum_e + M_cyst_L_c + M_h2o_c	
+standard Gibbs energy of reaction	R_TPI	R01015	-12.744027	1.19	M_dhap_c <=> M_Fluxsum_e + M_g3p_c	
+standard Gibbs energy of reaction	R_PYK	R00200	-44.794027	0.43	M_adp_c + M_pep_c + M_h_c <=> M_pyr_c + M_Fluxsum_e + M_atp_c	
+standard Gibbs energy of reaction	R_PGM	R01518	-21.344027	0.36	M_2pg_c <=> M_3pg_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_PGK	R01512	1.3259726	0.45	M_3pg_c + M_atp_c <=> M_13dpg_c + M_adp_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_PGI	R00771	-14.594027	0.39	M_g6p_c <=> M_f6p_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_PFK	R00756	-32.094027	0.68	M_f6p_c + M_atp_c <=> M_adp_c + M_Fluxsum_e + M_fdp_c + M_h_c	
+standard Gibbs energy of reaction	R_PDHm	R00209	105.18597	3.35	M_h2o_m + M_pyr_m + M_nad_m + M_coa_m <=> M_accoa_m + M_nadh_m + M_co2_m + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_HEX1	R00299	-34.394027	0.44	M_atp_c + M_glc_D_c <=> M_adp_c + M_Fluxsum_e + M_g6p_c + M_h_c	
+standard Gibbs energy of reaction	R_GAPD	R01061	-9.2540274	1.29	M_pi_c + M_g3p_c + M_nad_c <=> M_13dpg_c + M_Fluxsum_e + M_nadh_c + M_h_c	
+standard Gibbs energy of reaction	R_FBA	R01070	2.5859726	1.19	M_fdp_c <=> M_dhap_c + M_Fluxsum_e + M_g3p_c	
+standard Gibbs energy of reaction	R_ENO	R00658	-21.214027	0.31	M_2pg_c <=> M_pep_c + M_Fluxsum_e + M_h2o_c	
+standard Gibbs energy of reaction	R_PRPPS		-16.774027	1.46	M_atp_c + M_r5p_c <=> M_prpp_c + M_amp_c + M_Fluxsum_e + M_h_c	
+standard Gibbs energy of reaction	R_PRMICIi	R04640	-22.864027	1.21	M_prfp_c <=> M_prlp_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_PRATPP	R04035	-93.904027	0	M_prbatp_c + M_h2o_c <=> M_ppi_c + M_Fluxsum_e + M_prbamp_c + M_h_c	
+standard Gibbs energy of reaction	R_PRAMPC	R04037	-17.194027	0	M_prbamp_c + M_h2o_c <=> M_prfp_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_IGPDH	R03457	-58.814027	1.96	M_eig3p_c <=> M_imacp_c + M_Fluxsum_e + M_h2o_c	
+standard Gibbs energy of reaction	R_IG3PS	R04558	-52.654027	100000	M_gln_L_c + M_prlp_c <=> M_eig3p_c + M_Fluxsum_e + M_glu_L_c + M_aicar_c + M_h_c	
+standard Gibbs energy of reaction	R_HSTPT	R03243	-9.5040274	2.96	M_imacp_c + M_glu_L_c <=> M_Fluxsum_e + M_akg_c + M_hisp_c	
+standard Gibbs energy of reaction	R_HISTP	R03013	-32.914027	2.16	M_h2o_c + M_hisp_c <=> M_pi_c + M_Fluxsum_e + M_histd_c	
+standard Gibbs energy of reaction	R_HISTD	R01158	-23.614027	2.19	2.0 M_nad_c + M_histd_c + M_h2o_c <=> 2.0 M_nadh_c + M_Fluxsum_e + 3.0 M_h_c + M_his_L_c	
+standard Gibbs energy of reaction	R_ATPPRT	R01071	-62.614027	0	M_prpp_c + M_atp_c <=> M_ppi_c + M_prbatp_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_FDH	R00519	126.40597	3.41	M_for_c + M_nad_c + M_h2o_c <=> M_Fluxsum_e + M_co2_c + M_nadh_c	
+standard Gibbs energy of reaction	R_METS	R00946	-27.214027	5.21	M_5mthf_c + M_hcys_L_c <=> M_thf_c + M_met_L_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_HSERTA	R01776	-37.714027	4.73	M_accoa_c + M_hom_L_c <=> M_Fluxsum_e + M_coa_c + M_achms_c	
+standard Gibbs energy of reaction	R_CYSTGL		-13.044027	6.13	M_cyst_L_c + M_h2o_c <=> M_cys_L_c + M_2obut_c + M_Fluxsum_e + M_nh4_c	
+standard Gibbs energy of reaction	R_AHSERL2	R01287	-82.364027	5.39	M_achms_c + M_h2s_c <=> M_hcys_L_c + M_Fluxsum_e + M_ac_c + M_h_c	
+standard Gibbs energy of reaction	R_ADK1m		-19.684027	0.16	M_atp_m + M_amp_m <=> 2.0 M_adp_m + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_ADK1		-19.684027	0.16	M_atp_c + M_amp_c <=> 2.0 M_adp_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_PPAm		-31.904027	0.19	M_ppi_m + M_h2o_m <=> 2.0 M_pi_m + M_Fluxsum_e + M_h_m	
+standard Gibbs energy of reaction	R_PPA		-31.904027	0.19	M_ppi_c + M_h2o_c <=> 2.0 M_pi_c + M_Fluxsum_e + M_h_c	
+standard Gibbs energy of reaction	R_NADH2_u6m		-101.84403	3.01	M_nadh_m + M_h_m + M_q6_m <=> M_q6h2_m + M_Fluxsum_e + M_nad_m	
+standard Gibbs energy of reaction	R_NADH2_u6cm		-101.84403	3.01	M_nadh_c + M_q6_m + M_h_c <=> M_nad_c + M_Fluxsum_e + M_q6h2_m	
+standard Gibbs energy of reaction	R_MDHm	R00342	13.215973	0.31	M_mal_L_m + M_nad_m <=> M_oaa_m + M_nadh_m + M_Fluxsum_e + M_h_m	
+standard Gibbs energy of reaction	R_MDH	R00342	13.215973	0.31	M_nad_c + M_mal_L_c <=> M_h_c + M_oaa_c + M_Fluxsum_e + M_nadh_c	
+standard Gibbs energy of reaction	R_FUMm	R01082	-20.574027	0.28	M_fum_m + M_h2o_m <=> M_Fluxsum_e + M_mal_L_m	
+standard Gibbs energy of reaction	R_FUM	R01082	-20.574027	0.28	M_fum_c + M_h2o_c <=> M_Fluxsum_e + M_mal_L_c	
+standard Gibbs energy of reaction	R_CYOR_u6m		4.9559726	282842.71	1.5 M_h_m + M_q6h2_m + 2.0 M_ficytc_m <=> 2.0 M_focytc_m + M_Fluxsum_e + 1.5 M_hcyt_c + M_q6_m	
+standard Gibbs energy of reaction	R_CYOOm	R00081	-343.78403	565685.42	4.0 M_focytc_m + M_o2_m + 6.0 M_h_m <=> 2.0 M_h2o_m + 6.0 M_hcyt_c + M_Fluxsum_e + 4.0 M_ficytc_m	
+standard Gibbs energy of reaction	R_ATPS3m		5.2759726	0.31	M_pi_m + M_adp_m + 3.0 M_hcyt_c <=> M_h2o_m + M_Fluxsum_e + 3.0 M_h_m + M_atp_m	
+standard Gibbs energy of reaction	R_TKT2	R01067	-28.204027	2.25	M_xu5p_D_c + M_e4p_c <=> M_f6p_c + M_Fluxsum_e + M_g3p_c	
+standard Gibbs energy of reaction	R_TKT1	R01641	-13.464027	2.89	M_xu5p_D_c + M_r5p_c <=> M_Fluxsum_e + M_s7p_c + M_g3p_c	
+standard Gibbs energy of reaction	R_TALA		-25.304027	3.01	M_g3p_c + M_s7p_c <=> M_e4p_c + M_Fluxsum_e + M_f6p_c	
+standard Gibbs energy of reaction	R_RPI	R01056	-15.184027	0.77	M_r5p_c <=> M_ru5p_D_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_RPE	R01529	-20.494027	1.16	M_ru5p_D_c <=> M_xu5p_D_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_PGL	R02035	-38.054027	1.68	M_6pgl_c + M_h2o_c <=> M_6pgc_c + M_Fluxsum_e + M_h_c	
+standard Gibbs energy of reaction	R_GND	R01528	152.67597	3.35	M_h2o_c + M_6pgc_c + M_nadp_c <=> M_ru5p_D_c + M_nadph_c + M_Fluxsum_e + M_co2_c	
+standard Gibbs energy of reaction	R_G6PDH2	R00835	-19.444027	1.33	M_g6p_c + M_nadp_c <=> M_h_c + M_Fluxsum_e + M_nadph_c + M_6pgl_c	
+standard Gibbs energy of reaction	R_PYRDC	R00224	123.18597	3.39	M_pyr_c + M_h2o_c + M_h_c <=> M_acald_c + M_Fluxsum_e + M_co2_c	
+standard Gibbs energy of reaction	R_ALCD2x	R00754	4.5559726	0.33	M_etoh_c + M_nad_c <=> M_nadh_c + M_acald_c + M_Fluxsum_e + M_h_c	
+standard Gibbs energy of reaction	R_ACSm	R00235	-21.604027	0.41	M_ac_m + M_atp_m + M_coa_m <=> M_ppi_m + M_accoa_m + M_Fluxsum_e + M_amp_m	
+standard Gibbs energy of reaction	R_ACS	R00235	-21.604027	0.41	M_atp_c + M_ac_c + M_coa_c <=> M_ppi_c + M_amp_c + M_Fluxsum_e + M_accoa_c	
+standard Gibbs energy of reaction	R_ACOAH	R00227	13.845973	0.52	M_h2o_c + M_accoa_c <=> M_Fluxsum_e + M_ac_c + M_coa_c + M_h_c	
+standard Gibbs energy of reaction	R_THRS	R01466	-44.394027	2.79	M_phom_c + M_h2o_c <=> M_pi_c + M_thr_L_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_THRD_Lm		-40.904027	4.2	M_thr_L_m <=> M_2obut_m + M_Fluxsum_e + M_nh4_m	
+standard Gibbs energy of reaction	R_THRA	R00751	-28.004027	2.26	M_acald_c + M_gly_c <=> M_Fluxsum_e + M_thr_L_c	
+standard Gibbs energy of reaction	R_SACCD2	R00715	21.995973	2.96	M_nad_c + M_h2o_c + M_saccrp_L_c <=> M_akg_c + M_lys_L_c + M_Fluxsum_e + M_h_c + M_nadh_c	
+standard Gibbs energy of reaction	R_SACCD1	R02315	-55.254027	3.07	M_glu_L_c + M_nadph_c + M_L2aadp6sa_c + M_h_c <=> M_Fluxsum_e + M_nadp_c + M_h2o_c + M_saccrp_L_c	
+standard Gibbs energy of reaction	R_OXAGm		128.87597	3.61	M_h2o_m + M_oxag_m + M_h_m <=> M_2oxoadp_m + M_co2_m + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_MCITDm	R03444	-13.964027	1.89	M_hcit_m <=> M_Fluxsum_e + M_b124tc_m + M_h2o_m	
+standard Gibbs energy of reaction	R_HICITDm		5.1259726	2.64	M_nad_m + M_hicit_m <=> M_nadh_m + M_Fluxsum_e + M_oxag_m + M_h_m	
+standard Gibbs energy of reaction	R_HACNHm	R04371	-15.494027	2.93	M_b124tc_m + M_h2o_m <=> M_Fluxsum_e + M_hicit_m	
+standard Gibbs energy of reaction	R_AATA	R01939	-16.404027	2.96	M_2oxoadp_c + M_glu_L_c <=> M_akg_c + M_L2aadp_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_AASAD1		-11.364027	2.91	M_nadph_c + M_atp_c + M_h_c + M_L2aadp_c <=> M_ppi_c + M_Fluxsum_e + M_amp_c + M_L2aadp6sa_c + M_nadp_c	
+standard Gibbs energy of reaction	R_TYRTA	R00734	-17.114027	2.09	M_akg_c + M_tyr_L_c <=> M_34hpp_c + M_Fluxsum_e + M_glu_L_c	
+standard Gibbs energy of reaction	R_TRPS1		-48.754027	3.42	M_3ig3p_c + M_ser_L_c <=> M_g3p_c + M_Fluxsum_e + M_trp_L_c + M_h2o_c	
+standard Gibbs energy of reaction	R_SHKK	R02412	-22.374027	1.68	M_skm_c + M_atp_c <=> M_adp_c + M_Fluxsum_e + M_skm5p_c + M_h_c	
+standard Gibbs energy of reaction	R_SHK3D	R02413	-97.244027	4.03	M_nadph_c + M_3dhsk_c + M_h_c <=> M_Fluxsum_e + M_skm_c + M_nadp_c	
+standard Gibbs energy of reaction	R_PSCVTi	R03460	-29.884027	2.29	M_pep_c + M_skm5p_c <=> M_3psme_c + M_pi_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_PRAIi	R03509	-22.964027	1.21	M_pran_c <=> M_2cpr5p_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_PPNDH	R01373	68.955973	9.3	M_pphn_c + M_h_c <=> M_phpyr_c + M_co2_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_PPND2	R01730	128.59597	9.32	M_h2o_c + M_pphn_c + M_nadp_c <=> M_nadph_c + M_34hpp_c + M_Fluxsum_e + M_co2_c	
+standard Gibbs energy of reaction	R_PHETA1	R00694	-17.604027	2.09	M_phe_L_c + M_akg_c <=> M_phpyr_c + M_Fluxsum_e + M_glu_L_c	
+standard Gibbs energy of reaction	R_IGPS	R03508	55.435973	5.86	M_2cpr5p_c + M_h_c <=> M_3ig3p_c + M_co2_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_DHQTi	R03084	-22.414027	2.09	M_3dhq_c <=> M_3dhsk_c + M_Fluxsum_e + M_h2o_c	
+standard Gibbs energy of reaction	R_DHQS	R03083	-146.92403	5.02	M_2dda7p_c <=> M_3dhq_c + M_pi_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_DDPA	R01826	-86.434027	2.4	M_h2o_c + M_pep_c + M_e4p_c <=> M_pi_c + M_Fluxsum_e + M_2dda7p_c	
+standard Gibbs energy of reaction	R_CHORS	R01714	-64.614027	3.64	M_3psme_c <=> M_pi_c + M_chor_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_CHORM	R01715	-38.194027	4.56	M_chor_c <=> M_pphn_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_ANPRT	R01073	-71.624027	3.41	M_prpp_c + M_anth_c <=> M_ppi_c + M_Fluxsum_e + M_pran_c	
+standard Gibbs energy of reaction	R_ALDD2ym	R00711	-63.124027	1.33	M_h2o_m + M_nadp_m + M_acald_m <=> M_ac_m + 2.0 M_h_m + M_Fluxsum_e + M_nadph_m	
+standard Gibbs energy of reaction	R_ALDD2y	R00711	-63.124027	1.33	M_acald_c + M_nadp_c + M_h2o_c <=> M_Fluxsum_e + M_nadph_c + M_ac_c + 2.0 M_h_c	
+standard Gibbs energy of reaction	R_ALDD2xm		-64.104027	1.31	M_h2o_m + M_acald_m + M_nad_m <=> M_ac_m + M_nadh_m + 2.0 M_h_m + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_VALTA	R01214	-13.974027	3.5	M_akg_c + M_val_L_c <=> M_3mob_c + M_Fluxsum_e + M_glu_L_c	
+standard Gibbs energy of reaction	R_OMCDC	R01652	122.08597	4.42	M_3c4mop_c + M_h2o_c + M_h_c <=> M_4mop_c + M_Fluxsum_e + M_co2_c	
+standard Gibbs energy of reaction	R_LEUTA	R01090	-18.304027	1.59	M_akg_c + M_leu_L_c <=> M_4mop_c + M_glu_L_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_KARA2im		-38.744027	1	M_2ahbut_m + M_h_m + M_nadph_m <=> M_23dhmp_m + M_nadp_m + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_KARA1im		-38.744027	1	M_alac_S_m + M_h_m + M_nadph_m <=> M_nadp_m + M_Fluxsum_e + M_23dhmb_m	
+standard Gibbs energy of reaction	R_IPPS	R01213	-42.444027	1.34	M_3mob_c + M_h2o_c + M_accoa_c <=> M_3c3hmp_c + M_Fluxsum_e + M_coa_c + M_h_c	
+standard Gibbs energy of reaction	R_IPPMIb	R03968	-20.324027	1.89	M_2ippm_c + M_h2o_c <=> M_3c3hmp_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_IPPMIa	R04001	-20.314027	1.88	M_3c2hmp_c <=> M_2ippm_c + M_Fluxsum_e + M_h2o_c	
+standard Gibbs energy of reaction	R_IPMD	R04426	3.5459726	0.98	M_nad_c + M_3c2hmp_c <=> M_nadh_c + M_3c4mop_c + M_Fluxsum_e + M_h_c	
+standard Gibbs energy of reaction	R_ILETA	R02199	-21.824027	3.54	M_akg_c + M_ile_L_c <=> M_3mop_c + M_glu_L_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_DHAD2m	R05070	-52.644027	1.39	M_23dhmp_m <=> M_3mop_m + M_Fluxsum_e + M_h2o_m	
+standard Gibbs energy of reaction	R_DHAD1m	R04441	-52.644027	1.39	M_23dhmb_m <=> M_3mob_m + M_Fluxsum_e + M_h2o_m	
+standard Gibbs energy of reaction	R_ACLSm		108.25597	3.78	M_h2o_m + 2.0 M_pyr_m + M_h_m <=> M_alac_S_m + M_co2_m + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_ACHBSm	R08648	118.60597	4.96	M_h2o_m + M_pyr_m + M_h_m + M_2obut_m <=> M_2ahbut_m + M_co2_m + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_GLUSxm	R00093	-74.194027	3.23	M_nadh_m + M_akg_m + M_gln_L_m + M_h_m <=> M_Fluxsum_e + M_nad_m + 2.0 M_glu_L_m	
+standard Gibbs energy of reaction	R_AGTm	R00369	-25.404027	1.66	M_glx_m + M_ala_L_m <=> M_Fluxsum_e + M_pyr_m + M_gly_m	
+standard Gibbs energy of reaction	R_HCITS	R00271	-45.604027	2.76	M_akg_c + M_h2o_c + M_accoa_c <=> M_hcit_c + M_Fluxsum_e + M_coa_c + M_h_c	
+standard Gibbs energy of reaction	R_MALS	R00472	-49.824027	2.1	M_glx_c + M_h2o_c + M_accoa_c <=> M_mal_L_c + M_coa_c + M_Fluxsum_e + M_h_c	
+standard Gibbs energy of reaction	R_GLUDym		22.795973	0.38	M_nadp_m + M_h2o_m + M_glu_L_m <=> M_akg_m + M_h_m + M_Fluxsum_e + M_nh4_m + M_nadph_m	
+standard Gibbs energy of reaction	R_CSc	R00351	-51.734027	0.44	M_oaa_c + M_h2o_c + M_accoa_c <=> M_cit_c + M_coa_c + M_Fluxsum_e + M_h_c	
+standard Gibbs energy of reaction	R_SUCCt2r		-18.124027	0	M_h_e + M_succ_e <=> M_succ_c + M_h_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_SO4ti		-17.124027	0	M_so4_e <=> M_so4_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_PYRt2		-17.124027	0	M_pyr_e <=> M_pyr_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_PIt2r		-18.124027	0	M_h_e + M_pi_e <=> M_Fluxsum_e + M_pi_c + M_h_c	
+standard Gibbs energy of reaction	R_O2t		-17.124027	0	M_o2_e <=> M_Fluxsum_e + M_o2_c	
+standard Gibbs energy of reaction	R_NH4t		-17.124027	0	M_nh4_e <=> M_Fluxsum_e + M_nh4_c	
+standard Gibbs energy of reaction	R_H2Ot		-17.124027	0	M_h2o_e <=> M_Fluxsum_e + M_h2o_c	
+standard Gibbs energy of reaction	R_GLYCt		-17.124027	0	M_glyc_c <=> M_Fluxsum_e + M_glyc_e	
+standard Gibbs energy of reaction	R_GLCt1		-17.124027	0	M_glc_D_e <=> M_Fluxsum_e + M_glc_D_c	
+standard Gibbs energy of reaction	R_ETOHt	R00754	-17.124027	0	M_etoh_e <=> M_etoh_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_CO2t		-17.124027	0	M_co2_e <=> M_co2_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_ATPS		-41.524027	0.31	M_atp_c + M_h2o_c <=> M_h_e + M_pi_c + M_adp_c	
+standard Gibbs energy of reaction	R_ACt2r		-17.124027	0	M_ac_e <=> M_ac_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_THRt2m		-17.124027	0	M_thr_L_c <=> M_thr_L_m + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_SUCFUMtm		-17.124027	0	M_fum_m + M_succ_c <=> M_fum_c + M_succ_m + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_SUCCtm	R00405	-17.124027	0	M_pi_m + M_succ_c <=> M_pi_c + M_succ_m + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_PYRt2m		-17.124027	0	M_pyr_c + M_h_c <=> M_pyr_m + M_h_m + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_PIt2m		-17.124027	0	M_pi_c + M_h_c <=> M_pi_m + M_Fluxsum_e + M_h_m	
+standard Gibbs energy of reaction	R_ORNt3m		-17.124027	0	M_orn_m <=> M_Fluxsum_e + M_orn_c	
+standard Gibbs energy of reaction	R_OAAt2m		-17.124027	0	M_oaa_c + 2.0 M_h_c <=> M_Fluxsum_e + 2.0 M_h_m + M_oaa_m	
+standard Gibbs energy of reaction	R_O2tm		-17.124027	0	M_o2_c <=> M_Fluxsum_e + M_o2_m	
+standard Gibbs energy of reaction	R_NH4tm		-17.124027	0	M_nh4_c <=> M_Fluxsum_e + M_nh4_m	
+standard Gibbs energy of reaction	R_MALtm		-17.124027	0	M_pi_m + M_mal_L_c <=> M_pi_c + M_Fluxsum_e + M_mal_L_m	
+standard Gibbs energy of reaction	R_H2Otm		-17.124027	0	M_h2o_c <=> M_Fluxsum_e + M_h2o_m	
+standard Gibbs energy of reaction	R_GLYt2m		-17.124027	0	M_gly_c <=> M_Fluxsum_e + M_gly_m	
+standard Gibbs energy of reaction	R_GLUt2m		-17.124027	0	M_h_c + M_glu_L_c <=> M_Fluxsum_e + M_glu_L_m + M_h_m	
+standard Gibbs energy of reaction	R_ETOHtm	R00754	-17.124027	0	M_etoh_c <=> M_etoh_m + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_CO2tm		-17.124027	0	M_co2_c <=> M_co2_m + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_CITtcm		-17.124027	0	M_cit_c + M_icit_m <=> M_cit_m + M_Fluxsum_e + M_icit_c	
+standard Gibbs energy of reaction	R_CITtam		-17.124027	0	M_cit_c + M_mal_L_m <=> M_Fluxsum_e + M_cit_m + M_mal_L_c	
+standard Gibbs energy of reaction	R_ATPtm_H		-17.124027	0	M_atp_m + M_adp_c <=> M_atp_c + M_adp_m + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_ACtm		-17.124027	0	M_ac_c <=> M_ac_m + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_3MOPtm		-17.124027	0	M_3mop_c <=> M_3mop_m + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_3MOBtm		-17.124027	0	M_3mob_c <=> M_3mob_m + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_2OXOADPtim	R01939	-17.124027	0	M_2oxoadp_m + M_akg_c <=> M_2oxoadp_c + M_akg_m + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_GLNt2m		-17.124027	0	M_gln_L_c <=> M_Fluxsum_e + M_gln_L_m	
+standard Gibbs energy of reaction	R_2OBUTtm	R08648	-17.124027	0	M_2obut_c <=> M_2obut_m + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_ALAt2m		-17.124027	0	M_ala_L_c <=> M_ala_L_m + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_HCITtm		-17.124027	0	M_hcit_c <=> M_Fluxsum_e + M_hcit_m	
+standard Gibbs energy of reaction	R_GLXtm		-17.124027	0	M_glx_c <=> M_Fluxsum_e + M_glx_m	
+standard Gibbs energy of reaction	R_ACALDtm		-17.124027	0	M_acald_c <=> M_acald_m + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_aicarSYN		-268.71403	7.85	M_asp_L_c + M_h2o_c + 2.0 M_gln_L_c + M_co2_c + 5.0 M_atp_c + M_r5p_c + M_gly_c + M_10fthf_c <=> 4.0 M_pi_c + M_ppi_c + 4.0 M_adp_c + M_Fluxsum_e + M_thf_c + M_fum_c + 2.0 M_glu_L_c + M_aicar_c + M_amp_c + 8.0 M_h_c	
+standard Gibbs energy of reaction	R_ampSYN		-9.4040274	5.02	M_asp_L_c + M_atp_c + M_aicar_c + M_10fthf_c <=> M_pi_c + M_adp_c + M_thf_c + M_Fluxsum_e + M_fum_c + M_h2o_c + M_amp_c + 2.0 M_h_c	
+standard Gibbs energy of reaction	R_dampSYN		-75.664027	3.05	M_amp_c + M_nadph_c + M_h_c <=> M_Fluxsum_e + M_damp_c + M_h2o_c + M_nadp_c	
+standard Gibbs energy of reaction	R_gmpSYN	R01231	-57.724027	100000	M_h2o_c + M_gln_L_c + M_atp_c + M_nad_c + M_aicar_c + M_10fthf_c <=> M_ppi_c + M_Fluxsum_e + M_amp_c + M_thf_c + M_gmp_c + M_glu_L_c + 3.0 M_h_c + M_nadh_c	
+standard Gibbs energy of reaction	R_dgmpSYN		-71.094027	2.68	M_nadph_c + M_gmp_c + M_h_c <=> M_dgmp_c + M_Fluxsum_e + M_h2o_c + M_nadp_c	
+standard Gibbs energy of reaction	R_umpSYN		-276.56403	7.18	M_asp_L_c + 0.5 M_o2_c + M_gln_L_c + 3.0 M_atp_c + M_r5p_c <=> 2.0 M_pi_c + M_ppi_c + 2.0 M_adp_c + M_Fluxsum_e + M_glu_L_c + M_ump_c + M_amp_c + 2.0 M_h_c	
+standard Gibbs energy of reaction	R_cmpSYN		-22.344027	4.17	M_atp_c + M_ump_c + M_nh4_c <=> M_pi_c + M_adp_c + M_Fluxsum_e + M_cmp_c + 2.0 M_h_c	
+standard Gibbs energy of reaction	R_dcmpSYN		-69.654027	2.49	M_nadph_c + M_cmp_c + M_h_c <=> M_Fluxsum_e + M_h2o_c + M_dcmp_c + M_nadp_c	
+standard Gibbs energy of reaction	R_dtmpSYN		-112.40403	3.52	2.0 M_h_c + M_h2o_c + M_nadph_c + M_mlthf_c + M_dcmp_c <=> M_Fluxsum_e + M_thf_c + M_dtmp_c + M_nh4_c + M_nadp_c	
+standard Gibbs energy of reaction	R_13BDglcnSYN	R00299	NaN	NaN	M_g6p_c + M_atp_c <=> M_ppi_c + M_adp_c + M_Fluxsum_e + M_13BDglcn_c	
+standard Gibbs energy of reaction	R_mannanSYN		NaN	NaN	M_f6p_c + M_atp_c <=> M_ppi_c + M_adp_c + M_Fluxsum_e + M_mannan_c	
+standard Gibbs energy of reaction	R_zymstSYN		-4264.344	200000.01	M_h2o_c + 26.0 M_nadph_c + 11.0 M_h_c + 18.0 M_atp_c + 2.0 M_nad_c + 10.0 M_o2_c + 18.0 M_accoa_c <=> 6.0 M_pi_c + 6.0 M_ppi_c + M_Fluxsum_e + 18.0 M_adp_c + M_for_c + 18.0 M_coa_c + M_zymst_c + 8.0 M_co2_c + 26.0 M_nadp_c + 2.0 M_nadh_c	
+standard Gibbs energy of reaction	R_ergstSYN		-990.89403	8.93	M_met_L_c + 3.0 M_nadph_c + 2.0 M_atp_c + M_zymst_c + M_h_c + 2.0 M_o2_c <=> M_pi_c + M_ppi_c + M_hcys_L_c + M_Fluxsum_e + M_adp_c + M_ergst_c + 2.0 M_h2o_c + M_amp_c + 3.0 M_nadp_c	
+standard Gibbs energy of reaction	R_paSYN		NaN	NaN	1.18 M_o2_c + M_glyc3p_c + 29.58 M_nadph_c + 14.2 M_atp_c + 15.38 M_h_c + 16.2 M_accoa_c <=> 14.2 M_pi_c + M_pa_SC_c + 14.2 M_adp_c + 16.2 M_coa_c + 2.36 M_h2o_c + M_Fluxsum_e + 29.58 M_nadp_c	
+standard Gibbs energy of reaction	R_psSYN		NaN	NaN	M_ser_L_c + M_pa_SC_c + 2.0 M_atp_c <=> M_ppi_c + 2.0 M_adp_c + M_Fluxsum_e + M_ps_SC_c	
+standard Gibbs energy of reaction	R_peSYN		NaN	NaN	M_ps_SC_c + M_h2o_c + M_h_c <=> M_pe_SC_c + M_Fluxsum_e + M_co2_c	
+standard Gibbs energy of reaction	R_pcSYN		NaN	NaN	M_pe_SC_c + 3.0 M_met_L_c + 6.0 M_atp_c + 6.0 M_h2o_c <=> 3.0 M_pi_c + 3.0 M_hcys_L_c + 3.0 M_adp_c + M_Fluxsum_e + M_pc_SC_c + 3.0 M_ppi_c + 3.0 M_amp_c + 6.0 M_h_c	
+standard Gibbs energy of reaction	R_ptd1inoSYN		NaN	NaN	M_pa_SC_c + M_g6p_c + 2.0 M_atp_c + M_h2o_c <=> M_pi_c + M_ppi_c + 2.0 M_adp_c + M_Fluxsum_e + M_ptd1ino_SC_c	
+standard Gibbs energy of reaction	R_triglycSYN		NaN	NaN	0.59 M_o2_c + M_pa_SC_c + 14.79 M_nadph_c + 7.1 M_atp_c + 7.69 M_h_c + 8.1 M_accoa_c <=> 8.1 M_pi_c + 7.1 M_adp_c + 8.1 M_coa_c + 0.18 M_h2o_c + M_Fluxsum_e + M_triglyc_SC_c + 14.79 M_nadp_c	
+standard Gibbs energy of reaction	R_biomass		NaN	NaN	0.0024 M_dgmp_c + 6.6e-05 M_triglyc_SC_c + 0.046 M_gmp_c + 0.4588 M_ala_L_c + 0.0036 M_dtmp_c + 59.276 M_h2o_c + 0.0599 M_ump_c + 0.1927 M_ile_L_c + 0.1854 M_ser_L_c + 0.1054 M_gln_L_c + 6e-06 M_pa_SC_c + 0.046 M_amp_c + 0.0007 M_ergst_c + 6e-05 M_pc_SC_c + 0.0447 M_cmp_c + 0.0663 M_his_L_c + 0.3018 M_glu_L_c + 0.1647 M_pro_L_c + 0.0015 M_zymst_c + 0.2964 M_leu_L_c + 4.5e-05 M_pe_SC_c + 0.02 M_so4_c + 0.2862 M_lys_L_c + 0.1339 M_phe_L_c + 0.1607 M_arg_L_c + 1.7e-05 M_ps_SC_c + 5.3e-05 M_ptd1ino_SC_c + 0.2646 M_val_L_c + 0.1017 M_asn_L_c + 1.1348 M_13BDglcn_c + 0.8079 M_mannan_c + 0.2975 M_asp_L_c + 0.0066 M_cys_L_c + 0.0507 M_met_L_c + 0.0284 M_trp_L_c + 59.276 M_atp_c + 0.0036 M_damp_c + 0.2904 M_gly_c + 0.102 M_tyr_L_c + 0.1914 M_thr_L_c + 0.0024 M_dcmp_c <=> 59.305 M_pi_c + 59.276 M_adp_c + 58.7162 M_h_c	
+standard Gibbs energy of reaction	R_nadhs		NaN	NaN	M_o2_m + 2.0 M_nadh_m + 2.0 M_h_m <=> 2.0 M_h2o_m + 2.0 M_nad_m	
+standard Gibbs energy of reaction	R_nadphs		NaN	NaN	M_nadh_m + M_o2_m + M_h_m + M_nadph_c <=> 2.0 M_h2o_c + M_nad_m + M_nadp_c	
+standard Gibbs energy of reaction	R_ASPTAm	R00355	NaN	NaN	M_asp_L_m + M_akg_m <=> M_glu_L_m + M_oaa_m + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_ASPtm		NaN	NaN	M_asp_L_m + M_h_m <=> M_asp_L_c + M_h_c + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_AGC1tm		NaN	NaN	M_asp_L_m + M_glu_L_c <=> M_asp_L_c + M_glu_L_m + M_Fluxsum_e	
+standard Gibbs energy of reaction	R_ALDD2x		NaN	NaN	M_acald_c + M_nad_c + M_h2o_c <=> M_Fluxsum_e + M_ac_c + M_nadh_c + 2.0 M_h_c	
+standard Gibbs energy of reaction	R_GUT2		NaN	NaN	M_q6_m + M_glyc3p_c <=> M_Fluxsum_e + M_dhap_c + M_q6h2_m	
+standard Gibbs energy of reaction	R_POS5m	R00104	NaN	NaN	M_nad_m + M_atp_m <=> M_nadp_m + M_Fluxsum_e + M_adp_m + M_h_m	
+standard Gibbs energy of reaction	R_POS5hm	R00105	NaN	NaN	M_nadh_m + M_atp_m <=> M_h_m + M_adp_m + M_Fluxsum_e + M_nadph_m	
+standard Gibbs energy of reaction	R_UTR1	R00105	NaN	NaN	M_nadh_c + M_atp_c <=> M_adp_c + M_Fluxsum_e + M_nadph_c + M_h_c	
+standard Gibbs energy of reaction	R_YEF1	R00104	NaN	NaN	M_nad_c + M_atp_c <=> M_adp_c + M_Fluxsum_e + M_nadp_c + M_h_c	
+%						
+!!SBtab DocumentName='YeastMetabolicModel' TableName='Concentration' TableType='Quantity' Unit='mM' SBtabVersion='0.9'						
+!QuantityType	!Compound	!Compound:Identifiers:kegg.compound	!Concentration	!ConcentrationData		
+concentration	M_10fthf_c	C00234	2.3617156	NaN		
+concentration	M_13BDglcn_c	C00965	1	NaN		
+concentration	M_13dpg_c	C00236	6.1895187	NaN		
+concentration	M_1pyr5c_c	C04322	0.46489913	NaN		
+concentration	M_23dhmb_m	C04272	0.99999997	NaN		
+concentration	M_23dhmp_m	C06007	0.99999997	NaN		
+concentration	M_2ahbut_m	C06006	0.0001	NaN		
+concentration	M_2cpr5p_c	C01302	9.9999998	NaN		
+concentration	M_2dda7p_c	C04691	0.99999998	NaN		
+concentration	M_2ippm_c	C02631	0.12728853	NaN		
+concentration	M_2obut_c	C00109	0.033379788	NaN		
+concentration	M_2obut_m	C00109	10	NaN		
+concentration	M_2oxoadp_c	C00322	0.0030749245	0.0030749245		
+concentration	M_2oxoadp_m	C00322	0.0026903504	0.0030749245		
+concentration	M_2pg_c	C00631	0.098108286	0.15490938		
+concentration	M_34hpp_c	C01179	0.4797477	NaN		
+concentration	M_3c2hmp_c	C04411	0.12245409	NaN		
+concentration	M_3c3hmp_c	C02504	10	NaN		
+concentration	M_3c4mop_c	C04236	0.20363124	NaN		
+concentration	M_3dhq_c	C00944	0.99999999	NaN		
+concentration	M_3dhsk_c	C02637	0.99999997	NaN		
+concentration	M_3ig3p_c	C03506	0.0031931391	NaN		
+concentration	M_3mob_c	C00141	0.0058280674	NaN		
+concentration	M_3mob_m	C00141	10	NaN		
+concentration	M_3mop_c	C00671	0.0070283721	NaN		
+concentration	M_3mop_m	C00671	10	NaN		
+concentration	M_3pg_c	C00197	0.51970199	0.32620628		
+concentration	M_3php_c	C03232	0.0005572711	NaN		
+concentration	M_3psme_c	C01269	0.99999996	NaN		
+concentration	M_4mop_c	C00233	0.070989515	NaN		
+concentration	M_4pasp_c	C03082	1.9481092	NaN		
+concentration	M_5mthf_c	C00440	0.01	NaN		
+concentration	M_6pgc_c	C00345	0.13012675	0.13012675		
+concentration	M_6pgl_c	C01236	1	NaN		
+concentration	M_acald_c	C00084	0.0014821257	NaN		
+concentration	M_acald_m	C00084	2.8746675	NaN		
+concentration	M_accoa_c	C00024	0.012373781	0.012373781		
+concentration	M_accoa_m	C00024	0.011014786	0.012373781		
+concentration	M_acg5p_m	C04133	0.0065062478	NaN		
+concentration	M_acg5sa_m	C01250	0.99999996	NaN		
+concentration	M_acglu_m	C00624	0.29367787	0.29135106		
+concentration	M_achms_c	C01077	0.99999997	NaN		
+concentration	M_acorn_m	C00437	0.046026062	0.046026062		
+concentration	M_ac_c	C00033	9.9999998	NaN		
+concentration	M_ac_e	C00033	0.0034006397	NaN		
+concentration	M_ac_m	C00033	1	NaN		
+concentration	M_adp_c	C00008	0.41106372	0.31019111		
+concentration	M_adp_m	C00008	0.46608319	0.31019111		
+concentration	M_aicar_c	C04677	0.023617158	NaN		
+concentration	M_akg_c	C00026	0.11072087	0.14340511		
+concentration	M_akg_m	C00026	0.12810751	0.14340511		
+concentration	M_ala_L_c	C00041	17.858028	17.874501		
+concentration	M_ala_L_m	C00041	17.858083	17.874501		
+concentration	M_alac_S_m	C06010	0.0001	NaN		
+concentration	M_amp_c	C00020	0.43547491	0.43606656		
+concentration	M_amp_m	C00020	0.43606656	0.43606656		
+concentration	M_anth_c	C00108	0.013436375	0.013436375		
+concentration	M_aps_c	C00224	0.010858414	0.018333028		
+concentration	M_arg_L_c	C00062	6.7861659	6.916879		
+concentration	M_argsuc_c	C03406	0.067923357	0.066639762		
+concentration	M_asn_L_c	C00152	1.3416119	1.3416119		
+concentration	M_asp_L_c	C00049	3.0604659	3.0563135		
+concentration	M_aspsa_c	C00441	0.51331809	NaN		
+concentration	M_atp_c	C00002	2.548109	0.2500683		
+concentration	M_atp_m	C00002	1.996582	0.2500683		
+concentration	M_b124tc_m	C04002	0.99999995	NaN		
+concentration	M_cbp_c	C00169	0.01	NaN		
+concentration	M_chor_c	C00251	0.99999998	NaN		
+concentration	M_citr_L_c	C00327	1.7088184	1.7088184		
+concentration	M_cit_c	C00158	0.18360099	0.37428262		
+concentration	M_cit_m	C00158	0.76299959	0.37428262		
+concentration	M_cmp_c	C00055	0.052052385	0.052052385		
+concentration	M_co2_c	C00011	0.0001	NaN		
+concentration	M_co2_e	C00011	0.0001	NaN		
+concentration	M_co2_m	C00011	0.0001	NaN		
+concentration	M_coa_c	C00010	0.01	NaN		
+concentration	M_coa_m	C00010	10	NaN		
+concentration	M_cys_L_c	C00097	0.01	NaN		
+concentration	M_cyst_L_c	C02291	1.2604608	1.2604608		
+concentration	M_damp_c	C00360	0.01	NaN		
+concentration	M_dcmp_c	C00239	0.01	NaN		
+concentration	M_dgmp_c	C00362	0.99999997	NaN		
+concentration	M_dhap_c	C00111	0.013841342	0.01460678		
+concentration	M_dtmp_c	C00364	0.01	NaN		
+concentration	M_e4p_c	C00279	0.025847326	0.026939879		
+concentration	M_eig3p_c	C04666	0.99999998	NaN		
+concentration	M_ergst_c	C01694	0.99999998	NaN		
+concentration	M_etoh_c	C00469	0.021871781	NaN		
+concentration	M_etoh_e	C00469	0.0001	NaN		
+concentration	M_etoh_m	C00469	9.9997573	NaN		
+concentration	M_f6p_c	C00085	0.18025514	0.14396608		
+concentration	M_fdp_c	C00354	0.023716962	0.0223575		
+concentration	M_ficytc_m	C00125	1.6567519	NaN		
+concentration	M_focytc_m	C00126	0.60359064	NaN		
+concentration	M_for_c	C00058	0.99999999	NaN		
+concentration	M_fum_c	C00122	0.25378375	0.2590235		
+concentration	M_fum_m	C00122	0.2590235	0.2590235		
+concentration	M_g3p_c	C00661	0.78136767	NaN		
+concentration	M_g6p_c	C00092	0.67461554	0.67461554		
+concentration	M_glc_D_c	C00031	0.99999997	NaN		
+concentration	M_glc_D_e	C00031	0.99999999	NaN		
+concentration	M_gln_L_c	C00064	16.957906	16.973722		
+concentration	M_gln_L_m	C00064	16.973722	16.973722		
+concentration	M_glu_L_c	C00025	18.362931	20.751992		
+concentration	M_glu_L_m	C00025	20.751992	20.751992		
+concentration	M_glu5p_c	C03287	0.78668577	NaN		
+concentration	M_glu5sa_c	C01165	2.1510041	NaN		
+concentration	M_glx_c	C00048	0.01	NaN		
+concentration	M_glx_m	C00048	0.01	NaN		
+concentration	M_glyc3p_c	C00093	0.01	NaN		
+concentration	M_glyc_c	C00116	1	NaN		
+concentration	M_glyc_e	C00116	1	NaN		
+concentration	M_gly_c	C00037	0.79995449	1.2043358		
+concentration	M_gly_m	C00037	1.8131339	1.2043358		
+concentration	M_gmp_c	C00144	0.047905335	0.047905335		
+concentration	M_h2o_c	C00001	10	NaN		
+concentration	M_h2o_e	C00001	1	NaN		
+concentration	M_h2o_m	C00001	10	NaN		
+concentration	M_h2s_c	C00283	0.99999998	NaN		
+concentration	M_hcit_c	C01251	0.99999998	NaN		
+concentration	M_hcit_m	C01251	1	NaN		
+concentration	M_hcys_L_c	C00155	0.01	NaN		
+concentration	M_hcyt_c	C00080	10	NaN		
+concentration	M_hicit_m	C05662	9.9999999	NaN		
+concentration	M_his_L_c	C00135	2.0339533	2.0339533		
+concentration	M_hisp_c	C01100	0.99999997	NaN		
+concentration	M_histd_c	C00860	0.10032159	0.10032159		
+concentration	M_hom_L_c	C00263	0.1655713	0.1655713		
+concentration	M_h_c	C00080	2.1328811	NaN		
+concentration	M_h_e	C00080	0.020468665	NaN		
+concentration	M_h_m	C00080	10	NaN		
+concentration	M_icit_c	C00311	0.19044682	0.13433685		
+concentration	M_icit_m	C00311	0.11897233	0.13433685		
+concentration	M_ile_L_c	C00407	0.58590209	0.61083507		
+concentration	M_imacp_c	C01267	0.99999998	NaN		
+concentration	M_L2aadp6sa_c	C04076	0.99999994	NaN		
+concentration	M_L2aadp_c	C00956	0.01	NaN		
+concentration	M_leu_L_c	C00123	0.29881386	0.33332253		
+concentration	M_lys_L_c	C00047	2.730199	2.7843029		
+concentration	M_mal_L_c	C00149	0.93247496	0.64847181		
+concentration	M_mal_L_m	C00149	0.75126281	0.64847181		
+concentration	M_mannan_c	C00464	1	NaN		
+concentration	M_met_L_c	C00073	0.047048125	0.047048125		
+concentration	M_methf_c	C00445	0.99707379	NaN		
+concentration	M_mlthf_c	C00143	1.0029347	NaN		
+concentration	M_nadh_c	C00004	0.13080788	NaN		
+concentration	M_nadh_m	C00004	0.058847693	NaN		
+concentration	M_nadph_c	C00005	0.048454343	NaN		
+concentration	M_nadph_m	C00005	0.038459584	NaN		
+concentration	M_nadp_c	C00006	0.020637985	0.17330633		
+concentration	M_nadp_m	C00006	0.026001321	0.17330633		
+concentration	M_nad_c	C00003	0.95559989	0.32274527		
+concentration	M_nad_m	C00003	2.1241274	0.32274527		
+concentration	M_nh4_c	C01342	0.011052783	NaN		
+concentration	M_nh4_e	C01342	0.99999998	NaN		
+concentration	M_nh4_m	C01342	0.99999992	NaN		
+concentration	M_o2_c	C00007	0.99999998	NaN		
+concentration	M_o2_e	C00007	0.99999999	NaN		
+concentration	M_o2_m	C00007	0.99999997	NaN		
+concentration	M_oaa_c	C00036	0.16880919	NaN		
+concentration	M_oaa_m	C00036	0.32253064	NaN		
+concentration	M_orn_c	C01602	3.4429478	3.4429478		
+concentration	M_orn_m	C01602	3.4429478	3.4429478		
+concentration	M_oxag_m	C05533	10	NaN		
+concentration	M_paps_c	C00053	0.99999997	NaN		
+concentration	M_pap_c	C00054	0.01	NaN		
+concentration	M_pa_SC_c	C00416	1	NaN		
+concentration	M_pc_SC_c	C00157	1	NaN		
+concentration	M_pep_c	C00074	0.023509114	0.02998615		
+concentration	M_pe_SC_c	C00350	1	NaN		
+concentration	M_phe_L_c	C00079	0.20970964	0.21364346		
+concentration	M_phom_c	C01102	1	NaN		
+concentration	M_phpyr_c	C00166	1.2380446	NaN		
+concentration	M_pi_c	C00009	11.798297	NaN		
+concentration	M_pi_e	C00009	2.7563898	NaN		
+concentration	M_pi_m	C00009	20	NaN		
+concentration	M_pphn_c	C00254	10	NaN		
+concentration	M_ppi_c	C00013	0.99999993	NaN		
+concentration	M_ppi_m	C00013	1	NaN		
+concentration	M_pran_c	C04302	0.99999998	NaN		
+concentration	M_prbamp_c	C02741	0.99999998	NaN		
+concentration	M_prbatp_c	C02739	0.99999997	NaN		
+concentration	M_prfp_c	C04896	0.99999998	NaN		
+concentration	M_prlp_c	C04916	0.99999997	NaN		
+concentration	M_pro_L_c	C00148	1.1062002	1.1062002		
+concentration	M_prpp_c	C00119	0.01	NaN		
+concentration	M_pser_L_c	C01005	0.014770449	0.014770449		
+concentration	M_ps_SC_c	C02737	1	NaN		
+concentration	M_ptd1ino_SC_c	C01194	1	NaN		
+concentration	M_pyr_c	C00022	0.21325409	0.17625013		
+concentration	M_pyr_e	C00022	0.0001	NaN		
+concentration	M_pyr_m	C00022	0.19634308	0.17625013		
+concentration	M_q6h2_m	C00390	1.2871487	NaN		
+concentration	M_q6_m	C17568	0.77691095	NaN		
+concentration	M_r5p_c	C00117	0.0049559383	0.0073169176		
+concentration	M_ru5p_D_c	C00199	0.012408362	0.010207416		
+concentration	M_s7p_c	C00281	0.18511239	0.19694884		
+concentration	M_saccrp_L_c	C00449	9.9999999	NaN		
+concentration	M_ser_L_c	C00065	2.2677507	2.2677507		
+concentration	M_skm5p_c	C03175	0.99999997	NaN		
+concentration	M_skm_c	C00493	0.01	NaN		
+concentration	M_so3_c	C00094	0.99999998	NaN		
+concentration	M_so4_c	C00059	10	NaN		
+concentration	M_so4_e	C00059	1	NaN		
+concentration	M_succoa_m	C00091	10	NaN		
+concentration	M_succ_c	C00042	0.3207029	0.31822843		
+concentration	M_succ_e	C00042	0.007425896	NaN		
+concentration	M_succ_m	C00042	0.26458434	0.31822843		
+concentration	M_thf_c	C00101	0.42342097	NaN		
+concentration	M_thr_L_c	C00188	2.6308706	2.6308706		
+concentration	M_thr_L_m	C00188	2.6308706	2.6308706		
+concentration	M_triglyc_SC_c	C00422	1	NaN		
+concentration	M_trp_L_c	C00078	0.011994249	0.011994249		
+concentration	M_tyr_L_c	C00082	0.15332714	0.15707854		
+concentration	M_ump_c	C00105	0.064878788	0.064878788		
+concentration	M_val_L_c	C00183	4.3585236	4.5282398		
+concentration	M_xu5p_D_c	C00231	3.1549065	NaN		
+concentration	M_zymst_c	C05437	0.99999998	NaN		
+concentration	M_asp_L_m	C00049	3.0563135	3.0563135		

@@ -1,0 +1,272 @@
+!!SBtab TableName='Reaction' TableType='Reaction' Document='Bacillus subtilis central metabolism' SBtabVersion='0.9'								
+!Reaction	!SumFormula	!Name	!Identifiers:kegg.reaction	!IsReversible	!Gene	!Enzyme:Identifiers:ec-code	!SBML:reaction:id	!MetabolicRegulation
+R00006	_2_Acetolactate + CO2 <=> 2 Pyruvate	acetolactate_synthase_activity	R00006	True	alsS	2.2.1.6	R00006	
+R00114	2 L_Glutamate + NADPplus <=> L_Glutamine + _2_Oxoglutarate + NADPH + Hplus	glutamate_synthase_NADPH_activity	R00114	True	gltA	1.4.1.13	R00114	
+R00200	Pyruvate + ATP <=> Phosphoenolpyruvate + ADP	pyruvate_kinase_activity	R00200	True	pyk	2.7.1.40	R00200	+ Phosphoenolpyruvate
+R00214	_S__Malate + NADplus <=> CO2 + Pyruvate + Hplus + NADH	malate_dehydrogenase_decarboxylating_activity	R00214	True	malS | mleA | maeE	1.1.1.39	R00214	
+R00216	NADPplus + _S__Malate <=> CO2 + Pyruvate + NADPH + Hplus	malate_dehydrogenase_oxaloacetate_decarboxylating_NADPplus_activity	R00216	True	ytsJ	1.1.1.39	R00216	
+R00230	Acetyl_CoA + Orthophosphate <=> CoA + Acetyl_phosphate	phosphate_acetyltransferase_activity	R00230	True	pta	2.3.1.8	R00230	
+R00243	L_Glutamate + NADplus + H2O <=> _2_Oxoglutarate + Hplus + NADH + NH3	glutamate_dehydrogenase_activity	R00243	True	rocG	1.4.1.3	R00243	
+R00253	L_Glutamate + ATP + NH3 <=> L_Glutamine + ADP + Orthophosphate	glutamate_ammonia_ligase_activity	R00253	True	glnA	6.3.1.2	R00253	
+R00315	ATP + Acetate <=> ADP + Acetyl_phosphate	ATP_acetate_phosphotransferase	R00315	True	ackA	2.7.2.15	R00315	
+R00341	ATP + Oxaloacetate <=> CO2 + Phosphoenolpyruvate + ADP	phosphoenolpyruvate_carboxykinase_ATP_activity	R00341	True	pckA	4.1.1.49	R00341	
+R00342	_S__Malate + NADplus <=> Hplus + NADH + Oxaloacetate	L_malate_dehydrogenase_activity	R00342	True	mdh	1.1.1.37	R00342	- Pyruvate - _2_Oxoglutarate - _S__Malate
+R00344	Pyruvate + ATP + HCO3_ <=> ADP + Orthophosphate + Oxaloacetate	pyruvate_carboxylase_activity	R00344	True	pycA	6.4.1.1	R00344	+ Acetyl_CoA
+R00351	CoA + Citrate <=> Acetyl_CoA + H2O + Oxaloacetate	acetyl_CoA_oxaloacetate_C_acetyltransferase_thioester_hydrolysing	R00351	True	citZ | citA	2.3.3.3	R00351	- _2_Oxoglutarate - ATP - Acetyl_CoA - Oxaloacetate - Citrate
+R00405	ATP + CoA + Succinate <=> ADP + Orthophosphate + Succinyl_CoA	succinate_CoA_ligase_ADP_forming_activity	R00405	True	sucC & sucD	6.2.1.5	R00405	
+R00412	Succinate + Acceptor <=> Fumarate + Reduced_acceptor	succinate_dehydrogenase_activity	R00412	True	sdhA & sdhB & sdhC	1.3.99.1	R00412	- ATP - _S__Malate - Oxaloacetate - Fumarate
+R00658	_2_Phospho_D_glycerate <=> Phosphoenolpyruvate + H2O	phosphopyruvate_hydratase_activity	R00658	True	eno	4.2.1.11	R00658	
+R00703	NADplus + _S__Lactate <=> Pyruvate + Hplus + NADH	L_lactate_dehydrogenase_activity	R00703	True	yvfV & yvfW & yvbY	1.1.1.27	R00703	
+R01015	D_Glyceraldehyde_3_phosphate <=> Glycerone_phosphate	triose_phosphate_isomerase_activity	R01015	True	tpiA	5.3.1.1	R01015	
+R01051	ATP + D_Ribose <=> ADP + D_Ribose_5_phosphate	ribokinase_activity	R01051	True	rbsK	2.7.1.15	R01051	
+R01056	D_Ribose_5_phosphate <=> D_Ribulose_5_phosphate	ribose_5_phosphate_isomerase_activity	R01056	True	ywlF	5.3.1.6	R01056	
+R01061	NADplus + Orthophosphate + D_Glyceraldehyde_3_phosphate <=> Hplus + NADH + _3_Phospho_D_glyceroyl_phosphate	glyceraldehyde_3_phosphate_dehydrogenase_phosphorylating_activity	R01061	True	gapA	1.2.1.13	R01061	
+R01063	NADPplus + Orthophosphate + D_Glyceraldehyde_3_phosphate <=> NADPH + Hplus + _3_Phospho_D_glyceroyl_phosphate	glyceraldehyde_3_phosphate_dehydrogenase_NADPplus_phosphorylating_activity	R01063	True	gapB	1.2.1.13	R01063	
+R01070	beta_D_Fructose_1_6_bisphosphate <=> D_Glyceraldehyde_3_phosphate + Glycerone_phosphate	fructose_bisphosphate_aldolase_activity	R01070	True	fbaA	4.1.2.13	R01070	- Pyruvate - _2_Oxoglutarate - Oxaloacetate
+R01082	_S__Malate <=> H2O + Fumarate	fumarate_hydratase_activity	R01082	True	citG	4.2.1.2	R01082	- L_Glutamate - Succinate
+R01324	Citrate <=> Isocitrate	aconitate_hydratase_activity	R01324	True	citB	4.2.1.3	R01324	
+R01512	ATP + _3_Phospho_D_glycerate <=> ADP + _3_Phospho_D_glyceroyl_phosphate	phosphoglycerate_kinase_activity	R01512	True	pgk	2.7.2.3	R01512	
+R01518	_2_Phospho_D_glycerate <=> _3_Phospho_D_glycerate	phosphoglycerate_mutase_activity	R01518	True	pgm	5.4.2.1	R01518	
+R01528	NADPplus + _6_Phospho_D_gluconate <=> CO2 + NADPH + Hplus + D_Ribulose_5_phosphate	phosphogluconate_dehydrogenase_decarboxylating_activity	R01528	True	gntZ | gndA	1.1.1.44	R01528	
+R01529	D_Ribulose_5_phosphate <=> D_Xylulose_5_phosphate	ribulose_phosphate_3_epimerase_activity	R01529	True	rpe	5.1.3.1	R01529	
+R01641	D_Glyceraldehyde_3_phosphate + Sedoheptulose_7_phosphate <=> D_Ribose_5_phosphate + D_Xylulose_5_phosphate	transketolase_activity	R01641	True	tkt	2.2.1.1	R01641	
+R01827	D_Glyceraldehyde_3_phosphate + Sedoheptulose_7_phosphate <=> D_Erythrose_4_phosphate + beta_D_Fructose_6_phosphate	transaldolase_activity	R01827	True	ywjH	2.2.1.2	R01827	
+R01830	D_Glyceraldehyde_3_phosphate + beta_D_Fructose_6_phosphate <=> D_Xylulose_5_phosphate + D_Erythrose_4_phosphate	transketolase_activity	R01830	True	tkt	2.2.1.1	R01830	
+R02035	H2O + D_Glucono_1_5_lactone_6_phosphate <=> _6_Phospho_D_gluconate	_6_phosphogluconolactonase_activity	R02035	True		3.1.1.31	R02035	
+R02736	NADPplus + beta_D_Glucose_6_phosphate <=> NADPH + Hplus + D_Glucono_1_5_lactone_6_phosphate	glucose_6_phosphate_dehydrogenase_activity	R02736	True	zwf	1.1.1.49	R02736	
+R03321	beta_D_Glucose_6_phosphate <=> beta_D_Fructose_6_phosphate	glucose_6_phosphate_isomerase_activity	R03321	True	pgi	5.3.1.9	R03321	
+R04779	ATP + beta_D_Fructose_6_phosphate <=> ADP + beta_D_Fructose_1_6_bisphosphate	_6_phosphofructokinase_activity	R04779	True	pfkA	2.7.1.11	R04779	
+R04780	H2O + beta_D_Fructose_1_6_bisphosphate <=> Orthophosphate + beta_D_Fructose_6_phosphate	fructose_1_6_bisphosphate_1_phosphatase_activity	R04780	True	fbp | glpX	3.1.3.11	R04780	+ Phosphoenolpyruvate
+R02947	_2_Acetolactate <=> CO2 + _R__Acetoin	acetolactate_decarboxylase_activity	R02947	True	alsD	4.1.1.5	R02947	
+R01016	Glycerone_phosphate <=> Orthophosphate + Methylglyoxal	methylglyoxal_synthase_activity	R01016	True	mgsA	4.2.3.3	R01016	
+R00841	H2O + sn_Glycerol_3_phosphate <=> Orthophosphate + Glycerol	glycerol_1_phosphatase_activity	R00841	True	glpK	3.1.3.21	R00841	
+R00842	NADplus + sn_Glycerol_3_phosphate <=> Hplus + NADH + Glycerone_phosphate	sn_Glycerol_3_phosphate_NADplus_2_oxidoreductase	R00842	True	glpD	1.1.1.8	R00842	
+R00709	NADplus + Isocitrate <=> CO2 + _2_Oxoglutarate + Hplus + NADH	isocitrate_dehydrogenase_NADplus_activity	R00709	True	icd	1.1.1.41	R00709	
+Methylglyoxal__rev___S__Lactate	Methylglyoxal <=> _S__Lactate	Methylglyoxal_<=>_S_Lactate		True	ywbC		reaction_0	
+_2_Oxoglutarate_plus_CoA__rev__CO2_plus_Succinyl_CoA	_2_Oxoglutarate + CoA <=> CO2 + Succinyl_CoA	_2_Oxoglutarate_plus_CoA_<=>_CO2_plus_Succinyl_CoA		True	odhA | odhB | pdhD		reaction_1	
+Pyruvate_plus_CoA_plus_NADplus__rev__Acetyl_CoA_plus_NADH_plus_CO2_plus_Hplus	Pyruvate + NADplus + CoA <=> CO2 + Hplus + NADH + Acetyl_CoA	Pyruvate_plus_CoA_plus_NADplus_<=>_Acetyl_CoA_plus_NADH_plus_CO2_plus_Hplus		True	pdhA | pdhB | pdhC | pdhD		reaction_2	
+MalateExt__rev___S__Malate	MalateExt <=> _S__Malate	MalateExt_<=>_S_Malate		True	maeN | yflS | cimH		reaction_3	
+CarbonDioxideExt__rev__CO2	CarbonDioxideExt <=> CO2	CarbonDioxideExt_<=>_CO2		True			reaction_4	
+AcetateExt__rev__Acetate	AcetateExt <=> Acetate	AcetateExt_<=>_Acetate		True			reaction_5	
+AcetoinExt__rev___R__Acetoin	AcetoinExt <=> _R__Acetoin	AcetoinExt_<=>_R_Acetoin		True	ytrB & ytrC & ytrD & ytrE & ytrF		reaction_6	
+GlycerolExt__rev__Glycerol	GlycerolExt <=> Glycerol	GlycerolExt_<=>_Glycerol		True	glpF		reaction_7	
+PyruvateExt__rev__Pyruvate	PyruvateExt <=> Pyruvate	PyruvateExt_<=>_Pyruvate		True			reaction_8	
+SuccinateExt__rev__Succinate	SuccinateExt <=> Succinate	SuccinateExt_<=>_Succinate		True	dctP | dctB		reaction_9	
+FumarateExt__rev__Fumarate	FumarateExt <=> Fumarate	FumarateExt_<=>_Fumarate		True	dctP | dctB		reaction_10	
+Glucose_PTS	Phosphoenolpyruvate + beta_D_GlucoseExt <=> Pyruvate + beta_D_Glucose_6_phosphate	Glucose_PTS		True	ptsG | ptsH | ptsI		reaction_11	
+GTP__irrev__ATP	ADP + GTP <=> ATP + GDP	ADP_plus_GTP_<=>_ATP_plus_GDP		True	ndk		reaction_12	
+OxPhos__Reduced_Acceptor__irrev__ATP	1.50 ADP + Reduced_acceptor + 0.50 O2 <=> 1.50 ATP + H2O + Acceptor	_1_50_ADP_plus_C00030_plus_0_50_O2_<=>_1_50_ATP_plus_H2O_plus_Acceptor		True			reaction_13	
+OxPhos__NADH__irrev__ATP	1.50 ADP + NADH + 0.50 O2 <=> 1.50 ATP + NADplus + H2O	_1_50_ADP_plus_NADH_plus_0_50_O2_<=>_1_50_ATP_plus_H2O_plus_NADplus		True			reaction_14	
+Maintenance	ATP + H2O <=> ADP + Orthophosphate	ATP_plus_H2O<=>_ADP_+_Orthophosphate		True			reaction_15	
+Biomass_production	0.01 CO2 + 0.03 Pyruvate + 0.03 _2_Oxoglutarate + 0.36 NADPH + 0.81 ATP + 0.02 Phosphoenolpyruvate + 0.08 NADplus + 0.07 Acetyl_CoA + 0.02 Oxaloacetate + 0.02 D_Glyceraldehyde_3_phosphate + 0.01 D_Ribose_5_phosphate + 0.01 D_Erythrose_4_phosphate + 0.02 beta_D_Fructose_6_phosphate + 0.03 beta_D_Glucose_6_phosphate + 0.01 sn_Glycerol_3_phosphate + 0.01 O2 <=> 0.36 NADPplus + 0.81 ADP + 0.08 NADH + 0.07 CoA + Biomass	Biomass_production		False			reaction_16	
+FructoseExt__rev__Fructose	Phosphoenolpyruvate + FructoseExt <=> Pyruvate + beta_D_Fructose_6_phosphate	FructoseExt_<=>_beta_D_Fructose_6_phosphate		True	levD | levE | levF | levG		reaction_17	
+GluconateExt__rev__Gluconate	GluconateExt <=> Gluconate	GluconateExt_<=>Gluconate		True	gntP		reaction_18	
+Gluconate__rev___6_Phospho_D_gluconate	Gluconate <=> _6_Phospho_D_gluconate	GluconateExt_<=>_6_Phospho_D_gluconate		True	gnTK		reaction_19	
+GlutamateExt__rev__Glutamate	GlutamateExt <=> L_Glutamate	GlutamateExt <=> L_Glutamate		True	gltP		reaction_20	
+%								
+!!SBtab TableName='Compound' TableType='Compound' Document='Bacillus subtilis central metabolism' SBtabVersion='0.9'								
+!Compound	!Name	!Identifiers:kegg.compound	!SBML:species:id	!IsConstant	!IsCofactor			
+_2_Acetolactate	2-Acetolactate	C00900	_2_Acetolactate_c	False	0			
+CO2	CO2	C00011	CO2_c	False	1			
+Pyruvate	Pyruvate	C00022	Pyruvate_c	False	0			
+L_Glutamate	L-Glutamate	C00025	L_Glutamate_c	False	0			
+NADPplus	NADP+	C00006	NADPplus_c	True	1			
+L_Glutamine	L-Glutamine	C00064	L_Glutamine_c	False	0			
+_2_Oxoglutarate	2-Oxoglutarate	C00026	_2_Oxoglutarate_c	False	0			
+NADPH	NADPH	C00005	NADPH_c	True	1			
+Hplus	H+	C00080	Hplus_c	True	1			
+ATP	ATP	C00002	ATP_c	False	1			
+Phosphoenolpyruvate	Phosphoenolpyruvate	C00074	Phosphoenolpyruvate_c	False	0			
+ADP	ADP	C00008	ADP_c	False	1			
+_S__Malate	(S)-Malate	C00149	_S_Malate_c	False	0			
+NADplus	NAD+	C00003	NADplus_c	False	1			
+NADH	NADH	C00004	NADH_c	False	1			
+Acetyl_CoA	Acetyl-CoA	C00024	Acetyl_CoA_c	False	0			
+Orthophosphate	Orthophosphate	C00009	Orthophosphate_c	False	1			
+CoA	CoA	C00010	CoA_c	False	1			
+Acetyl_phosphate	Acetyl phosphate	C00227	Acetyl_phosphate_c	False	0			
+H2O	H2O	C00001	H2O_c	True	1			
+NH3	NH3	C00014	NH3_c	True	1			
+Acetate	Acetate	C00033	Acetate_c	False	0			
+Oxaloacetate	Oxaloacetate	C00036	Oxaloacetate_c	False	0			
+HCO3_	HCO3-	C00288	HCO3__c	True	1			
+Citrate	Citrate	C00158	Citrate_c	False	0			
+Succinate	Succinate	C00042	Succinate_c	False	0			
+Succinyl_CoA	Succinyl-CoA	C00091	Succinyl_CoA_c	False	0			
+Acceptor	Acceptor	C16722	Acceptor_c	False	0			
+Fumarate	Fumarate	C00122	Fumarate_c	False	0			
+Reduced_acceptor	Reduced acceptor	C00030	Reduced_acceptor_c	False	0			
+_2_Phospho_D_glycerate	2-Phospho-D-glycerate	C00631	_2_Phospho_D_glycerate_c	False	0			
+_S__Lactate	(S)-Lactate	C00186	_S_Lactate_c	False	0			
+D_Glyceraldehyde_3_phosphate	D-Glyceraldehyde 3-phosphate	C00118	D_Glyceraldehyde_3_phosphate_c	False	0			
+Glycerone_phosphate	Glycerone phosphate	C00111	Glycerone_phosphate_c	False	0			
+D_Ribose	D-Ribose	C00121	D_Ribose_c	True	0			
+D_Ribose_5_phosphate	D-Ribose 5-phosphate	C00117	D_Ribose_5_phosphate_c	False	0			
+D_Ribulose_5_phosphate	D-Ribulose 5-phosphate	C00199	D_Ribulose_5_phosphate_c	False	0			
+_3_Phospho_D_glyceroyl_phosphate	3-Phospho-D-glyceroyl phosphate	C00236	_3_Phospho_D_glyceroyl_phosphate_c	False	0			
+beta_D_Fructose_1_6_bisphosphate	beta-D-Fructose 1,6-bisphosphate	C05378	beta_D_Fructose_1_6_bisphosphate_c	False	0			
+Isocitrate	Isocitrate	C00311	Isocitrate_c	False	0			
+_3_Phospho_D_glycerate	3-Phospho-D-glycerate	C00197	_3_Phospho_D_glycerate_c	False	0			
+_6_Phospho_D_gluconate	6-Phospho-D-gluconate	C00345	_6_Phospho_D_gluconate_c	False	0			
+D_Xylulose_5_phosphate	D-Xylulose 5-phosphate	C00231	D_Xylulose_5_phosphate_c	False	0			
+Sedoheptulose_7_phosphate	Sedoheptulose 7-phosphate	C05382	Sedoheptulose_7_phosphate_c	False	0			
+D_Erythrose_4_phosphate	D-Erythrose 4-phosphate	C00279	D_Erythrose_4_phosphate_c	False	0			
+beta_D_Fructose_6_phosphate	beta-D-Fructose 6-phosphate	C05345	beta_D_Fructose_6_phosphate_c	False	0			
+D_Glucono_1_5_lactone_6_phosphate	D-Glucono-1,5-lactone 6-phosphate	C01236	D_Glucono_1_5_lactone_6_phosphate_c	False	0			
+beta_D_Glucose_6_phosphate	beta-D-Glucose 6-phosphate	C01172	beta_D_Glucose_6_phosphate_c	False	0			
+_R__Acetoin	(R)-Acetoin	C00810	_R_Acetoin_c	False	0			
+Methylglyoxal	Methylglyoxal	C00546	Methylglyoxal_c	False	0			
+sn_Glycerol_3_phosphate	sn-Glycerol 3-phosphate	C00093	sn_Glycerol_3_phosphate_c	False	0			
+Glycerol	Glycerol	C00116	Glycerol_c	False	0			
+MalateExt	MalateExt	C00149	MalateExt_c	True	0			
+CarbonDioxideExt	CarbonDioxideExt	C00011	CarbonDioxideExt_c	True	1			
+AcetateExt	AcetateExt	C00033	AcetateExt_c	True	0			
+AcetoinExt	AcetoinExt	C00810	AcetoinExt_c	True	0			
+GlycerolExt	GlycerolExt	C00116	GlycerolExt_c	True	0			
+PyruvateExt	PyruvateExt	C00022	PyruvateExt_c	True	0			
+SuccinateExt	SuccinateExt	C00042	SuccinateExt_c	True	0			
+FumarateExt	FumarateExt	C00122	FumarateExt_c	True	0			
+FructoseExt	FructoseExt	C00095	FructoseExt_c	True	0			
+GluconateExt	GluconateExt	C00345	GluconateExt_c	True	0			
+beta_D_GlucoseExt	beta-D-GlucoseExt	C00221	beta_D_GlucoseExt_c	True	0			
+GTP	GTP	C00044	GTP_c	False	1			
+GDP	GDP	C00035	GDP_c	False	1			
+O2	O2	C00007	O2_c	True	1			
+Biomass	Biomass		Biomass_c	True	0			
+Gluconate	Gluconate	C00345	Gluconate_c	False	0			
+GlutamateExt	Glutamate	C00025	Glutamate_c	True	0			
+%								
+!!SBtab TableName='Layouts' TableType='Position' Document='Bacillus subtilis central metabolism' SBtabVersion='0.9'								
+!Element	!Position:x	!Position:y						
+_2_Acetolactate	0.474731	0.356441						
+CO2	0.352313	0.432905						
+Pyruvate	0.280301	0.356746						
+L_Glutamate	0.566783	0.060666						
+NADPplus	0.352313	0.432905						
+L_Glutamine	0.566783	-0.078167						
+_2_Oxoglutarate	0.44809	0.003249						
+NADPH	0.352313	0.432905						
+Hplus	0.352313	0.432905						
+ATP	0.352313	0.432905						
+Phosphoenolpyruvate	0.280301	0.423535						
+ADP	0.352313	0.432905						
+_S__Malate	0.107625	0.135199						
+NADplus	0.352313	0.432905						
+NADH	0.352313	0.432905						
+Acetyl_CoA	0.280301	0.293214						
+Orthophosphate	0.352313	0.432905						
+CoA	0.352313	0.432905						
+Acetyl_phosphate	0.477749	0.29306						
+H2O	0.352313	0.432905						
+NH3	0.352313	0.432905						
+Acetate	0.639981	0.292438						
+Oxaloacetate	0.209566	0.232955						
+HCO3_	0.352313	0.432905						
+Citrate	0.363381	0.224795						
+Succinate	0.179302	-0.066799						
+Succinyl_CoA	0.360123	-0.073315						
+Acceptor	0.188011	0.019921						
+Fumarate	0.107625	0.008136						
+Reduced_acceptor	0.225151	-0.022437						
+_2_Phospho_D_glycerate	0.280301	0.48218						
+_S__Lactate	0.120657	0.454487						
+D_Glyceraldehyde_3_phosphate	0.280301	0.695582						
+Glycerone_phosphate	0.120881	0.720096						
+D_Ribose	0.799178	0.626562						
+D_Ribose_5_phosphate	0.646763	0.735214						
+D_Ribulose_5_phosphate	0.73278	0.893664						
+_3_Phospho_D_glyceroyl_phosphate	0.280301	0.620647						
+beta_D_Fructose_1_6_bisphosphate	0.280301	0.79821						
+Isocitrate	0.44809	0.141715						
+_3_Phospho_D_glycerate	0.280301	0.547341						
+_6_Phospho_D_gluconate	0.638685	1.024644						
+D_Xylulose_5_phosphate	0.610781	0.831622						
+Sedoheptulose_7_phosphate	0.458131	0.757849						
+D_Erythrose_4_phosphate	0.496194	0.919241						
+beta_D_Fructose_6_phosphate	0.280198	0.873285						
+D_Glucono_1_5_lactone_6_phosphate	0.428142	1.048759						
+beta_D_Glucose_6_phosphate	0.280198	0.965198						
+_R__Acetoin	0.639218	0.356441						
+Methylglyoxal	0.120657	0.568518						
+sn_Glycerol_3_phosphate	0.057235	0.655234						
+Glycerol	-0.003127	0.588835						
+MalateExt	-0.072999	0.13461						
+CarbonDioxideExt	0.752717	0.177554						
+AcetateExt	0.799178	0.29306						
+AcetoinExt	0.799178	0.356441						
+GlycerolExt	-0.074893	0.514892						
+PyruvateExt	0.797669	0.430384						
+SuccinateExt	-0.072999	-0.066095						
+FumarateExt	-0.072999	0.007849						
+FructoseExt	-0.076402	0.874047						
+GluconateExt	0.79813	1.069176						
+beta_D_GlucoseExt	-0.076733	0.965198						
+GTP	0.352313	0.432905						
+GDP	0.352313	0.432905						
+O2	0.27303	0.036521						
+Biomass	0.642588	0.585272						
+Gluconate	0.639093	1.069944						
+GlutamateExt	0.79774	0.118795						
+R00006	0.379661	0.356441						
+R00114	0.50793	-0.040441						
+R00200	0.280301	0.389326						
+R00214	0.137567	0.30189						
+R00216	0.106929	0.3264						
+R00230	0.379661	0.29306						
+R00243	0.50793	0.030485						
+R00253	0.566783	-0.002714						
+R00315	0.568504	0.292438						
+R00341	0.189651	0.292699						
+R00342	0.142198	0.189251						
+R00344	0.221821	0.289635						
+R00351	0.280301	0.245972						
+R00405	0.280301	-0.087976						
+R00412	0.133685	-0.038932						
+R00658	0.280301	0.452858						
+R00703	0.176044	0.423535						
+R01015	0.211882	0.695582						
+R01051	0.720707	0.683906						
+R01056	0.696562	0.780485						
+R01061	0.244799	0.654225						
+R01063	0.309138	0.654225						
+R01070	0.280301	0.749339						
+R01082	0.09948	0.071667						
+R01324	0.41551	0.188957						
+R01512	0.280301	0.576663						
+R01518	0.280301	0.513132						
+R01528	0.710362	0.967628						
+R01529	0.681807	0.860032						
+R01641	0.550184	0.697487						
+R01827	0.373624	0.813685						
+R01830	0.464669	0.831622						
+R02035	0.529608	1.058906						
+R02736	0.346969	1.012231						
+R03321	0.280452	0.92111						
+R04779	0.246331	0.831924						
+R04780	0.31067	0.831924						
+R02947	0.568292	0.356441						
+R01016	0.120657	0.623905						
+R00841	0.032032	0.626651						
+R00842	0.086576	0.689942						
+R00709	0.466009	0.070038						
+Methylglyoxal__rev___S__Lactate	0.121109	0.511625						
+_2_Oxoglutarate_plus_CoA__rev__CO2_plus_Succinyl_CoA	0.409885	-0.038898						
+Pyruvate_plus_CoA_plus_NADplus__rev__Acetyl_CoA_plus_NADH_plus_CO2_plus_Hplus	0.280263	0.32385						
+MalateExt__rev___S__Malate	0.024205	0.134652						
+CarbonDioxideExt__rev__CO2	0.644759	0.177328						
+AcetateExt__rev__Acetate	0.750888	0.29306						
+AcetoinExt__rev___R__Acetoin	0.714671	0.356441						
+GlycerolExt__rev__Glycerol	-0.036326	0.552618						
+PyruvateExt__rev__Pyruvate	0.592437	0.430384						
+SuccinateExt__rev__Succinate	0.034599	-0.066095						
+FumarateExt__rev__Fumarate	0.028473	0.008046						
+Glucose_PTS	0.122173	0.965906						
+GTP__irrev__ATP	0.751295	0.059257						
+OxPhos__Reduced_Acceptor__irrev__ATP	0.248373	0.02294						
+OxPhos__NADH__irrev__ATP	0.328865	0.036521						
+Maintenance	0.749873	0.119004						
+Biomass_production	0.47816	0.584175						
+FructoseExt__rev__Fructose	0.103175	0.874047						
+GluconateExt__rev__Gluconate	0.727488	1.069176						
+Gluconate__rev___6_Phospho_D_gluconate	0.638417	1.044605						
+GlutamateExt__rev__Glutamate	0.681335	0.094289						

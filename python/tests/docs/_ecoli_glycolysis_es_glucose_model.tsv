@@ -1,0 +1,181 @@
+!!SBtab TableName='Reaction' TableType='Reaction' Document='Model' SBtabVersion='1.0'							
+!ID	!ReactionFormula	!Identifiers:kegg.reaction	!IsReversible	!KineticLaw:Name	!KineticLaw:Formula		
+PTS	D_Glucose + Phosphoenolpyruvate <=> D_Glucose_6_phosphate + Pyruvate	R00299	True	Common saturable (CM)	u_R1 * ( kC_R1 * sqrt( kEQ_R1  * kM_R1_D_Glucose * kM_R1_Phosphoenolpyruvate / kM_R1_D_Glucose_6_phosphate / kM_R1_Pyruvate ) * ( D_Glucose / kM_R1_D_Glucose ) * ( Phosphoenolpyruvate / kM_R1_Phosphoenolpyruvate ) - kC_R1 / sqrt( kEQ_R1  * kM_R1_D_Glucose * kM_R1_Phosphoenolpyruvate / kM_R1_D_Glucose_6_phosphate / kM_R1_Pyruvate ) * ( D_Glucose_6_phosphate / kM_R1_D_Glucose_6_phosphate ) * ( Pyruvate / kM_R1_Pyruvate ) ) / ( ( 1 + D_Glucose / kM_R1_D_Glucose ) * ( 1 + Phosphoenolpyruvate / kM_R1_Phosphoenolpyruvate ) + ( 1 + D_Glucose_6_phosphate / kM_R1_D_Glucose_6_phosphate ) * ( 1 + Pyruvate / kM_R1_Pyruvate ) - 1 )		
+PGI	D_Glucose_6_phosphate <=> D_Fructose_6_phosphate	R00771	True	Common saturable (CM)	u_R2 * ( kC_R2 * sqrt( kEQ_R2  * kM_R2_D_Glucose_6_phosphate / kM_R2_D_Fructose_6_phosphate ) * ( D_Glucose_6_phosphate / kM_R2_D_Glucose_6_phosphate ) - kC_R2 / sqrt( kEQ_R2  * kM_R2_D_Glucose_6_phosphate / kM_R2_D_Fructose_6_phosphate ) * ( D_Fructose_6_phosphate / kM_R2_D_Fructose_6_phosphate ) ) / ( ( 1 + D_Glucose_6_phosphate / kM_R2_D_Glucose_6_phosphate ) + ( 1 + D_Fructose_6_phosphate / kM_R2_D_Fructose_6_phosphate ) - 1 )		
+PFK	D_Fructose_6_phosphate + ATP <=> D_Fructose_1_6_bisphosphate + ADP	R00756	True	Common saturable (CM)	u_R3 * ( kC_R3 * sqrt( kEQ_R3  * kM_R3_D_Fructose_6_phosphate * kM_R3_ATP / kM_R3_D_Fructose_1_6_bisphosphate / kM_R3_ADP ) * ( D_Fructose_6_phosphate / kM_R3_D_Fructose_6_phosphate ) * ( ATP / kM_R3_ATP ) - kC_R3 / sqrt( kEQ_R3  * kM_R3_D_Fructose_6_phosphate * kM_R3_ATP / kM_R3_D_Fructose_1_6_bisphosphate / kM_R3_ADP ) * ( D_Fructose_1_6_bisphosphate / kM_R3_D_Fructose_1_6_bisphosphate ) * ( ADP / kM_R3_ADP ) ) / ( ( 1 + D_Fructose_6_phosphate / kM_R3_D_Fructose_6_phosphate ) * ( 1 + ATP / kM_R3_ATP ) + ( 1 + D_Fructose_1_6_bisphosphate / kM_R3_D_Fructose_1_6_bisphosphate ) * ( 1 + ADP / kM_R3_ADP ) - 1 )		
+FBA	D_Fructose_1_6_bisphosphate <=> Glycerone_phosphate + D_Glyceraldehyde_3_phosphate	R01070	True	Common saturable (CM)	u_R4 * ( kC_R4 * sqrt( kEQ_R4  * kM_R4_D_Fructose_1_6_bisphosphate / kM_R4_Glycerone_phosphate / kM_R4_D_Glyceraldehyde_3_phosphate ) * ( D_Fructose_1_6_bisphosphate / kM_R4_D_Fructose_1_6_bisphosphate ) - kC_R4 / sqrt( kEQ_R4  * kM_R4_D_Fructose_1_6_bisphosphate / kM_R4_Glycerone_phosphate / kM_R4_D_Glyceraldehyde_3_phosphate ) * ( Glycerone_phosphate / kM_R4_Glycerone_phosphate ) * ( D_Glyceraldehyde_3_phosphate / kM_R4_D_Glyceraldehyde_3_phosphate ) ) / ( ( 1 + D_Fructose_1_6_bisphosphate / kM_R4_D_Fructose_1_6_bisphosphate ) + ( 1 + Glycerone_phosphate / kM_R4_Glycerone_phosphate ) * ( 1 + D_Glyceraldehyde_3_phosphate / kM_R4_D_Glyceraldehyde_3_phosphate ) - 1 )		
+TIM	D_Glyceraldehyde_3_phosphate <=> Glycerone_phosphate	R01015	True	Common saturable (CM)	u_R5 * ( kC_R5 * sqrt( kEQ_R5  * kM_R5_D_Glyceraldehyde_3_phosphate / kM_R5_Glycerone_phosphate ) * ( D_Glyceraldehyde_3_phosphate / kM_R5_D_Glyceraldehyde_3_phosphate ) - kC_R5 / sqrt( kEQ_R5  * kM_R5_D_Glyceraldehyde_3_phosphate / kM_R5_Glycerone_phosphate ) * ( Glycerone_phosphate / kM_R5_Glycerone_phosphate ) ) / ( ( 1 + D_Glyceraldehyde_3_phosphate / kM_R5_D_Glyceraldehyde_3_phosphate ) + ( 1 + Glycerone_phosphate / kM_R5_Glycerone_phosphate ) - 1 )		
+GAP	D_Glyceraldehyde_3_phosphate + Orthophosphate + NADplus <=> _3_Phospho_D_glyceroyl_phosphate + NADH	R01061	True	Common saturable (CM)	u_R6 * ( kC_R6 * sqrt( kEQ_R6  * kM_R6_D_Glyceraldehyde_3_phosphate * kM_R6_Orthophosphate * kM_R6_NADplus / kM_R6__3_Phospho_D_glyceroyl_phosphate / kM_R6_NADH ) * ( D_Glyceraldehyde_3_phosphate / kM_R6_D_Glyceraldehyde_3_phosphate ) * ( Orthophosphate / kM_R6_Orthophosphate ) * ( NADplus / kM_R6_NADplus ) - kC_R6 / sqrt( kEQ_R6  * kM_R6_D_Glyceraldehyde_3_phosphate * kM_R6_Orthophosphate * kM_R6_NADplus / kM_R6__3_Phospho_D_glyceroyl_phosphate / kM_R6_NADH ) * ( _3_Phospho_D_glyceroyl_phosphate / kM_R6__3_Phospho_D_glyceroyl_phosphate ) * ( NADH / kM_R6_NADH ) ) / ( ( 1 + D_Glyceraldehyde_3_phosphate / kM_R6_D_Glyceraldehyde_3_phosphate ) * ( 1 + Orthophosphate / kM_R6_Orthophosphate ) * ( 1 + NADplus / kM_R6_NADplus ) + ( 1 + _3_Phospho_D_glyceroyl_phosphate / kM_R6__3_Phospho_D_glyceroyl_phosphate ) * ( 1 + NADH / kM_R6_NADH ) - 1 )		
+PGK	_3_Phospho_D_glycerate + ATP <=> _3_Phospho_D_glyceroyl_phosphate + ADP	R01512	True	Common saturable (CM)	u_R7 * ( kC_R7 * sqrt( kEQ_R7  * kM_R7__3_Phospho_D_glycerate * kM_R7_ATP / kM_R7__3_Phospho_D_glyceroyl_phosphate / kM_R7_ADP ) * ( _3_Phospho_D_glycerate / kM_R7__3_Phospho_D_glycerate ) * ( ATP / kM_R7_ATP ) - kC_R7 / sqrt( kEQ_R7  * kM_R7__3_Phospho_D_glycerate * kM_R7_ATP / kM_R7__3_Phospho_D_glyceroyl_phosphate / kM_R7_ADP ) * ( _3_Phospho_D_glyceroyl_phosphate / kM_R7__3_Phospho_D_glyceroyl_phosphate ) * ( ADP / kM_R7_ADP ) ) / ( ( 1 + _3_Phospho_D_glycerate / kM_R7__3_Phospho_D_glycerate ) * ( 1 + ATP / kM_R7_ATP ) + ( 1 + _3_Phospho_D_glyceroyl_phosphate / kM_R7__3_Phospho_D_glyceroyl_phosphate ) * ( 1 + ADP / kM_R7_ADP ) - 1 )		
+PGM	_2_Phospho_D_glycerate <=> _3_Phospho_D_glycerate	R01518	True	Common saturable (CM)	u_R8 * ( kC_R8 * sqrt( kEQ_R8  * kM_R8__2_Phospho_D_glycerate / kM_R8__3_Phospho_D_glycerate ) * ( _2_Phospho_D_glycerate / kM_R8__2_Phospho_D_glycerate ) - kC_R8 / sqrt( kEQ_R8  * kM_R8__2_Phospho_D_glycerate / kM_R8__3_Phospho_D_glycerate ) * ( _3_Phospho_D_glycerate / kM_R8__3_Phospho_D_glycerate ) ) / ( ( 1 + _2_Phospho_D_glycerate / kM_R8__2_Phospho_D_glycerate ) + ( 1 + _3_Phospho_D_glycerate / kM_R8__3_Phospho_D_glycerate ) - 1 )		
+ENO	_2_Phospho_D_glycerate <=> Phosphoenolpyruvate + H2O	R00658	True	Common saturable (CM)	u_R9 * ( kC_R9 * sqrt( kEQ_R9  * kM_R9__2_Phospho_D_glycerate / kM_R9_Phosphoenolpyruvate / kM_R9_H2O ) * ( _2_Phospho_D_glycerate / kM_R9__2_Phospho_D_glycerate ) - kC_R9 / sqrt( kEQ_R9  * kM_R9__2_Phospho_D_glycerate / kM_R9_Phosphoenolpyruvate / kM_R9_H2O ) * ( Phosphoenolpyruvate / kM_R9_Phosphoenolpyruvate ) * ( H2O / kM_R9_H2O ) ) / ( ( 1 + _2_Phospho_D_glycerate / kM_R9__2_Phospho_D_glycerate ) + ( 1 + Phosphoenolpyruvate / kM_R9_Phosphoenolpyruvate ) * ( 1 + H2O / kM_R9_H2O ) - 1 )		
+PYK	Pyruvate + ATP <=> Phosphoenolpyruvate + ADP	R00200	True	Common saturable (CM)	u_R10 * ( kC_R10 * sqrt( kEQ_R10  * kM_R10_Pyruvate * kM_R10_ATP / kM_R10_Phosphoenolpyruvate / kM_R10_ADP ) * ( Pyruvate / kM_R10_Pyruvate ) * ( ATP / kM_R10_ATP ) - kC_R10 / sqrt( kEQ_R10  * kM_R10_Pyruvate * kM_R10_ATP / kM_R10_Phosphoenolpyruvate / kM_R10_ADP ) * ( Phosphoenolpyruvate / kM_R10_Phosphoenolpyruvate ) * ( ADP / kM_R10_ADP ) ) / ( ( 1 + Pyruvate / kM_R10_Pyruvate ) * ( 1 + ATP / kM_R10_ATP ) + ( 1 + Phosphoenolpyruvate / kM_R10_Phosphoenolpyruvate ) * ( 1 + ADP / kM_R10_ADP ) - 1 )		
+PDC	Pyruvate + NADplus + CoA <=> Acetyl_CoA + NADH + CO2	R00014_R03270_R02569	True	Common saturable (CM)	u_R11 * ( kC_R11 * sqrt( kEQ_R11  * kM_R11_Pyruvate * kM_R11_NADplus * kM_R11_CoA / kM_R11_Acetyl_CoA / kM_R11_NADH / kM_R11_CO2 ) * ( Pyruvate / kM_R11_Pyruvate ) * ( NADplus / kM_R11_NADplus ) * ( CoA / kM_R11_CoA ) - kC_R11 / sqrt( kEQ_R11  * kM_R11_Pyruvate * kM_R11_NADplus * kM_R11_CoA / kM_R11_Acetyl_CoA / kM_R11_NADH / kM_R11_CO2 ) * ( Acetyl_CoA / kM_R11_Acetyl_CoA ) * ( NADH / kM_R11_NADH ) * ( CO2 / kM_R11_CO2 ) ) / ( ( 1 + Pyruvate / kM_R11_Pyruvate ) * ( 1 + NADplus / kM_R11_NADplus ) * ( 1 + CoA / kM_R11_CoA ) + ( 1 + Acetyl_CoA / kM_R11_Acetyl_CoA ) * ( 1 + NADH / kM_R11_NADH ) * ( 1 + CO2 / kM_R11_CO2 ) - 1 )		
+ATPase	ATP + H2O <=> ADP + Orthophosphate	R00086	True	Common saturable (CM)	u_R12 * ( kC_R12 * sqrt( kEQ_R12  * kM_R12_ATP * kM_R12_H2O / kM_R12_ADP / kM_R12_Orthophosphate ) * ( ATP / kM_R12_ATP ) * ( H2O / kM_R12_H2O ) - kC_R12 / sqrt( kEQ_R12  * kM_R12_ATP * kM_R12_H2O / kM_R12_ADP / kM_R12_Orthophosphate ) * ( ADP / kM_R12_ADP ) * ( Orthophosphate / kM_R12_Orthophosphate ) ) / ( ( 1 + ATP / kM_R12_ATP ) * ( 1 + H2O / kM_R12_H2O ) + ( 1 + ADP / kM_R12_ADP ) * ( 1 + Orthophosphate / kM_R12_Orthophosphate ) - 1 )		
+NADHcons	NADH <=> NADplus	X2	True	Common saturable (CM)	u_R13 * ( kC_R13 * sqrt( kEQ_R13  * kM_R13_NADH / kM_R13_NADplus ) * ( NADH / kM_R13_NADH ) - kC_R13 / sqrt( kEQ_R13  * kM_R13_NADH / kM_R13_NADplus ) * ( NADplus / kM_R13_NADplus ) ) / ( ( 1 + NADH / kM_R13_NADH ) + ( 1 + NADplus / kM_R13_NADplus ) - 1 )		
+%							
+!!SBtab TableName='Compound' TableType='Compound' Document='Model' SBtabVersion='1.0'							
+!ID	!Identifiers:kegg.compound	!IsConstant					
+D_Glucose	C00031	True					
+D_Glucose_6_phosphate	C00092	False					
+D_Fructose_6_phosphate	C00085	False					
+D_Fructose_1_6_bisphosphate	C00354	False					
+Glycerone_phosphate	C00111	False					
+_3_Phospho_D_glyceroyl_phosphate	C00236	False					
+D_Glyceraldehyde_3_phosphate	C00661	False					
+_2_Phospho_D_glycerate	C00631	False					
+_3_Phospho_D_glycerate	C00197	False					
+Phosphoenolpyruvate	C00074	False					
+Pyruvate	C00022	False					
+Acetyl_CoA	C00024	True					
+ATP	C00002	False					
+ADP	C00008	False					
+Orthophosphate	C00009	False					
+NADH	C00004	False					
+NADplus	C00003	False					
+CoA	C00010	True					
+CO2	C00011	True					
+H2O	C00001	True					
+%							
+!!SBtab TableName='Parameter' TableType='Quantity' Document='Model' SBtabVersion='1.0'							
+!QuantityType	!Reaction	!Compound	!Value	!Unit	!Reaction:Identifiers:kegg.reaction	!Compound:Identifiers:kegg.compound	!ID
+equilibrium constant	PTS		3390.7079	dimensionless	R00299		kEQ_R1
+equilibrium constant	PGI		38.346768	dimensionless	R00771		kEQ_R2
+equilibrium constant	PFK		0.0015288381	dimensionless	R00756		kEQ_R3
+equilibrium constant	FBA		8.2554408e-05	dimensionless	R01070		kEQ_R4
+equilibrium constant	TIM		111.48006	dimensionless	R01015		kEQ_R5
+equilibrium constant	GAP		273734.48	dimensionless	R01061		kEQ_R6
+equilibrium constant	PGK		6.101157e-05	dimensionless	R01512		kEQ_R7
+equilibrium constant	PGM		0.07986773	dimensionless	R01518		kEQ_R8
+equilibrium constant	ENO		101743.3	dimensionless	R00658		kEQ_R9
+equilibrium constant	PYK		0.00041995374	dimensionless	R00200		kEQ_R10
+equilibrium constant	PDC		11734.716	dimensionless	R00014_R03270_R02569		kEQ_R11
+equilibrium constant	ATPase		1103639	dimensionless	R00086		kEQ_R12
+equilibrium constant	NADHcons		97748.858	dimensionless	X2		kEQ_R13
+catalytic rate constant geometric mean	PTS		0.03107025	1/s	R00299		kC_R1
+catalytic rate constant geometric mean	PGI		0.58297815	1/s	R00771		kC_R2
+catalytic rate constant geometric mean	PFK		1.3609712	1/s	R00756		kC_R3
+catalytic rate constant geometric mean	FBA		0.97224196	1/s	R01070		kC_R4
+catalytic rate constant geometric mean	TIM		0.58339218	1/s	R01015		kC_R5
+catalytic rate constant geometric mean	GAP		0.097420597	1/s	R01061		kC_R6
+catalytic rate constant geometric mean	PGK		0.062011371	1/s	R01512		kC_R7
+catalytic rate constant geometric mean	PGM		0.026578742	1/s	R01518		kC_R8
+catalytic rate constant geometric mean	ENO		0.044304258	1/s	R00658		kC_R9
+catalytic rate constant geometric mean	PYK		1.3570787	1/s	R00200		kC_R10
+catalytic rate constant geometric mean	PDC		0.13301282	1/s	R00014_R03270_R02569		kC_R11
+catalytic rate constant geometric mean	ATPase		0.0010970324	1/s	R00086		kC_R12
+catalytic rate constant geometric mean	NADHcons		0.053138593	1/s	X2		kC_R13
+Michaelis constant	PTS	D_Glucose	17.362999	mM	R00299	C00031	kM_R1_D_Glucose
+Michaelis constant	PTS	D_Glucose_6_phosphate	8.7500021	mM	R00299	C00092	kM_R1_D_Glucose_6_phosphate
+Michaelis constant	PGI	D_Glucose_6_phosphate	8.7500021	mM	R00771	C00092	kM_R2_D_Glucose_6_phosphate
+Michaelis constant	PGI	D_Fructose_6_phosphate	99.944398	mM	R00771	C00085	kM_R2_D_Fructose_6_phosphate
+Michaelis constant	PFK	D_Fructose_6_phosphate	99.944398	mM	R00756	C00085	kM_R3_D_Fructose_6_phosphate
+Michaelis constant	PFK	D_Fructose_1_6_bisphosphate	15.200009	mM	R00756	C00354	kM_R3_D_Fructose_1_6_bisphosphate
+Michaelis constant	FBA	D_Fructose_1_6_bisphosphate	15.200009	mM	R01070	C00354	kM_R4_D_Fructose_1_6_bisphosphate
+Michaelis constant	FBA	Glycerone_phosphate	0.3740001	mM	R01070	C00111	kM_R4_Glycerone_phosphate
+Michaelis constant	TIM	Glycerone_phosphate	0.3740001	mM	R01015	C00111	kM_R5_Glycerone_phosphate
+Michaelis constant	GAP	_3_Phospho_D_glyceroyl_phosphate	99.968551	mM	R01061	C00236	kM_R6__3_Phospho_D_glyceroyl_phosphate
+Michaelis constant	PGK	_3_Phospho_D_glyceroyl_phosphate	99.968551	mM	R01512	C00236	kM_R7__3_Phospho_D_glyceroyl_phosphate
+Michaelis constant	FBA	D_Glyceraldehyde_3_phosphate	0.0010000681	mM	R01070	C00661	kM_R4_D_Glyceraldehyde_3_phosphate
+Michaelis constant	TIM	D_Glyceraldehyde_3_phosphate	0.0010000681	mM	R01015	C00661	kM_R5_D_Glyceraldehyde_3_phosphate
+Michaelis constant	GAP	D_Glyceraldehyde_3_phosphate	0.0010000681	mM	R01061	C00661	kM_R6_D_Glyceraldehyde_3_phosphate
+Michaelis constant	PGM	_2_Phospho_D_glycerate	0.006050108	mM	R01518	C00631	kM_R8__2_Phospho_D_glycerate
+Michaelis constant	ENO	_2_Phospho_D_glycerate	0.006050108	mM	R00658	C00631	kM_R9__2_Phospho_D_glycerate
+Michaelis constant	PGK	_3_Phospho_D_glycerate	1.54	mM	R01512	C00197	kM_R7__3_Phospho_D_glycerate
+Michaelis constant	PGM	_3_Phospho_D_glycerate	1.54	mM	R01518	C00197	kM_R8__3_Phospho_D_glycerate
+Michaelis constant	PTS	Phosphoenolpyruvate	0.18400004	mM	R00299	C00074	kM_R1_Phosphoenolpyruvate
+Michaelis constant	ENO	Phosphoenolpyruvate	0.18400004	mM	R00658	C00074	kM_R9_Phosphoenolpyruvate
+Michaelis constant	PYK	Phosphoenolpyruvate	0.18400004	mM	R00200	C00074	kM_R10_Phosphoenolpyruvate
+Michaelis constant	PTS	Pyruvate	0.38999998	mM	R00299	C00022	kM_R1_Pyruvate
+Michaelis constant	PYK	Pyruvate	0.38999998	mM	R00200	C00022	kM_R10_Pyruvate
+Michaelis constant	PDC	Pyruvate	0.38999998	mM	R00014_R03270_R02569	C00022	kM_R11_Pyruvate
+Michaelis constant	PDC	Acetyl_CoA	0.60600002	mM	R00014_R03270_R02569	C00024	kM_R11_Acetyl_CoA
+Michaelis constant	PFK	ATP	10.5	mM	R00756	C00002	kM_R3_ATP
+Michaelis constant	PGK	ATP	10.5	mM	R01512	C00002	kM_R7_ATP
+Michaelis constant	PYK	ATP	10.5	mM	R00200	C00002	kM_R10_ATP
+Michaelis constant	ATPase	ATP	10.5	mM	R00086	C00002	kM_R12_ATP
+Michaelis constant	PFK	ADP	0.031457543	mM	R00756	C00008	kM_R3_ADP
+Michaelis constant	PGK	ADP	0.031457543	mM	R01512	C00008	kM_R7_ADP
+Michaelis constant	PYK	ADP	0.031457543	mM	R00200	C00008	kM_R10_ADP
+Michaelis constant	ATPase	ADP	0.031457543	mM	R00086	C00008	kM_R12_ADP
+Michaelis constant	GAP	Orthophosphate	38	mM	R01061	C00009	kM_R6_Orthophosphate
+Michaelis constant	ATPase	Orthophosphate	38	mM	R00086	C00009	kM_R12_Orthophosphate
+Michaelis constant	GAP	NADH	0.083199995	mM	R01061	C00004	kM_R6_NADH
+Michaelis constant	PDC	NADH	0.083199995	mM	R00014_R03270_R02569	C00004	kM_R11_NADH
+Michaelis constant	NADHcons	NADH	0.083199995	mM	X2	C00004	kM_R13_NADH
+Michaelis constant	GAP	NADplus	2.5500001	mM	R01061	C00003	kM_R6_NADplus
+Michaelis constant	PDC	NADplus	2.5500001	mM	R00014_R03270_R02569	C00003	kM_R11_NADplus
+Michaelis constant	NADHcons	NADplus	2.5500001	mM	X2	C00003	kM_R13_NADplus
+Michaelis constant	PDC	CoA	1.3699999	mM	R00014_R03270_R02569	C00010	kM_R11_CoA
+Michaelis constant	PDC	CO2	99.676644	mM	R00014_R03270_R02569	C00011	kM_R11_CO2
+Michaelis constant	ENO	H2O	1.05	mM	R00658	C00001	kM_R9_H2O
+Michaelis constant	ATPase	H2O	1.05	mM	R00086	C00001	kM_R12_H2O
+concentration		D_Glucose	17.362999	mM		C00031	c_D_Glucose
+concentration		D_Glucose_6_phosphate	8.7500021	mM		C00092	c_D_Glucose_6_phosphate
+concentration		D_Fructose_6_phosphate	99.944398	mM		C00085	c_D_Fructose_6_phosphate
+concentration		D_Fructose_1_6_bisphosphate	15.200009	mM		C00354	c_D_Fructose_1_6_bisphosphate
+concentration		Glycerone_phosphate	0.3740001	mM		C00111	c_Glycerone_phosphate
+concentration		_3_Phospho_D_glyceroyl_phosphate	99.968551	mM		C00236	c__3_Phospho_D_glyceroyl_phosphate
+concentration		D_Glyceraldehyde_3_phosphate	0.0010000681	mM		C00661	c_D_Glyceraldehyde_3_phosphate
+concentration		_2_Phospho_D_glycerate	0.006050108	mM		C00631	c__2_Phospho_D_glycerate
+concentration		_3_Phospho_D_glycerate	1.54	mM		C00197	c__3_Phospho_D_glycerate
+concentration		Phosphoenolpyruvate	0.18400004	mM		C00074	c_Phosphoenolpyruvate
+concentration		Pyruvate	0.38999998	mM		C00022	c_Pyruvate
+concentration		Acetyl_CoA	0.60600002	mM		C00024	c_Acetyl_CoA
+concentration		ATP	10.5	mM		C00002	c_ATP
+concentration		ADP	0.031457543	mM		C00008	c_ADP
+concentration		Orthophosphate	38	mM		C00009	c_Orthophosphate
+concentration		NADH	0.083199995	mM		C00004	c_NADH
+concentration		NADplus	2.5500001	mM		C00003	c_NADplus
+concentration		CoA	1.3699999	mM		C00010	c_CoA
+concentration		CO2	99.676644	mM		C00011	c_CO2
+concentration		H2O	1.05	mM		C00001	c_H2O
+concentration of enzyme	PTS		1	mM	R00299		u_R1
+concentration of enzyme	PGI		1	mM	R00771		u_R2
+concentration of enzyme	PFK		1	mM	R00756		u_R3
+concentration of enzyme	FBA		1	mM	R01070		u_R4
+concentration of enzyme	TIM		1	mM	R01015		u_R5
+concentration of enzyme	GAP		1	mM	R01061		u_R6
+concentration of enzyme	PGK		1	mM	R01512		u_R7
+concentration of enzyme	PGM		1	mM	R01518		u_R8
+concentration of enzyme	ENO		1	mM	R00658		u_R9
+concentration of enzyme	PYK		1	mM	R00200		u_R10
+concentration of enzyme	PDC		1	mM	R00014_R03270_R02569		u_R11
+concentration of enzyme	ATPase		1	mM	R00086		u_R12
+concentration of enzyme	NADHcons		1	mM	X2		u_R13
+%							
+!!SBtab TableName='Layouts' TableType='Position' Document='Model' SBtabVersion='1.0'							
+!Element	!PositionX	!PositionY					
+D_Glucose	0.030783	0.884503					
+D_Glucose_6_phosphate	0.307495	0.884447					
+D_Fructose_6_phosphate	0.307572	0.785052					
+D_Fructose_1_6_bisphosphate	0.307277	0.662531					
+Glycerone_phosphate	0.251769	0.569913					
+_3_Phospho_D_glyceroyl_phosphate	0.360602	0.432044					
+D_Glyceraldehyde_3_phosphate	0.360118	0.548987					
+_2_Phospho_D_glycerate	0.360602	0.18339					
+_3_Phospho_D_glycerate	0.360602	0.304878					
+Phosphoenolpyruvate	0.360333	0.05792					
+Pyruvate	0.360333	-0.052291					
+Acetyl_CoA	0.360535	-0.159014					
+ATP	0.590747	0.289503					
+ADP	0.589351	0.374603					
+Orthophosphate	0.65492	0.406689					
+NADH	0.030139	0.269972					
+NADplus	0.029979	0.360652					
+CoA	0.249157	-0.069032					
+CO2	0.249157	-0.141576					
+H2O	0.654377	0.2337					
+PTS	0.151289	0.884465					
+PGI	0.307572	0.832794					
+PFK	0.307277	0.723843					
+FBA	0.307277	0.609167					
+TIM	0.307105	0.557358					
+GAP	0.360602	0.496762					
+PGK	0.360602	0.365055					
+PGM	0.360602	0.249243					
+ENO	0.360602	0.126619					
+PYK	0.360333	0.002117					
+PDC	0.360577	-0.105304					
+ATPase	0.615315	0.331355					
+NADHcons	0.030032	0.3188					

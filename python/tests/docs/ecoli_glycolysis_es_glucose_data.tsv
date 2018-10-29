@@ -1,0 +1,53 @@
+!!SBtab TableType="Quantity"									
+!QuantityType	!Compound	!Reaction	!Unit	!Median	!Mean	!Std	!Lower	!Upper	!Compound:Identifiers:kegg.compound
+standard chemical potential	D_Glucose		kJ/mol	-420.16808	-420.16808	10	NaN	NaN	C00031
+standard chemical potential	D_Glucose_6_phosphate		kJ/mol	-1313.8295	-1313.8295	10	NaN	NaN	C00092
+standard chemical potential	D_Fructose_6_phosphate		kJ/mol	-1311.9222	-1311.9222	10	NaN	NaN	C00085
+standard chemical potential	D_Fructose_1_6_bisphosphate		kJ/mol	-2210.9234	-2210.9234	10	NaN	NaN	C00354
+standard chemical potential	Glycerone_phosphate		kJ/mol	-1097.2338	-1097.2338	10	NaN	NaN	C00111
+standard chemical potential	3_Phospho_D_glyceroyl_phosphate		kJ/mol	-2198.9434	-2198.9434	10	NaN	NaN	C00236
+standard chemical potential	D_Glyceraldehyde_3_phosphate		kJ/mol	0	0	10	NaN	NaN	C00661
+standard chemical potential	2_Phospho_D_glycerate		kJ/mol	-1335.4422	-1335.4422	10	NaN	NaN	C00631
+standard chemical potential	3_Phospho_D_glycerate		kJ/mol	-1340.2567	-1340.2567	10	NaN	NaN	C00197
+standard chemical potential	Phosphoenolpyruvate		kJ/mol	-1208.5251	-1208.5251	10	NaN	NaN	C00074
+standard chemical potential	Pyruvate		kJ/mol	-354.41783	-354.41783	10	NaN	NaN	C00022
+standard chemical potential	Acetyl_CoA		kJ/mol	-28.130532	-28.130532	10	NaN	NaN	C00024
+standard chemical potential	ATP		kJ/mol	-2304.722	-2304.722	10	NaN	NaN	C00002
+standard chemical potential	ADP		kJ/mol	-1427.0814	-1427.0814	10	NaN	NaN	C00008
+standard chemical potential	Orthophosphate		kJ/mol	-1037.3655	-1037.3655	10	NaN	NaN	C00009
+standard chemical potential	NADH		kJ/mol	321.18965	321.18965	10	NaN	NaN	C00004
+standard chemical potential	NAD+		kJ/mol	251.0055	251.0055	10	NaN	NaN	C00003
+standard chemical potential	CoA		kJ/mol	47.645916	47.645916	10	NaN	NaN	C00010
+standard chemical potential	CO2		kJ/mol	-386	-386	10	NaN	NaN	C00011
+standard chemical potential	H2O		kJ/mol	-130.6675	-130.6675	10	NaN	NaN	C00001
+Michaelis constant	D_Glucose	PTS	mM	2	2.171348	0.91786142	NaN	NaN	C00031
+Michaelis constant	Orthophosphate	PTS	mM	221	239.93395	101.42369	NaN	NaN	C00009
+Michaelis constant	2_Phospho_D_glycerate	PGI	mM	169	183.4789	77.55929	NaN	NaN	C00631
+Michaelis constant	3_Phospho_D_glycerate	PGI	mM	0.047	0.051026677	0.021569743	NaN	NaN	C00197
+Michaelis constant	NAD+	PFK	mM	0.59	0.64054765	0.27076912	NaN	NaN	C00003
+Michaelis constant	Pyruvate	FBA	mM	0.032	0.034741567	0.014685783	NaN	NaN	C00022
+Michaelis constant	Acetyl_CoA	FBA	mM	0.005	0.0054283699	0.0022946536	NaN	NaN	C00024
+Michaelis constant	Pyruvate	GAP	mM	0.1	0.1085674	0.045893071	NaN	NaN	C00022
+Michaelis constant	Acetyl_CoA	GAP	mM	0.22	0.23884828	0.10096476	NaN	NaN	C00024
+Michaelis constant	NAD+	PGM	mM	0.45	0.48855329	0.20651882	NaN	NaN	C00003
+Michaelis constant	CO2	PGM	mM	0.12	0.13028088	0.055071685	NaN	NaN	C00011
+Michaelis constant	2_Phospho_D_glycerate	ENO	mM	0.007	0.0075997179	0.003212515	NaN	NaN	C00631
+Michaelis constant	CO2	ENO	mM	2.3	2.4970502	1.0555406	NaN	NaN	C00011
+Michaelis constant	D_Glucose	PYK	mM	0.28	0.30398872	0.1285006	NaN	NaN	C00031
+Michaelis constant	D_Glucose	PDC	mM	0.01	0.01085674	0.0045893071	NaN	NaN	C00031
+Michaelis constant	ADP	PDC	mM	0.022	0.023884828	0.010096476	NaN	NaN	C00008
+concentration	D_Glucose		mM	17.363	18.850557	7.968414	NaN	NaN	C00031
+concentration	D_Glucose_6_phosphate		mM	8.75	9.4996474	4.0156437	NaN	NaN	C00092
+concentration	D_Fructose_1_6_bisphosphate		mM	15.2	16.502245	6.9757468	NaN	NaN	C00354
+concentration	Glycerone_phosphate		mM	0.374	0.40604207	0.17164009	NaN	NaN	C00111
+concentration	3_Phospho_D_glycerate		mM	1.54	1.6719379	0.7067533	NaN	NaN	C00197
+concentration	Phosphoenolpyruvate		mM	0.184	0.19976401	0.084443251	NaN	NaN	C00074
+concentration	Pyruvate		mM	0.39	0.42341285	0.17898298	NaN	NaN	C00022
+concentration	Acetyl_CoA		mM	0.606	0.65791843	0.27811201	NaN	NaN	C00024
+concentration	ATP		mM	9.63	10.45504	4.4195028	NaN	NaN	C00002
+concentration	ADP		mM	0.555	0.60254906	0.25470655	NaN	NaN	C00008
+concentration	NADH		mM	0.0832	0.090328075	0.038183035	NaN	NaN	C00004
+concentration	NAD+		mM	2.55	2.7684687	1.1702733	NaN	NaN	C00003
+concentration	CoA		mM	1.37	1.4873734	0.62873508	NaN	NaN	C00010
+reaction affinity		TIM	kJ/mol	0	0	2	-2	2	
+reaction affinity		ATPase	kJ/mol	50	50	2	40	60	
