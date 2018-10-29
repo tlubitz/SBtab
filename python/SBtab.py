@@ -911,7 +911,7 @@ class SBtabDocument:
             try: self.date = self.get_custom_doc_information('Date')
             except:
                 if 'Date=' not in self.doc_row:
-                    self.doc_row = self.doc_row + " Date='%s'\n" % self.date
+                    self.doc_row = self.doc_row + " Date='%s'" % self.date
 
             # save document type
             try: self.doc_type = self.get_custom_doc_information('DocumentType')
@@ -1046,7 +1046,7 @@ class SBtabDocument:
 
         try:
             f = open(filename, 'w')
-            f.write(self.doc_row)
+            f.write(self.doc_row + '\n')
             for sbtab in self.sbtabs:
                 f.write(sbtab.to_str() + '\n\n')
             f.close()
