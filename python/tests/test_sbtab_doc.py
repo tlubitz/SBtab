@@ -5,6 +5,7 @@ import sys
 
 sys.path.insert(0,os.path.join(os.path.dirname(__file__), '..'))
 import SBtab
+import misc
 
 class TestSBtabDocument(unittest.TestCase):
 
@@ -27,11 +28,12 @@ class TestSBtabDocument(unittest.TestCase):
 
         self.docs = []
         for i, d in enumerate(self.doc_names):
-            p = open('docs/' + d, 'r')
-            p_content = p.read()
-            sbtab_doc = SBtab.SBtabDocument('test_'+str(i),sbtab_init=p_content, filename=d)
-            self.docs.append(sbtab_doc)
-            p.close()
+            if not d.startswith('_'):
+                p = open('docs/' + d, 'r')
+                p_content = p.read()
+                sbtab_doc = SBtab.SBtabDocument('test_'+str(i),sbtab_init=p_content, filename=d)
+                self.docs.append(sbtab_doc)
+                p.close()
 
     def test_add_sbtab(self):
         '''
@@ -55,13 +57,10 @@ class TestSBtabDocument(unittest.TestCase):
             self.assertEqual(amount_sbtabs_before + len(self.sbtabs),
                              amount_sbtabs_after)
 
-            # is an Error raised if name is duplicate?
-            with self.assertRaises(SBtab.SBtabError):
-                doc.add_sbtab(sbtab)
-
-            # is an Error raised if the table type is corrupt?
-            with self.assertRaises(SBtab.SBtabError):
-                doc.add_sbtab(sbtab)
+        # is an Error raised if the table type is corrupt?
+        sbtab.table_type = 'rubbish'
+        with self.assertRaises(SBtab.SBtabError):
+            doc.add_sbtab(sbtab)
             
     def test_add_sbtab_string(self):
         '''
@@ -84,10 +83,6 @@ class TestSBtabDocument(unittest.TestCase):
             self.assertEqual(amount_sbtabs_before + len(self.sbtabs),
                              amount_sbtabs_after)
 
-            # is an Error raised if name is duplicate?
-            with self.assertRaises(SBtab.SBtabError):
-                doc.add_sbtab(sbtab)
-
         # is an Error raised if the table type is corrupt?
         sbtab.table_type = 'rubbish'
         with self.assertRaises(SBtab.SBtabError):
@@ -97,10 +92,7 @@ class TestSBtabDocument(unittest.TestCase):
         '''
         test if the table types are checked accurately
         '''
-        valid_table_types = ['Reaction', 'Compound', 'Quantity',
-                             'QuantityType', 'Compartment', 'Relationship',
-                             'Position', 'Definition', 'QuantityInfo',
-                             'Regulator', 'Relation', 'Enzyme', 'Gene']
+        valid_table_types = misc.extract_supported_table_types()
         
         for t in valid_table_types:
             self.assertTrue(self.docs[0].check_type_validity(t))

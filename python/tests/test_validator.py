@@ -6,7 +6,7 @@ import copy
 
 sys.path.insert(0,os.path.join(os.path.dirname(__file__), '..'))
 import SBtab
-import commandline_scripts.validatorSBtab as validator
+import validatorSBtab
 
 class TestValidator(unittest.TestCase):
 
@@ -23,30 +23,32 @@ class TestValidator(unittest.TestCase):
         self.validate_document_objects = []
 
         for i, t in enumerate(self.table_names):
-            p = open('tables/' + t, 'r')
-            p_content = p.read()
-            sbtab = SBtab.SBtabTable(p_content, t)
-            sbtab_doc = SBtab.SBtabDocument('test_' + str(i), sbtab_init=p_content, filename=t)
-            vt = validator.ValidateTable(sbtab)
-            vt_doc = validator.ValidateDocument(sbtab_doc)
-            self.validate_table_objects.append(vt)
-            self.validate_document_objects.append(vt_doc)
-            self.sbtabs.append(sbtab)
-            self.sbtab_docs.append(sbtab_doc)
-            p.close()
+            if not t.startswith('_'):
+                p = open('tables/' + t, 'r')
+                p_content = p.read()
+                sbtab = SBtab.SBtabTable(p_content, t)
+                sbtab_doc = SBtab.SBtabDocument('test_' + str(i), sbtab_init=p_content, filename=t)
+                vt = validatorSBtab.ValidateTable(sbtab)
+                vt_doc = validatorSBtab.ValidateDocument(sbtab_doc)
+                self.validate_table_objects.append(vt)
+                self.validate_document_objects.append(vt_doc)
+                self.sbtabs.append(sbtab)
+                self.sbtab_docs.append(sbtab_doc)
+                p.close()
 
         for i, d in enumerate(self.doc_names):
-            p = open('docs/' + d, 'r')
-            p_content = p.read()
-            sbtab = SBtab.SBtabDocument('test_'+str(i),sbtab_init=p_content, filename=d)
-            vt = validator.ValidateDocument(sbtab)
-            self.validate_document_objects.append(vt)
-            self.sbtab_docs.append(sbtab)
-            p.close()
+            if not d.startswith('_'):
+                p = open('docs/' + d, 'r')
+                p_content = p.read()
+                sbtab = SBtab.SBtabDocument('test_'+str(i),sbtab_init=p_content, filename=d)
+                vt = validatorSBtab.ValidateDocument(sbtab)
+                self.validate_document_objects.append(vt)
+                self.sbtab_docs.append(sbtab)
+                p.close()
 
     def test_object_creation_table(self):
         '''
-        test if the SBtabs can be used as input for the validator
+        test if the SBtabs can be used as input for the validatorSBtab
         '''
         for i, vto in enumerate(self.validate_table_objects):
             

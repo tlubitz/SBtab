@@ -7,7 +7,8 @@ import libsbml
 
 sys.path.insert(0,os.path.join(os.path.dirname(__file__), '..'))
 import SBtab
-import commandline_scripts.sbml2sbtab as sbml2sbtab
+import sbml2sbtab
+
 
 class TestSBMLConversion(unittest.TestCase):
 
@@ -67,7 +68,6 @@ class TestSBMLConversion(unittest.TestCase):
                     # header row
                     self.assertEqual(c_sbtab.header_row[:7], '!!SBtab')
                     self.assertIn('TableType', c_sbtab.header_row)                    
-
                     # columns
                     self.assertEqual(len(c_sbtab.value_rows), previous_sbml.getNumCompartments())
                     self.assertIn('!ID', c_sbtab.columns)
@@ -158,7 +158,6 @@ class TestSBMLConversion(unittest.TestCase):
                     # header row
                     self.assertEqual(q_sbtab.header_row[:7], '!!SBtab')
                     self.assertIn('TableType', q_sbtab.header_row)                    
-
                     # columns
                     # we have a bug here for the export of local parameters;
                     # uncomment when fixed

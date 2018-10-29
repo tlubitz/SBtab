@@ -6,7 +6,7 @@ import copy
 
 sys.path.insert(0,os.path.join(os.path.dirname(__file__), '..'))
 import SBtab
-import commandline_scripts.sbtab2sbml as sbtab2sbml
+import sbtab2sbml
 
 class TestSBtabConversion(unittest.TestCase):
 
@@ -32,14 +32,15 @@ class TestSBtabConversion(unittest.TestCase):
             p.close()
             
         for i, d in enumerate(self.doc_names):
-            p = open('docs/' + d, 'r')
-            p_content = p.read()
-            sbtab_doc = SBtab.SBtabDocument('test_'+str(i),sbtab_init=p_content, filename=d)
-            if 'Reaction' in sbtab_doc.type_to_sbtab.keys() or 'Compound' in sbtab_doc.type_to_sbtab.keys():
-                conv = sbtab2sbml.SBtabDocument(sbtab_doc)
-                self.convert_document_objects.append(conv)
-                self.sbtab_docs.append(sbtab_doc)
-            p.close()
+            if not d.startswith('_'):
+                p = open('docs/' + d, 'r')
+                p_content = p.read()
+                sbtab_doc = SBtab.SBtabDocument('test_'+str(i),sbtab_init=p_content, filename=d)
+                if 'Reaction' in sbtab_doc.type_to_sbtab.keys() or 'Compound' in sbtab_doc.type_to_sbtab.keys():
+                    conv = sbtab2sbml.SBtabDocument(sbtab_doc)
+                    self.convert_document_objects.append(conv)
+                    self.sbtab_docs.append(sbtab_doc)
+                p.close()
 
     def test_object_creation(self):
         '''
@@ -82,7 +83,7 @@ class TestSBtabConversion(unittest.TestCase):
                 version = sbml_doc.getVersion()
                 self.assertEqual(level, int(v[0]))
                 self.assertEqual(version, int(v[1]))
-                self.assertTrue(sbml_model.isSetId())
+                #self.assertTrue(sbml_model.isSetId())
                 self.assertTrue(sbml_model.isSetName())
 
                 # check compartment details

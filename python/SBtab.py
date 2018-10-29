@@ -87,7 +87,7 @@ class SBtabTable():
         else: filename = self.filename
 
         if filename[-3:] not in valid_extensions and filename[-4:] not in valid_extensions :
-            raise SBtabError('The file extension is not valid for an SBtab file.')
+            raise SBtabError('The file extension of %s is not valid for an SBtab file.' % filename)
 
         return True
 
