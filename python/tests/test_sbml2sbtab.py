@@ -16,14 +16,14 @@ class TestSBMLConversion(unittest.TestCase):
         '''
         setup SBtabTable class with files from test directory
         '''
-        self.sbml_names = [f for f in os.listdir('sbml/') if os.path.isfile(os.path.join('sbml/', f))]
+        self.sbml_names = [f for f in os.listdir('python/tests/sbml/') if os.path.isfile(os.path.join('sbml/', f))]
         
         self.sbml_docs = []
         reader = libsbml.SBMLReader()
         
         for i, s in enumerate(self.sbml_names):
             if s.startswith('_'): continue
-            doc = reader.readSBML('sbml/' + s)
+            doc = reader.readSBML('python/tests/sbml/' + s)
             self.sbml_docs.append(doc)
 
     def test_object_creation(self):

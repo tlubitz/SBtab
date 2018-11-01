@@ -54,25 +54,6 @@ class TestSBtabTable(unittest.TestCase):
             for row in rows[2:]:
                 self.assertEqual(len(row.split('\t')),len(sbtab.columns))
 
-    def test_doc_row(self):
-        '''
-        test if the document has a doc row (!!!) and extract it
-        '''
-        # single SBtabs usually have no doc row
-        for sbtab in self.sbtabs:
-            self.assertIsNone(sbtab.doc_row)
-
-        '''
-        # SBtabDocuments always have a doc row; either given in
-        # the file or generated automatically in the initialisation
-        for sbtab in self.docs:
-            self.assertIsNotNone(sbtab.doc_row)
-            self.assertEqual(sbtab.doc_row[:8], '!!!SBtab')
-            # test doc attributes here
-            # self.assertIsNotNone(sbtab.doc_name, e.g.)
-            # ...
-        '''
-
     def test_header_row(self):
         '''
         test if the SBtab has a valid header row
@@ -268,12 +249,6 @@ class TestSBtabTable(unittest.TestCase):
         for table in self.table_names:
             try:
                 os.remove(table)
-            except OSError:
-                pass
-
-        for doc in self.doc_names:
-            try:
-                os.remove(doc)
             except OSError:
                 pass
 

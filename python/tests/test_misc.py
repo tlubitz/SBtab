@@ -15,13 +15,13 @@ class TestMiscFunctions(unittest.TestCase):
         '''
         setup SBtabTable class with files from test directory
         '''
-        self.table_names = [f for f in os.listdir('tables/') if os.path.isfile(os.path.join('tables/', f))]
-        self.doc_names = [f for f in os.listdir('docs/') if os.path.isfile(os.path.join('docs/', f))]
-        self.sbml_names = [f for f in os.listdir('sbml/') if os.path.isfile(os.path.join('sbml/', f))]
+        self.table_names = [f for f in os.listdir('python/tests/tables/') if os.path.isfile(os.path.join('python/tests/tables/', f))]
+        self.doc_names = [f for f in os.listdir('python/tests/docs/') if os.path.isfile(os.path.join('python/tests/docs/', f))]
+        self.sbml_names = [f for f in os.listdir('python/tests/sbml/') if os.path.isfile(os.path.join('python/tests/sbml/', f))]
         
         self.sbtabs = []
         for t in self.table_names:
-            p = open('tables/' + t, 'r')
+            p = open('python/tests/tables/' + t, 'r')
             p_content = p.read()
             sbtab = SBtab.SBtabTable(p_content, t)
             self.sbtabs.append(sbtab)
@@ -30,7 +30,7 @@ class TestMiscFunctions(unittest.TestCase):
         self.docs = []
         for i, d in enumerate(self.doc_names):
             if not d.startswith('_'):
-                p = open('docs/' + d, 'r')
+                p = open('python/tests/docs/' + d, 'r')
                 p_content = p.read()
                 sbtab = SBtab.SBtabDocument('test_'+str(i),sbtab_init=p_content, filename=d)
                 self.docs.append(sbtab)
@@ -41,7 +41,7 @@ class TestMiscFunctions(unittest.TestCase):
         reader = libsbml.SBMLReader()
         for i, s in enumerate(self.sbml_names):
             if s.startswith('_'): continue
-            doc = reader.readSBML('sbml/' + s)
+            doc = reader.readSBML('python/tests/sbml/' + s)
             self.sbml_docs.append(doc)
             
 
