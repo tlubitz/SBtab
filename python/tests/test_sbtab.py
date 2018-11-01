@@ -25,6 +25,35 @@ class TestSBtabTable(unittest.TestCase):
                 self.sbtabs.append(sbtab)
                 p.close()
 
+    def test_read_csv(self):
+        '''
+        test the read wrapper of SBtab files
+        '''
+        with self.assertRaises(SBtab.SBtabError):
+            SBtab.read_csv('wrong_file_path', 'doc_name')
+
+        with self.assertRaises(SBtab.SBtabError):
+            SBtab.read_csv('wrong_file_path', 'doc_name', xlsx=True)
+
+        valid_table_types = misc.extract_supported_table_types()
+        for file_name in self.table_names:
+            if not file_name.startswith('_'):
+                sbtab = SBtab.read_csv('python/tests/tables/'+file_name, 'doc_name')
+                self.assertEqual(type(sbtab),SBtab.SBtabDocument)
+                for sbtab in self.sbtabs:
+                    self.assertIsNotNone(sbtab._get_header_row())
+                    self.assertIsNotNone(sbtab.table_type)
+                    self.assertIn(sbtab.table_type, valid_table_types)
+                    self.assertIsNotNone(sbtab.table_name)
+                    self.assertEqual(sbtab.header_row[:7], '!!SBtab')
+                    self.assertIsNotNone(sbtab.header_row.find("'"))
+                    self.assertEqual(sbtab.header_row.find('"'), -1)
+
+        sbtab_xlsx = SBtab.read_csv('python/tests/tables/_transition.xlsx', 'doc_name', xlsx=True)
+        self.assertEqual(type(sbtab_xlsx),SBtab.SBtabDocument)
+
+        with self.assertRaises(SBtab.SBtabError):
+            sbtab_xlsx = SBtab.read_csv('python/tests/tables/_transition.xlsx', 'doc_name')
         
     def test_extension_validator(self):
         '''
@@ -106,7 +135,7 @@ class TestSBtabTable(unittest.TestCase):
             self.assertEqual(len(column_names), len(columns))
             self.assertEqual(sorted(sbtab.columns), sorted(sbtab.columns_dict.keys()))
 
-    def tes2t_get_rows(self):
+    def test_get_rows(self):
         '''
         test if the value rows are extracted correctly
         '''
@@ -246,12 +275,14 @@ class TestSBtabTable(unittest.TestCase):
         '''
         close file/s
         '''
+        '''
         for table in self.table_names:
             try:
-                os.remove(table)
+                os.remove('python/tests/tables/'+table)
             except OSError:
                 pass
-
+        '''
+        pass
     
 if __name__ == '__main__':
     unittest.main()

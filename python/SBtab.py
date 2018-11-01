@@ -22,15 +22,26 @@ def read_csv(filepath, document_name, xlsx=False):
     '''
     read in an SBtab file; it can be csv, but also tsv.
     '''
+    sbtab_file = False
+    
     if xlsx:
-        sbtab_xlsx = open(filepath,'rb')
-        sbtab_tsv = misc.xlsx_to_tsv(sbtab_xlsx, f='file')
-        sbtab_doc = SBtabDocument(document_name, sbtab_tsv, filepath)
-        return sbtab_doc
+        try:
+            sbtab_xlsx = open(filepath,'rb')
+            sbtab_tsv = misc.xlsx_to_tsv(sbtab_xlsx, f='file')
+            sbtab_xlsx.close()
+            sbtab_doc = SBtabDocument(document_name, sbtab_tsv, filepath)
+            return sbtab_doc
+        except:
+            raise SBtabError('File %s was not found.' % filepath)
             
-    sbtab_csv = open(filepath, 'r').read()
-    sbtab_doc = SBtabDocument(document_name, sbtab_csv, filepath)
-    return sbtab_doc
+    try:
+        sbtab_file = open(filepath, 'r')
+        sbtab_doc = SBtabDocument(document_name, sbtab_file.read(), filepath)
+        sbtab_file.close()
+        return sbtab_doc
+    except:
+        if sbtab_file: sbtab_file.close()
+        raise SBtabError('File %s was not found.' % filepath)
     
 
 class SBtabError(Exception):
