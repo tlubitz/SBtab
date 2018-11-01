@@ -14,27 +14,17 @@ class TestSBtabTable(unittest.TestCase):
         '''
         setup SBtabTable class with files from test directory
         '''
-        self.table_names = [f for f in os.listdir('tables/') if os.path.isfile(os.path.join('tables/', f))]
-        self.doc_names = [f for f in os.listdir('docs/') if os.path.isfile(os.path.join('docs/', f))]
+        self.table_names = [f for f in os.listdir('python/tests/tables/') if os.path.isfile(os.path.join('python/tests/tables/', f))]
 
         self.sbtabs = []
         for t in self.table_names:
             if not t.startswith('_'):
-                p = open('tables/' + t, 'r')
+                p = open('python/tests/tables/' + t, 'r')
                 p_content = p.read()
                 sbtab = SBtab.SBtabTable(p_content, t)
                 self.sbtabs.append(sbtab)
                 p.close()
 
-        '''
-        self.docs = []
-        for i, d in enumerate(self.doc_names):
-            p = open('docs/' + d, 'r')
-            p_content = p.read()
-            sbtab = SBtab.SBtabDocument('test_'+str(i),sbtab_init=p_content, filename=d)
-            self.docs.append(sbtab)
-            p.close()
-        '''
         
     def test_extension_validator(self):
         '''
