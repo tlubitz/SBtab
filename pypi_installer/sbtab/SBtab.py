@@ -22,15 +22,26 @@ def read_csv(filepath, document_name, xlsx=False):
     '''
     read in an SBtab file; it can be csv, but also tsv.
     '''
+    sbtab_file = False
+    
     if xlsx:
-        sbtab_xlsx = open(filepath,'rb')
-        sbtab_tsv = misc.xlsx_to_tsv(sbtab_xlsx, f='file')
-        sbtab_doc = SBtabDocument(document_name, sbtab_tsv, filepath)
-        return sbtab_doc
+        try:
+            sbtab_xlsx = open(filepath,'rb')
+            sbtab_tsv = misc.xlsx_to_tsv(sbtab_xlsx, f='file')
+            sbtab_xlsx.close()
+            sbtab_doc = SBtabDocument(document_name, sbtab_tsv, filepath)
+            return sbtab_doc
+        except:
+            raise SBtabError('File %s was not found.' % filepath)
             
-    sbtab_csv = open(filepath, 'r').read()
-    sbtab_doc = SBtabDocument(document_name, sbtab_csv, filepath)
-    return sbtab_doc
+    try:
+        sbtab_file = open(filepath, 'r')
+        sbtab_doc = SBtabDocument(document_name, sbtab_file.read(), filepath)
+        sbtab_file.close()
+        return sbtab_doc
+    except:
+        if sbtab_file: sbtab_file.close()
+        raise SBtabError('File %s was not found.' % filepath)
     
 
 class SBtabError(Exception):
@@ -70,8 +81,8 @@ class SBtabTable():
 
         # process string
         self.delimiter = misc.check_delimiter(table_string)
-        preprocess = self._preprocess_table_string(table_string)
-        self.table = self._cut_table_string(preprocess)
+        self.preprocess = self._preprocess_table_string(table_string)
+        self.table = self._cut_table_string(self.preprocess)
 
         # Initialise table
         self._initialize_table()
@@ -87,7 +98,7 @@ class SBtabTable():
         else: filename = self.filename
 
         if filename[-3:] not in valid_extensions and filename[-4:] not in valid_extensions :
-            raise SBtabError('The file extension is not valid for an SBtab file.')
+            raise SBtabError('The file extension of %s is not valid for an SBtab file.' % filename)
 
         return True
 
@@ -124,7 +135,6 @@ class SBtabTable():
             table_string_prep += row +'\n'
             
         return table_string_prep
-        
         
     def _cut_table_string(self, table_string, delimiter_test=None):
         '''
@@ -424,7 +434,6 @@ class SBtabTable():
 
         return value_rows
 
-
     # Here, the SBtab API starts
     def to_str(self):
         '''
@@ -443,11 +452,8 @@ class SBtabTable():
         '''
         change the value of an SBtab attribute
         '''
-        try:
-            att_value_new = "%s='%s'" % (attribute, value)
-        except:
-            raise SBtabError('Please provide only strings as attribute and value.')
-        
+        att_value_new = "%s='%s'" % (attribute, value)
+
         if attribute not in self.header_row:
             self.header_row = self.header_row + ' ' + att_value_new
         else:

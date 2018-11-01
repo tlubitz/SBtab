@@ -434,7 +434,6 @@ class SBtabTable():
 
         return value_rows
 
-
     # Here, the SBtab API starts
     def to_str(self):
         '''
@@ -453,11 +452,8 @@ class SBtabTable():
         '''
         change the value of an SBtab attribute
         '''
-        try:
-            att_value_new = "%s='%s'" % (attribute, value)
-        except:
-            raise SBtabError('Please provide only strings as attribute and value.')
-        
+        att_value_new = "%s='%s'" % (attribute, value)
+
         if attribute not in self.header_row:
             self.header_row = self.header_row + ' ' + att_value_new
         else:

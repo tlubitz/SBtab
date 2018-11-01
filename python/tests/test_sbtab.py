@@ -89,7 +89,6 @@ class TestSBtabTable(unittest.TestCase):
             self.assertNotIn('^M',sbtab.preprocess)
             self.assertNotIn("''",sbtab.preprocess)
                         
-        
     def test_to_str(self):
         '''
         test the function that returns the table string
@@ -117,6 +116,13 @@ class TestSBtabTable(unittest.TestCase):
             self.assertEqual(sbtab.header_row[:7], '!!SBtab')
             self.assertIsNotNone(sbtab.header_row.find("'"))
             self.assertEqual(sbtab.header_row.find('"'), -1)
+            self.assertNotIn(sbtab._get_header_row(),"''")
+            self.assertNotIn('^M',sbtab.header_row)
+            self.assertNotIn('\n',sbtab.header_row)
+            self.assertNotIn('\r',sbtab.header_row)
+            self.assertIn('TableType=', sbtab.header_row)
+            self.assertIn('TableName=', sbtab.header_row)
+            self.assertIn('Date=', sbtab.header_row)
 
     def test_custom_table_information(self):
         '''
@@ -124,6 +130,7 @@ class TestSBtabTable(unittest.TestCase):
         '''
         for sbtab in self.sbtabs:
             self.assertIsNotNone(sbtab._get_custom_table_information('TableType'))
+            self.assertIsNotNone(sbtab._get_custom_table_information('TableName'))
             self.assertEqual(sbtab._get_custom_table_information('TableType'), sbtab.table_type)
             with self.assertRaises(SBtab.SBtabError):
                 sbtab._get_custom_table_information('Rubbish')
@@ -193,6 +200,47 @@ class TestSBtabTable(unittest.TestCase):
         
         self.assertListEqual(column_names, ['!name', '!height', '!length\r'])
 
+    def test_change_attribute(self):
+        '''
+        test if header row attributes can be changed and/or set new
+        '''
+        import random
+
+        sbtab = random.choice(self.sbtabs)
+        sbtab.change_attribute('TableName', 'NewName')
+        self.assertIn("TableName='NewName'", sbtab.header_row)
+        self.assertNotIn('\n', sbtab.header_row)
+        sbtab.change_attribute('SomethingNew', 5)
+        self.assertIn("SomethingNew='5'", sbtab.header_row)
+        self.assertNotIn('\n', sbtab.header_row)
+
+    def test_unset_attribute(self):
+        '''
+        test if attributes from the header row can be unset
+        '''
+        import random
+
+        sbtab = random.choice(self.sbtabs)
+        with self.assertRaises(SBtab.SBtabError): sbtab.unset_attribute('TableType')
+        with self.assertRaises(SBtab.SBtabError): sbtab.unset_attribute('TableName')        
+        
+        sbtab.change_attribute('SomethingNew', 'NewValue')
+        self.assertIn("SomethingNew='NewValue'", sbtab.header_row)
+        sbtab.unset_attribute('SomethingNew')
+        self.assertNotIn("SomethingNew='NewValue'", sbtab.header_row)
+        self.assertNotIn('\n', sbtab.header_row)
+
+    def test_get_attribute(self):
+        '''
+        test if header row attribute can be fetched
+        '''
+        for sbtab in self.sbtabs:
+            with self.assertRaises(SBtab.SBtabError): sbtab.get_attribute('SomethingNotPresent')
+            self.assertIsNotNone(sbtab.get_attribute('TableType'))
+            self.assertIsNotNone(sbtab.get_attribute('TableName'))
+            self.assertIsNotNone(sbtab.get_attribute('Date'))
+        
+        
     def test_change_value(self):
         '''
         function changes a value in the SBtab file
