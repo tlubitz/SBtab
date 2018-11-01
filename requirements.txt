@@ -1,0 +1,4 @@
+python>=3.0
+libsbml>=5.0
+numpy>=1.0
+scipy>=1.0
