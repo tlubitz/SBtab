@@ -8,4 +8,4 @@ install:
 
 # run tests
 script:
-  - "python/tests/run_tests.sh"
+  - "./python/tests/run_tests.sh"
