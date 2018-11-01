@@ -81,8 +81,8 @@ class SBtabTable():
 
         # process string
         self.delimiter = misc.check_delimiter(table_string)
-        preprocess = self._preprocess_table_string(table_string)
-        self.table = self._cut_table_string(preprocess)
+        self.preprocess = self._preprocess_table_string(table_string)
+        self.table = self._cut_table_string(self.preprocess)
 
         # Initialise table
         self._initialize_table()
@@ -135,7 +135,6 @@ class SBtabTable():
             table_string_prep += row +'\n'
             
         return table_string_prep
-        
         
     def _cut_table_string(self, table_string, delimiter_test=None):
         '''

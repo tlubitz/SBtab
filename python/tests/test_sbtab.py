@@ -70,6 +70,26 @@ class TestSBtabTable(unittest.TestCase):
             with self.assertRaises(SBtab.SBtabError):
                 random_sbtab._validate_extension(test=ic)
 
+    def test_singular(self):
+        '''
+        test if the singular function is working (multiple SBtabs are rejected by SBtabTable)
+        '''
+        p = open('python/tests/docs/teusink.tsv', 'r')
+        p_content = p.read()
+        with self.assertRaises(SBtab.SBtabError):
+            sbtab = SBtab.SBtabTable(p_content, 'teusink.tsv')        
+        p.close()
+
+    def test_preprocess_table_string(self):
+        '''
+        test if the string preprocessing works correctly
+        '''
+        for sbtab in self.sbtabs:
+            self.assertNotIn('\r',sbtab.preprocess)
+            self.assertNotIn('^M',sbtab.preprocess)
+            self.assertNotIn("''",sbtab.preprocess)
+                        
+        
     def test_to_str(self):
         '''
         test the function that returns the table string
@@ -140,7 +160,7 @@ class TestSBtabTable(unittest.TestCase):
         test if the value rows are extracted correctly
         '''
         for sbtab in self.sbtabs:
-            value_rows = sbtab.get_rows()
+            value_rows = sbtab._get_rows()
             self.assertIsNotNone(value_rows)
             self.assertNotEqual(len(value_rows), 0)
             for row in value_rows:
