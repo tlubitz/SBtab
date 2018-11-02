@@ -768,7 +768,7 @@ class SBtabTable():
         header_strings = ['!!SBtab'] + list(map(lambda x: "%s='%s'" % x, header))
         
         csv_writer.writerow([' '.join(header_strings)] + [''] * (df.shape[1]-1))
-        csv_writer.writerow(map(lambda s: '!' + s, df.columns))
+        csv_writer.writerow([map(lambda s: '!' + s, df.columns)])
         csv_writer.writerows([row.tolist() for _, row in df.iterrows()])
         table_string.flush()
         
