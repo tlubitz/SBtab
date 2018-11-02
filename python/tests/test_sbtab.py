@@ -179,7 +179,7 @@ class TestSBtabTable(unittest.TestCase):
         test export to pandas dataframe (still rather simple)
         (use the "ignore warnings" to get rid of benign numpy RuntimeWarning)
         '''
-        warnings.simplefilter('ignore')
+        warnings.filterwarnings('ignore')
         for sbtab in self.sbtabs:
             df = sbtab.to_data_frame()
             self.assertIsNotNone(df)
@@ -190,7 +190,7 @@ class TestSBtabTable(unittest.TestCase):
         (use the "ignore warnings" to get rid of benign numpy RuntimeWarning)
         '''
         from pandas import DataFrame
-        warnings.simplefilter('ignore')
+        warnings.filterwarnings('ignore')
         
         df = DataFrame(columns=['name', 'height', 'length'], index=[0, 1],
                        data=[['patchkins', 76, 103], ['puddles', 43, 78]])

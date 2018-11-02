@@ -59,17 +59,12 @@ class SBtabDocument:
         '''
         # initialize SBML document
         if 'FbcObjective' in self.sbtab_doc.type_to_sbtab.keys() or 'Gene' in self.sbtab_doc.type_to_sbtab.keys():
-            self.fbc = True
             if sbml_version == '24':
-                sbmlns = libsbml.SBMLNamespaces(2,4,'fbc',2)
-                self.new_document = libsbml.SBMLDocument(sbmlns)
-                self.new_document.setPackageRequired("fbc", False)
-
-            else:
-                sbmlns = libsbml.SBMLNamespaces(3,1,'fbc',2)
-                self.new_document = libsbml.SBMLDocument(sbmlns)
-                self.new_document.setPackageRequired("fbc", False)
-
+                raise ConversionError('The FBC package is only supported in SBML 3 or higher.')
+            self.fbc = True
+            sbmlns = libsbml.SBMLNamespaces(3,1,'fbc',2)
+            self.new_document = libsbml.SBMLDocument(sbmlns)
+            self.new_document.setPackageRequired("fbc", False)
         else:
             if sbml_version == '24':
                 sbmlns = libsbml.SBMLNamespaces(2,4)
