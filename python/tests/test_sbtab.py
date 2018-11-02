@@ -2,7 +2,8 @@
 import unittest
 import copy
 import os
-import sys            
+import sys
+import warnings
 
 sys.path.insert(0,os.path.join(os.path.dirname(__file__), '..'))
 import SBtab
@@ -173,19 +174,23 @@ class TestSBtabTable(unittest.TestCase):
             for row in value_rows:
                 self.assertEqual(len(row), len(sbtab.columns))
 
-    def xtest_to_data_frame(self):
+    def test_to_data_frame(self):
         '''
         test export to pandas dataframe (still rather simple)
+        (use the "ignore warnings" to get rid of benign numpy RuntimeWarning)
         '''
+        warnings.simplefilter('ignore')
         for sbtab in self.sbtabs:
             df = sbtab.to_data_frame()
             self.assertIsNotNone(df)
             
-    def xtest_from_data_frame(self):
+    def test_from_data_frame(self):
         '''
         test import from pandas dataframe
+        (use the "ignore warnings" to get rid of benign numpy RuntimeWarning)
         '''
         from pandas import DataFrame
+        warnings.simplefilter('ignore')
         
         df = DataFrame(columns=['name', 'height', 'length'], index=[0, 1],
                        data=[['patchkins', 76, 103], ['puddles', 43, 78]])
@@ -198,7 +203,7 @@ class TestSBtabTable(unittest.TestCase):
             unit='cm')
         column_names, columns = sbtab._get_columns()
         
-        self.assertListEqual(column_names, ['!name', '!height', '!length\r'])
+        self.assertListEqual(column_names, ['!name', '!height', '!length'])
 
     def test_change_attribute(self):
         '''
