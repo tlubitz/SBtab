@@ -142,7 +142,9 @@ class TestSBtabTable(unittest.TestCase):
         '''
         test_rows = ['"test"', '\xe2\x80\x9dtest\xe2\x80\x9d',
                      '\xe2\x80\x99test\xe2\x80\x99']
-        random_sbtab = self.sbtabs[0]
+
+        random_sbtab = random.choice(self.sbtabs)
+
         for row in test_rows:
             self.assertEqual((random_sbtab._dequote(row)).find('"'), -1)
             self.assertEqual((random_sbtab._dequote(row)).find('\xe2\x80\x9d'), -1)
@@ -179,7 +181,7 @@ class TestSBtabTable(unittest.TestCase):
         test export to pandas dataframe (still rather simple)
         (use the "ignore warnings" to get rid of benign numpy RuntimeWarning)
         '''
-        warnings.filterwarnings('ignore')
+        #warnings.filterwarnings('ignore')
         for sbtab in self.sbtabs:
             df = sbtab.to_data_frame()
             self.assertIsNotNone(df)

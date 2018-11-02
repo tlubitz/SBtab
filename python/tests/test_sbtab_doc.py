@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 import unittest
 import os
-import sys            
+import sys
+import random
 
 sys.path.insert(0,os.path.join(os.path.dirname(__file__), '..'))
 import SBtab
@@ -98,6 +99,21 @@ class TestSBtabDocument(unittest.TestCase):
         sbtab.table_type = 'rubbish'
         with self.assertRaises(SBtab.SBtabError):
             doc.add_sbtab(sbtab)
+            
+    def test_dequote(self):
+        '''
+        test if this function can find and replace bad quotes
+        '''
+        test_rows = ['"test"', '\xe2\x80\x9dtest\xe2\x80\x9d',
+                     '\xe2\x80\x99test\xe2\x80\x99']
+
+        random_sbtab = random.choice(self.sbtabs)
+
+        for row in test_rows:
+            self.assertEqual((random_sbtab._dequote(row)).find('"'), -1)
+            self.assertEqual((random_sbtab._dequote(row)).find('\xe2\x80\x9d'), -1)
+            self.assertEqual((random_sbtab._dequote(row)).find('\xe2\x80\x99'), -1)
+            self.assertNotEqual((random_sbtab._dequote(row)).find("'"), -1)
        
     def test_check_type_validity(self):
         '''
@@ -114,8 +130,63 @@ class TestSBtabDocument(unittest.TestCase):
         '''
         test if doc row attributes are read correctly
         '''
-        pass
+        valid_table_types = misc.extract_supported_table_types()
+        
+        for doc in self.docs:
+            self.assertIsNotNone(doc.doc_row)
+            self.assertIsNotNone(doc.date)
+            self.assertEqual(doc.doc_row[:8], '!!!SBtab')
+            self.assertIsNotNone(doc.doc_row.find("'"))
+            self.assertEqual(doc.doc_row.find('"'), -1)
+            self.assertNotIn(doc.doc_row,"''")
+            self.assertNotIn('^M',doc.doc_row)
+            self.assertNotIn('\n',doc.doc_row)
+            self.assertNotIn('\r',doc.doc_row)
+            self.assertIn('Date=', doc.doc_row)
 
+    def test_change_attribute(self):
+        '''
+        test if doc row attributes can be changed and/or set new
+        '''
+        import random
+
+        doc = random.choice(self.docs)
+        doc.change_attribute('DocumentName', 'NewName')
+        self.assertIn("DocumentName='NewName'", doc.doc_row)
+        self.assertNotIn('\n', doc.doc_row)
+        doc.change_attribute('SomethingNew', 5)
+        self.assertIn("SomethingNew='5'", doc.doc_row)
+        self.assertNotIn('\n', doc.doc_row)
+
+    def test_unset_attribute(self):
+        '''
+        test if attributes from the doc row can be unset
+        '''
+        import random
+
+        doc = random.choice(self.docs)
+        with self.assertRaises(SBtab.SBtabError): doc.unset_attribute('TableType')
+        with self.assertRaises(SBtab.SBtabError): doc.unset_attribute('TableName')        
+        
+        doc.change_attribute('SomethingNew', 'NewValue')
+        self.assertIn("SomethingNew='NewValue'", doc.doc_row)
+        doc.unset_attribute('SomethingNew')
+        self.assertNotIn("SomethingNew='NewValue'", doc.doc_row)
+        self.assertNotIn('\n', doc.doc_row)
+
+    def test_get_attribute(self):
+        '''
+        test if doc row attributes can be fetched
+        '''
+        import random
+
+        doc = random.choice(self.docs)
+        with self.assertRaises(SBtab.SBtabError): doc.get_attribute('UnlikelyAttribute')
+
+        doc.change_attribute('AnAttribute', 'ItsValue')
+        self.assertEqual(doc.get_attribute('AnAttribute'), 'ItsValue')
+        
+            
     def test_set_version(self):
         '''
         test if version is set correctly
@@ -151,7 +222,6 @@ class TestSBtabDocument(unittest.TestCase):
         for doc in self.docs:
             doc.set_name(name)
             self.assertEqual(doc.name, name)
-
 
     def test_remove_sbtab_by_name(self):
         '''
@@ -227,6 +297,18 @@ class TestSBtabDocument(unittest.TestCase):
                 self.assertEqual(os.table_type, new_sbtabs[i].table_type)
                 self.assertEqual(os.table_name, new_sbtabs[i].table_name)
 
+    def test_to_str(self):
+        '''
+        test the function that returns the table string
+        '''
+        for doc in self.docs:
+            doc_string = doc.to_str()
+            rows = doc_string.split('\n')
+            self.assertEqual(rows[0][:3],'!!!')
+            self.assertEqual(rows[1][:2],'!!')
+            self.assertEqual(rows[2][:1],'!')
+            self.assertTrue(len(rows)>3)
+                
     def test_set_doc_row(self):
         '''
         test if doc_row can be set properly
