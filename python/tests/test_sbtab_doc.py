@@ -23,6 +23,8 @@ class TestSBtabDocument(unittest.TestCase):
             p = open('python/tests/tables/' + t, 'r')
             p_content = p.read()
             sbtab = SBtab.SBtabTable(p_content, t)
+            # initialise SBtabDocument with the SBtabTable, but only save the table for further testing
+            sbtab_doc = SBtab.SBtabDocument('test_doc',sbtab_init=sbtab)
             self.sbtabs.append(sbtab)
             p.close()
 
@@ -35,6 +37,15 @@ class TestSBtabDocument(unittest.TestCase):
                 self.docs.append(sbtab_doc)
                 p.close()
 
+    def test_build_empty_object(self):
+        '''
+        test if empty SBtabDocument can be built
+        '''
+        sbtab_doc = SBtab.SBtabDocument('empty_doc')
+        self.assertEqual(type(sbtab_doc),SBtab.SBtabDocument)
+        self.assertIsNone(sbtab_doc.filename)
+        self.assertEqual(sbtab_doc.sbtabs,[])
+                
     def test_add_sbtab(self):
         '''
         test if sbtab objects can be added to the document correctly
