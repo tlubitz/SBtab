@@ -1,0 +1,7 @@
+!!!SBtab SBtabVersion="1.0" Document="extended_core_compartment.tsv"
+!!SBtab SBtabVersion='1.0' Document='extended_core' TableType='Compartment' TableName='Compartment'
+!ID;!Name;!Size;!Unit;!SBOTerm
+c;Cytoplasm;"bl";;
+e;"k";nan;"pas;\tsd,d";
+e;k;nan;pas;
+e;k;nan;"{"B":"C","F":"G","D":"A"}";

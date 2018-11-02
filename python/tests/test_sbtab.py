@@ -348,13 +348,12 @@ class TestSBtabTable(unittest.TestCase):
         '''
         close file/s
         '''
-        '''
         for table in self.table_names:
             try:
-                os.remove('python/tests/tables/'+table)
+                os.remove(table)
             except OSError:
                 pass
-        '''
+
         pass
     
 if __name__ == '__main__':

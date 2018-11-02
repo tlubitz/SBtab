@@ -1,0 +1,1061 @@
+!!SBtab DocumentName='RBA_model' TableType='Quantity' TableName='Metabolites' Document='RBAstructure' Unit='Information on Metabolites in RBAmodel' SBtabVersion='1.0'      
+!ID	!Name	!Annotations	!Reactions	!Boundary	!Type	!Compartment
+M_ala__L_e	L-Alanine	{"BiGG": "ala__L_e", "KEGG": "C00041"}	[]	true	external	e
+M_alltn_e	Allantoin	{"BiGG": "alltn_e", "KEGG": "C01551"}	[]	true	external	e
+M_alltt_e	Allantoate	{"BiGG": "alltt_e", "KEGG": "C00499"}	[]	true	external	e
+M_amet_e	S-Adenosyl-L-methionine	{"BiGG": "amet_e", "KEGG": "C00019"}	[]	true	external	e
+M_arab__D_e	D Arabinose C5H10O5	{"BiGG": "arab__D_e", "KEGG": "C00216"}	[]	true	external	e
+M_arab__L_e	L-Arabinose	{"BiGG": "arab__L_e", "KEGG": "C11476"}	[]	true	external	e
+M_arg__L_e	L-Arginine	{"BiGG": "arg__L_e", "KEGG": "C00062"}	[]	true	external	e
+M_asn__L_e	L-Asparagine	{"BiGG": "asn__L_e", "KEGG": "C00152"}	[]	true	external	e
+M_asp__L_e	L-Aspartate	{"BiGG": "asp__L_e", "KEGG": "C00049"}	[]	true	external	e
+M_btn_e	Biotin	{"BiGG": "btn_e", "KEGG": "C00120"}	[]	true	external	e
+M_chol_e	Choline C5H14NO	{"BiGG": "chol_e", "KEGG": "C00114"}	[]	true	external	e
+M_cit_e	Citrate	{"BiGG": "cit_e", "KEGG": "C00158"}	[]	true	external	e
+M_co2_e	CO2 CO2	{"BiGG": "co2_e", "KEGG": "C00011"}	[]	true	external	e
+M_crn_e	L-Carnitine	{"BiGG": "crn_e", "KEGG": "C00318"}	[]	true	external	e
+M_csn_e	Cytosine	{"BiGG": "csn_e", "KEGG": "C00380"}	[]	true	external	e
+M_cys__L_e	L-Cysteine	{"BiGG": "cys__L_e", "KEGG": "C00097"}	[]	true	external	e
+M_cytd_e	Cytidine	{"BiGG": "cytd_e", "KEGG": "C00475"}	[]	true	external	e
+M_dad_2_e	Deoxyadenosine	{"BiGG": "dad_2_e", "KEGG": "C00559"}	[]	true	external	e
+M_dann_e	"7,8-Diaminononanoate"	
+M_dcyt_e	Deoxycytidine	{"BiGG": "dcyt_e", "KEGG": "C00881"}	[]	true	external	e
+M_dgsn_e	Deoxyguanosine	{"BiGG": "dgsn_e", "KEGG": "C00330"}	[]	true	external	e
+M_din_e	Deoxyinosine	{"BiGG": "din_e", "KEGG": "C05512"}	[]	true	external	e
+M_dttp_e	DTTP C10H13N2O14P3	{"BiGG": "dttp_e", "KEGG": "C00459"}	[]	true	external	e
+M_duri_e	Deoxyuridine	{"BiGG": "duri_e", "KEGG": "C00526"}	[]	true	external	e
+M_ergst_e	Ergosterol C28H44O	{"BiGG": "ergst_e", "KEGG": "C01694"}	[]	true	external	e
+M_etoh_e	Ethanol	{"BiGG": "etoh_e", "KEGG": "C00469"}	[]	true	external	e
+M_fmn_e	FMN C17H19N4O9P	{"BiGG": "fmn_e", "KEGG": "C00061"}	[]	true	external	e
+M_for_e	Formate	{"BiGG": "for_e", "KEGG": "C00058"}	[]	true	external	e
+M_fru_e	D-Fructose	{"BiGG": "fru_e", "KEGG": "C00095"}	[]	true	external	e
+M_fum_e	Fumarate	{"BiGG": "fum_e", "KEGG": "C00122"}	[]	true	external	e
+M_gal_e	D-Galactose	{"BiGG": "gal_e", "KEGG": "C00124"}	[]	true	external	e
+M_gam6p_e	D-Glucosamine 6-phosphate	{"BiGG": "gam6p_e", "KEGG": "C00352"}	[]	true	external	e
+M_gcald_e	Glycolaldehyde	{"BiGG": "gcald_e", "KEGG": "C00266"}	[]	true	external	e
+M_glc__D_e	D-Glucose	{"BiGG": "glc__D_e", "KEGG": "C00031"}	[]	true	external	e
+M_gln__L_e	L-Glutamine	{"BiGG": "gln__L_e", "KEGG": "C00064"}	[]	true	external	e
+M_glu__L_e	L-Glutamate	{"BiGG": "glu__L_e", "KEGG": "C00025"}	[]	true	external	e
+M_gly_e	Glycine	{"BiGG": "gly_e", "KEGG": "C00037"}	[]	true	external	e
+M_glyc_e	Glycerol	{"BiGG": "glyc_e", "KEGG": "C00116"}	[]	true	external	e
+M_gsn_e	Guanosine	{"BiGG": "gsn_e", "KEGG": "C00387"}	[]	true	external	e
+M_gthox_e	Oxidized glutathione	{"BiGG": "gthox_e", "KEGG": "C00127"}	[]	true	external	e
+M_gua_e	Guanine	{"BiGG": "gua_e", "KEGG": "C00242"}	[]	true	external	e
+M_h2o_e	H2O H2O	{"BiGG": "h2o_e", "KEGG": "C00001"}	[]	true	external	e
+M_h_e	H+	{"BiGG": "h_e", "KEGG": "C00080"}	[]	true	external	e
+M_hdca_e	Hexadecanoate (n-C16:0)	{"BiGG": "hdca_e", "KEGG": "C00249"}	[]	true	external	e
+M_hdcea_e	Hexadecenoate (n-C16:1)	{BiGG: hdcea_e}	[]	true	external	e
+M_his__L_e	L-Histidine	{"BiGG": "his__L_e", "KEGG": "C00135"}	[]	true	external	e
+M_hxan_e	Hypoxanthine	{"BiGG": "hxan_e", "KEGG": "C00262"}	[]	true	external	e
+M_ile__L_e	L-Isoleucine	{"BiGG": "ile__L_e", "KEGG": "C00407"}	[]	true	external	e
+M_inost_e	Myo-Inositol	{"BiGG": "inost_e", "KEGG": "C00137"}	[]	true	external	e
+M_ins_e	Inosine	{"BiGG": "ins_e", "KEGG": "C00294"}	[]	true	external	e
+M_k_e	Potassium	{"BiGG": "k_e", "KEGG": "C00238"}	[]	true	external	e
+M_lac__L_e	L-Lactate	{"BiGG": "lac__L_e", "KEGG": "C00186"}	[]	true	external	e
+M_leu__L_e	L-Leucine	{"BiGG": "leu__L_e", "KEGG": "C00123"}	[]	true	external	e
+M_lys__L_e	L-Lysine	{"BiGG": "lys__L_e", "KEGG": "C00047"}	[]	true	external	e
+M_mal__L_e	L-Malate	{"BiGG": "mal__L_e", "KEGG": "C00149"}	[]	true	external	e
+M_malt_e	Maltose C12H22O11	{"BiGG": "malt_e", "KEGG": "C00208"}	[]	true	external	e
+M_man_e	D-Mannose	{"BiGG": "man_e", "KEGG": "C00159"}	[]	true	external	e
+M_melib_e	Melibiose C12H22O11	{"BiGG": "melib_e", "KEGG": "C05402"}	[]	true	external	e
+M_met__L_e	L-Methionine	{"BiGG": "met__L_e", "KEGG": "C00073"}	[]	true	external	e
+M_mmet_e	S-Methyl-L-methionine	{"BiGG": "mmet_e", "KEGG": "C03172"}	[]	true	external	e
+M_na1_e	Sodium	{"BiGG": "na1_e", "KEGG": "C01330"}	[]	true	external	e
+M_nh4_e	Ammonium	{"BiGG": "nh4_e", "KEGG": "C00014"}	[]	true	external	e
+M_nmn_e	NMN C11H14N2O8P	{"BiGG": "nmn_e", "KEGG": "C00455"}	[]	true	external	e
+M_o2_e	O2 O2	{"BiGG": "o2_e", "KEGG": "C00007"}	[]	true	external	e
+M_ocdca_e	Octadecanoate (n-C18:0)	{"BiGG": "ocdca_e", "KEGG": "C01530"}	[]	true	external	e
+M_ocdcea_e	Octadecenoate (n-C18:1)	{"BiGG": "ocdcea_e", "KEGG": "C00712"}	[]	true	external	e
+M_ocdcya_e	Octadecadienoate  n C182  C18H31O2	{BiGG: ocdcya_e}	[]	true	external	e
+M_orn_e	Ornithine	{"BiGG": "orn_e", "KEGG": "C00077"}	[]	true	external	e
+M_pap_e	"Adenosine 3',5'-bisphosphate"	
+M_pepd_e	Peptide C2H4NO2RC2H2NOR	{"BiGG": "pepd_e", "KEGG": "C00012"}	[]	true	external	e
+M_phe__L_e	L-Phenylalanine	{"BiGG": "phe__L_e", "KEGG": "C00079"}	[]	true	external	e
+M_pi_e	Phosphate	{"BiGG": "pi_e", "KEGG": "C00009"}	[]	true	external	e
+M_pnto__R_e	(R)-Pantothenate	{"BiGG": "pnto__R_e", "KEGG": "C00864"}	[]	true	external	e
+M_pro__L_e	L-Proline	{"BiGG": "pro__L_e", "KEGG": "C00148"}	[]	true	external	e
+M_ptrc_e	Putrescine	{"BiGG": "ptrc_e", "KEGG": "C00134"}	[]	true	external	e
+M_pyr_e	Pyruvate	{"BiGG": "pyr_e", "KEGG": "C00022"}	[]	true	external	e
+M_rib__D_e	D-Ribose	{"BiGG": "rib__D_e", "KEGG": "C00121"}	[]	true	external	e
+M_ribflv_e	Riboflavin C17H20N4O6	{"BiGG": "ribflv_e", "KEGG": "C00255"}	[]	true	external	e
+M_sbt__D_e	D-Sorbitol	{"BiGG": "sbt__D_e", "KEGG": "C00794"}	[]	true	external	e
+M_sbt__L_e	L Sorbitol C6H14O6	{"BiGG": "sbt__L_e", "KEGG": "C01722"}	[]	true	external	e
+M_ser__L_e	L-Serine	{"BiGG": "ser__L_e", "KEGG": "C00065"}	[]	true	external	e
+M_so4_e	Sulfate	{"BiGG": "so4_e", "KEGG": "C00059"}	[]	true	external	e
+M_spmd_e	Spermidine	{"BiGG": "spmd_e", "KEGG": "C00315"}	[]	true	external	e
+M_sprm_e	Spermine C10H30N4	{"BiGG": "sprm_e", "KEGG": "C00750"}	[]	true	external	e
+M_srb__L_e	L Sorbose C6H12O6	{"BiGG": "srb__L_e", "KEGG": "C00247"}	[]	true	external	e
+M_succ_e	Succinate	{"BiGG": "succ_e", "KEGG": "C00042"}	[]	true	external	e
+M_sucr_e	Sucrose C12H22O11	{"BiGG": "sucr_e", "KEGG": "C00089"}	[]	true	external	e
+M_thm_e	Thiamin	{"BiGG": "thm_e", "KEGG": "C00378"}	[]	true	external	e
+M_thmmp_e	Thiamin monophosphate	{"BiGG": "thmmp_e", "KEGG": "C01081"}	[]	true	external	e
+M_thmpp_e	Thiamine diphosphate	{"BiGG": "thmpp_e", "KEGG": "C00068"}	[]	true	external	e
+M_thr__L_e	L-Threonine	{"BiGG": "thr__L_e", "KEGG": "C00188"}	[]	true	external	e
+M_thym_e	Thymine C5H6N2O2	{"BiGG": "thym_e", "KEGG": "C00178"}	[]	true	external	e
+M_thymd_e	Thymidine C10H14N2O5	{"BiGG": "thymd_e", "KEGG": "C00214"}	[]	true	external	e
+M_tre_e	Trehalose	{"BiGG": "tre_e", "KEGG": "C01083"}	[]	true	external	e
+M_trp__L_e	L-Tryptophan	{"BiGG": "trp__L_e", "KEGG": "C00078"}	[]	true	external	e
+M_ttdca_e	Tetradecanoate (n-C14:0)	{BiGG: ttdca_e}	[]	true	external	e
+M_tyr__L_e	L-Tyrosine	{"BiGG": "tyr__L_e", "KEGG": "C00082"}	[]	true	external	e
+M_ura_e	Uracil	{"BiGG": "ura_e", "KEGG": "C00106"}	[]	true	external	e
+M_urea_e	Urea CH4N2O	{"BiGG": "urea_e", "KEGG": "C00086"}	[]	true	external	e
+M_uri_e	Uridine	{"BiGG": "uri_e", "KEGG": "C00299"}	[]	true	external	e
+M_val__L_e	L-Valine	{"BiGG": "val__L_e", "KEGG": "C00183"}	[]	true	external	e
+M_xan_e	Xanthine	{"BiGG": "xan_e", "KEGG": "C00385"}	[]	true	external	e
+M_xtsn_e	Xanthosine	{"BiGG": "xtsn_e", "KEGG": "C01762"}	[]	true	external	e
+M_xyl__D_e	D-Xylose	{"BiGG": "xyl__D_e", "KEGG": "C00181"}	[]	true	external	e
+M_xylt_e	Xylitol C5H12O5	{"BiGG": "xylt_e", "KEGG": "C00379"}	[]	true	external	e
+M_zymst_e	Zymosterol C27H44O	{"BiGG": "zymst_e", "KEGG": "C05437"}	[]	true	external	e
+M_dca_x	Decanoate (n-C10:0)	{BiGG: dca_x}	"[R_FA100tp, R_FACOAL100p]"	false	internal	x
+M_dca_c	Decanoate (n-C10:0)	{BiGG: dca_c}	"[R_FA100tp, R_FAS100, R_FAS120]"	false	internal	c
+M_h2o_c	H2O H2O	{"BiGG": "h2o_c", "KEGG": "C00001"}	
+M_ddca_c	Dodecanoate (n-C12:0)	{BiGG: ddca_c}	"[R_FA120ACPHi, R_FA120tp, R_FAS120, R_FAS140]"	false	internal	c
+M_ddcaACP_c	Dodecanoyl-ACP (n-C12:0ACP)	{BiGG: ddcaACP_c}	"[R_FA120ACPHi, R_FA120ACPtm]"	false	internal	c
+M_h_c	H+	{"BiGG": "h_c", "KEGG": "C00080"}	
+M_ACP_c	Acyl carrier protein	{"BiGG": "ACP_c", "KEGG": "C00229"}	
+M_ddcaACP_m	Dodecanoyl-ACP (n-C12:0ACP)	{BiGG: ddcaACP_m}	"[R_FA120ACPtm, R_FAS120ACPm, R_FAS140ACPm, R_FAS141ACPm]"	false	internal	m
+M_ddca_x	Dodecanoate (n-C12:0)	{BiGG: ddca_x}	"[R_FA120tp, R_FACOAL120p]"	false	internal	x
+M_myrsACP_c	Myristoyl-ACP (n-C14:0ACP)	{BiGG: myrsACP_c}	"[R_FA140ACPHi, R_FA140ACPtm]"	false	internal	c
+M_ttdca_c	Tetradecanoate (n-C14:0)	{BiGG: ttdca_c}	"[R_FA140ACPHi, R_FA140tp, R_FACOAL140, R_FACOAL140_2, R_FACOAL140_3, R_FAS140, R_FAS160, R_TTDCAtr]"	false	internal	c
+M_myrsACP_m	Myristoyl-ACP (n-C14:0ACP)	{BiGG: myrsACP_m}	"[R_FA140ACPtm, R_FAS140ACPm, R_FAS160ACPm, R_FAS161ACPm]"	false	internal	m
+M_adp_x	ADP C10H12N5O10P2	{"BiGG": "adp_x", "KEGG": "C00008"}	
+M_tdcoa_x	Tetradecanoyl-CoA (n-C14:0CoA)	{"BiGG": "tdcoa_x", "KEGG": "C02593"}	
+M_h_x	H+	{"BiGG": "h_x", "KEGG": "C00080"}	
+M_h2o_x	H2O H2O	{"BiGG": "h2o_x", "KEGG": "C00001"}	
+M_tdcoa_c	Tetradecanoyl-CoA (n-C14:0CoA)	{"BiGG": "tdcoa_c", "KEGG": "C02593"}	
+M_pi_x	Phosphate	{"BiGG": "pi_x", "KEGG": "C00009"}	
+M_atp_x	ATP C10H12N5O13P3	{"BiGG": "atp_x", "KEGG": "C00002"}	
+M_ttdca_x	Tetradecanoate (n-C14:0)	{BiGG: ttdca_x}	"[R_FA140tp, R_FACOAL140p]"	false	internal	x
+M_tdeACP_c	Cis-tetradec-7-enoyl-[acyl-carrier protein] (n-C14:1)	{BiGG: tdeACP_c}	"[R_FA141ACPHi, R_FA141ACPtm]"	false	internal	c
+M_ttdcea_c	Tetradecenoate (n-C14:1)	{BiGG: ttdcea_c}	"[R_FA141ACPHi, R_FA141tp, R_FACOAL141, R_FACOAL141_2, R_FACOAL141_3]"	false	internal	c
+M_tdeACP_m	Cis-tetradec-7-enoyl-[acyl-carrier protein] (n-C14:1)	{BiGG: tdeACP_m}	"[R_FA141ACPtm, R_FAS141ACPm]"	false	internal	m
+M_tdecoa_c	Tetradecenoyl-CoA (n-C14:1CoA)	{BiGG: tdecoa_c}	"[R_FA141COAabcp, R_DESAT14, R_FACOAL141, R_FACOAL141_2, R_FACOAL141_3]"	false	internal	c
+M_tdecoa_x	Tetradecenoyl-CoA (n-C14:1CoA)	{BiGG: tdecoa_x}	"[R_FA141COAabcp, R_FACOAL141p, R_FAO141p_even, R_FAO141p_odd]"	false	internal	x
+M_ttdcea_x	Tetradecenoate (n-C14:1)	{BiGG: ttdcea_x}	"[R_FA141tp, R_FACOAL141p]"	false	internal	x
+M_palmACP_c	Palmitoyl-ACP (n-C16:0ACP)	{BiGG: palmACP_c}	"[R_FA160ACPHi, R_FA160ACPtm]"	false	internal	c
+M_hdca_c	Hexadecanoate (n-C16:0)	{"BiGG": "hdca_c", "KEGG": "C00249"}	
+M_palmACP_m	Palmitoyl-ACP (n-C16:0ACP)	{BiGG: palmACP_m}	"[R_FA160ACPtm, R_FAS160ACPm, R_FAS180ACPm, R_FAS181ACPm, R_FAS182ACPm]"	false	internal	m
+M_pmtcoa_c	Palmitoyl-CoA (n-C16:0CoA)	{"BiGG": "pmtcoa_c", "KEGG": "C00154"}	
+M_pmtcoa_x	Palmitoyl-CoA (n-C16:0CoA)	{"BiGG": "pmtcoa_x", "KEGG": "C00154"}	
+M_hdca_x	Hexadecanoate (n-C16:0)	{"BiGG": "hdca_x", "KEGG": "C00249"}	
+M_hdeACP_c	Cis-hexadec-9-enoyl-[acyl-carrier protein] (n-C16:1)	{BiGG: hdeACP_c}	"[R_FA161ACPHi, R_FA161ACPtm]"	false	internal	c
+M_hdcea_c	Hexadecenoate (n-C16:1)	{BiGG: hdcea_c}	"[R_FA161ACPHi, R_FA161tp, R_FACOAL161, R_FACOAL161_2, R_FACOAL161_3, R_HDCEAt]"	false	internal	c
+M_hdeACP_m	Cis-hexadec-9-enoyl-[acyl-carrier protein] (n-C16:1)	{BiGG: hdeACP_m}	"[R_FA161ACPtm, R_FAS161ACPm]"	false	internal	m
+M_hdcoa_x	Hexadecenoyl-CoA (n-C16:1CoA)	{BiGG: hdcoa_x}	"[R_FA161COAabcp, R_FACOAL161p, R_FAO161p_even, R_FAO161p_odd]"	false	internal	x
+M_hdcoa_c	Hexadecenoyl-CoA (n-C16:1CoA)	{BiGG: hdcoa_c}	"[R_FA161COAabcp, R_AGAT_SC, R_DESAT16, R_FACOAL161, R_FACOAL161_2, R_FACOAL161_3, R_GAT1_SC, R_GAT2_SC, R_TRIGS_SC]"	false	internal	c
+M_hdcea_x	Hexadecenoate (n-C16:1)	{BiGG: hdcea_x}	"[R_FA161tp, R_FACOAL161p]"	false	internal	x
+M_ocdca_c	Octadecanoate (n-C18:0)	{"BiGG": "ocdca_c", "KEGG": "C01530"}	
+M_ocdcaACP_c	Octadecanoyl-ACP (n-C18:0ACP)	{BiGG: ocdcaACP_c}	"[R_FA180ACPH, R_FA180ACPtm]"	false	internal	c
+M_ocdcaACP_m	Octadecanoyl-ACP (n-C18:0ACP)	{BiGG: ocdcaACP_m}	"[R_FA180ACPtm, R_FAS180ACPm]"	false	internal	m
+M_stcoa_c	Stearoyl-CoA (n-C18:0CoA)	{"BiGG": "stcoa_c", "KEGG": "C00412"}	
+M_stcoa_x	Stearoyl-CoA (n-C18:0CoA)	{"BiGG": "stcoa_x", "KEGG": "C00412"}	
+M_octeACP_c	Cis-octadec-11-enoyl-[acyl-carrier protein] (n-C18:1)	{BiGG: octeACP_c}	"[R_FA181ACPH, R_FA181ACPtm]"	false	internal	c
+M_ocdcea_c	Octadecenoate (n-C18:1)	{"BiGG": "ocdcea_c", "KEGG": "C00712"}	
+M_octeACP_m	Cis-octadec-11-enoyl-[acyl-carrier protein] (n-C18:1)	{BiGG: octeACP_m}	"[R_FA181ACPtm, R_FAS181ACPm]"	false	internal	m
+M_odecoa_x	Octadecenoyl-CoA (n-C18:1CoA)	{BiGG: odecoa_x}	"[R_FA181COAabcp, R_FAO181p_even, R_FAO181p_odd]"	false	internal	x
+M_odecoa_c	Octadecenoyl-CoA (n-C18:1CoA)	{BiGG: odecoa_c}	"[R_FA181COAabcp, R_AGAT_SC, R_DESAT18, R_DESAT18_2, R_FACOAL181, R_FACOAL181_2, R_FACOAL181_3, R_GAT1_SC, R_GAT2_SC, R_TRIGS_SC]"	false	internal	c
+M_ocdcyaACP_c	Octadecynoyl ACP  n C182ACP  C29H51N2O8PRS	{BiGG: ocdcyaACP_c}	"[R_FA182ACPH, R_FA182ACPtm]"	false	internal	c
+M_ocdcya_c	Octadecadienoate  n C182  C18H31O2	{BiGG: ocdcya_c}	"[R_FA182ACPH, R_FACOAL182, R_FACOAL182_2, R_FACOAL182_3, R_OCDCYAt]"	false	internal	c
+M_ocdcyaACP_m	Octadecynoyl ACP  n C182ACP  C29H51N2O8PRS	{BiGG: ocdcyaACP_m}	"[R_FA182ACPtm, R_FAS182ACPm]"	false	internal	m
+M_ipdp_c	Isopentenyl diphosphate	{"BiGG": "ipdp_c", "KEGG": "C00129"}	
+M_dmpp_c	Dimethylallyl diphosphate	{"BiGG": "dmpp_c", "KEGG": "C00235"}	
+M_acgam6p_c	N-Acetyl-D-glucosamine 6-phosphate	{"BiGG": "acgam6p_c", "KEGG": "C00357"}	
+M_acgam1p_c	N-Acetyl-D-glucosamine 1-phosphate	{"BiGG": "acgam1p_c", "KEGG": "C04256"}	
+M_adp_m	ADP C10H12N5O10P2	{"BiGG": "adp_m", "KEGG": "C00008"}	
+M_atp_m	ATP C10H12N5O13P3	{"BiGG": "atp_m", "KEGG": "C00002"}	
+M_acglu_m	N-Acetyl-L-glutamate	{"BiGG": "acglu_m", "KEGG": "C00624"}	
+M_acg5p_m	N-Acetyl-L-glutamyl 5-phosphate	{"BiGG": "acg5p_m", "KEGG": "C04133"}	
+M_h_m	H+	{"BiGG": "h_m", "KEGG": "C00080"}	
+M_coa_m	Coenzyme A	{"BiGG": "coa_m", "KEGG": "C00010"}	
+M_accoa_m	Acetyl-CoA	{"BiGG": "accoa_m", "KEGG": "C00024"}	
+M_glu__L_m	L-Glutamate	{"BiGG": "glu__L_m", "KEGG": "C00025"}	
+M_pyr_m	Pyruvate	{"BiGG": "pyr_m", "KEGG": "C00022"}	
+M_2obut_m	2-Oxobutanoate	{"BiGG": "2obut_m", "KEGG": "C00109"}	
+M_co2_m	CO2 CO2	{"BiGG": "co2_m", "KEGG": "C00011"}	
+M_2ahbut_m	(S)-2-Aceto-2-hydroxybutanoate	{"BiGG": "2ahbut_m", "KEGG": "C06006"}	
+M_alac__S_m	(S)-2-Acetolactate	{"BiGG": "alac__S_m", "KEGG": "C06010"}	
+M_accoa_c	Acetyl-CoA	{"BiGG": "accoa_c", "KEGG": "C00024"}	
+M_ac_c	Acetate	{"BiGG": "ac_c", "KEGG": "C00033"}	
+M_coa_c	Coenzyme A	{"BiGG": "coa_c", "KEGG": "C00010"}	
+M_h2o2_x	Hydrogen peroxide	{"BiGG": "h2o2_x", "KEGG": "C00027"}	
+M_o2_x	O2 O2	{"BiGG": "o2_x", "KEGG": "C00007"}	
+M_dcacoa_x	Decanoyl-CoA (n-C10:0CoA)	{BiGG: dcacoa_x}	"[R_ACOAO4p, R_ACACT5p, R_FACOAL100p]"	false	internal	x
+M_dc2coa_x	Trans-Dec-2-enoyl-CoA	{"BiGG": "dc2coa_x", "KEGG": "C05275"}	
+M_ddcacoa_x	Dodecanoyl-CoA (n-C12:0CoA)	{"BiGG": "ddcacoa_x", "KEGG": "C01832"}	
+M_dd2coa_x	Trans-Dodec-2-enoyl-CoA	{"BiGG": "dd2coa_x", "KEGG": "C03221"}	
+M_td2coa_x	Trans-Tetradec-2-enoyl-CoA	{"BiGG": "td2coa_x", "KEGG": "C05273"}	
+M_hdd2coa_x	Trans-Hexadec-2-enoyl-CoA	{"BiGG": "hdd2coa_x", "KEGG": "C05272"}	
+M_od2coa_x	Trans-Octadec-2-enoyl-CoA	{"BiGG": "od2coa_x", "KEGG": "C16218"}	
+M_hexccoa_x	Hexacosanoyl CoA  n C260CoA  C47H82N7O17P3S	{BiGG: hexccoa_x}	"[R_ACOAO9p, R_FACOAL260p]"	false	internal	x
+M_hxc2coa_x	Trans Hexacos 2 enoyl CoA C47H80N7O17P3S	{BiGG: hxc2coa_x}	"[R_ACOAO9p, R_ECOAH11p]"	false	internal	x
+M_acACP_c	Acetyl-ACP	{"BiGG": "acACP_c", "KEGG": "C03939"}	[R_ACOATA]	false	internal	c
+M_ACP_m	Acyl carrier protein	{"BiGG": "ACP_m", "KEGG": "C00229"}	
+M_acACP_m	Acetyl-ACP	{"BiGG": "acACP_m", "KEGG": "C03939"}	
+M_cit_c	Citrate	{"BiGG": "cit_c", "KEGG": "C00158"}	
+M_icit_c	Isocitrate	{"BiGG": "icit_c", "KEGG": "C00311"}	
+M_cit_m	Citrate	{"BiGG": "cit_m", "KEGG": "C00158"}	
+M_icit_m	Isocitrate	{"BiGG": "icit_m", "KEGG": "C00311"}	
+M_acorn_m	N2-Acetyl-L-ornithine	{"BiGG": "acorn_m", "KEGG": "C00437"}	
+M_akg_m	2-Oxoglutarate	{"BiGG": "akg_m", "KEGG": "C00026"}	
+M_acg5sa_m	N-Acetyl-L-glutamate 5-semialdehyde	{"BiGG": "acg5sa_m", "KEGG": "C01250"}	
+M_pap_m	"Adenosine 3',5'-bisphosphate"	
+M_pan4p_m	Pantetheine 4'-phosphate	{"BiGG": "pan4p_m", "KEGG": "C01134"}	
+M_h2o_m	H2O H2O	{"BiGG": "h2o_m", "KEGG": "C00001"}	
+M_acrn_c	O Acetylcarnitine C9H17NO4	{"BiGG": "acrn_c", "KEGG": "C02571"}	
+M_acrn_m	O Acetylcarnitine C9H17NO4	{"BiGG": "acrn_m", "KEGG": "C02571"}	
+M_acrn_x	O Acetylcarnitine C9H17NO4	{"BiGG": "acrn_x", "KEGG": "C02571"}	
+M_atp_c	ATP C10H12N5O13P3	{"BiGG": "atp_c", "KEGG": "C00002"}	
+M_ppi_c	Diphosphate	{"BiGG": "ppi_c", "KEGG": "C00013"}	
+M_amp_c	AMP C10H12N5O7P	{"BiGG": "amp_c", "KEGG": "C00020"}	
+M_ppi_m	Diphosphate	{"BiGG": "ppi_m", "KEGG": "C00013"}	
+M_amp_m	AMP C10H12N5O7P	{"BiGG": "amp_m", "KEGG": "C00020"}	
+M_ac_m	Acetate	{"BiGG": "ac_m", "KEGG": "C00033"}	
+M_amp_x	AMP C10H12N5O7P	{"BiGG": "amp_x", "KEGG": "C00020"}	
+M_coa_x	Coenzyme A	{"BiGG": "coa_x", "KEGG": "C00010"}	
+M_accoa_x	Acetyl-CoA	{"BiGG": "accoa_x", "KEGG": "C00024"}	
+M_ac_x	Acetate	{"BiGG": "ac_x", "KEGG": "C00033"}	
+M_ppi_x	Diphosphate	{"BiGG": "ppi_x", "KEGG": "C00013"}	
+M_ac_e	Acetate	{"BiGG": "ac_e", "KEGG": "C00033"}	[]	true	external	e
+M_ins_c	Inosine	{"BiGG": "ins_c", "KEGG": "C00294"}	
+M_nh4_c	Ammonium	{"BiGG": "nh4_c", "KEGG": "C00014"}	
+M_adn_c	Adenosine	{"BiGG": "adn_c", "KEGG": "C00212"}	
+M_4abz_c	4-Aminobenzoate	{"BiGG": "4abz_c", "KEGG": "C00568"}	
+M_4adcho_c	4-amino-4-deoxychorismate	{"BiGG": "4adcho_c", "KEGG": "C11355"}	
+M_pyr_c	Pyruvate	{"BiGG": "pyr_c", "KEGG": "C00022"}	
+M_chor_c	Chorismate	{"BiGG": "chor_c", "KEGG": "C00251"}	
+M_gln__L_c	L-Glutamine	{"BiGG": "gln__L_c", "KEGG": "C00064"}	
+M_glu__L_c	L-Glutamate	{"BiGG": "glu__L_c", "KEGG": "C00025"}	
+M_hxan_c	Hypoxanthine	{"BiGG": "hxan_c", "KEGG": "C00262"}	
+M_ade_c	Adenine	{"BiGG": "ade_c", "KEGG": "C00147"}	
+M_ade_e	Adenine	{"BiGG": "ade_e", "KEGG": "C00147"}	[]	true	external	e
+M_ade_m	Adenine	{"BiGG": "ade_m", "KEGG": "C00147"}	
+M_1ag3p_SC_c	1 Acyl sn glycerol 3 phosphate C1920H3622O700P100	{"BiGG": "1ag3p_SC_c", "KEGG": "C00681"}	
+M_nadph_c	Nicotinamide adenine dinucleotide phosphate - reduced	{"BiGG": "nadph_c", "KEGG": "C00005"}	
+M_nadp_c	Nicotinamide adenine dinucleotide phosphate	{"BiGG": "nadp_c", "KEGG": "C00006"}	
+M_1agly3p_SC_c	1 Acyl glycerone 3 phosphate  yeast specific C1920H3422O700P100	{BiGG: 1agly3p_SC_c}	"[R_ADHAPR_SC, R_GAT2_SC]"	false	internal	c
+M_adp_c	ADP C10H12N5O10P2	{"BiGG": "adp_c", "KEGG": "C00008"}	
+M_gdp_c	GDP C10H12N5O11P2	{"BiGG": "gdp_c", "KEGG": "C00035"}	
+M_gtp_c	GTP C10H12N5O14P3	{"BiGG": "gtp_c", "KEGG": "C00044"}	
+M_gtp_m	GTP C10H12N5O14P3	{"BiGG": "gtp_m", "KEGG": "C00044"}	[R_ADK3m]	false	internal	m
+M_gdp_m	GDP C10H12N5O11P2	{"BiGG": "gdp_m", "KEGG": "C00035"}	[R_ADK3m]	false	internal	m
+M_idp_c	IDP C10H11N4O11P2	{"BiGG": "idp_c", "KEGG": "C00104"}	
+M_itp_c	ITP C10H11N4O14P3	{"BiGG": "itp_c", "KEGG": "C00081"}	
+M_idp_m	IDP C10H11N4O11P2	{"BiGG": "idp_m", "KEGG": "C00104"}	[R_ADK4m]	false	internal	m
+M_itp_m	ITP C10H11N4O14P3	{"BiGG": "itp_m", "KEGG": "C00081"}	[R_ADK4m]	false	internal	m
+M_co2_c	CO2 CO2	{"BiGG": "co2_c", "KEGG": "C00011"}	
+M_ametam_c	S-Adenosylmethioninamine	{"BiGG": "ametam_c", "KEGG": "C01137"}	
+M_amet_c	S-Adenosyl-L-methionine	{"BiGG": "amet_c", "KEGG": "C00019"}	
+M_camp_c	CAMP C10H11N5O6P	{"BiGG": "camp_c", "KEGG": "C00575"}	
+M_rib__D_c	D-Ribose	{"BiGG": "rib__D_c", "KEGG": "C00121"}	
+M_adn_e	Adenosine	{"BiGG": "adn_e", "KEGG": "C00212"}	[]	true	external	e
+M_prpp_c	5-Phospho-alpha-D-ribose 1-diphosphate	{"BiGG": "prpp_c", "KEGG": "C00119"}	
+M_aps_c	Adenosine 5'-phosphosulfate	{"BiGG": "aps_c", "KEGG": "C00224"}	
+M_paps_c	3'-Phosphoadenylyl sulfate	{"BiGG": "paps_c", "KEGG": "C00053"}	
+M_fum_c	Fumarate	{"BiGG": "fum_c", "KEGG": "C00122"}	
+M_dcamp_c	"N6-(1,2-Dicarboxyethyl)-AMP"	
+M_25aics_c	(S)-2-[5-Amino-1-(5-phospho-D-ribosyl)imidazole-4-carboxamido]succinate	{"BiGG": "25aics_c", "KEGG": "C04811"}	
+M_aicar_c	5-Amino-1-(5-Phospho-D-ribosyl)imidazole-4-carboxamide	{"BiGG": "aicar_c", "KEGG": "C04677"}	
+M_asp__L_c	L-Aspartate	{"BiGG": "asp__L_c", "KEGG": "C00049"}	
+M_imp_c	IMP C10H11N4O8P	{"BiGG": "imp_c", "KEGG": "C00130"}	
+M_pi_c	Phosphate	{"BiGG": "pi_c", "KEGG": "C00009"}	
+M_prbatp_c	1-(5-Phosphoribosyl)-ATP	{"BiGG": "prbatp_c", "KEGG": "C02739"}	
+M_r5p_c	Alpha-D-Ribose 5-phosphate	{"BiGG": "r5p_c", "KEGG": "C03736"}	
+M_pran_c	N-(5-Phospho-D-ribosyl)anthranilate	{"BiGG": "pran_c", "KEGG": "C04302"}	
+M_anth_c	Anthranilate	{"BiGG": "anth_c", "KEGG": "C00108"}	
+M_ap4a_c	"P1,P4-Bis(5'-adenosyl) tetraphosphate"	
+M_5aprbu_c	5-Amino-6-(5'-phosphoribitylamino)uracil	{"BiGG": "5aprbu_c", "KEGG": "C04454"}	
+M_5apru_c	5-Amino-6-(5'-phosphoribosylamino)uracil	{"BiGG": "5apru_c", "KEGG": "C01268"}	
+M_h2o2_c	Hydrogen peroxide	{"BiGG": "h2o2_c", "KEGG": "C00027"}	
+M_o2_c	O2 O2	{"BiGG": "o2_c", "KEGG": "C00007"}	
+M_n4abutn_c	N4 Acetylaminobutanal C6H11NO2	{"BiGG": "n4abutn_c", "KEGG": "C05936"}	
+M_aprut_c	N Acetylputrescine C6H15N2O	{"BiGG": "aprut_c", "KEGG": "C02714"}	
+M_nad_c	Nicotinamide adenine dinucleotide	{"BiGG": "nad_c", "KEGG": "C00003"}	
+M_nadh_c	Nicotinamide adenine dinucleotide - reduced	{"BiGG": "nadh_c", "KEGG": "C00004"}	
+M_Dara14lac_c	D Arabinono 1 4 lactone C5H8O5	{"BiGG": "Dara14lac_c", "KEGG": "C00652"}	
+M_arab__D_c	D Arabinose C5H10O5	{"BiGG": "arab__D_c", "KEGG": "C00216"}	
+M_abt_c	L Arabinitol C5H12O5	{"BiGG": "abt_c", "KEGG": "C00532"}	
+M_arab__L_c	L-Arabinose	{"BiGG": "arab__L_c", "KEGG": "C11476"}	
+M_urea_c	Urea CH4N2O	{"BiGG": "urea_c", "KEGG": "C00086"}	
+M_orn_c	Ornithine	{"BiGG": "orn_c", "KEGG": "C00077"}	
+M_arg__L_c	L-Arginine	{"BiGG": "arg__L_c", "KEGG": "C00062"}	
+M_argsuc_c	N(omega)-(L-Arginino)succinate	{"BiGG": "argsuc_c", "KEGG": "C03406"}	
+M_citr__L_c	L-Citrulline	{"BiGG": "citr__L_c", "KEGG": "C00327"}	
+M_argtrna_c	L-Arginyl-tRNA(Arg)	{"BiGG": "argtrna_c", "KEGG": "C02163"}	[R_ARGTRS]	false	internal	c
+M_trnaarg_c	TRNA(Arg)	{"BiGG": "trnaarg_c", "KEGG": "C01636"}	
+M_argtrna_m	L-Arginyl-tRNA(Arg)	{"BiGG": "argtrna_m", "KEGG": "C02163"}	[R_ARGTRSm]	false	internal	m
+M_arg__L_m	L-Arginine	{"BiGG": "arg__L_m", "KEGG": "C00062"}	
+M_trnaarg_m	TRNA(Arg)	{"BiGG": "trnaarg_m", "KEGG": "C01636"}	[R_ARGTRSm]	false	internal	m
+M_NPmehis_c	N pai  Methyl L histidine C7H11N3O2	{"BiGG": "NPmehis_c", "KEGG": "C01152"}	[R_ARMT]	false	internal	c
+M_ahcys_c	S-Adenosyl-L-homocysteine	{"BiGG": "ahcys_c", "KEGG": "C00021"}	
+M_his__L_c	L-Histidine	{"BiGG": "his__L_c", "KEGG": "C00135"}	
+M_aspsa_c	L-Aspartate 4-semialdehyde	{"BiGG": "aspsa_c", "KEGG": "C00441"}	
+M_4pasp_c	4-Phospho-L-aspartate	{"BiGG": "4pasp_c", "KEGG": "C03082"}	
+M_asn__L_c	L-Asparagine	{"BiGG": "asn__L_c", "KEGG": "C00152"}	
+M_trnaasn_c	TRNA Asn  C10H17O10PR2	{"BiGG": "trnaasn_c", "KEGG": "C01637"}	
+M_asntrna_c	L-Asparaginyl-tRNA(Asn)	{"BiGG": "asntrna_c", "KEGG": "C03402"}	[R_ASNTRS]	false	internal	c
+M_trnaasn_m	TRNA Asn  C10H17O10PR2	{"BiGG": "trnaasn_m", "KEGG": "C01637"}	[R_ASNTRSm]	false	internal	m
+M_asntrna_m	L-Asparaginyl-tRNA(Asn)	{"BiGG": "asntrna_m", "KEGG": "C03402"}	[R_ASNTRSm]	false	internal	m
+M_asn__L_m	L-Asparagine	{"BiGG": "asn__L_m", "KEGG": "C00152"}	
+M_ala_B_c	Beta-Alanine	{"BiGG": "ala_B_c", "KEGG": "C00099"}	
+M_h_n	H+	{"BiGG": "h_n", "KEGG": "C00080"}	
+M_pi_n	Phosphate	{"BiGG": "pi_n", "KEGG": "C00009"}	
+M_cbp_n	Carbamoyl phosphate	{"BiGG": "cbp_n", "KEGG": "C00169"}	
+M_asp__L_n	L-Aspartate	{"BiGG": "asp__L_n", "KEGG": "C00049"}	
+M_cbasp_n	N-Carbamoyl-L-aspartate	{"BiGG": "cbasp_n", "KEGG": "C00438"}	
+M_asp__L_x	L-Aspartate	{"BiGG": "asp__L_x", "KEGG": "C00049"}	
+M_glu__L_x	L-Glutamate	{"BiGG": "glu__L_x", "KEGG": "C00025"}	
+M_fadh2_m	Flavin adenine dinucleotide reduced	{"BiGG": "fadh2_m", "KEGG": "C01352"}	
+M_fad_m	Flavin adenine dinucleotide oxidized	{"BiGG": "fad_m", "KEGG": "C00016"}	
+M_iasp_c	Iminoaspartate	{"BiGG": "iasp_c", "KEGG": "C05840"}	
+M_akg_c	2-Oxoglutarate	{"BiGG": "akg_c", "KEGG": "C00026"}	
+M_oaa_c	Oxaloacetate	{"BiGG": "oaa_c", "KEGG": "C00036"}	
+M_oaa_m	Oxaloacetate	{"BiGG": "oaa_m", "KEGG": "C00036"}	
+M_asp__L_m	L-Aspartate	{"BiGG": "asp__L_m", "KEGG": "C00049"}	
+M_akg_x	2-Oxoglutarate	{"BiGG": "akg_x", "KEGG": "C00026"}	
+M_oaa_x	Oxaloacetate	{"BiGG": "oaa_x", "KEGG": "C00036"}	
+M_asptrna_c	L-Aspartyl-tRNA(Asp)	{"BiGG": "asptrna_c", "KEGG": "C02984"}	[R_ASPTRS]	false	internal	c
+M_trnaasp_c	TRNA(Asp)	{"BiGG": "trnaasp_c", "KEGG": "C01638"}	
+M_trnaasp_m	TRNA(Asp)	{"BiGG": "trnaasp_m", "KEGG": "C01638"}	[R_ASPTRSm]	false	internal	m
+M_asptrna_m	L-Aspartyl-tRNA(Asp)	{"BiGG": "asptrna_m", "KEGG": "C02984"}	[R_ASPTRSm]	false	internal	m
+M_ap4g_c	P1  5  adenosyl  P4  5  guanosyl  tetraphosphate C20H24N10O20P4	{BiGG: ap4g_c}	[R_ATPATF2]	false	internal	c
+M_gp4g_c	"P1,P4-Bis(5'-guanosyl) tetraphosphate"	
+M_13BDglcn_c	1 3 beta D Glucan C6H10O5	{BiGG: 13BDglcn_c}	"[R_13BGH, R_13GS, R_13GS_2, R_13GS_3, R_BIOMASS_SC4_bal]"	false	internal	c
+M_glc__D_c	D-Glucose	{"BiGG": "glc__D_c", "KEGG": "C00031"}	
+M_13BDglcn_e	1 3 beta D Glucan C6H10O5	{BiGG: 13BDglcn_e}	[]	true	external	e
+M_udpg_c	UDPglucose	{"BiGG": "udpg_c", "KEGG": "C00029"}	
+M_udp_c	UDP C9H11N2O12P2	{"BiGG": "udp_c", "KEGG": "C00015"}	
+M_2dda7p_c	2-Dehydro-3-deoxy-D-arabino-heptonate 7-phosphate	{"BiGG": "2dda7p_c", "KEGG": "C04691"}	
+M_2dda7p_m	2-Dehydro-3-deoxy-D-arabino-heptonate 7-phosphate	{"BiGG": "2dda7p_m", "KEGG": "C04691"}	
+M_2dhp_c	2-Dehydropantoate	{"BiGG": "2dhp_c", "KEGG": "C00966"}	
+M_2dhp_m	2-Dehydropantoate	{"BiGG": "2dhp_m", "KEGG": "C00966"}	
+M_2mcit_c	2-Methylcitrate	{"BiGG": "2mcit_c", "KEGG": "C02225"}	
+M_2mcit_m	2-Methylcitrate	{"BiGG": "2mcit_m", "KEGG": "C02225"}	
+M_2ohph_5_n	2-Octaprenyl-6-hydroxyphenol (5 repeating units)	{BiGG: 2ohph_5_n}	"[R_2OHPH_5tn, R_OHPHM6n]"	false	internal	n
+M_2ohph_5_c	2-Octaprenyl-6-hydroxyphenol (5 repeating units)	{BiGG: 2ohph_5_c}	"[R_2OHPH_5tn, R_OPHHX6]"	false	internal	c
+M_2omph_5_m	2-Octaprenyl-6-methoxyphenol (5 repeating units)	{BiGG: 2omph_5_m}	"[R_2OMPH_5tm, R_OMPHHX6m]"	false	internal	m
+M_2omph_5_c	2-Octaprenyl-6-methoxyphenol (5 repeating units)	{BiGG: 2omph_5_c}	"[R_2OMPH_5tm, R_2OMPH_5tn]"	false	internal	c
+M_2omph_5_n	2-Octaprenyl-6-methoxyphenol (5 repeating units)	{BiGG: 2omph_5_n}	"[R_2OMPH_5tn, R_OHPHM6n]"	false	internal	n
+M_2oxoadp_m	2 Oxoadipate C6H6O5	{"BiGG": "2oxoadp_m", "KEGG": "C00322"}	
+M_2oxoadp_c	2 Oxoadipate C6H6O5	{"BiGG": "2oxoadp_c", "KEGG": "C00322"}	
+M_34hpp_c	3-(4-Hydroxyphenyl)pyruvate	{"BiGG": "34hpp_c", "KEGG": "C01179"}	
+M_hgentis_c	Homogentisate C8H7O4	{"BiGG": "hgentis_c", "KEGG": "C00544"}	
+M_34hpp_m	3-(4-Hydroxyphenyl)pyruvate	{"BiGG": "34hpp_m", "KEGG": "C01179"}	
+M_34hpp_x	3-(4-Hydroxyphenyl)pyruvate	{"BiGG": "34hpp_x", "KEGG": "C01179"}	
+M_3c3hmp_c	3-Carboxy-3-hydroxy-4-methylpentanoate	{"BiGG": "3c3hmp_c", "KEGG": "C02504"}	
+M_3c3hmp_m	3-Carboxy-3-hydroxy-4-methylpentanoate	{"BiGG": "3c3hmp_m", "KEGG": "C02504"}	
+M_3c4mop_c	3-Carboxy-4-methyl-2-oxopentanoate	{"BiGG": "3c4mop_c", "KEGG": "C04236"}	
+M_3c4mop_m	3-Carboxy-4-methyl-2-oxopentanoate	{"BiGG": "3c4mop_m", "KEGG": "C04236"}	
+M_sphgn_c	Sphinganine C18H40NO2	{"BiGG": "sphgn_c", "KEGG": "C00836"}	
+M_3dsphgn_c	3 Dehydrosphinganine C18H38NO2	{"BiGG": "3dsphgn_c", "KEGG": "C02934"}	
+M_3hanthrn_c	3 Hydroxyanthranilate C7H7NO3	{"BiGG": "3hanthrn_c", "KEGG": "C00632"}	
+M_cmusa_c	2 Amino 3 carboxymuconate semialdehyde C7H6NO5	{"BiGG": "cmusa_c", "KEGG": "C04409"}	
+M_3mob_m	3-Methyl-2-oxobutanoate	{"BiGG": "3mob_m", "KEGG": "C00141"}	
+M_3mob_c	3-Methyl-2-oxobutanoate	{"BiGG": "3mob_c", "KEGG": "C00141"}	
+M_3mop_c	(S)-3-Methyl-2-oxopentanoate	{"BiGG": "3mop_c", "KEGG": "C00671"}	
+M_3mop_m	(S)-3-Methyl-2-oxopentanoate	{"BiGG": "3mop_m", "KEGG": "C00671"}	
+M_3ophb_5_m	3 Hexaprenyl 4 hydroxybenzoate C37H53O3	{"BiGG": "3ophb_5_m", "KEGG": "C13425"}	
+M_3ophb_5_c	3 Hexaprenyl 4 hydroxybenzoate C37H53O3	{"BiGG": "3ophb_5_c", "KEGG": "C13425"}	
+M_4abutn_m	4-Aminobutanal	{"BiGG": "4abutn_m", "KEGG": "C00555"}	
+M_4abutn_c	4-Aminobutanal	{"BiGG": "4abutn_c", "KEGG": "C00555"}	
+M_4abut_m	4-Aminobutanoate	{"BiGG": "4abut_m", "KEGG": "C00334"}	
+M_4abut_c	4-Aminobutanoate	{"BiGG": "4abut_c", "KEGG": "C00334"}	
+M_4abz_m	4-Aminobenzoate	{"BiGG": "4abz_m", "KEGG": "C00568"}	
+M_4h2oglt_m	4 Hydroxy 2 oxoglutarate C5H4O6	{"BiGG": "4h2oglt_m", "KEGG": "C01127"}	
+M_4h2oglt_c	4 Hydroxy 2 oxoglutarate C5H4O6	{"BiGG": "4h2oglt_c", "KEGG": "C01127"}	
+M_4h2oglt_x	4 Hydroxy 2 oxoglutarate C5H4O6	{"BiGG": "4h2oglt_x", "KEGG": "C01127"}	
+M_4hbz_c	4-Hydroxybenzoate	{"BiGG": "4hbz_c", "KEGG": "C00156"}	
+M_4hbz_m	4-Hydroxybenzoate	{"BiGG": "4hbz_m", "KEGG": "C00156"}	
+M_4hglusa_m	L 4 Hydroxyglutamate semialdehyde C5H9NO4	{"BiGG": "4hglusa_m", "KEGG": "C05938"}	
+M_e4hglu_m	L erythro 4 Hydroxyglutamate C5H8NO5	{"BiGG": "e4hglu_m", "KEGG": "C05947"}	
+M_nadh_m	Nicotinamide adenine dinucleotide - reduced	{"BiGG": "nadh_m", "KEGG": "C00004"}	
+M_nad_m	Nicotinamide adenine dinucleotide	{"BiGG": "nad_m", "KEGG": "C00003"}	
+M_4hpro_LT_m	Trans 4 Hydroxy L proline C5H9NO3	{"BiGG": "4hpro_LT_m", "KEGG": "C01157"}	
+M_4hpro_LT_c	Trans 4 Hydroxy L proline C5H9NO3	{"BiGG": "4hpro_LT_c", "KEGG": "C01157"}	
+M_phthr_c	O-Phospho-4-hydroxy-L-threonine	{"BiGG": "phthr_c", "KEGG": "C06055"}	
+M_4hthr_c	4-Hydroxy-L-threonine	{"BiGG": "4hthr_c", "KEGG": "C06056"}	[R_4HTHRS]	false	internal	c
+M_5aop_e	5-Amino-4-oxopentanoate	{"BiGG": "5aop_e", "KEGG": "C00430"}	[]	true	external	e
+M_5aop_c	5-Amino-4-oxopentanoate	{"BiGG": "5aop_c", "KEGG": "C00430"}	
+M_5aop_m	5-Amino-4-oxopentanoate	{"BiGG": "5aop_m", "KEGG": "C00430"}	
+M_5mthf_c	5-Methyltetrahydrofolate	{"BiGG": "5mthf_c", "KEGG": "C00440"}	
+M_5mthf_m	5-Methyltetrahydrofolate	{"BiGG": "5mthf_m", "KEGG": "C00440"}	[R_5MTHFtm]	false	internal	m
+M_6pgl_r	"6-phospho-D-glucono-1,5-lactone"	
+M_6pgl_c	"6-phospho-D-glucono-1,5-lactone"	
+M_8aonn_c	8-Amino-7-oxononanoate	{"BiGG": "8aonn_c", "KEGG": "C01092"}	
+M_8aonn_e	8-Amino-7-oxononanoate	{"BiGG": "8aonn_e", "KEGG": "C01092"}	[]	true	external	e
+M_4aabutn_c	4 Acetamidobutanoate C6H10NO3	{"BiGG": "4aabutn_c", "KEGG": "C02946"}	
+M_L2aadp6sa_c	L 2 Aminoadipate 6 semialdehyde C6H11NO3	{"BiGG": "L2aadp6sa_c", "KEGG": "C04076"}	
+M_L2aadp_c	L 2 Aminoadipate C6H10NO4	{"BiGG": "L2aadp_c", "KEGG": "C00956"}	
+M_sucsal_c	Succinic semialdehyde	{"BiGG": "sucsal_c", "KEGG": "C00232"}	
+M_abt_e	L Arabinitol C5H12O5	{"BiGG": "abt_e", "KEGG": "C00532"}	[]	true	external	e
+M_4abut_e	4-Aminobutanoate	{"BiGG": "4abut_e", "KEGG": "C00334"}	[]	true	external	e
+M_aacoa_c	Acetoacetyl-CoA	{"BiGG": "aacoa_c", "KEGG": "C00332"}	
+M_aacoa_m	Acetoacetyl-CoA	{"BiGG": "aacoa_m", "KEGG": "C00332"}	
+M_occoa_x	Octanoyl-CoA (n-C8:0CoA)	{"BiGG": "occoa_x", "KEGG": "C01944"}	
+M_3odcoa_x	3-Oxodecanoyl-CoA	{"BiGG": "3odcoa_x", "KEGG": "C05265"}	
+M_3oddcoa_x	3-Oxododecanoyl-CoA	{"BiGG": "3oddcoa_x", "KEGG": "C05263"}	
+M_3otdcoa_x	3-Oxotetradecanoyl-CoA	{"BiGG": "3otdcoa_x", "KEGG": "C05261"}	
+M_3ohdcoa_x	3-Oxohexadecanoyl-CoA	{"BiGG": "3ohdcoa_x", "KEGG": "C05259"}	
+M_3ohodcoa_x	3-Oxooctadecanoyl-CoA	{"BiGG": "3ohodcoa_x", "KEGG": "C16216"}	
+M_3ohxccoa_x	3 Oxohexacosyl CoA C47H80N7O18P3S	{BiGG: 3ohxccoa_x}	"[R_ACACT9p, R_HACD10p]"	false	internal	x
+M_ttccoa_x	Tetracosanoyl CoA   n C240CoA  C45H78N7O17P3S	{BiGG: ttccoa_x}	"[R_ACACT9p, R_FACOAL240p, R_FAO240p]"	false	internal	x
+M_acald_c	Acetaldehyde	{"BiGG": "acald_c", "KEGG": "C00084"}	
+M_acald_e	Acetaldehyde	{"BiGG": "acald_e", "KEGG": "C00084"}	[]	true	external	e
+M_malcoa_c	Malonyl CoA C24H33N7O19P3S	{"BiGG": "malcoa_c", "KEGG": "C00083"}	
+M_hco3_c	Bicarbonate	{"BiGG": "hco3_c", "KEGG": "C00288"}	
+M_gam6p_c	D-Glucosamine 6-phosphate	{"BiGG": "gam6p_c", "KEGG": "C00352"}	
+M_dcacoa_c	Decanoyl-CoA (n-C10:0CoA)	{BiGG: dcacoa_c}	"[R_AGAT_SC, R_FAS100COA, R_FAS120COA, R_GAT1_SC, R_GAT2_SC, R_TRIGS_SC]"	false	internal	c
+M_ddcacoa_c	Dodecanoyl-CoA (n-C12:0CoA)	{"BiGG": "ddcacoa_c", "KEGG": "C01832"}	
+M_pa_SC_c	Phosphatidate  yeast specific C3540H6544O800P100	{BiGG: pa_SC_c}	"[R_AGAT_SC, R_DAGPYP_SC, R_DAGPYP_SC_2, R_DASYN_SC, R_LPP_SC, R_LPP_SC_2, R_PAK_SC, R_PAtm_SC, R_BIOMASS_SC4_bal]"	false	internal	c
+M_ocdycacoa_c	Octadecynoyl CoA  n C182CoA  C39H62N7O17P3S	{BiGG: ocdycacoa_c}	"[R_AGAT_SC, R_DESAT18_2, R_FA182COAabcp, R_FACOAL182, R_FACOAL182_2, R_FACOAL182_3, R_GAT1_SC, R_GAT2_SC, R_TRIGS_SC]"	false	internal	c
+M_pi_m	Phosphate	{"BiGG": "pi_m", "KEGG": "C00009"}	
+M_nadph_m	Nicotinamide adenine dinucleotide phosphate - reduced	{"BiGG": "nadph_m", "KEGG": "C00005"}	
+M_nadp_m	Nicotinamide adenine dinucleotide phosphate	{"BiGG": "nadp_m", "KEGG": "C00006"}	
+M_gly_c	Glycine	{"BiGG": "gly_c", "KEGG": "C00037"}	
+M_glx_c	Glyoxylate	{"BiGG": "glx_c", "KEGG": "C00048"}	
+M_ala__L_c	L-Alanine	{"BiGG": "ala__L_c", "KEGG": "C00041"}	
+M_ahcys_m	S-Adenosyl-L-homocysteine	{"BiGG": "ahcys_m", "KEGG": "C00021"}	
+M_ahcys_n	S-Adenosyl-L-homocysteine	{"BiGG": "ahcys_n", "KEGG": "C00021"}	
+M_hcys__L_c	L-Homocysteine	{"BiGG": "hcys__L_c", "KEGG": "C00155"}	
+M_4ahmmp_c	4-Amino-5-hydroxymethyl-2-methylpyrimidine	{"BiGG": "4ahmmp_c", "KEGG": "C01279"}	
+M_gcald_c	Glycolaldehyde	{"BiGG": "gcald_c", "KEGG": "C00266"}	
+M_air_c	5-amino-1-(5-phospho-D-ribosyl)imidazole	{BiGG: air_c}	"[R_AHMMPS, R_AIRCr, R_PRAIS]"	false	internal	c
+M_ch4s_c	Methanethiol CH4S	{"BiGG": "ch4s_c", "KEGG": "C00409"}	[R_AHSERL]	false	internal	c
+M_achms_c	O Acetyl L homoserine C6H11NO4	{"BiGG": "achms_c", "KEGG": "C01077"}	
+M_met__L_c	L-Methionine	{"BiGG": "met__L_c", "KEGG": "C00073"}	
+M_h2s_c	Hydrogen sulfide	{"BiGG": "h2s_c", "KEGG": "C00283"}	
+M_fprica_c	5-Formamido-1-(5-phospho-D-ribosyl)imidazole-4-carboxamide	{"BiGG": "fprica_c", "KEGG": "C04734"}	
+M_10fthf_c	10-Formyltetrahydrofolate	{"BiGG": "10fthf_c", "KEGG": "C00234"}	
+M_thf_c	"5,6,7,8-Tetrahydrofolate"	
+M_5aizc_c	5-amino-1-(5-phospho-D-ribosyl)imidazole-4-carboxylate	{"BiGG": "5aizc_c", "KEGG": "C04751"}	
+M_sdhlam_m	S Succinyldihydrolipoamide C12H20NO4S2	{"BiGG": "sdhlam_m", "KEGG": "C01169"}	
+M_lpam_m	Lipoamide C8H15NOS2	{"BiGG": "lpam_m", "KEGG": "C00248"}	
+M_dhlam_m	Dihydrolipoamide C8H17NOS2	{"BiGG": "dhlam_m", "KEGG": "C00579"}	
+M_succoa_m	Succinyl-CoA	{"BiGG": "succoa_m", "KEGG": "C00091"}	
+M_mal__L_c	L-Malate	{"BiGG": "mal__L_c", "KEGG": "C00149"}	
+M_akg_e	2-Oxoglutarate	{"BiGG": "akg_e", "KEGG": "C00026"}	[]	true	external	e
+M_akg_n	2-Oxoglutarate	{"BiGG": "akg_n", "KEGG": "C00026"}	
+M_dhnpt_c	Dihydroneopterin	{"BiGG": "dhnpt_c", "KEGG": "C04874"}	
+M_ahdt_c	"2-Amino-4-hydroxy-6-(erythro-1,2,3-trihydroxypropyl)dihydropteridine triphosphate"	
+M_gly_m	Glycine	{"BiGG": "gly_m", "KEGG": "C00037"}	
+M_ala__L_m	L-Alanine	{"BiGG": "ala__L_m", "KEGG": "C00041"}	[R_ALATA_Lm]	false	internal	m
+M_trnaala_c	TRNA(Ala)	{"BiGG": "trnaala_c", "KEGG": "C01635"}	
+M_alatrna_c	L-Alanyl-tRNA(Ala)	{BiGG: alatrna_c}	[R_ALATRS]	false	internal	c
+M_glyald_c	D-Glyceraldehyde	{"BiGG": "glyald_c", "KEGG": "C00577"}	
+M_glyc_c	Glycerol	{"BiGG": "glyc_c", "KEGG": "C00116"}	
+M_etoh_m	Ethanol	{"BiGG": "etoh_m", "KEGG": "C00469"}	
+M_acald_m	Acetaldehyde	{"BiGG": "acald_m", "KEGG": "C00084"}	
+M_etoh_c	Ethanol	{"BiGG": "etoh_c", "KEGG": "C00469"}	
+M_pac_c	Phenylacetic acid	{"BiGG": "pac_c", "KEGG": "C00548"}	
+M_pacald_c	Phenylacetaldehyde	{"BiGG": "pacald_c", "KEGG": "C00601"}	
+M_id3acald_m	Indole 3 acetaldehyde C10H9NO	{"BiGG": "id3acald_m", "KEGG": "C00637"}	
+M_ind3ac_m	Indole 3 acetate C10H8NO2	{"BiGG": "ind3ac_m", "KEGG": "C00954"}	
+M_id3acald_c	Indole 3 acetaldehyde C10H9NO	{"BiGG": "id3acald_c", "KEGG": "C00637"}	
+M_ind3ac_c	Indole 3 acetate C10H8NO2	{"BiGG": "ind3ac_c", "KEGG": "C00954"}	
+M_alltt_c	Allantoate	{"BiGG": "alltt_c", "KEGG": "C00499"}	
+M_urdglyc_c	(-)-Ureidoglycolate	{"BiGG": "urdglyc_c", "KEGG": "C00603"}	
+M_alltn_c	Allantoin	{"BiGG": "alltn_c", "KEGG": "C01551"}	
+M_allphn_c	Allophanate C2H3N2O3	{"BiGG": "allphn_c", "KEGG": "C01010"}	
+M_amuco_c	2-Aminomuconate	{"BiGG": "amuco_c", "KEGG": "C02220"}	[R_AM6SAD]	false	internal	c
+M_am6sa_c	2-Aminomuconate 6-semialdehyde	{"BiGG": "am6sa_c", "KEGG": "C03824"}	
+M_amob_c	S-Adenosyl-4-methylthio-2-oxobutanoate	{"BiGG": "amob_c", "KEGG": "C04425"}	[R_AMAOTr]	false	internal	c
+M_dann_c	"7,8-Diaminononanoate"	
+M_amet_m	S-Adenosyl-L-methionine	{"BiGG": "amet_m", "KEGG": "C00019"}	
+M_amet_n	S-Adenosyl-L-methionine	{"BiGG": "amet_n", "KEGG": "C00019"}	
+M_4gudbutn_c	4 Guanidinobutanoate C5H11N3O2	{"BiGG": "4gudbutn_c", "KEGG": "C01035"}	
+M_4gudbd_c	4 Guanidinobutanamide C5H13N4O	{"BiGG": "4gudbd_c", "KEGG": "C03078"}	
+M_pad_c	2 Phenylacetamide C8H9NO	{"BiGG": "pad_c", "KEGG": "C02505"}	[R_AMID2]	false	internal	c
+M_iad_c	Indole 3 acetamide C10H10N2O	{"BiGG": "iad_c", "KEGG": "C02693"}	[R_AMID3]	false	internal	c
+M_pi_g	Phosphate	{"BiGG": "pi_g", "KEGG": "C00009"}	
+M_h_g	H+	{"BiGG": "h_g", "KEGG": "C00080"}	
+M_adp_g	ADP C10H12N5O10P2	{"BiGG": "adp_g", "KEGG": "C00008"}	[R_ATPS3g]	false	internal	g
+M_h2o_g	H2O H2O	{"BiGG": "h2o_g", "KEGG": "C00001"}	
+M_atp_g	ATP C10H12N5O13P3	{"BiGG": "atp_g", "KEGG": "C00002"}	[R_ATPS3g]	false	internal	g
+M_adp_v	ADP C10H12N5O10P2	{"BiGG": "adp_v", "KEGG": "C00008"}	[R_ATPS3v]	false	internal	v
+M_h2o_v	H2O H2O	{"BiGG": "h2o_v", "KEGG": "C00001"}	
+M_atp_v	ATP C10H12N5O13P3	{"BiGG": "atp_v", "KEGG": "C00002"}	[R_ATPS3v]	false	internal	v
+M_pi_v	Phosphate	{"BiGG": "pi_v", "KEGG": "C00009"}	
+M_h_v	H+	{"BiGG": "h_v", "KEGG": "C00080"}	
+M_pap_c	"Adenosine 3',5'-bisphosphate"	
+M_btn_c	Biotin	{"BiGG": "btn_c", "KEGG": "C00120"}	
+M_s_c	Sulfur	{BiGG: s_c}	[R_BTSr]	false	internal	c
+M_dtbt_c	Dethiobiotin	{"BiGG": "dtbt_c", "KEGG": "C01909"}	
+M_44mzym_c	4 4 dimethylzymosterol C29H48O	{BiGG: 44mzym_c}	"[R_C14STR, R_C4STMO1]"	false	internal	c
+M_44mctr_c	4 4 dimethylcholesta 8 14 24 trienol C29H46O	{BiGG: 44mctr_c}	"[R_C14STR, R_LNS14DM]"	false	internal	c
+M_ergtrol_c	Ergosta 5 7 24 28  trienol C28H44O	{BiGG: ergtrol_c}	"[R_C22STDS, R_C5STDS]"	false	internal	c
+M_ergtetrol_c	Ergosta 5 7 22 24  28  tetraen 3beta ol C28H42O	{"BiGG": "ergtetrol_c", "KEGG": "C05440"}	
+M_nadp_r	Nicotinamide adenine dinucleotide phosphate	{"BiGG": "nadp_r", "KEGG": "C00006"}	
+M_h_r	H+	{"BiGG": "h_r", "KEGG": "C00080"}	
+M_nadph_r	Nicotinamide adenine dinucleotide phosphate - reduced	{"BiGG": "nadph_r", "KEGG": "C00005"}	
+M_ergtetrol_r	Ergosta 5 7 22 24  28  tetraen 3beta ol C28H42O	{"BiGG": "ergtetrol_r", "KEGG": "C05440"}	
+M_ergst_r	Ergosterol C28H44O	{"BiGG": "ergst_r", "KEGG": "C01694"}	
+M_4mzym_int1_c	4 Methylzymosterol intermediate 1 C29H46O3	{BiGG: 4mzym_int1_c}	"[R_C3STDH1, R_C4STMO1]"	false	internal	c
+M_4mzym_int2_c	4 Methylzymosterol intermediate 2 C28H44O	{BiGG: 4mzym_int2_c}	"[R_C3STDH1, R_C3STKR1]"	false	internal	c
+M_zym_int2_c	Zymosterol intermediate 2 C27H42O	{BiGG: zym_int2_c}	"[R_C3STDH2, R_C3STKR2]"	false	internal	c
+M_zym_int1_c	Zymosterol intermediate 1 C28H44O3	{BiGG: zym_int1_c}	"[R_C3STDH2, R_C4STMO2]"	false	internal	c
+M_4mzym_c	4 methylzymosterol C28H46O	{"BiGG": "4mzym_c", "KEGG": "C05103"}	
+M_zymst_c	Zymosterol C27H44O	{"BiGG": "zymst_c", "KEGG": "C05437"}	
+M_epist_c	Episterol C28H46O	{"BiGG": "epist_c", "KEGG": "C15777"}	
+M_fecost_c	Fecosterol C28H46O	{"BiGG": "fecost_c", "KEGG": "C04525"}	
+M_cbasp_c	N-Carbamoyl-L-aspartate	{"BiGG": "cbasp_c", "KEGG": "C00438"}	
+M_cbp_c	Carbamoyl phosphate	{"BiGG": "cbp_c", "KEGG": "C00169"}	
+M_gln__L_n	L-Glutamine	{"BiGG": "gln__L_n", "KEGG": "C00064"}	
+M_adp_n	ADP C10H12N5O10P2	{"BiGG": "adp_n", "KEGG": "C00008"}	
+M_atp_n	ATP C10H12N5O13P3	{"BiGG": "atp_n", "KEGG": "C00002"}	
+M_h2o_n	H2O H2O	{"BiGG": "h2o_n", "KEGG": "C00001"}	
+M_hco3_n	Bicarbonate	{"BiGG": "hco3_n", "KEGG": "C00288"}	
+M_glu__L_n	L-Glutamate	{"BiGG": "glu__L_n", "KEGG": "C00025"}	
+M_cdpdag_SC_m	CDPdiacylglycerol  yeast specific C4440H7744N300O1500P200	{BiGG: cdpdag_SC_m}	"[R_CDPDGPm_SC, R_CLPNSm_SC, R_DASYNm_SC, R_PSERSm_SC]"	false	internal	m
+M_pgp_SC_m	Phosphatidylglycerophosphate  yeast specific C3840H7144O1300P200	{BiGG: pgp_SC_m}	"[R_CDPDGPm_SC, R_PGPPAm_SC]"	false	internal	m
+M_cmp_m	CMP C9H12N3O8P	{"BiGG": "cmp_m", "KEGG": "C00055"}	
+M_glyc3p_m	Glycerol 3-phosphate	{"BiGG": "glyc3p_m", "KEGG": "C00093"}	
+M_cdp_c	CDP C9H12N3O11P2	{"BiGG": "cdp_c", "KEGG": "C00112"}	
+M_cdp_n	CDP C9H12N3O11P2	{"BiGG": "cdp_n", "KEGG": "C00112"}	
+M_cer1_24_c	Ceramide 1  Sphinganinen C240  C42H85NO3	{BiGG: cer1_24_c}	"[R_CERH124_copy1, R_CERS124, R_CERH124_copy2, R_IPCS124_SC]"	false	internal	c
+M_cer2_24_c	Ceramide 2  Phytosphingosinen C240  C42H85NO4	{BiGG: cer2_24_c}	"[R_CERH124_copy1, R_CERS224, R_CERH124_copy2, R_CERS324, R_IPCS224_SC]"	false	internal	c
+M_cer1_26_c	Ceramide 1  Sphinganinen C260  C44H89NO3	{BiGG: cer1_26_c}	"[R_CERH126_copy1, R_CERS126, R_CERH126_copy2, R_IPCS126_SC]"	false	internal	c
+M_cer2_26_c	Ceramide 2  Phytosphingosinen C260  C44H89NO4	{BiGG: cer2_26_c}	"[R_CERH126_copy1, R_CERS226, R_CERH126_copy2, R_CERS326, R_IPCS226_SC]"	false	internal	c
+M_ttccoa_c	Tetracosanoyl CoA   n C240CoA  C45H78N7O17P3S	{BiGG: ttccoa_c}	"[R_CERS124, R_CERS224]"	false	internal	c
+M_hexccoa_c	Hexacosanoyl CoA  n C260CoA  C47H82N7O17P3S	{BiGG: hexccoa_c}	"[R_CERS126, R_CERS226]"	false	internal	c
+M_psphings_c	Phytosphingosine C18H40NO3	{"BiGG": "psphings_c", "KEGG": "C12144"}	
+M_cer3_24_c	Ceramide 3  Phytosphingosinen C240OH  C42H85NO5	{BiGG: cer3_24_c}	"[R_CERS324, R_IPCS324_SC]"	false	internal	c
+M_cer3_26_c	Ceramide 3  Phytosphingosinen C260OH  C44H89NO5	{BiGG: cer3_26_c}	"[R_CERS326, R_IPCS326_SC]"	false	internal	c
+M_cholp_c	Choline phosphate C5H13NO4P	{"BiGG": "cholp_c", "KEGG": "C00588"}	
+M_ctp_c	CTP C9H12N3O14P3	{"BiGG": "ctp_c", "KEGG": "C00063"}	
+M_cdpchol_c	CDPcholine C14H25N4O11P2	{"BiGG": "cdpchol_c", "KEGG": "C00307"}	
+M_chol_c	Choline C5H14NO	{"BiGG": "chol_c", "KEGG": "C00114"}	
+M_pphn_c	Prephenate	{"BiGG": "pphn_c", "KEGG": "C00254"}	
+M_3psme_c	5-O-(1-Carboxyvinyl)-3-phosphoshikimate	{"BiGG": "3psme_c", "KEGG": "C01269"}	
+M_chitin_c	Chitin  monomer  C8H13NO5	{BiGG: chitin_c}	"[R_CHTNDA, R_CHTNDA_2, R_CHTNS, R_CHTNS_2, R_CHTNS_3]"	false	internal	c
+M_chitos_c	Chitosan C6H11NO4	{"BiGG": "chitos_c", "KEGG": "G01059"}	
+M_udpacgal_c	UDP-N-acetyl-D-galactosamine	{"BiGG": "udpacgal_c", "KEGG": "C00203"}	
+M_mal__L_m	L-Malate	{"BiGG": "mal__L_m", "KEGG": "C00149"}	
+M_cit_x	Citrate	{"BiGG": "cit_x", "KEGG": "C00158"}	
+M_mal__L_x	L-Malate	{"BiGG": "mal__L_x", "KEGG": "C00149"}	
+M_pep_c	Phosphoenolpyruvate	{"BiGG": "pep_c", "KEGG": "C00074"}	
+M_pep_m	Phosphoenolpyruvate	{"BiGG": "pep_m", "KEGG": "C00074"}	
+M_icit_x	Isocitrate	{"BiGG": "icit_x", "KEGG": "C00311"}	
+M_clpn_SC_m	Cardiolipin  yeast specific C7380H13688O1700P200	{BiGG: clpn_SC_m}	[R_CLPNSm_SC]	false	internal	m
+M_pg_SC_m	Phosphatidylglycerol  yeast specific C3840H7244O1000P100	{BiGG: pg_SC_m}	"[R_CLPNSm_SC, R_PGPPAm_SC]"	false	internal	m
+M_cmp_c	CMP C9H12N3O8P	{"BiGG": "cmp_c", "KEGG": "C00055"}	
+M_csn_c	Cytosine	{"BiGG": "csn_c", "KEGG": "C00380"}	
+M_co2_g	CO2 CO2	{"BiGG": "co2_g", "KEGG": "C00011"}	
+M_co2_n	CO2 CO2	{"BiGG": "co2_n", "KEGG": "C00011"}	
+M_co2_x	CO2 CO2	{"BiGG": "co2_x", "KEGG": "C00011"}	
+M_co2_v	CO2 CO2	{"BiGG": "co2_v", "KEGG": "C00011"}	
+M_pppg9_c	Protoporphyrinogen IX	{"BiGG": "pppg9_c", "KEGG": "C01079"}	
+M_cpppg3_c	Coproporphyrinogen III	{"BiGG": "cpppg3_c", "KEGG": "C03263"}	
+M_crn_m	L-Carnitine	{"BiGG": "crn_m", "KEGG": "C00318"}	
+M_crn_c	L-Carnitine	{"BiGG": "crn_c", "KEGG": "C00318"}	
+M_crn_x	L-Carnitine	{"BiGG": "crn_x", "KEGG": "C00318"}	
+M_ura_c	Uracil	{"BiGG": "ura_c", "KEGG": "C00106"}	
+M_utp_c	UTP C9H11N2O15P3	{"BiGG": "utp_c", "KEGG": "C00075"}	
+M_o2_m	O2 O2	{"BiGG": "o2_m", "KEGG": "C00007"}	
+M_ficytc_m	Ferricytochrome c C42H52FeN8O6S2	{"BiGG": "ficytc_m", "KEGG": "C00125"}	
+M_focytc_m	Ferrocytochrome c C42H53FeN8O6S2	{"BiGG": "focytc_m", "KEGG": "C00924"}	
+M_q6h2_m	Ubiquinol 6 C39H60O4	{BiGG: q6h2_m}	"[R_CYOR_u6m, R_DHORD4i, R_DMQMT6m, R_DXHPScm, R_FDNG, R_NADH2_u6cm, R_NADH2_u6cm_2, R_NADH2_u6m, R_NADH2_u6m_2, R_SUCD2_u6m, R_SUCD2_u6m_2, R_SUCD2_u6m_3, R_SUCD2_u6m_4, R_SUCD3_u6m, R_SUCD3_u6m_2, R_SUCD3_u6m_3, R_SUCD3_u6m_4]"	false	internal	m
+M_q6_m	Ubiquinone 6 C39H58O4	{"BiGG": "q6_m", "KEGG": "C17568"}	
+M_cys__L_c	L-Cysteine	{"BiGG": "cys__L_c", "KEGG": "C00097"}	
+M_acser_c	O-Acetyl-L-serine	{"BiGG": "acser_c", "KEGG": "C00979"}	
+M_cyst__L_c	L-Cystathionine	{"BiGG": "cyst__L_c", "KEGG": "C02291"}	
+M_2obut_c	2-Oxobutanoate	{"BiGG": "2obut_c", "KEGG": "C00109"}	
+M_cyst__L_x	L-Cystathionine	{"BiGG": "cyst__L_x", "KEGG": "C02291"}	
+M_pyr_x	Pyruvate	{"BiGG": "pyr_x", "KEGG": "C00022"}	
+M_hcys__L_x	L-Homocysteine	{"BiGG": "hcys__L_x", "KEGG": "C00155"}	
+M_nh4_x	Ammonium	{"BiGG": "nh4_x", "KEGG": "C00014"}	
+M_cystrna_c	L-Cysteinyl-tRNA(Cys)	{"BiGG": "cystrna_c", "KEGG": "C03125"}	[R_CYSTRS]	false	internal	c
+M_trnacys_c	TRNA(Cys)	{"BiGG": "trnacys_c", "KEGG": "C01639"}	
+M_ser__L_c	L-Serine	{"BiGG": "ser__L_c", "KEGG": "C00065"}	
+M_cytd_c	Cytidine	{"BiGG": "cytd_c", "KEGG": "C00475"}	
+M_uri_c	Uridine	{"BiGG": "uri_c", "KEGG": "C00299"}	
+M_dcdp_c	DCDP C9H12N3O10P2	{"BiGG": "dcdp_c", "KEGG": "C00705"}	
+M_dcmp_c	DCMP C9H12N3O7P	{"BiGG": "dcmp_c", "KEGG": "C00239"}	
+M_din_c	Deoxyinosine	{"BiGG": "din_c", "KEGG": "C05512"}	
+M_dad_2_c	Deoxyadenosine	{"BiGG": "dad_2_c", "KEGG": "C00559"}	
+M_damp_c	DAMP C10H12N5O6P	{"BiGG": "damp_c", "KEGG": "C00360"}	
+M_dadp_c	DADP C10H12N5O9P2	{"BiGG": "dadp_c", "KEGG": "C00206"}	
+M_dadp_n	DADP C10H12N5O9P2	{"BiGG": "dadp_n", "KEGG": "C00206"}	
+M_12dgr_SC_c	1 2 Diacylglycerol  yeast specific C3540H6644O500	{BiGG: 12dgr_SC_c}	"[R_DAGCPT_SC, R_DAGCPT_SC_2, R_DAGPYP_SC, R_DAGPYP_SC_2, R_ETHAPT_SC, R_IPCS124_SC, R_IPCS126_SC, R_IPCS224_SC, R_IPCS226_SC, R_IPCS324_SC, R_IPCS326_SC, R_MIP2CS124_SC, R_MIP2CS126_SC, R_MIP2CS224_SC, R_MIP2CS226_SC, R_MIP2CS324_SC, R_MIP2CS326_SC, R_PI45BPP_SC, R_TRIGS_SC]"	false	internal	c
+M_pc_SC_c	Phosphatidylcholine  yeast specific C4040H7844N100O800P100	{BiGG: pc_SC_c}	"[R_DAGCPT_SC, R_DAGCPT_SC_2, R_PMETM_SC, R_BIOMASS_SC4_bal]"	false	internal	c
+M_cdpdag_SC_c	CDPdiacylglycerol  yeast specific C4440H7744N300O1500P200	{BiGG: cdpdag_SC_c}	"[R_DASYN_SC, R_PINOS_SC, R_PSERS_SC]"	false	internal	c
+M_pa_SC_m	Phosphatidate  yeast specific C3540H6544O800P100	{BiGG: pa_SC_m}	"[R_DASYNm_SC, R_PAtm_SC]"	false	internal	m
+M_ctp_m	CTP C9H12N3O14P3	{"BiGG": "ctp_m", "KEGG": "C00063"}	[R_DASYNm_SC]	false	internal	m
+M_ru5p__D_c	D-Ribulose 5-phosphate	{"BiGG": "ru5p__D_c", "KEGG": "C00199"}	
+M_db4p_c	"3,4-dihydroxy-2-butanone 4-phosphate"	
+M_for_c	Formate	{"BiGG": "for_c", "KEGG": "C00058"}	
+M_dcdp_n	DCDP C9H12N3O10P2	{"BiGG": "dcdp_n", "KEGG": "C00705"}	
+M_dump_c	DUMP C9H11N2O8P	{"BiGG": "dump_c", "KEGG": "C00365"}	
+M_dutp_c	DUTP C9H11N2O14P3	{"BiGG": "dutp_c", "KEGG": "C00460"}	
+M_dctp_c	DCTP C9H12N3O13P3	{"BiGG": "dctp_c", "KEGG": "C00458"}	
+M_duri_c	Deoxyuridine	{"BiGG": "duri_c", "KEGG": "C00526"}	
+M_dcyt_c	Deoxycytidine	{"BiGG": "dcyt_c", "KEGG": "C00881"}	
+M_e4p_c	D-Erythrose 4-phosphate	{"BiGG": "e4p_c", "KEGG": "C00279"}	
+M_e4p_m	D-Erythrose 4-phosphate	{"BiGG": "e4p_m", "KEGG": "C00279"}	
+M_dgdp_c	DGDP C10H12N5O10P2	{"BiGG": "dgdp_c", "KEGG": "C00361"}	
+M_dgdp_n	DGDP C10H12N5O10P2	{"BiGG": "dgdp_n", "KEGG": "C00361"}	
+M_gal_c	D-Galactose	{"BiGG": "gal_c", "KEGG": "C00124"}	
+M_6dg_c	D Gal alpha 1 6D Glucose C12H22O11	{"BiGG": "6dg_c", "KEGG": "C05402"}	[R_DGGH]	false	internal	c
+M_dgmp_c	DGMP C10H12N5O7P	{"BiGG": "dgmp_c", "KEGG": "C00362"}	
+M_dgsn_c	Deoxyguanosine	{"BiGG": "dgsn_c", "KEGG": "C00330"}	
+M_23dhmb_m	"(R)-2,3-Dihydroxy-3-methylbutanoate"	
+M_23dhmp_m	"(R)-2,3-Dihydroxy-3-methylpentanoate"	
+M_dhap_c	Dihydroxyacetone phosphate	{"BiGG": "dhap_c", "KEGG": "C00111"}	
+M_dha_c	Dihydroxyacetone	{"BiGG": "dha_c", "KEGG": "C00184"}	
+M_dhap_m	Dihydroxyacetone phosphate	{"BiGG": "dhap_m", "KEGG": "C00111"}	
+M_dhf_c	"7,8-Dihydrofolate"	
+M_dhf_m	"7,8-Dihydrofolate"	
+M_thf_m	"5,6,7,8-Tetrahydrofolate"	
+M_dhpt_c	Dihydropteroate	{"BiGG": "dhpt_c", "KEGG": "C00921"}	
+M_dhnpt_m	Dihydroneopterin	{"BiGG": "dhnpt_m", "KEGG": "C04874"}	
+M_2ahhmp_m	2 Amino 4 hydroxy 6 hydroxymethyl 7 8 dihydropteridine C7H9N5O2	{BiGG: 2ahhmp_m}	"[R_DHNPAm, R_DHPSm, R_HPPKm]"	false	internal	m
+M_gcald_m	Glycolaldehyde	{"BiGG": "gcald_m", "KEGG": "C00266"}	
+M_dhor__S_c	(S)-Dihydroorotate	{"BiGG": "dhor__S_c", "KEGG": "C00337"}	
+M_orot_c	Orotate C5H3N2O4	{"BiGG": "orot_c", "KEGG": "C00295"}	
+M_dhor__S_n	(S)-Dihydroorotate	{"BiGG": "dhor__S_n", "KEGG": "C00337"}	
+M_25dhpp_c	2 5 Diamino 6 hydroxy 4  5  phosphoribosylamino  pyrimidine C9H14N5O8P	{BiGG: 25dhpp_c}	"[R_DHPPDA, R_GTPCII]"	false	internal	c
+M_dhpt_m	Dihydropteroate	{"BiGG": "dhpt_m", "KEGG": "C00921"}	
+M_3dhq_c	3-Dehydroquinate	{"BiGG": "3dhq_c", "KEGG": "C00944"}	
+M_3dhsk_c	3-Dehydroshikimate	{"BiGG": "3dhsk_c", "KEGG": "C02637"}	
+M_sprm_c	Spermine C10H30N4	{"BiGG": "sprm_c", "KEGG": "C00750"}	
+M_N1sprm_c	N1 Acetylspermine C12H31N4O	{"BiGG": "N1sprm_c", "KEGG": "C02567"}	
+M_succ_m	Succinate	{"BiGG": "succ_m", "KEGG": "C00042"}	
+M_succ_c	Succinate	{"BiGG": "succ_c", "KEGG": "C00042"}	
+M_caphis_c	2  3 Carboxy 3 aminopropyl  L histidine C10H16N4O4	{BiGG: caphis_c}	[R_DIPS]	false	internal	c
+M_cmaphis_c	2 3 Carboxy 3  methylammonio propyl L histidine C11H18N4O4	{BiGG: cmaphis_c}	[R_DIPS]	false	internal	c
+M_grdp_c	Geranyl diphosphate	{"BiGG": "grdp_c", "KEGG": "C00341"}	
+M_2omhmbl_5_m	"2-Octaprenyl-3-methyl-5-hydroxy-6-methoxy-1,4-benzoquinol (5 repeating units)"	{BiGG: 2omhmbl_5_m}	
+M_dhpmp_c	Dihydroneopterin monophosphate	{"BiGG": "dhpmp_c", "KEGG": "C05925"}	
+M_dolp_c	Dolichol phosphate C15H27O4P	{BiGG: dolp_c}	"[R_DOLK, R_DOLPMTcer, R_DOLPt2er]"	false	internal	c
+M_dolichol_c	Dolichol C15H28O	{"BiGG": "dolichol_c", "KEGG": "C00381"}	[R_DOLK]	false	internal	c
+M_dolp_r	Dolichol phosphate C15H27O4P	{BiGG: dolp_r}	"[R_DOLPMMer, R_DOLPMMer_2, R_DOLPMMer_3, R_DOLPMMer_4, R_DOLPMMer_5, R_DOLPt2er]"	false	internal	r
+M_dolmanp_r	Dolichyl phosphate D mannose C21H38O9P	{"BiGG": "dolmanp_r", "KEGG": "C03862"}	
+M_mannan_r	Mannan C6H10O5	{BiGG: mannan_r}	"[R_DOLPMMer, R_DOLPMMer_2, R_DOLPMMer_3, R_DOLPMMer_4, R_DOLPMMer_5, R_MANNANter]"	false	internal	r
+M_gdpmann_c	GDP-D-mannose	{"BiGG": "gdpmann_c", "KEGG": "C00096"}	
+M_dpcoa_c	Dephospho-CoA	{"BiGG": "dpcoa_c", "KEGG": "C00882"}	
+M_dpcoa_m	Dephospho-CoA	{"BiGG": "dpcoa_m", "KEGG": "C00882"}	
+M_13dpg_c	3-Phospho-D-glyceroyl phosphate	{"BiGG": "13dpg_c", "KEGG": "C00236"}	
+M_23dpg_c	2 3 Disphospho D glycerate C3H3O10P2	{BiGG: 23dpg_c}	[R_DPGM]	false	internal	c
+M_5dpmev_c	 R  5 Diphosphomevalonate C6H10O10P2	{"BiGG": "5dpmev_c", "KEGG": "C01143"}	
+M_pant__R_c	(R)-Pantoate	{"BiGG": "pant__R_c", "KEGG": "C00522"}	
+M_pant__R_m	(R)-Pantoate	{"BiGG": "pant__R_m", "KEGG": "C00522"}	
+M_2dr5p_c	2-Deoxy-D-ribose 5-phosphate	{"BiGG": "2dr5p_c", "KEGG": "C00673"}	[R_DRBK]	false	internal	c
+M_drib_c	Deoxyribose C5H10O4	{"BiGG": "drib_c", "KEGG": "C01801"}	[R_DRBK]	false	internal	c
+M_dtdp_c	DTDP C10H13N2O11P2	{"BiGG": "dtdp_c", "KEGG": "C00363"}	
+M_dtmp_c	DTMP C10H13N2O8P	{"BiGG": "dtmp_c", "KEGG": "C00364"}	
+M_dttp_c	DTTP C10H13N2O14P3	{"BiGG": "dttp_c", "KEGG": "C00459"}	
+M_dump_n	DUMP C9H11N2O8P	{"BiGG": "dump_n", "KEGG": "C00365"}	
+M_2dr1p_c	2-Deoxy-D-ribose 1-phosphate	{"BiGG": "2dr1p_c", "KEGG": "C00672"}	
+M_spmd_c	Spermidine	{"BiGG": "spmd_c", "KEGG": "C00315"}	
+M_13dampp_c	1 3 Diaminopropane C3H12N2	{BiGG: 13dampp_c}	[R_DXHPScm]	false	internal	c
+M_lac__D_m	D-Lactate	{"BiGG": "lac__D_m", "KEGG": "C00256"}	
+M_lac__D_c	D-Lactate	{"BiGG": "lac__D_c", "KEGG": "C00256"}	
+M_e4hglu_c	L erythro 4 Hydroxyglutamate C5H8NO5	{"BiGG": "e4hglu_c", "KEGG": "C05947"}	
+M_e4hglu_x	L erythro 4 Hydroxyglutamate C5H8NO5	{"BiGG": "e4hglu_x", "KEGG": "C05947"}	
+M_3hxccoa_x	 S  3 Hydroxyhexacosyl CoA C47H82N7O18P3S	{BiGG: 3hxccoa_x}	"[R_ECOAH11p, R_HACD10p]"	false	internal	x
+M_3hdcoa_x	(S)-3-Hydroxydecanoyl-CoA	{"BiGG": "3hdcoa_x", "KEGG": "C05264"}	
+M_3hddcoa_x	(S)-3-Hydroxydodecanoyl-CoA	{"BiGG": "3hddcoa_x", "KEGG": "C05262"}	
+M_3htdcoa_x	(S)-3-Hydroxytetradecanoyl-CoA	{"BiGG": "3htdcoa_x", "KEGG": "C05260"}	
+M_3hhdcoa_x	(S)-3-Hydroxyhexadecanoyl-CoA	{"BiGG": "3hhdcoa_x", "KEGG": "C05258"}	
+M_3hodcoa_x	(S)-3-Hydroxyoctadecanoyl-CoA	{BiGG: 3hodcoa_x}	"[R_ECOAH8p, R_HACD8p]"	false	internal	x
+M_2pg_c	D-Glycerate 2-phosphate	{"BiGG": "2pg_c", "KEGG": "C00631"}	
+M_man_c	D-Mannose	{"BiGG": "man_c", "KEGG": "C00159"}	
+M_epm_c	Epimelibiose C12H22O11	{"BiGG": "epm_c", "KEGG": "C05400"}	[R_EPMGH]	false	internal	c
+M_ergst_c	Ergosterol C28H44O	{"BiGG": "ergst_c", "KEGG": "C01694"}	
+M_etha_c	Ethanolamine	{"BiGG": "etha_c", "KEGG": "C00189"}	[R_ETHAK]	false	internal	c
+M_ethamp_c	Ethanolamine phosphate C2H7NO4P	{"BiGG": "ethamp_c", "KEGG": "C00346"}	
+M_cdpea_c	CDPethanolamine C11H19N4O11P2	{"BiGG": "cdpea_c", "KEGG": "C00570"}	
+M_pe_SC_c	Phosphatidylethanolamine  yeast specific C3740H7244N100O800P100	{BiGG: pe_SC_c}	"[R_ETHAPT_SC, R_PETOHM_SC, R_PEtg_SC, R_PEtm_SC, R_PEtv_SC, R_BIOMASS_SC4_bal]"	false	internal	c
+M_ocdycacoa_x	Octadecynoyl CoA  n C182CoA  C39H62N7O17P3S	{BiGG: ocdycacoa_x}	"[R_FA182COAabcp, R_FAO182p_eveneven, R_FAO182p_evenodd, R_FAO182p_oddodd]"	false	internal	x
+M_ttc_x	Tetracosanoate  n C240  C24H47O2	{BiGG: ttc_x}	"[R_FA240tp, R_FACOAL240p]"	false	internal	x
+M_ttc_c	Tetracosanoate  n C240  C24H47O2	{BiGG: ttc_c}	"[R_FA240tp, R_FAS240_L, R_FAS260]"	false	internal	c
+M_hexc_x	Hexacosanoate  n C260  C26H51O2	{BiGG: hexc_x}	"[R_FA260tp, R_FACOAL260p]"	false	internal	x
+M_hexc_c	Hexacosanoate  n C260  C26H51O2	{BiGG: hexc_c}	"[R_FA260tp, R_FAS260]"	false	internal	c
+M_octa_c	Octanoate (n-C8:0)	{"BiGG": "octa_c", "KEGG": "C06423"}	
+M_octa_x	Octanoate (n-C8:0)	{"BiGG": "octa_x", "KEGG": "C06423"}	
+M_fmn_m	FMN C17H19N4O9P	{"BiGG": "fmn_m", "KEGG": "C00061"}	
+M_fmn_c	FMN C17H19N4O9P	{"BiGG": "fmn_c", "KEGG": "C00061"}	
+M_fad_c	Flavin adenine dinucleotide oxidized	{"BiGG": "fad_c", "KEGG": "C00016"}	
+M_Sfglutth_c	S-Formylglutathione	{"BiGG": "Sfglutth_c", "KEGG": "C01031"}	
+M_fald_c	Formaldehyde	{"BiGG": "fald_c", "KEGG": "C00067"}	[R_FALDH]	false	internal	c
+M_gthrd_c	Reduced glutathione	{"BiGG": "gthrd_c", "KEGG": "C00051"}	
+M_nadp_x	Nicotinamide adenine dinucleotide phosphate	{"BiGG": "nadp_x", "KEGG": "C00006"}	
+M_nadh_x	Nicotinamide adenine dinucleotide - reduced	{"BiGG": "nadh_x", "KEGG": "C00004"}	
+M_nad_x	Nicotinamide adenine dinucleotide	{"BiGG": "nad_x", "KEGG": "C00003"}	
+M_nadph_x	Nicotinamide adenine dinucleotide phosphate - reduced	{"BiGG": "nadph_x", "KEGG": "C00005"}	
+M_malACP_m	Malonyl-[acyl-carrier protein]	{"BiGG": "malACP_m", "KEGG": "C01209"}	
+M_ocACP_m	Octanoyl-ACP (n-C8:0ACP)	{BiGG: ocACP_m}	"[R_FAS100ACPm, R_FAS80ACPm_L]"	false	internal	m
+M_dcaACP_m	Decanoyl-ACP (n-C10:0ACP)	{BiGG: dcaACP_m}	"[R_FAS100ACPm, R_FAS120ACPm]"	false	internal	m
+M_occoa_c	Octanoyl-CoA (n-C8:0CoA)	{"BiGG": "occoa_c", "KEGG": "C01944"}	
+M_methf_c	"5,10-Methenyltetrahydrofolate"	
+M_5fthf_c	5-Formyltetrahydrofolate	{"BiGG": "5fthf_c", "KEGG": "C03479"}	
+M_fdp_c	"D-Fructose 1,6-bisphosphate"	
+M_g3p_c	Glyceraldehyde 3-phosphate	{"BiGG": "g3p_c", "KEGG": "C00118"}	
+M_f1p_c	D-Fructose 1-phosphate	{"BiGG": "f1p_c", "KEGG": "C01094"}	
+M_s17bp_c	"Sedoheptulose 1,7-bisphosphate"	
+M_f6p_c	D-Fructose 6-phosphate	{"BiGG": "f6p_c", "KEGG": "C05345"}	
+M_f26bp_c	D Fructose 2 6 bisphosphate C6H10O12P2	{"BiGG": "f26bp_c", "KEGG": "C00665"}	
+M_fe2_m	Fe2+ mitochondria	{"BiGG": "fe2_m", "KEGG": "C14818"}	[R_FCLTm]	false	internal	m
+M_pheme_m	Protoheme C34H30FeN4O4	{"BiGG": "pheme_m", "KEGG": "C00032"}	[R_FCLTm]	false	internal	m
+M_ppp9_m	Protoporphyrin	{"BiGG": "ppp9_m", "KEGG": "C02191"}	
+M_Lkynr_c	L Kynurenine C10H12N2O3	{"BiGG": "Lkynr_c", "KEGG": "C00328"}	
+M_Lfmkynr_c	L Formylkynurenine C11H12N2O4	{"BiGG": "Lfmkynr_c", "KEGG": "C02700"}	
+M_mettrna_m	L-Methionyl-tRNA (Met)	{"BiGG": "mettrna_m", "KEGG": "C02430"}	
+M_fmettrna_m	N-Formylmethionyl-tRNA	{"BiGG": "fmettrna_m", "KEGG": "C03294"}	[R_FMETTRSm]	false	internal	m
+M_10fthf_m	10-Formyltetrahydrofolate	{"BiGG": "10fthf_m", "KEGG": "C00234"}	
+M_2ahhmd_m	2 Amino 4 hydroxy 6 hydroxymethyl 7 8 dihydropteridine diphosphate C7H8N5O8P2	{"BiGG": "2ahhmd_m", "KEGG": "C04807"}	
+M_for_m	Formate	{"BiGG": "for_m", "KEGG": "C00058"}	
+M_fum_m	Fumarate	{"BiGG": "fum_m", "KEGG": "C00122"}	
+M_fru_c	D-Fructose	{"BiGG": "fru_c", "KEGG": "C00095"}	
+M_5fthf_m	5-Formyltetrahydrofolate	{"BiGG": "5fthf_m", "KEGG": "C03479"}	
+M_methf_m	"5,10-Methenyltetrahydrofolate"	
+M_acac_c	Acetoacetate	{"BiGG": "acac_c", "KEGG": "C00164"}	[R_FUMAC]	false	internal	c
+M_4fumacac_c	4 Fumarylacetoacetate C8H6O6	{"BiGG": "4fumacac_c", "KEGG": "C01061"}	
+M_m2macchitppdol_g	 alpha D mannosyl 2 beta D mannosyl diacetylchitobiosyldiphosphodolichol C49H84N2O32P2	{BiGG: m2macchitppdol_g}	"[R_G12MT1g, R_G12MT1g_2, R_G12MT1g_3, R_G12MT1g_4, R_G12MT1g_5, R_G12MT1g_6, R_G12MT1g_7, R_G12MT1g_8, R_G16MTg]"	false	internal	g
+M_gdpmann_g	GDP-D-mannose	{"BiGG": "gdpmann_g", "KEGG": "C00096"}	
+M_m3macchitppdol_g	 alpha D mannosyl 3 beta D mannosyl diacetylchitodiphosphodolichol C55H94N2O37P2	{BiGG: m3macchitppdol_g}	"[R_G12MT1g, R_G12MT1g_2, R_G12MT1g_3, R_G12MT1g_4, R_G12MT1g_5, R_G12MT1g_6, R_G12MT1g_7, R_G12MT1g_8, R_G12MT2g, R_G12MT2g_2, R_G12MT2g_3, R_G12MT2g_4, R_G12MT2g_5, R_G12MT2g_6, R_G12MT2g_7, R_G12MT2g_8]"	false	internal	g
+M_gdp_g	GDP C10H12N5O11P2	{"BiGG": "gdp_g", "KEGG": "C00035"}	
+M_m4macchitppdol_g	 alpha D Mannosyl 4 beta D mannosyl diacetylchitobiosyldiphosphodolichol C61H104N2O42P2	{BiGG: m4macchitppdol_g}	"[R_G12MT2g, R_G12MT2g_2, R_G12MT2g_3, R_G12MT2g_4, R_G12MT2g_5, R_G12MT2g_6, R_G12MT2g_7, R_G12MT2g_8]"	false	internal	g
+M_macchitppdol_g	Beta D Mannosyldiacetylchitobiosyldiphosphodolichol C37H64N2O22P2	{BiGG: macchitppdol_g}	[R_G13MTg]	false	internal	g
+M_m1macchitppdol_g	Alpha D mannosyl beta D mannosyl diacylchitobiosyldiphosphodolichol C43H74N2O27P2	{BiGG: m1macchitppdol_g}	"[R_G13MTg, R_G16MTg]"	false	internal	g
+M_glyc3p_c	Glycerol 3-phosphate	{"BiGG": "glyc3p_c", "KEGG": "C00093"}	
+M_1pyr5c_c	1-Pyrroline-5-carboxylate	{"BiGG": "1pyr5c_c", "KEGG": "C03912"}	
+M_glu5sa_c	L-Glutamate 5-semialdehyde	{"BiGG": "glu5sa_c", "KEGG": "C01165"}	
+M_glu5sa_m	L-Glutamate 5-semialdehyde	{"BiGG": "glu5sa_m", "KEGG": "C01165"}	
+M_1pyr5c_m	1-Pyrroline-5-carboxylate	{"BiGG": "1pyr5c_m", "KEGG": "C03912"}	
+M_glu5p_c	L-Glutamate 5-phosphate	{"BiGG": "glu5p_c", "KEGG": "C03287"}	
+M_g6p_c	D-Glucose 6-phosphate	{"BiGG": "g6p_c", "KEGG": "C00092"}	
+M_g6p_r	D-Glucose 6-phosphate	{"BiGG": "g6p_r", "KEGG": "C00092"}	
+M_g6p_B_c	Beta D glucose 6 phosphate C6H11O9P	{"BiGG": "g6p_B_c", "KEGG": "C01172"}	
+M_f6p_B_c	Beta-D-Fructose 6-phosphate	{"BiGG": "f6p_B_c", "KEGG": "C05345"}	[R_G6PI2]	false	internal	c
+M_1Dgali_c	1 alpha D Galactosyl myo inositol C12H22O11	{"BiGG": "1Dgali_c", "KEGG": "C01235"}	[R_GALIGH]	false	internal	c
+M_inost_c	Myo-Inositol	{"BiGG": "inost_c", "KEGG": "C00137"}	
+M_gal1p_c	Alpha-D-Galactose 1-phosphate	{"BiGG": "gal1p_c", "KEGG": "C00446"}	
+M_melib_c	Melibiose C12H22O11	{"BiGG": "melib_c", "KEGG": "C05402"}	
+M_udpgal_c	UDPgalactose	{"BiGG": "udpgal_c", "KEGG": "C00052"}	
+M_g1p_c	D-Glucose 1-phosphate	{"BiGG": "g1p_c", "KEGG": "C00103"}	
+M_fgam_c	N2-Formyl-N1-(5-phospho-D-ribosyl)glycinamide	{"BiGG": "fgam_c", "KEGG": "C04376"}	
+M_gar_c	N1-(5-Phospho-D-ribosyl)glycinamide	{"BiGG": "gar_c", "KEGG": "C03838"}	
+M_14glun_c	 1 4 alpha D Glucosyl n C6H12O6	{BiGG: 14glun_c}	"[R_GBEZ, R_GLYGS, R_GLYGS_2]"	false	internal	c
+M_glycogen_c	Glycogen C6H10O5	{"BiGG": "glycogen_c", "KEGG": "C00182"}	
+M_alpam_m	S aminomethyldihydrolipoamide C9H21N2OS2	{BiGG: alpam_m}	"[R_GCC2am, R_GCC2bim]"	false	internal	m
+M_mlthf_m	"5,10-Methylenetetrahydrofolate"	
+M_nh4_m	Ammonium	{"BiGG": "nh4_m", "KEGG": "C00014"}	
+M_alpro_m	S Aminomethyldihydrolipoylprotein CH6NS2X	{"BiGG": "alpro_m", "KEGG": "C01242"}	
+M_lpro_m	Lipoylprotein S2X	{"BiGG": "lpro_m", "KEGG": "C02051"}	
+M_dhlpro_m	Dihydrolipolprotein H2S2X	{"BiGG": "dhlpro_m", "KEGG": "C02972"}	
+M_gsn_c	Guanosine	{"BiGG": "gsn_c", "KEGG": "C00387"}	
+M_gua_c	Guanine	{"BiGG": "gua_c", "KEGG": "C00242"}	
+M_gdp_n	GDP C10H12N5O11P2	{"BiGG": "gdp_n", "KEGG": "C00035"}	
+M_ggl_c	Galactosylglycerol C9H18O8	{"BiGG": "ggl_c", "KEGG": "C05401"}	[R_GGLGH]	false	internal	c
+M_mlthf_c	"5,10-Methylenetetrahydrofolate"	
+M_ser__L_m	L-Serine	{"BiGG": "ser__L_m", "KEGG": "C00065"}	
+M_gmp_c	GMP C10H12N5O8P	{"BiGG": "gmp_c", "KEGG": "C00144"}	
+M_datp_c	DATP C10H12N5O12P3	{"BiGG": "datp_c", "KEGG": "C00131"}	
+M_glc__D_v	D-Glucose	{"BiGG": "glc__D_v", "KEGG": "C00031"}	
+M_trnagln_c	TRNA(Gln)	{"BiGG": "trnagln_c", "KEGG": "C01640"}	
+M_glntrna_c	L-Glutaminyl-tRNA(Gln)	{"BiGG": "glntrna_c", "KEGG": "C02282"}	[R_GLNTRS]	false	internal	c
+M_tglp_c	N Tetradecanoylglycylpeptide C18H32N2O4R	{"BiGG": "tglp_c", "KEGG": "C03881"}	[R_GLPT]	false	internal	c
+M_glp_c	Glycylpeptide C4H7N2O3R	{"BiGG": "glp_c", "KEGG": "C02038"}	[R_GLPT]	false	internal	c
+M_glucys_c	Gamma-L-Glutamyl-L-cysteine	{"BiGG": "glucys_c", "KEGG": "C00669"}	
+M_pram_c	5-Phospho-beta-D-ribosylamine	{"BiGG": "pram_c", "KEGG": "C03090"}	
+M_glutrna_c	L-Glutamyl-tRNA(Glu)	{"BiGG": "glutrna_c", "KEGG": "C02987"}	[R_GLUTRS]	false	internal	c
+M_trnaglu_c	TRNA (Glu)	{"BiGG": "trnaglu_c", "KEGG": "C01641"}	
+M_glutrna_m	L-Glutamyl-tRNA(Glu)	{"BiGG": "glutrna_m", "KEGG": "C02987"}	[R_GLUTRSm]	false	internal	m
+M_trnaglu_m	TRNA (Glu)	{"BiGG": "trnaglu_m", "KEGG": "C01641"}	[R_GLUTRSm]	false	internal	m
+M_oh1_m	Hydroxide ion HO	{"BiGG": "oh1_m", "KEGG": "C00001"}	
+M_oh1_c	Hydroxide ion HO	{"BiGG": "oh1_c", "KEGG": "C00001"}	
+M_glx_x	Glyoxylate	{"BiGG": "glx_x", "KEGG": "C00048"}	
+M_lgt__S_c	(R)-S-Lactoylglutathione	{"BiGG": "lgt__S_c", "KEGG": "C03451"}	
+M_gthrd_m	Reduced glutathione	{"BiGG": "gthrd_m", "KEGG": "C00051"}	[R_GLYOXm]	false	internal	m
+M_lgt__S_m	(R)-S-Lactoylglutathione	{"BiGG": "lgt__S_m", "KEGG": "C03451"}	[R_GLYOXm]	false	internal	m
+M_glytrna_c	Glycyl-tRNA(Gly)	{"BiGG": "glytrna_c", "KEGG": "C02412"}	
+M_trnagly_c	TRNA(Gly)	{"BiGG": "trnagly_c", "KEGG": "C01642"}	
+M_xmp_c	Xanthosine 5'-phosphate	{"BiGG": "xmp_c", "KEGG": "C00655"}	
+M_6pgc_c	6-Phospho-D-gluconate	{"BiGG": "6pgc_c", "KEGG": "C00345"}	
+M_frdp_c	Farnesyl diphosphate	{"BiGG": "frdp_c", "KEGG": "C00448"}	
+M_gsn_m	Guanosine	{"BiGG": "gsn_m", "KEGG": "C00387"}	
+M_gthox_c	Oxidized glutathione	{"BiGG": "gthox_c", "KEGG": "C00127"}	
+M_cgly_c	Cys Gly C5H10N2O3S	{"BiGG": "cgly_c", "KEGG": "C01419"}	[R_GTMLT]	false	internal	c
+M_gluala_c	5 L Glutamyl L alanine C8H13N2O5	{BiGG: gluala_c}	[R_GTMLT]	false	internal	c
+M_gua_m	Guanine	{"BiGG": "gua_m", "KEGG": "C00242"}	
+M_h2o_r	H2O H2O	{"BiGG": "h2o_r", "KEGG": "C00001"}	
+M_3hacoa_x	(S)-3-Hydroxyacyl-CoA	{"BiGG": "3hacoa_x", "KEGG": "C00640"}	[R_HACDp]	false	internal	x
+M_3oacoa_x	3-Oxoacyl-CoA	{"BiGG": "3oacoa_x", "KEGG": "C00264"}	
+M_b124tc_m	But 1 ene 1 2 4 tricarboxylate C7H5O6	{"BiGG": "b124tc_m", "KEGG": "C04002"}	
+M_hicit_m	Homoisocitrate C7H7O7	{"BiGG": "hicit_m", "KEGG": "C05662"}	
+M_octdp_5_c	All-trans-Octaprenyl diphosphate (5 repeating units)	{BiGG: octdp_5_c}	"[R_HBZOPT6, R_HBZOPT6_2, R_HBZOPT6_3, R_HBZOPT6_4, R_HBZOPT6_5, R_OCTDP_5tm]"	false	internal	c
+M_octdp_5_m	All-trans-Octaprenyl diphosphate (5 repeating units)	{BiGG: octdp_5_m}	"[R_HBZOPT6m_1, R_HBZOPT6m_1_2, R_HBZOPT6m_1_3, R_OCTDP_5tm]"	false	internal	m
+M_hcit_m	2 Hydroxybutane 1 2 4 tricarboxylate C7H7O7	{BiGG: hcit_m}	"[R_HCITSm, R_MCITDm]"	false	internal	m
+M_coa_n	Coenzyme A	{"BiGG": "coa_n", "KEGG": "C00010"}	
+M_accoa_n	Acetyl-CoA	{"BiGG": "accoa_n", "KEGG": "C00024"}	
+M_hcit_n	2 Hydroxybutane 1 2 4 tricarboxylate C7H7O7	{BiGG: hcit_n}	"[R_HCITSn, R_HCITSn_2]"	false	internal	n
+M_hco3_m	Bicarbonate	{"BiGG": "hco3_m", "KEGG": "C00288"}	[R_HCO3Em]	false	internal	m
+M_4mpetz_c	4-Methyl-5-(2-phosphoethyl)-thiazole	{"BiGG": "4mpetz_c", "KEGG": "C04327"}	
+M_4mhetz_c	4-Methyl-5-(2-hydroxyethyl)-thiazole	{"BiGG": "4mhetz_c", "KEGG": "C04294"}	
+M_man6p_c	D-Mannose 6-phosphate	{"BiGG": "man6p_c", "KEGG": "C00275"}	
+M_4mlacac_c	4 Maleylacetoacetate C8H6O6	{"BiGG": "4mlacac_c", "KEGG": "C01036"}	
+M_oxag_m	Oxaloglutarate C7H5O7	{"BiGG": "oxag_m", "KEGG": "C05533"}	
+M_histd_c	L-Histidinol	{"BiGG": "histd_c", "KEGG": "C00860"}	
+M_hisp_c	L-Histidinol phosphate	{"BiGG": "hisp_c", "KEGG": "C01100"}	
+M_trnahis_c	TRNA(His)	{"BiGG": "trnahis_c", "KEGG": "C01643"}	
+M_histrna_c	L-Histidyl-tRNA(His)	{"BiGG": "histrna_c", "KEGG": "C02988"}	[R_HISTRS]	false	internal	c
+M_trnahis_m	TRNA(His)	{"BiGG": "trnahis_m", "KEGG": "C01643"}	[R_HISTRSm]	false	internal	m
+M_histrna_m	L-Histidyl-tRNA(His)	{"BiGG": "histrna_m", "KEGG": "C02988"}	[R_HISTRSm]	false	internal	m
+M_his__L_m	L-Histidine	{"BiGG": "his__L_m", "KEGG": "C00135"}	
+M_hLkynr_c	3 Hydroxy L kynurenine C10H12N2O4	{"BiGG": "hLkynr_c", "KEGG": "C03227"}	
+M_hmbil_c	Hydroxymethylbilane	{"BiGG": "hmbil_c", "KEGG": "C01024"}	
+M_ppbng_c	Porphobilinogen	{"BiGG": "ppbng_c", "KEGG": "C00931"}	
+M_mev__R_c	 R  Mevalonate C6H11O4	{"BiGG": "mev__R_c", "KEGG": "C00418"}	
+M_hmgcoa_c	Hydroxymethylglutaryl CoA C27H39N7O20P3S	{BiGG: hmgcoa_c}	"[R_HMGCOAR, R_HMGCOAR_2, R_HMGCOAS, R_HMGCOAtm]"	false	internal	c
+M_hmgcoa_m	Hydroxymethylglutaryl CoA C27H39N7O20P3S	{BiGG: hmgcoa_m}	"[R_HMGCOASm, R_HMGCOAtm]"	false	internal	m
+M_4ampm_c	4-Amino-2-methyl-5-phosphomethylpyrimidine	{"BiGG": "4ampm_c", "KEGG": "C04556"}	
+M_1p3h5c_c	L 1 Pyrroline 3 hydroxy 5 carboxylate C5H6NO3	{"BiGG": "1p3h5c_c", "KEGG": "C04281"}	
+M_1p3h5c_m	L 1 Pyrroline 3 hydroxy 5 carboxylate C5H6NO3	{"BiGG": "1p3h5c_m", "KEGG": "C04281"}	
+M_hom__L_c	L-Homoserine	{"BiGG": "hom__L_c", "KEGG": "C00263"}	
+M_phom_c	O-Phospho-L-homoserine	{"BiGG": "phom_c", "KEGG": "C01102"}	
+M_imacp_c	3-(Imidazol-4-yl)-2-oxopropyl phosphate	{"BiGG": "imacp_c", "KEGG": "C01267"}	
+M_pydam_c	Pyridoxamine	{"BiGG": "pydam_c", "KEGG": "C00534"}	
+M_pyam5p_c	Pyridoxamine 5'-phosphate	{"BiGG": "pyam5p_c", "KEGG": "C00647"}	
+M_prlp_c	5-[(5-phospho-1-deoxyribulos-1-ylamino)methylideneamino]-1-(5-phosphoribosyl)imidazole-4-carboxamide	{"BiGG": "prlp_c", "KEGG": "C04916"}	
+M_eig3p_c	D-erythro-1-(Imidazol-4-yl)glycerol 3-phosphate	{"BiGG": "eig3p_c", "KEGG": "C04666"}	
+M_3ig3p_c	C'-(3-Indolyl)-glycerol 3-phosphate	{"BiGG": "3ig3p_c", "KEGG": "C03506"}	
+M_2cpr5p_c	1-(2-Carboxyphenylamino)-1-deoxy-D-ribulose 5-phosphate	{"BiGG": "2cpr5p_c", "KEGG": "C01302"}	
+M_ile__L_c	L-Isoleucine	{"BiGG": "ile__L_c", "KEGG": "C00407"}	
+M_ile__L_m	L-Isoleucine	{"BiGG": "ile__L_m", "KEGG": "C00407"}	
+M_iletrna_c	L-Isoleucyl-tRNA(Ile)	{"BiGG": "iletrna_c", "KEGG": "C03127"}	[R_ILETRS]	false	internal	c
+M_trnaile_c	TRNA(Ile)	{"BiGG": "trnaile_c", "KEGG": "C01644"}	
+M_trnaile_m	TRNA(Ile)	{"BiGG": "trnaile_m", "KEGG": "C01644"}	[R_ILETRSm]	false	internal	m
+M_iletrna_m	L-Isoleucyl-tRNA(Ile)	{"BiGG": "iletrna_m", "KEGG": "C03127"}	[R_ILETRSm]	false	internal	m
+M_indpyr_c	Indolepyruvate C11H8NO3	{"BiGG": "indpyr_c", "KEGG": "C00331"}	[R_INDPYRD]	false	internal	c
+M_ptd1ino_SC_c	Phosphatidyl 1D myo inositol  yeast specific C4140H7644O1300P100	{BiGG: ptd1ino_SC_c}	"[R_IPCS124_SC, R_IPCS126_SC, R_IPCS224_SC, R_IPCS226_SC, R_IPCS324_SC, R_IPCS326_SC, R_MIP2CS124_SC, R_MIP2CS126_SC, R_MIP2CS224_SC, R_MIP2CS226_SC, R_MIP2CS324_SC, R_MIP2CS326_SC, R_PIN3K_SC, R_PIN3K_SC_2, R_PIN3K_SC_3, R_PIN4K_SC, R_PIN4K_SC_2, R_PINOS_SC, R_PTD1INOtn_SC, R_BIOMASS_SC4_bal]"	false	internal	c
+M_ipc124_SC_c	Inositol phosphorylceramide  ceramide 1  24C   yeast specific C4800H9500N100O1100P100	{BiGG: ipc124_SC_c}	"[R_IPCS124_SC, R_MIPCS124_SC, R_MIPCS124_SC_2]"	false	internal	c
+M_ipc126_SC_c	Inositol phosphorylceramide  ceramide 1  26C   yeast specific C5000H9900N100O1100P100	{BiGG: ipc126_SC_c}	"[R_IPCS126_SC, R_MIPCS126_SC, R_MIPCS126_SC_2]"	false	internal	c
+M_ipc224_SC_c	Inositol phosphorylceramide  ceramide 2  24C   yeast specific C4800H9500N100O1200P100	{BiGG: ipc224_SC_c}	"[R_IPCS224_SC, R_MIPCS224_SC, R_MIPCS224_SC_2]"	false	internal	c
+M_ipc226_SC_c	Inositol phosphorylceramide  ceramide 2  26C   yeast specific C5000H9900N100O1200P100	{BiGG: ipc226_SC_c}	"[R_IPCS226_SC, R_MIPCS226_SC, R_MIPCS226_SC_2]"	false	internal	c
+M_ipc324_SC_c	Inositol phosphorylceramide  ceramide 3  24C   yeast specific C4800H9500N100O1300P100	{BiGG: ipc324_SC_c}	"[R_IPCS324_SC, R_MIPCS324_SC, R_MIPCS324_SC_2]"	false	internal	c
+M_ipc326_SC_c	Inositol phosphorylceramide  ceramide 3  26C   yeast specific C5000H9900N100O1300P100	{BiGG: ipc326_SC_c}	"[R_IPCS326_SC, R_MIPCS326_SC, R_MIPCS326_SC_2]"	false	internal	c
+M_3c2hmp_c	3-Carboxy-2-hydroxy-4-methylpentanoate	{"BiGG": "3c2hmp_c", "KEGG": "C04411"}	
+M_2ippm_c	2-Isopropylmaleate	{"BiGG": "2ippm_c", "KEGG": "C02631"}	
+M_itaccoa_m	Itaconyl CoA C26H35N7O19P3S	{"BiGG": "itaccoa_m", "KEGG": "C00531"}	[R_ITCOALm]	false	internal	m
+M_itacon_m	Itaconate C5H4O4	{"BiGG": "itacon_m", "KEGG": "C00490"}	[R_ITCOALm]	false	internal	m
+M_acoa_x	Acyl-CoA	{"BiGG": "acoa_x", "KEGG": "C00040"}	[R_KATp]	false	internal	x
+M_k_c	Potassium	{"BiGG": "k_c", "KEGG": "C00238"}	[R_Kt2r]	false	precursor	c
+M_lac__L_m	L-Lactate	{"BiGG": "lac__L_m", "KEGG": "C00186"}	
+M_lald__L_m	L-Lactaldehyde	{"BiGG": "lald__L_m", "KEGG": "C00424"}	[R_LCADm]	false	internal	m
+M_4mop_c	4-Methyl-2-oxopentanoate	{"BiGG": "4mop_c", "KEGG": "C00233"}	
+M_leu__L_c	L-Leucine	{"BiGG": "leu__L_c", "KEGG": "C00123"}	
+M_leu__L_m	L-Leucine	{"BiGG": "leu__L_m", "KEGG": "C00123"}	
+M_4mop_m	4-Methyl-2-oxopentanoate	{"BiGG": "4mop_m", "KEGG": "C00233"}	
+M_leutrna_c	L-Leucyl-tRNA(Leu)	{"BiGG": "leutrna_c", "KEGG": "C02047"}	[R_LEUTRS]	false	internal	c
+M_trnaleu_c	TRNA(Leu)	{"BiGG": "trnaleu_c", "KEGG": "C01645"}	
+M_leutrna_m	L-Leucyl-tRNA(Leu)	{"BiGG": "leutrna_m", "KEGG": "C02047"}	[R_LEUTRSm]	false	internal	m
+M_trnaleu_m	TRNA(Leu)	{"BiGG": "trnaleu_m", "KEGG": "C01645"}	[R_LEUTRSm]	false	internal	m
+M_mthgxl_c	Methylglyoxal	{"BiGG": "mthgxl_c", "KEGG": "C00546"}	[R_LGTHL]	false	internal	c
+M_lanost_c	Lanosterol C30H50O	{"BiGG": "lanost_c", "KEGG": "C01724"}	
+M_Ssq23epx_c	 S  Squalene 2 3 epoxide C30H50O	{"BiGG": "Ssq23epx_c", "KEGG": "C01054"}	
+M_dagpy_SC_c	Diacylglycerol pyrophosphate  yeast specific C3540H6544O1100P200	{BiGG: dagpy_SC_c}	"[R_LPP_SC, R_LPP_SC_2, R_PAK_SC]"	false	internal	c
+M_lys__L_c	L-Lysine	{"BiGG": "lys__L_c", "KEGG": "C00047"}	
+M_trnalys_c	TRNA(Lys)	{"BiGG": "trnalys_c", "KEGG": "C01646"}	
+M_lystrna_c	L-Lysine-tRNA (Lys)	{"BiGG": "lystrna_c", "KEGG": "C01931"}	[R_LYSTRS]	false	internal	c
+M_lys__L_m	L-Lysine	{"BiGG": "lys__L_m", "KEGG": "C00047"}	
+M_lystrna_m	L-Lysine-tRNA (Lys)	{"BiGG": "lystrna_m", "KEGG": "C01931"}	[R_LYSTRSm]	false	internal	m
+M_trnalys_m	TRNA(Lys)	{"BiGG": "trnalys_m", "KEGG": "C01646"}	[R_LYSTRSm]	false	internal	m
+M_lac__L_c	L-Lactate	{"BiGG": "lac__L_c", "KEGG": "C00186"}	[R_L_LACt2r]	false	internal	c
+M_mnl1p_c	D-Mannitol 1-phosphate	{"BiGG": "mnl1p_c", "KEGG": "C00644"}	[R_M1PD]	false	internal	c
+M_malt_c	Maltose C12H22O11	{"BiGG": "malt_c", "KEGG": "C00208"}	
+M_man1p_c	D-Mannose 1-phosphate	{"BiGG": "man1p_c", "KEGG": "C00636"}	
+M_mannan_c	Mannan C6H10O5	{BiGG: mannan_c}	"[R_MANNANter, R_BIOMASS_SC4_bal]"	false	internal	c
+M_ppcoa_c	Propanoyl-CoA	{"BiGG": "ppcoa_c", "KEGG": "C00100"}	[R_MCITS]	false	internal	c
+M_malACP_c	Malonyl-[acyl-carrier protein]	{"BiGG": "malACP_c", "KEGG": "C01209"}	[R_MCOATA]	false	internal	c
+M_malcoa_m	Malonyl CoA C24H33N7O19P3S	{"BiGG": "malcoa_m", "KEGG": "C00083"}	[R_MCOATAm]	false	internal	m
+M_sbt__D_c	D-Sorbitol	{"BiGG": "sbt__D_c", "KEGG": "C00794"}	
+M_melt_c	Melibiitol C12H24O11	{"BiGG": "melt_c", "KEGG": "C05399"}	[R_MELTGH]	false	internal	c
+M_mettrna_c	L-Methionyl-tRNA (Met)	{"BiGG": "mettrna_c", "KEGG": "C02430"}	[R_METTRS]	false	internal	c
+M_trnamet_c	TRNA(Met)	{"BiGG": "trnamet_c", "KEGG": "C01647"}	
+M_trnamet_m	TRNA(Met)	{"BiGG": "trnamet_m", "KEGG": "C01647"}	[R_METTRSm]	false	internal	m
+M_met__L_m	L-Methionine	{"BiGG": "met__L_m", "KEGG": "C00073"}	
+M_5pmev_c	 R  5 Phosphomevalonate C6H10O7P	{"BiGG": "5pmev_c", "KEGG": "C01107"}	
+M_ptdmeeta_SC_c	Phosphatidyl N methylethanolamine  yeast specific C3840H7444N100O800P100	{BiGG: ptdmeeta_SC_c}	"[R_MFAPS_SC, R_PETOHM_SC]"	false	internal	c
+M_ptd2meeta_SC_c	Phosphatidyl N dimethylethanolamine C3940H7644N100O800P100	{"BiGG": "ptd2meeta_SC_c", "KEGG": "C04308"}	
+M_hpglu_c	Tetrahydropteroyltri L glutamate C24H34N8O12	{"BiGG": "hpglu_c", "KEGG": "C04144"}	[R_MHPGLUT]	false	internal	c
+M_mhpglu_c	5 Methyltetrahydropteroyltri L glutamate C25H36N8O12	{"BiGG": "mhpglu_c", "KEGG": "C04489"}	[R_MHPGLUT]	false	internal	c
+M_mi1p__D_c	1D-myo-Inositol 1-phosphate	{"BiGG": "mi1p__D_c", "KEGG": "C01177"}	
+M_mip2c124_SC_c	Mannose  inositol P 2 ceramide  ceramide 1  24C   yeast specific C6000H11500N100O2400P200	{BiGG: mip2c124_SC_c}	[R_MIP2CS124_SC]	false	internal	c
+M_mipc124_SC_c	Mannose inositol phosphorylceramide  ceramide 1  24C   yeast specific C5400H10500N100O1600P100	{BiGG: mipc124_SC_c}	"[R_MIP2CS124_SC, R_MIPCS124_SC, R_MIPCS124_SC_2]"	false	internal	c
+M_mipc126_SC_c	Mannose inositol phosphorylceramide  ceramide 1  26C   yeast specific C5600H10900N100O1600P100	{BiGG: mipc126_SC_c}	"[R_MIP2CS126_SC, R_MIPCS126_SC, R_MIPCS126_SC_2]"	false	internal	c
+M_mip2c126_SC_c	Mannose  inositol P 2 ceramide  ceramide 1  26C   yeast specific C6200H11900N100O2400P200	{BiGG: mip2c126_SC_c}	[R_MIP2CS126_SC]	false	internal	c
+M_mipc224_SC_c	Mannose inositol phosphorylceramide  ceramide 2  24C   yeast specific C5400H10500N100O1700P100	{BiGG: mipc224_SC_c}	"[R_MIP2CS224_SC, R_MIPCS224_SC, R_MIPCS224_SC_2]"	false	internal	c
+M_mip2c224_SC_c	Mannose  inositol P 2 ceramide  ceramide 2  24C   yeast specific C6000H11500N100O2500P200	{BiGG: mip2c224_SC_c}	[R_MIP2CS224_SC]	false	internal	c
+M_mipc226_SC_c	Mannose inositol phosphorylceramide  ceramide 2  26C   yeast specific C5600H10900N100O1700P100	{BiGG: mipc226_SC_c}	"[R_MIP2CS226_SC, R_MIPCS226_SC, R_MIPCS226_SC_2]"	false	internal	c
+M_mip2c226_SC_c	Mannose  inositol P 2 ceramide  ceramide 2  26C   yeast specific C6200H11900N100O2500P200	{BiGG: mip2c226_SC_c}	[R_MIP2CS226_SC]	false	internal	c
+M_mip2c324_SC_c	Mannose  inositol P 2 ceramide  ceramide 3  24C   yeast specific C6000H11500N100O2600P200	{BiGG: mip2c324_SC_c}	[R_MIP2CS324_SC]	false	internal	c
+M_mipc324_SC_c	Mannose inositol phosphorylceramide  ceramide 3  24C   yeast specific C5400H10500N100O1800P100	{BiGG: mipc324_SC_c}	"[R_MIP2CS324_SC, R_MIPCS324_SC, R_MIPCS324_SC_2]"	false	internal	c
+M_mipc326_SC_c	Mannose inositol phosphorylceramide  ceramide 3  26C  C5600H10900N100O1800P100	{BiGG: mipc326_SC_c}	"[R_MIP2CS326_SC, R_MIPCS326_SC, R_MIPCS326_SC_2]"	false	internal	c
+M_mip2c326_SC_c	Mannose  inositol P 2 ceramide  ceramide 3  26C   yeast specific C6200H11900N100O2600P200	{BiGG: mip2c326_SC_c}	[R_MIP2CS326_SC]	false	internal	c
+M_mmet_c	S-Methyl-L-methionine	{"BiGG": "mmet_c", "KEGG": "C03172"}	[R_MMETt2]	false	internal	c
+M_nmn_x	NMN C11H14N2O8P	{"BiGG": "nmn_x", "KEGG": "C00455"}	
+M_ncam_c	Nicotinamide	{"BiGG": "ncam_c", "KEGG": "C00153"}	
+M_adprib_c	ADPribose C15H21N5O14P2	{"BiGG": "adprib_c", "KEGG": "C00301"}	[R_NADN]	false	internal	c
+M_ncam_m	Nicotinamide	{"BiGG": "ncam_m", "KEGG": "C00153"}	
+M_adprib_m	ADPribose C15H21N5O14P2	{"BiGG": "adprib_m", "KEGG": "C00301"}	[R_NADNm]	false	internal	m
+M_dnad_c	Deamino-NAD+	{"BiGG": "dnad_c", "KEGG": "C00857"}	
+M_dnad_m	Deamino-NAD+	{"BiGG": "dnad_m", "KEGG": "C00857"}	
+M_nac_c	Nicotinate	{"BiGG": "nac_c", "KEGG": "C00253"}	
+M_nicrnt_c	Nicotinate D-ribonucleotide	{"BiGG": "nicrnt_c", "KEGG": "C01185"}	
+M_nac_m	Nicotinate	{"BiGG": "nac_m", "KEGG": "C00253"}	
+M_nicrnt_m	Nicotinate D-ribonucleotide	{"BiGG": "nicrnt_m", "KEGG": "C01185"}	
+M_prpp_m	5-Phospho-alpha-D-ribose 1-diphosphate	{"BiGG": "prpp_m", "KEGG": "C00119"}	
+M_na1_c	Sodium	{"BiGG": "na1_c", "KEGG": "C01330"}	[R_NAt3_1]	false	internal	c
+M_gmp_g	GMP C10H12N5O8P	{"BiGG": "gmp_g", "KEGG": "C00144"}	[R_NDP3g]	false	internal	g
+M_dgtp_c	DGTP C10H12N5O13P3	{"BiGG": "dgtp_c", "KEGG": "C00286"}	
+M_dudp_c	DUDP C9H11N2O11P2	{"BiGG": "dudp_c", "KEGG": "C01346"}	
+M_nmn_c	NMN C11H14N2O8P	{"BiGG": "nmn_c", "KEGG": "C00455"}	
+M_nmn_m	NMN C11H14N2O8P	{"BiGG": "nmn_m", "KEGG": "C00455"}	
+M_quln_c	Quinolinate	{"BiGG": "quln_c", "KEGG": "C03722"}	
+M_quln_m	Quinolinate	{"BiGG": "quln_m", "KEGG": "C03722"}	
+M_xtsn_c	Xanthosine	{"BiGG": "xtsn_c", "KEGG": "C01762"}	
+M_ump_c	UMP C9H11N2O9P	{"BiGG": "ump_c", "KEGG": "C00105"}	
+M_thymd_c	Thymidine C10H14N2O5	{"BiGG": "thymd_c", "KEGG": "C00214"}	
+M_ind3acnl_c	Indole 3 acetonitrile C10H8N2	{"BiGG": "ind3acnl_c", "KEGG": "C02938"}	
+M_aprop_c	Alpha Aminopropiononitrile C3H7N2	{"BiGG": "aprop_c", "KEGG": "C05714"}	
+M_acybut_c	Gamma Amino gamma cyanobutanoate C5H8N2O2	{"BiGG": "acybut_c", "KEGG": "C05715"}	
+M_o2_r	O2 O2	{"BiGG": "o2_r", "KEGG": "C00007"}	
+M_ohpb_c	2-Oxo-3-hydroxy-4-phosphobutanoate	{"BiGG": "ohpb_c", "KEGG": "C06054"}	[R_OHPBAT]	false	internal	c
+M_2ombzl_5_m	"2-Octaprenyl-6-methoxy-1,4-benzoquinol (5 repeating units)"	{BiGG: 2ombzl_5_m}	
+M_2ommbl_5_m	"2-Octaprenyl3-methyl-6-methoxy-1,4-benzoquinol (5 repeating units)"	{BiGG: 2ommbl_5_m}	
+M_orot5p_c	Orotidine 5'-phosphate	{"BiGG": "orot5p_c", "KEGG": "C01103"}	
+M_2oph_5_c	2-Octaprenylphenol (5 repeating units)	{BiGG: 2oph_5_c}	"[R_OPHBDC6, R_OPHHX6]"	false	internal	c
+M_ptrc_c	Putrescine	{"BiGG": "ptrc_c", "KEGG": "C00134"}	
+M_orn_m	Ornithine	{"BiGG": "orn_m", "KEGG": "C00077"}	
+M_oxag_c	Oxaloglutarate C7H5O7	{"BiGG": "oxag_c", "KEGG": "C05533"}	
+M_pro__L_c	L-Proline	{"BiGG": "pro__L_c", "KEGG": "C00148"}	
+M_pan4p_c	Pantetheine 4'-phosphate	{"BiGG": "pan4p_c", "KEGG": "C01134"}	
+M_pnto__R_c	(R)-Pantothenate	{"BiGG": "pnto__R_c", "KEGG": "C00864"}	
+M_trdrd_c	Reduced thioredoxin	{"BiGG": "trdrd_c", "KEGG": "C00342"}	
+M_trdox_c	Oxidized thioredoxin	{"BiGG": "trdox_c", "KEGG": "C00343"}	
+M_so3_c	Sulfite	{"BiGG": "so3_c", "KEGG": "C00094"}	
+M_35cdamp_c	3  5  Cyclic dAMP C10H11N5O5P	{BiGG: 35cdamp_c}	[R_PDE2]	false	internal	c
+M_35cimp_c	3  5  Cyclic IMP C10H10N4O7P	{BiGG: 35cimp_c}	[R_PDE3]	false	internal	c
+M_35cgmp_c	"3',5'-Cyclic GMP"	
+M_35ccmp_c	3  5  Cyclic CMP C9H11N3O7P	{BiGG: 35ccmp_c}	[R_PDE5]	false	internal	c
+M_pdx5p_c	Pyridoxine 5'-phosphate	{"BiGG": "pdx5p_c", "KEGG": "C00627"}	
+M_pydx5p_c	Pyridoxal 5'-phosphate	{"BiGG": "pydx5p_c", "KEGG": "C00018"}	
+M_pepd_c	Peptide C2H4NO2RC2H2NOR	{"BiGG": "pepd_c", "KEGG": "C00012"}	
+M_apep_c	Nalpha Acetylpeptide C6H7N2O4R2	{"BiGG": "apep_c", "KEGG": "C03011"}	
+M_pe_SC_g	Phosphatidylethanolamine  yeast specific C3740H7244N100O800P100	{BiGG: pe_SC_g}	"[R_PEtg_SC, R_PSERDg_SC]"	false	internal	g
+M_pe_SC_m	Phosphatidylethanolamine  yeast specific C3740H7244N100O800P100	{BiGG: pe_SC_m}	"[R_PEtm_SC, R_PSERDm_SC]"	false	internal	m
+M_pe_SC_v	Phosphatidylethanolamine  yeast specific C3740H7244N100O800P100	{BiGG: pe_SC_v}	"[R_PEtv_SC, R_PSERDv_SC]"	false	internal	v
+M_tag6p__D_c	D-Tagatose 6-phosphate	{"BiGG": "tag6p__D_c", "KEGG": "C01097"}	[R_PFK_2]	false	internal	c
+M_tagdp__D_c	"D-Tagatose 1,6-biphosphate"	
+M_s7p_c	Sedoheptulose 7-phosphate	{"BiGG": "s7p_c", "KEGG": "C05382"}	
+M_gam1p_c	D-Glucosamine 1-phosphate	{"BiGG": "gam1p_c", "KEGG": "C06156"}	[R_PGAMT]	false	internal	c
+M_3pg_c	3-Phospho-D-glycerate	{"BiGG": "3pg_c", "KEGG": "C00197"}	
+M_3php_c	3-Phosphohydroxypyruvate	{"BiGG": "3php_c", "KEGG": "C03232"}	
+M_phpyr_c	Phenylpyruvate	{"BiGG": "phpyr_c", "KEGG": "C00166"}	
+M_phe__L_c	L-Phenylalanine	{"BiGG": "phe__L_c", "KEGG": "C00079"}	
+M_phetrna_c	L-Phenylalanyl-tRNA(Phe)	{"BiGG": "phetrna_c", "KEGG": "C03511"}	[R_PHETRS]	false	internal	c
+M_trnaphe_c	TRNA(Phe)	{"BiGG": "trnaphe_c", "KEGG": "C01648"}	
+M_phetrna_m	L-Phenylalanyl-tRNA(Phe)	{"BiGG": "phetrna_m", "KEGG": "C03511"}	[R_PHETRSm]	false	internal	m
+M_trnaphe_m	TRNA(Phe)	{"BiGG": "trnaphe_m", "KEGG": "C01648"}	[R_PHETRSm]	false	internal	m
+M_phe__L_m	L-Phenylalanine	{"BiGG": "phe__L_m", "KEGG": "C00079"}	
+M_ptd3ino_SC_c	Phosphatidyl 1D myo 3 inositol  yeast specific C4140H7544O1600P200	{BiGG: ptd3ino_SC_c}	"[R_PI3P4K_SC, R_PIN3K_SC, R_PIN3K_SC_2, R_PIN3K_SC_3]"	false	internal	c
+M_ptd134bp_SC_c	Phosphatidyl 1D myo inositol 3 4 bisphosphate  yeast specific C4140H7444O1900P300	{BiGG: ptd134bp_SC_c}	[R_PI3P4K_SC]	false	internal	c
+M_ptd145bp_SC_c	1 Phosphatidyl D myo inositol 4 5 bisphosphate  yeast specific C4140H7444O1900P300	{BiGG: ptd145bp_SC_c}	"[R_PI45BPP_SC, R_PI4P5K_SC, R_PI4P5K_SC_2]"	false	internal	c
+M_mi145p_c	1D myo Inositol 1 4 5 trisphosphate C6H9O15P3	{BiGG: mi145p_c}	[R_PI45BPP_SC]	false	internal	c
+M_ptd4ino_SC_c	Phosphatidyl 1D myo 4 inositol  yeast specific C4140H7544O1600P200	{BiGG: ptd4ino_SC_c}	"[R_PI4P5K_SC, R_PI4P5K_SC_2, R_PIN4K_SC, R_PIN4K_SC_2, R_PTD4INOtn_SC]"	false	internal	c
+M_ptd1ino_SC_n	Phosphatidyl 1D myo inositol  yeast specific C4140H7644O1300P100	{BiGG: ptd1ino_SC_n}	"[R_PIN4Kn_SC, R_PTD1INOtn_SC]"	false	internal	n
+M_ptd4ino_SC_n	Phosphatidyl 1D myo 4 inositol  yeast specific C4140H7544O1600P200	{BiGG: ptd4ino_SC_n}	"[R_PIN4Kn_SC, R_PTD4INOtn_SC]"	false	internal	n
+M_4r5au_c	4-(1-D-Ribitylamino)-5-aminouracil	{"BiGG": "4r5au_c", "KEGG": "C04732"}	
+M_2mahmp_c	2-Methyl-4-amino-5-hydroxymethylpyrimidine diphosphate	{"BiGG": "2mahmp_c", "KEGG": "C04752"}	
+M_4ppan_c	D-4'-Phosphopantothenate	{"BiGG": "4ppan_c", "KEGG": "C03492"}	
+M_N1aspmd_c	N1-Acetylspermidine	{"BiGG": "N1aspmd_c", "KEGG": "C00612"}	
+M_aproa_c	3 Aminopropanal C3H8NO	{"BiGG": "aproa_c", "KEGG": "C05665"}	
+M_4ppcys_c	N-((R)-4-Phosphopantothenoyl)-L-cysteine	{"BiGG": "4ppcys_c", "KEGG": "C04352"}	
+M_r1p_c	Alpha-D-Ribose 1-phosphate	{"BiGG": "r1p_c", "KEGG": "C00620"}	
+M_pppg9_m	Protoporphyrinogen IX	{"BiGG": "pppg9_m", "KEGG": "C01079"}	
+M_fpram_c	2-(Formamido)-N1-(5-phospho-D-ribosyl)acetamidine	{BiGG: fpram_c}	"[R_PRAIS, R_PRFGS]"	false	internal	c
+M_prfp_c	1-(5-Phosphoribosyl)-5-[(5-phosphoribosylamino)methylideneamino]imidazole-4-carboxamide	{"BiGG": "prfp_c", "KEGG": "C04896"}	
+M_prbamp_c	1-(5-Phosphoribosyl)-AMP	{"BiGG": "prbamp_c", "KEGG": "C02741"}	
+M_pro__L_m	L-Proline	{"BiGG": "pro__L_m", "KEGG": "C00148"}	
+M_trnapro_c	TRNA(Pro)	{"BiGG": "trnapro_c", "KEGG": "C01649"}	
+M_protrna_c	L-Prolyl-tRNA(Pro)	{"BiGG": "protrna_c", "KEGG": "C02702"}	
+M_skm5p_c	Shikimate 5-phosphate	{"BiGG": "skm5p_c", "KEGG": "C03175"}	
+M_ps_SC_g	Phosphatidylserine  yeast specific C3840H7144N100O1000P100	{BiGG: ps_SC_g}	"[R_PSERDg_SC, R_PStg_SC]"	false	internal	g
+M_ps_SC_m	Phosphatidylserine  yeast specific C3840H7144N100O1000P100	{BiGG: ps_SC_m}	"[R_PSERDm_SC, R_PSERSm_SC, R_PStm_SC]"	false	internal	m
+M_ps_SC_v	Phosphatidylserine  yeast specific C3840H7144N100O1000P100	{BiGG: ps_SC_v}	"[R_PSERDv_SC, R_PStv_SC]"	false	internal	v
+M_ps_SC_c	Phosphatidylserine  yeast specific C3840H7144N100O1000P100	{BiGG: ps_SC_c}	"[R_PSERS_SC, R_PStg_SC, R_PStm_SC, R_PStv_SC, R_BIOMASS_SC4_bal]"	false	internal	c
+M_pser__L_c	O-Phospho-L-serine	{"BiGG": "pser__L_c", "KEGG": "C01005"}	
+M_psph1p_c	Phytosphingosine 1 phosphate C18H39NO6P	{BiGG: psph1p_c}	"[R_PSPHPL, R_SBPP2, R_SBPP2_2, R_SLCBK2, R_SLCBK2_2]"	false	internal	c
+M_2hhxdal_c	2 Hydroxy hexadecanal C16H32O2	{BiGG: 2hhxdal_c}	[R_PSPHPL]	false	internal	c
+M_adn_m	Adenosine	{"BiGG": "adn_m", "KEGG": "C00212"}	[R_PUNP1m]	false	internal	m
+M_r1p_m	Alpha-D-Ribose 1-phosphate	{"BiGG": "r1p_m", "KEGG": "C00620"}	
+M_xan_c	Xanthine	{"BiGG": "xan_c", "KEGG": "C00385"}	
+M_pydx_c	Pyridoxal	{"BiGG": "pydx_c", "KEGG": "C00250"}	
+M_pydxn_c	Pyridoxine	{"BiGG": "pydxn_c", "KEGG": "C00314"}	
+M_raffin_c	Raffinose C18H32O16	{"BiGG": "raffin_c", "KEGG": "C00492"}	[R_RAFGH]	false	internal	c
+M_sucr_c	Sucrose C12H22O11	{"BiGG": "sucr_c", "KEGG": "C00089"}	
+M_ribflv_c	Riboflavin C17H20N4O6	{"BiGG": "ribflv_c", "KEGG": "C00255"}	
+M_ribflv_m	Riboflavin C17H20N4O6	{"BiGG": "ribflv_m", "KEGG": "C00255"}	
+M_dmlz_c	"6,7-Dimethyl-8-(1-D-ribityl)lumazine"	
+M_trdrd_n	Reduced thioredoxin	{"BiGG": "trdrd_n", "KEGG": "C00342"}	
+M_trdox_n	Oxidized thioredoxin	{"BiGG": "trdox_n", "KEGG": "C00343"}	
+M_dudp_n	DUDP C9H11N2O11P2	{"BiGG": "dudp_n", "KEGG": "C01346"}	
+M_udp_n	UDP C9H11N2O12P2	{"BiGG": "udp_n", "KEGG": "C00015"}	
+M_xu5p__D_c	D-Xylulose 5-phosphate	{"BiGG": "xu5p__D_c", "KEGG": "C00231"}	
+M_saccrp__L_c	L Saccharopine C11H19N2O6	{"BiGG": "saccrp__L_c", "KEGG": "C00449"}	
+M_so4_c	Sulfate	{"BiGG": "so4_c", "KEGG": "C00059"}	
+M_sph1p_c	Sphinganine 1 phosphate C18H39NO5P	{"BiGG": "sph1p_c", "KEGG": "C01120"}	
+M_srb__L_c	L Sorbose C6H12O6	{"BiGG": "srb__L_c", "KEGG": "C00247"}	
+M_sbt__L_c	L Sorbitol C6H14O6	{"BiGG": "sbt__L_c", "KEGG": "C01722"}	
+M_trnaser_c	TRNA(Ser)	{"BiGG": "trnaser_c", "KEGG": "C01650"}	
+M_sertrna_c	L-Seryl-tRNA(Ser)	{"BiGG": "sertrna_c", "KEGG": "C02553"}	
+M_skm_c	Shikimate	{"BiGG": "skm_c", "KEGG": "C00493"}	
+M_suchms_c	O-Succinyl-L-homoserine	{"BiGG": "suchms_c", "KEGG": "C01118"}	
+M_hxdcal_c	Hexadecanal C16H32O	{"BiGG": "hxdcal_c", "KEGG": "C00517"}	[R_SPHPL]	false	internal	c
+M_5mta_c	5-Methylthioadenosine	{"BiGG": "5mta_c", "KEGG": "C00170"}	
+M_Ssq23epx_r	 S  Squalene 2 3 epoxide C30H50O	{"BiGG": "Ssq23epx_r", "KEGG": "C01054"}	
+M_sql_r	Squalene C30H50	{"BiGG": "sql_r", "KEGG": "C00751"}	
+M_sql_c	Squalene C30H50	{"BiGG": "sql_c", "KEGG": "C00751"}	
+M_thfglu_c	Tetrahydrofolyl Glu 2  C24H27N8O9	{BiGG: thfglu_c}	"[R_THFGLUS, R_THFGLUS_2, R_THFGLUS_3]"	false	internal	c
+M_thm_c	Thiamin	{"BiGG": "thm_c", "KEGG": "C00378"}	
+M_thmmp_c	Thiamin monophosphate	{"BiGG": "thmmp_c", "KEGG": "C01081"}	
+M_thr__L_c	L-Threonine	{"BiGG": "thr__L_c", "KEGG": "C00188"}	
+M_thr__L_m	L-Threonine	{"BiGG": "thr__L_m", "KEGG": "C00188"}	
+M_thrtrna_c	L-Threonyl-tRNA(Thr)	{"BiGG": "thrtrna_c", "KEGG": "C02992"}	[R_THRTRS]	false	internal	c
+M_trnathr_c	TRNA(Thr)	{"BiGG": "trnathr_c", "KEGG": "C01651"}	
+M_trnathr_m	TRNA(Thr)	{"BiGG": "trnathr_m", "KEGG": "C01651"}	[R_THRTRSm]	false	internal	m
+M_thrtrna_m	L-Threonyl-tRNA(Thr)	{"BiGG": "thrtrna_m", "KEGG": "C02992"}	[R_THRTRSm]	false	internal	m
+M_thym_c	Thymine C5H6N2O2	{"BiGG": "thym_c", "KEGG": "C00178"}	
+M_thmpp_c	Thiamine diphosphate	{"BiGG": "thmpp_c", "KEGG": "C00068"}	
+M_thmtp_c	Thiamin triphosphate C12H16N4O10P3S	{"BiGG": "thmtp_c", "KEGG": "C03028"}	[R_TMDPPK]	false	internal	c
+M_trdrd_m	Reduced thioredoxin	{"BiGG": "trdrd_m", "KEGG": "C00342"}	[R_TRDRm]	false	internal	m
+M_trdox_m	Oxidized thioredoxin	{"BiGG": "trdox_m", "KEGG": "C00343"}	[R_TRDRm]	false	internal	m
+M_tre_c	Trehalose	{"BiGG": "tre_c", "KEGG": "C01083"}	
+M_tre6p_c	"Alpha,alpha'-Trehalose 6-phosphate"	
+M_tre_v	Trehalose	{"BiGG": "tre_v", "KEGG": "C01083"}	
+M_triglyc_SC_c	Triglyceride  yeast specific C5160H9566O600	{BiGG: triglyc_SC_c}	"[R_TRIGS_SC, R_BIOMASS_SC4_bal]"	false	internal	c
+M_trp__L_c	L-Tryptophan	{"BiGG": "trp__L_c", "KEGG": "C00078"}	
+M_trnatrp_c	TRNA(Trp)	{"BiGG": "trnatrp_c", "KEGG": "C01652"}	
+M_trptrna_c	L-Tryptophanyl-tRNA(Trp)	{"BiGG": "trptrna_c", "KEGG": "C03512"}	[R_TRPTRS]	false	internal	c
+M_trptrna_m	L-Tryptophanyl-tRNA(Trp)	{"BiGG": "trptrna_m", "KEGG": "C03512"}	[R_TRPTRSm]	false	internal	m
+M_trp__L_m	L-Tryptophan	{"BiGG": "trp__L_m", "KEGG": "C00078"}	
+M_trnatrp_m	TRNA(Trp)	{"BiGG": "trnatrp_m", "KEGG": "C01652"}	[R_TRPTRSm]	false	internal	m
+M_tyr__L_c	L-Tyrosine	{"BiGG": "tyr__L_c", "KEGG": "C00082"}	
+M_tyr__L_m	L-Tyrosine	{"BiGG": "tyr__L_m", "KEGG": "C00082"}	
+M_tyr__L_x	L-Tyrosine	{"BiGG": "tyr__L_x", "KEGG": "C00082"}	
+M_tyrtrna_c	L-Tyrosyl-tRNA(Tyr)	{"BiGG": "tyrtrna_c", "KEGG": "C02839"}	[R_TYRTRS]	false	internal	c
+M_trnatyr_c	TRNA(Tyr)	{"BiGG": "trnatyr_c", "KEGG": "C00787"}	
+M_tyrtrna_m	L-Tyrosyl-tRNA(Tyr)	{"BiGG": "tyrtrna_m", "KEGG": "C02839"}	[R_TYRTRSm]	false	internal	m
+M_trnatyr_m	TRNA(Tyr)	{"BiGG": "trnatyr_m", "KEGG": "C00787"}	[R_TYRTRSm]	false	internal	m
+M_ump_n	UMP C9H11N2O9P	{"BiGG": "ump_n", "KEGG": "C00105"}	
+M_dscl_c	Dihydrosirohydrochlorin	{"BiGG": "dscl_c", "KEGG": "C02463"}	[R_UPP3MT]	false	internal	c
+M_uppg3_c	Uroporphyrinogen III	{"BiGG": "uppg3_c", "KEGG": "C01051"}	
+M_val__L_c	L-Valine	{"BiGG": "val__L_c", "KEGG": "C00183"}	
+M_valtrna_c	L-Valyl-tRNA(Val)	{"BiGG": "valtrna_c", "KEGG": "C02554"}	[R_VALTRS]	false	internal	c
+M_trnaval_c	TRNA(Val)	{"BiGG": "trnaval_c", "KEGG": "C01653"}	
+M_valtrna_m	L-Valyl-tRNA(Val)	{"BiGG": "valtrna_m", "KEGG": "C02554"}	[R_VALTRSm]	false	internal	m
+M_trnaval_m	TRNA(Val)	{"BiGG": "trnaval_m", "KEGG": "C01653"}	[R_VALTRSm]	false	internal	m
+M_val__L_m	L-Valine	{"BiGG": "val__L_m", "KEGG": "C00183"}	
+M_xylu__D_c	D-Xylulose	{"BiGG": "xylu__D_c", "KEGG": "C00310"}	
+M_xylt_c	Xylitol C5H12O5	{"BiGG": "xylt_c", "KEGG": "C00379"}	
+M_xyl__D_c	D-Xylose	{"BiGG": "xyl__D_c", "KEGG": "C00181"}	
+M_psd5p_c	Pseudouridine 5  phosphate C9H11N2O9P	{BiGG: psd5p_c}	"[R_YUMPS, R_YUMPS_2, R_YUMPS_3, R_YUMPS_4]"	false	internal	c

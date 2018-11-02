@@ -1,0 +1,399 @@
+!!!SBtab SBtabVersion="1.0" Document="extended_core_compartment.tsv"
+!!SBtab SBtabVersion='1.0' Document='extended_core' TableType='Compartment' TableName='Compartment'
+!ID	!Name	!Size	!Unit	!SBOTerm
+c	Cytoplasm	nan		
+e	Extracellular	nan		
+
+!!SBtab SBtabVersion='1.0' Document='extended_core' TableType='Compound' TableName='Compound'
+!ID	!Name	!Location	!Charge	!IsConstant	!SBOTerm	!InitialConcentration	!hasOnlySubstanceUnits	!SBML:fbc:chemicalFormula	!SBML:fbc:charge	!Identifiers:bigg.metabolite	!Identifiers:biocyc	!Identifiers:chebi	!Identifiers:ec-code	!Identifiers:hmdb	!Identifiers:kegg.compound	!Identifiers:kegg.reaction	!Identifiers:metanetx.chemical	!Identifiers:metanetx.reaction	!Identifiers:ncbigi	!Identifiers:rhea	!Identifiers:seed.compound	!Identifiers:unipathway.compound	!Identifiers:unipathway.reaction	!Identifiers:umbbd.compound
+M_13dpg_c	3-Phospho-D-glyceroyl-phosphate	c	0	False		nan	False	C3H4O10P2	0															
+M_2pg_c	D-Glycerate-2-phosphate	c	0	False		nan	False	C3H4O7P	0															
+M_3pg_c	3-Phospho-D-glycerate	c	0	False		nan	False	C3H4O7P	0															
+M_6pgc_c	6-Phospho-D-gluconate	c	0	False		nan	False	C6H10O10P	0															
+M_6pgl_c	6-phospho-D-glucono-1-5-lactone	c	0	False		nan	False	C6H9O9P	0															
+M_ac_c	Acetate	c	0	False		nan	False	C2H3O2	0															
+M_ac_e	Acetate	e	0	False		nan	False	C2H3O2	0															
+M_acald_c	Acetaldehyde	c	0	False		nan	False	C2H4O	0															
+M_acald_e	Acetaldehyde	e	0	False		nan	False	C2H4O	0															
+M_accoa_c	Acetyl-CoA	c	0	False		nan	False	C23H34N7O17P3S	0															
+M_acon_C_c	cis-Aconitate	c	0	False		nan	False	C6H3O6	0															
+M_actp_c	Acetyl-phosphate	c	0	False		nan	False	C2H3O5P	0															
+M_adp_c	ADP	c	0	False		nan	False	C10H12N5O10P2	0															
+M_akg_c	2-Oxoglutarate	c	0	False		nan	False	C5H4O5	0															
+M_akg_e	2-Oxoglutarate	e	0	False		nan	False	C5H4O5	0															
+M_amp_c	AMP	c	0	False		nan	False	C10H12N5O7P	0															
+M_atp_c	ATP	c	0	False		nan	False	C10H12N5O13P3	0															
+M_cit_c	Citrate	c	0	False		nan	False	C6H5O7	0															
+M_co2_c	CO2	c	0	False		nan	False	CO2	0															
+M_co2_e	CO2	e	0	False		nan	False	CO2	0															
+M_coa_c	Coenzyme-A	c	0	False		nan	False	C21H32N7O16P3S	0															
+M_dhap_c	Dihydroxyacetone-phosphate	c	0	False		nan	False	C3H5O6P	0															
+M_e4p_c	D-Erythrose-4-phosphate	c	0	False		nan	False	C4H7O7P	0															
+M_etoh_c	Ethanol	c	0	False		nan	False	C2H6O	0															
+M_etoh_e	Ethanol	e	0	False		nan	False	C2H6O	0															
+M_f6p_c	D-Fructose-6-phosphate	c	0	False		nan	False	C6H11O9P	0															
+M_fdp_c	D-Fructose-1-6-bisphosphate	c	0	False		nan	False	C6H10O12P2	0															
+M_for_c	Formate	c	0	False		nan	False	CH1O2	0															
+M_for_e	Formate	e	0	False		nan	False	CH1O2	0															
+M_fru_e	D-Fructose	e	0	False		nan	False	C6H12O6	0															
+M_fum_c	Fumarate	c	0	False		nan	False	C4H2O4	0															
+M_fum_e	Fumarate	e	0	False		nan	False	C4H2O4	0															
+M_g3p_c	Glyceraldehyde-3-phosphate	c	0	False		nan	False	C3H5O6P	0															
+M_g6p_c	D-Glucose-6-phosphate	c	0	False		nan	False	C6H11O9P	0															
+M_glc__D_e	D-Glucose	e	0	False		nan	False	C6H12O6	0															
+M_gln__L_c	L-Glutamine	c	0	False		nan	False	C5H10N2O3	0															
+M_gln__L_e	L-Glutamine	e	0	False		nan	False	C5H10N2O3	0															
+M_glu__L_c	L-Glutamate	c	0	False		nan	False	C5H8NO4	0															
+M_glu__L_e	L-Glutamate	e	0	False		nan	False	C5H8NO4	0															
+M_glx_c	Glyoxylate	c	0	False		nan	False	C2H1O3	0															
+M_h2o_c	H2O	c	0	False		nan	False	H2O	0															
+M_h2o_e	H2O	e	0	False		nan	False	H2O	0															
+M_h_c	H	c	0	False		nan	False	H	0															
+M_h_e	H	e	0	False		nan	False	H	0															
+M_icit_c	Isocitrate	c	0	False		nan	False	C6H5O7	0															
+M_lac__D_c	D-Lactate	c	0	False		nan	False	C3H5O3	0															
+M_lac__D_e	D-Lactate	e	0	False		nan	False	C3H5O3	0															
+M_mal__L_c	L-Malate	c	0	False		nan	False	C4H4O5	0															
+M_mal__L_e	L-Malate	e	0	False		nan	False	C4H4O5	0															
+M_nad_c	Nicotinamide-adenine-dinucleotide	c	0	False		nan	False	C21H26N7O14P2	0															
+M_nadh_c	Nicotinamide-adenine-dinucleotide-reduced	c	0	False		nan	False	C21H27N7O14P2	0															
+M_nadp_c	Nicotinamide-adenine-dinucleotide-phosphate	c	0	False		nan	False	C21H25N7O17P3	0															
+M_nadph_c	Nicotinamide-adenine-dinucleotide-phosphate-reduced	c	0	False		nan	False	C21H26N7O17P3	0															
+M_nh4_c	Ammonium	c	0	False		nan	False	H4N	0															
+M_nh4_e	Ammonium	e	0	False		nan	False	H4N	0															
+M_o2_c	O2	c	0	False		nan	False	O2	0															
+M_o2_e	O2	e	0	False		nan	False	O2	0															
+M_oaa_c	Oxaloacetate	c	0	False		nan	False	C4H2O5	0															
+M_pep_c	Phosphoenolpyruvate	c	0	False		nan	False	C3H2O6P	0															
+M_pi_c	Phosphate	c	0	False		nan	False	HO4P	0															
+M_pi_e	Phosphate	e	0	False		nan	False	HO4P	0															
+M_pyr_c	Pyruvate	c	0	False		nan	False	C3H3O3	0															
+M_pyr_e	Pyruvate	e	0	False		nan	False	C3H3O3	0															
+M_q8_c	Ubiquinone-8	c	0	False		nan	False	C49H74O4	0															
+M_q8h2_c	Ubiquinol-8	c	0	False		nan	False	C49H76O4	0															
+M_r5p_c	alpha-D-Ribose-5-phosphate	c	0	False		nan	False	C5H9O8P	0															
+M_ru5p__D_c	D-Ribulose-5-phosphate	c	0	False		nan	False	C5H9O8P	0															
+M_s7p_c	Sedoheptulose-7-phosphate	c	0	False		nan	False	C7H13O10P	0															
+M_succ_c	Succinate	c	0	False		nan	False	C4H4O4	0															
+M_succ_e	Succinate	e	0	False		nan	False	C4H4O4	0															
+M_succoa_c	Succinyl-CoA	c	0	False		nan	False	C25H35N7O19P3S	0															
+M_xu5p__D_c	D-Xylulose-5-phosphate	c	0	False		nan	False	C5H9O8P	0															
+M_glcn_e	D-Gluconate	e	0	False	SBO:0000247	nan	False	C6H11O7	0	glcn	META:GLUCONATE	CHEBI:42715	2.6.1.11	HMDB03373	C00257	R02283	MNXM341	MNXR30610	312945143	18052	cpd00222	UPC00257	UER00109	
+M_glcn_c	D-Gluconate	c	0	False	SBO:0000247	nan	False	C6H11O7	0	glcn	META:GLUCONATE	CHEBI:42715	2.6.1.11	HMDB03373	C00257	R02283	MNXM341	MNXR30610	312945143	18052	cpd00222	UPC00257	UER00109	
+M_glyc_e	Glycerol	e	0	False	SBO:0000247	nan	False	C3H8O3	0	glyc	META:GLYCEROL	CHEBI:5448	4.1.3.38	HMDB00131	D00028	R05553	MNXM89612	MNXR467	312945159	16204	cpd00100	UPC00116	UER00150	c0066
+M_glyc_c	Glycerol	c	0	False	SBO:0000247	nan	False	C3H8O3	0	glyc	META:GLYCEROL	CHEBI:5448	4.1.3.38	HMDB00131	D00028	R05553	MNXM89612	MNXR467	312945159	16204	cpd00100	UPC00116	UER00150	c0066
+M_dha_c	Dihydroxyacetone	c	0	False	SBO:0000247	nan	False	C3H6O3	0	dha	META:DIHYDROXYACETONE	CHEBI:5453	4.2.1.59	HMDB01882	D07841	R04537	MNXM460	MNXR68178	312945018		cpd00157	UPC00184		
+M_glyc3p_c	Glycerol 3-phosphate	c	0	False	SBO:0000247	nan	False	C3H7O6P	0	glyc3p	META:TRANS-RXN0-447	CHEBI:57597		HMDB02722	C00093		MNXM66	MNXR475	312945162		cpd00080	UPC00093		
+M_gal_e	D-Galactose	e	0	False	SBO:0000247	nan	False	C6H12O6	0	gal	META:N-ACETYLTRANSFER-RXN	CHEBI:4139	2.3.1.1		C00124	R00259	MNXM89602	MNXR30582	312945115	24295	cpd00108		UER00106	
+M_gal_c	D-Galactose	c	0	False	SBO:0000247	nan	False	C6H12O6	0	gal	META:N-ACETYLTRANSFER-RXN	CHEBI:4139	2.3.1.1		C00124	R00259	MNXM89602	MNXR30582	312945115	24295	cpd00108		UER00106	
+M_gal1p_c	Alpha-D-Galactose 1-phosphate	c	0	False	SBO:0000247	nan	False	C6H11O9P	0	gal1p	META:GALACTOSE-1P	CHEBI:59011	2.2.1.6	HMDB03359	C03384	R08648	MNXM336	MNXR76182	312945116	27657	cpd00348			
+M_g1p_c	D-Glucose 1-phosphate	c	0	False	SBO:0000247	nan	False	C6H11O9P	0	g1p	META:GLC-1-P	CHEBI:58601		HMDB01586	C00103		MNXM89588	MNXR366	312945106		cpd00089	UPC00103		
+M_f1p_c	D-Fructose 1-phosphate	c	0	False	SBO:0000247	nan	False	C6H11O9P	0	f1p	META:FRU1P	CHEBI:78737	6.2.1.20	HMDB01076			MNXM743	MNXR68230	312945071		cpd00802			
+M_2ddg6p_c	2-Dehydro-3-deoxy-D-gluconate 6-phosphate	c	0	False	SBO:0000247	nan	False	C6H8O9P	0	2ddg6p	META:2-KETO-3-DEOXY-6-P-GLUCONATE	CHEBI:57569		HMDB01376	C04442		MNXM649	MNXR68342	312944663		cpd02711	UPC04442		
+M_ppi_c	Diphosphate	c	0	False	SBO:0000247	nan	False	HO7P2	0	ppi	META:PYROPHOSPHATE-GROUP	CHEBI:8683		HMDB00250	C00013		MNXM11	MNXR82008	312945426		cpd00012	UPC00013		
+M_h2o2_c	Hydrogen peroxide	c	0	False	SBO:0000247	nan	False	H2O2	0	h2o2	META:HYDROGEN-PEROXIDE	CHEBI:5586		HMDB06491	D00008		MNXM22	MNXR68304	312945186		cpd00025	UPC00027		
+
+!!SBtab SBtabVersion='1.0' Document='extended_core' TableType='Reaction' TableName='Reaction'
+!ID	!Name	!ReactionFormula	!Location	!Regulator	!KineticLaw	!SBOTerm	!IsReversible	!SBML:fbc:GeneAssociation	!SBML:fbc:LowerBound	!SBML:fbc:UpperBound	!Identifiers:bigg.reaction
+R_ACALD	acetaldehyde dehydrogenase (acetylating)	M_acald_c + M_coa_c + M_nad_c <=> M_accoa_c + M_h_c + M_nadh_c					True	G_b0351 FbcOr G_b1241	cobra_default_lb	cobra_default_ub	
+R_ACALDt	acetaldehyde reversible transport	M_acald_e <=> M_acald_c					True	G_s0001	cobra_default_lb	cobra_default_ub	
+R_ACKr	acetate kinase	M_ac_c + M_atp_c <=> M_actp_c + M_adp_c					True	G_b3115 FbcOr G_b2296 FbcOr G_b1849	cobra_default_lb	cobra_default_ub	
+R_ACONTa	aconitase (half-reaction A, Citrate hydro-lyase)	M_cit_c <=> M_acon_C_c + M_h2o_c					True	G_b0118 FbcOr G_b1276	cobra_default_lb	cobra_default_ub	
+R_ACONTb	aconitase (half-reaction B, Isocitrate hydro-lyase)	M_acon_C_c + M_h2o_c <=> M_icit_c					True	G_b0118 FbcOr G_b1276	cobra_default_lb	cobra_default_ub	
+R_ACt2r	acetate reversible transport via proton symport	M_ac_e + M_h_e <=> M_ac_c + M_h_c					True		cobra_default_lb	cobra_default_ub	
+R_ADK1	adenylate kinase	M_amp_c + M_atp_c <=> 2.0 M_adp_c					True	G_b0474	cobra_default_lb	cobra_default_ub	
+R_AKGDH	2-Oxoglutarate dehydrogenase	M_akg_c + M_coa_c + M_nad_c <=> M_co2_c + M_nadh_c + M_succoa_c					False	G_b0116 FbcAnd G_b0726 FbcAnd G_b0727	cobra_0_bound	cobra_default_ub	
+R_AKGt2r	2-oxoglutarate reversible transport via symport	M_akg_e + M_h_e <=> M_akg_c + M_h_c					True	G_b2587	cobra_default_lb	cobra_default_ub	
+R_ALCD2x	alcohol dehydrogenase (ethanol)	M_etoh_c + M_nad_c <=> M_acald_c + M_h_c + M_nadh_c					True	G_b0356 FbcOr G_b1478 FbcOr G_b1241	cobra_default_lb	cobra_default_ub	
+R_ATPM	ATP maintenance requirement	M_atp_c + M_h2o_c <=> M_adp_c + M_h_c + M_pi_c					False		R_ATPM_lower_bound	cobra_default_ub	
+R_ATPS4r	ATP synthase (four protons for one ATP)	M_adp_c + 4.0 M_h_e + M_pi_c <=> M_atp_c + M_h2o_c + 3.0 M_h_c					True		cobra_default_lb	cobra_default_ub	
+R_Biomass_Ecoli_core_w_GAM	Biomass Objective Function with GAM	1.496 M_3pg_c + 3.7478 M_accoa_c + 59.81 M_atp_c + 0.361 M_e4p_c + 0.0709 M_f6p_c + 0.129 M_g3p_c + 0.205 M_g6p_c + 0.2557 M_gln__L_c + 4.9414 M_glu__L_c + 59.81 M_h2o_c + 3.547 M_nad_c + 13.0279 M_nadph_c + 1.7867 M_oaa_c + 0.5191 M_pep_c + 2.8328 M_pyr_c + 0.8977 M_r5p_c <=> 59.81 M_adp_c + 4.1182 M_akg_c + 3.7478 M_coa_c + 59.81 M_h_c + 3.547 M_nadh_c + 13.0279 M_nadp_c + 59.81 M_pi_c					False		cobra_0_bound	cobra_default_ub	
+R_CO2t	CO2 transporter via diffusion	M_co2_e <=> M_co2_c					True	G_s0001	cobra_default_lb	cobra_default_ub	
+R_CS	citrate synthase	M_accoa_c + M_h2o_c + M_oaa_c <=> M_cit_c + M_coa_c + M_h_c					False	G_b0720	cobra_0_bound	cobra_default_ub	
+R_CYTBD	cytochrome oxidase bd (ubiquinol-8: 2 protons)	2.0 M_h_c + 0.5 M_o2_c + M_q8h2_c <=> M_h2o_c + 2.0 M_h_e + M_q8_c					False		cobra_0_bound	cobra_default_ub	
+R_D_LACt2	D-lactate transport via proton symport	M_h_e + M_lac__D_e <=> M_h_c + M_lac__D_c					True	G_b2975 FbcOr G_b3603	cobra_default_lb	cobra_default_ub	
+R_ENO	enolase	M_2pg_c <=> M_h2o_c + M_pep_c					True	G_b2779	cobra_default_lb	cobra_default_ub	
+R_ETOHt2r	ethanol reversible transport via proton symport	M_etoh_e + M_h_e <=> M_etoh_c + M_h_c					True		cobra_default_lb	cobra_default_ub	
+R_EX_ac_e	Acetate exchange	M_ac_e <=> 					False		cobra_0_bound	cobra_default_ub	
+R_EX_acald_e	Acetaldehyde exchange	M_acald_e <=> 					False		cobra_0_bound	cobra_default_ub	
+R_EX_akg_e	2-Oxoglutarate exchange	M_akg_e <=> 					False		cobra_0_bound	cobra_default_ub	
+R_EX_co2_e	CO2 exchange	M_co2_e <=> 					True		cobra_default_lb	cobra_default_ub	
+R_EX_etoh_e	Ethanol exchange	M_etoh_e <=> 					False		cobra_0_bound	cobra_default_ub	
+R_EX_for_e	Formate exchange	M_for_e <=> 					False		cobra_0_bound	cobra_default_ub	
+R_EX_fru_e	D-Fructose exchange	M_fru_e <=> 					False		cobra_0_bound	cobra_default_ub	
+R_EX_fum_e	Fumarate exchange	M_fum_e <=> 					False		cobra_0_bound	cobra_default_ub	
+R_EX_glc__D_e	D-Glucose exchange	M_glc__D_e <=> 					False		cobra_0_bound	cobra_default_ub	
+R_EX_gln__L_e	L-Glutamine exchange	M_gln__L_e <=> 					False		cobra_0_bound	cobra_default_ub	
+R_EX_glu__L_e	L-Glutamate exchange	M_glu__L_e <=> 					False		cobra_0_bound	cobra_default_ub	
+R_EX_h_e	H+ exchange	M_h_e <=> 					True		cobra_default_lb	cobra_default_ub	
+R_EX_h2o_e	H2O exchange	M_h2o_e <=> 					True		cobra_default_lb	cobra_default_ub	
+R_EX_lac__D_e	D-Lactate exchange	M_lac__D_e <=> 					False		cobra_0_bound	cobra_default_ub	
+R_EX_mal__L_e	L-Malate exchange	M_mal__L_e <=> 					False		cobra_0_bound	cobra_default_ub	
+R_EX_nh4_e	Ammonium exchange	M_nh4_e <=> 					True		cobra_default_lb	cobra_default_ub	
+R_EX_o2_e	O2 exchange	M_o2_e <=> 					True		cobra_default_lb	cobra_default_ub	
+R_EX_pi_e	Phosphate exchange	M_pi_e <=> 					True		cobra_default_lb	cobra_default_ub	
+R_EX_pyr_e	Pyruvate exchange	M_pyr_e <=> 					False		cobra_0_bound	cobra_default_ub	
+R_EX_succ_e	Succinate exchange	M_succ_e <=> 					False		cobra_0_bound	cobra_default_ub	
+R_FBA	fructose-bisphosphate aldolase	M_fdp_c <=> M_dhap_c + M_g3p_c					True	G_b2097 FbcOr G_b1773 FbcOr G_b2925	cobra_default_lb	cobra_default_ub	
+R_FBP	fructose-bisphosphatase	M_fdp_c + M_h2o_c <=> M_f6p_c + M_pi_c					False	G_b3925 FbcOr G_b4232	cobra_0_bound	cobra_default_ub	
+R_FORt2	formate transport via proton symport (uptake only)	M_for_e + M_h_e <=> M_for_c + M_h_c					False	G_b0904 FbcOr G_b2492	cobra_0_bound	cobra_default_ub	
+R_FORti	formate transport via diffusion	M_for_c <=> M_for_e					False	G_b0904 FbcOr G_b2492	cobra_0_bound	cobra_default_ub	
+R_FRD7	fumarate reductase	M_fum_c + M_q8h2_c <=> M_q8_c + M_succ_c					False	G_b4151 FbcAnd G_b4152 FbcAnd G_b4153 FbcAnd G_b4154	cobra_0_bound	cobra_default_ub	
+R_FUM	fumarase	M_fum_c + M_h2o_c <=> M_mal__L_c					True	G_b1612 FbcOr G_b4122 FbcOr G_b1611	cobra_default_lb	cobra_default_ub	
+R_FUMt2_2	Fumarate transport via proton symport (2 H)	M_fum_e + 2.0 M_h_e <=> M_fum_c + 2.0 M_h_c					False	G_b3528	cobra_0_bound	cobra_default_ub	
+R_G6PDH2r	glucose 6-phosphate dehydrogenase	M_g6p_c + M_nadp_c <=> M_6pgl_c + M_h_c + M_nadph_c					True	G_b1852	cobra_default_lb	cobra_default_ub	
+R_GAPD	glyceraldehyde-3-phosphate dehydrogenase	M_g3p_c + M_nad_c + M_pi_c <=> M_13dpg_c + M_h_c + M_nadh_c					True	G_b1779	cobra_default_lb	cobra_default_ub	
+R_GLCpts	D-glucose transport via PEP:Pyr PTS	M_glc__D_e + M_pep_c <=> M_g6p_c + M_pyr_c					False		cobra_0_bound	cobra_default_ub	
+R_GLNS	glutamine synthetase	M_atp_c + M_glu__L_c + M_nh4_c <=> M_adp_c + M_gln__L_c + M_h_c + M_pi_c					False	G_b3870 FbcOr G_b1297	cobra_0_bound	cobra_default_ub	
+R_GLNabc	L-glutamine transport via ABC system	M_atp_c + M_gln__L_e + M_h2o_c <=> M_adp_c + M_gln__L_c + M_h_c + M_pi_c					False	G_b0811 FbcAnd G_b0810 FbcAnd G_b0809	cobra_0_bound	cobra_default_ub	
+R_GLUDy	glutamate dehydrogenase (NADP)	M_glu__L_c + M_h2o_c + M_nadp_c <=> M_akg_c + M_h_c + M_nadph_c + M_nh4_c					True	G_b1761	cobra_default_lb	cobra_default_ub	
+R_GLUN	glutaminase	M_gln__L_c + M_h2o_c <=> M_glu__L_c + M_nh4_c					False	G_b1812 FbcOr G_b0485 FbcOr G_b1524	cobra_0_bound	cobra_default_ub	
+R_GLUSy	glutamate synthase (NADPH)	M_akg_c + M_gln__L_c + M_h_c + M_nadph_c <=> 2.0 M_glu__L_c + M_nadp_c					False	G_b3212 FbcAnd G_b3213	cobra_0_bound	cobra_default_ub	
+R_GLUt2r	L-glutamate transport via proton symport, reversible (periplasm)	M_glu__L_e + M_h_e <=> M_glu__L_c + M_h_c					True	G_b4077	cobra_default_lb	cobra_default_ub	
+R_GND	phosphogluconate dehydrogenase	M_6pgc_c + M_nadp_c <=> M_co2_c + M_nadph_c + M_ru5p__D_c					False	G_b2029	cobra_0_bound	cobra_default_ub	
+R_H2Ot	H2O transport via diffusion	M_h2o_e <=> M_h2o_c					True	G_b0875 FbcOr G_s0001	cobra_default_lb	cobra_default_ub	
+R_ICDHyr	isocitrate dehydrogenase (NADP)	M_icit_c + M_nadp_c <=> M_akg_c + M_co2_c + M_nadph_c					True	G_b1136	cobra_default_lb	cobra_default_ub	
+R_ICL	Isocitrate lyase	M_icit_c <=> M_glx_c + M_succ_c					False	G_b4015	cobra_0_bound	cobra_default_ub	
+R_LDH_D	D lactate dehydrogenase	M_lac__D_c + M_nad_c <=> M_h_c + M_nadh_c + M_pyr_c					True	G_b2133 FbcOr G_b1380	cobra_default_lb	cobra_default_ub	
+R_MALS	malate synthase	M_accoa_c + M_glx_c + M_h2o_c <=> M_coa_c + M_h_c + M_mal__L_c					False	G_b4014 FbcOr G_b2976	cobra_0_bound	cobra_default_ub	
+R_MALt2_2	Malate transport via proton symport (2 H)	2.0 M_h_e + M_mal__L_e <=> 2.0 M_h_c + M_mal__L_c					False	G_b3528	cobra_0_bound	cobra_default_ub	
+R_MDH	malate dehydrogenase	M_mal__L_c + M_nad_c <=> M_h_c + M_nadh_c + M_oaa_c					True	G_b3236	cobra_default_lb	cobra_default_ub	
+R_ME1	malic enzyme (NAD)	M_mal__L_c + M_nad_c <=> M_co2_c + M_nadh_c + M_pyr_c					False	G_b1479	cobra_0_bound	cobra_default_ub	
+R_ME2	malic enzyme (NADP)	M_mal__L_c + M_nadp_c <=> M_co2_c + M_nadph_c + M_pyr_c					False	G_b2463	cobra_0_bound	cobra_default_ub	
+R_NADH16	NADH dehydrogenase (ubiquinone-8 & 3 protons)	4.0 M_h_c + M_nadh_c + M_q8_c <=> 3.0 M_h_e + M_nad_c + M_q8h2_c					False	G_b2276 FbcAnd G_b2277 FbcAnd G_b2278 FbcAnd G_b2279 FbcAnd G_b2280 FbcAnd G_b2281 FbcAnd G_b2282 FbcAnd G_b2283 FbcAnd G_b2284 FbcAnd G_b2285 FbcAnd G_b2286 FbcAnd G_b2287 FbcAnd G_b2288	cobra_0_bound	cobra_default_ub	
+R_NADTRHD	NAD transhydrogenase	M_nad_c + M_nadph_c <=> M_nadh_c + M_nadp_c					False		cobra_0_bound	cobra_default_ub	
+R_NH4t	ammonia reversible transport	M_nh4_e <=> M_nh4_c					True	G_s0001 FbcOr G_b0451	cobra_default_lb	cobra_default_ub	
+R_O2t	o2 transport via diffusion	M_o2_e <=> M_o2_c					True	G_s0001	cobra_default_lb	cobra_default_ub	
+R_PDH	pyruvate dehydrogenase	M_coa_c + M_nad_c + M_pyr_c <=> M_accoa_c + M_co2_c + M_nadh_c					False	G_b0114 FbcAnd G_b0115 FbcAnd G_b0116	cobra_0_bound	cobra_default_ub	
+R_PFK	phosphofructokinase	M_atp_c + M_f6p_c <=> M_adp_c + M_fdp_c + M_h_c					False	G_b3916 FbcOr G_b1723	cobra_0_bound	cobra_default_ub	
+R_PFL	pyruvate formate lyase	M_coa_c + M_pyr_c <=> M_accoa_c + M_for_c					False		cobra_0_bound	cobra_default_ub	
+R_PGI	glucose-6-phosphate isomerase	M_g6p_c <=> M_f6p_c					True	G_b4025	cobra_default_lb	cobra_default_ub	
+R_PGK	phosphoglycerate kinase	M_3pg_c + M_atp_c <=> M_13dpg_c + M_adp_c					True	G_b2926	cobra_default_lb	cobra_default_ub	
+R_PGL	6-phosphogluconolactonase	M_6pgl_c + M_h2o_c <=> M_6pgc_c + M_h_c					False	G_b0767	cobra_0_bound	cobra_default_ub	
+R_PGM	phosphoglycerate mutase	M_2pg_c <=> M_3pg_c					True	G_b3612 FbcOr G_b4395 FbcOr G_b0755	cobra_default_lb	cobra_default_ub	
+R_PIt2r	phosphate reversible transport via proton symport	M_h_e + M_pi_e <=> M_h_c + M_pi_c					True	G_b2987 FbcOr G_b3493	cobra_default_lb	cobra_default_ub	
+R_PPC	phosphoenolpyruvate carboxylase	M_co2_c + M_h2o_c + M_pep_c <=> M_h_c + M_oaa_c + M_pi_c					False	G_b3956	cobra_0_bound	cobra_default_ub	
+R_PPCK	phosphoenolpyruvate carboxykinase	M_atp_c + M_oaa_c <=> M_adp_c + M_co2_c + M_pep_c					False	G_b3403	cobra_0_bound	cobra_default_ub	
+R_PPS	phosphoenolpyruvate synthase	M_atp_c + M_h2o_c + M_pyr_c <=> M_amp_c + 2.0 M_h_c + M_pep_c + M_pi_c					False	G_b1702	cobra_0_bound	cobra_default_ub	
+R_PTAr	phosphotransacetylase	M_accoa_c + M_pi_c <=> M_actp_c + M_coa_c					True	G_b2297 FbcOr G_b2458	cobra_default_lb	cobra_default_ub	
+R_PYK	pyruvate kinase	M_adp_c + M_h_c + M_pep_c <=> M_atp_c + M_pyr_c					False	G_b1854 FbcOr G_b1676	cobra_0_bound	cobra_default_ub	
+R_PYRt2r	pyruvate reversible transport via proton symport	M_h_e + M_pyr_e <=> M_h_c + M_pyr_c					True		cobra_default_lb	cobra_default_ub	
+R_RPE	ribulose 5-phosphate 3-epimerase	M_ru5p__D_c <=> M_xu5p__D_c					True	G_b3386 FbcOr G_b4301	cobra_default_lb	cobra_default_ub	
+R_RPI	ribose-5-phosphate isomerase	M_r5p_c <=> M_ru5p__D_c					True	G_b2914 FbcOr G_b4090	cobra_default_lb	cobra_default_ub	
+R_SUCCt2_2	succinate transport via proton symport (2 H)	2.0 M_h_e + M_succ_e <=> 2.0 M_h_c + M_succ_c					False	G_b3528	cobra_0_bound	cobra_default_ub	
+R_SUCCt3	succinate transport out via proton antiport	M_h_e + M_succ_c <=> M_h_c + M_succ_e					False		cobra_0_bound	cobra_default_ub	
+R_SUCDi	succinate dehydrogenase (irreversible)	M_q8_c + M_succ_c <=> M_fum_c + M_q8h2_c					False	G_b0721 FbcAnd G_b0722 FbcAnd G_b0723 FbcAnd G_b0724	cobra_0_bound	cobra_default_ub	
+R_SUCOAS	succinyl-CoA synthetase (ADP-forming)	M_atp_c + M_coa_c + M_succ_c <=> M_adp_c + M_pi_c + M_succoa_c					True	G_b0728 FbcAnd G_b0729	cobra_default_lb	cobra_default_ub	
+R_TALA	transaldolase	M_g3p_c + M_s7p_c <=> M_e4p_c + M_f6p_c					True	G_b2464 FbcOr G_b0008	cobra_default_lb	cobra_default_ub	
+R_THD2	NAD(P) transhydrogenase	2.0 M_h_e + M_nadh_c + M_nadp_c <=> 2.0 M_h_c + M_nad_c + M_nadph_c					False	G_b1602 FbcAnd G_b1603	cobra_0_bound	cobra_default_ub	
+R_TKT1	transketolase	M_r5p_c + M_xu5p__D_c <=> M_g3p_c + M_s7p_c					True	G_b2935 FbcOr G_b2465	cobra_default_lb	cobra_default_ub	
+R_TKT2	transketolase	M_e4p_c + M_xu5p__D_c <=> M_f6p_c + M_g3p_c					True	G_b2935 FbcOr G_b2465	cobra_default_lb	cobra_default_ub	
+R_TPI	triose-phosphate isomerase	M_dhap_c <=> M_g3p_c					True	G_b3919	cobra_default_lb	cobra_default_ub	
+R_GLCNt2r		M_glcn_e + M_h_e <=> M_glcn_c + M_h_c					False		cobra_0_bound	cobra_default_ub	
+R_GNK	Gluconokinase	M_atp_c + M_glcn_c <=> M_6pgc_c + M_adp_c + M_h_c				SBO:0000375	False	G_b4268 FbcOr G_b3437	cobra_0_bound	cobra_default_ub	GNK
+R_EX_glcn_e	D-Gluconate exchange	M_glcn_e <=> 				SBO:0000627	False		cobra_0_bound	cobra_default_ub	glcn
+R_GLYCt		M_glyc_e <=> M_glyc_c					False		cobra_0_bound	cobra_default_ub	
+R_GLYCDx	Glycerol dehydrogenase	M_glyc_c + M_nad_c <=> M_dha_c + M_h_c + M_nadh_c				SBO:0000375	False	G_b3945	cobra_0_bound	cobra_default_ub	GLYCDx
+R_DHAPT	Dihydroxyacetone phosphotransferase	M_dha_c + M_pep_c <=> M_dhap_c + M_pyr_c				SBO:0000375	False	G_b2415 FbcAnd G_b1199 FbcAnd G_b1200 FbcAnd G_b1198 FbcAnd G_b2416	cobra_0_bound	cobra_default_ub	DHAPT
+R_G3PD2	Glycerol-3-phosphate dehydrogenase (NADP)	M_glyc3p_c + M_nadp_c <=> M_dhap_c + M_h_c + M_nadph_c				SBO:0000375	True	G_b3608	cobra_default_lb	cobra_default_ub	G3PD2
+R_G3PT	Glycerol-3-phosphatase	M_glyc3p_c + M_h2o_c <=> M_glyc_c + M_pi_c				SBO:0000375	False	G_b0822	cobra_0_bound	cobra_default_ub	G3PT
+R_GLYK	Glycerol kinase	M_atp_c + M_glyc_c <=> M_adp_c + M_glyc3p_c + M_h_c				SBO:0000375	False	G_b3926	cobra_0_bound	cobra_default_ub	GLYK
+R_EX_glyc_e	Glycerol exchange	M_glyc_e <=> 				SBO:0000627	False		cobra_0_bound	cobra_default_ub	glyc
+R_GALabc		M_atp_c + M_gal_e + M_h2o_c <=> M_adp_c + M_gal_c + M_h_c + M_pi_c					False		cobra_0_bound	cobra_default_ub	
+R_UGLT		M_gal1p_c <=> M_g1p_c					False		cobra_0_bound	cobra_default_ub	
+R_PGMT	Phosphoglucomutase	M_g1p_c <=> M_g6p_c				SBO:0000375	True	G_b2690 FbcOr G_b0688	cobra_default_lb	cobra_default_ub	PGMT
+R_GALKr	Galactokinase	M_atp_c + M_gal_c <=> M_adp_c + M_gal1p_c + M_h_c				SBO:0000375	True	G_b2045 FbcOr G_b0757	cobra_default_lb	cobra_default_ub	GALKr
+R_EX_gal_e	D-Galactose exchange	M_gal_e <=> 				SBO:0000627	False		cobra_0_bound	cobra_default_ub	gal
+R_FRUpts		M_fru_e + M_pep_c <=> M_f1p_c + M_pyr_c					False		cobra_0_bound	cobra_default_ub	
+R_FRUK	Fructose-1-phosphate kinase	M_atp_c + M_f1p_c <=> M_adp_c + M_fdp_c + M_h_c				SBO:0000375	False	G_b2168	cobra_0_bound	cobra_default_ub	FRUK
+R_EDD	6-phosphogluconate dehydratase	M_6pgc_c <=> M_2ddg6p_c + M_h2o_c				SBO:0000375	False	G_b1851	cobra_0_bound	cobra_default_ub	EDD
+R_EDA	2-dehydro-3-deoxy-phosphogluconate aldolase	M_2ddg6p_c <=> M_g3p_c + M_pyr_c				SBO:0000375	False	G_b1850	cobra_0_bound	cobra_default_ub	EDA
+R_ACS	Acetyl-CoA synthetase	M_ac_c + M_atp_c + M_coa_c <=> M_accoa_c + M_amp_c + M_ppi_c				SBO:0000375	False	G_b4069	cobra_0_bound	cobra_default_ub	ACS
+R_MOX	Malate oxidase	M_mal__L_c + M_o2_c <=> M_h2o2_c + M_oaa_c				SBO:0000375	True		cobra_default_lb	cobra_default_ub	MOX
+
+!!SBtab SBtabVersion='1.0' Document='extended_core' TableType='Quantity' TableName='Quantity'
+!ID	!Parameter:SBML:parameter:id	!Value	!Unit	!Type
+cobra_default_lb	cobra_default_lb	-1000.0	mmol_per_gDW_per_hr	global parameter
+cobra_default_ub	cobra_default_ub	1000.0	mmol_per_gDW_per_hr	global parameter
+cobra_0_bound	cobra_0_bound	0.0	mmol_per_gDW_per_hr	global parameter
+R_ATPM_lower_bound	R_ATPM_lower_bound	8.39	mmol_per_gDW_per_hr	global parameter
+
+!!SBtab SBtabVersion='1.0' Document='extended_core' TableType='FbcObjective' TableName='FBC Objective'
+!ID	!Name	!Type	!Active	!FluxObjectiveCoefficient	!FluxObjectiveReaction
+obj		maximize	True	1.0	R_Biomass_Ecoli_core_w_GAM
+
+!!SBtab SBtabVersion='1.0' Document='extended_core' TableType='Gene' TableName='FBC Gene'
+!ID	!SBML:fbc:ID	!SBML:fbc:Name	!SBML:fbc:GeneProduct	!SBML:fbc:Label
+G_b0351	G_b0351	b0351	True	b0351
+G_b1241	G_b1241	b1241	True	b1241
+G_s0001	G_s0001	s0001	True	s0001
+G_b1849	G_b1849	b1849	True	b1849
+G_b2296	G_b2296	b2296	True	b2296
+G_b3115	G_b3115	b3115	True	b3115
+G_b0118	G_b0118	b0118	True	b0118
+G_b1276	G_b1276	b1276	True	b1276
+G_b0474	G_b0474	b0474	True	b0474
+G_b0727	G_b0727	b0727	True	b0727
+G_b0116	G_b0116	b0116	True	b0116
+G_b0726	G_b0726	b0726	True	b0726
+G_b2587	G_b2587	b2587	True	b2587
+G_b0356	G_b0356	b0356	True	b0356
+G_b1478	G_b1478	b1478	True	b1478
+G_b3734	G_b3734	b3734	True	b3734
+G_b3738	G_b3738	b3738	True	b3738
+G_b3735	G_b3735	b3735	True	b3735
+G_b3737	G_b3737	b3737	True	b3737
+G_b3739	G_b3739	b3739	True	b3739
+G_b3731	G_b3731	b3731	True	b3731
+G_b3732	G_b3732	b3732	True	b3732
+G_b3736	G_b3736	b3736	True	b3736
+G_b3733	G_b3733	b3733	True	b3733
+G_b0720	G_b0720	b0720	True	b0720
+G_b0734	G_b0734	b0734	True	b0734
+G_b0733	G_b0733	b0733	True	b0733
+G_b0979	G_b0979	b0979	True	b0979
+G_b0978	G_b0978	b0978	True	b0978
+G_b2975	G_b2975	b2975	True	b2975
+G_b3603	G_b3603	b3603	True	b3603
+G_b2779	G_b2779	b2779	True	b2779
+G_b2097	G_b2097	b2097	True	b2097
+G_b1773	G_b1773	b1773	True	b1773
+G_b2925	G_b2925	b2925	True	b2925
+G_b3925	G_b3925	b3925	True	b3925
+G_b4232	G_b4232	b4232	True	b4232
+G_b0904	G_b0904	b0904	True	b0904
+G_b2492	G_b2492	b2492	True	b2492
+G_b4153	G_b4153	b4153	True	b4153
+G_b4154	G_b4154	b4154	True	b4154
+G_b4151	G_b4151	b4151	True	b4151
+G_b4152	G_b4152	b4152	True	b4152
+G_b2416	G_b2416	b2416	True	b2416
+G_b1817	G_b1817	b1817	True	b1817
+G_b1818	G_b1818	b1818	True	b1818
+G_b1819	G_b1819	b1819	True	b1819
+G_b2415	G_b2415	b2415	True	b2415
+G_b1611	G_b1611	b1611	True	b1611
+G_b4122	G_b4122	b4122	True	b4122
+G_b1612	G_b1612	b1612	True	b1612
+G_b3528	G_b3528	b3528	True	b3528
+G_b1852	G_b1852	b1852	True	b1852
+G_b1779	G_b1779	b1779	True	b1779
+G_b1101	G_b1101	b1101	True	b1101
+G_b1621	G_b1621	b1621	True	b1621
+G_b2417	G_b2417	b2417	True	b2417
+G_b3870	G_b3870	b3870	True	b3870
+G_b1297	G_b1297	b1297	True	b1297
+G_b0811	G_b0811	b0811	True	b0811
+G_b0809	G_b0809	b0809	True	b0809
+G_b0810	G_b0810	b0810	True	b0810
+G_b1761	G_b1761	b1761	True	b1761
+G_b1524	G_b1524	b1524	True	b1524
+G_b1812	G_b1812	b1812	True	b1812
+G_b0485	G_b0485	b0485	True	b0485
+G_b3213	G_b3213	b3213	True	b3213
+G_b3212	G_b3212	b3212	True	b3212
+G_b4077	G_b4077	b4077	True	b4077
+G_b2029	G_b2029	b2029	True	b2029
+G_b0875	G_b0875	b0875	True	b0875
+G_b1136	G_b1136	b1136	True	b1136
+G_b4015	G_b4015	b4015	True	b4015
+G_b2133	G_b2133	b2133	True	b2133
+G_b1380	G_b1380	b1380	True	b1380
+G_b4014	G_b4014	b4014	True	b4014
+G_b2976	G_b2976	b2976	True	b2976
+G_b3236	G_b3236	b3236	True	b3236
+G_b1479	G_b1479	b1479	True	b1479
+G_b2463	G_b2463	b2463	True	b2463
+G_b2279	G_b2279	b2279	True	b2279
+G_b2276	G_b2276	b2276	True	b2276
+G_b2287	G_b2287	b2287	True	b2287
+G_b2281	G_b2281	b2281	True	b2281
+G_b2286	G_b2286	b2286	True	b2286
+G_b2288	G_b2288	b2288	True	b2288
+G_b2278	G_b2278	b2278	True	b2278
+G_b2277	G_b2277	b2277	True	b2277
+G_b2282	G_b2282	b2282	True	b2282
+G_b2280	G_b2280	b2280	True	b2280
+G_b2283	G_b2283	b2283	True	b2283
+G_b2285	G_b2285	b2285	True	b2285
+G_b2284	G_b2284	b2284	True	b2284
+G_b1603	G_b1603	b1603	True	b1603
+G_b3962	G_b3962	b3962	True	b3962
+G_b1602	G_b1602	b1602	True	b1602
+G_b0451	G_b0451	b0451	True	b0451
+G_b0114	G_b0114	b0114	True	b0114
+G_b0115	G_b0115	b0115	True	b0115
+G_b1723	G_b1723	b1723	True	b1723
+G_b3916	G_b3916	b3916	True	b3916
+G_b0903	G_b0903	b0903	True	b0903
+G_b3952	G_b3952	b3952	True	b3952
+G_b3114	G_b3114	b3114	True	b3114
+G_b3951	G_b3951	b3951	True	b3951
+G_b2579	G_b2579	b2579	True	b2579
+G_b0902	G_b0902	b0902	True	b0902
+G_b4025	G_b4025	b4025	True	b4025
+G_b2926	G_b2926	b2926	True	b2926
+G_b0767	G_b0767	b0767	True	b0767
+G_b0755	G_b0755	b0755	True	b0755
+G_b3612	G_b3612	b3612	True	b3612
+G_b4395	G_b4395	b4395	True	b4395
+G_b2987	G_b2987	b2987	True	b2987
+G_b3493	G_b3493	b3493	True	b3493
+G_b3956	G_b3956	b3956	True	b3956
+G_b3403	G_b3403	b3403	True	b3403
+G_b1702	G_b1702	b1702	True	b1702
+G_b2297	G_b2297	b2297	True	b2297
+G_b2458	G_b2458	b2458	True	b2458
+G_b1854	G_b1854	b1854	True	b1854
+G_b1676	G_b1676	b1676	True	b1676
+G_b4301	G_b4301	b4301	True	b4301
+G_b3386	G_b3386	b3386	True	b3386
+G_b4090	G_b4090	b4090	True	b4090
+G_b2914	G_b2914	b2914	True	b2914
+G_b0723	G_b0723	b0723	True	b0723
+G_b0724	G_b0724	b0724	True	b0724
+G_b0721	G_b0721	b0721	True	b0721
+G_b0722	G_b0722	b0722	True	b0722
+G_b0729	G_b0729	b0729	True	b0729
+G_b0728	G_b0728	b0728	True	b0728
+G_b2464	G_b2464	b2464	True	b2464
+G_b0008	G_b0008	b0008	True	b0008
+G_b2935	G_b2935	b2935	True	b2935
+G_b2465	G_b2465	b2465	True	b2465
+G_b3919	G_b3919	b3919	True	b3919
+G_b4265	G_b4265	b4265	True	b4265
+G_b3415	G_b3415	b3415	True	b3415
+G_b4321	G_b4321	b4321	True	b4321
+G_b4476	G_b4476	b4476	True	b4476
+G_b1377	G_b1377	b1377	True	b1377
+G_b0929	G_b0929	b0929	True	b0929
+G_b2215	G_b2215	b2215	True	b2215
+G_b0241	G_b0241	b0241	True	b0241
+G_b3437	G_b3437	gntK	True	b3437
+G_b4268	G_b4268	idnK	True	b4268
+G_b3927	G_b3927	b3927	True	b3927
+G_b3945	G_b3945	gldA	True	b3945
+G_b1200	G_b1200	dhaK	True	b1200
+G_b1198	G_b1198	dhaM	True	b1198
+G_b1199	G_b1199	dhaL	True	b1199
+G_b3608	G_b3608	gpsA	True	b3608
+G_b0822	G_b0822	ybiV	True	b0822
+G_b3926	G_b3926	glpK	True	b3926
+G_b4231	G_b4231	b4231	True	b4231
+G_b4485	G_b4485	b4485	True	b4485
+G_b2150	G_b2150	b2150	True	b2150
+G_b4227	G_b4227	b4227	True	b4227
+G_b2149	G_b2149	b2149	True	b2149
+G_b2148	G_b2148	b2148	True	b2148
+G_b4230	G_b4230	b4230	True	b4230
+G_b0688	G_b0688	pgm	True	b0688
+G_b2690	G_b2690	yqaB	True	b2690
+G_b2045	G_b2045	wcaK	True	b2045
+G_b0757	G_b0757	galK	True	b0757
+G_b2167	G_b2167	b2167	True	b2167
+G_b2169	G_b2169	b2169	True	b2169
+G_b2168	G_b2168	fruK	True	b2168
+G_b1851	G_b1851	edd	True	b1851
+G_b1850	G_b1850	eda	True	b1850
+G_b4069	G_b4069	acs	True	b4069
+
