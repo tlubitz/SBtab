@@ -290,6 +290,7 @@ class SBtabTable():
         document
         '''
         doc_row_dq = False
+        
         for row in self.table:
             for entry in row:
                 if str(entry).startswith('!!!'):
@@ -788,8 +789,8 @@ class SBtabDocument:
         self.sbtabs = []
         self.name_to_sbtab = {}
         self.type_to_sbtab = {}
-        self.doc_row = False
         self.sbtab_filenames = []
+        self.doc_row = False
 
         # if there is an initial sbtab given, see if it is
         # a string or an SBtab object
@@ -797,7 +798,9 @@ class SBtabDocument:
             self.add_sbtab_string(sbtab_init, filename)
         elif sbtab_init:
             self.add_sbtab(sbtab_init)
-
+        else:
+            self._get_doc_row_attributes()
+            
         self.object_type = 'doc'
         
     def add_sbtab(self, sbtab):
@@ -806,7 +809,7 @@ class SBtabDocument:
         '''
         if not self.filename:
             self.filename = sbtab.filename
-          
+
         valid_type = self.check_type_validity(sbtab.table_type)
         if valid_type:
             self.name_to_sbtab[sbtab.table_name] = sbtab
@@ -831,7 +834,8 @@ class SBtabDocument:
             sbtab_count = len(self.sbtabs)
             filename = 'unnamed_sbtab_%s.tsv'%(str(sbtab_count))
 
-        if not self.filename: self.filename = filename
+        if not self.filename:
+            self.filename = filename
 
         # see if there are more than one SBtabs in the string
         try: sbtab_amount = misc.count_tabs(sbtab_string)
@@ -877,6 +881,8 @@ class SBtabDocument:
         for squote in stupid_quotes:
             try: row = row.replace(squote, "'")
             except: pass
+
+        row = row.replace('\n','')
 
         return row
 
@@ -939,7 +945,7 @@ class SBtabDocument:
                 att_value = re.search("%s='([^']*)'" % attribute, self.doc_row).group(0)
                 self.doc_row = self.doc_row.replace(att_value, att_value_new)
             except:
-                raise SBtabError('Attribute value %s could not be replaced in the header.' % attribute)
+                raise SBtabError('Attribute value %s could not be replaced in the doc row.' % attribute)
 
     def unset_attribute(self, attribute):
         '''
@@ -956,18 +962,17 @@ class SBtabDocument:
             except:
                 raise SBtabError('Attribute %s cannot be removed.' % attribute)
         else:
-            raise SBtabError('Attribute %s is not in the header of the SBtabDocument.' % attribute)
-
+            raise SBtabError('Attribute %s is not in the doc row of the SBtabDocument.' % attribute)
             
     def get_attribute(self, attribute):
         '''
         get the value of an SBtab attribute
         '''
         try:
-            value = re.search("%s='([^']*)'" % attribute, self.header_row).group(1)
+            value = re.search("%s='([^']*)'" % attribute, self.doc_row).group(1)
             return value
         except:
-            raise SBtabError('The attribute %s was not found in the header row.' % attribute)
+            raise SBtabError('The attribute %s was not found in the doc row.' % attribute)
             
     def set_version(self, version):
         '''
@@ -1052,9 +1057,7 @@ class SBtabDocument:
 
         try:
             f = open(filename, 'w')
-            f.write(self.doc_row + '\n')
-            for sbtab in self.sbtabs:
-                f.write(sbtab.to_str() + '\n\n')
+            f.write(self.to_str())
             f.close()
             return True
         except:
@@ -1066,7 +1069,7 @@ class SBtabDocument:
         '''
         returns SBtab Document as one large string
         '''
-        sbtab_document = ''
+        sbtab_document = self.doc_row + '\n'
         for sbtab in self.sbtabs:
             sbtab_document += sbtab.to_str() + '\n\n'
 
@@ -1091,7 +1094,6 @@ class SBtabDocument:
         else:
             raise SBtabError('''The %s of the Document is
                                 not defined!''' % attribute_name)
-        
 
     def set_doc_row(self, new_doc_row):
         '''
