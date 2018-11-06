@@ -290,6 +290,7 @@ class SBtabTable():
         document
         '''
         doc_row_dq = False
+        
         for row in self.table:
             for entry in row:
                 if str(entry).startswith('!!!'):
@@ -788,8 +789,8 @@ class SBtabDocument:
         self.sbtabs = []
         self.name_to_sbtab = {}
         self.type_to_sbtab = {}
-        self.doc_row = False
         self.sbtab_filenames = []
+        self.doc_row = False
 
         # if there is an initial sbtab given, see if it is
         # a string or an SBtab object
@@ -797,7 +798,9 @@ class SBtabDocument:
             self.add_sbtab_string(sbtab_init, filename)
         elif sbtab_init:
             self.add_sbtab(sbtab_init)
-
+        else:
+            self._get_doc_row_attributes()
+            
         self.object_type = 'doc'
         
     def add_sbtab(self, sbtab):
@@ -806,7 +809,7 @@ class SBtabDocument:
         '''
         if not self.filename:
             self.filename = sbtab.filename
-          
+
         valid_type = self.check_type_validity(sbtab.table_type)
         if valid_type:
             self.name_to_sbtab[sbtab.table_name] = sbtab
