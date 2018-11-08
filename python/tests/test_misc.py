@@ -21,11 +21,12 @@ class TestMiscFunctions(unittest.TestCase):
         
         self.sbtabs = []
         for t in self.table_names:
-            p = open('python/tests/tables/' + t, 'r')
-            p_content = p.read()
-            sbtab = SBtab.SBtabTable(p_content, t)
-            self.sbtabs.append(sbtab)
-            p.close()
+            if not t.startswith('_'):
+                p = open('python/tests/tables/' + t, 'r')
+                p_content = p.read()
+                sbtab = SBtab.SBtabTable(p_content, t)
+                self.sbtabs.append(sbtab)
+                p.close()
 
         self.docs = []
         for i, d in enumerate(self.doc_names):
@@ -89,7 +90,7 @@ class TestMiscFunctions(unittest.TestCase):
         '''
         test if multiple sbtabs in one input file can be splitted correctly
         '''
-        p = open('docs/teusink.tsv', 'r')
+        p = open('python/tests/docs/teusink.tsv', 'r')
         p_content = p.read()
         sbtabs = misc.split_sbtabs(p_content)
         self.assertEqual(4, len(sbtabs))

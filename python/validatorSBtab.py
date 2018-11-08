@@ -97,21 +97,8 @@ class ValidateTable:
                 sys.exit() 
         else:
             try:
-                try_paths = ['definitions.tsv',
-                             os.path.join(os.path.dirname(__file__), '../static/files/default_files/definitions.tsv'),
-                             os.path.join(os.path.dirname(__file__), '../definition_table/definitions.tsv'),
-                             os.path.join(os.path.dirname(__file__), 'definitions.tsv')]
-                
-                for path in try_paths:
-                    try:
-                        def_file = open(path, 'r')
-                        break
-                    except: pass
-
-                def_table = def_file.read()
-                self.sbtab_def = SBtab.SBtabTable(def_table, 'definitions.tsv')
+                self.sbtab_def = misc.open_definitions_file()
                 self.definitions = self.sbtab_def.create_list()
-                def_file.close()
             except:
                 print('''Definition file could not be loaded, so the validation
                 could not be started. Please provide definition file

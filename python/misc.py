@@ -173,6 +173,7 @@ def sbtab_to_html(sbtab, filename=None, mode='sbtab_online'):
 
         return html
     
+    ##############################################################################
     # read in header and footer from HTML template
     if mode == 'sbtab_online':
         html_template = open('template_sbtab_online.html', 'r').read()
@@ -192,22 +193,9 @@ def sbtab_to_html(sbtab, filename=None, mode='sbtab_online'):
     # replace title placeholder with actual title
     html = html.replace('TitlePlaceholder',sbtab.filename)
 
-    if mode == 'sbtab_online':
-        # read in definitions file for nice mouse over
-        try_paths = ['definitions.tsv',
-                     os.path.join(os.path.dirname(__file__), '../static/files/default_files/definitions.tsv'),
-                     os.path.join(os.path.dirname(__file__), '../definition_table/definitions.tsv'),
-                     os.path.join(os.path.dirname(__file__), 'definitions.tsv')]
-        
-        for path in try_paths:
-            try:
-                def_file = open(path, 'r')
-                break
-            except: pass
-
-        sbtab_def = SBtab.SBtabTable(def_file.read(), 'definitions.tsv')
-    else: sbtab_def = False
-
+    # read in definitions file for nice mouse over
+    sbtab_def = open_definitions_file()
+   
     # now build the html file
     if sbtab.object_type == 'table':
         html += _build_main(sbtab, sbtab_def)
@@ -221,6 +209,30 @@ def sbtab_to_html(sbtab, filename=None, mode='sbtab_online'):
     html += footer
     
     return html
+
+
+def open_definitions_file(_path=None):
+    '''
+    open the SBtab definitions file, which can be in several locations
+    '''
+    sbtab_def = False
+    
+    if _path: try_paths = [_path]
+    else:
+        try_paths = ['definitions.tsv',
+                     os.path.join(os.path.dirname(__file__), '../static/files/default_files/definitions.tsv'),
+                     os.path.join(os.path.dirname(__file__), '../definition_table/definitions.tsv'),
+                     os.path.join(os.path.dirname(__file__), 'definitions.tsv')]
+    
+    for path in try_paths:
+        try:
+            def_file = open(path, 'r')
+            sbtab_def = SBtab.SBtabTable(def_file.read(), 'definitions.tsv')
+            def_file.close()
+            break
+        except: pass
+
+    return sbtab_def
 
 
 def find_descriptions(def_file, table_type):
@@ -366,20 +378,8 @@ def extract_supported_table_types():
     '''
     extracts all allowed SBtab TableTypes from the definition file
     '''
-    try_paths = ['definitions.tsv',
-                 os.path.join(os.path.dirname(__file__), '../static/files/default_files/definitions.tsv'),
-                 os.path.join(os.path.dirname(__file__), '../definition_table/definitions.tsv'),
-                 os.path.join(os.path.dirname(__file__), 'definitions.tsv')]
-
-    for path in try_paths:
-        try:
-            def_file = open(path, 'r')
-            break
-        except:
-            pass
-
-    sbtab_def = SBtab.SBtabTable(def_file.read(), 'definitions.tsv')
-    def_file.close()
+    sbtab_def = open_definitions_file()
+    
     supported_types = []
     for row in sbtab_def.value_rows:
         t = row[sbtab_def.columns_dict['!IsPartOf']]
