@@ -139,7 +139,7 @@ class SBtabTable():
     def _cut_table_string(self, table_string, delimiter_test=None):
         '''
         the SBtab is initially given as one long string;
-        cut down string into list to harvest content
+        cut down this string into list to harvest content
         '''
         if delimiter_test: delimiter = delimiter_test
         else: delimiter = self.delimiter
@@ -273,7 +273,8 @@ class SBtabTable():
         self.header_row = self._get_header_row()
         
         # Read the table information from header row
-        (self.table_type,
+        (self.table_id,
+         self.table_type,
          self.table_name,
          self.table_document,
          self.table_version) = self._get_table_information()
@@ -333,10 +334,10 @@ class SBtabTable():
         '''
         bring consistency in the multifarious quotation mark problems
         '''
-        stupid_quotes = ['"', '\xe2\x80\x9d', '\xe2\x80\x98', '\xe2\x80\x99',
-                         '\xe2\x80\x9b', '\xe2\x80\x9c', '\xe2\x80\x9f',
-                         '\xe2\x80\xb2', '\xe2\x80\xb3', '\xe2\x80\xb4',
-                         '\xe2\x80\xb5', '\xe2\x80\xb6', '\xe2\x80\xb7', '”']
+        stupid_quotes = ['\xe2\x80\x9d', '\xe2\x80\x98', '\xe2\x80\x99', '”',
+                         '\xe2\x80\x9b', '\xe2\x80\x9c', '\xe2\x80\x9f', '"',
+                         '\xe2\x80\xb2', '\xe2\x80\xb3', '\xe2\x80\xb4', '‘',
+                         '\xe2\x80\xb5', '\xe2\x80\xb6', '\xe2\x80\xb7']
 
         for squote in stupid_quotes:
             try: row = row.replace(squote, "'")
@@ -350,6 +351,10 @@ class SBtabTable():
         '''
         no_name_counter = 0
 
+        # Save table id, otherwise raise error
+        try: table_id = self._get_custom_table_information('TableID')
+        except: raise SBtabError('The TableID of the SBtab is not defined!')
+        
         # Save table type, otherwise raise error
         try: table_type = self._get_custom_table_information('TableType')
         except: raise SBtabError('The TableType of the SBtab is not defined!')
@@ -376,7 +381,7 @@ class SBtabTable():
             if 'Date=' not in self.header_row:
                 self.header_row = self.header_row.replace(self.delimiter,'') + " Date='%s'" % self.date
                 
-        return table_type, table_name, table_document, table_version
+        return table_id, table_type, table_name, table_document, table_version
 
     def _get_custom_table_information(self, attribute_name):
         '''
@@ -468,7 +473,7 @@ class SBtabTable():
         '''
         remove attribute from header row
         '''
-        obligatory_attributes = ['TableType', 'TableName']
+        obligatory_attributes = ['TableType', 'TableID']
         if attribute in obligatory_attributes:
             raise SBtabError('Attribute %s cannot be removed as it is obligatory.' % attribute)
         
@@ -525,7 +530,7 @@ class SBtabTable():
         Parameters
         ----------
         row : str
-            Name of the entry in the first column.
+            Name of the entry in the ID column.
         column : str
             Name of the column (with '!')
         new : str
@@ -787,6 +792,7 @@ class SBtabDocument:
         self.name = name
         self.filename = filename
         self.sbtabs = []
+        self.id_to_sbtab = {}
         self.name_to_sbtab = {}
         self.type_to_sbtab = {}
         self.sbtab_filenames = []
@@ -810,9 +816,13 @@ class SBtabDocument:
         if not self.filename:
             self.filename = sbtab.filename
 
+        if sbtab.table_id in self.id_to_sbtab.keys():
+            raise SBtabError('A table with the ID %s is already in the document. Table IDs need to be unique within one document.' % sbtab.table_id)
+
         valid_type = self.check_type_validity(sbtab.table_type)
         if valid_type:
             self.name_to_sbtab[sbtab.table_name] = sbtab
+            self.id_to_sbtab[sbtab.table_id] = sbtab
             self.sbtabs.append(sbtab)
             self.sbtab_filenames.append(sbtab.filename)
             if sbtab.table_type in self.type_to_sbtab:
@@ -1009,6 +1019,7 @@ class SBtabDocument:
             if sbtab.table_name == name:
                 del self.sbtabs[i]
                 del self.name_to_sbtab[sbtab.table_name]
+                del self.id_to_sbtab[sbtab.table_id]
                 del self.sbtab_filenames[i]
                 tabs = self.type_to_sbtab[sbtab.table_type]
                 for tab in tabs:
@@ -1026,6 +1037,13 @@ class SBtabDocument:
         '''
         try: return self.name_to_sbtab[name]
         except: return None
+
+    def get_sbtab_by_id(self, name):
+        '''
+        return sbtab by given ID
+        '''
+        try: return self.id_to_sbtab[name]
+        except: return None        
 
     def get_sbtab_by_type(self, ttype):
         '''
