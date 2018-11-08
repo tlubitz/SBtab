@@ -1,4 +1,4 @@
-!!SBtab TableName='Reaction' TableType='Reaction' Document='Model'							
+!!SBtab TableID='t_id_01' TableName='Reaction' TableType='Reaction' Document='Model'							
 !Reaction	!ReactionFormula	!Identifiers:kegg.reaction	!IsReversible	!Gene	!KineticLaw:Name	!KineticLaw	
 PTS_RPTSsy	D_Glucose + Phosphoenolpyruvate <=> Pyruvate + D_Glucose_6_phosphate	RPTSsy	True	PTS	Common saturable (CM)	u_R1 * ( kC_R1 * sqrt( kEQ_R1  * kM_R1_D_Glucose * kM_R1_Phosphoenolpyruvate / kM_R1_Pyruvate / kM_R1_D_Glucose_6_phosphate ) * ( D_Glucose / kM_R1_D_Glucose ) * ( Phosphoenolpyruvate / kM_R1_Phosphoenolpyruvate ) - kC_R1 / sqrt( kEQ_R1  * kM_R1_D_Glucose * kM_R1_Phosphoenolpyruvate / kM_R1_Pyruvate / kM_R1_D_Glucose_6_phosphate ) * ( Pyruvate / kM_R1_Pyruvate ) * ( D_Glucose_6_phosphate / kM_R1_D_Glucose_6_phosphate ) ) / ( ( 1 + D_Glucose / kM_R1_D_Glucose ) * ( 1 + Phosphoenolpyruvate / kM_R1_Phosphoenolpyruvate ) + ( 1 + Pyruvate / kM_R1_Pyruvate ) * ( 1 + D_Glucose_6_phosphate / kM_R1_D_Glucose_6_phosphate ) - 1 )	
 PGI_R02740	D_Glucose_6_phosphate <=> D_Fructose_6_phosphate	R02740	True	PGI	Common saturable (CM)	u_R2 * ( kC_R2 * sqrt( kEQ_R2  * kM_R2_D_Glucose_6_phosphate / kM_R2_D_Fructose_6_phosphate ) * ( D_Glucose_6_phosphate / kM_R2_D_Glucose_6_phosphate ) - kC_R2 / sqrt( kEQ_R2  * kM_R2_D_Glucose_6_phosphate / kM_R2_D_Fructose_6_phosphate ) * ( D_Fructose_6_phosphate / kM_R2_D_Fructose_6_phosphate ) ) / ( ( 1 + D_Glucose_6_phosphate / kM_R2_D_Glucose_6_phosphate ) + ( 1 + D_Fructose_6_phosphate / kM_R2_D_Fructose_6_phosphate ) - 1 )	
@@ -30,7 +30,7 @@ SDH_R02164	Ubiquinone + Succinate <=> Fumarate + Ubiquinol	R02164	True	SDH	Commo
 FUM_R01082	Fumarate + H2O <=> _S__Malate	R01082	True	FUM	Common saturable (CM)	u_R28 * ( kC_R28 * sqrt( kEQ_R28  * kM_R28_Fumarate * kM_R28_H2O / kM_R28__S__Malate ) * ( Fumarate / kM_R28_Fumarate ) * ( H2O / kM_R28_H2O ) - kC_R28 / sqrt( kEQ_R28  * kM_R28_Fumarate * kM_R28_H2O / kM_R28__S__Malate ) * ( _S__Malate / kM_R28__S__Malate ) ) / ( ( 1 + Fumarate / kM_R28_Fumarate ) * ( 1 + H2O / kM_R28_H2O ) + ( 1 + _S__Malate / kM_R28__S__Malate ) - 1 )	
 MDH_R00342	_S__Malate + NADplus <=> NADH + Oxaloacetate	R00342	True	MDH	Common saturable (CM)	u_R29 * ( kC_R29 * sqrt( kEQ_R29  * kM_R29__S__Malate * kM_R29_NADplus / kM_R29_NADH / kM_R29_Oxaloacetate ) * ( _S__Malate / kM_R29__S__Malate ) * ( NADplus / kM_R29_NADplus ) - kC_R29 / sqrt( kEQ_R29  * kM_R29__S__Malate * kM_R29_NADplus / kM_R29_NADH / kM_R29_Oxaloacetate ) * ( NADH / kM_R29_NADH ) * ( Oxaloacetate / kM_R29_Oxaloacetate ) ) / ( ( 1 + _S__Malate / kM_R29__S__Malate ) * ( 1 + NADplus / kM_R29_NADplus ) + ( 1 + NADH / kM_R29_NADH ) * ( 1 + Oxaloacetate / kM_R29_Oxaloacetate ) - 1 )	
 %							
-!!SBtab TableName='Compound' TableType='Compound' Document='Model'							
+!!SBtab TableID='t_id_02' TableName='Compound' TableType='Compound' Document='Model'							
 !Compound	!Name	!Identifiers:kegg.compound	!IsConstant				
 _S__Malate	(S)-Malate	C00149	False				
 Acetyl_CoA	Acetyl-CoA	C00024	False				
@@ -73,7 +73,7 @@ _2_Phospho_D_glycerate	2-Phospho-D-glycerate	C00631	False
 Succinate	Succinate	C00042	False				
 Sedoheptulose_7_phosphate	Sedoheptulose 7-phosphate	C05382	False				
 %							
-!!SBtab TableName='Parameter' TableType='Quantity' Document='Model'							
+!!SBtab TableID='t_id_03' TableName='Parameter' TableType='Quantity' Document='Model'							
 !QuantityType	!Value	!Unit	!Compound	!Reaction	!Compound:Identifiers:kegg.compound	!Reaction:Identifiers:kegg.reaction	!SBML:parameter:id
 equilibrium constant	57262184			PTS_RPTSsy		RPTSsy	kEQ_R1
 equilibrium constant	0.36350845			PGI_R02740		R02740	kEQ_R2
@@ -302,7 +302,7 @@ product catalytic rate constant	79.556898	1/s		SDH_R02164		R02164	kcrr_R27
 product catalytic rate constant	115.24806	1/s		FUM_R01082		R01082	kcrr_R28
 product catalytic rate constant	227.92729	1/s		MDH_R00342		R00342	kcrr_R29
 %							
-!!SBtab DocumentName='Model' TableName='Flux' TableType='Quantity' Unit='mM/s'							
+!!SBtab TableID='t_id_04' DocumentName='Model' TableName='Flux' TableType='Quantity' Unit='mM/s'							
 !QuantityType	!Reaction	!Reaction:Identifiers:kegg.reaction	!Flux				
 flux	PTS_RPTSsy	RPTSsy	0.609				
 flux	PGI_R02740	R02740	0.504				
@@ -334,7 +334,7 @@ flux	SDH_R02164	R02164	0.077
 flux	FUM_R01082	R01082	0.077				
 flux	MDH_R00342	R00342	0.091				
 %							
-!!SBtab DocumentName='Model' TableName='GibbsEnergyOfFormation' TableType='Quantity' Unit='kJ/mol' StandardConcentration='1mM'							
+!!SBtab TableID='t_id_05' DocumentName='Model' TableName='GibbsEnergyOfFormation' TableType='Quantity' Unit='kJ/mol' StandardConcentration='1mM'							
 !QuantityType	!Compound	!Compound:Identifiers:kegg.compound	!Value				
 standard Gibbs energy of formation	_S__Malate	C00149	NaN				
 standard Gibbs energy of formation	Acetyl_CoA	C00024	NaN				
@@ -377,7 +377,7 @@ standard Gibbs energy of formation	_2_Phospho_D_glycerate	C00631	NaN
 standard Gibbs energy of formation	Succinate	C00042	NaN				
 standard Gibbs energy of formation	Sedoheptulose_7_phosphate	C05382	NaN				
 %							
-!!SBtab DocumentName='Model' TableName='GibbsEnergyOfReaction' TableType='Quantity' Unit='kJ/mol' StandardConcentration='1mM'							
+!!SBtab TableID='t_id_06' DocumentName='Model' TableName='GibbsEnergyOfReaction' TableType='Quantity' Unit='kJ/mol' StandardConcentration='1mM'							
 !QuantityType	!Reaction	!Reaction:Identifiers:kegg.reaction	!Value	!OriginalValue	!ReactionFormula		
 standard Gibbs energy of reaction	PTS_RPTSsy	RPTSsy	NaN	-44.281981	D_Glucose + Phosphoenolpyruvate <=> Pyruvate + D_Glucose_6_phosphate		
 standard Gibbs energy of reaction	PGI_R02740	R02740	NaN	2.5085872	D_Glucose_6_phosphate <=> D_Fructose_6_phosphate		
@@ -409,7 +409,7 @@ standard Gibbs energy of reaction	SDH_R02164	R02164	NaN	-21.576753	Ubiquinone + 
 standard Gibbs energy of reaction	FUM_R01082	R01082	NaN	-3.4457364	Fumarate + H2O <=> _S__Malate		
 standard Gibbs energy of reaction	MDH_R00342	R00342	NaN	26.896024	_S__Malate + NADplus <=> NADH + Oxaloacetate		
 %							
-!!SBtab DocumentName='Model' TableName='Concentration' TableType='Quantity' Unit='mM'							
+!!SBtab TableID='t_id_07' DocumentName='Model' TableName='Concentration' TableType='Quantity' Unit='mM'							
 !QuantityType	!Compound	!Compound:Identifiers:kegg.compound	!Concentration				
 concentration	_S__Malate	C00149	1.68				
 concentration	Acetyl_CoA	C00024	0.606				
@@ -452,7 +452,7 @@ concentration	_2_Phospho_D_glycerate	C00631	NaN
 concentration	Succinate	C00042	0.569				
 concentration	Sedoheptulose_7_phosphate	C05382	NaN				
 %							
-!!SBtab DocumentName='Model' TableName='EnzymeConcentration' TableType='Quantity' Unit='mM'							
+!!SBtab TableID='t_id_08' DocumentName='Model' TableName='EnzymeConcentration' TableType='Quantity' Unit='mM'							
 !QuantityType	!Reaction	!Reaction:Identifiers:kegg.reaction	!EnzymeConcentration				
 concentration of enzyme	PTS_RPTSsy	RPTSsy	0.0052772441				
 concentration of enzyme	PGI_R02740	R02740	0.0044271666				
@@ -484,7 +484,7 @@ concentration of enzyme	SDH_R02164	R02164	NaN
 concentration of enzyme	FUM_R01082	R01082	0.0015986991				
 concentration of enzyme	MDH_R00342	R00342	0.024144199				
 %							
-!!SBtab DocumentName='Model' TableName='ConcentrationConstraint' TableType='Quantity' Unit='mM'							
+!!SBtab TableID='t_id_09' DocumentName='Model' TableName='ConcentrationConstraint' TableType='Quantity' Unit='mM'							
 !QuantityType	!Compound	!Compound:Identifiers:kegg.compound	!Concentration:Min	!Concentration:Max			
 concentration	_S__Malate	C00149	0.001	10			
 concentration	Acetyl_CoA	C00024	0.001	10			
@@ -527,7 +527,7 @@ concentration	_2_Phospho_D_glycerate	C00631	0.001	10
 concentration	Succinate	C00042	0.001	10			
 concentration	Sedoheptulose_7_phosphate	C05382	0.001	10			
 %							
-!!SBtab DocumentName='Model' TableName='Layout' TableType='Position'							
+!!SBtab TableID='t_id_10' DocumentName='Model' TableName='Layout' TableType='Position'							
 !Element	!Position:x	!Position:y					
 _S__Malate	0.32772	0.095058					
 Acetyl_CoA	0.359426	0.22902					

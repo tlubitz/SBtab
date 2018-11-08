@@ -1,4 +1,4 @@
-!!SBtab TableName='Reaction' TableType='Reaction' Document='E. coli central carbon metabolism - ECM result' SBtabVersion='1.0'							
+!!SBtab TableID='t_id_01' TableName='Reaction' TableType='Reaction' Document='E. coli central carbon metabolism - ECM result' SBtabVersion='1.0'							
 !ID	!ReactionFormula	!Identifiers:kegg.reaction	!IsReversible	!Gene	!KineticLaw:Name	!KineticLaw:Formula	
 PTS_RPTSsy	D_Glucose + Phosphoenolpyruvate <=> Pyruvate + D_Glucose_6_phosphate	RPTSsy	True	PTS	Common saturable (CM)	u_R1 * ( kC_R1 * sqrt( kEQ_R1  * kM_R1_D_Glucose * kM_R1_Phosphoenolpyruvate / kM_R1_Pyruvate / kM_R1_D_Glucose_6_phosphate ) * ( D_Glucose / kM_R1_D_Glucose ) * ( Phosphoenolpyruvate / kM_R1_Phosphoenolpyruvate ) - kC_R1 / sqrt( kEQ_R1  * kM_R1_D_Glucose * kM_R1_Phosphoenolpyruvate / kM_R1_Pyruvate / kM_R1_D_Glucose_6_phosphate ) * ( Pyruvate / kM_R1_Pyruvate ) * ( D_Glucose_6_phosphate / kM_R1_D_Glucose_6_phosphate ) ) / ( ( 1 + D_Glucose / kM_R1_D_Glucose ) * ( 1 + Phosphoenolpyruvate / kM_R1_Phosphoenolpyruvate ) + ( 1 + Pyruvate / kM_R1_Pyruvate ) * ( 1 + D_Glucose_6_phosphate / kM_R1_D_Glucose_6_phosphate ) - 1 )	
 PGI_R02740	D_Glucose_6_phosphate <=> D_Fructose_6_phosphate	R02740	True	PGI	Common saturable (CM)	u_R2 * ( kC_R2 * sqrt( kEQ_R2  * kM_R2_D_Glucose_6_phosphate / kM_R2_D_Fructose_6_phosphate ) * ( D_Glucose_6_phosphate / kM_R2_D_Glucose_6_phosphate ) - kC_R2 / sqrt( kEQ_R2  * kM_R2_D_Glucose_6_phosphate / kM_R2_D_Fructose_6_phosphate ) * ( D_Fructose_6_phosphate / kM_R2_D_Fructose_6_phosphate ) ) / ( ( 1 + D_Glucose_6_phosphate / kM_R2_D_Glucose_6_phosphate ) + ( 1 + D_Fructose_6_phosphate / kM_R2_D_Fructose_6_phosphate ) - 1 )	
@@ -31,7 +31,7 @@ FUM_R01082	Fumarate <=> _S__Malate	R01082	True	FUM	Common saturable (CM)	u_R28 *
 MDH_R00342	_S__Malate + NADplus <=> NADH + Oxaloacetate	R00342	True	MDH	Common saturable (CM)	u_R29 * ( kC_R29 * sqrt( kEQ_R29  * kM_R29__S__Malate * kM_R29_NADplus / kM_R29_NADH / kM_R29_Oxaloacetate ) * ( _S__Malate / kM_R29__S__Malate ) * ( NADplus / kM_R29_NADplus ) - kC_R29 / sqrt( kEQ_R29  * kM_R29__S__Malate * kM_R29_NADplus / kM_R29_NADH / kM_R29_Oxaloacetate ) * ( NADH / kM_R29_NADH ) * ( Oxaloacetate / kM_R29_Oxaloacetate ) ) / ( ( 1 + _S__Malate / kM_R29__S__Malate ) * ( 1 + NADplus / kM_R29_NADplus ) + ( 1 + NADH / kM_R29_NADH ) * ( 1 + Oxaloacetate / kM_R29_Oxaloacetate ) - 1 )	
 PPC_R00345	Orthophosphate + Oxaloacetate <=> CO2 + Phosphoenolpyruvate	R00345	True	PPC	Common saturable (CM)	u_R30 * ( kC_R30 * sqrt( kEQ_R30  * kM_R30_Orthophosphate * kM_R30_Oxaloacetate / kM_R30_CO2 / kM_R30_Phosphoenolpyruvate ) * ( Orthophosphate / kM_R30_Orthophosphate ) * ( Oxaloacetate / kM_R30_Oxaloacetate ) - kC_R30 / sqrt( kEQ_R30  * kM_R30_Orthophosphate * kM_R30_Oxaloacetate / kM_R30_CO2 / kM_R30_Phosphoenolpyruvate ) * ( CO2 / kM_R30_CO2 ) * ( Phosphoenolpyruvate / kM_R30_Phosphoenolpyruvate ) ) / ( ( 1 + Orthophosphate / kM_R30_Orthophosphate ) * ( 1 + Oxaloacetate / kM_R30_Oxaloacetate ) + ( 1 + CO2 / kM_R30_CO2 ) * ( 1 + Phosphoenolpyruvate / kM_R30_Phosphoenolpyruvate ) - 1 )	
 %							
-!!SBtab TableName='Compound' TableType='Compound' Document='E. coli central carbon metabolism - ECM result' SBtabVersion='1.0'							
+!!SBtab TableID='t_id_02' TableName='Compound' TableType='Compound' Document='E. coli central carbon metabolism - ECM result' SBtabVersion='1.0'							
 !ID	!Name	!Identifiers:kegg.compound	!IsConstant	!InitialConcentration			
 _S__Malate	(S)-Malate	C00149	False	3.2052273			
 Acetyl_CoA	Acetyl-CoA	C00024	False	0.41380006			
@@ -74,7 +74,7 @@ _2_Phospho_D_glycerate	2-Phospho-D-glycerate	C00631	False	0.10085245
 Succinate	Succinate	C00042	False	0.075946796			
 Sedoheptulose_7_phosphate	Sedoheptulose 7-phosphate	C05382	False	0.37896237			
 %							
-!!SBtab TableName='Parameter' TableType='Quantity' Document='E. coli central carbon metabolism - ECM result' SBtabVersion='1.0'							
+!!SBtab TableID='t_id_03' TableName='Parameter' TableType='Quantity' Document='E. coli central carbon metabolism - ECM result' SBtabVersion='1.0'							
 !QuantityType	!Reaction	!Compound	!Value	!Unit	!Reaction:Identifiers:kegg.reaction	!Compound:Identifiers:kegg.compound	!ID
 equilibrium constant	PTS_RPTSsy		52122111	dimensionless	RPTSsy		kEQ_R1
 equilibrium constant	PGI_R02740		0.3654504	dimensionless	R02740		kEQ_R2
@@ -334,7 +334,7 @@ concentration of enzyme	FUM_R01082		0.0048125497	mM	R01082		u_R28
 concentration of enzyme	MDH_R00342		0.0075436904	mM	R00342		u_R29
 concentration of enzyme	PPC_R00345		0.0023245286	mM	R00345		u_R30
 %							
-!!SBtab TableName='Layouts' TableType='Position' Document='E. coli central carbon metabolism - ECM result' SBtabVersion='1.0'							
+!!SBtab TableID='t_id_04' TableName='Layouts' TableType='Position' Document='E. coli central carbon metabolism - ECM result' SBtabVersion='1.0'							
 !Element	!PositionX	!PositionY					
 _S__Malate	0.32772	0.095058					
 Acetyl_CoA	0.359426	0.22902					

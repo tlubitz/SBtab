@@ -1,4 +1,4 @@
-!!SBtab TableName='Reaction' TableType='Reaction' Document='Hepatonet' SBtabVersion='0.9'			
+!!SBtab TableID='t_id_01' TableName='Reaction' TableType='Reaction' Document='Hepatonet' SBtabVersion='0.9'			
 !Reaction	!SumFormula	!IsReversible	!SBML:reaction:id
 r0001	S_Adenosylmethioninamine__c_ <=> _5_Methylthioadenosine__c_ + Adenosylmethioninamine_potential__c_	True	r0001
 r0002	L_Carnitine__c_ <=> L_Carnitine__r_	True	r0002
@@ -2540,7 +2540,7 @@ r2537	gamma_Linolenoyl_CoA__c_ <=> gamma_Linolenoyl_CoA__r_	True	r2537
 r2538	Dihomo_gamma_linolenoyl_CoA__c_ <=> Dihomo_gamma_linolenoyl_CoA__r_	True	r2538
 r2539	L_2_Aminoadipate__m_ + _2_Aminoadipate_6_semialdehyde__c_ <=> L_2_Aminoadipate__c_ + _2_Aminoadipate_6_semialdehyde__m_	True	r2539
 %			
-!!SBtab TableName='Compound' TableType='Compound' Document='Hepatonet' SBtabVersion='0.9'			
+!!SBtab TableID='t_id_02' TableName='Compound' TableType='Compound' Document='Hepatonet' SBtabVersion='0.9'			
 !Compound	!SBML:species:id	!IsConstant	
 Albumin__c_	HC00001_c	False	
 Albumin__l_	HC00001_l	False	

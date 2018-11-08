@@ -1,4 +1,4 @@
-!!SBtab TableName='Reaction' TableType='Reaction' Document='Model' SBtabVersion='1.0'							
+!!SBtab TableID='t_id_01' TableName='Reaction' TableType='Reaction' Document='Model' SBtabVersion='1.0'							
 !ID	!ReactionFormula	!Name	!IsReversible	!KineticLaw:Name	!KineticLaw:Formula		
 R_PSP_L	M_h2o_c + M_pser_L_c <=> M_pi_c + M_ser_L_c	phosphoserine phosphatase (L-serine)	False	Common saturable (CM)	u_R1 * ( kC_R1 * sqrt( kEQ_R1  * kM_R1_M_h2o_c * kM_R1_M_pser_L_c / kM_R1_M_pi_c / kM_R1_M_ser_L_c ) * ( M_h2o_c / kM_R1_M_h2o_c ) * ( M_pser_L_c / kM_R1_M_pser_L_c ) - kC_R1 / sqrt( kEQ_R1  * kM_R1_M_h2o_c * kM_R1_M_pser_L_c / kM_R1_M_pi_c / kM_R1_M_ser_L_c ) * ( M_pi_c / kM_R1_M_pi_c ) * ( M_ser_L_c / kM_R1_M_ser_L_c ) ) / ( ( 1 + M_h2o_c / kM_R1_M_h2o_c ) * ( 1 + M_pser_L_c / kM_R1_M_pser_L_c ) + ( 1 + M_pi_c / kM_R1_M_pi_c ) * ( 1 + M_ser_L_c / kM_R1_M_ser_L_c ) - 1 )		
 R_SDPDS	M_h2o_c + M_sl26da_c <=> M_26dap_LL_c + M_succ_c	succinyl-diaminopimelate desuccinylase	False	Common saturable (CM)	u_R2 * ( kC_R2 * sqrt( kEQ_R2  * kM_R2_M_h2o_c * kM_R2_M_sl26da_c / kM_R2_M_26dap_LL_c / kM_R2_M_succ_c ) * ( M_h2o_c / kM_R2_M_h2o_c ) * ( M_sl26da_c / kM_R2_M_sl26da_c ) - kC_R2 / sqrt( kEQ_R2  * kM_R2_M_h2o_c * kM_R2_M_sl26da_c / kM_R2_M_26dap_LL_c / kM_R2_M_succ_c ) * ( M_26dap_LL_c / kM_R2_M_26dap_LL_c ) * ( M_succ_c / kM_R2_M_succ_c ) ) / ( ( 1 + M_h2o_c / kM_R2_M_h2o_c ) * ( 1 + M_sl26da_c / kM_R2_M_sl26da_c ) + ( 1 + M_26dap_LL_c / kM_R2_M_26dap_LL_c ) * ( 1 + M_succ_c / kM_R2_M_succ_c ) - 1 )		
@@ -212,7 +212,7 @@ R_OPMEACPS	M_gmeACP_c + M_h_c + M_malACP_c <=> M_ACP_c + M_co2_c + M_opmeACP_c	3
 R_OPMEACPD	M_hpmeACP_c <=> M_epmeACP_c + M_h2o_c	3-Oxo-pimeloyl-[ACP] methyl ester dehydratase	False	Common saturable (CM)	u_R210 * ( kC_R210 * sqrt( kEQ_R210  * kM_R210_M_hpmeACP_c / kM_R210_M_epmeACP_c / kM_R210_M_h2o_c ) * ( M_hpmeACP_c / kM_R210_M_hpmeACP_c ) - kC_R210 / sqrt( kEQ_R210  * kM_R210_M_hpmeACP_c / kM_R210_M_epmeACP_c / kM_R210_M_h2o_c ) * ( M_epmeACP_c / kM_R210_M_epmeACP_c ) * ( M_h2o_c / kM_R210_M_h2o_c ) ) / ( ( 1 + M_hpmeACP_c / kM_R210_M_hpmeACP_c ) + ( 1 + M_epmeACP_c / kM_R210_M_epmeACP_c ) * ( 1 + M_h2o_c / kM_R210_M_h2o_c ) - 1 )		
 R_OGMEACPD	M_hgmeACP_c <=> M_egmeACP_c + M_h2o_c	3-Oxo-glutaryl-[ACP] methyl ester dehydratase	False	Common saturable (CM)	u_R211 * ( kC_R211 * sqrt( kEQ_R211  * kM_R211_M_hgmeACP_c / kM_R211_M_egmeACP_c / kM_R211_M_h2o_c ) * ( M_hgmeACP_c / kM_R211_M_hgmeACP_c ) - kC_R211 / sqrt( kEQ_R211  * kM_R211_M_hgmeACP_c / kM_R211_M_egmeACP_c / kM_R211_M_h2o_c ) * ( M_egmeACP_c / kM_R211_M_egmeACP_c ) * ( M_h2o_c / kM_R211_M_h2o_c ) ) / ( ( 1 + M_hgmeACP_c / kM_R211_M_hgmeACP_c ) + ( 1 + M_egmeACP_c / kM_R211_M_egmeACP_c ) * ( 1 + M_h2o_c / kM_R211_M_h2o_c ) - 1 )		
 %							
-!!SBtab TableName='Compound' TableType='Compound' Document='Model' SBtabVersion='1.0'							
+!!SBtab TableID='t_id_02' TableName='Compound' TableType='Compound' Document='Model' SBtabVersion='1.0'							
 !ID	!Name	!Identifiers:kegg.compound	!IsConstant				
 M_10fthf_c	10-Formyltetrahydrofolate	C00234	False				
 M_13dpg_c	3-Phospho-D-glyceroyl phosphate	C00236	False				
@@ -535,7 +535,7 @@ M_ni2_p	nickel	C00291	False
 M_pe160_p	phosphatidylethanolamine (dihexadecanoyl, n-C16:0)	C00350	False				
 M_pe161_p	phosphatidylethanolamine (dihexadec-9enoyl, n-C16:1)	C00350	False				
 %							
-!!SBtab TableName='Parameter' TableType='Quantity' Document='Model' SBtabVersion='1.0'							
+!!SBtab TableID='t_id_03' TableName='Parameter' TableType='Quantity' Document='Model' SBtabVersion='1.0'							
 !QuantityType	!Reaction	!Compound	!Value	!Unit	!Reaction:Identifiers:kegg.reaction	!Compound:Identifiers:kegg.compound	!ID
 equilibrium constant	R_PSP_L		167.17786	dimensionless			kEQ_R1
 equilibrium constant	R_SDPDS		626.45319	dimensionless			kEQ_R2

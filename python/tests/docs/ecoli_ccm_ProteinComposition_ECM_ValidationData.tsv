@@ -1,4 +1,4 @@
-!!SBtab DocumentName='E. coli central carbon metabolism - balanced parameters' TableName='Concentration' TableType='Quantity' Unit='mM' SBtabVersion='1.0'			
+!!SBtab TableID='t_id_01' DocumentName='E. coli central carbon metabolism - balanced parameters' TableName='Concentration' TableType='Quantity' Unit='mM' SBtabVersion='1.0'			
 !QuantityType	!Compound	!Compound:Identifiers:kegg.compound	!Value
 concentration	_S__Malate	C00149	1.6853424
 concentration	Acetyl_CoA	C00024	0.606
@@ -41,7 +41,7 @@ concentration	_2_Phospho_D_glycerate	C00631	NaN
 concentration	Succinate	C00042	1.1853254
 concentration	Sedoheptulose_7_phosphate	C05382	NaN
 %			
-!!SBtab DocumentName='E. coli central carbon metabolism - balanced parameters' TableName='EnzymeConcentration' TableType='Quantity' Unit='mM' SBtabVersion='1.0'			
+!!SBtab TableID='t_id_02' DocumentName='E. coli central carbon metabolism - balanced parameters' TableName='EnzymeConcentration' TableType='Quantity' Unit='mM' SBtabVersion='1.0'			
 !QuantityType	!Reaction	!Reaction:Identifiers:kegg.reaction	!Value
 concentration of enzyme	PTS_RPTSsy	RPTSsy	0.022041994
 concentration of enzyme	PGI_R02740	R02740	0.0076401396

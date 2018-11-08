@@ -1,4 +1,4 @@
-!!SBtab TableType='Quantity'
+!!SBtab TableID='t_id' TableType='Quantity'
 !Uniprot	!PhosphositePosition	!Noco45Mitosis	!Noco3hG1	!ThymONG1/S	!Noco45earlyS	!Noco3hLateS	!ThymONG2	!GeneNames	!KEGG
 P01112;P78460;Q7KZ06;Q92468;Q9BR65;Q9UM97;Q9UCE2	145	0	0	0	0	0	0	HRAS;HRAS1;HRAS	K02833
 Q08170;A8K644;Q53F45;Q59EF5	78	0.96	0	0	-1.97	0	0	SFRS4;SRP75	

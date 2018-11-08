@@ -1,4 +1,4 @@
-!!SBtab TableName='Fixed flux signs' TableType='Reaction' Document='Model' SBtabVersion='1.0'				
+!!SBtab TableID='t_id' TableName='Fixed flux signs' TableType='Reaction' Document='Model' SBtabVersion='1.0'				
 !ID	!ReactionFormula	!Name	!Identifiers:kegg.reaction	!FluxSign
 %FROM YEAST MODEL
 RGAPD	Mg3pc + Mnadc + Mpic <=> M13dpgc + Mhc + Mnadhc	Glyceraldehyde-3-phosphate dehydrogenase	R01061	nan

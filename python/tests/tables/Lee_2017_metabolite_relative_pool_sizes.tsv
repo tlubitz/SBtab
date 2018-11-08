@@ -1,4 +1,4 @@
-!!SBtab TableType="Quantity" TableName="Metabolite pool ratios between cytosol and mitochondria; HeLa cells; data from Won"							
+!!SBtab TableID="t_id" TableType="Quantity" TableName="Metabolite pool ratios between cytosol and mitochondria; HeLa cells; data from Won"							
 !MetaboliteName	!Compound	!Identifiers:kegg.compound	!MetaboliteShort	!Ic	!Im	!Xc	!Xm
 Ribose 5-phosphate (DM)	Alpha-D-Ribose 5-phosphate	C00117	R5P	0.636577051	0	0.6417337218	-0.0051566708
 N-Acetyl-L-aspartic acid (DM)			NAASP	0.927021726	0.041867737	0.9301607542	-0.0031390282

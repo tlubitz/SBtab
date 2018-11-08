@@ -1,4 +1,4 @@
-!!SBtab TableType='Quantity'							
+!!SBtab TableID='t_id' TableType='Quantity'							
 !QuantityType	!SystematicName	!Abundance	!Value	!SizeWeightedAbundance	!SizeWeightedAbundancePPM	!Size	!Gene	!KOnumber	!KOcategory	!Reaction	!Reaction:Identifiers:kegg.reaction
 concentration of enzyme	b3236	19723.0	9234.02924476	6153576.0	9352.45845595	312	Mdh	K00024	Citrate cycle	MDH_R00342	R00342
 concentration of enzyme	b2779	13564.0	6350.47268042	5859648.0	8905.7345658	432	Eno	K01689	Glycolysis / Gluconeogenesis	PGH_R00658	R00658

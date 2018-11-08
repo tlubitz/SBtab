@@ -1,4 +1,4 @@
-!!SBtab TableType='Quantity'
+!!SBtab TableID='t_id' TableType='Quantity'
 !QuantityType	!Unit	!Compound:Identifiers:kegg.compound	!Compound:Identifiers:obo.chebi	!Compound:Name	!Value
 concentration	mM		CHEBI:13389_CHEBI:16908	NAD_NADH	0.513781074
 concentration	mM	C00092	CHEBI:14314_CHEBI:17369	glucose 6-phosphate _ mannose 6-phosphate	0.374196597

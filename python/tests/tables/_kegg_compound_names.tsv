@@ -1,4 +1,4 @@
-!!SBtab TableType='Compound'
+!!SBtab TableID='t_id' TableType='Compound'
 !Identifiers:kegg.compound	!Compound:Name
 C00001	H2O
 C00002	ATP

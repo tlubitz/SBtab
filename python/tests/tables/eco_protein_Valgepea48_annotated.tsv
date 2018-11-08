@@ -1,4 +1,4 @@
-!!SBtab Organism='"Escherichia coli"' TableType='Quantity'											
+!!SBtab TableID='t_id' Organism='"Escherichia coli"' TableType='Quantity'											
 !QuantityType	!GeneSystematic	!Abundance	!Value	!SizeWeightedAbundance	!SizeWeightedAbundancePPM	!Size	!Gene	!KOnumber	!KOcategory	!Reaction	!Reaction:Identifiers:kegg.reaction
 concentration of enzyme	b4232	1193	277.862466697	396076	323.381757965	332	Fbp	K03841	Glycolysis and gluconeogenesis	FBP_R00762	R00762
 concentration of enzyme	b1852	1823	424.59620854	895093	730.811126861	491	Zwf	K00036	Pentose phosphate metabolism	ZWF_R00835	R00835

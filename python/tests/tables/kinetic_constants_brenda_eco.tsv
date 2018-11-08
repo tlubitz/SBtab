@@ -1,4 +1,4 @@
-!!SBtab TableType='Quantity'								
+!!SBtab TableID='t_id' TableType='Quantity'								
 !QuantityType	!Reaction:Identifiers:kegg.reaction	!Compound:Identifiers:kegg.compound	!Value	!Unit	!Temperature	!pH	!Organism:KEGGnumber	!Organism
 substrate catalytic rate constant	R02124	C00376	1.83	1/s	25	7.5	7	Escherichia coli
 substrate catalytic rate constant	R02834	C00762	0.4	1/s	37	7.4	7	Escherichia coli

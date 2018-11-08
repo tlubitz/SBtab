@@ -1,4 +1,4 @@
-!!SBtab TableType="Quantity"									
+!!SBtab TableType="Quantity" TableID="t_id_123"									 
 !QuantityType	!Compound	!Reaction	!Unit	!Median	!Mean	!Std	!Lower	!Upper	!Compound:Identifiers:kegg.compound
 standard chemical potential	_2_Acetolactate		kJ/mol	0	0	10	NaN	NaN	C00900
 standard chemical potential	CO2		kJ/mol	-386	-386	10	NaN	NaN	C00011

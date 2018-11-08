@@ -1,4 +1,4 @@
-!!SBtab DocumentName='E. coli central carbon metabolism - ECM result' TableType='Quantity' TableName='Predicted concentations' Document='ECM metabolic state' Unit='mM' SBtabVersion='1.0'																										
+!!SBtab TableID='t_id_01' DocumentName='E. coli central carbon metabolism - ECM result' TableType='Quantity' TableName='Predicted concentations' Document='ECM metabolic state' Unit='mM' SBtabVersion='1.0'																										
 !QuantityType	!Compound	!Compound:Identifiers:kegg.compound	data	fixed	initial	emc1	emc2s	emc2sp	emc3s	emc3sp	emc4geom	emc4cm	emc1_Lower	emc1_Upper	emc2s_Lower	emc2s_Upper	emc2sp_Lower	emc2sp_Upper	emc3s_Lower	emc3s_Upper	emc3sp_Lower	emc3sp_Upper	emc4geom_Lower	emc4geom_Upper	emc4cm_Lower	emc4cm_Upper
 concentration	_S__Malate	C00149	1.6853424	NaN	2.0574193	1.7453527	1.6987537	2.405817	1.8617271	1.8617883	2.2927167	3.2052273	0.70062839	4.3478914	1.5850257	1.8206418	2.2350773	2.5895996	1.689781	2.0511697	1.6451269	2.1069838	1.996734	2.632574	2.7675785	3.7120833
 concentration	Acetyl_CoA	C00024	0.606	NaN	0.49181217	0.099999991	0.1000023	1.0179959	0.10048982	0.11901958	0.18599171	0.41380006	0.043563482	0.22955002	0.034113588	0.29315178	0.49183047	2.1070587	0.029748333	0.33945444	0.035383645	0.40034487	0.06213827	0.5567087	0.15615792	1.0965213
@@ -41,7 +41,7 @@ concentration	_2_Phospho_D_glycerate	C00631	NaN	NaN	0.025440743	0.04356481	0.040
 concentration	Succinate	C00042	1.1853254	NaN	0.043155173	0.10000001	0.076401263	0.091549248	0.076779074	0.063532605	0.062962633	0.075946796	0.043563491	0.22955006	0.035588903	0.16401609	0.042450314	0.19743705	0.032387699	0.18201436	0.025418832	0.15879534	0.022550798	0.17579392	0.02304724	0.25026493
 concentration	Sedoheptulose_7_phosphate	C05382	NaN	NaN	0.1131225	0.10000001	0.13345553	0.1183401	0.26092653	0.28173691	0.32728692	0.37896237	0.043563489	0.22955006	0.056139638	0.3172514	0.04398249	0.31840805	0.11960238	0.56924166	0.12210252	0.65007409	0.14158069	0.75657723	0.16666055	0.86170649
 %																										
-!!SBtab DocumentName='E. coli central carbon metabolism - ECM result' TableType='Quantity' TableName='Predicted enzyme levels' Document='ECM metabolic state' Unit='mM' SBtabVersion='1.0'																										
+!!SBtab TableID='t_id_02' DocumentName='E. coli central carbon metabolism - ECM result' TableType='Quantity' TableName='Predicted enzyme levels' Document='ECM metabolic state' Unit='mM' SBtabVersion='1.0'																										
 !QuantityType	!Reaction	!Reaction:Identifiers:kegg.reaction	data	emc1	emc2s	emc2sp	emc3s	emc3sp	emc4geom	emc4cm	emc1_Lower	emc1_Upper	emc2s_Lower	emc2s_Upper	emc2sp_Lower	emc2sp_Upper	emc3s_Lower	emc3s_Upper	emc3sp_Lower	emc3sp_Upper	emc4geom_Lower	emc4geom_Upper	emc4cm_Lower	emc4cm_Upper		
 concentration of enzyme	PTS_RPTSsy	RPTSsy	0.022041994	0.014959477	0.014959477	0.015387381	0.014960547	0.014963072	0.015924368	0.016393537	0.014959477	0.014959477	0.014959477	0.014959477	0.014636432	0.016176859	0.014958883	0.014962212	0.014957031	0.014969115	0.015246402	0.016632482	0.015426728	0.017420938		
 concentration of enzyme	PGI_R02740	R02740	0.0076401396	0.010141985	0.015722627	0.01778871	0.0195535	0.024085417	0.025339309	0.02736849	0.010141985	0.010141985	0.011358772	0.021763004	0.011860663	0.026679638	0.013470531	0.028383393	0.015876	0.03653989	0.016344664	0.039283805	0.01715838	0.043654135		
@@ -74,7 +74,7 @@ concentration of enzyme	FUM_R01082	R01082	0.0030969051	0.00023573575	0.002046628
 concentration of enzyme	MDH_R00342	R00342	0.088237717	7.4552252e-05	0.0018497753	0.0020723259	0.0029873913	0.0043076648	0.0058664179	0.0075436904	7.4552252e-05	7.4552252e-05	0.0006728537	0.0050853088	0.00068076924	0.0063083561	0.0011516953	0.0077490171	0.001769779	0.010484911	0.002535524	0.013573075	0.0033249731	0.017115105		
 concentration of enzyme	PPC_R00345	R00345	0.0060327379	9.1319522e-05	9.1321114e-05	0.0083512713	0.0012436669	0.0020110013	0.0021656507	0.0023245286	9.1319522e-05	9.1319522e-05	9.1318282e-05	9.1323946e-05	0.0039578491	0.017621625	0.00053203642	0.0029071458	0.00086643873	0.0046675271	0.00094425572	0.0049669204	0.0010086591	0.0053570458		
 %																										
-!!SBtab DocumentName='E. coli central carbon metabolism - ECM result' TableType='Quantity' TableName='Predicted driving forces' Document='ECM metabolic state' Unit='kJ/mol' SBtabVersion='1.0'																										
+!!SBtab TableID='t_id_03' DocumentName='E. coli central carbon metabolism - ECM result' TableType='Quantity' TableName='Predicted driving forces' Document='ECM metabolic state' Unit='kJ/mol' SBtabVersion='1.0'																										
 !QuantityType	!Reaction	!Reaction:Identifiers:kegg.reaction	initial	emc1	emc2s	emc2sp	emc3s	emc3sp	emc4geom	emc4cm																
 Gibbs energy of reaction	PTS_RPTSsy	RPTSsy	49.176297	54.669128	52.881788	52.859542	52.288948	50.743056	50.794134	50.515256																
 Gibbs energy of reaction	PGI_R02740	R02740	16.134493	3.9689349e-10	2.5676963	2.5621203	3.2159169	4.5619206	4.2387103	3.8388676																
@@ -107,7 +107,7 @@ Gibbs energy of reaction	FUM_R01082	R01082	3.0903337	2.4789571e-10	0.30335956	0.
 Gibbs energy of reaction	MDH_R00342	R00342	0.18889339	1.0883192e-09	0.10197957	0.090826387	0.16489883	0.23550502	0.29776584	0.33988713																
 Gibbs energy of reaction	PPC_R00345	R00345	24.286924	27.873795	27.161877	23.081053	27.468509	26.273929	26.419557	26.450025																
 %																										
-!!SBtab DocumentName='E. coli central carbon metabolism - ECM result' TableType='Quantity' TableName='Predicted enzyme capacities' Document='ECM metabolic state' Unit='kJ/mol' SBtabVersion='1.0'																										
+!!SBtab TableID='t_id_04' DocumentName='E. coli central carbon metabolism - ECM result' TableType='Quantity' TableName='Predicted enzyme capacities' Document='ECM metabolic state' Unit='kJ/mol' SBtabVersion='1.0'																										
 !QuantityType	!Reaction	!Reaction:Identifiers:kegg.reaction	!Value																							
 enzyme capacity	PTS_RPTSsy	RPTSsy	0.014959477																							
 enzyme capacity	PGI_R02740	R02740	0.010141985																							
@@ -140,7 +140,7 @@ enzyme capacity	FUM_R01082	R01082	0.00023573575
 enzyme capacity	MDH_R00342	R00342	7.4552252e-05																							
 enzyme capacity	PPC_R00345	R00345	9.1319522e-05																							
 %																										
-!!SBtab DocumentName='E. coli central carbon metabolism - ECM result' TableType='Quantity' TableName='Predicted energetic efficiencies' Document='ECM metabolic state' Unit='kJ/mol' SBtabVersion='1.0'																										
+!!SBtab TableID='t_id_05' DocumentName='E. coli central carbon metabolism - ECM result' TableType='Quantity' TableName='Predicted energetic efficiencies' Document='ECM metabolic state' Unit='kJ/mol' SBtabVersion='1.0'																										
 !QuantityType	!Reaction	!Reaction:Identifiers:kegg.reaction	emc1	emc2s	emc2sp	emc3s	emc3sp	emc4geom	emc4cm																	
 energetic efficiency	PTS_RPTSsy	RPTSsy	1	1	1	1	1	1	1																	
 energetic efficiency	PGI_R02740	R02740	1	0.64505665	0.64425737	0.72672764	0.84122357	0.81911188	0.78745081																	
@@ -173,7 +173,7 @@ energetic efficiency	FUM_R01082	R01082	1	0.1151825	0.1991701	0.13904062	0.224612
 energetic efficiency	MDH_R00342	R00342	1	0.040303409	0.03597587	0.064355274	0.090628574	0.11318368	0.12812476																	
 energetic efficiency	PPC_R00345	R00345	1	0.99998256	0.99990956	0.99998459	0.99997505	0.99997648	0.99997676																	
 %																										
-!!SBtab DocumentName='E. coli central carbon metabolism - ECM result' TableType='Quantity' TableName='Predicted saturation efficiencies' Document='ECM metabolic state' Unit='kJ/mol' SBtabVersion='1.0'																										
+!!SBtab TableID='t_id_06' DocumentName='E. coli central carbon metabolism - ECM result' TableType='Quantity' TableName='Predicted saturation efficiencies' Document='ECM metabolic state' Unit='kJ/mol' SBtabVersion='1.0'																										
 !QuantityType	!Reaction	!Reaction:Identifiers:kegg.reaction	emc1	emc2s	emc2sp	emc3s	emc3sp	emc4geom	emc4cm																	
 saturation efficiency	PTS_RPTSsy	RPTSsy	1	1	1	0.99992845	0.99975974	0.93940788	0.91252281																	
 saturation efficiency	PGI_R02740	R02740	1	1	1	0.71371824	0.50056142	0.48863547	0.47059652																	

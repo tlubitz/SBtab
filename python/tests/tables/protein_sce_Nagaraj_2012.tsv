@@ -1,4 +1,4 @@
-!!SBtab TableType='Quantity' !Organism='Saccharomyces cerevisiae'
+!!SBtab TableID='t_id' TableType='Quantity' !Organism='Saccharomyces cerevisiae'
 !QuantityType	!Gene:LocusName	!Abundance	!Value	!SizeWeightedAbundance	!SizeWeightedAbundancePPM	!Gene	!Gene:Identifiers:kegg.orthology	!Pathway
 concentration of enzyme	YBR177C	9765000000	77.1478412116	2929500000000	56.2976208772			
 concentration of enzyme	YIL140W	1063500000	8.40212279862	319050000000	6.13133843347			

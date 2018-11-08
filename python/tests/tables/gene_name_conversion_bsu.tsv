@@ -1,4 +1,4 @@
-!!SBtab TableType='Enzyme' !Organism='Bacillus subtilis'		
+!!SBtab TableID='t_id' TableType='Enzyme' !Organism='Bacillus subtilis'		
 !Enzyme	!Gene	!EnzymeReaction
 AAD	-	AAD
 ACC	-	ACC

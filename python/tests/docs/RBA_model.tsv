@@ -1,12 +1,12 @@
 !!!SBtab SBtabVersion="1.0" Document="RBA_model.tsv"
-!!SBtab DocumentName='RBA model' TableType='Quantity' TableName='Model_Information' Document='RBAstructure' Unit='Information on RBAmodel' SBtabVersion='1.0' 
+!!SBtab TableID='t_id_01' DocumentName='RBA model' TableType='Quantity' TableName='Model_Information' Document='RBAstructure' Unit='Information on RBAmodel' SBtabVersion='1.0' 
 !Measure	!Value
 Name	Yeast RBAmodel
 Author	Oliver Bodeit
 Organism	S. cervisae
 Reconstruction	iND750
 
-!!SBtab DocumentName='RBA model' TableType='Quantity' TableName='Key_Numbers' Document='RBAstructure' Unit='Statistics on RBAmodel' SBtabVersion='1.0' 
+!!SBtab TableID='t_id_02' DocumentName='RBA model' TableType='Quantity' TableName='Key_Numbers' Document='RBAstructure' Unit='Statistics on RBAmodel' SBtabVersion='1.0' 
 !Measure	!Value
 nReactionsTotal	1627
 nReactionsUnique	1284
@@ -37,7 +37,7 @@ nProcessesTotal	5
 nModulesTotal	1
 nCompartmentsTotal	30
 
-!!SBtab DocumentName='RBA_model' TableType='Quantity' TableName='Metabolites' Document='RBAstructure' Unit='Information on Metabolites in RBAmodel' SBtabVersion='1.0'      
+!!SBtab TableID='t_id_03' DocumentName='RBA_model' TableType='Quantity' TableName='Metabolites' Document='RBAstructure' Unit='Information on Metabolites in RBAmodel' SBtabVersion='1.0'      
 !ID	!Name	!Annotations	!Reactions	!Boundary	!Type	!Compartment
 M_ala__L_e	L-Alanine	"{BiGG: ala__L_e, KEGG: C00041}"	[]	true	external	e
 M_alltn_e	Allantoin	"{BiGG: alltn_e, KEGG: C01551}"	[]	true	external	e
@@ -1099,7 +1099,7 @@ M_xylt_c	Xylitol C5H12O5	"{BiGG: xylt_c, KEGG: C00379}"
 M_xyl__D_c	D-Xylose	"{BiGG: xyl__D_c, KEGG: C00181}"	
 M_psd5p_c	Pseudouridine 5  phosphate C9H11N2O9P	{BiGG: psd5p_c}	"[R_YUMPS, R_YUMPS_2, R_YUMPS_3, R_YUMPS_4]"	false	internal	c
 
-!!SBtab DocumentName='RBA_model' TableType='Quantity' TableName='Reactions' Document='RBAstructure' Unit='Information on Reactions in RBAmodel' SBtabVersion='1.0'           
+!!SBtab TableID='t_id_04' DocumentName='RBA_model' TableType='Quantity' TableName='Reactions' Document='RBAstructure' Unit='Information on Reactions in RBAmodel' SBtabVersion='1.0'           
 !ID	!Enzyme compartment	!Name	!Annotations	!Formula	!Reactants	!Products	!Reversible	!Type	!Compartment	!Enzyme	!Isoenzyme reactions
 R_EX_ala__L_e	[]	L-Alanine exchange	{BiGG: EX_ala__L_e}	 <=> 	{}	{}	false	Normal	 		[]
 R_EX_alltn_e	[]	Allantoin exchange	{BiGG: EX_alltn_e}	 <=> 	{}	{}	false	Normal	 		[]
@@ -2729,7 +2729,7 @@ M_trnatyr_c_synthesis	[]		{BiGG: trnatyr_c_synthesis}	M_h2o_c + 19.0 M_atp_c + 2
 M_trnaleu_c_synthesis	[]		{BiGG: trnaleu_c_synthesis}	M_h2o_c + 23.0 M_atp_c + 24.0 M_gtp_c + 22.0 M_ctp_c + 16.0 M_utp_c <=> M_h_c + 85.0 M_ppi_c + 1.0 M_trnaleu_c	"{M_h2o_c: 85.0, M_atp_c: 23.0, M_gtp_c: 24.0, M_ctp_c: 22.0, M_utp_c: 16.0}"	
 M_trnaile_c_synthesis	[]		{BiGG: trnaile_c_synthesis}	M_h2o_c + 16.0 M_atp_c + 25.0 M_gtp_c + 19.0 M_ctp_c + 17.0 M_utp_c <=> M_h_c + 77.0 M_ppi_c + 1.0 M_trnaile_c	"{M_h2o_c: 77.0, M_atp_c: 16.0, M_gtp_c: 25.0, M_ctp_c: 19.0, M_utp_c: 17.0}"	
 
-!!SBtab DocumentName='RBA_model' TableType='Quantity' TableName='Enzymes' Document='RBAstructure' Unit='Information on Enzymes in RBAmodel' SBtabVersion='1.0'      
+!!SBtab TableID='t_id_05' DocumentName='RBA_model' TableType='Quantity' TableName='Enzymes' Document='RBAstructure' Unit='Information on Enzymes in RBAmodel' SBtabVersion='1.0'      
 !ID	!Annotations	!Reaction	!Isozymes	!Other enzymatic activities	!Subunits	!Compartment
 R_FA120ACPHi_enzyme	{}	R_FA120ACPHi	[]	"[R_FA140ACPHi_enzyme, R_FA141ACPHi_enzyme, R_FA160ACPHi_enzyme, R_FA161ACPHi_enzyme, R_FA180ACPH_enzyme, R_FA181ACPH_enzyme, R_FA182ACPH_enzyme, R_ACOATA_enzyme, R_MCOATA_enzyme]"	
 R_FA140ACPHi_enzyme	{}	R_FA140ACPHi	[]	"[R_FA120ACPHi_enzyme, R_FA141ACPHi_enzyme, R_FA160ACPHi_enzyme, R_FA161ACPHi_enzyme, R_FA180ACPH_enzyme, R_FA181ACPH_enzyme, R_FA182ACPH_enzyme, R_ACOATA_enzyme, R_MCOATA_enzyme]"	
@@ -3882,7 +3882,7 @@ R_YUMPS_3_enzyme	{}	R_YUMPS_3	"[R_YUMPS_enzyme, R_YUMPS_2_enzyme, R_YUMPS_4_enzy
 R_YUMPS_4_enzyme	{}	R_YUMPS_4	"[R_YUMPS_enzyme, R_YUMPS_2_enzyme, R_YUMPS_3_enzyme]"	[]	{YNL292W: {StochFac: 1}}	[Nucleus]
 R_ZYMSTt_enzyme	{}	R_ZYMSTt	[]	[R_ERGSTt_enzyme]	{YOR011W: {StochFac: 1}}	[Membrane]
 
-!!SBtab DocumentName='RBA_model' TableType='Quantity' TableName='Proteins' Document='RBAstructure' Unit='Information on Proteins in RBAmodel' SBtabVersion='1.0'           
+!!SBtab TableID='t_id_06' DocumentName='RBA_model' TableType='Quantity' TableName='Proteins' Document='RBAstructure' Unit='Information on Proteins in RBAmodel' SBtabVersion='1.0'           
 !ID	!Annotations	!Function	!Name	!Catalyzed reactions	!Enzymatic activity	!Compartment	!Composition	!Chain length	!Weight	!Process requirements	!Process
 YAL012W	"{UniprotID: P31373, ECnumber: EC 4.4.1.1}"	NaN	Cystathionine gamma-lyase (EC 4.4.1.1) (Gamma-cystathionase) (Sulfur transfer protein 1)	[R_CYSTGL]	[R_CYSTGL_enzyme]	Cytoplasm	
 YHR163W	"{UniprotID: P38858, ECnumber: EC 3.1.1.31}"	FUNCTION: Hydrolysis of 6-phosphogluconolactone to 6-phosphogluconate. {ECO:0000269|PubMed:15454531}.	6-phosphogluconolactonase 3 (6PGL) (EC 3.1.1.31)	[R_PGL_4]	[R_PGL_4_enzyme]	Cytoplasm	
@@ -4766,7 +4766,7 @@ Q02642	{UniprotID: Q02642}	"FUNCTION: Component of the nascent polypeptide-assoc
 P38879	{UniprotID: P38879}	"FUNCTION: Component of the nascent polypeptide-associated complex (NAC), a dynamic component of the ribosomal exit tunnel, protecting the emerging polypeptides from interaction with other cytoplasmic proteins to ensure appropriate nascent protein targeting. The NAC complex also promotes mitochondrial protein import by enhancing productive ribosome interactions with the outer mitochondrial membrane and blocks the inappropriate interaction of ribosomes translating non-secretory nascent polypeptides with translocation sites in the membrane of the endoplasmic reticulum. EGD2 may also be involved in transcription regulation. {ECO:0000269|PubMed:10219998, ECO:0000269|PubMed:10512867, ECO:0000269|PubMed:10518932, ECO:0000269|PubMed:11959135, ECO:0000269|PubMed:16926149, ECO:0000269|PubMed:9482879}."	Nascent polypeptide-associated complex subunit alpha (NAC-alpha) (Alpha-NAC) (GAL4 DNA-binding enhancer protein 2)	[]	[]	Cytoplasm	
 P38788	{UniprotID: P38788}	"FUNCTION: Component of the ribosome-associated complex (RAC), a heterodimeric chaperone complex involved in regulation of accurate translation termination and in folding or maintaining nascent polypeptides in a folding-competent state. RAC stimulates the ATPase activity of the ribosome-associated pool of Hsp70-type chaperones SSB1/SSB2 that bind to the nascent polypeptide chain. SSZ1 is required for ZUO1 to function efficiently as a J-protein for SSB1/SSB2. Also involved in pleiotropic drug resistance by post-translational activation of transcription factor PDR1. {ECO:0000269|PubMed:11929993, ECO:0000269|PubMed:15456889, ECO:0000269|PubMed:15908962}."	Ribosome-associated complex subunit SSZ1 (DnaK-related protein SSZ1) (Heat shock protein 70 homolog SSZ1) (Pleiotropic drug resistance protein 13)	[]	[]	Cytoplasm	
 
-!!SBtab DocumentName='RBA_model' TableType='Quantity' TableName='Cell_Compartments' Document='RBAstructure' Unit='Information on Compartments in RBAmodel' SBtabVersion='1.0'   
+!!SBtab TableID='t_id_07' DocumentName='RBA_model' TableType='Quantity' TableName='Cell_Compartments' Document='RBAstructure' Unit='Information on Compartments in RBAmodel' SBtabVersion='1.0'   
 !ID	!Proteins	!Reactions	!Enzymes
 Microsome_membrane	"[YNL130C, YPR113W, YER026C, YGR175C, average_protein_Microsome_membrane]"	
 Peroxisome	"[YCR005C, YGL205W, YIL160C, YKR009C, YDR256C, YDL078C, average_protein_Peroxisome]"	
@@ -4799,7 +4799,7 @@ Mitochondrion_matrix	"[YPL040C, YLR089C, YLR382C, YPL262W, YKL029C, YBR221C, YPL
 Mitochondrion	"[YAL044C, YLR355C, YDR019C, YDL004W, YJL200C, YCL004W, YPL148C, YPL271W, YOR221C, YDR234W, YDL181W, YLR342W, YJL071W, YBR263W, YPR001W, YMR293C, YCL064C, YER069W, YGR244C, YJR016C, YGR012W, YGL256W, YBL013W, YGR286C, YBR039W, YKL055C, YOR241W, YIL094C, YMR267W, YER061C, YKL016C, YER183C, YDL066W, YGL063W, YMR189W, YMR306W, YHR106W, YKL132C, YJR051W, YLR295C, YKL192C, YER086W, YER087W, YNL037C, YDL131W, YMR108W, YGR287C, YJR121W, YBR084W, YDR298C, YOR142W, YCL009C, YDR538W, YDR377W, YOR108W, YDR148C, YPL078C, YLR304C, average_protein_Mitochondrion]"	
 Lipid_droplet	"[YHR072W, YMR101C, average_protein_Lipid_droplet]"	
 
-!!SBtab DocumentName='RBA_model' TableType='Quantity' TableName='Processes' Document='RBAstructure' Unit='Information on Processes in RBAmodel' SBtabVersion='1.0'  
+!!SBtab TableID='t_id_08' DocumentName='RBA_model' TableType='Quantity' TableName='Processes' Document='RBAstructure' Unit='Information on Processes in RBAmodel' SBtabVersion='1.0'  
 !ID	!Initiation	!Machinery_Composition
 P_TA	 1 M_gtp_c --> 1 M_gdp_c 1 M_pi_c	"{Q12265: 1, P0C0T4: 1, P05737: 1, P0CX86: 1, P0CX84: 1, P26785: 1, P26784: 1, P26786: 1, P0C2H7: 1, P04449: 1, P05739: 1, P05738: 1, P05749: 1, P35997: 1, Q02326: 1, P38754: 1, P0CX82: 1, P05743: 1, P05740: 1, P05747: 1, P05744: 1, P05745: 1, P14127: 1, P41805: 1, P0CX29: 1, P0C2H9: 1, P38689: 1, P0C2H8: 1, P32905: 1, P05755: 1, P87262: 1, Q12690: 1, Q3E754: 1, Q3E7Y3: 1, P23248: 1, P0C2H6: 1, Q08745: 1, P07281: 1, P07280: 1, P10664: 1, P53221: 1, P40212: 1, P05319: 1, P05318: 1, P38701: 1, P0CX50: 1, P0CX52: 1, P0CX53: 1, P38061: 1, P39939: 1, P05317: 1, P06367: 1, P49167: 1, P54780: 1, P41056: 1, P41057: 1, P41058: 1, P38711: 1, P0CX42: 1, P0CX47: 1, P0CX46: 1, P0CX44: 1, P24000: 1, P0C0W1: 1, P46654: 1, Q3E792: 1, P0C0W9: 1, P36105: 1, P56628: 1, P20084: 1, P33442: 1, P26321: 1, O14455: 1, P49626: 1, P0CX37: 1, P0CX35: 1, P0CX32: 1, P0CX33: 1, P0CX39: 1, P53724: 1, P0C0V8: 1, P23369: 1, P0CX25: 1, P0CX24: 1, P0CX27: 1, P48589: 1, Q01855: 1, Q12213: 1, P10622: 1, O13516: 1, P38620: 1, Q3E757: 1, P39516: 1, P0CH08: 1, P02406: 1, P02407: 1, P02400: 1, P51401: 1, P51402: 1, M_gtp_c: 2, M_h2o_c: 2}"
 P_CHP	undefined	"{P38788: 1, P48363: 1, Q04493: 1, P40005: 1, P11484: 1, P46988: 1, P32527: 1, P52553: 1, P53900: 1, Q02642: 1, P38879: 1}"
@@ -4807,7 +4807,7 @@ P_TSC	undefined	{}
 P_REP	undefined	{}
 P_RNADEG	undefined	{}
 
-!!SBtab DocumentName='RBA_model' TableType='Quantity' TableName='Metabolite Constraints' Document='RBAstructure' Unit='Information on MetaboliteConstraints in RBAmodel' SBtabVersion='1.0'  
+!!SBtab TableID='t_id_09' DocumentName='RBA_model' TableType='Quantity' TableName='Metabolite Constraints' Document='RBAstructure' Unit='Information on MetaboliteConstraints in RBAmodel' SBtabVersion='1.0'  
 !ID	!Metabolite	!Type
 M_dca_x	M_dca_x	=
 M_dca_c	M_dca_c	=
@@ -5753,7 +5753,7 @@ M_xylt_c	M_xylt_c	=
 M_xyl__D_c	M_xyl__D_c	=
 M_psd5p_c	M_psd5p_c	=
 
-!!SBtab DocumentName='RBA_model' TableType='Quantity' TableName='Density Constraints' Document='RBAstructure' Unit='Information on DensityConstraints in RBAmodel' SBtabVersion='1.0'  
+!!SBtab TableID='t_id_10' DocumentName='RBA_model' TableType='Quantity' TableName='Density Constraints' Document='RBAstructure' Unit='Information on DensityConstraints in RBAmodel' SBtabVersion='1.0'  
 !ID	!Compartment	!Type
 Microsome_membrane_density	Microsome_membrane	<=
 Peroxisome_density	Peroxisome	<=
@@ -5785,7 +5785,7 @@ Mitochondrion_matrix_density	Mitochondrion_matrix	<=
 Mitochondrion_density	Mitochondrion	<=
 Lipid_droplet_density	Lipid_droplet	<=
 
-!!SBtab DocumentName='RBA_model' TableType='Quantity' TableName='Process Capacity Constraints' Document='RBAstructure' Unit='Information on ProcessConstraints in RBAmodel' SBtabVersion='1.0'  
+!!SBtab TableID='t_id_11' DocumentName='RBA_model' TableType='Quantity' TableName='Process Capacity Constraints' Document='RBAstructure' Unit='Information on ProcessConstraints in RBAmodel' SBtabVersion='1.0'  
 !ID	!Process	!Type
 P_TA_capacity		=
 P_CHP_capacity		=
@@ -5793,7 +5793,7 @@ P_TSC_capacity		=
 P_REP_capacity		=
 P_RNADEG_capacity		=
 
-!!SBtab DocumentName='RBA_model' TableType='Quantity' TableName='Enzyme Capacity Constraints' Document='RBAstructure' Unit='Information on EnzymeConstraints in RBAmodel' SBtabVersion='1.0'    
+!!SBtab TableID='t_id_12' DocumentName='RBA_model' TableType='Quantity' TableName='Enzyme Capacity Constraints' Document='RBAstructure' Unit='Information on EnzymeConstraints in RBAmodel' SBtabVersion='1.0'    
 !ID	!Enzyme	!Reaction	!Direction	!Type
 R_FA120ACPHi_enzyme_forward_capacity	R_FA120ACPHi_enzyme	forward	R_FA120ACPHi	<=
 R_FA140ACPHi_enzyme_forward_capacity	R_FA140ACPHi_enzyme	forward	R_FA140ACPHi	<=

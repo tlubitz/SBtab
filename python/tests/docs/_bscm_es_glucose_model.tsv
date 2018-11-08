@@ -1,4 +1,4 @@
-!!SBtab TableName='Reaction' TableType='Reaction' Document='Model' SBtabVersion='1.0'										
+!!SBtab TableID='t_id_01' TableName='Reaction' TableType='Reaction' Document='Model' SBtabVersion='1.0'										
 !ID	!ReactionFormula	!Name	!Identifiers:kegg.reaction	!IsReversible	!Gene	!Enzyme:Identifiers:ec-code	!SBML:reaction:id	!MetabolicRegulation	!KineticLaw:Name	!KineticLaw:Formula
 R00006	_2_Acetolactate + CO2 <=> 2 Pyruvate	acetolactate_synthase_activity	R00006	True	alsS	2.2.1.6	R00006		Common saturable (CM)	u_R1 * ( kC_R1 * sqrt( kEQ_R1  * kM_R1__2_Acetolactate * kM_R1_CO2 / power( kM_R1_Pyruvate , 2 ) ) * ( _2_Acetolactate / kM_R1__2_Acetolactate ) * ( CO2 / kM_R1_CO2 ) - kC_R1 / sqrt( kEQ_R1  * kM_R1__2_Acetolactate * kM_R1_CO2 / power( kM_R1_Pyruvate , 2 ) ) * power( Pyruvate / kM_R1_Pyruvate , 2 ) ) / ( ( 1 + _2_Acetolactate / kM_R1__2_Acetolactate ) * ( 1 + CO2 / kM_R1_CO2 ) + power( 1 + Pyruvate / kM_R1_Pyruvate , 2 ) - 1 )
 R00114	2 L_Glutamate + NADPplus <=> L_Glutamine + _2_Oxoglutarate + NADPH + Hplus	glutamate_synthase_NADPH_activity	R00114	True	gltA	1.4.1.13	R00114		Common saturable (CM)	u_R2 * ( kC_R2 * sqrt( kEQ_R2  * power( kM_R2_L_Glutamate , 2 ) * kM_R2_NADPplus / kM_R2_L_Glutamine / kM_R2__2_Oxoglutarate / kM_R2_NADPH / kM_R2_Hplus ) * power( L_Glutamate / kM_R2_L_Glutamate , 2 ) * ( NADPplus / kM_R2_NADPplus ) - kC_R2 / sqrt( kEQ_R2  * power( kM_R2_L_Glutamate , 2 ) * kM_R2_NADPplus / kM_R2_L_Glutamine / kM_R2__2_Oxoglutarate / kM_R2_NADPH / kM_R2_Hplus ) * ( L_Glutamine / kM_R2_L_Glutamine ) * ( _2_Oxoglutarate / kM_R2__2_Oxoglutarate ) * ( NADPH / kM_R2_NADPH ) * ( Hplus / kM_R2_Hplus ) ) / ( power( 1 + L_Glutamate / kM_R2_L_Glutamate , 2 ) * ( 1 + NADPplus / kM_R2_NADPplus ) + ( 1 + L_Glutamine / kM_R2_L_Glutamine ) * ( 1 + _2_Oxoglutarate / kM_R2__2_Oxoglutarate ) * ( 1 + NADPH / kM_R2_NADPH ) * ( 1 + Hplus / kM_R2_Hplus ) - 1 )
@@ -64,7 +64,7 @@ GluconateExt__rev__Gluconate	GluconateExt <=> Gluconate	GluconateExt_<=>Gluconat
 Gluconate__rev___6_Phospho_D_gluconate	Gluconate <=> _6_Phospho_D_gluconate	GluconateExt_<=>_6_Phospho_D_gluconate		True	gnTK		reaction_19		Common saturable (CM)	u_R62 * ( kC_R62 * sqrt( kEQ_R62  * kM_R62_Gluconate / kM_R62__6_Phospho_D_gluconate ) * ( Gluconate / kM_R62_Gluconate ) - kC_R62 / sqrt( kEQ_R62  * kM_R62_Gluconate / kM_R62__6_Phospho_D_gluconate ) * ( _6_Phospho_D_gluconate / kM_R62__6_Phospho_D_gluconate ) ) / ( ( 1 + Gluconate / kM_R62_Gluconate ) + ( 1 + _6_Phospho_D_gluconate / kM_R62__6_Phospho_D_gluconate ) - 1 )
 GlutamateExt__rev__Glutamate	GlutamateExt <=> L_Glutamate	GlutamateExt <=> L_Glutamate		True	gltP		reaction_20		Common saturable (CM)	u_R63 * ( kC_R63 * sqrt( kEQ_R63  * kM_R63_GlutamateExt / kM_R63_L_Glutamate ) * ( GlutamateExt / kM_R63_GlutamateExt ) - kC_R63 / sqrt( kEQ_R63  * kM_R63_GlutamateExt / kM_R63_L_Glutamate ) * ( L_Glutamate / kM_R63_L_Glutamate ) ) / ( ( 1 + GlutamateExt / kM_R63_GlutamateExt ) + ( 1 + L_Glutamate / kM_R63_L_Glutamate ) - 1 )
 %										
-!!SBtab TableName='Compound' TableType='Compound' Document='Model' SBtabVersion='1.0'										
+!!SBtab TableID='t_id_02' TableName='Compound' TableType='Compound' Document='Model' SBtabVersion='1.0'										
 !ID	!Name	!Identifiers:kegg.compound	!SBML:species:id	!IsConstant	!IsCofactor					
 _2_Acetolactate	2-Acetolactate	C00900	_2_Acetolactate_c	False	0					
 CO2	CO2	C00011	CO2_c	False	1					
@@ -136,7 +136,7 @@ Biomass	Biomass		Biomass_c	True	0
 Gluconate	Gluconate	C00345	Gluconate_c	False	0					
 GlutamateExt	Glutamate	C00025	Glutamate_c	True	0					
 %										
-!!SBtab TableName='Parameter' TableType='Quantity' Document='Model' SBtabVersion='1.0'										
+!!SBtab TableID='t_id_03' TableName='Parameter' TableType='Quantity' Document='Model' SBtabVersion='1.0'										
 !QuantityType	!Reaction	!Compound	!Value	!Unit	!Reaction:Identifiers:kegg.reaction	!Compound:Identifiers:kegg.compound	!ID			
 equilibrium constant	R00006		0.031956397	dimensionless	R00006		kEQ_R1			
 equilibrium constant	R00114		1.3295897e-06	dimensionless	R00114		kEQ_R2			
@@ -679,7 +679,7 @@ concentration of enzyme	GluconateExt__rev__Gluconate		1	mM			u_R61
 concentration of enzyme	Gluconate__rev___6_Phospho_D_gluconate		1	mM			u_R62			
 concentration of enzyme	GlutamateExt__rev__Glutamate		1	mM			u_R63			
 %										
-!!SBtab TableName='Layouts' TableType='Position' Document='Model' SBtabVersion='1.0'										
+!!SBtab TableID='t_id_04' TableName='Layouts' TableType='Position' Document='Model' SBtabVersion='1.0'										
 !Element	!PositionX	!PositionY								
 _2_Acetolactate	0.474731	0.356441								
 CO2	0.352313	0.432905								

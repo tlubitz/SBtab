@@ -1,4 +1,4 @@
-!!SBtab TableName='Reaction' TableType='Reaction' Document='Model' SBtabVersion='1.0'					
+!!SBtab TableID='t_id_01' TableName='Reaction' TableType='Reaction' Document='Model' SBtabVersion='1.0'					
 !ID	!ReactionFormula	!Name	!IsReversible	!KineticLaw:Name	!KineticLaw:Formula
 _3HAD100	_3hdecACP_c_ <=> h2o_c_ + tdec2eACP_c_	 3-hydroxyacyl-[acyl-carrier-protein] dehydratase (n-C10:0)	False	Common saturable (CM)	u_R1 * ( kC_R1 * sqrt( kEQ_R1  * kM_R1__3hdecACP_c_ / kM_R1_h2o_c_ / kM_R1_tdec2eACP_c_ ) * ( _3hdecACP_c_ / kM_R1__3hdecACP_c_ ) - kC_R1 / sqrt( kEQ_R1  * kM_R1__3hdecACP_c_ / kM_R1_h2o_c_ / kM_R1_tdec2eACP_c_ ) * ( h2o_c_ / kM_R1_h2o_c_ ) * ( tdec2eACP_c_ / kM_R1_tdec2eACP_c_ ) ) / ( ( 1 + _3hdecACP_c_ / kM_R1__3hdecACP_c_ ) + ( 1 + h2o_c_ / kM_R1_h2o_c_ ) * ( 1 + tdec2eACP_c_ / kM_R1_tdec2eACP_c_ ) - 1 )
 _3HAD120	_3hddecACP_c_ <=> h2o_c_ + tddec2eACP_c_	 3-hydroxyacyl-[acyl-carrier-protein] dehydratase (n-C12:0)	False	Common saturable (CM)	u_R2 * ( kC_R2 * sqrt( kEQ_R2  * kM_R2__3hddecACP_c_ / kM_R2_h2o_c_ / kM_R2_tddec2eACP_c_ ) * ( _3hddecACP_c_ / kM_R2__3hddecACP_c_ ) - kC_R2 / sqrt( kEQ_R2  * kM_R2__3hddecACP_c_ / kM_R2_h2o_c_ / kM_R2_tddec2eACP_c_ ) * ( h2o_c_ / kM_R2_h2o_c_ ) * ( tddec2eACP_c_ / kM_R2_tddec2eACP_c_ ) ) / ( ( 1 + _3hddecACP_c_ / kM_R2__3hddecACP_c_ ) + ( 1 + h2o_c_ / kM_R2_h2o_c_ ) * ( 1 + tddec2eACP_c_ / kM_R2_tddec2eACP_c_ ) - 1 )
@@ -594,7 +594,7 @@ XYLI2	glc_D_c_ <=> fru_c_	xylose isomerase	True	Common saturable (CM)	u_R591 * (
 ZN2tpp	zn2_p_ <=> zn2_c_	zinc transport in via permease (no H+)	False	Common saturable (CM)	u_R592 * ( kC_R592 * sqrt( kEQ_R592  * kM_R592_zn2_p_ / kM_R592_zn2_c_ ) * ( zn2_p_ / kM_R592_zn2_p_ ) - kC_R592 / sqrt( kEQ_R592  * kM_R592_zn2_p_ / kM_R592_zn2_c_ ) * ( zn2_c_ / kM_R592_zn2_c_ ) ) / ( ( 1 + zn2_p_ / kM_R592_zn2_p_ ) + ( 1 + zn2_c_ / kM_R592_zn2_c_ ) - 1 )
 Zn2tex	zn2_e_ <=> zn2_p_	zinc (Zn+2) transport via diffusion (extracellular to periplasm)	True	Common saturable (CM)	u_R593 * ( kC_R593 * sqrt( kEQ_R593  * kM_R593_zn2_e_ / kM_R593_zn2_p_ ) * ( zn2_e_ / kM_R593_zn2_e_ ) - kC_R593 / sqrt( kEQ_R593  * kM_R593_zn2_e_ / kM_R593_zn2_p_ ) * ( zn2_p_ / kM_R593_zn2_p_ ) ) / ( ( 1 + zn2_e_ / kM_R593_zn2_e_ ) + ( 1 + zn2_p_ / kM_R593_zn2_p_ ) - 1 )
 %					
-!!SBtab TableName='Compound' TableType='Compound' Document='Model' SBtabVersion='1.0'					
+!!SBtab TableID='t_id_02' TableName='Compound' TableType='Compound' Document='Model' SBtabVersion='1.0'					
 !ID	!Name	!IsConstant			
 _10fthf_c_	10-Formyltetrahydrofolate	False			
 _13dpg_c_	3-Phospho-D-glyceroyl phosphate	False			
@@ -1160,7 +1160,7 @@ zn2_c_	Zinc	False
 zn2_e_	Zinc	True			
 zn2_p_	Zinc	False			
 %					
-!!SBtab TableName='Parameter' TableType='Quantity' Document='Model' SBtabVersion='1.0'					
+!!SBtab TableID='t_id_03' TableName='Parameter' TableType='Quantity' Document='Model' SBtabVersion='1.0'					
 !QuantityType	!Reaction	!Compound	!Value	!Unit	!ID
 equilibrium constant	_3HAD100		0.98910602	dimensionless	kEQ_R1
 equilibrium constant	_3HAD120		0.98910602	dimensionless	kEQ_R2

@@ -1,5 +1,5 @@
 "!!!SBtab SBtabVersion=""1.0"" Document=""test_compartment.tsv"" Date=""2018-10-15"""										
-!!SBtab SBtabVersion='1.0' Document='test' TableType='Compartment' TableName='Compartment' Date='2018-10-15'										
+!!SBtab TableID='t_id_01' SBtabVersion='1.0' Document='test' TableType='Compartment' TableName='Compartment' Date='2018-10-15'										
 !ID	!Name	!Size	!Unit	!SBOTerm						
 c	cytosol	nan								
 e	extracellular	nan								
@@ -11,7 +11,7 @@ p	periplasm	nan
 r	Endoplasmic reticulum	nan								
 x	Glyoxysome	nan								
 										
-!!SBtab SBtabVersion='1.0' Document='test' TableType='Compound' TableName='Compound' Date='2018-10-15'										
+!!SBtab TableID='t_id_02' SBtabVersion='1.0' Document='test' TableType='Compound' TableName='Compound' Date='2018-10-15'										
 !ID	!Name	!Location	!Charge	!IsConstant	!SBOTerm	!InitialConcentration	!hasOnlySubstanceUnits	!SBML:fbc:chemicalFormula	!SBML:fbc:charge	
 M_10fthf_c	10fthf_c	c	0	False		nan	False		0	
 M_10fthf5glu_c	10fthf5glu_c	c	0	False		nan	False		0	
@@ -2789,7 +2789,7 @@ M_urate_x	urate_x	x	0	False		nan	False		0
 M_xan_x	xan_x	x	0	False		nan	False		0	
 M_thr__L_m	thr__L_m	m	0	False		nan	False		0	
 										
-!!SBtab SBtabVersion='1.0' Document='test' TableType='Reaction' TableName='Reaction' Date='2018-10-15'										
+!!SBtab TableID='t_id_03' SBtabVersion='1.0' Document='test' TableType='Reaction' TableName='Reaction' Date='2018-10-15'										
 !ID	!Name	!ReactionFormula	!Location	!Regulator	!KineticLaw	!SBOTerm	!IsReversible	!SBML:fbc:GeneAssociation	!SBML:fbc:LowerBound	!SBML:fbc:UpperBound
 R_DM_13__cis__oretn_n	DM_13__cis__oretn_n	M_13__cis__oretn_n <=> 					False		0	10
 R_DM_13__cis__retn_n	DM_13__cis__retn_n	M_13__cis__retn_n <=> 					False		cobra_0_bound	cobra_0_bound
@@ -6517,7 +6517,7 @@ R_R03184_PLUS_R00647	R03184_PLUS_R00647	M_gullac_c + M_o2_c <=> M_ascb__L_c + M_
 R_R01465m	R01465m	M_nad_m + M_thr__L_m <=> M_2aobut_m + M_h_m + M_nadh_m					True		cobra_default_lb	cobra_default_ub
 R_thr_mt	thr_mt	M_thr__L_c <=> M_thr__L_m					True		cobra_default_lb	cobra_default_ub
 										
-!!SBtab SBtabVersion='1.0' Document='test' TableType='Quantity' TableName='Quantity' Date='2018-10-15'										
+!!SBtab TableID='t_id_04' SBtabVersion='1.0' Document='test' TableType='Quantity' TableName='Quantity' Date='2018-10-15'										
 !ID	!Parameter:SBML:parameter:id	!Value	!Unit	!Type						
 cobra_default_lb	cobra_default_lb	-100000	mmol_per_gDW_per_hr	global parameter						
 cobra_default_ub	cobra_default_ub	100000	mmol_per_gDW_per_hr	global parameter						
@@ -6557,11 +6557,11 @@ R_EX_val__L_e_lower_bound	R_EX_val__L_e_lower_bound	-1	mmol_per_gDW_per_hr	globa
 R_sink_pre_prot_LPAREN_er_RPAREN__lower_bound	R_sink_pre_prot_LPAREN_er_RPAREN__lower_bound	-1	mmol_per_gDW_per_hr	global parameter						
 R_biomass_mm_1_no_glygln_upper_bound	R_biomass_mm_1_no_glygln_upper_bound	1000	mmol_per_gDW_per_hr	global parameter						
 										
-!!SBtab SBtabVersion='1.0' Document='test' TableType='FbcObjective' TableName='FBC Objective' Date='2018-10-15'										
+!!SBtab TableID='t_id_05' SBtabVersion='1.0' Document='test' TableType='FbcObjective' TableName='FBC Objective' Date='2018-10-15'										
 !ID	!Name	!Type	!Active	!Objective						
 obj		maximize	True	1.0 * R_biomass_mm_1_no_glygln						
 										
-!!SBtab SBtabVersion='1.0' Document='test' TableType='Gene' TableName='FBC Gene' Date='2018-10-15'										
+!!SBtab TableID='t_id_06' SBtabVersion='1.0' Document='test' TableType='Gene' TableName='FBC Gene' Date='2018-10-15'										
 !ID	!SBML:fbc:ID	!SBML:fbc:Name	!SBML:fbc:GeneProduct	!SBML:fbc:Label						
 G_100039108	G_100039108	100039108	True	100039108						
 G_100041375	G_100041375	100041375	True	100041375						

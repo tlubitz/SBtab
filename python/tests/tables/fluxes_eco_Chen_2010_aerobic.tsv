@@ -1,4 +1,4 @@
-!!SBtab TableName='Flux' TableType='Quantity' Unit='mmol/gDW/h' !Organism='Escherichia coli'
+!!SBtab TableID='t_id' TableName='Flux' TableType='Quantity' Unit='mmol/gDW/h' !Organism='Escherichia coli'
 !Reaction	!Flux:Value	!Flux:StdDev
 HXK_R01786	8.7	0.4
 PTS_RPTSsy	8.7	0.4

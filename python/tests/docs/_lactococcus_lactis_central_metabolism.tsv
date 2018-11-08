@@ -1,4 +1,4 @@
-!!SBtab TableName='Reaction' TableType='Reaction' Document='Lactococcus lactis central metabolism' SBtabVersion='0.9'			
+!!SBtab TableID='t_id_01' TableName='Reaction' TableType='Reaction' Document='Lactococcus lactis central metabolism' SBtabVersion='0.9'			
 !Reaction	!SumFormula	!Name	!IsReversible
 biomass_LLA1	0.01 CPS_LLA + 0.00 DNA_LLA + 0.00 LTAAlaGal_LLA + 0.12 PG + 0.00 RNA_LLA + 18.15 atp + 0.00 clpn_LLA + 0.00 coa + 0.00 d12dg_LLA + 18.15 h2o + 0.00 lyspg_LLA + 0.00 m12dg_LLA + 0.00 nad + 0.00 pg_LLA + 0.00 prot_LLA + 0.00 thf + 0.00 thmpp + 0.00 udcpdp <=> 18.15 adp + 18.15 h + 18.15 pi	biomass equation LLA specific	False
 EX_2aeppn_e_	_2aeppn <=> 	(2-Aminoethyl)phosphonate exchange	True
@@ -691,7 +691,7 @@ aratyr3	phpyr + tyr_L <=> _34hpp + phe_L	aromatic amino acid aminotransferase - 
 aratyr4	indpyr + tyr_L <=> _34hpp + trp_L	aromatic amino acid aminotransferase - tyrosine	True
 kaasIII	accoa + h + malacp <=> aaacp + co2 + coa	beta-ketoacyl-ACP synthase III	False
 %			
-!!SBtab TableName='Compound' TableType='Compound' Document='Lactococcus lactis central metabolism' SBtabVersion='0.9'			
+!!SBtab TableID='t_id_02' TableName='Compound' TableType='Compound' Document='Lactococcus lactis central metabolism' SBtabVersion='0.9'			
 !Compound	!Name	!IsConstant	
 _10fthf	10-Formyltetrahydrofolate	False	
 _12dgr_LLA	1,2-diacylglycerol (lactis specific)	False	

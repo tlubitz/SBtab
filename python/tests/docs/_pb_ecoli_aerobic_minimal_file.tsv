@@ -1,4 +1,4 @@
-!!SBtab TableName='Reaction' TableType='Reaction'						
+!!SBtab TableID='t_id_01' TableName='Reaction' TableType='Reaction'						
 !Reaction	!ReactionFormula	!Identifiers:kegg.reaction	!IsReversible	!Gene		
 PTS_RPTSsy	D_Glucose + Phosphoenolpyruvate <=> Pyruvate + D_Glucose_6_phosphate	RPTSsy	1	PTS		
 PGI_R02740	D_Glucose_6_phosphate <=> D_Fructose_6_phosphate	R02740	1	PGI		
@@ -30,7 +30,7 @@ SDH_R02164	Ubiquinone + Succinate <=> Fumarate + Ubiquinol	R02164	1	SDH
 FUM_R01082	Fumarate + H2O <=> _S__Malate	R01082	1	FUM		
 MDH_R00342	_S__Malate + NADplus <=> NADH + Oxaloacetate	R00342	1	MDH		
 %						
-!!SBtab TableName='Compound' TableType='Compound'						
+!!SBtab TableID='t_id_02' TableName='Compound' TableType='Compound'						
 !Compound	!Name	!Identifiers:kegg.compound	!External			
 _S__Malate	(S)-Malate	C00149	0			
 Acetyl_CoA	Acetyl-CoA	C00024	0			
@@ -73,6 +73,6 @@ _2_Phospho_D_glycerate	2-Phospho-D-glycerate	C00631	0
 Succinate	Succinate	C00042	0			
 Sedoheptulose_7_phosphate	Sedoheptulose 7-phosphate	C05382	0			
 %						
-!!SBtab TableName='Parameter' TableType='Quantity'						
+!!SBtab TableID='t_id_03' TableName='Parameter' TableType='Quantity'						
 !QuantityType	!Value	!Compound	!Compound:Identifiers:kegg.compound	!Reaction	!Reaction:Identifiers:kegg.reaction	!Unit
 equilibrium constant	57262184			PTS_RPTSsy	RPTSsy	0

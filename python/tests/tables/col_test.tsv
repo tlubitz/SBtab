@@ -1,4 +1,4 @@
-!!SBtab SBtabVersion='1.0' Document='extended_core' TableType='Compartment' TableName='Compartment'
+!!SBtab TableID='t_id' SBtabVersion='1.0' Document='extended_core' TableType='Compartment' TableName='Compartment'
 !ID	!Name	!Size	!Unit	!SBOTerm
 c	Cytoplasm	"bl"		
 c	Cytoplasm	"bl"		"2"

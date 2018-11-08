@@ -1,4 +1,4 @@
-!!SBtab !Organism='Saccharomyces cerevisiae' TableType='Quantity'
+!!SBtab TableID='t_id' !Organism='Saccharomyces cerevisiae' TableType='Quantity'
 !Reaction	!Flux:Value
 HXK_R01786	15.2
 PGI_R02740	13.1

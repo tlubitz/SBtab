@@ -1,4 +1,4 @@
-!!SBtab TableName='Reaction' TableType='Reaction' Document='Model' SBtabVersion='1.0'							
+!!SBtab TableID='t_id_01' TableName='Reaction' TableType='Reaction' Document='Model' SBtabVersion='1.0'							
 !ID	!ReactionFormula	!Name	!Identifiers:kegg.reaction	!IsReversible	!KineticLaw:Name	!KineticLaw:Formula	
 R_ASPTA	M_akg_c + M_asp_L_c <=> M_glu_L_c + M_oaa_c	ASPTA	R00355	True	Common saturable (CM)	u_R1 * ( kC_R1 * sqrt( kEQ_R1  * kM_R1_M_akg_c * kM_R1_M_asp_L_c / kM_R1_M_glu_L_c / kM_R1_M_oaa_c ) * ( M_akg_c / kM_R1_M_akg_c ) * ( M_asp_L_c / kM_R1_M_asp_L_c ) - kC_R1 / sqrt( kEQ_R1  * kM_R1_M_akg_c * kM_R1_M_asp_L_c / kM_R1_M_glu_L_c / kM_R1_M_oaa_c ) * ( M_glu_L_c / kM_R1_M_glu_L_c ) * ( M_oaa_c / kM_R1_M_oaa_c ) ) / ( ( 1 + M_akg_c / kM_R1_M_akg_c ) * ( 1 + M_asp_L_c / kM_R1_M_asp_L_c ) + ( 1 + M_glu_L_c / kM_R1_M_glu_L_c ) * ( 1 + M_oaa_c / kM_R1_M_oaa_c ) - 1 )	
 R_ASPKi	M_asp_L_c + M_atp_c <=> M_4pasp_c + M_adp_c	ASPKi	R00480	False	Common saturable (CM)	u_R2 * ( kC_R2 * sqrt( kEQ_R2  * kM_R2_M_asp_L_c * kM_R2_M_atp_c / kM_R2_M_4pasp_c / kM_R2_M_adp_c ) * ( M_asp_L_c / kM_R2_M_asp_L_c ) * ( M_atp_c / kM_R2_M_atp_c ) - kC_R2 / sqrt( kEQ_R2  * kM_R2_M_asp_L_c * kM_R2_M_atp_c / kM_R2_M_4pasp_c / kM_R2_M_adp_c ) * ( M_4pasp_c / kM_R2_M_4pasp_c ) * ( M_adp_c / kM_R2_M_adp_c ) ) / ( ( 1 + M_asp_L_c / kM_R2_M_asp_L_c ) * ( 1 + M_atp_c / kM_R2_M_atp_c ) + ( 1 + M_4pasp_c / kM_R2_M_4pasp_c ) * ( 1 + M_adp_c / kM_R2_M_adp_c ) - 1 )	
@@ -232,7 +232,7 @@ nadh_removal	3 M_h_m + M_nadh_m + M_nadph_c + M_o2_m <=> M_h_c + M_nadp_c + M_na
 proton_leakage_m	M_h_m <=> 	proton_leakage_m	R00197	True	Common saturable (CM)	u_R230 * ( kC_R230 * sqrt( kEQ_R230  * kM_R230_M_h_m ) * ( M_h_m / kM_R230_M_h_m ) - kC_R230 / sqrt( kEQ_R230  * kM_R230_M_h_m ) ) / ( ( 1 + M_h_m / kM_R230_M_h_m ) +  - 1 )	
 proton_leakage_c	M_h_c <=> 	proton_leakage_c	R00197	True	Common saturable (CM)	u_R231 * ( kC_R231 * sqrt( kEQ_R231  * kM_R231_M_h_c ) * ( M_h_c / kM_R231_M_h_c ) - kC_R231 / sqrt( kEQ_R231  * kM_R231_M_h_c ) ) / ( ( 1 + M_h_c / kM_R231_M_h_c ) +  - 1 )	
 %							
-!!SBtab TableName='Compound' TableType='Compound' Document='Model' SBtabVersion='1.0'							
+!!SBtab TableID='t_id_02' TableName='Compound' TableType='Compound' Document='Model' SBtabVersion='1.0'							
 !ID	!Name	!Identifiers:kegg.compound	!IsConstant				
 M_10fthf_c	10fthf[c]	C00234	False				
 M_13BDglcn_c	13BDglcn[c]	C00965	False				
@@ -454,7 +454,7 @@ M_xu5p_D_c	xu5p-D[c]	C00231	False
 M_zymst_c	zymst[c]	C05437	False				
 M_asp_L_m	Aspartate	C00049	False				
 %							
-!!SBtab TableName='Parameter' TableType='Quantity' Document='Model' SBtabVersion='1.0'							
+!!SBtab TableID='t_id_03' TableName='Parameter' TableType='Quantity' Document='Model' SBtabVersion='1.0'							
 !QuantityType	!Reaction	!Compound	!Value	!Unit	!Reaction:Identifiers:kegg.reaction	!Compound:Identifiers:kegg.compound	!ID
 equilibrium constant	R_ASPTA		3.0399619	dimensionless	R00355		kEQ_R1
 equilibrium constant	R_ASPKi		0.59047799	dimensionless	R00480		kEQ_R2
@@ -2410,7 +2410,7 @@ concentration of enzyme	nadh_removal		1	mM			u_R229
 concentration of enzyme	proton_leakage_m		1	mM	R00197		u_R230
 concentration of enzyme	proton_leakage_c		1	mM	R00197		u_R231
 %							
-!!SBtab TableName='Layouts' TableType='Position' Document='Model' SBtabVersion='1.0'							
+!!SBtab TableID='t_id_04' TableName='Layouts' TableType='Position' Document='Model' SBtabVersion='1.0'							
 !Element	!PositionX	!PositionY					
 M_10fthf_c	0.10879372	0.71560588					
 M_13BDglcn_c	0.10136061	0.87440417					

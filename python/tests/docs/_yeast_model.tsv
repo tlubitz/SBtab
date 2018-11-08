@@ -1,4 +1,4 @@
-!!SBtab TableName='Reaction' TableType='Reaction' Document='Yeast model - version M5_6' SBtabVersion='1.0'				
+!!SBtab TableID='t_id_01' TableName='Reaction' TableType='Reaction' Document='Yeast model - version M5_6' SBtabVersion='1.0'				
 !ID	!ReactionFormula	!Name	!Identifiers:kegg.reaction	!IsReversible
 R_EX_etoh_e	M_etoh_e <=> 	Ethanol exchange		False
 R_GLYCt	M_glyc_c <=> M_glyc_e	Glycerol transport via channel		True
@@ -271,7 +271,7 @@ R_GALU	M_g1p_c + M_h_c + M_utp_c <=> M_ppi_c + M_udpg_c	UTP-glucose-1-phosphate 
 R_ACSm	M_ac_m + M_atp_m + M_coa_m <=> M_accoa_m + M_amp_m + M_ppi_m	Acetyl CoA synthetase	R00235	False
 R_AHSERL2	M_achms_c + M_h2s_c <=> M_ac_c + M_h_c + M_hcys_L_c	O acetylhomoserine  thiol  lyase	R01287	False
 %				
-!!SBtab TableName='Compound' TableType='Compound' Document='Yeast model - version M5_6' SBtabVersion='1.0'				
+!!SBtab TableID='t_id_02' TableName='Compound' TableType='Compound' Document='Yeast model - version M5_6' SBtabVersion='1.0'				
 !ID	!Name	!Identifiers:kegg.compound	!IsConstant	
 M_10fthf_c	10-Formyltetrahydrofolate	C00234	False	
 M_13BDglcn_c	1 3 beta D Glucan C6H10O5	C00965	False	

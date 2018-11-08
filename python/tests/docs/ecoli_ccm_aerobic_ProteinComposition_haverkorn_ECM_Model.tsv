@@ -1,5 +1,5 @@
 !!!SBtab Document='E. coli central carbon metabolism - balanced parameters' DocumentType='Oho' Date='12.12.12' SBtabVersion='1.0'
-!!SBtab TableName='Reaction' TableType='Reaction' Document='E. coli central carbon metabolism - balanced parameters' SBtabVersion='1.0'							
+!!SBtab TableID='t_id_01' TableName='Reaction' TableType='Reaction' Document='E. coli central carbon metabolism - balanced parameters' SBtabVersion='1.0'							
 !ID	!ReactionFormula	!Identifiers:kegg.reaction	!IsReversible	!Gene	!NameForPlots		
 PTSRPTSsy	DGlucose + Phosphoenolpyruvate <=> Pyruvate + DGlucose6phosphate	RPTSsy	True	PTS	pts		
 PGIR02740	DGlucose6phosphate <=> DFructose6phosphate	R02740	True	PGI	pgi		
@@ -32,7 +32,7 @@ FUMR01082	Fumarate + H2O <=> SMalate	R01082	True	FUM	fum
 MDHR00342	SMalate + NADplus <=> NADH + Oxaloacetate	R00342	True	MDH	mdh		
 PPCR00345	Orthophosphate + Oxaloacetate <=> CO2 + Phosphoenolpyruvate + H2O	R00345	True	PPC	ppc		
 							
-!!SBtab TableName='Compound' TableType='Compound' Document='E. coli central carbon metabolism - balanced parameters' SBtabVersion='1.0'							
+!!SBtab TableID='t_id_02' TableName='Compound' TableType='Compound' Document='E. coli central carbon metabolism - balanced parameters' SBtabVersion='1.0'							
 !ID	!Name	!Identifiers:kegg.compound	!IsConstant	!NameForPlots			
 SMalate	(S)-Malate	C00149	False	mal			
 AcetylCoA	Acetyl-CoA	C00024	False	acecoa			
@@ -75,7 +75,7 @@ twoPhosphoDglycerate	2-Phospho-D-glycerate	C00631	False	2pg
 Succinate	Succinate	C00042	False	suc			
 Sedoheptulose7phosphate	Sedoheptulose 7-phosphate	C05382	False	s7p			
 							
-!!SBtab TableName='Parameter' TableType='Quantity' Document='E. coli central carbon metabolism - balanced parameters' SBtabVersion='1.0'							
+!!SBtab TableID='t_id_03' TableName='Parameter' TableType='Quantity' Document='E. coli central carbon metabolism - balanced parameters' SBtabVersion='1.0'							
 !QuantityType	!Reaction	!Compound	!Value	!Unit	!Reaction:Identifiers:kegg.reaction	!Compound:Identifiers:kegg.compound	!ID
 equilibrium constant	PTSRPTSsy		52122111	dimensionless	RPTSsy		kEQR1
 equilibrium constant	PGIR02740		0.3654504	dimensionless	R02740		kEQR2
@@ -375,7 +375,7 @@ molecular mass		twoPhosphoDglycerate	186	Da		C00631
 molecular mass		Succinate	118	Da		C00042	
 molecular mass		Sedoheptulose7phosphate	290	Da		C05382	
 							
-!!SBtab DocumentName='E. coli central carbon metabolism - balanced parameters' TableName='Flux' TableType='Quantity' Unit='mM/s' SBtabVersion='1.0'							
+!!SBtab TableID='t_id_04' DocumentName='E. coli central carbon metabolism - balanced parameters' TableName='Flux' TableType='Quantity' Unit='mM/s' SBtabVersion='1.0'							
 !QuantityType	!Reaction	!Reaction:Identifiers:kegg.reaction	!Value				
 flux	PTSRPTSsy	RPTSsy	0.5691				
 flux	PGIR02740	R02740	0.385				
@@ -408,7 +408,7 @@ flux	FUMR01082	R01082	0.0924
 flux	MDHR00342	R00342	0.0602				
 flux	PPCR00345	R00345	-0.2114				
 							
-!!SBtab DocumentName='E. coli central carbon metabolism - balanced parameters' TableName='ConcentrationConstraint' TableType='Quantity' Unit='mM' SBtabVersion='1.0'							
+!!SBtab TableID='t_id_05' DocumentName='E. coli central carbon metabolism - balanced parameters' TableName='ConcentrationConstraint' TableType='Quantity' Unit='mM' SBtabVersion='1.0'							
 !QuantityType	!Compound	!Compound:Identifiers:kegg.compound	!Concentration:Min	!Concentration:Max			
 concentration	SMalate	C00149	0.001	10			
 concentration	AcetylCoA	C00024	0.001	10			
@@ -450,7 +450,7 @@ concentration	twoPhosphoDglycerate	C00631	0.001	10
 concentration	Succinate	C00042	0.001	10			
 concentration	Sedoheptulose7phosphate	C05382	0.001	10			
 							
-!!SBtab DocumentName='E. coli central carbon metabolism - balanced parameters' TableName='EnzymeCostWeight' TableType='Quantity' Unit='ArbitraryUnits' SBtabVersion='1.0'							
+!!SBtab TableID='t_id_06' DocumentName='E. coli central carbon metabolism - balanced parameters' TableName='EnzymeCostWeight' TableType='Quantity' Unit='ArbitraryUnits' SBtabVersion='1.0'							
 !QuantityType	!Reaction	!Reaction:Identifiers:kegg.reaction	!Value				
 enzyme cost weight	PTSRPTSsy	RPTSsy	1.3466042				
 enzyme cost weight	PGIR02740	R02740	1.2857143				

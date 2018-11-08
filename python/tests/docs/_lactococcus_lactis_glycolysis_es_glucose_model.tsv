@@ -1,4 +1,4 @@
-!!SBtab TableName='Reaction' TableType='Reaction' Document='Model' SBtabVersion='1.0'					
+!!SBtab TableID='t_id_01' TableName='Reaction' TableType='Reaction' Document='Model' SBtabVersion='1.0'					
 !ID	!ReactionFormula	!IsReversible	!KineticLaw:Name	!KineticLaw:Formula	
 v_pts	glucose + 49.72 PEP_pool <=> 49.72 G6P_F6P_pool + 49.72 pyr	True	Common saturable (CM)	u_R1 * ( kC_R1 * sqrt( kEQ_R1  * kM_R1_glucose * power( kM_R1_PEP_pool , 4.972403e+01 ) / power( kM_R1_G6P_F6P_pool , 4.972403e+01 ) / power( kM_R1_pyr , 4.972403e+01 ) ) * ( glucose / kM_R1_glucose ) * power( PEP_pool / kM_R1_PEP_pool , 4.972403e+01 ) - kC_R1 / sqrt( kEQ_R1  * kM_R1_glucose * power( kM_R1_PEP_pool , 4.972403e+01 ) / power( kM_R1_G6P_F6P_pool , 4.972403e+01 ) / power( kM_R1_pyr , 4.972403e+01 ) ) * power( G6P_F6P_pool / kM_R1_G6P_F6P_pool , 4.972403e+01 ) * power( pyr / kM_R1_pyr , 4.972403e+01 ) ) / ( ( 1 + glucose / kM_R1_glucose ) * power( 1 + PEP_pool / kM_R1_PEP_pool , 4.972403e+01 ) + power( 1 + G6P_F6P_pool / kM_R1_G6P_F6P_pool , 4.972403e+01 ) * power( 1 + pyr / kM_R1_pyr , 4.972403e+01 ) - 1 )	
 v_pfk	G6P_F6P_pool + ATP <=> FBP + ADP	True	Common saturable (CM)	u_R2 * ( kC_R2 * sqrt( kEQ_R2  * kM_R2_G6P_F6P_pool * kM_R2_ATP / kM_R2_FBP / kM_R2_ADP ) * ( G6P_F6P_pool / kM_R2_G6P_F6P_pool ) * ( ATP / kM_R2_ATP ) - kC_R2 / sqrt( kEQ_R2  * kM_R2_G6P_F6P_pool * kM_R2_ATP / kM_R2_FBP / kM_R2_ADP ) * ( FBP / kM_R2_FBP ) * ( ADP / kM_R2_ADP ) ) / ( ( 1 + G6P_F6P_pool / kM_R2_G6P_F6P_pool ) * ( 1 + ATP / kM_R2_ATP ) + ( 1 + FBP / kM_R2_FBP ) * ( 1 + ADP / kM_R2_ADP ) - 1 )	
@@ -18,7 +18,7 @@ mixedacids_outflow	mixed_acids <=> 	True	Common saturable (CM)	u_R15 * ( kC_R15 
 Pi_inflow	 <=> Pi_extra	True	Common saturable (CM)	u_R16 * ( kC_R16 * sqrt( kEQ_R16  / kM_R16_Pi_extra ) - kC_R16 / sqrt( kEQ_R16  / kM_R16_Pi_extra ) * ( Pi_extra / kM_R16_Pi_extra ) ) / (  + ( 1 + Pi_extra / kM_R16_Pi_extra ) - 1 )	
 Pi_outflow	Pi_extra <=> 	True	Common saturable (CM)	u_R17 * ( kC_R17 * sqrt( kEQ_R17  * kM_R17_Pi_extra ) * ( Pi_extra / kM_R17_Pi_extra ) - kC_R17 / sqrt( kEQ_R17  * kM_R17_Pi_extra ) ) / ( ( 1 + Pi_extra / kM_R17_Pi_extra ) +  - 1 )	
 %					
-!!SBtab TableName='Compound' TableType='Compound' Document='Model' SBtabVersion='1.0'					
+!!SBtab TableID='t_id_02' TableName='Compound' TableType='Compound' Document='Model' SBtabVersion='1.0'					
 !ID	!IsConstant				
 glucose	True				
 G6P_F6P_pool	False				
@@ -36,7 +36,7 @@ Pi_extra	True
 ADP	False				
 NADH	False				
 %					
-!!SBtab TableName='Parameter' TableType='Quantity' Document='Model' SBtabVersion='1.0'					
+!!SBtab TableID='t_id_03' TableName='Parameter' TableType='Quantity' Document='Model' SBtabVersion='1.0'					
 !QuantityType	!Reaction	!Compound	!Value	!Unit	!ID
 equilibrium constant	v_pts		1.0002469e-06	dimensionless	kEQ_R1
 equilibrium constant	v_pfk		2.3050539	dimensionless	kEQ_R2
@@ -155,7 +155,7 @@ concentration of enzyme	mixedacids_outflow		1	mM	u_R15
 concentration of enzyme	Pi_inflow		1	mM	u_R16
 concentration of enzyme	Pi_outflow		1	mM	u_R17
 %					
-!!SBtab TableName='Layouts' TableType='Position' Document='Model' SBtabVersion='1.0'					
+!!SBtab TableID='t_id_04' TableName='Layouts' TableType='Position' Document='Model' SBtabVersion='1.0'					
 !Element	!PositionX	!PositionY			
 glucose	-0.44278	1.327235			
 G6P_F6P_pool	0.42687	1.32835			

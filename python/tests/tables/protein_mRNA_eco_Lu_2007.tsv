@@ -1,4 +1,4 @@
-!!SBtab TableType='Quantity' !Organism='Escherichia coli'
+!!SBtab TableID='t_id' TableType='Quantity' !Organism='Escherichia coli'
 !QuantityType	!Gene	!Median	!Mean	!Std	!Unit
 concentration of enzyme	thrA	0.00886415	0.01386979	0.016691676	mM
 concentration of enzyme	thrB	0.001022478	0.0012789995	0.00096112891	mM

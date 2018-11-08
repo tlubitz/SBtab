@@ -1,4 +1,4 @@
-!!SBtab TableType="Quantity"									
+!!SBtab  TableID="t_id" TableType="Quantity"									
 !QuantityType	!Compound	!Reaction	!Unit	!Median	!Mean	!Std	!Lower	!Upper	!Compound:Identifiers:kegg.compound
 standard chemical potential	Pyruvate		kJ/mol	-354.41783	-354.41783	10	NaN	NaN	C00022
 standard chemical potential	CO2		kJ/mol	-386	-386	10	NaN	NaN	C00011

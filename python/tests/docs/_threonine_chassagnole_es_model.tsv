@@ -1,4 +1,4 @@
-!!SBtab TableName='Reaction' TableType='Reaction' Document='Model' SBtabVersion='1.0'							
+!!SBtab TableID='t_id_01' TableName='Reaction' TableType='Reaction' Document='Model' SBtabVersion='1.0'							
 !ID	!ReactionFormula	!Name	!Identifiers:kegg.reaction	!IsReversible	!MetabolicRegulation	!KineticLaw:Name	!KineticLaw:Formula
 vak	asp + atp <=> aspp + adp	Aspartate Kinase	R00480	True	+ thr	Common saturable (CM)	u_R1 * (thr / kA_R1_thr ) / ( 1 + thr / kA_R1_thr ) * ( kC_R1 * sqrt( kEQ_R1  * kM_R1_asp * kM_R1_atp / kM_R1_aspp / kM_R1_adp ) * ( asp / kM_R1_asp ) * ( atp / kM_R1_atp ) - kC_R1 / sqrt( kEQ_R1  * kM_R1_asp * kM_R1_atp / kM_R1_aspp / kM_R1_adp ) * ( aspp / kM_R1_aspp ) * ( adp / kM_R1_adp ) ) / ( ( 1 + asp / kM_R1_asp ) * ( 1 + atp / kM_R1_atp ) + ( 1 + aspp / kM_R1_aspp ) * ( 1 + adp / kM_R1_adp ) - 1 )
 vasd	aspp + nadph <=> asa + phos + nadp	Aspartate semialdehyde dehydrogenase	R02291	True		Common saturable (CM)	u_R2 * ( kC_R2 * sqrt( kEQ_R2  * kM_R2_aspp * kM_R2_nadph / kM_R2_asa / kM_R2_phos / kM_R2_nadp ) * ( aspp / kM_R2_aspp ) * ( nadph / kM_R2_nadph ) - kC_R2 / sqrt( kEQ_R2  * kM_R2_aspp * kM_R2_nadph / kM_R2_asa / kM_R2_phos / kM_R2_nadp ) * ( asa / kM_R2_asa ) * ( phos / kM_R2_phos ) * ( nadp / kM_R2_nadp ) ) / ( ( 1 + aspp / kM_R2_aspp ) * ( 1 + nadph / kM_R2_nadph ) + ( 1 + asa / kM_R2_asa ) * ( 1 + phos / kM_R2_phos ) * ( 1 + nadp / kM_R2_nadp ) - 1 )
@@ -8,7 +8,7 @@ vhk	hs + atp <=> hsp + adp	Homoserine kinase	R01771	True	+ thr	Common saturable 
 vnadph_endo	nadph <=> nadp	Endogenous consumption of NADPH		True		Common saturable (CM)	u_R6 * ( kC_R6 * sqrt( kEQ_R6  * kM_R6_nadph / kM_R6_nadp ) * ( nadph / kM_R6_nadph ) - kC_R6 / sqrt( kEQ_R6  * kM_R6_nadph / kM_R6_nadp ) * ( nadp / kM_R6_nadp ) ) / ( ( 1 + nadph / kM_R6_nadph ) + ( 1 + nadp / kM_R6_nadp ) - 1 )
 vatpase	atp <=> phos + adp	ATPase		True		Common saturable (CM)	u_R7 * ( kC_R7 * sqrt( kEQ_R7  * kM_R7_atp / kM_R7_phos / kM_R7_adp ) * ( atp / kM_R7_atp ) - kC_R7 / sqrt( kEQ_R7  * kM_R7_atp / kM_R7_phos / kM_R7_adp ) * ( phos / kM_R7_phos ) * ( adp / kM_R7_adp ) ) / ( ( 1 + atp / kM_R7_atp ) + ( 1 + phos / kM_R7_phos ) * ( 1 + adp / kM_R7_adp ) - 1 )
 %							
-!!SBtab TableName='Compound' TableType='Compound' Document='Model' SBtabVersion='1.0'							
+!!SBtab TableID='t_id_02' TableName='Compound' TableType='Compound' Document='Model' SBtabVersion='1.0'							
 !ID	!Name	!Identifiers:kegg.compound	!IsConstant				
 aspp	Aspartyl phosphate	C03082	False				
 asa	Aspartate beta-semialdehyde	C00441	False				
@@ -22,7 +22,7 @@ nadph	NADPH	C00005	True
 adp	ADP	C00008	True				
 atp	ATP	C00002	True				
 %							
-!!SBtab TableName='Parameter' TableType='Quantity' Document='Model' SBtabVersion='1.0'							
+!!SBtab TableID='t_id_03' TableName='Parameter' TableType='Quantity' Document='Model' SBtabVersion='1.0'							
 !QuantityType	!Reaction	!Compound	!Value	!Unit	!Reaction:Identifiers:kegg.reaction	!Compound:Identifiers:kegg.compound	!ID
 equilibrium constant	vak		0.022764724	dimensionless	R00480		kEQ_R1
 equilibrium constant	vasd		53.496373	dimensionless	R02291		kEQ_R2
@@ -86,7 +86,7 @@ concentration of enzyme	vhk		1	mM	R01771		u_R5
 concentration of enzyme	vnadph_endo		1	mM			u_R6
 concentration of enzyme	vatpase		1	mM			u_R7
 %							
-!!SBtab TableName='Layouts' TableType='Position' Document='Model' SBtabVersion='1.0'							
+!!SBtab TableID='t_id_04' TableName='Layouts' TableType='Position' Document='Model' SBtabVersion='1.0'							
 !Element	!PositionX	!PositionY					
 aspp	-1.109561	-0.581242					
 asa	-0.217409	-0.581242					

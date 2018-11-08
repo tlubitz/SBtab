@@ -1,4 +1,4 @@
-!!SBtab TableName='Flux' TableType='Quantity' Unit='mmol/gDW/h' !Organism='Escherichia coli'
+!!SBtab TableID='t_id' TableName='Flux' TableType='Quantity' Unit='mmol/gDW/h' !Organism='Escherichia coli'
 !Reaction	!Aerobic	!Anaerobic	!QuantityType
 HXK_R01786	8.6	14.9	flux
 PTS_RPTSsy	8.6	14.9	flux

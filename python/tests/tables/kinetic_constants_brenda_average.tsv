@@ -1,4 +1,4 @@
-!!SBtab TableType='Quantity'				
+!!SBtab TableID='t_id' TableType='Quantity'				
 !QuantityType	!Reaction:Identifiers:kegg.reaction	!Compound:Identifiers:kegg.compound	!Value	!Unit
 substrate catalytic rate constant	R00011	C00027	260.71291	1/s
 substrate catalytic rate constant	R00011	C00034	113.71184	1/s

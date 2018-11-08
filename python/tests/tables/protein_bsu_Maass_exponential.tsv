@@ -1,4 +1,4 @@
-!!SBtab TableType='Quantity' !Unit='Protein copies per cell' !Organism='Bacillus subtilis'
+!!SBtab TableID='t_id' TableType='Quantity' !Unit='Protein copies per cell' !Organism='Bacillus subtilis'
 !QuantityType	!Gene	!Gene:LocusName	!Value
 concentration of enzyme	AccA	BSU29200	1047
 concentration of enzyme	AccB	BSU24350	3355

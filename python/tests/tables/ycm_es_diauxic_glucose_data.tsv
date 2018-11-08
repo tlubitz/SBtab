@@ -1,4 +1,4 @@
-!!SBtab TableType="Quantity"									
+!!SBtab TableID="t_id" TableType="Quantity"									
 !QuantityType	!Compound	!Reaction	!Unit	!Median	!Mean	!Std	!Lower	!Upper	!Compound:Identifiers:kegg.compound
 standard chemical potential	ATP		kJ/mol	-2304.722	-2304.722	10	NaN	NaN	C00002
 standard chemical potential	Pyruvate		kJ/mol	-354.41783	-354.41783	10	NaN	NaN	C00022

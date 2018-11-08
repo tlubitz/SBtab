@@ -1,4 +1,4 @@
-!!SBtab TableType="Quantity"									
+!!SBtab TableID='t_id' TableType="Quantity"									
 !QuantityType	!Compound	!Reaction	!Unit	!Median	!Mean	!Std	!Lower	!Upper	!Compound:Identifiers:kegg.compound
 standard chemical potential	D_Glucose		kJ/mol	-420.16808	-420.16808	10	NaN	NaN	C00031
 standard chemical potential	D_Glucose_6_phosphate		kJ/mol	-1313.8295	-1313.8295	10	NaN	NaN	C00092

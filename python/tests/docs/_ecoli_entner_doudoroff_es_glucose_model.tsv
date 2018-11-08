@@ -1,4 +1,4 @@
-!!SBtab TableName='Reaction' TableType='Reaction' Document='Model' SBtabVersion='1.0'							
+!!SBtab TableID='t_id_01' TableName='Reaction' TableType='Reaction' Document='Model' SBtabVersion='1.0'							
 !ID	!ReactionFormula	!Identifiers:kegg.reaction	!IsReversible	!KineticLaw:Name	!KineticLaw:Formula		
 HXK	ATP + D_Glucose <=> ADP + D_Glucose_6_phosphate	R00299	True	Common saturable (CM)	u_R1 * ( kC_R1 * sqrt( kEQ_R1  * kM_R1_ATP * kM_R1_D_Glucose / kM_R1_ADP / kM_R1_D_Glucose_6_phosphate ) * ( ATP / kM_R1_ATP ) * ( D_Glucose / kM_R1_D_Glucose ) - kC_R1 / sqrt( kEQ_R1  * kM_R1_ATP * kM_R1_D_Glucose / kM_R1_ADP / kM_R1_D_Glucose_6_phosphate ) * ( ADP / kM_R1_ADP ) * ( D_Glucose_6_phosphate / kM_R1_D_Glucose_6_phosphate ) ) / ( ( 1 + ATP / kM_R1_ATP ) * ( 1 + D_Glucose / kM_R1_D_Glucose ) + ( 1 + ADP / kM_R1_ADP ) * ( 1 + D_Glucose_6_phosphate / kM_R1_D_Glucose_6_phosphate ) - 1 )		
 GAP	D_Glyceraldehyde_3_phosphate + NADplus + Orthophosphate <=> _3_Phospho_D_glyceroyl_phosphate + NADH	R01061	True	Common saturable (CM)	u_R2 * ( kC_R2 * sqrt( kEQ_R2  * kM_R2_D_Glyceraldehyde_3_phosphate * kM_R2_NADplus * kM_R2_Orthophosphate / kM_R2__3_Phospho_D_glyceroyl_phosphate / kM_R2_NADH ) * ( D_Glyceraldehyde_3_phosphate / kM_R2_D_Glyceraldehyde_3_phosphate ) * ( NADplus / kM_R2_NADplus ) * ( Orthophosphate / kM_R2_Orthophosphate ) - kC_R2 / sqrt( kEQ_R2  * kM_R2_D_Glyceraldehyde_3_phosphate * kM_R2_NADplus * kM_R2_Orthophosphate / kM_R2__3_Phospho_D_glyceroyl_phosphate / kM_R2_NADH ) * ( _3_Phospho_D_glyceroyl_phosphate / kM_R2__3_Phospho_D_glyceroyl_phosphate ) * ( NADH / kM_R2_NADH ) ) / ( ( 1 + D_Glyceraldehyde_3_phosphate / kM_R2_D_Glyceraldehyde_3_phosphate ) * ( 1 + NADplus / kM_R2_NADplus ) * ( 1 + Orthophosphate / kM_R2_Orthophosphate ) + ( 1 + _3_Phospho_D_glyceroyl_phosphate / kM_R2__3_Phospho_D_glyceroyl_phosphate ) * ( 1 + NADH / kM_R2_NADH ) - 1 )		
@@ -15,7 +15,7 @@ ATPase	ATP + H2O <=> ADP + Orthophosphate	R00086	True	Common saturable (CM)	u_R1
 NADHcons	NADH <=> NADplus	X2	True	Common saturable (CM)	u_R13 * ( kC_R13 * sqrt( kEQ_R13  * kM_R13_NADH / kM_R13_NADplus ) * ( NADH / kM_R13_NADH ) - kC_R13 / sqrt( kEQ_R13  * kM_R13_NADH / kM_R13_NADplus ) * ( NADplus / kM_R13_NADplus ) ) / ( ( 1 + NADH / kM_R13_NADH ) + ( 1 + NADplus / kM_R13_NADplus ) - 1 )		
 NADPHcons	NADPH <=> NADPplus	X3	True	Common saturable (CM)	u_R14 * ( kC_R14 * sqrt( kEQ_R14  * kM_R14_NADPH / kM_R14_NADPplus ) * ( NADPH / kM_R14_NADPH ) - kC_R14 / sqrt( kEQ_R14  * kM_R14_NADPH / kM_R14_NADPplus ) * ( NADPplus / kM_R14_NADPplus ) ) / ( ( 1 + NADPH / kM_R14_NADPH ) + ( 1 + NADPplus / kM_R14_NADPplus ) - 1 )		
 %							
-!!SBtab TableName='Compound' TableType='Compound' Document='Model' SBtabVersion='1.0'							
+!!SBtab TableID='t_id_02' TableName='Compound' TableType='Compound' Document='Model' SBtabVersion='1.0'							
 !ID	!Identifiers:kegg.compound	!IsConstant					
 _2_Phospho_D_glycerate	C00631	False					
 _3_Phospho_D_glycerate	C00197	False					
@@ -40,7 +40,7 @@ D_Glucono_1_5_lactone_6_phosphate	C01236	False
 _6_Phospho_D_gluconate	C00345	False					
 _2_Dehydro_3_deoxy_6_phospho_D_gluconate	C04442	False					
 %							
-!!SBtab TableName='Parameter' TableType='Quantity' Document='Model' SBtabVersion='1.0'							
+!!SBtab TableID='t_id_03' TableName='Parameter' TableType='Quantity' Document='Model' SBtabVersion='1.0'							
 !QuantityType	!Reaction	!Compound	!Value	!Unit	!Reaction:Identifiers:kegg.reaction	!Compound:Identifiers:kegg.compound	!ID
 equilibrium constant	HXK		4.8017272	dimensionless	R00299		kEQ_R1
 equilibrium constant	GAP		273637.07	dimensionless	R01061		kEQ_R2
@@ -156,7 +156,7 @@ concentration of enzyme	ATPase		1	mM	R00086		u_R12
 concentration of enzyme	NADHcons		1	mM	X2		u_R13
 concentration of enzyme	NADPHcons		1	mM	X3		u_R14
 %							
-!!SBtab TableName='Layouts' TableType='Position' Document='Model' SBtabVersion='1.0'							
+!!SBtab TableID='t_id_04' TableName='Layouts' TableType='Position' Document='Model' SBtabVersion='1.0'							
 !Element	!PositionX	!PositionY					
 _2_Phospho_D_glycerate	0.30798	0.178521					
 _3_Phospho_D_glycerate	0.308775	0.287972					

@@ -1,4 +1,4 @@
-!!SBtab TableType='Quantity'								
+!!SBtab TableID='t_id' TableType='Quantity'								
 !QuantityType	!Reaction:Identifiers:kegg.reaction	!Compound:Identifiers:kegg.compound	!Value	!Unit	!Temperature	!pH	!Organism:KEGGnumber	!Organism
 substrate catalytic rate constant	R00703	C00022	676	1/s	0	7	5	Saccharomyces cerevisiae
 substrate catalytic rate constant	R00465	C00005	300000	1/s	45	6.7	5	Saccharomyces cerevisiae

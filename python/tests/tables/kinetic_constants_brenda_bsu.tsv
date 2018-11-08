@@ -1,4 +1,4 @@
-!!SBtab TableType='Quantity'				
+!!SBtab TableID='t_id' TableType='Quantity'				
 !QuantityType	!Reaction:Identifiers:kegg.reaction	!Compound:Identifiers:kegg.compound	!Value	!Unit	!Temperature	!pH	!Organism:KEGGnumber	!Organism
 substrate catalytic rate constant	R00342	C00036	121600	1/s	NaN	7.5	10	Bacillus subtilis
 product catalytic rate constant	R00342	C00149	4729	1/s	NaN	7.5	10	Bacillus subtilis

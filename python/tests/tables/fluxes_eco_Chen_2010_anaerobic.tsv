@@ -1,4 +1,4 @@
-!!SBtab !Organism='Escherichia coli' TableType='Quantity'
+!!SBtab TableID='t_id' !Organism='Escherichia coli' TableType='Quantity'
 !Reaction	!Flux:Value	!Flux:StdDev
 HXK_R01786	14.9	1.6
 PTS_RPTSsy	14.9	1.6

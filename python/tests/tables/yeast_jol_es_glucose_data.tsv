@@ -1,4 +1,4 @@
-!!SBtab TableType="Quantity"									
+!!SBtab TableID="t_id" TableType="Quantity"									
 !QuantityType	!Compound	!Reaction	!Unit	!Median	!Mean	!Std	!Lower	!Upper	!Compound:Identifiers:kegg.compound
 standard chemical potential	M_10fthf_c		kJ/mol	-119.74826	-119.74826	10	NaN	NaN	C00234
 standard chemical potential	M_13dpg_c		kJ/mol	-2198.9434	-2198.9434	10	NaN	NaN	C00236

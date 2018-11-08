@@ -1,4 +1,4 @@
-!!SBtab TableType='Quantity'		
+!!SBtab TableID='t_id' TableType='Quantity'		
 !QuantityType	!Unit	!Compound:Identifiers:kegg.compound	!Compound	!Value	!Reference
 standard chemical potential	kJ/mol	C00001	H2O	-130.6675	Component contribution method
 standard chemical potential	kJ/mol	C00002	ATP	-2304.722	Component contribution method

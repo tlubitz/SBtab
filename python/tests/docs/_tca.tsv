@@ -1,4 +1,4 @@
-!!SBtab TableName='Reaction' TableType='Reaction' Document='Model' SBtabVersion='1.0'				
+!!SBtab TableID='t_id_01' TableName='Reaction' TableType='Reaction' Document='Model' SBtabVersion='1.0'				
 !ID	!ReactionFormula	!Name	!Identifiers:kegg.reaction	!IsReversible
 GLI_GLUNim	Glutamine_ex <=> Glutamine	Gln transport		True
 GTS_GLTEsy	M_adp_m + Glutamine + M_pi_m <=> M_atp_m + M_glu_L_m + M_nh4_m	Gln synthetase		True
@@ -20,7 +20,7 @@ R_PC	M_atp_m + M_hco3_m + M_pyr_m <=> M_adp_m + M_oaa_m + M_pi_m	PC	R00344	False
 R_ALCD2m	M_coa_m + M_nad_m + M_pyr_m <=> M_accoa_m + M_co2_m + M_nadh_m	PDH		True
 R_ME1m	M_mal_L_m + M_nad_m <=> M_co2_m + M_nadh_m + M_pyr_m	ME	R00214	False
 %				
-!!SBtab TableName='Compound' TableType='Compound' Document='Model' SBtabVersion='1.0'				
+!!SBtab TableID='t_id_02' TableName='Compound' TableType='Compound' Document='Model' SBtabVersion='1.0'				
 !ID	!Name	!Identifiers:kegg.compound	!IsConstant	
 M_accoa_m	Acetyl-CoA[m]	C00024	False	
 M_accoa_c	Acetyl-CoA[c]	C00024	True	
@@ -56,7 +56,7 @@ M_q6h2_m	Ubiquinol	C00390	True
 M_succ_m	Succinate	C00042	False	
 M_succoa_m	Succinyl-CoA	C00091	False	
 %				
-!!SBtab TableName='Layouts' TableType='Position' Document='Model' SBtabVersion='1.0'				
+!!SBtab TableID='t_id_03' TableName='Layouts' TableType='Position' Document='Model' SBtabVersion='1.0'				
 !Element	!PositionX	!PositionY		
 M_accoa_m	0.24638	0.44830269		
 M_accoa_c	0.39781461	0.45474277		

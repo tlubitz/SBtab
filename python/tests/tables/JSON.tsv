@@ -1,4 +1,4 @@
-!!SBtab DocumentName='RBA_model' TableType='Quantity' TableName='Metabolites' Document='RBAstructure' Unit='Information on Metabolites in RBAmodel' SBtabVersion='1.0'      
+!!SBtab TableID='t_id' DocumentName='RBA_model' TableType='Quantity' TableName='Metabolites' Document='RBAstructure' Unit='Information on Metabolites in RBAmodel' SBtabVersion='1.0'      
 !ID	!Name	!Annotations	!Reactions	!Boundary	!Type	!Compartment
 M_ala__L_e	L-Alanine	{"BiGG": "ala__L_e", "KEGG": "C00041"}	[]	true	external	e
 M_alltn_e	Allantoin	{"BiGG": "alltn_e", "KEGG": "C01551"}	[]	true	external	e

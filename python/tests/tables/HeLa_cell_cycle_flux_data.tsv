@@ -1,4 +1,4 @@
-!!SBtab TableName='Flux' TableType='Quantity' Unit='mM/h' !Organism='Homo sapiens' !Reference='Data from Tomer'
+!!SBtab TableID='t_id' TableName='Flux' TableType='Quantity' Unit='mM/h' !Organism='Homo sapiens' !Reference='Data from Tomer'
 !Reaction	!ReactionName	!Typical	!Total	!G1	!G1S	!earlyS	!lateS	!G2	!M	!Source
 %
 % Tomer

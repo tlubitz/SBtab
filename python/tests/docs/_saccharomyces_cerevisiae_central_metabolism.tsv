@@ -1,4 +1,4 @@
-!!SBtab TableName='Reaction' TableType='Reaction' Document='Saccharomyces cerevisiae central metabolism' SBtabVersion='0.9'								
+!!SBtab TableID='t_id_01' TableName='Reaction' TableType='Reaction' Document='Saccharomyces cerevisiae central metabolism' SBtabVersion='0.9'								
 !Reaction	!SumFormula	!Name	!Identifiers:kegg.reaction	!IsReversible	!Gene	!Enzyme:Identifiers:ec-code	!SBML:reaction:id	!MetabolicRegulation
 R00200	ATP + Pyruvate <=> Phosphoenolpyruvate + ADP	pyruvate_kinase_activity	R00200	True	CDC19 PYK2  	2.7.1.40	R00200	+ Phosphoenolpyruvate + beta_D_Fructose_1_6_bisphosphate - ATP
 R00224	Pyruvate <=> Acetaldehyde + CO2	pyruvate_decarboxylase_activity	R00224	True	ARO10 PDC1  PDC6  THI3  	4.1.1.1	R00224	+ Pyruvate
@@ -58,7 +58,7 @@ Oxphos__NADH__irrev__ATP	ADP + NADH + 0.50 O2 <=> ATP + NADplus + H2O	ADP_plus_N
 Maintenance	ATP <=> ADP	ATP_<=>_ADP		True			reaction_9	
 Biomass_production	 <=> 	_0_03_Pyruvate_plus_0_01_CO2_plus_0_81_ATP_plus_0_02_Phosphoenolpyruvate_plus_0_03_2_Oxoglutarate_plus_0_02_Oxaloacetate_plus_0_08_NADplus_plus_0_07_Acetyl_CoA_plus_0_02_D_Glyceraldehyde_3_phosphate_plus_0_01_D_Ribose_5_phosphate_plus_0_02_beta_D_Fructose_6_phosphate_plus_0_01_D_Erythrose_4_phosphate_plus_0_36_NADPH_plus_0_03_beta_D_Glucose_6_phosphate_plus_0_01_O2_<=>_0_81_ADP_plus_0_08_NADH_plus_0_36_NADPplus_plus_0_07_CoA_plus_Biomass		True			reaction_10	
 %								
-!!SBtab TableName='Compound' TableType='Compound' Document='Saccharomyces cerevisiae central metabolism' SBtabVersion='0.9'								
+!!SBtab TableID='t_id_02' TableName='Compound' TableType='Compound' Document='Saccharomyces cerevisiae central metabolism' SBtabVersion='0.9'								
 !Compound	!Name	!Identifiers:kegg.compound	!SBML:species:id	!IsConstant				
 ATP	ATP	C00002	ATP_c	False				
 Pyruvate	Pyruvate	C00022	Pyruvate_c	False				
@@ -129,7 +129,7 @@ beta_D_GlucoseExt	beta-D-GlucoseExt	C00221	beta_D_GlucoseExt_c	True
 O2	O2	C00007	O2_c	True				
 Biomass	Biomass		Biomass_c	True				
 %								
-!!SBtab TableName='Layouts' TableType='Position' Document='Saccharomyces cerevisiae central metabolism' SBtabVersion='0.9'								
+!!SBtab TableID='t_id_03' TableName='Layouts' TableType='Position' Document='Saccharomyces cerevisiae central metabolism' SBtabVersion='0.9'								
 !Element	!Position:x	!Position:y						
 ATP	0.3516286	0.47776971						
 Pyruvate	0.280301	0.356746						

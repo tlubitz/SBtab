@@ -1,4 +1,4 @@
-!!SBtab TableType="Quantity" TableName="Chen 2016 HeLa Metabolite concentrations Mitochondrial Matrix" Unit="uM"						
+!!SBtab TableID="t_id" TableType="Quantity" TableName="Chen 2016 HeLa Metabolite concentrations Mitochondrial Matrix" Unit="uM"						
 !Compound:Name	!Compound	!Identifiers:kegg.compound	!Rep1	!Rep2	!Rep3	!Comment
 betaine			11.3509669199	10.7330120681	13.9968234959	
 NAD	NAD	C00003	879.2891579921	800.8002984504	772.5226738077	

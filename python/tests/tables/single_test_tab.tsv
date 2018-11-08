@@ -1,5 +1,5 @@
 !!!SBtab SBtabVersion="1.0" Document="extended_core_compartment.tsv"
-!!SBtab SBtabVersion='1.0' Document='extended_core' TableType='Compartment' TableName='Compartment'
+!!SBtab TableID='t_id' SBtabVersion='1.0' Document='extended_core' TableType='Compartment' TableName='Compartment'
 !ID	!Name	!Size	!Unit	!SBOTerm
 c	Cytoplasm	nan		
 e	Extracellular	nan		

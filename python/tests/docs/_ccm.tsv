@@ -1,4 +1,4 @@
-!!SBtab TableName='Reaction' TableType='Reaction' Document='Model' SBtabVersion='1.0'					
+!!SBtab TableID='t_id_01' TableName='Reaction' TableType='Reaction' Document='Model' SBtabVersion='1.0'					
 !ID	!ReactionFormula	!Name	!Identifiers:kegg.reaction	!IsReversible	!MetabolicRegulation
 R_GLCt1	M_glc_D_e <=> M_glc_D_c	Glucose transport uniport 		False	
 R_HEX1	M_atp_c + M_glc_D_c <=> M_adp_c + M_g6p_c	Hexokinase		False	+ M_glc_D_c - M_f6p_c - M_g6p_c
@@ -57,7 +57,7 @@ CitTrans	M_cit_m <=> M_cit_c	Citrate mitoch transport		True
 FattyAcidProd	M_accoa_c <=> M_coa_c + FattyAcids	Fatty acid production		True	
 OxPhos	3 M_adp_c + 3 M_pi_c + M_q6h2_m + M_o2_e <=> 3 M_atp_c + M_co2_c + M_q6_m	Oxidative phosphorylation		True	
 %					
-!!SBtab TableName='Compound' TableType='Compound' Document='Model' SBtabVersion='1.0'					
+!!SBtab TableID='t_id_02' TableName='Compound' TableType='Compound' Document='Model' SBtabVersion='1.0'					
 !ID	!Name	!Identifiers:kegg.compound	!IsConstant		
 M_13dpg_c	3-Phospho-D-glyceroyl phosphate	C00236	False		
 M_2pg_c	D-Glycerate 2-phosphate	C00631	False		
@@ -138,7 +138,7 @@ FattyAcids	FattyAcids		True
 M_f26dp_c	D-Fructose 2,6-bisphosphate	C00665	False		
 AspartateSink	AspartateSink		True		
 %					
-!!SBtab TableName='Layouts' TableType='Position' Document='Model' SBtabVersion='1.0'					
+!!SBtab TableID='t_id_03' TableName='Layouts' TableType='Position' Document='Model' SBtabVersion='1.0'					
 !Element	!PositionX	!PositionY			
 M_13dpg_c	0.23465004	0.70523166			
 M_2pg_c	0.23465004	0.61213421			

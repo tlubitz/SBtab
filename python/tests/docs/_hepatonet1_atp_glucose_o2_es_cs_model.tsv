@@ -1,4 +1,4 @@
-!!SBtab TableName='Reaction' TableType='Reaction' Document='Model' SBtabVersion='1.0'					
+!!SBtab TableID='t_id_01' TableName='Reaction' TableType='Reaction' Document='Model' SBtabVersion='1.0'					
 !ID	!ReactionFormula	!IsReversible	!SBML:reaction:id	!KineticLaw:Name	!KineticLaw:Formula
 r0017	O2__m_ + 4 Hplus_PG___m_ + 4 Ferrocytochrome_C__m_ <=> 2 H2O__m_ + 4 Hplus_PG___c_ + 4 Ferricytochrome_C__m_	True	r0017	Common saturable (CM)	u_R1 * ( kC_R1 * sqrt( kEQ_R1  * kM_R1_O2__m_ * power( kM_R1_Hplus_PG___m_ , 4 ) * power( kM_R1_Ferrocytochrome_C__m_ , 4 ) / power( kM_R1_H2O__m_ , 2 ) / power( kM_R1_Hplus_PG___c_ , 4 ) / power( kM_R1_Ferricytochrome_C__m_ , 4 ) ) * ( O2__m_ / kM_R1_O2__m_ ) * power( Hplus_PG___m_ / kM_R1_Hplus_PG___m_ , 4 ) * power( Ferrocytochrome_C__m_ / kM_R1_Ferrocytochrome_C__m_ , 4 ) - kC_R1 / sqrt( kEQ_R1  * kM_R1_O2__m_ * power( kM_R1_Hplus_PG___m_ , 4 ) * power( kM_R1_Ferrocytochrome_C__m_ , 4 ) / power( kM_R1_H2O__m_ , 2 ) / power( kM_R1_Hplus_PG___c_ , 4 ) / power( kM_R1_Ferricytochrome_C__m_ , 4 ) ) * power( H2O__m_ / kM_R1_H2O__m_ , 2 ) * power( Hplus_PG___c_ / kM_R1_Hplus_PG___c_ , 4 ) * power( Ferricytochrome_C__m_ / kM_R1_Ferricytochrome_C__m_ , 4 ) ) / ( ( 1 + O2__m_ / kM_R1_O2__m_ ) * power( 1 + Hplus_PG___m_ / kM_R1_Hplus_PG___m_ , 4 ) * power( 1 + Ferrocytochrome_C__m_ / kM_R1_Ferrocytochrome_C__m_ , 4 ) + power( 1 + H2O__m_ / kM_R1_H2O__m_ , 2 ) * power( 1 + Hplus_PG___c_ / kM_R1_Hplus_PG___c_ , 4 ) * power( 1 + Ferricytochrome_C__m_ / kM_R1_Ferricytochrome_C__m_ , 4 ) - 1 )
 r0019	H2O__m_ + ATP__m_ + 3 Hplus_PG___m_ <=> ADP__m_ + Pi__m_ + 3 Hplus_PG___c_	True	r0019	Common saturable (CM)	u_R2 * ( kC_R2 * sqrt( kEQ_R2  * kM_R2_H2O__m_ * kM_R2_ATP__m_ * power( kM_R2_Hplus_PG___m_ , 3 ) / kM_R2_ADP__m_ / kM_R2_Pi__m_ / power( kM_R2_Hplus_PG___c_ , 3 ) ) * ( H2O__m_ / kM_R2_H2O__m_ ) * ( ATP__m_ / kM_R2_ATP__m_ ) * power( Hplus_PG___m_ / kM_R2_Hplus_PG___m_ , 3 ) - kC_R2 / sqrt( kEQ_R2  * kM_R2_H2O__m_ * kM_R2_ATP__m_ * power( kM_R2_Hplus_PG___m_ , 3 ) / kM_R2_ADP__m_ / kM_R2_Pi__m_ / power( kM_R2_Hplus_PG___c_ , 3 ) ) * ( ADP__m_ / kM_R2_ADP__m_ ) * ( Pi__m_ / kM_R2_Pi__m_ ) * power( Hplus_PG___c_ / kM_R2_Hplus_PG___c_ , 3 ) ) / ( ( 1 + H2O__m_ / kM_R2_H2O__m_ ) * ( 1 + ATP__m_ / kM_R2_ATP__m_ ) * power( 1 + Hplus_PG___m_ / kM_R2_Hplus_PG___m_ , 3 ) + ( 1 + ADP__m_ / kM_R2_ADP__m_ ) * ( 1 + Pi__m_ / kM_R2_Pi__m_ ) * power( 1 + Hplus_PG___c_ / kM_R2_Hplus_PG___c_ , 3 ) - 1 )
@@ -39,7 +39,7 @@ r1114	NADplus__m_ + CoA__m_ + AKG__m_ <=> NADH__m_ + CO2__m_ + Succinyl_CoA__m_	
 r1422	Hplus_PG___c_ + L_Lactate__c_ <=> Hplus_PG___m_ + L_Lactate__m_	True	r1422	Common saturable (CM)	u_R37 * ( kC_R37 * sqrt( kEQ_R37  * kM_R37_Hplus_PG___c_ * kM_R37_L_Lactate__c_ / kM_R37_Hplus_PG___m_ / kM_R37_L_Lactate__m_ ) * ( Hplus_PG___c_ / kM_R37_Hplus_PG___c_ ) * ( L_Lactate__c_ / kM_R37_L_Lactate__c_ ) - kC_R37 / sqrt( kEQ_R37  * kM_R37_Hplus_PG___c_ * kM_R37_L_Lactate__c_ / kM_R37_Hplus_PG___m_ / kM_R37_L_Lactate__m_ ) * ( Hplus_PG___m_ / kM_R37_Hplus_PG___m_ ) * ( L_Lactate__m_ / kM_R37_L_Lactate__m_ ) ) / ( ( 1 + Hplus_PG___c_ / kM_R37_Hplus_PG___c_ ) * ( 1 + L_Lactate__c_ / kM_R37_L_Lactate__c_ ) + ( 1 + Hplus_PG___m_ / kM_R37_Hplus_PG___m_ ) * ( 1 + L_Lactate__m_ / kM_R37_L_Lactate__m_ ) - 1 )
 r2418	ATP__m_ + ADP__c_ <=> ATP__c_ + ADP__m_	True	r2418	Common saturable (CM)	u_R38 * ( kC_R38 * sqrt( kEQ_R38  * kM_R38_ATP__m_ * kM_R38_ADP__c_ / kM_R38_ATP__c_ / kM_R38_ADP__m_ ) * ( ATP__m_ / kM_R38_ATP__m_ ) * ( ADP__c_ / kM_R38_ADP__c_ ) - kC_R38 / sqrt( kEQ_R38  * kM_R38_ATP__m_ * kM_R38_ADP__c_ / kM_R38_ATP__c_ / kM_R38_ADP__m_ ) * ( ATP__c_ / kM_R38_ATP__c_ ) * ( ADP__m_ / kM_R38_ADP__m_ ) ) / ( ( 1 + ATP__m_ / kM_R38_ATP__m_ ) * ( 1 + ADP__c_ / kM_R38_ADP__c_ ) + ( 1 + ATP__c_ / kM_R38_ATP__c_ ) * ( 1 + ADP__m_ / kM_R38_ADP__m_ ) - 1 )
 %					
-!!SBtab TableName='Compound' TableType='Compound' Document='Model' SBtabVersion='1.0'					
+!!SBtab TableID='t_id_02' TableName='Compound' TableType='Compound' Document='Model' SBtabVersion='1.0'					
 !ID	!SBML:species:id	!IsConstant			
 H2O__c_	HC00011_c	False			
 H2O__m_	HC00011_m	False			
@@ -97,7 +97,7 @@ Ubiquinone__m_	HC00329_m	False
 _2PG__c_	HC00463_c	False			
 Oxalosuccinate__m_	HC01434_m	False			
 %					
-!!SBtab TableName='Parameter' TableType='Quantity' Document='Model' SBtabVersion='1.0'					
+!!SBtab TableID='t_id_03' TableName='Parameter' TableType='Quantity' Document='Model' SBtabVersion='1.0'					
 !QuantityType	!Reaction	!Compound	!Value	!Unit	!ID
 equilibrium constant	r0017		0.00093502726	dimensionless	kEQ_R1
 equilibrium constant	r0019		0.016576071	dimensionless	kEQ_R2
@@ -411,7 +411,7 @@ concentration of enzyme	r1114		1	mM	u_R36
 concentration of enzyme	r1422		1	mM	u_R37
 concentration of enzyme	r2418		1	mM	u_R38
 %					
-!!SBtab TableName='Layouts' TableType='Position' Document='Model' SBtabVersion='1.0'					
+!!SBtab TableID='t_id_04' TableName='Layouts' TableType='Position' Document='Model' SBtabVersion='1.0'					
 !Element	!PositionX	!PositionY			
 H2O__c_	0.34965	0.532324			
 H2O__m_	0.38623	0.359076			

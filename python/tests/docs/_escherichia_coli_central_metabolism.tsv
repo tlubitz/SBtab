@@ -1,4 +1,4 @@
-!!SBtab TableName='Reaction' TableType='Reaction' Document='Escherichia coli centralmetabolism' SBtabVersion='0.9'				
+!!SBtab TableID='t_id_01' TableName='Reaction' TableType='Reaction' Document='Escherichia coli centralmetabolism' SBtabVersion='0.9'				
 !Reaction	!SumFormula	!Identifiers:kegg.reaction	!IsReversible	!Gene
 PTS_RPTSsy	D_Glucose + Phosphoenolpyruvate <=> Pyruvate + D_Glucose_6_phosphate	RPTSsy	True	PTS
 PGI_R02740	D_Glucose_6_phosphate <=> D_Fructose_6_phosphate	R02740	True	PGI
@@ -31,7 +31,7 @@ FUM_R01082	Fumarate <=> _S__Malate	R01082	True	FUM
 MDH_R00342	_S__Malate + NADplus <=> NADH + Oxaloacetate	R00342	True	MDH
 PPC_R00345	Orthophosphate + Oxaloacetate <=> CO2 + Phosphoenolpyruvate	R00345	True	PPC
 %				
-!!SBtab TableName='Compound' TableType='Compound' Document='Escherichia coli centralmetabolism' SBtabVersion='0.9'				
+!!SBtab TableID='t_id_02' TableName='Compound' TableType='Compound' Document='Escherichia coli centralmetabolism' SBtabVersion='0.9'				
 !Compound	!Name	!Identifiers:kegg.compound	!IsConstant	
 _S__Malate	(S)-Malate	C00149	False	
 Acetyl_CoA	Acetyl-CoA	C00024	False	
@@ -74,7 +74,7 @@ _2_Phospho_D_glycerate	2-Phospho-D-glycerate	C00631	False
 Succinate	Succinate	C00042	False	
 Sedoheptulose_7_phosphate	Sedoheptulose 7-phosphate	C05382	False	
 %				
-!!SBtab TableName='Layouts' TableType='Position' Document='Escherichia coli centralmetabolism' SBtabVersion='0.9'				
+!!SBtab TableID='t_id_03' TableName='Layouts' TableType='Position' Document='Escherichia coli centralmetabolism' SBtabVersion='0.9'				
 !Element	!Position:x	!Position:y		
 _S__Malate	0.32772	0.095058		
 Acetyl_CoA	0.359426	0.22902		

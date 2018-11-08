@@ -1,4 +1,4 @@
-!!SBtab TableName='Reaction' TableType='Reaction' Document='YeastMetabolicModel' SBtabVersion='0.9'						
+!!SBtab TableID='t_id_01' TableName='Reaction' TableType='Reaction' Document='YeastMetabolicModel' SBtabVersion='0.9'						
 !ID	!ReactionFormula	!Name	!Identifiers:kegg.reaction	!IsReversible	!GeneAssociation	
 R_ASPTA	M_akg_c + M_asp_L_c <=> M_glu_L_c + M_oaa_c	aspartate transaminase	R00355	True	YLR027C|YKL106W|YLR027C	
 R_ASPKi	M_asp_L_c + M_atp_c <=> M_4pasp_c + M_adp_c	aspartate kinase	R00480	False	YER052C	
@@ -229,7 +229,7 @@ R_POS5hm	M_atp_m + M_nadh_m <=> M_adp_m + M_h_m + M_nadph_m	NADH kinase	R00105	F
 R_UTR1	M_atp_c + M_nadh_c <=> M_adp_c + M_h_c + M_nadph_c	NADH kinase	R00105	False	YEL041W|YJR049C|YEL041W|YJR049C|YPL188W	
 R_YEF1	M_atp_c + M_nad_c <=> M_adp_c + M_h_c + M_nadp_c	NAD kinase	R00104	False	YEL041W|YJR049C|YEL041W|YJR049C|YPL188W	
 %						
-!!SBtab TableName='Compound' TableType='Compound' Document='YeastMetabolicModel' SBtabVersion='0.9'						
+!!SBtab TableID='t_id_02' TableName='Compound' TableType='Compound' Document='YeastMetabolicModel' SBtabVersion='0.9'						
 !ID	!Name	!Identifiers:kegg.compound	!IsConstant	!External	!Location	!Quantifiable
 M_10fthf_c	10-Formyltetrahydrofolate	C00234	False	0	c	0
 M_13BDglcn_c	1,3-beta-D-Glucan	C00965	False	0	c	0
@@ -451,7 +451,7 @@ M_xu5p_D_c	D-Xylulose 5-phosphate	C00231	False	0	c	0
 M_zymst_c	Zymosterol	C05437	False	0	c	0
 M_asp_L_m	L-Aspartate	C00049	False	0	m	1
 %						
-!!SBtab DocumentName='YeastMetabolicModel' TableName='Layout' TableType='Position' SBtabVersion='0.9'						
+!!SBtab TableID='t_id_03' DocumentName='YeastMetabolicModel' TableName='Layout' TableType='Position' SBtabVersion='0.9'						
 !Element	!Position:x	!Position:y				
 M_10fthf_c	0.75603432	0.26719016				
 M_13BDglcn_c	0.57388965	0.37165549				
@@ -901,7 +901,7 @@ R_POS5hm	0.72656974	0.86719614
 R_UTR1	0.95224163	0.13727815				
 R_YEF1	0.93817899	0.097099182				
 %						
-!!SBtab DocumentName='YeastMetabolicModel' TableName='Flux' TableType='Quantity' Unit='mM/s' SBtabVersion='0.9'						
+!!SBtab TableID='t_id_04' DocumentName='YeastMetabolicModel' TableName='Flux' TableType='Quantity' Unit='mM/s' SBtabVersion='0.9'						
 !QuantityType	!Reaction	!Reaction:Identifiers:kegg.reaction	!Flux			
 flux	R_ASPTA	R00355	0.0061136623			
 flux	R_ASPKi	R00480	0.00012265307			
@@ -1132,7 +1132,7 @@ flux	R_POS5hm	R00105	0
 flux	R_UTR1	R00105	0			
 flux	R_YEF1	R00104	0			
 %						
-!!SBtab DocumentName='YeastMetabolicModel' TableName='GibbsEnergyOfReaction' TableType='Quantity' Unit='kJ/mol' StandardConcentration='1mM' SBtabVersion='0.9'						
+!!SBtab TableID='t_id_05' DocumentName='YeastMetabolicModel' TableName='GibbsEnergyOfReaction' TableType='Quantity' Unit='kJ/mol' StandardConcentration='1mM' SBtabVersion='0.9'						
 !QuantityType	!Reaction	!Reaction:Identifiers:kegg.reaction	!Mean	!Std	!ReactionFormula	
 standard Gibbs energy of reaction	R_ASPTA	R00355	-14.234027	0.55	M_akg_c + M_asp_L_c <=> M_Fluxsum_e + M_glu_L_c + M_oaa_c	
 standard Gibbs energy of reaction	R_ASPKi	R00480	1.3059726	2.96	M_atp_c + M_asp_L_c <=> M_4pasp_c + M_adp_c + M_Fluxsum_e	
@@ -1363,7 +1363,7 @@ standard Gibbs energy of reaction	R_POS5hm	R00105	NaN	NaN	M_nadh_m + M_atp_m <=>
 standard Gibbs energy of reaction	R_UTR1	R00105	NaN	NaN	M_nadh_c + M_atp_c <=> M_adp_c + M_Fluxsum_e + M_nadph_c + M_h_c	
 standard Gibbs energy of reaction	R_YEF1	R00104	NaN	NaN	M_nad_c + M_atp_c <=> M_adp_c + M_Fluxsum_e + M_nadp_c + M_h_c	
 %						
-!!SBtab DocumentName='YeastMetabolicModel' TableName='Concentration' TableType='Quantity' Unit='mM' SBtabVersion='0.9'						
+!!SBtab TableID='t_id_06' DocumentName='YeastMetabolicModel' TableName='Concentration' TableType='Quantity' Unit='mM' SBtabVersion='0.9'						
 !QuantityType	!Compound	!Compound:Identifiers:kegg.compound	!Concentration	!ConcentrationData		
 concentration	M_10fthf_c	C00234	2.3617156	NaN		
 concentration	M_13BDglcn_c	C00965	1	NaN		

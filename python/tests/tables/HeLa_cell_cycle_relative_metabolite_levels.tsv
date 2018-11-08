@@ -1,4 +1,4 @@
-!!SBtab TableType='Quantity' TableName='Relative cell cycle phase dependent metabolite levels' SBtabVersion='1.0'							
+!!SBtab TableID='t_id' TableType='Quantity' TableName='Relative cell cycle phase dependent metabolite levels' SBtabVersion='1.0'							
 !Compound	!CompoundName	!G1	!G1/S	!earlyS	!lateS	!G2	!M
 M_2pg_c	D-Glycerate 2-phosphate	0.84493485	1.0134108	0.9215796	0.82877198	0.73333162	0.70111844
 M_6pgl_c	6-phospho-D-glucono-1,5-lactone	0.8355466	1.0124113	0.96925345	0.86312434	0.71214685	0.65173582

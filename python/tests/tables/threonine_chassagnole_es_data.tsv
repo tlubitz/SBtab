@@ -1,4 +1,4 @@
-!!SBtab TableType="Quantity"									
+!!SBtab TableID="t_id" TableType="Quantity"									
 !QuantityType	!Compound	!Reaction	!Unit	!Median	!Mean	!Std	!Lower	!Upper	!Compound:Identifiers:kegg.compound
 standard chemical potential	phos		kJ/mol	-1037.3655	-1037.3655	10	NaN	NaN	C00009
 standard chemical potential	nadp		kJ/mol	-635.14385	-635.14385	10	NaN	NaN	C00006

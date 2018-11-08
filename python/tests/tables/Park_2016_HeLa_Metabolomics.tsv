@@ -1,4 +1,4 @@
-!!SBtab TableType="Compound" TableName="Metabolite concentrations in HeLa cells, from Park et al. 2016, Nature Chem Biol" !Unit="mM"
+!!SBtab TableID="t_id" TableType="Compound" TableName="Metabolite concentrations in HeLa cells, from Park et al. 2016, Nature Chem Biol" !Unit="mM"
 !ID	!Identifiers:kegg.compound	!Concentration:Mean	!Concentration:Std
 a2dehydroDgluconate		0.0023554615	0.0007708322
 a3phosphoglycerate	C00197	0.0303769408	0.0104087448

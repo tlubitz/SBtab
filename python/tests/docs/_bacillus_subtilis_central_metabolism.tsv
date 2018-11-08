@@ -1,4 +1,4 @@
-!!SBtab TableName='Reaction' TableType='Reaction' Document='Bacillus subtilis central metabolism' SBtabVersion='0.9'								
+!!SBtab TableID='t_id_01' TableName='Reaction' TableType='Reaction' Document='Bacillus subtilis central metabolism' SBtabVersion='0.9'								
 !Reaction	!SumFormula	!Name	!Identifiers:kegg.reaction	!IsReversible	!Gene	!Enzyme:Identifiers:ec-code	!SBML:reaction:id	!MetabolicRegulation
 R00006	_2_Acetolactate + CO2 <=> 2 Pyruvate	acetolactate_synthase_activity	R00006	True	alsS	2.2.1.6	R00006	
 R00114	2 L_Glutamate + NADPplus <=> L_Glutamine + _2_Oxoglutarate + NADPH + Hplus	glutamate_synthase_NADPH_activity	R00114	True	gltA	1.4.1.13	R00114	
@@ -64,7 +64,7 @@ GluconateExt__rev__Gluconate	GluconateExt <=> Gluconate	GluconateExt_<=>Gluconat
 Gluconate__rev___6_Phospho_D_gluconate	Gluconate <=> _6_Phospho_D_gluconate	GluconateExt_<=>_6_Phospho_D_gluconate		True	gnTK		reaction_19	
 GlutamateExt__rev__Glutamate	GlutamateExt <=> L_Glutamate	GlutamateExt <=> L_Glutamate		True	gltP		reaction_20	
 %								
-!!SBtab TableName='Compound' TableType='Compound' Document='Bacillus subtilis central metabolism' SBtabVersion='0.9'								
+!!SBtab TableID='t_id_02' TableName='Compound' TableType='Compound' Document='Bacillus subtilis central metabolism' SBtabVersion='0.9'								
 !Compound	!Name	!Identifiers:kegg.compound	!SBML:species:id	!IsConstant	!IsCofactor			
 _2_Acetolactate	2-Acetolactate	C00900	_2_Acetolactate_c	False	0			
 CO2	CO2	C00011	CO2_c	False	1			
@@ -136,7 +136,7 @@ Biomass	Biomass		Biomass_c	True	0
 Gluconate	Gluconate	C00345	Gluconate_c	False	0			
 GlutamateExt	Glutamate	C00025	Glutamate_c	True	0			
 %								
-!!SBtab TableName='Layouts' TableType='Position' Document='Bacillus subtilis central metabolism' SBtabVersion='0.9'								
+!!SBtab TableID='t_id_03' TableName='Layouts' TableType='Position' Document='Bacillus subtilis central metabolism' SBtabVersion='0.9'								
 !Element	!Position:x	!Position:y						
 _2_Acetolactate	0.474731	0.356441						
 CO2	0.352313	0.432905						

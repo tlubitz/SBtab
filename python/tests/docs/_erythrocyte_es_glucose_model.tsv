@@ -1,4 +1,4 @@
-!!SBtab TableName='Reaction' TableType='Reaction' Document='Model' SBtabVersion='1.0'							
+!!SBtab TableID='t_id_01' TableName='Reaction' TableType='Reaction' Document='Model' SBtabVersion='1.0'							
 !ID	!ReactionFormula	!Name	!Identifiers:kegg.reaction	!IsReversible	!MetabolicRegulation	!KineticLaw:Name	!KineticLaw:Formula
 vGLT	Glcout <=> Glcin	Glucose transport		True		Common saturable (CM)	u_R1 * ( kC_R1 * sqrt( kEQ_R1  * kM_R1_Glcout / kM_R1_Glcin ) * ( Glcout / kM_R1_Glcout ) - kC_R1 / sqrt( kEQ_R1  * kM_R1_Glcout / kM_R1_Glcin ) * ( Glcin / kM_R1_Glcin ) ) / ( ( 1 + Glcout / kM_R1_Glcout ) + ( 1 + Glcin / kM_R1_Glcin ) - 1 )
 vHEX	Glcin + MgATP <=> Glc6P + MgADP	Hexokinase	R00299	True	+ Gri23P2f	Common saturable (CM)	u_R2 * (Gri23P2f / kA_R2_Gri23P2f ) / ( 1 + Gri23P2f / kA_R2_Gri23P2f ) * ( kC_R2 * sqrt( kEQ_R2  * kM_R2_Glcin * kM_R2_MgATP / kM_R2_Glc6P / kM_R2_MgADP ) * ( Glcin / kM_R2_Glcin ) * ( MgATP / kM_R2_MgATP ) - kC_R2 / sqrt( kEQ_R2  * kM_R2_Glcin * kM_R2_MgATP / kM_R2_Glc6P / kM_R2_MgADP ) * ( Glc6P / kM_R2_Glc6P ) * ( MgADP / kM_R2_MgADP ) ) / ( ( 1 + Glcin / kM_R2_Glcin ) * ( 1 + MgATP / kM_R2_MgATP ) + ( 1 + Glc6P / kM_R2_Glc6P ) * ( 1 + MgADP / kM_R2_MgADP ) - 1 )
@@ -26,7 +26,7 @@ vTrAld	GraP + Sed7P <=> Fru6P + E4P	Transaldolase	R01827	True		Common saturable 
 vTrKet2	Xul5P + E4P <=> Fru6P + GraP	Transketolase 2	R01830	True		Common saturable (CM)	u_R24 * ( kC_R24 * sqrt( kEQ_R24  * kM_R24_Xul5P * kM_R24_E4P / kM_R24_Fru6P / kM_R24_GraP ) * ( Xul5P / kM_R24_Xul5P ) * ( E4P / kM_R24_E4P ) - kC_R24 / sqrt( kEQ_R24  * kM_R24_Xul5P * kM_R24_E4P / kM_R24_Fru6P / kM_R24_GraP ) * ( Fru6P / kM_R24_Fru6P ) * ( GraP / kM_R24_GraP ) ) / ( ( 1 + Xul5P / kM_R24_Xul5P ) * ( 1 + E4P / kM_R24_E4P ) + ( 1 + Fru6P / kM_R24_Fru6P ) * ( 1 + GraP / kM_R24_GraP ) - 1 )
 vLacexch	Lacex <=> Lac	Lactate exchange		True		Common saturable (CM)	u_R25 * ( kC_R25 * sqrt( kEQ_R25  * kM_R25_Lacex / kM_R25_Lac ) * ( Lacex / kM_R25_Lacex ) - kC_R25 / sqrt( kEQ_R25  * kM_R25_Lacex / kM_R25_Lac ) * ( Lac / kM_R25_Lac ) ) / ( ( 1 + Lacex / kM_R25_Lacex ) + ( 1 + Lac / kM_R25_Lac ) - 1 )
 %							
-!!SBtab TableName='Compound' TableType='Compound' Document='Model' SBtabVersion='1.0'							
+!!SBtab TableID='t_id_02' TableName='Compound' TableType='Compound' Document='Model' SBtabVersion='1.0'							
 !ID	!Name	!Identifiers:kegg.compound	!IsConstant				
 Glcin	Glucose in	C00293	False				
 MgATP	MgATP	C00305	False				
@@ -59,7 +59,7 @@ E4P	Erythrose 4-phosphate	C00279	False
 Lacex	External Lactate	C00256	True				
 Glcout	Glucose outside	C00293	True				
 %							
-!!SBtab TableName='Parameter' TableType='Quantity' Document='Model' SBtabVersion='1.0'							
+!!SBtab TableID='t_id_03' TableName='Parameter' TableType='Quantity' Document='Model' SBtabVersion='1.0'							
 !QuantityType	!Reaction	!Compound	!Value	!Unit	!Reaction:Identifiers:kegg.reaction	!Compound:Identifiers:kegg.compound	!ID
 equilibrium constant	vGLT		3.353977	dimensionless			kEQ_R1
 equilibrium constant	vHEX		3.3539769	dimensionless	R00299		kEQ_R2
@@ -251,7 +251,7 @@ concentration of enzyme	vTrAld		1	mM	R01827		u_R23
 concentration of enzyme	vTrKet2		1	mM	R01830		u_R24
 concentration of enzyme	vLacexch		1	mM			u_R25
 %							
-!!SBtab TableName='Layouts' TableType='Position' Document='Model' SBtabVersion='1.0'							
+!!SBtab TableID='t_id_04' TableName='Layouts' TableType='Position' Document='Model' SBtabVersion='1.0'							
 !Element	!PositionX	!PositionY					
 Glcin	0.211042	0.903098					
 MgATP	0.090705	0.489973					

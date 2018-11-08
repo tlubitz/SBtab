@@ -1,4 +1,4 @@
-!!SBtab TableType='Quantity' !Organism='Saccharomyces cerevisiae'
+!!SBtab TableID='t_id' TableType='Quantity' !Organism='Saccharomyces cerevisiae'
 !Compound:Name	!Compound:Identifiers:kegg.compound	!Organism	!Value	!QuantityType
 ADP	C00008	S.cerevisiae	0.64498062	concentration
 AMP	C00020	S.cerevisiae	0.2258318	concentration

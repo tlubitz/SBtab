@@ -1,4 +1,4 @@
-!!SBtab TableName='Reaction' TableType='Reaction' Document='Model' SBtabVersion='1.0'					
+!!SBtab TableID='t_id_01' TableName='Reaction' TableType='Reaction' Document='Model' SBtabVersion='1.0'					
 !ID	!ReactionFormula	!IsReversible	!KineticLaw:Name	!KineticLaw:Formula	
 E1	X1 <=> S2	True	Common saturable (CM)	u_R1 * ( kC_R1 * sqrt( kEQ_R1  * kM_R1_X1 / kM_R1_S2 ) * ( X1 / kM_R1_X1 ) - kC_R1 / sqrt( kEQ_R1  * kM_R1_X1 / kM_R1_S2 ) * ( S2 / kM_R1_S2 ) ) / ( ( 1 + X1 / kM_R1_X1 ) + ( 1 + S2 / kM_R1_S2 ) - 1 )	
 E2	S2 <=> S3	True	Common saturable (CM)	u_R2 * ( kC_R2 * sqrt( kEQ_R2  * kM_R2_S2 / kM_R2_S3 ) * ( S2 / kM_R2_S2 ) - kC_R2 / sqrt( kEQ_R2  * kM_R2_S2 / kM_R2_S3 ) * ( S3 / kM_R2_S3 ) ) / ( ( 1 + S2 / kM_R2_S2 ) + ( 1 + S3 / kM_R2_S3 ) - 1 )	
@@ -6,7 +6,7 @@ E3	S3 <=> S4	True	Common saturable (CM)	u_R3 * ( kC_R3 * sqrt( kEQ_R3  * kM_R3_S
 E4	S4 <=> S5	True	Common saturable (CM)	u_R4 * ( kC_R4 * sqrt( kEQ_R4  * kM_R4_S4 / kM_R4_S5 ) * ( S4 / kM_R4_S4 ) - kC_R4 / sqrt( kEQ_R4  * kM_R4_S4 / kM_R4_S5 ) * ( S5 / kM_R4_S5 ) ) / ( ( 1 + S4 / kM_R4_S4 ) + ( 1 + S5 / kM_R4_S5 ) - 1 )	
 E5	S5 <=> X6	True	Common saturable (CM)	u_R5 * ( kC_R5 * sqrt( kEQ_R5  * kM_R5_S5 / kM_R5_X6 ) * ( S5 / kM_R5_S5 ) - kC_R5 / sqrt( kEQ_R5  * kM_R5_S5 / kM_R5_X6 ) * ( X6 / kM_R5_X6 ) ) / ( ( 1 + S5 / kM_R5_S5 ) + ( 1 + X6 / kM_R5_X6 ) - 1 )	
 %					
-!!SBtab TableName='Compound' TableType='Compound' Document='Model' SBtabVersion='1.0'					
+!!SBtab TableID='t_id_02' TableName='Compound' TableType='Compound' Document='Model' SBtabVersion='1.0'					
 !ID	!IsConstant				
 X1	True				
 S2	False				
@@ -15,7 +15,7 @@ S4	False
 S5	False				
 X6	True				
 %					
-!!SBtab TableName='Parameter' TableType='Quantity' Document='Model' SBtabVersion='1.0'					
+!!SBtab TableID='t_id_03' TableName='Parameter' TableType='Quantity' Document='Model' SBtabVersion='1.0'					
 !QuantityType	!Reaction	!Compound	!Value	!Unit	!ID
 equilibrium constant	E1		3.3055321e+17	dimensionless	kEQ_R1
 equilibrium constant	E2		3.3055321e+17	dimensionless	kEQ_R2
@@ -49,7 +49,7 @@ concentration of enzyme	E3		1	mM	u_R3
 concentration of enzyme	E4		1	mM	u_R4
 concentration of enzyme	E5		1	mM	u_R5
 %					
-!!SBtab TableName='Layouts' TableType='Position' Document='Model' SBtabVersion='1.0'					
+!!SBtab TableID='t_id_04' TableName='Layouts' TableType='Position' Document='Model' SBtabVersion='1.0'					
 !Element	!PositionX	!PositionY			
 X1	-0.667293	0.267545			
 S2	-0.124668	0.267545			

@@ -1,9 +1,9 @@
-!!SBtab SBtabVersion='1.0' Document='BIOMD0000000064' TableType='Compartment' TableName='Compartment'
+!!SBtab TableID='t_id_01' SBtabVersion='1.0' Document='BIOMD0000000064' TableType='Compartment' TableName='Compartment'
 !ID,!Size
 extracellular,1
 cytosol,1
 
-!!SBtab SBtabVersion='1.0' Document='BIOMD0000000064' TableType='Compound' TableName='Compound'
+!!SBtab TableID='t_id_02' SBtabVersion='1.0' Document='BIOMD0000000064' TableType='Compound' TableName='Compound'
 !ID,!Name,!Location,!Charge,!IsConstant,!InitialConcentration,!hasOnlySubstanceUnits,!Identifiers:kegg.compound
 GLCi,Glucose in Cytosol,cytosol,0,False,0.1,False,C00293
 G6P,Glucose 6 Phosphate,cytosol,0,False,2.5,False,C00668
@@ -32,7 +32,7 @@ AMP,AMP concentration,cytosol,0,False,0,False,C00020
 SUMP,sum of AXP conc,cytosol,0,True,4.1,False,C00002
 F26BP,"F2,6P",cytosol,0,True,0,False,C00665
 
-!!SBtab TableType="Quantity" Version="0.1" Level="1.0" TableName="Teusink Data"									
+!!SBtab TableID='t_id_03' TableType="Quantity" Version="0.1" Level="1.0" TableName="Teusink Data"									
 !QuantityType	!Reaction:SBML:reaction:id	!Compound:SBML:species:id	!Mean	!Std	!Unit	!Organism	!Reaction:Identifiers:kegg.reaction	!Compound:Identifiers:kegg.compound	!Reference
 concentration of enzyme	vGAPDH	nan	169000	nan	molecules/cell	Saccharomyces cerevisiae	R01061	nan	yeastGFP
 concentration of enzyme	vGAPDH	nan	120000	nan	molecules/cell	Saccharomyces cerevisiae	R01061	nan	yeastGFP
@@ -509,7 +509,7 @@ concentration	nan	AMP	193	174	mM	nan	nan	C00020	nan
 concentration	nan	AMP	0.235	0.065	mM	Saccharomyces cerevisiae	nan	C00020	nan
 standard chemical potential	nan	AMP	-555.8	nan	kJ/mol	nan	nan	C00020	Alberty
 
-!!SBtab SBtabVersion='1.0' Document='BIOMD0000000064' TableType='Reaction' TableName='Reaction'
+!!SBtab TableID='t_id_04' SBtabVersion='1.0' Document='BIOMD0000000064' TableType='Reaction' TableName='Reaction'
 !ID	!Name	!ReactionFormula	!Regulator	!KineticLaw	!IsReversible	!Identifiers:ec-code
 vGLK	Hexokinase	GLCi + P <=> G6P	ATP|ADP	cytosol * VmGLK / (KmGLKGLCi * KmGLKATP) * (GLCi * ATP - G6P * ADP / KeqGLK) / ((1 + GLCi / KmGLKGLCi + G6P / KmGLKG6P) * (1 + ATP / KmGLKATP + ADP / KmGLKADP))	True	2.7.1.2
 vPGI	Glucose-6-phosphate isomerase	G6P <=> F6P		cytosol * VmPGI_2 / KmPGIG6P_2 * (G6P - F6P / KeqPGI_2) / (1 + G6P / KmPGIG6P_2 + F6P / KmPGIF6P_2)	True	5.3.1.9

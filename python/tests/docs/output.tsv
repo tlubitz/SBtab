@@ -1,10 +1,10 @@
 !!!SBtab SBtabVersion='1.0' Document='extended_core' Name='extended_core' Date='2018-10-25'
-!!SBtab SBtabVersion='1.0' Document='current_tests/extended_core' TableType='Compartment' TableName='Compartment' Date='2018-10-25'
+!!SBtab TableID='t_id_01' SBtabVersion='1.0' Document='current_tests/extended_core' TableType='Compartment' TableName='Compartment' Date='2018-10-25'
 !ID	!Name	!Size	!Unit	!SBOTerm
 c	Cytoplasm	nan		
 e	Extracellular	nan		
 
-!!SBtab SBtabVersion='1.0' Document='current_tests/extended_core' TableType='Compound' TableName='Compound' Date='2018-10-25'
+!!SBtab TableID='t_id_02' SBtabVersion='1.0' Document='current_tests/extended_core' TableType='Compound' TableName='Compound' Date='2018-10-25'
 !ID	!Name	!Location	!IsConstant	!SBOTerm	!InitialConcentration	!hasOnlySubstanceUnits	!SBML:fbc:chemicalFormula	!SBML:fbc:charge	!Identifiers:bigg.metabolite	!Identifiers:biocyc	!Identifiers:chebi	!Identifiers:ec-code	!Identifiers:hmdb	!Identifiers:kegg.compound	!Identifiers:kegg.reaction	!Identifiers:metanetx.chemical	!Identifiers:metanetx.reaction	!Identifiers:ncbigi	!Identifiers:rhea	!Identifiers:seed.compound	!Identifiers:unipathway.reaction	!Identifiers:umbbd.compound
 M_13dpg_c	3-Phospho-D-glyceroyl-phosphate	c	False		nan	False	C3H4O10P2															
 M_2pg_c	D-Glycerate-2-phosphate	c	False		nan	False	C3H4O7P															
@@ -93,7 +93,7 @@ M_2ddg6p_c	2-Dehydro-3-deoxy-D-gluconate 6-phosphate	c	False	SBO:0000247	nan	Fal
 M_ppi_c	Diphosphate	c	False	SBO:0000247	nan	False	HO7P2		ppi	META:PYROPHOSPHATE-GROUP	CHEBI:8683		HMDB00250	C00013		MNXM11	MNXR82008	312945426		cpd00012		
 M_h2o2_c	Hydrogen peroxide	c	False	SBO:0000247	nan	False	H2O2		h2o2	META:HYDROGEN-PEROXIDE	CHEBI:5586		HMDB06491	C00027		MNXM22	MNXR68304	312945186		cpd00025		
 
-!!SBtab SBtabVersion='1.0' Document='current_tests/extended_core' TableType='Reaction' TableName='Reaction' Date='2018-10-25'
+!!SBtab TableID='t_id_03' SBtabVersion='1.0' Document='current_tests/extended_core' TableType='Reaction' TableName='Reaction' Date='2018-10-25'
 !ID	!Name	!ReactionFormula	!Location	!Regulator	!KineticLaw	!SBOTerm	!IsReversible	!SBML:fbc:GeneAssociation	!SBML:fbc:LowerBound	!SBML:fbc:UpperBound	!Identifiers:bigg.reaction
 R_ACALD	acetaldehyde dehydrogenase (acetylating)	M_acald_c + M_coa_c + M_nad_c <=> M_accoa_c + M_h_c + M_nadh_c					True	(b0351 or b1241)	cobra_default_lb	cobra_default_ub	
 R_ACALDt	acetaldehyde reversible transport	M_acald_e <=> M_acald_c					True	s0001	cobra_default_lb	cobra_default_ub	
@@ -212,18 +212,18 @@ R_ACS	Acetyl-CoA synthetase	M_ac_c + M_atp_c + M_coa_c <=> M_accoa_c + M_amp_c +
 R_MOX	Malate oxidase	M_mal__L_c + M_o2_c <=> M_h2o2_c + M_oaa_c				SBO:0000375	True		cobra_default_lb	cobra_default_ub	MOX
 R_MDH2	Malate dehydrogenase (ubiquinone 8 as acceptor)	M_mal__L_c + M_q8_c <=> M_oaa_c + M_q8h2_c				SBO:0000375	False	b2210	cobra_0_bound	cobra_default_ub	MDH2
 
-!!SBtab SBtabVersion='1.0' Document='current_tests/extended_core' TableType='Quantity' TableName='Quantity' Date='2018-10-25'
+!!SBtab TableID='t_id_04' SBtabVersion='1.0' Document='current_tests/extended_core' TableType='Quantity' TableName='Quantity' Date='2018-10-25'
 !ID	!Parameter:SBML:parameter:id	!Value	!Unit	!Type	!SBOTerm
 cobra_default_lb	cobra_default_lb	-1000.0	mmol_per_gDW_per_hr	global parameter	SBO:0000626
 cobra_default_ub	cobra_default_ub	1000.0	mmol_per_gDW_per_hr	global parameter	SBO:0000626
 cobra_0_bound	cobra_0_bound	0.0	mmol_per_gDW_per_hr	global parameter	SBO:0000626
 R_ATPM_lower_bound	R_ATPM_lower_bound	8.39	mmol_per_gDW_per_hr	global parameter	SBO:0000625
 
-!!SBtab SBtabVersion='1.0' Document='current_tests/extended_core' TableType='FbcObjective' TableName='FBC Objective' Date='2018-10-25'
+!!SBtab TableID='t_id_05' SBtabVersion='1.0' Document='current_tests/extended_core' TableType='FbcObjective' TableName='FBC Objective' Date='2018-10-25'
 !ID	!Name	!Type	!Active	!Objective
 obj		maximize	True	1.0 * R_Biomass_Ecoli_core_w_GAM
 
-!!SBtab SBtabVersion='1.0' Document='current_tests/extended_core' TableType='Gene' TableName='FBC Gene' Date='2018-10-25'
+!!SBtab TableID='t_id_06' SBtabVersion='1.0' Document='current_tests/extended_core' TableType='Gene' TableName='FBC Gene' Date='2018-10-25'
 !ID	!SBML:fbc:ID	!SBML:fbc:Name	!SBML:fbc:GeneProduct	!SBML:fbc:Label	!Identifiers:asap	!Identifiers:ecogene	!Identifiers:ncbigene	!Identifiers:ncbigi	!Identifiers:uniprot
 G_b1241	G_b1241	b1241	True	b1241					
 G_b0351	G_b0351	b0351	True	b0351					

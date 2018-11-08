@@ -1,4 +1,4 @@
-!!SBtab TableType='Quantity' Unit='kJ/mol' StandardConcentration='1mM'
+!!SBtab TableID='t_id' TableType='Quantity' Unit='kJ/mol' StandardConcentration='1mM'
 !QuantityType	!SBML:reaction:id	!Reaction:Identifiers:kegg.reaction	!Value	!StdDev	!SBML:species:id	
 standard chemical potential difference	PTS_RPTSsy	RPTSsy	-44.281981	0.60995603	
 standard chemical potential difference	PGI_R02740	R02740	2.5085872	0.3865508	

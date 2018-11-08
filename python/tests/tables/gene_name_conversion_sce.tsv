@@ -1,4 +1,4 @@
-!!SBtab TableType='Enzyme' !Organism='Saccharomyces cerevisiae'		
+!!SBtab TableID='t_id' TableType='Enzyme' !Organism='Saccharomyces cerevisiae'		
 !Enzyme	!Gene	!EnzymeReaction
 AAD	-	AAD
 ACC	-	ACC

@@ -1,4 +1,4 @@
-!!SBtab TableType='Quantity' !Organism='Escherichia coli'
+!!SBtab TableID='t_id' TableType='Quantity' !Organism='Escherichia coli'
 !QuantityType	!Gene:LocusName	!Abundance	!Value	!SizeWeightedAbundance	!SizeWeightedAbundancePPM	!Size	!Gene	!Gene:Identifiers:kegg.orthology	!Pathway
 concentration of enzyme	b3357	1872	756.725614081	393246	549.164190377	210	Crp	K10914	Transcription factors
 concentration of enzyme	b2518	19029	7690.08362687	2721282	3800.24486736	143	Ndk	K00940	Purine metabolism

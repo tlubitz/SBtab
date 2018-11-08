@@ -1,4 +1,4 @@
-!!SBtab SBtabVersion='1.0' Document='BIOMD0000000064' TableType='Reaction' TableName='Reaction'
+!!SBtab TableID='t_id_reaction' SBtabVersion='1.0' Document='BIOMD0000000064' TableType='Reaction' TableName='Reaction'
 !ID	!Name	!ReactionFormula	!Regulator	!KineticLaw	!IsReversible	!Identifiers:ec-code
 vGLK	Hexokinase	GLCi + P <=> G6P	ATP|ADP	cytosol * VmGLK / (KmGLKGLCi * KmGLKATP) * (GLCi * ATP - G6P * ADP / KeqGLK) / ((1 + GLCi / KmGLKGLCi + G6P / KmGLKG6P) * (1 + ATP / KmGLKATP + ADP / KmGLKADP))	True	2.7.1.2
 vPGI	Glucose-6-phosphate isomerase	G6P <=> F6P		cytosol * VmPGI_2 / KmPGIG6P_2 * (G6P - F6P / KeqPGI_2) / (1 + G6P / KmPGIG6P_2 + F6P / KmPGIF6P_2)	True	5.3.1.9

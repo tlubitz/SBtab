@@ -1,4 +1,4 @@
-!!SBtab TableName='Reaction' TableType='Reaction' Document='Model' SBtabVersion='0.9'							
+!!SBtab TableID='t_id_01' TableName='Reaction' TableType='Reaction' Document='Model' SBtabVersion='0.9'							
 !ID	!ReactionFormula	!Identifiers:kegg.reaction	!IsReversible	!KineticLaw:Name	!KineticLaw:Formula		
 PTS	D_Glucose + Phosphoenolpyruvate <=> D_Glucose_6_phosphate + Pyruvate	R00299	True	Common saturable (CM)	u_R1 * ( kC_R1 * sqrt( kEQ_R1  * kM_R1_D_Glucose * kM_R1_Phosphoenolpyruvate / kM_R1_D_Glucose_6_phosphate / kM_R1_Pyruvate ) * ( D_Glucose / kM_R1_D_Glucose ) * ( Phosphoenolpyruvate / kM_R1_Phosphoenolpyruvate ) - kC_R1 / sqrt( kEQ_R1  * kM_R1_D_Glucose * kM_R1_Phosphoenolpyruvate / kM_R1_D_Glucose_6_phosphate / kM_R1_Pyruvate ) * ( D_Glucose_6_phosphate / kM_R1_D_Glucose_6_phosphate ) * ( Pyruvate / kM_R1_Pyruvate ) ) / ( ( 1 + D_Glucose / kM_R1_D_Glucose ) * ( 1 + Phosphoenolpyruvate / kM_R1_Phosphoenolpyruvate ) + ( 1 + D_Glucose_6_phosphate / kM_R1_D_Glucose_6_phosphate ) * ( 1 + Pyruvate / kM_R1_Pyruvate ) - 1 )		
 PGI	D_Glucose_6_phosphate <=> D_Fructose_6_phosphate	R00771	True	Common saturable (CM)	u_R2 * ( kC_R2 * sqrt( kEQ_R2  * kM_R2_D_Glucose_6_phosphate / kM_R2_D_Fructose_6_phosphate ) * ( D_Glucose_6_phosphate / kM_R2_D_Glucose_6_phosphate ) - kC_R2 / sqrt( kEQ_R2  * kM_R2_D_Glucose_6_phosphate / kM_R2_D_Fructose_6_phosphate ) * ( D_Fructose_6_phosphate / kM_R2_D_Fructose_6_phosphate ) ) / ( ( 1 + D_Glucose_6_phosphate / kM_R2_D_Glucose_6_phosphate ) + ( 1 + D_Fructose_6_phosphate / kM_R2_D_Fructose_6_phosphate ) - 1 )		
@@ -14,7 +14,7 @@ PDC	Pyruvate + NADplus + CoA <=> Acetyl_CoA + NADH + CO2	R00014_R03270_R02569	Tr
 ATPase	ATP + H2O <=> ADP + Orthophosphate	R00086	True	Common saturable (CM)	u_R12 * ( kC_R12 * sqrt( kEQ_R12  * kM_R12_ATP * kM_R12_H2O / kM_R12_ADP / kM_R12_Orthophosphate ) * ( ATP / kM_R12_ATP ) * ( H2O / kM_R12_H2O ) - kC_R12 / sqrt( kEQ_R12  * kM_R12_ATP * kM_R12_H2O / kM_R12_ADP / kM_R12_Orthophosphate ) * ( ADP / kM_R12_ADP ) * ( Orthophosphate / kM_R12_Orthophosphate ) ) / ( ( 1 + ATP / kM_R12_ATP ) * ( 1 + H2O / kM_R12_H2O ) + ( 1 + ADP / kM_R12_ADP ) * ( 1 + Orthophosphate / kM_R12_Orthophosphate ) - 1 )		
 NADHcons	NADH <=> NADplus	X2	True	Common saturable (CM)	u_R13 * ( kC_R13 * sqrt( kEQ_R13  * kM_R13_NADH / kM_R13_NADplus ) * ( NADH / kM_R13_NADH ) - kC_R13 / sqrt( kEQ_R13  * kM_R13_NADH / kM_R13_NADplus ) * ( NADplus / kM_R13_NADplus ) ) / ( ( 1 + NADH / kM_R13_NADH ) + ( 1 + NADplus / kM_R13_NADplus ) - 1 )		
 %							
-!!SBtab TableName='Compound' TableType='Compound' Document='Model' SBtabVersion='0.9'							
+!!SBtab TableID='t_id_02' TableName='Compound' TableType='Compound' Document='Model' SBtabVersion='0.9'							
 !ID	!Identifiers:kegg.compound	!IsConstant					
 D_Glucose	C00031	True					
 D_Glucose_6_phosphate	C00092	False					
@@ -37,7 +37,7 @@ CoA	C00010	True
 CO2	C00011	True					
 H2O	C00001	True					
 %							
-!!SBtab TableName='Parameter' TableType='Quantity' Document='Model' SBtabVersion='0.9'							
+!!SBtab TableID='t_id_03' TableName='Parameter' TableType='Quantity' Document='Model' SBtabVersion='0.9'							
 !QuantityType	!Reaction	!Compound	!Value	!Unit	!Reaction:Identifiers:kegg.reaction	!Compound:Identifiers:kegg.compound	!ID
 equilibrium constant	PTS		3390.7079	dimensionless	R00299		kEQ_R1
 equilibrium constant	PGI		38.346768	dimensionless	R00771		kEQ_R2
@@ -144,7 +144,7 @@ concentration of enzyme	PDC		1	mM	R00014_R03270_R02569		u_R11
 concentration of enzyme	ATPase		1	mM	R00086		u_R12
 concentration of enzyme	NADHcons		1	mM	X2		u_R13
 %							
-!!SBtab TableName='Layouts' TableType='Position' Document='Model' SBtabVersion='0.9'							
+!!SBtab TableID='t_id_04' TableName='Layouts' TableType='Position' Document='Model' SBtabVersion='0.9'							
 !Element	!Position:x	!Position:y					
 D_Glucose	0.030783	0.884503					
 D_Glucose_6_phosphate	0.307495	0.884447					

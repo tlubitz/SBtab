@@ -1,4 +1,4 @@
-!!SBtab TableType="Quantity" TableName="Chen 2016 HeLa Metabolite concentrations Whole-Cell" Unit="uM"							
+!!SBtab TableID="t_id" TableType="Quantity" TableName="Chen 2016 HeLa Metabolite concentrations Whole-Cell" Unit="uM"							
 !Compound:Name	!Compound	!Identifiers:kegg.compound		!Rep1	!Rep2	!Rep3	!Comment
 keto-leucine/keto-isoleucine				16.7525461934	17.3918622736	17.8695689469	
 kynurenine				1.1215359141	1.1605256515	1.0812566222	
