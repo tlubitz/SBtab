@@ -68,7 +68,10 @@ class TestSBtabDocument(unittest.TestCase):
             amount_sbtabs_after = len(doc.sbtabs)
             self.assertEqual(amount_sbtabs_before + len(self.sbtabs),
                              amount_sbtabs_after)
-
+            
+        with self.assertRaises(SBtab.SBtabError):
+            doc.add_sbtab(sbtab)
+            
         # is an Error raised if the table type is corrupt?
         sbtab.table_type = 'rubbish'
         with self.assertRaises(SBtab.SBtabError):
@@ -261,6 +264,16 @@ class TestSBtabDocument(unittest.TestCase):
                 sbtab = doc.get_sbtab_by_name(name)
                 self.assertEqual(name, sbtab.table_name)
 
+    def test_get_sbtab_by_id(self):
+        '''
+        test if SBtabs can be fetched by id
+        '''
+        for doc in self.docs:
+            ids = doc.id_to_sbtab.keys()
+            for _id in ids:
+                self.assertIsNotNone(doc.get_sbtab_by_id(_id))
+                sbtab = doc.get_sbtab_by_id(_id)
+                self.assertEqual(_id, sbtab.table_id)
 
     def test_get_sbtab_by_type(self):
         '''

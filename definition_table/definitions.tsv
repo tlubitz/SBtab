@@ -1,4 +1,4 @@
-!!SBtab SBtabVersion='1.0' TableType='Definition' TableName='Allowed_types'					
+!!SBtab TableID='def_table' SBtabVersion='1.0' TableType='Definition' TableName='Allowed_types'					
 !ComponentName	!ComponentType	!IsPartOf	!linksShortname	!Format	!Description
 Comment	Column	Reaction	False	string	Comment
 ReferenceName	Column	Reaction	False	string	Reference title, authors, etc. (as free text)
