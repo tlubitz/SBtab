@@ -31,17 +31,17 @@ def read_csv(filepath, document_name, xlsx=False):
             sbtab_xlsx.close()
             sbtab_doc = SBtabDocument(document_name, sbtab_tsv, filepath)
             return sbtab_doc
-        except:
-            raise SBtabError('File %s was not found.' % filepath)
+        except Exception as e:
+            raise SBtabError('The SBtab could not be generated: %s' % (str(e)))
             
     try:
         sbtab_file = open(filepath, 'r')
         sbtab_doc = SBtabDocument(document_name, sbtab_file.read(), filepath)
         sbtab_file.close()
         return sbtab_doc
-    except:
+    except Exception as e:
         if sbtab_file: sbtab_file.close()
-        raise SBtabError('File %s was not found.' % filepath)
+        raise SBtabError('The SBtab could not be generated: %s' % (str(e)))
     
 
 class SBtabError(Exception):
