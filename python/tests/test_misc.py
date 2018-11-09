@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 import unittest
-import copy
 import os
 import sys
 import libsbml

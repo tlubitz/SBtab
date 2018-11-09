@@ -186,7 +186,7 @@ class TestSBtabTable(unittest.TestCase):
             df = sbtab.to_data_frame()
             self.assertIsNotNone(df)
             
-    def xtest_from_data_frame(self):
+    def test_from_data_frame(self):
         '''
         test import from pandas dataframe
         (use the "ignore warnings" to get rid of benign numpy RuntimeWarning)
@@ -197,10 +197,9 @@ class TestSBtabTable(unittest.TestCase):
         df = DataFrame(columns=['name', 'height', 'length'], index=[0, 1],
                        data=[['patchkins', 76, 103], ['puddles', 43, 78]])
         
-        sbtab = SBtab.SBtabTable.from_data_frame(df,
+        sbtab = SBtab.SBtabTable.from_data_frame(df, table_id='Dogs',
             table_type='Quantity',
             document_name='Animals',
-            table_name='Dogs',
             document='Animal facts',
             unit='cm')
         column_names, columns = sbtab._get_columns()
