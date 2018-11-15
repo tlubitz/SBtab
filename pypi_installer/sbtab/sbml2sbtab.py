@@ -94,7 +94,7 @@ class SBMLDocument:
         build a compartment SBtab
         '''
         # header row
-        sbtab_compartment  = '!!SBtab SBtabVersion="1.0" Document="%s" TableT'\
+        sbtab_compartment  = '!!SBtab TableID="compartment" SBtabVersion="1.0" Document="%s" TableT'\
                              'ype="Compartment" TableName="Compartment"'\
                              '\n' % self.filename
         # columns
@@ -148,7 +148,7 @@ class SBMLDocument:
         build a compound SBtab
         '''
         # header row
-        sbtab_compound = '!!SBtab SBtabVersion="1.0" Document="%s" TableType='\
+        sbtab_compound = '!!SBtab TableID="compound" SBtabVersion="1.0" Document="%s" TableType='\
                          '"Compound" TableName="Compound"\n' % self.filename
 
         # columns
@@ -221,7 +221,7 @@ class SBMLDocument:
         if len(self.model.getListOfEvents()) == 0:
             return False
             
-        event    = [['!!SBtab SBtabVersion="1.0" Document="'+self.filename.rstrip('.xml')+'" TableType="Event" TableName="Event"'],['']]
+        event    = [['!!SBtab TableID="event" SBtabVersion="1.0" Document="'+self.filename.rstrip('.xml')+'" TableType="Event" TableName="Event"'],['']]
         header   = ['!Event','!Name','!Assignments','!Trigger','!SBOterm','!Delay','!UseValuesFromTriggerTime']
         identifiers  = []
         column2ident = {}
@@ -285,7 +285,7 @@ class SBMLDocument:
         if len(self.model.getListOfRules()) == 0:
             return False
             
-        rule     = [['!!SBtab SBtabVersion="1.0" Document="'+self.filename.rstrip('.xml')+'" TableType="Rule" TableName="Rule"'],['']]
+        rule     = [['!!SBtab TableID="rule" SBtabVersion="1.0" Document="'+self.filename.rstrip('.xml')+'" TableType="Rule" TableName="Rule"'],['']]
         header   = ['!Rule','!Name','!Formula','!Unit']
         identifiers  = []
         column2ident = {}
@@ -330,7 +330,7 @@ class SBMLDocument:
         active_obj = fbc_plugin.getActiveObjectiveId()
 
         # header row
-        sbtab_fbc = '!!SBtab SBtabVersion="1.0" Document="%s" TableType='\
+        sbtab_fbc = '!!SBtab TableID="fbcobj" SBtabVersion="1.0" Document="%s" TableType='\
                     '"FbcObjective" TableName="FBC Objective"\n' % self.filename
 
         # columns
@@ -368,7 +368,7 @@ class SBMLDocument:
         fbc_plugin = self.model.getPlugin('fbc')
 
         # header row
-        sbtab_fbc_gene = '!!SBtab SBtabVersion="1.0" Document="%s" TableType='\
+        sbtab_fbc_gene = '!!SBtab TableID="gene" SBtabVersion="1.0" Document="%s" TableType='\
                          '"Gene" TableName="FBC Gene"\n' % self.filename
 
         # columns
@@ -463,7 +463,7 @@ class SBMLDocument:
         build a reaction SBtab
         '''
         # header row
-        sbtab_reaction = '!!SBtab SBtabVersion="1.0" Document="%s" TableType='\
+        sbtab_reaction = '!!SBtab TableID="reaction" SBtabVersion="1.0" Document="%s" TableType='\
                          '"Reaction" TableName="Reaction"\n' % self.filename
 
         # columns
@@ -563,7 +563,7 @@ class SBMLDocument:
         if not parameters: return False
 
         # header row        
-        sbtab_quantity = '!!SBtab SBtabVersion="1.0" Document="%s" TableType='\
+        sbtab_quantity = '!!SBtab TableID="quantity" SBtabVersion="1.0" Document="%s" TableType='\
                          '"Quantity" TableName="Quantity"\n' % self.filename
         # columns
         columns = ['!ID', '!Parameter:SBML:parameter:id', '!Value',
@@ -588,7 +588,7 @@ class SBMLDocument:
                     if str(parameter.getSBOTerm()) != '-1':
                         value_row[5] = 'SBO:%.7d' % parameter.getSBOTerm()
                     local_parameters.append(parameter)
-                sbtab_quantity += '\t'.join(value_row) + '\n'
+                    sbtab_quantity += '\t'.join(value_row) + '\n'
                 
         sbtab_quantity = SBtab.SBtabTable(sbtab_quantity,
                                           self.filename + '_quantity.tsv')
