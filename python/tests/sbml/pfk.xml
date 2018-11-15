@@ -77,12 +77,6 @@
       <parameter metaid="scp_beta_D_fructofuranose_6_phosphate_c_meta" id="scp_beta_D_fructofuranose_6_phosphate_c" name="scp_beta_D_fructofuranose_6_phosphate_c" value="-1380"/>
       <parameter metaid="scp_ADP_c_meta" id="scp_ADP_c" name="scp_ADP_c" value="-1496"/>
       <parameter metaid="scp_beta_D_fructofuranose_1_6_bisphosphate_c_meta" id="scp_beta_D_fructofuranose_1_6_bisphosphate_c" name="scp_beta_D_fructofuranose_1_6_bisphosphate_c" value="-2206"/>
-      <parameter id="temp" value="300"/>
-      <parameter id="R" value="8.31"/>
-      <parameter id="scp_ATP_c" name="scp_ATP_c" value="-435.146" sboTerm="SBO:0000463"/>
-      <parameter id="scp_beta_D_fructofuranose_6_phosphate_c" name="scp_beta_D_fructofuranose_6_phosphate_c" value="-435.146" sboTerm="SBO:0000463"/>
-      <parameter id="scp_ADP_c" name="scp_ADP_c" value="-435.146" sboTerm="SBO:0000463"/>
-      <parameter id="scp_beta_D_fructofuranose_1_6_bisphosphate_c" name="scp_beta_D_fructofuranose_1_6_bisphosphate_c" value="-435.146" sboTerm="SBO:0000463"/>
     </listOfParameters>
     <listOfReactions>
       <reaction metaid="R04779_meta" id="R04779" name="_6_phosphofructokinase_activity">
