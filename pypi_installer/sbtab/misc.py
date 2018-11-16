@@ -157,8 +157,17 @@ def sbtab_to_html(sbtab, filename=None, mode='sbtab_online'):
                                     html += element + ' '
                             html += '</td>'
                         except: html += '<td>%s</td>' % (col)
-                    else: html += '<td>%s</td>' % (col)
-                except: html += '<td>%s</td>' % (col)
+                    else:
+                        html += '<td>%s</td>' % (col)
+                except:
+                    if '!Identifiers' in sbtab.columns[i]:
+                        try:
+                            db = re.search('Identifiers:(.*)',sbtab.columns[i])
+                            url = 'http://identifiers.org/%s/%s' % (db.group(1), col)                        
+                            html += '<td><a href="%s">%s</a></td>' % (url, col)
+                        except: html += '<td>%s</td>' % (col)
+                    else:
+                        html += '<td>%s</td>' % (col)
             html += '</tr>'
 
         # comment rows
@@ -294,71 +303,6 @@ def tab_to_xlsx(sbtab_object):
     fileobject = open('transition.xlsx','rb')
 
     return fileobject.read()
-
-
-urns = ["obo.chebi","kegg.compound","kegg.reaction","obo.go","obo.sgd","biomodels.sbo","ec-code","kegg.orthology","uniprot","hmdb"]
-
-def csv2html(sbtab_file,file_name,delimiter,sbtype,def_file=None,def_file_name=None):
-    '''
-    generates html view out of csv file
-    '''
-    # remove validator here; not required anymore
-    # improve interface: provide SBtab, use sbtab.delimiter
-    if def_file:
-        FileValidClass = validatorSBtab.ValidateFile(def_file,def_file_name)
-        def_delimiter  = FileValidClass.checkseparator()
-    else:
-        def_file_open = open('./definitions/definitions.tsv','r')
-        def_file      = def_file_open.read()
-        def_delimiter = '\t'
-
-    col2description = findDescriptions(def_file,def_delimiter,sbtype)
-
-    sbtab = sbtab_file.split('\n')
-    nice_sbtab = '<p><h2><b>'+file_name+'</b></h2></p>'
-    nice_sbtab += '<a style="background-color:#00BFFF">'+sbtab[0]+'</a><br>'
-    nice_sbtab += '<table>'
-
-    ident_url  = False
-    ident_cols = []
-    col2urn    = {}
-
-    for row in sbtab[1:]:
-        if row.startswith('!'):
-            nice_sbtab += '<tr bgcolor="#87CEFA">'
-            splitrow = row.split(delimiter)
-            for i,element in enumerate(splitrow):
-                if 'Identifiers:' in element:
-                    try:
-                        searcher  = re.search('Identifiers:(.*)',element)
-                        ident_url = 'http://identifiers.org/'+searcher.group(1)+'/'
-                        #ident_cols.append(i)
-                        col2urn[i] = ident_url
-                    except: pass
-        elif row.startswith('%'):
-            nice_sbtab += '<tr bgcolor="#C0C0C0">'
-        else: nice_sbtab += '<tr>'
-        
-        for i,thing in enumerate(row.split(delimiter)):
-
-            try: title = col2description[thing[1:]]
-            except: title = ''
-            
-            if not ident_url:
-                new_row = '<td title="'+str(title)+'">'+str(thing)+'</\td>'
-                nice_sbtab += new_row
-            else:
-                if i in col2urn.keys() and not thing.startswith('!'):
-                    ref_string = col2urn[i]+thing
-                    new_row = '<td><a href="'+ref_string+'" target="_blank">'+str(thing)+'</a></\td>'
-                else:
-                    new_row = '<td title="'+title+'">'+str(thing)+'</\td>'
-                nice_sbtab += new_row
-                
-        nice_sbtab += '</tr>'
-    nice_sbtab += '</table>'
-    
-    return nice_sbtab
 
 
 def xml_to_html(sbml_file):
