@@ -339,8 +339,14 @@ Type	Column	FbcObjective	False	string	Type of objective in FBC package
 Active	Column	FbcObjective	False	Boolean	Flag indicating if the objective is active
 Objective	Column	FbcObjective	False	string	FBC objective as sum of coefficients times reaction IDs
 ID	Column	Layout	False	string	Unique identifier of layout package
-ModelEntity	Column	Layout	False	string	Declares the SBML model entity
-SBML:id	Column	Layout	False	string	SBML identifier of the model entity
 Name	Column	Layout	False	float	Name of layout in plugin
-SBML:layout:width	Column	Layout	False	float	Width for the layout canvas
-SBML:layout:height	Column	Layout	False	float	Height for the layout canvas
+ModelEntity	Column	Layout	False	string	Declares the SBML model entity
+SBML:compartment:id	Column	Layout	False	string	SBML identifier of the compartment
+SBML:reaction:id	Column	Layout	False	string	SBML identifier of the reaction
+SBML:species:id	Column	Layout	False	string	SBML identifier of the species
+CurveSegment	Column	Layout	False	string	Type of curve segment (Start, End, BasePoints)
+SBML:X	Column	Layout	False	float	Coordinate on X axis
+SBML:Y	Column	Layout	False	float	Coordinate on Y axis
+SBML:width	Column	Layout	False	float	Width of the element
+SBML:height	Column	Layout	False	float	Height of the element
+SBML:text	Column	Layout	False	string	Text label of the element

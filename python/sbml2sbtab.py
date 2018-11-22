@@ -420,6 +420,8 @@ class SBMLDocument:
             value_row[3] = cg.getCompartmentId()
             try:
                 bb = cg.getBoundingBox()
+                value_row[7] = str(bb.getX())
+                value_row[8] = str(bb.getY())
                 value_row[9] = str(bb.getWidth())
                 value_row[10] = str(bb.getHeight())
             except:
@@ -464,7 +466,7 @@ class SBMLDocument:
                 value_row[8] = str(bb.getY())
                 value_row[9] = str(bb.getWidth())
                 value_row[10] = str(bb.getHeight())
-                value_row[11] = tg_i.getOriginOfTextId()
+                value_row[11] = tg.getOriginOfTextId()
             except:
                 self.warnings.append('Species layout text information could not be read.')
             sbtab_layout += '\t'.join(value_row) + '\n'
