@@ -9,6 +9,7 @@ python/hynne.xml
 python/single_test.tsv
 python/ts.tsv
 python/current_tests
+python/layout_test
 sbtab_examples/e_coli_core.xml
 sbtab_examples/example.xlsx
 sbtab_examples/mm.xlsx

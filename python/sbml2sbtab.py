@@ -93,14 +93,13 @@ class SBMLDocument:
             except:
                 self.warnings.append('Could not generate SBtab FBC Gene.')
                 
-        if self.layout and False:
-            #try:
-            sbtab = self.layout_sbtab()
-            if sbtab != False:
-                sbtab_doc.add_sbtab(sbtab)
-            #except:
-            #    self.warnings.append('Could not generate SBtab Layout.')
-        
+        if self.layout:
+            try:
+                sbtab = self.layout_sbtab()
+                if sbtab != False:
+                    sbtab_doc.add_sbtab(sbtab)
+            except:
+                self.warnings.append('Could not generate SBtab Layout.')
 
         return (sbtab_doc, self.warnings)
 
@@ -389,8 +388,7 @@ class SBMLDocument:
         # columns
         columns = ['!ID', '!Name', '!ModelEntity', '!SBML:compartment:id', '!SBML:reaction:id',
                    '!SBML:species:id', '!CurveSegment',
-                   '!SBML:X', '!SBML:Y', '!SBML:width', '!SBML:height', '!SBML:text:X',
-                   '!SBML:text:Y', '!SBML:text:width', '!SBML:text:height', '!SBML:text']
+                   '!SBML:X', '!SBML:Y', '!SBML:width', '!SBML:height', '!SBML:text']
         sbtab_layout += '\t'.join(columns) + '\n'
 
         # value rows
@@ -402,11 +400,10 @@ class SBMLDocument:
         value_row[2] = 'LayoutCanvas'
         try:
             dim = layout.getDimensions()
-            value_row[8] = str(dim.getWidth())
-            value_row[9] = str(dim.getHeight())
+            value_row[9] = str(dim.getWidth())
+            value_row[10] = str(dim.getHeight())
         except: pass
         sbtab_layout += '\t'.join(value_row) + '\n'
-
 
         # compartment glyphs        
         for compartment in self.model.getListOfCompartments():
@@ -420,11 +417,11 @@ class SBMLDocument:
             try: value_row[1] = cg.getName()
             except: pass
             value_row[2] = 'Compartment'
-            value_row[3] = cg.getCompartment()
+            value_row[3] = cg.getCompartmentId()
             try:
                 bb = cg.getBoundingBox()
-                value_row[8] = str(bb.getWidth())
-                value_row[9] = str(bb.getHeight())
+                value_row[9] = str(bb.getWidth())
+                value_row[10] = str(bb.getHeight())
             except:
                 self.warnings.append('Compartment layout information could not be read.')                
             sbtab_layout += '\t'.join(value_row) + '\n'
@@ -437,8 +434,9 @@ class SBMLDocument:
                     sg = sg_i            
             if not sg: continue
             value_row = [''] * len(columns)
+            value_row[0] = sg.getSpeciesId()
             value_row[2] = 'Species'
-            value_row[5] = sg.getSpecies()
+            value_row[5] = sg.getSpeciesId()
             try:        
                 bb = sg.getBoundingBox()
                 value_row[7] = str(bb.getX())
@@ -448,34 +446,30 @@ class SBMLDocument:
             except:
                 self.warnings.append('Species layout information could not be read.')
             sbtab_layout += '\t'.join(value_row) + '\n'
-
-        # species text glyphs
-        for species in self.model.getListOfSpecies():
-            sg = False
-            for sg_i in layout.getListOfSpeciesGlyphs():
-                if sg_i.getSpeciesId() == species.getId():
-                    sg = sg_i            
-            if not sg: continue
+            
+            # construct corresponding text glyph for the species glyph (new row in SBtab)
             value_row = [''] * len(columns)
             value_row[2] = 'SpeciesText'
-            value_row[5] = sg.getSpecies()
+            value_row[5] = sg.getSpeciesId()
             
             tg = False
             for tg_i in layout.getListOfTextGlyphs():
-                if tg_i.getSpeciesId() == species.getId():
+                if tg_i.getGraphicalObjectId() == sg.getId():
                     tg = tg_i
-            if not tg: continue                    
+            if not tg: continue
+            value_row[0] = tg.getId()
             try:
                 bb = tg.getBoundingBox()
                 value_row[7] = str(bb.getX())
                 value_row[8] = str(bb.getY())
                 value_row[9] = str(bb.getWidth())
-                value_row[10] = str(bb.getHeight())                
+                value_row[10] = str(bb.getHeight())
+                value_row[11] = tg_i.getOriginOfTextId()
             except:
                 self.warnings.append('Species layout text information could not be read.')
             sbtab_layout += '\t'.join(value_row) + '\n'
 
-        # reaction glyphs
+        # reaction glyphs (made up of reaction glyph curve and species reference glyph curve/s)
         for reaction in self.model.getListOfReactions():
             rg = False
             for rg_i in layout.getListOfReactionGlyphs():
@@ -491,19 +485,19 @@ class SBMLDocument:
 
             # reaction glyph curve segment
             for point in ['Start', 'End']:
+
                 value_row = [''] * len(columns)
-                #value_row[2] = curve_segment.getType()
+                value_row[0] = rg.getId()
+                value_row[2] = 'ReactionCurve'
                 try:
                     value_row[4] = rg.getReactionId()
                     value_row[6] = point
-                    if point == 'Start':
-                        value_row[7] = str(curve_segment.getStart().getXOffset())
-                        value_row[8] = str(curve_segment.getStart().getYOffset())
-                    else:
-                        value_row[7] = str(curve_segment.getEnd().getXOffset())
-                        value_row[8] = str(curve_segment.getEnd().getYOffset())
+                    value_row[7] = str(eval('curve_segment.get%s().getXOffset()' % point))
+                    value_row[8] = str(eval('curve_segment.get%s().getYOffset()' % point))
                 except:
                     self.warnings.append('Reaction Glyph Curve Segment cannot be read.')
+
+                sbtab_layout += '\t'.join(value_row) + '\n'
 
             # reaction glyph speciesreference glyph curve segment
             for species_reference_glyph in rg.getListOfSpeciesReferenceGlyphs():
@@ -513,32 +507,19 @@ class SBMLDocument:
                 except:
                     self.warnings.append('Reaction Species Reference Glyph Curve cannot be read.')
                     continue
-                for point in ['Start', 'End', 'basePoint1', 'basePoint2']:
+                for point in ['Start', 'End', 'BasePoint1', 'BasePoint2']:
                     value_row = [''] * len(columns)
-                    #value_row[2] = curve_segment.getType()
+                    value_row[0] = species_reference_glyph.getId()
+                    value_row[2] = 'SpeciesReferenceCurve'
                     try:
                         value_row[4] = rg.getReactionId()
+                        value_row[5] = species_reference_glyph.getSpeciesGlyphId()
                         value_row[6] = point
-                        if point == 'Start':
-                            value_row[7] = str(curve_segment.getStart().getXOffset())
-                            value_row[8] = str(curve_segment.getStart().getYOffset())
-                        elif point == 'End':
-                            value_row[7] = str(curve_segment.getEnd().getXOffset())
-                            value_row[8] = str(curve_segment.getEnd().getYOffset())
-                        elif point == 'basePoint1':
-                            value_row[7] = str(curve_segment.getBasePoint1().getXOffset())
-                            value_row[8] = str(curve_segment.getBasePoint1().getYOffset())
-                        elif point == 'basePoint2':
-                            value_row[7] = str(curve_segment.getBasePoint2().getXOffset())
-                            value_row[8] = str(curve_segment.getBasePoint2().getYOffset())
-                            
+                        value_row[7] = str(eval('curve_segment.get%s().getXOffset()' % point))
+                        value_row[8] = str(eval('curve_segment.get%s().getYOffset()' % point))
                     except:
                         self.warnings.append('Reaction Glyph Curve Segment cannot be read.')
-
-
-
-
-                
+                    sbtab_layout += '\t'.join(value_row) + '\n'
 
         sbtab_layout = SBtab.SBtabTable(sbtab_layout,
                                         self.filename + '_layout.tsv')
