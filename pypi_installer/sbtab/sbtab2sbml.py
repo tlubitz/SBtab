@@ -52,6 +52,7 @@ class SBtabDocument:
         self.gene_products = []
         self.unit_definitions = []
         self.fbc = False
+        self.layout = False
 
     def convert_to_sbml(self, sbml_version):
         '''
@@ -59,17 +60,25 @@ class SBtabDocument:
         '''
         # initialize SBML document
         if 'FbcObjective' in self.sbtab_doc.type_to_sbtab.keys() or 'Gene' in self.sbtab_doc.type_to_sbtab.keys():
-            self.fbc = True
             if sbml_version == '24':
-                sbmlns = libsbml.SBMLNamespaces(2,4,'fbc',2)
+                sbmlns = libsbml.SBMLNamespaces(2,4)
                 self.new_document = libsbml.SBMLDocument(sbmlns)
-                self.new_document.setPackageRequired("fbc", False)
-
+                self.warnings.append('The FBC package is only supported by SBML Level 3 and higher.')
             else:
                 sbmlns = libsbml.SBMLNamespaces(3,1,'fbc',2)
                 self.new_document = libsbml.SBMLDocument(sbmlns)
                 self.new_document.setPackageRequired("fbc", False)
-
+                self.fbc = True
+        elif 'Layout' in self.sbtab_doc.type_to_sbtab.keys():
+            if sbml_version == '24':
+                sbmlns = libsbml.SBMLNamespaces(2,4)
+                self.new_document = libsbml.SBMLDocument(sbmlns)
+                self.warnings.append('The Layout package is only supported by SBML Level 3 and higher.')
+            else:
+                sbmlns = libsbml.SBMLNamespaces(3,1,'layout',1)
+                self.new_document = libsbml.SBMLDocument(sbmlns)
+                self.new_document.setPackageRequired("fbc", True)
+                self.layout = True
         else:
             if sbml_version == '24':
                 sbmlns = libsbml.SBMLNamespaces(2,4)
@@ -82,6 +91,7 @@ class SBtabDocument:
         self.new_model = self.new_document.createModel()
         self.new_model.setId(self.sbtab_doc.name)
         self.new_model.setName(self.sbtab_doc.name)
+        #self.new_document.setModel(self.new_model)
         
         if self.fbc:
             mplugin = self.new_model.getPlugin('fbc')
@@ -157,13 +167,22 @@ class SBtabDocument:
                                          'ion from SBtab %s.' % table_type)
 
         # 5. check for fbc plugin content
-        try:
-            if self.fbc:
+        if self.fbc:
+            try:
                 self.fbc_objective_sbtab()
-        except:
-            self.warnings.append('Error: The provided fbc objective information co'\
-                                 'uld not be converted. Please check for vali'\
-                                 'd fbc objective information.')
+            except:
+                self.warnings.append('Error: The provided fbc objective information co'\
+                                     'uld not be converted. Please check for vali'\
+                                     'd fbc objective information.')
+
+        # 6. check for layout plugin content
+        if self.layout:
+            #try:
+            self.layout_sbtab()
+            #except:
+            #    self.warnings.append('Error: The provided layout information co'\
+            #                         'uld not be converted. Please check for vali'\
+            #                         'd layout information.')
                     
                     
         # write generated information to SBML model
@@ -271,18 +290,18 @@ class SBtabDocument:
         sbml_column = False
         
         for i, column in enumerate(sbtab.columns):
-            if column.startswith('!SBML:'):
+            if column.startswith('!SBML:') and column.endswith('id'):
                 sbml_column = i
-                
+       
         for row in sbtab.value_rows:
             for iv in invalid:
                 if iv in row[sbtab.columns_dict['!ID']]:
-                    raise ConversionError('There is an invalid character in the ID of row %s.'\
-                                          'Please remove in order to proceed.' % row)
+                    raise ConversionError('There is an invalid character (%s) in the ID of row %s.'\
+                                          'Please remove in order to proceed.' % (iv,row))
                 if sbml_column != False:
                     if iv in row[i]:
-                        raise ConversionError('There is an invalid character in the ID of row %s.'\
-                                              'Please remove in order to proceed.' % row)
+                        raise ConversionError('There is an invalid character (%s) in the ID of row %s.'\
+                                              'Please remove in order to proceed.' % (iv,row))
 
     def compartment_sbtab(self):
         '''
@@ -390,7 +409,137 @@ class SBtabDocument:
                     except: pass
                     self.fbc_objectives_list.append(row[sbtab_fbc_objective.columns_dict['!ID']])
 
+    def layout_sbtab(self):
+        '''
+        extract information from the Layout SBtab and writes it to the model
+        '''
+        
+        reaction_rows = {}
+        sbtab_layouts = self.sbtab_doc.type_to_sbtab['Layout']
+        layoutns = libsbml.LayoutPkgNamespaces(3, 1, 1)
+
+        mplugin = self.new_model.getPlugin('layout')
+        layout = mplugin.createLayout()
+        
+        # build layout
+        for sbtab_layout in sbtab_layouts:
+            for i, row in enumerate(sbtab_layout.value_rows):
+                row_id = 'identifier_%s' % str(i)
+                                
+                # Create Layout Canvas
+                if row[sbtab_layout.columns_dict['!ModelEntity']] == 'LayoutCanvas':
+                    try:
+                        layout.setId(row[sbtab_layout.columns_dict['!ID']])
+                        layout.setDimensions(libsbml.Dimensions(layoutns, float(row[sbtab_layout.columns_dict['!SBML:width']]), float(row[sbtab_layout.columns_dict['!SBML:height']])))
+                    except:
+                        self.warnings.append('Warning: Could not create the Layout Canvas.')
+
+                # Create Compartment Glyphs
+                if row[sbtab_layout.columns_dict['!ModelEntity']] == 'Compartment':
+                    try:
+                        compartment_glyph = layout.createCompartmentGlyph()
+                        compartment_glyph.setId(row[sbtab_layout.columns_dict['!ID']])
+                        compartment_glyph.setCompartmentId(row[sbtab_layout.columns_dict['!SBML:compartment:id']])
+
+                        compartment_glyph.setBoundingBox(libsbml.BoundingBox(layoutns, row_id,
+                                                                             float(row[sbtab_layout.columns_dict['!SBML:X']]),
+                                                                             float(row[sbtab_layout.columns_dict['!SBML:Y']]),
+                                                                             float(row[sbtab_layout.columns_dict['!SBML:width']]),
+                                                                             float(row[sbtab_layout.columns_dict['!SBML:height']])))
+                    except:
+                        self.warnings.append('Warning: Could not create the Compartment Layout.')
+                        
+                # Create Species Glyphs
+                if row[sbtab_layout.columns_dict['!ModelEntity']] == 'Species':
+                    try:
+                        species_glyph = layout.createSpeciesGlyph()
+                        species_glyph.setId(row[sbtab_layout.columns_dict['!ID']])
+                        species_glyph.setSpeciesId(row[sbtab_layout.columns_dict['!SBML:species:id']])
+                        species_glyph.setBoundingBox(libsbml.BoundingBox(layoutns, row_id,
+                                                                         float(row[sbtab_layout.columns_dict['!SBML:X']]),
+                                                                         float(row[sbtab_layout.columns_dict['!SBML:Y']]),
+                                                                         float(row[sbtab_layout.columns_dict['!SBML:width']]),
+                                                                         float(row[sbtab_layout.columns_dict['!SBML:height']])))
+                    except:
+                        self.warnings.append('Warning: Could not create the Species Layout.')
+                        
+                # Create Text Glyphs
+                if row[sbtab_layout.columns_dict['!ModelEntity']] == 'SpeciesText':
+                    try:
+                        text_glyph = layout.createTextGlyph()
+                        text_glyph.setId(row[sbtab_layout.columns_dict['!ID']])
+                        text_glyph.setBoundingBox(libsbml.BoundingBox(layoutns, row_id,
+                                                                      float(row[sbtab_layout.columns_dict['!SBML:X']]),
+                                                                      float(row[sbtab_layout.columns_dict['!SBML:Y']]),
+                                                                      float(row[sbtab_layout.columns_dict['!SBML:width']]),
+                                                                      float(row[sbtab_layout.columns_dict['!SBML:height']])))
+                        text_glyph.setOriginOfTextId(row[sbtab_layout.columns_dict['!SBML:text']])
+                        text_glyph.setGraphicalObjectId(row[sbtab_layout.columns_dict['!SBML:species:id']])
+                    except:
+                        self.warnings.append('Warning: Could not create the Species Text Layout.')
+
+
+                # Collect rows for Reaction Curves
+                if row[sbtab_layout.columns_dict['!ModelEntity']] == 'ReactionCurve' or row[sbtab_layout.columns_dict['!ModelEntity']] == 'SpeciesReferenceCurve':
+                    reaction_id = row[sbtab_layout.columns_dict['!SBML:reaction:id']]
+                    if reaction_id in reaction_rows.keys():
+                        rows = reaction_rows[reaction_id]
+                        rows.append(row)
+                        reaction_rows[reaction_id] = rows
+                    else: reaction_rows[reaction_id] = [row]
+
                     
+        # Now all layout is written except for the reactions; these have to be assembled over several rows
+        # Every dict entry is for one reaction
+
+        for entry in reaction_rows:
+            rows = reaction_rows[entry]
+            # information for the single reaction:
+            try:
+                reaction_glyph = layout.createReactionGlyph()
+                reaction_glyph.setId(rows[0][sbtab_layout.columns_dict['!ID']])
+                reaction_glyph.setReactionId(rows[0][sbtab_layout.columns_dict['!SBML:reaction:id']])
+                reaction_curve = reaction_glyph.getCurve()
+                ls = reaction_curve.createLineSegment()
+            except:
+                self.warnings.append('Reaction Layout for %s could not be initialised' % rows[0][sbtab_layout.columns_dict['!ID']])
+                continue
+            
+            sr_glyph2curve = {}
+            for row in rows:
+                try:
+                    if row[sbtab_layout.columns_dict['!ModelEntity']] == 'ReactionCurve':
+                        if row[sbtab_layout.columns_dict['!CurveSegment']] == 'Start':
+                            ls.setStart(libsbml.Point(layoutns, float(row[sbtab_layout.columns_dict['!SBML:X']]),
+                                                      float(row[sbtab_layout.columns_dict['!SBML:Y']])))
+                        elif row[sbtab_layout.columns_dict['!CurveSegment']] == 'End':
+                            ls.setEnd(libsbml.Point(layoutns, float(row[sbtab_layout.columns_dict['!SBML:X']]),
+                                                    float(row[sbtab_layout.columns_dict['!SBML:Y']])))
+                    elif row[sbtab_layout.columns_dict['!ModelEntity']] == 'SpeciesReferenceCurve':
+                        if row[sbtab_layout.columns_dict['!ID']] not in sr_glyph2curve.keys():
+                            species_reference_glyph = reaction_glyph.createSpeciesReferenceGlyph()
+                            species_reference_glyph.setId(row[sbtab_layout.columns_dict['!ID']])
+                            species_reference_glyph.setSpeciesGlyphId(row[sbtab_layout.columns_dict['!SBML:species:id']])
+                            species_reference_curve = species_reference_glyph.getCurve()
+                            cb = species_reference_curve.createCubicBezier()
+                            sr_glyph2curve[species_reference_glyph.getId()] = cb
+                        else:
+                            cb = sr_glyph2curve[row[sbtab_layout.columns_dict['!ID']]]
+                        if row[sbtab_layout.columns_dict['!CurveSegment']] == 'Start':
+                            cb.setStart(libsbml.Point(layoutns, float(row[sbtab_layout.columns_dict['!SBML:X']]),
+                                              float(float(row[sbtab_layout.columns_dict['!SBML:Y']]))))
+                        elif row[sbtab_layout.columns_dict['!CurveSegment']] == 'End':
+                            cb.setEnd(libsbml.Point(layoutns, float(row[sbtab_layout.columns_dict['!SBML:X']]),
+                                            float(float(row[sbtab_layout.columns_dict['!SBML:Y']]))))
+                        elif row[sbtab_layout.columns_dict['!CurveSegment']] == 'BasePoint1':
+                            cb.setBasePoint1(libsbml.Point(layoutns, float(row[sbtab_layout.columns_dict['!SBML:X']]),
+                                                   float(float(row[sbtab_layout.columns_dict['!SBML:Y']]))))
+                        elif row[sbtab_layout.columns_dict['!CurveSegment']] == 'BasePoint2':
+                            cb.setBasePoint2(libsbml.Point(layoutns, float(row[sbtab_layout.columns_dict['!SBML:X']]),
+                                                   float(float(row[sbtab_layout.columns_dict['!SBML:Y']]))))
+                except:
+                    self.warnings.append('Warning: Could not create the Species Reference Curve Layout.')
+
                             
     def compound_sbtab(self):
         '''

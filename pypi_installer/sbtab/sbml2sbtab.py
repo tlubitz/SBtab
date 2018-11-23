@@ -12,7 +12,7 @@ try: import SBtab
 except: from . import SBtab
 import sys
 
-#Rule and Event not updated yet (later. lack of time atm.)
+#Rule and Event not updated yet (later. no priority atm)
 #supported_table_types = ['Compartment', 'Compound', 'Reaction', 'Rule',
 #                         'Quantity', 'Event']
 supported_table_types = ['Compartment', 'Compound', 'Reaction', 'Quantity']
@@ -45,6 +45,7 @@ class SBMLDocument:
         '''
         self.model = sbml_model
         self.fbc = False
+        self.layout = False
         if filename.endswith('.xml') or filename.endswith('.sbml'):
             cut = re.search('(.*)\.', filename)
             self.filename = cut.group(1)
@@ -63,6 +64,11 @@ class SBMLDocument:
             fbc = self.model.getPlugin('fbc')
             if fbc: self.fbc = True
         except: pass
+        
+        try:
+            layout = self.model.getPlugin('layout')
+            if layout: self.layout = True
+        except: pass        
 
         for table_type in supported_table_types:
             try:
@@ -87,6 +93,14 @@ class SBMLDocument:
             except:
                 self.warnings.append('Could not generate SBtab FBC Gene.')
                 
+        if self.layout:
+            try:
+                sbtab = self.layout_sbtab()
+                if sbtab != False:
+                    sbtab_doc.add_sbtab(sbtab)
+            except:
+                self.warnings.append('Could not generate SBtab Layout.')
+
         return (sbtab_doc, self.warnings)
 
     def compartment_sbtab(self):
@@ -99,6 +113,7 @@ class SBMLDocument:
                              '\n' % self.filename
         # columns
         columns = ['!ID', '!Name', '!Size', '!Unit', '!SBOTerm']
+        
         sbtab_compartment += '\t'.join(columns) + '\n'
 
         # value rows
@@ -114,6 +129,7 @@ class SBMLDocument:
             except: pass
             if str(compartment.getSBOTerm()) != '-1':
                 value_row[4] ='SBO:%.7d'%compartment.getSBOTerm()
+
             sbtab_compartment += '\t'.join(value_row) + '\n'
 
         # build SBtab Table object from basic information
@@ -139,7 +155,7 @@ class SBMLDocument:
             except:
                 self.warnings.append('Could not add the annotation %s for'\
                                      'compartment %s' % annotations[1],
-                                     compartment.getId())           
+                                     compartment.getId())
 
         return sbtab_compartment
         
@@ -156,7 +172,7 @@ class SBMLDocument:
                    '!SBOTerm', '!InitialConcentration', '!hasOnlySubstanceUnits']
         if self.fbc:
             columns = columns + ['!SBML:fbc:chemicalFormula', '!SBML:fbc:charge']
-            
+
         sbtab_compound += '\t'.join(columns) + '\n'
 
         # value rows
@@ -175,7 +191,6 @@ class SBMLDocument:
             except: pass
             try: value_row[6] = str(species.getHasOnlySubstanceUnits())
             except: pass
-
             if self.fbc:
                 try:
                     fbc_plugin = species.getPlugin('fbc')
@@ -360,7 +375,157 @@ class SBMLDocument:
         
         return sbtab_fbc
 
+    def layout_sbtab(self):
+        '''
+        builds a SBtab of the TableType Layout
+        '''
+        layout = self.model.getPlugin('layout').getLayout(0)
 
+        # header row
+        sbtab_layout = '!!SBtab TableID="layout" SBtabVersion="1.0" Document="%s" TableType='\
+                       '"Layout" TableName="SBML Layout"\n' % self.filename
+
+        # columns
+        columns = ['!ID', '!Name', '!ModelEntity', '!SBML:compartment:id', '!SBML:reaction:id',
+                   '!SBML:species:id', '!CurveSegment',
+                   '!SBML:X', '!SBML:Y', '!SBML:width', '!SBML:height']
+        sbtab_layout += '\t'.join(columns) + '\n'
+
+        # value rows
+        # layout canvas
+        value_row = [''] * len(columns)
+        value_row[0] = layout.getId()
+        try: value_row[1] = layout.getName()
+        except: pass
+        value_row[2] = 'LayoutCanvas'
+        try:
+            dim = layout.getDimensions()
+            value_row[9] = str(dim.getWidth())
+            value_row[10] = str(dim.getHeight())
+        except: pass
+        sbtab_layout += '\t'.join(value_row) + '\n'
+
+        # compartment glyphs        
+        for compartment in self.model.getListOfCompartments():
+            cg = False
+            for cg_i in layout.getListOfCompartmentGlyphs():
+                if cg_i.getCompartmentId() == compartment.getId():
+                    cg = cg_i
+            if not cg: continue
+            value_row = [''] * len(columns)
+            value_row[0] = cg.getId()            
+            try: value_row[1] = cg.getName()
+            except: pass
+            value_row[2] = 'Compartment'
+            value_row[3] = cg.getCompartmentId()
+            try:
+                bb = cg.getBoundingBox()
+                value_row[7] = str(bb.getX())
+                value_row[8] = str(bb.getY())
+                value_row[9] = str(bb.getWidth())
+                value_row[10] = str(bb.getHeight())
+            except:
+                self.warnings.append('Compartment layout information could not be read.')                
+            sbtab_layout += '\t'.join(value_row) + '\n'
+            
+        # species glyphs
+        for species in self.model.getListOfSpecies():
+            sg = False
+            for sg_i in layout.getListOfSpeciesGlyphs():
+                if sg_i.getSpeciesId() == species.getId():
+                    sg = sg_i            
+            if not sg: continue
+            value_row = [''] * len(columns)
+            value_row[0] = sg.getId()
+            value_row[2] = 'Species'
+            value_row[5] = sg.getSpeciesId()
+            try:        
+                bb = sg.getBoundingBox()
+                value_row[7] = str(bb.getX())
+                value_row[8] = str(bb.getY())
+                value_row[9] = str(bb.getWidth())
+                value_row[10] = str(bb.getHeight())
+            except:
+                self.warnings.append('Species layout information could not be read.')
+            sbtab_layout += '\t'.join(value_row) + '\n'
+            
+            # construct corresponding text glyph for the species glyph (new row in SBtab)
+            value_row = [''] * len(columns)
+            value_row[2] = 'SpeciesText'
+            value_row[5] = sg.getSpeciesId()
+            
+            tg = False
+            for tg_i in layout.getListOfTextGlyphs():
+                if tg_i.getGraphicalObjectId() == sg.getId():
+                    tg = tg_i
+            if not tg: continue
+            value_row[0] = tg.getId()
+            try:
+                bb = tg.getBoundingBox()
+                value_row[7] = str(bb.getX())
+                value_row[8] = str(bb.getY())
+                value_row[9] = str(bb.getWidth())
+                value_row[10] = str(bb.getHeight())
+            except:
+                self.warnings.append('Species layout text information could not be read.')
+            sbtab_layout += '\t'.join(value_row) + '\n'
+
+        # reaction glyphs (made up of reaction glyph curve and species reference glyph curve/s)
+        for reaction in self.model.getListOfReactions():
+            rg = False
+            for rg_i in layout.getListOfReactionGlyphs():
+                if rg_i.getReactionId() == reaction.getId():
+                    rg = rg_i
+            if not rg: continue
+            try:
+                curve = rg.getCurve()
+                curve_segment = curve.getListOfCurveSegments()[0]
+            except:
+                self.warnings.append('Reaction Glyph Curve cannot be read.')
+                continue
+
+            # reaction glyph curve segment
+            for point in ['Start', 'End']:
+                value_row = [''] * len(columns)
+                value_row[0] = rg.getId()
+                value_row[2] = 'ReactionCurve'
+                try:
+                    value_row[4] = rg.getReactionId()
+                    value_row[6] = point
+                    value_row[7] = str(eval('curve_segment.get%s().getXOffset()' % point))
+                    value_row[8] = str(eval('curve_segment.get%s().getYOffset()' % point))
+                except:
+                    self.warnings.append('Reaction Glyph Curve Segment cannot be read.')
+
+                sbtab_layout += '\t'.join(value_row) + '\n'
+
+            # reaction glyph speciesreference glyph curve segment
+            for species_reference_glyph in rg.getListOfSpeciesReferenceGlyphs():
+                try:
+                    curve = species_reference_glyph.getCurve()
+                    curve_segment = curve.getListOfCurveSegments()[0]
+                except:
+                    self.warnings.append('Reaction Species Reference Glyph Curve cannot be read.')
+                    continue
+                for point in ['Start', 'End', 'BasePoint1', 'BasePoint2']:
+                    value_row = [''] * len(columns)
+                    value_row[0] = species_reference_glyph.getId()
+                    value_row[2] = 'SpeciesReferenceCurve'
+                    try:
+                        value_row[4] = rg.getReactionId()
+                        value_row[5] = species_reference_glyph.getSpeciesGlyphId()
+                        value_row[6] = point
+                        value_row[7] = str(eval('curve_segment.get%s().getXOffset()' % point))
+                        value_row[8] = str(eval('curve_segment.get%s().getYOffset()' % point))
+                    except:
+                        self.warnings.append('Reaction Glyph Curve Segment cannot be read.')
+                    sbtab_layout += '\t'.join(value_row) + '\n'
+
+        sbtab_layout = SBtab.SBtabTable(sbtab_layout,
+                                        self.filename + '_layout.tsv')
+        
+        return sbtab_layout
+    
     def fbc_gene(self):
         '''
         builds a gene SBtab for the content of the fbc plugin
