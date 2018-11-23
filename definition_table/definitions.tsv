@@ -350,3 +350,4 @@ SBML:Y	Column	Layout	False	float	Coordinate on Y axis
 SBML:width	Column	Layout	False	float	Width of the element
 SBML:height	Column	Layout	False	float	Height of the element
 SBML:text	Column	Layout	False	string	Text label of the element
+SBML:speciesRole	Column	Layout	False	string	Role of the species in the reaction (Reactant, Product)

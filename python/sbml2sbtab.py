@@ -388,7 +388,7 @@ class SBMLDocument:
         # columns
         columns = ['!ID', '!Name', '!ModelEntity', '!SBML:compartment:id', '!SBML:reaction:id',
                    '!SBML:species:id', '!CurveSegment',
-                   '!SBML:X', '!SBML:Y', '!SBML:width', '!SBML:height', '!SBML:text']
+                   '!SBML:X', '!SBML:Y', '!SBML:width', '!SBML:height']
         sbtab_layout += '\t'.join(columns) + '\n'
 
         # value rows
@@ -436,7 +436,7 @@ class SBMLDocument:
                     sg = sg_i            
             if not sg: continue
             value_row = [''] * len(columns)
-            value_row[0] = sg.getSpeciesId()
+            value_row[0] = sg.getId()
             value_row[2] = 'Species'
             value_row[5] = sg.getSpeciesId()
             try:        
@@ -466,7 +466,6 @@ class SBMLDocument:
                 value_row[8] = str(bb.getY())
                 value_row[9] = str(bb.getWidth())
                 value_row[10] = str(bb.getHeight())
-                value_row[11] = tg.getOriginOfTextId()
             except:
                 self.warnings.append('Species layout text information could not be read.')
             sbtab_layout += '\t'.join(value_row) + '\n'
@@ -487,7 +486,6 @@ class SBMLDocument:
 
             # reaction glyph curve segment
             for point in ['Start', 'End']:
-
                 value_row = [''] * len(columns)
                 value_row[0] = rg.getId()
                 value_row[2] = 'ReactionCurve'
