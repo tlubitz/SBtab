@@ -153,7 +153,7 @@ class SBtabTable():
                             cut_row = self._handle_row(row, delimiter)
                             table_list.append(cut_row)
                         except:
-                            self.warnings.append('Row %s could not be attached due to bad syntax.' % row)
+                            print('Row %s could not be attached due to bad syntax.' % row)
                     else: table_list.append(row.split(delimiter))
                 else:
                     table_list.append(row.split(delimiter))
@@ -345,6 +345,17 @@ class SBtabTable():
 
         return row
 
+    def _generate_random_table_id(self):
+        '''
+        The attribute TableID is enforced in SBtab. But to remain backwards compatible,
+        we generate a random TableID if none is given in the input file
+        '''
+        import random
+        i = random.randint(0, 1000)
+        table_id = 'ID_%s' % str(i)
+
+        return table_id
+    
     def _get_table_information(self):
         '''
         Reads declaration row and stores the SBtab table attributes.
@@ -353,7 +364,10 @@ class SBtabTable():
 
         # Save table id, otherwise raise error
         try: table_id = self._get_custom_table_information('TableID')
-        except: raise SBtabError('The TableID of the SBtab is not defined!')
+        except:
+            table_id = self._generate_random_table_id()
+            if 'TableID=' not in self.header_row:
+                self.header_row = self.header_row.replace(self.delimiter,'').strip() + " TableID='%s'" % table_id
         
         # Save table type, otherwise raise error
         try: table_type = self._get_custom_table_information('TableType')
@@ -920,7 +934,7 @@ class SBtabDocument:
         self.date = '-'.join([str(now.year),str(now.month),str(now.day)])
 
         if not self.doc_row:
-            self.doc_row = "!!!SBtab SBtabVersion='1.0' Document='%s' Date='%s'" % (self.name, self.date)
+            self.doc_row = "!!!SBtab Document='%s' SBtabVersion='1.0' Date='%s'" % (self.name, self.date)
         else:
             # save document name, otherwise raise error
             # (overrides name given at document initialisation)
