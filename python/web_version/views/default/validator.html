@@ -1,130 +1,181 @@
 {{extend 'layout2.html'}}
-<p>
-Information on the SBtab validator can be found in the <a href="../static/files/validator_manual.pdf">manual</a>.<br>
-</p>
 
-<h2>SBtab online validator</h2>
-{{=UPL_FORM}}
+{{block title}}
+<title>SBtab Online Validator</title>
+{{end}}
 
-{{if NAME_LIST:}}
-{{displayedf = []}}
-{{displayedg = []}}
-
-<table border="0">
-  {{for pos2, g in enumerate(DOC_NAMES):}}
-  {{if not g in displayedg:}}
-  <table border="1" rules="rows">
-    <td bgcolor="#87CEFA">
-      SBtab document
-      <b>{{=g}}</b>
-    </td>
-    {{if list(NAME2DOC.values()).count(g) > 1:}}
-    <form><td bgcolor="#87CEFA"><button type="submit" value="{{=pos2}}" name="remove_all_button_val">Remove all</button> </td> </form>
-    <td bgcolor="#87CEFA"></td>
-    {{else:}}
-    <td bgcolor="#87CEFA"></td>
-    <td bgcolor="#87CEFA"></td>
-    {{pass}}
-    {{for pos,f in enumerate(NAME_LIST):}}
-    {{if NAME2DOC[f] == g:}}
-    {{sbtab = str(SBTAB_LIST[0])}}
-	    <tr>
-	      <td>
-		&bull;
-		  <a href="show_sbtab/{{=str(pos)}}" target="_new"> {{=f}} </a>
-	      </td>
-	      <form><td> <button type="submit" value="{{=pos}}" name="validate_button">Validate</button> </td> </form>
-	      <form><td> <button type="submit" value="{{=pos}}" name="erase_button">Remove</button> </td> </form>
-	    </tr>
-	    {{displayedf.append(f)}}
-	    {{displayedg.append(g)}}
-	    {{pass}}
-	    {{pass}}
-	    {{pass}}
-	    {{pass}}
-  </table>
-</table>
-{{else:}}
-<table border="0">
-<td>
-No SBtab files uploaded.
-</td>
-</table>
-{{pass}}
-
-{{if WARNINGS and SBTAB_VAL:}}
-<br>
-<b>Warnings for
-{{=SBTAB_VAL}}:</b>
-
-<table border="0">
-{{for f in WARNINGS:}} 
-<tr> 
-  <td><font color="#FF0000">&bull; {{=f}}</font></td> 
-</tr>
-{{pass}}
-</table>
-{{elif WARNINGS:}}
-<table border="0">
-  <tr>
-    <td>
-    <td style="color:red">{{=WARNINGS[0]}}</td>
-    </td>
-  </tr>
-</table>
-{{else:}}
-<table border="0">
-  <td>
-    No warnings detected.
-  </td>
-</table>
-{{pass}}
-
-{{if OUTPUT and SBTAB_VAL:}}
-<br>
-<b>File validation of
-{{=SBTAB_VAL}}:</b>
-
-<table border="0">
-{{for f in OUTPUT:}} 
-  <tr> 
-    <td><font color="#FF0000">&bull; {{=f}}</font></td> 
-  </tr>
-  {{pass}}
-</table>
-{{elif OUTPUT:}}
-<table border="0">
-  <tr>
-    <td>
-    <td style="color:red">{{=WARNINGS[0]}}</td>
-    {{if DEF_FILE_NAME:}}
-    The definition file <b>{{=DEF_FILE_NAME}}</b> is used for validation.
-    {{pass}}
-    </td>
-  </tr>
-</table>
-{{else:}}
-<table border="0">
-  <td>
-    No validation errors detected.
-  </td>
-</table>
-{{pass}}
+{{block dynamic_nav}}
+<li class="nav-item">
+  <a class="nav-link" href="https://www.sbtab.net/sbtab/default/gettingstarted.html">Getting started</a>
+</li>
+<li class="nav-item dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="Click to see SBtab Online Tools">
+    Online Tools<span class="sr-only">(current)</span>
+  </a>
+  <ul class="dropdown-menu">
+    <li>
+      <a href="https://www.sbtab.net/sbtab/default/validator.html">Validator</a>
+    </li>
+    <li>
+      <a href="https://www.sbtab.net/sbtab/default/converter.html">SBML converter</a>
+    </li>
+    <li>
+      <a href="https://www.sbtab.net/sbtab/default/def_files.html">Customize SBtab</a>
+    </li>
+  </ul>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="https://www.sbtab.net/sbtab/default/documentation.html">Documentation</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="https://www.sbtab.net/sbtab/default/downloads.html">Download</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="https://www.sbtab.net/sbtab/default/team.html">Contact</a>
+</li>
+{{end}}
 
 
+{{block center}}
+<header>
+  <div class="container-fluid bg-1 text-center">
+    <div class="jumbotron" align="center">
+      <h1><small>SBtab Online Validator</small></h1>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container-fluid bg-3 text-center">
+    <div class="row">
+      <div class="col-sm-3"></div>
+      <div class="col-sm-6">
+
+	<section>
+	  <p>
+	    Information on the SBtab validator can be found in the <a href="../static/files/validator_manual.pdf">manual</a>.
+	  </p>
+	  
+	  {{=UPL_FORM}}
+	  
+	  {{if NAME_LIST:}}
+	  {{displayedf = []}}
+	  {{displayedg = []}}
+	    
+	  {{for pos2, g in enumerate(DOC_NAMES):}}
+	  {{if not g in displayedg:}}
+	  <div class="card" style="text-align:center;width:100%;">
+	    <div class="card-header">
+	      SBtab document <strong>{{=g}}</strong>
+	      {{if list(NAME2DOC.values()).count(g) > 1:}}
+	      <div style="text-align:center;width:100%;padding-top:10px;">
+		<form>
+		  <button type="submit" value="{{=pos2}}" name="remove_all_button_val">Remove all</button>
+		</form>
+	      </div>
+	      {{pass}}
+	    </div>
+
+	    <div class="card-body">
+	      
+	      {{for pos,f in enumerate(NAME_LIST):}}
+	      {{if NAME2DOC[f] == g:}}
+	      {{sbtab = str(SBTAB_LIST[0])}}
+	      
+	      <div style="text-align:center;width:100%;padding-bottom:10px">
+		&bull;<a href="show_sbtab/{{=str(pos)}}" target="_new"> {{=f}} </a>
+	      </div>
+	      
+	      <div class="btn-group btn-group-toggle">
+		<form>
+		  <button class="btn" type="submit" value="{{=pos}}" name="validate_button">Validate</button>
+		  <button class="btn" type="submit" value="{{=pos}}" name="erase_button">Remove</button>
+		</form>
+	      </div>
+	      {{displayedf.append(f)}}
+	      {{displayedg.append(g)}}
+	      {{pass}}
+	      {{pass}}
+	      {{pass}}
+	    </div>
+	  </div>
+	  {{pass}}
+	  <br>
+  
+	  {{else:}}
+	  <div style="text-align:center;width:100%;">No SBtab files uploaded.</div>
+	  {{pass}}
+	  
+	</section>
+
+	<section>
+	  {{if WARNINGS and SBTAB_VAL:}}
+	  <div style="text-align:left;width:100%;">
+	    <strong>File warnings for {{=SBTAB_VAL}}:</strong>
+	  </div>
+
+	  {{for f in WARNINGS:}}
+	  <div style="text-align:left;width:100%;">
+	    &bull; {{=f}}
+	  </div>
+	  {{pass}}
+
+	  {{elif WARNINGS:}}
+	  <div style="text-align:left;width:100%;">
+	    &bull; {{=WARNINGS[0]}}
+	  </div>
+	  {{elif SBTAB_VAL:}}
+	  <div style="text-align:left;width:100%;">
+	    <strong>File validation of {{=SBTAB_VAL}}:</strong>
+	    No file warnings detected.
+	  </div>
+	  {{else:}}
+	  <div style="text-align:left;width:100%;">
+
+	  </div>
+	  {{pass}}	  
+	</section>
 
 
+	
+	<section>
+	  {{if OUTPUT and SBTAB_VAL:}}
+	  <div style="text-align:left;width:100%;">
+	    <strong>File content validation of {{=SBTAB_VAL}}:</strong>
+	  </div>
 
-    <hr>
-    <p>
-  <a href="../static/index.html">Main</a> | 
-  <a href="../static/introduction.html">Getting started</a> |
-  <a href="../static/specification.html">Specification</a> |
-  <a href="./validator">Validator</a> | 
-  <a href="./converter">SBML</a> |
-  <a href="./def_files">Customize SBtab</a> |
-  <a href="../static/code.html">Code</a> |
-  <a href="../static/troubles.html">Troubleshooting</a> |
-  <a href="../static/team.html">Contact</a> 
+	  {{for f in OUTPUT:}}
+	  <div style="text-align:left;width:100%;">
+	    &bull; {{=f}}
+	  </div>
+	  {{pass}}
 
-    </p>
+	  {{elif OUTPUT:}}
+	  <div style="text-align:left;width:100%;">
+	    &bull;  {{=WARNINGS[0]}}
+	  </div>
+	  
+	  {{if DEF_FILE_NAME:}}
+	  <div style="text-align:left;width:100%;">
+	    The definition file <strong>{{=DEF_FILE_NAME}}</strong> is used for validation.
+	  </div>
+	  {{pass}}
+
+	  {{else:}}
+	  <div style="text-align:left;width:100%;">
+	    No validation errors detected.
+	  </div>
+	  {{pass}}
+	</section>
+
+	
+      </div>
+      <div class="col-sm-3"></div>
+    </div>
+  </div>
+</main>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+{{end}}

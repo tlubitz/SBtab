@@ -32,8 +32,7 @@ class SBtabError(Exception):
 
 class ValidateTable:
     '''
-    Validator (version 0.9 06/10/2015).
-    Checks SBtab file and SBtab object.
+    Validates SBtab file and SBtab object.
     '''
     def __init__(self, sbtab, def_table=None):
         '''
@@ -89,20 +88,17 @@ class ValidateTable:
         '''
         # read in provided definition table or open default
         if def_table:
-            try: self.definitions = def_table.sbtab_list
+            try:
+                self.sbtab_def = def_table
+                self.definitions = self.sbtab_def.create_list()
             except:
-                print('Definition file could not be loaded, so the validation'\
-                      'could not be started. Please provide definition file'\
-                      'as argument')
+                print('Provided definition file could not be read, so the validation'\
+                      'could not be started.')
                 sys.exit() 
         else:
             try:
-                d = os.path.dirname(os.path.abspath(__file__)) + '/files/default_'\
-                    'files/definitions.tsv'
-                def_file = open(d, 'r')
-                def_table = def_file.read()
-                sbtab_def = SBtab.SBtabTable(def_table, d)
-                self.definitions = sbtab_def.sbtab_list
+                self.sbtab_def = misc.open_definitions_file()
+                self.definitions = self.sbtab_def.create_list()
             except:
                 print('''Definition file could not be loaded, so the validation
                 could not be started. Please provide definition file
@@ -122,7 +118,8 @@ class ValidateTable:
                   '\xe2\x80\xb5', '\xe2\x80\xb6', '\xe2\x80\xb7']
 
         for quote in quotes:
-            try: header = header.replace(quote, "'")
+            try:
+                header = header.replace(quote, "'")
             except: pass
 
         # check for valid header row
@@ -286,7 +283,43 @@ class ValidateTable:
         return self.warnings
 
 
+class ValidateDocument:
+    '''
+    Validates SBtabDocument object
+    '''
+    def __init__(self, sbtab_doc, def_table=None):
+        '''
+        Initialises validator and starts check for file and table format.
+
+        Parameters
+        ----------
+        sbtab_doc:
+            SBtabDocument object
+        '''
+        self.sbtab_doc = sbtab_doc
+        self.sbtab_def = def_table
+        #self.validate_document()
+
+    def validate_document(self):
+        '''
+        validate SBtabDocument
+        '''
+        warnings = []
+        for sbtab in self.sbtab_doc.sbtabs:
+            warnings_s = ['Warnings for %s:\n' % sbtab.filename]
+            self.vt = ValidateTable(sbtab, self.sbtab_def)
+            try:
+                warnings_s.append(self.vt.return_output())
+            except:
+                raise SBtabError('SBtab %s cannot be validated.' % (sbtab.filename))
+            warnings.append(warnings_s)
+            
+        return warnings
+    
+
 if __name__ == '__main__':
+
+    # this main function is deprecated!    
     try: sys.argv[1]
     except:
         print('''You have not provided input arguments. Please start the script

@@ -14,5 +14,3 @@ try: from . import sbtab2sbml
 except: import sbtab2sbml
 try: from . import sbml2sbtab
 except: import sbml2sbtab
-try: from . import makehtml
-except: import makehtml

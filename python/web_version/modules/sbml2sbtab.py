@@ -12,7 +12,7 @@ try: import SBtab
 except: from . import SBtab
 import sys
 
-#Rule and Event not updated yet (later. lack of time atm.)
+#Rule and Event not updated yet (later. no priority atm)
 #supported_table_types = ['Compartment', 'Compound', 'Reaction', 'Rule',
 #                         'Quantity', 'Event']
 supported_table_types = ['Compartment', 'Compound', 'Reaction', 'Quantity']
@@ -44,6 +44,8 @@ class SBMLDocument:
             Filename with extension.
         '''
         self.model = sbml_model
+        self.fbc = False
+        self.layout = False
         if filename.endswith('.xml') or filename.endswith('.sbml'):
             cut = re.search('(.*)\.', filename)
             self.filename = cut.group(1)
@@ -55,6 +57,22 @@ class SBMLDocument:
         '''
         self.warnings = []
         sbtab_doc = SBtab.SBtabDocument(self.filename)
+        doc_row = "!!!SBtab Document='%s' Name='%s' SBtabVersion='1.0'" % (self.model.getId(), self.model.getId())
+        sbtab_doc.set_doc_row(doc_row)
+        
+        try:
+            fbc = self.model.getPlugin('fbc')
+            if fbc: self.fbc = True
+        except: pass
+
+        # the layout test needs to be a bit deeper than fbc, since
+        # a form of the layout plugin also exists in ancient versions
+        # of SBML2.x
+        try:
+            layout = self.model.getPlugin('layout').getLayout(0)
+            layout_id = layout.getId()
+            if layout_id: self.layout = True
+        except: pass
 
         for table_type in supported_table_types:
             try:
@@ -64,7 +82,29 @@ class SBMLDocument:
                     sbtab_doc.add_sbtab(sbtab)
             except:
                 self.warnings.append('Could not generate SBtab %s.' % table_type)
+
+        if self.fbc:
+            try:
+                sbtab = self.fbc_objective()
+                if sbtab != False:
+                    sbtab_doc.add_sbtab(sbtab)
+            except:
+                self.warnings.append('Could not generate SBtab FBC Objective Function.')
+            try:
+                sbtab = self.fbc_gene()
+                if sbtab != False:
+                    sbtab_doc.add_sbtab(sbtab)
+            except:
+                self.warnings.append('Could not generate SBtab FBC Gene.')
                 
+        if self.layout:
+            try:
+                sbtab = self.layout_sbtab()
+                if sbtab != False:
+                    sbtab_doc.add_sbtab(sbtab)
+            except:
+                self.warnings.append('Could not generate SBtab Layout.')
+
         return (sbtab_doc, self.warnings)
 
     def compartment_sbtab(self):
@@ -72,25 +112,28 @@ class SBMLDocument:
         build a compartment SBtab
         '''
         # header row
-        sbtab_compartment  = '!!SBtab SBtabVersion="1.0" Document="%s" TableT'\
-                             'ype="Compartment" TableName="Compartment"'\
+        sbtab_compartment  = '!!SBtab TableID="compartment" Document="%s" TableT'\
+                             'ype="Compartment" TableName="Compartment" SBtabVersion="1.0"'\
                              '\n' % self.filename
         # columns
         columns = ['!ID', '!Name', '!Size', '!Unit', '!SBOTerm']
+        
         sbtab_compartment += '\t'.join(columns) + '\n'
 
         # value rows
         for compartment in self.model.getListOfCompartments():
             value_row = [''] * len(columns)
             value_row[0] = compartment.getId()
-            try: value_row[1] = compartment.getName()
-            except: pass
+            if compartment.getName() != '':
+                value_row[1] = compartment.getName()
+            else: value_row[1] = compartment.getId()
             try: value_row[2] = str(compartment.getSize())
             except: pass
             try: value_row[3] = str(species.getUnits())
             except: pass
             if str(compartment.getSBOTerm()) != '-1':
                 value_row[4] ='SBO:%.7d'%compartment.getSBOTerm()
+
             sbtab_compartment += '\t'.join(value_row) + '\n'
 
         # build SBtab Table object from basic information
@@ -116,7 +159,7 @@ class SBMLDocument:
             except:
                 self.warnings.append('Could not add the annotation %s for'\
                                      'compartment %s' % annotations[1],
-                                     compartment.getId())           
+                                     compartment.getId())
 
         return sbtab_compartment
         
@@ -125,12 +168,15 @@ class SBMLDocument:
         build a compound SBtab
         '''
         # header row
-        sbtab_compound = '!!SBtab SBtabVersion="1.0" Document="%s" TableType='\
-                         '"Compound" TableName="Compound"\n' % self.filename
+        sbtab_compound = '!!SBtab TableID="compound" Document="%s" TableType='\
+                         '"Compound" TableName="Compound" SBtabVersion="1.0"\n' % self.filename
 
         # columns
-        columns = ['!ID', '!Name', '!Location', '!Charge', '!IsConstant',
+        columns = ['!ID', '!Name', '!Location', '!IsConstant',
                    '!SBOTerm', '!InitialConcentration', '!hasOnlySubstanceUnits']
+        if self.fbc:
+            columns = columns + ['!SBML:fbc:chemicalFormula', '!SBML:fbc:charge']
+
         sbtab_compound += '\t'.join(columns) + '\n'
 
         # value rows
@@ -141,17 +187,25 @@ class SBMLDocument:
             except: pass
             try: value_row[2] = species.getCompartment()
             except: pass
-            try: value_row[3] = str(species.getCharge())
-            except: pass
-            try: value_row[4] = str(species.getConstant())
+            try: value_row[3] = str(species.getConstant())
             except: pass
             if str(species.getSBOTerm()) != '-1':
-                value_row[5] ='SBO:%.7d'%species.getSBOTerm()
-            try: value_row[6] = str(species.getInitialConcentration())
+                value_row[4] ='SBO:%.7d'%species.getSBOTerm()
+            try: value_row[5] = str(species.getInitialConcentration())
             except: pass
-            try: value_row[7] = str(species.getHasOnlySubstanceUnits())
+            try: value_row[6] = str(species.getHasOnlySubstanceUnits())
             except: pass
+            if self.fbc:
+                try:
+                    fbc_plugin = species.getPlugin('fbc')
+                    value_row[7] = str(fbc_plugin.getChemicalFormula())
+                    if fbc_plugin.isSetCharge():
+                        value_row[8] = str(fbc_plugin.getCharge())
+                except:
+                    self.warnings.append('FBC Species information could not be read.')
+
             sbtab_compound += '\t'.join(value_row) + '\n'
+
 
         sbtab_compound = SBtab.SBtabTable(sbtab_compound,
                                           self.filename + '_compound.tsv')
@@ -181,12 +235,12 @@ class SBMLDocument:
 
     def event_sbtab(self):
         '''
-        Builds an Event SBtab.
+        Builds an Event SBtab (deprecated).
         '''
         if len(self.model.getListOfEvents()) == 0:
             return False
             
-        event    = [['!!SBtab SBtabVersion="1.0" Document="'+self.filename.rstrip('.xml')+'" TableType="Event" TableName="Event"'],['']]
+        event    = [['!!SBtab TableID="event" Document="'+self.filename.rstrip('.xml')+'" TableType="Event" TableName="Event" SBtabVersion="1.0"'],['']]
         header   = ['!Event','!Name','!Assignments','!Trigger','!SBOterm','!Delay','!UseValuesFromTriggerTime']
         identifiers  = []
         column2ident = {}
@@ -245,12 +299,12 @@ class SBMLDocument:
 
     def rule_sbtab(self):
         '''
-        Builds a Rule SBtab.
+        Builds a Rule SBtab (deprecated).
         '''
         if len(self.model.getListOfRules()) == 0:
             return False
             
-        rule     = [['!!SBtab SBtabVersion="1.0" Document="'+self.filename.rstrip('.xml')+'" TableType="Rule" TableName="Rule"'],['']]
+        rule     = [['!!SBtab TableID="rule" Document="'+self.filename.rstrip('.xml')+'" TableType="Rule" TableName="Rule" SBtabVersion="1.0"'],['']]
         header   = ['!Rule','!Name','!Formula','!Unit']
         identifiers  = []
         column2ident = {}
@@ -287,6 +341,249 @@ class SBMLDocument:
             
         return [rule_SBtab,'rule']
 
+    def fbc_objective(self):
+        '''
+        builds a SBtab of the TableType FbcObjective
+        '''
+        fbc_plugin = self.model.getPlugin('fbc')
+        active_obj = fbc_plugin.getActiveObjectiveId()
+
+        # header row
+        sbtab_fbc = '!!SBtab TableID="fbcobj" Document="%s" TableType='\
+                    '"FbcObjective" TableName="FBC Objective" SBtabVersion="1.0"\n' % self.filename
+
+        # columns
+        columns = ['!ID', '!Name', '!Type', '!Active', '!Objective']
+            
+        sbtab_fbc += '\t'.join(columns) + '\n'
+
+        # value rows
+        for obj in fbc_plugin.getListOfObjectives():
+            value_row = [''] * len(columns)
+            value_row[0] = obj.getId()
+            try: value_row[1] = obj.getName()
+            except: pass
+            try: value_row[2] = obj.getType()
+            except: pass
+            if obj.getId() == active_obj: value_row[3] = 'True'
+            else: value_row[3] = 'False'
+            objective = ''
+            for fo in obj.getListOfFluxObjectives():
+                objective += '%s * %s +' % (str(fo.getCoefficient()), fo.getReaction())
+            value_row[4] = objective[:-2]
+
+            sbtab_fbc += '\t'.join(value_row) + '\n'
+
+        sbtab_fbc = SBtab.SBtabTable(sbtab_fbc,
+                                     self.filename + '_fbc_objective.tsv')
+        
+        return sbtab_fbc
+
+    def layout_sbtab(self):
+        '''
+        builds a SBtab of the TableType Layout
+        '''
+        layout = self.model.getPlugin('layout').getLayout(0)
+
+        # header row
+        sbtab_layout = '!!SBtab TableID="layout" Document="%s" TableType='\
+                       '"Layout" TableName="SBML Layout" SBtabVersion="1.0"\n' % self.filename
+
+        # columns
+        columns = ['!ID', '!Name', '!ModelEntity', '!SBML:compartment:id', '!SBML:reaction:id',
+                   '!SBML:species:id', '!CurveSegment',
+                   '!SBML:X', '!SBML:Y', '!SBML:width', '!SBML:height']
+        sbtab_layout += '\t'.join(columns) + '\n'
+
+        # value rows
+        # layout canvas
+        value_row = [''] * len(columns)
+        value_row[0] = layout.getId()
+        try: value_row[1] = layout.getName()
+        except: pass
+        value_row[2] = 'LayoutCanvas'
+        try:
+            dim = layout.getDimensions()
+            value_row[9] = str(dim.getWidth())
+            value_row[10] = str(dim.getHeight())
+        except: pass
+        sbtab_layout += '\t'.join(value_row) + '\n'
+
+        # compartment glyphs        
+        for compartment in self.model.getListOfCompartments():
+            cg = False
+            for cg_i in layout.getListOfCompartmentGlyphs():
+                if cg_i.getCompartmentId() == compartment.getId():
+                    cg = cg_i
+            if not cg: continue
+            value_row = [''] * len(columns)
+            value_row[0] = cg.getId()            
+            try: value_row[1] = cg.getName()
+            except: pass
+            value_row[2] = 'Compartment'
+            value_row[3] = cg.getCompartmentId()
+            try:
+                bb = cg.getBoundingBox()
+                value_row[7] = str(bb.getX())
+                value_row[8] = str(bb.getY())
+                value_row[9] = str(bb.getWidth())
+                value_row[10] = str(bb.getHeight())
+            except:
+                self.warnings.append('Compartment layout information could not be read.')                
+            sbtab_layout += '\t'.join(value_row) + '\n'
+            
+        # species glyphs
+        for species in self.model.getListOfSpecies():
+            sg = False
+            for sg_i in layout.getListOfSpeciesGlyphs():
+                if sg_i.getSpeciesId() == species.getId():
+                    sg = sg_i            
+            if not sg: continue
+            value_row = [''] * len(columns)
+            value_row[0] = sg.getId()
+            value_row[2] = 'Species'
+            value_row[5] = sg.getSpeciesId()
+            try:        
+                bb = sg.getBoundingBox()
+                value_row[7] = str(bb.getX())
+                value_row[8] = str(bb.getY())
+                value_row[9] = str(bb.getWidth())
+                value_row[10] = str(bb.getHeight())
+            except:
+                self.warnings.append('Species layout information could not be read.')
+            sbtab_layout += '\t'.join(value_row) + '\n'
+            
+            # construct corresponding text glyph for the species glyph (new row in SBtab)
+            value_row = [''] * len(columns)
+            value_row[2] = 'SpeciesText'
+            value_row[5] = sg.getSpeciesId()
+            
+            tg = False
+            for tg_i in layout.getListOfTextGlyphs():
+                if tg_i.getGraphicalObjectId() == sg.getId():
+                    tg = tg_i
+            if not tg: continue
+            value_row[0] = tg.getId()
+            try:
+                bb = tg.getBoundingBox()
+                value_row[7] = str(bb.getX())
+                value_row[8] = str(bb.getY())
+                value_row[9] = str(bb.getWidth())
+                value_row[10] = str(bb.getHeight())
+            except:
+                self.warnings.append('Species layout text information could not be read.')
+            sbtab_layout += '\t'.join(value_row) + '\n'
+
+        # reaction glyphs (made up of reaction glyph curve and species reference glyph curve/s)
+        for reaction in self.model.getListOfReactions():
+            rg = False
+            for rg_i in layout.getListOfReactionGlyphs():
+                if rg_i.getReactionId() == reaction.getId():
+                    rg = rg_i
+            if not rg: continue
+            try:
+                curve = rg.getCurve()
+                curve_segment = curve.getListOfCurveSegments()[0]
+            except:
+                self.warnings.append('Reaction Glyph Curve cannot be read.')
+                continue
+
+            # reaction glyph curve segment
+            for point in ['Start', 'End']:
+                value_row = [''] * len(columns)
+                value_row[0] = rg.getId()
+                value_row[2] = 'ReactionCurve'
+                try:
+                    value_row[4] = rg.getReactionId()
+                    value_row[6] = point
+                    value_row[7] = str(eval('curve_segment.get%s().getXOffset()' % point))
+                    value_row[8] = str(eval('curve_segment.get%s().getYOffset()' % point))
+                except:
+                    self.warnings.append('Reaction Glyph Curve Segment cannot be read.')
+
+                sbtab_layout += '\t'.join(value_row) + '\n'
+
+            # reaction glyph speciesreference glyph curve segment
+            for species_reference_glyph in rg.getListOfSpeciesReferenceGlyphs():
+                try:
+                    curve = species_reference_glyph.getCurve()
+                    curve_segment = curve.getListOfCurveSegments()[0]
+                except:
+                    self.warnings.append('Reaction Species Reference Glyph Curve cannot be read.')
+                    continue
+                for point in ['Start', 'End', 'BasePoint1', 'BasePoint2']:
+                    value_row = [''] * len(columns)
+                    value_row[0] = species_reference_glyph.getId()
+                    value_row[2] = 'SpeciesReferenceCurve'
+                    try:
+                        value_row[4] = rg.getReactionId()
+                        value_row[5] = species_reference_glyph.getSpeciesGlyphId()
+                        value_row[6] = point
+                        value_row[7] = str(eval('curve_segment.get%s().getXOffset()' % point))
+                        value_row[8] = str(eval('curve_segment.get%s().getYOffset()' % point))
+                    except:
+                        self.warnings.append('Reaction Glyph Curve Segment cannot be read.')
+                    sbtab_layout += '\t'.join(value_row) + '\n'
+
+        sbtab_layout = SBtab.SBtabTable(sbtab_layout,
+                                        self.filename + '_layout.tsv')
+        
+        return sbtab_layout
+    
+    def fbc_gene(self):
+        '''
+        builds a gene SBtab for the content of the fbc plugin
+        '''
+        fbc_plugin = self.model.getPlugin('fbc')
+
+        # header row
+        sbtab_fbc_gene = '!!SBtab TableID="gene" Document="%s" TableType='\
+                         '"Gene" TableName="FBC Gene" SBtabVersion="1.0"\n' % self.filename
+
+        # columns
+        columns = ['!ID', '!SBML:fbc:ID', '!SBML:fbc:Name', '!SBML:fbc:GeneProduct','!SBML:fbc:Label']
+            
+        sbtab_fbc_gene += '\t'.join(columns) + '\n'
+
+        # value rows
+        for gp in fbc_plugin.getListOfGeneProducts():
+            value_row = [''] * len(columns)
+            value_row[0] = gp.getId()
+            value_row[1] = gp.getId()
+            try: value_row[2] = gp.getName()
+            except: pass
+            value_row[3] = 'True'
+            try: value_row[4] = gp.getLabel()
+            except: pass
+            sbtab_fbc_gene += '\t'.join(value_row) + '\n'
+
+        sbtab_fbc_gene = SBtab.SBtabTable(sbtab_fbc_gene,
+                                          self.filename + '_fbc_gene.tsv')
+
+        # test and extend for annotations
+        for i, gene in enumerate(fbc_plugin.getListOfGeneProducts()):
+            try:
+                annotations = self.get_annotations(gene)
+                for j, annotation in enumerate(annotations):
+                    col_name = '!Identifiers:' + annotation[1]
+                    if col_name not in columns:
+                        new_column = [''] * (fbc_plugin.getNumGeneProducts() + 1)
+                        new_column[0] = col_name
+                        new_column[i + 1] = annotation[0]
+                        columns.append(col_name)
+                        sbtab_fbc_gene.add_column(new_column)
+                    else:
+                        sbtab_fbc_gene.change_value_by_name(gene.getId(),
+                                                            col_name,
+                                                            annotation[0])
+            except:
+                self.warnings.append('Could not add the annotation %s for '\
+                                     'gene %s' % annotations[1],
+                                     gene.getId())        
+        
+        return sbtab_fbc_gene
+
+    
     def get_annotations(self, element):
         '''
         Tries to extract an annotation from an SBML element.
@@ -335,12 +632,16 @@ class SBMLDocument:
         build a reaction SBtab
         '''
         # header row
-        sbtab_reaction = '!!SBtab SBtabVersion="1.0" Document="%s" TableType='\
-                         '"Reaction" TableName="Reaction"\n' % self.filename
+        sbtab_reaction = '!!SBtab TableID="reaction" Document="%s" TableType='\
+                         '"Reaction" TableName="Reaction" SBtabVersion="1.0"\n' % self.filename
 
         # columns
         columns = ['!ID', '!Name', '!ReactionFormula', '!Location',
                    '!Regulator', '!KineticLaw', '!SBOTerm', '!IsReversible']
+        if self.fbc:
+            columns = columns + ['!SBML:fbc:GeneAssociation', '!SBML:fbc:LowerBound',
+                                 '!SBML:fbc:UpperBound']
+            
         sbtab_reaction += '\t'.join(columns) + '\n'
 
         for reaction in self.model.getListOfReactions():
@@ -374,6 +675,20 @@ class SBMLDocument:
                 value_row[6] ='SBO:%.7d' % reaction.getSBOTerm()
             try: value_row[7] = str(reaction.getReversible())
             except: pass
+
+            if self.fbc:
+                try:
+                    fbc_plugin = reaction.getPlugin('fbc')
+                    try:
+                        ga = fbc_plugin.getGeneProductAssociation()
+                        ass = ga.getAssociation().toInfix()
+                        value_row[8] = ass
+                    except: pass                       
+                    value_row[9] = str(fbc_plugin.getLowerFluxBound())
+                    value_row[10] = str(fbc_plugin.getUpperFluxBound())
+                except:
+                    self.warnings.append('FBC Reaction information could not be read.')
+            
             sbtab_reaction += '\t'.join(value_row) + '\n'
 
         sbtab_reaction = SBtab.SBtabTable(sbtab_reaction,
@@ -417,13 +732,13 @@ class SBMLDocument:
         if not parameters: return False
 
         # header row        
-        sbtab_quantity = '!!SBtab SBtabVersion="1.0" Document="%s" TableType='\
-                         '"Quantity" TableName="Quantity"\n' % self.filename
+        sbtab_quantity = '!!SBtab TableID="quantity" Document="%s" TableType='\
+                         '"Quantity" TableName="Quantity" SBtabVersion="1.0"\n' % self.filename
         # columns
         columns = ['!ID', '!Parameter:SBML:parameter:id', '!Value',
-                   '!Unit', '!Type']
+                   '!Unit', '!Type', '!SBOTerm']
         sbtab_quantity += '\t'.join(columns) + '\n'
-
+        
         # required for later iteration of parameter annotations
         local_parameters = []
         
@@ -439,13 +754,13 @@ class SBMLDocument:
                     try: value_row[3] = parameter.getUnits()
                     except: pass
                     value_row[4] = 'local parameter'
+                    if str(parameter.getSBOTerm()) != '-1':
+                        value_row[5] = 'SBO:%.7d' % parameter.getSBOTerm()
                     local_parameters.append(parameter)
-                sbtab_quantity += '\t'.join(value_row) + '\n'
+                    sbtab_quantity += '\t'.join(value_row) + '\n'
                 
-
         sbtab_quantity = SBtab.SBtabTable(sbtab_quantity,
                                           self.filename + '_quantity.tsv')
-                    
 
         # test and extend for annotations of local parameters
         for i, quantity in enumerate(local_parameters):
@@ -477,6 +792,8 @@ class SBMLDocument:
             try: value_row[3] += parameter.getUnits()
             except: pass
             value_row[4] = 'global parameter'
+            if str(parameter.getSBOTerm()) != '-1':
+                value_row[5] = 'SBO:%.7d' % parameter.getSBOTerm()
             sbtab_quantity.add_row(value_row)
 
         # test and extend for annotations of global parameters
@@ -499,7 +816,10 @@ class SBMLDocument:
                 self.warnings.append('Could not add the annotation %s for'\
                                      'quantity %s' % annotations[1],
                                      parameter.getId())
-                
+
+        if sbtab_quantity.value_rows == []:
+            return False
+        
         return sbtab_quantity
 
     def make_sum_formula(self, reaction):
@@ -550,30 +870,3 @@ class SBMLDocument:
         return sumformula
         
 
-if __name__ == '__main__':
-
-    try: sys.argv[1]
-    except:
-        print('You have not provided input arguments. Please start the script by also providing an SBML file and an optional SBtab output filename: >python sbml2sbtab.py SBMLfile.xml Output')
-        sys.exit()
-
-    file_name  = sys.argv[1]
-    try: output_name = sys.argv[2]+'.csv'
-    except: output_name = file_name[:-4]+'.csv'
-
-    reader     = libsbml.SBMLReader()
-    sbml       = reader.readSBML(file_name)
-    model      = sbml.getModel()
-    Sbml_class = SBMLDocument(model,file_name)
-
-    (sbtabs,warnings) = Sbml_class.makeSBtabs()
-
-    #print warnings
-
-    for sbtab in sbtabs:
-        sbtab_name = output_name[:-4]+'_'+sbtab[1]+output_name[-4:]
-        sbtab_file = open(sbtab_name,'w')
-        sbtab_file.write(sbtab[0])
-        sbtab_file.close()
-
-    print('The SBtab file/s have been successfully written to your working directory or chosen output path.')

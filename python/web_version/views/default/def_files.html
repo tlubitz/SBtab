@@ -1,47 +1,111 @@
 {{extend 'layout2.html'}}
 
-{{=UPL_FORM}}
+{{block title}}
+<title>Customise SBtab definition file</title>
+{{end}}
 
-{{if DEF_NAME:}}
-<table>
-  <tr>
-    {{if not NEW:}}
-    <td style="width:650;">The features of SBtab tables, such as column names, are defined by a definition table.
-      By editing this table, you can customize the SBtab format and define new table types. Note
-      that, when using a new definition table, the predefined definition table will be completely
-      overridden, so any tables and columns to be used (also the predefined ones) must be listed
-      in the new table. Currently the default definition SBtab is loaded for your session:</td>
-    </tr>
-    <tr>
-    <td> <a href="show_sbtab_def/{{=str(0)}}" target="_new"> {{=DEF_NAME}} </a> </td>
-    {{pass}}
-    {{if NEW:}}
-    <td style="width:650;">You are now using a customized definition table. Please note
-      that, when using a new definition table, the predefined definition table will be completely
-      overridden, so any tables and columns to be used (also the predefined ones) must be listed
-      in the new table. You can always return to the default definition table by simply removing
-      your customized definition table.
-      </td>
-    </tr>
-    <tr>
-    <td> <a href="show_sbtab_def/{{=str(0)}}" target="_new"> {{=DEF_NAME}} </a> </td>
-    </tr>
-    <tr>
-    <td> <form> <button type="submit" value="{{0}}" name="erase_def_button">Remove</button> </form> </td>
-    {{pass}}
-  </tr>
-</table>
-{{pass}}
-    <hr>
-    <p>
-  <a href="../static/index.html">Main</a> | 
-  <a href="../static/introduction.html">Getting started</a> |
-  <a href="../static/specification.html">Specification</a> |
-  <a href="./validator">Validator</a> | 
-  <a href="./converter">SBML</a> |
-  <a href="./def_files">Customize SBtab</a> |
-  <a href="../static/code.html">Code</a> |
-  <a href="../static/troubles.html">Troubleshooting</a> |
-  <a href="../static/team.html">Contact</a> 
+{{block dynamic_nav}}
+<li class="nav-item">
+  <a class="nav-link" href="https://www.sbtab.net/sbtab/default/gettingstarted.html">Getting started</a>
+</li>
+<li class="nav-item dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="Click to see SBtab Online Tools">
+    Online Tools<span class="sr-only">(current)</span>
+  </a>
+  <ul class="dropdown-menu">
+    <li>
+      <a href="https://www.sbtab.net/sbtab/default/validator.html">Validator</a>
+    </li>
+    <li>
+      <a href="https://www.sbtab.net/sbtab/default/converter.html">SBML converter</a>
+    </li>
+    <li>
+      <a href="https://www.sbtab.net/sbtab/default/def_files.html">Customize SBtab</a>
+    </li>
+  </ul>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="https://www.sbtab.net/sbtab/default/documentation.html">Documentation</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="https://www.sbtab.net/sbtab/default/downloads.html">Download</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="https://www.sbtab.net/sbtab/default/team.html">Contact</a>
+</li>{{end}}
 
-    </p>
+
+{{block center}}
+<header>
+  <div class="container-fluid bg-1 text-center">
+    <div class="jumbotron" align="center">
+      <h1><small>Customise SBtab definition file</small></h1>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container-fluid bg-3">
+    <div class="row">
+      <div class="col-sm-3"></div>
+      <div class="col-sm-6">
+
+	<section style="text-align:left;">
+	  {{=UPL_FORM}}
+
+	  {{if DEF_NAME:}}
+	  
+	  {{if NEW:}}
+	  <p>
+	  You are now using a customized definition table. Please note
+	  that, when using a new definition table, the predefined definition table will be completely
+	  overridden, so any tables and columns to be used (also the predefined ones) must be listed
+	  in the new table. You can always return to the default definition table by simply removing
+	  your customized definition table.
+	  </p>
+	  <a href="show_sbtab_def/0}}" target="_new"> {{=DEF_NAME}} </a>
+	  <form>
+
+	    <button type="submit" value="{{=0}}" name="erase_def_button">Remove</button>
+	  </form>
+	  {{pass}}
+	  
+	  {{if not NEW:}}
+	  <p>
+	  The features of SBtab tables, such as column names, are defined by a definition table.
+	  By editing this table, you can customize the SBtab format and define new table types. Note
+	  that, when using a new definition table, the predefined definition table will be completely
+	  overridden, so any tables and columns to be used (also the predefined ones) must be listed
+	  in the new table.
+	  </p>
+	  <p>Currently the default definition SBtab is loaded for your session:
+	    <a href="show_sbtab_def/{{=str(0)}}" target="_new"> {{=DEF_NAME}} </a>
+	  </p>
+	  {{pass}}
+	  {{pass}}
+	</section>
+
+
+	<section>
+	  {{if WARNINGS_DEF:}}
+	    <strong>Logfile of warnings for conversion:</strong>
+	    {{if len(WARNINGS_DEF)>1:}}
+              {{for f in WARNINGS_DEF:}} 
+	        <font color="#FF0000">&bull; {{=f}}</font>
+	      {{pass}}
+	    {{else:}}
+	      <font color="#FF0000">&bull; {{=WARNINGS_DEF[0]}}</font>
+	    {{pass}}
+	  {{pass}}
+	</section>
+	
+      </div>
+      <div class="col-sm-3"></div>
+    </div>
+  </div>
+</main>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+{{end}}
