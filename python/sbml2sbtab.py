@@ -64,11 +64,15 @@ class SBMLDocument:
             fbc = self.model.getPlugin('fbc')
             if fbc: self.fbc = True
         except: pass
-        
+
+        # the layout test needs to be a bit deeper than fbc, since
+        # a form of the layout plugin also exists in ancient versions
+        # of SBML2.x
         try:
-            layout = self.model.getPlugin('layout')
-            if layout: self.layout = True
-        except: pass        
+            layout = self.model.getPlugin('layout').getLayout(0)
+            layout_id = layout.getId()
+            if layout_id: self.layout = True
+        except: pass
 
         for table_type in supported_table_types:
             try:

@@ -76,6 +76,7 @@ def split_sbtabs(sbtab_strings):
     counter = 1
     
     for row in sbtab_strings.split('\n'):
+        if row.startswith('!!!'): continue
         if row.startswith('!!'):
             if sbtab_string == '':
                 sbtab_string = row + '\n'
@@ -116,7 +117,6 @@ def sbtab_to_html(sbtab, filename=None, mode='sbtab_online'):
         for SBtab Documents
         '''
         no_link = ['(',')','+','-','<=>','or','and','FbcOr','FbcAnd']
-
         # get column descriptions for this table type and possible shortname links
         try: (col2description,col2link) = find_descriptions(sbtab_def, sbtab.table_type)
         except:
@@ -185,20 +185,47 @@ def sbtab_to_html(sbtab, filename=None, mode='sbtab_online'):
     ##############################################################################
     # read in header and footer from HTML template
     if mode == 'sbtab_online':
-        html_template = open('template_sbtab_online.html', 'r').read()
+        p = os.path.join(os.path.dirname(__file__), '../modules/template_sbtab_online.html')
+        try:
+            html = open(p, 'r')
+            html_template = html.read()
+            html.close()
+        except:
+            print('HTML template was not found.')
+            return False
     elif mode == 'standalone':
-        html_template = open('template_standalone.html', 'r').read()
+        html_template = False
+        try_paths = ['template_standalone.html',
+                     os.path.join(os.path.dirname(__file__), '../template_standalone.html'),
+                     os.path.join(os.path.dirname(__file__), 'template_standalone.html')]
+        for path in try_paths:
+            try:
+                html = open(path, 'r')
+                html_template = html.read()
+                html.close()
+            except: pass
+        if not html_template:
+            print('HTML template was not found.')
+            return False
     else:
         print('Invalid mode %s. Please use either "sbtab_online" or "standalone".' % mode)
-        
+        return False
+
     try:
         header = re.search('(<html lang="en">.*<main>)', html_template, re.DOTALL).group(0)
         footer = re.search('(</main>.*</html>)', html_template, re.DOTALL).group(0)
     except:
         print('Cannot read required template.html.')
+        return False
 
     html = header
 
+    try:
+        ot = sbtab.object_type
+    except:
+        print('You have not provided a valid SBtab object as input.')
+        return False
+    
     # replace title placeholder with actual title
     html = html.replace('TitlePlaceholder',sbtab.filename)
 
@@ -211,9 +238,9 @@ def sbtab_to_html(sbtab, filename=None, mode='sbtab_online'):
     elif sbtab.object_type == 'doc':
         for sbtab in sbtab.sbtabs:
             html += _build_main(sbtab, sbtab_def) + '<br><hr>'
-       
     else:
         print('The given SBtab object is invalid.')
+        return False
             
     html += footer
     
@@ -243,6 +270,21 @@ def open_definitions_file(_path=None):
 
     return sbtab_def
 
+            
+def extract_supported_table_types():
+    '''
+    extracts all allowed SBtab TableTypes from the definition file
+    '''
+    sbtab_def = open_definitions_file()
+    
+    supported_types = []
+    for row in sbtab_def.value_rows:
+        t = row[sbtab_def.columns_dict['!IsPartOf']]
+        if t not in supported_types:
+            supported_types.append(t)
+
+    return supported_types
+
 
 def find_descriptions(def_file, table_type):
     '''
@@ -256,7 +298,7 @@ def find_descriptions(def_file, table_type):
             col2description[row[def_file.columns_dict['!ComponentName']]] = row[def_file.columns_dict['!Description']]
             col2link['!'+row[def_file.columns_dict['!ComponentName']]] = row[def_file.columns_dict['!linksShortname']]
 
-    return (col2description,col2link)
+    return (col2description, col2link)
 
 
 def xlsx_to_tsv(file_object, f='web'):
@@ -300,9 +342,11 @@ def tab_to_xlsx(sbtab_object):
 
     wb.save('transition.xlsx')
     
-    fileobject = open('transition.xlsx','rb')
+    f = open('transition.xlsx','rb')
+    fileobject = f.read()
+    f.close()
 
-    return fileobject.read()
+    return fileobject
 
 
 def xml_to_html(sbml_file):
@@ -317,17 +361,3 @@ def xml_to_html(sbml_file):
 
     return new_sbml
 
-            
-def extract_supported_table_types():
-    '''
-    extracts all allowed SBtab TableTypes from the definition file
-    '''
-    sbtab_def = open_definitions_file()
-    
-    supported_types = []
-    for row in sbtab_def.value_rows:
-        t = row[sbtab_def.columns_dict['!IsPartOf']]
-        if t not in supported_types:
-            supported_types.append(t)
-
-    return supported_types
