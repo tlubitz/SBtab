@@ -1,0 +1,151 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module misc</title>
+<meta charset="utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>misc</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/timo/Desktop/projects/SBtab/python/misc.py">/home/timo/Desktop/projects/SBtab/python/misc.py</a></font></td></tr></table>
+    <p><tt>A&nbsp;collection&nbsp;of&nbsp;useful&nbsp;tools&nbsp;and&nbsp;functions&nbsp;for&nbsp;the&nbsp;manipulation&nbsp;of&nbsp;SBtab&nbsp;tables&nbsp;and&nbsp;SBtab&nbsp;documents.</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#7799ee">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#7799ee"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+  <td width="100%"><table width="100%" summary="list">
+      <tr>
+	<td width="20%" valign=top><a href="SBtab.html">SBtab</a><br>
+	 copy<br></td>
+	<td width="20%" valign=top>math<br>
+	  numpy<br></td>
+	<td width="20%" valign=top>os<br>
+	 random<br></td>
+	<td width="20%" valign=top>re<br>
+	  string<br></td>
+	<td width="20%" valign=top>libsbml<br>
+	  scipy<br></td>
+      </tr>
+    </table>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#7799ee">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#7799ee"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-check_delimiter"><strong>check_delimiter</strong></a>(sbtab_file)</dt><dd><tt>Determines&nbsp;the&nbsp;delimiter&nbsp;of&nbsp;the&nbsp;SBtab&nbsp;table<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+sbtab_file:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBtab&nbsp;table&nbsp;in&nbsp;string&nbsp;representation.<br>
+&nbsp;<br>
+Returns:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Delimiter&nbsp;of&nbsp;the&nbsp;SBtab&nbsp;table&nbsp;('&nbsp;',&nbsp;',',&nbsp;or&nbsp;';')</tt></dd></dl>
+ <dl><dt><a name="-count_tabs"><strong>count_tabs</strong></a>(sbtab_string)</dt><dd><tt>Counts&nbsp;how&nbsp;many&nbsp;SBtabs&nbsp;are&nbsp;in&nbsp;in&nbsp;a&nbsp;given&nbsp;string.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+sbtab_string:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBtab&nbsp;table&nbsp;or&nbsp;tables&nbsp;in&nbsp;string&nbsp;representation.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Amount&nbsp;of&nbsp;SBtab&nbsp;tables&nbsp;in&nbsp;given&nbsp;string.</tt></dd></dl>
+ <dl><dt><a name="-extract_supported_table_types"><strong>extract_supported_table_types</strong></a>()</dt><dd><tt>Extracts&nbsp;all&nbsp;allowed&nbsp;SBtab&nbsp;table&nbsp;types&nbsp;from&nbsp;the&nbsp;definitions&nbsp;file.<br>
+&nbsp;<br>
+Returns:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;supported&nbsp;SBtab&nbsp;table&nbsp;types.</tt></dd></dl>
+ <dl><dt><a name="-find_descriptions"><strong>find_descriptions</strong></a>(def_file, table_type)</dt><dd><tt>Preprocesses&nbsp;the&nbsp;definitions&nbsp;file&nbsp;in&nbsp;order&nbsp;to&nbsp;enable&nbsp;some&nbsp;nice&nbsp;mouseover&nbsp;effects&nbsp;for&nbsp;the&nbsp;known&nbsp;column&nbsp;names.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+def_file:&nbsp;SBtab.SBtabTable<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Definitions&nbsp;file&nbsp;as&nbsp;SBtab&nbsp;table&nbsp;object.<br>
+table_type:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBtab&nbsp;table&nbsp;type&nbsp;for&nbsp;which&nbsp;the&nbsp;descriptions&nbsp;shall&nbsp;be&nbsp;extracted.<br>
+&nbsp;<br>
+Returns:&nbsp;(dict,&nbsp;dict)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Two&nbsp;dictionaries&nbsp;that&nbsp;link&nbsp;the&nbsp;column&nbsp;name&nbsp;to&nbsp;its&nbsp;description&nbsp;and&nbsp;to&nbsp;a&nbsp;Bool&nbsp;flag&nbsp;indicating&nbsp;if&nbsp;it<br>
+&nbsp;&nbsp;&nbsp;&nbsp;is&nbsp;a&nbsp;shortname&nbsp;identifier&nbsp;possibly&nbsp;linking&nbsp;to&nbsp;another&nbsp;SBtab&nbsp;table.</tt></dd></dl>
+ <dl><dt><a name="-open_definitions_file"><strong>open_definitions_file</strong></a>(_path<font color="#909090">=None</font>)</dt><dd><tt>Opens&nbsp;the&nbsp;SBtab&nbsp;definitions&nbsp;file,&nbsp;which&nbsp;can&nbsp;be&nbsp;in&nbsp;several&nbsp;locations.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+_path:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional&nbsp;path&nbsp;to&nbsp;the&nbsp;definitions.tsv.<br>
+&nbsp;<br>
+Returns:&nbsp;SBtab.SBtabTable<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBtab&nbsp;definitions&nbsp;file&nbsp;as&nbsp;SBtabTable&nbsp;object.</tt></dd></dl>
+ <dl><dt><a name="-sbtab_to_html"><strong>sbtab_to_html</strong></a>(sbtab, filename<font color="#909090">=None</font>, mode<font color="#909090">='sbtab_online'</font>)</dt><dd><tt>Generates&nbsp;html&nbsp;view&nbsp;out&nbsp;of&nbsp;SBtab&nbsp;table&nbsp;or&nbsp;SBtab&nbsp;document&nbsp;object.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+sbtab:&nbsp;SBtab.SBtabTable&nbsp;|&nbsp;SBtab.SBtabDocument<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Either&nbsp;SBtab&nbsp;table&nbsp;object&nbsp;or&nbsp;SBtab&nbsp;document&nbsp;object.<br>
+filename:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;File&nbsp;name&nbsp;of&nbsp;the&nbsp;SBtab&nbsp;table.<br>
+mode:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Defines&nbsp;the&nbsp;type&nbsp;of&nbsp;HTML&nbsp;to&nbsp;be&nbsp;generated&nbsp;('sbtab_online'&nbsp;for&nbsp;the&nbsp;SBtab&nbsp;online<br>
+&nbsp;&nbsp;&nbsp;&nbsp;interface&nbsp;or&nbsp;'standalone'&nbsp;for&nbsp;a&nbsp;sole&nbsp;HTML&nbsp;page&nbsp;without&nbsp;online&nbsp;binding).<br>
+&nbsp;<br>
+Returns:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBtab&nbsp;object&nbsp;as&nbsp;HTML&nbsp;string.</tt></dd></dl>
+ <dl><dt><a name="-split_sbtabs"><strong>split_sbtabs</strong></a>(sbtab_strings)</dt><dd><tt>Cuts&nbsp;one&nbsp;SBtab&nbsp;string&nbsp;in&nbsp;single&nbsp;SBtab&nbsp;strings&nbsp;if&nbsp;necessary.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+sbtab_strings:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBtab&nbsp;table&nbsp;or&nbsp;tables&nbsp;in&nbsp;string&nbsp;representation.<br>
+&nbsp;<br>
+Returns:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;SBtab&nbsp;tables&nbsp;in&nbsp;string&nbsp;representation.</tt></dd></dl>
+ <dl><dt><a name="-tab_to_xlsx"><strong>tab_to_xlsx</strong></a>(sbtab_object)</dt><dd><tt>Converts&nbsp;SBtab&nbsp;object&nbsp;to&nbsp;xlsx&nbsp;file&nbsp;object.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+sbtab_object:&nbsp;SBtab.SBtabTable<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBtab&nbsp;table&nbsp;object.<br>
+&nbsp;<br>
+Returns:&nbsp;xlsx&nbsp;file&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBtab&nbsp;table&nbsp;as&nbsp;xlsx&nbsp;file&nbsp;object.</tt></dd></dl>
+ <dl><dt><a name="-validate_file_extension"><strong>validate_file_extension</strong></a>(file_name, file_type)</dt><dd><tt>Returns&nbsp;Boolean&nbsp;flag&nbsp;to&nbsp;evaluate&nbsp;if&nbsp;the&nbsp;file&nbsp;has&nbsp;the&nbsp;correct&nbsp;extension:<br>
+sbml&nbsp;=&gt;&nbsp;xml<br>
+sbtab&nbsp;=&gt;&nbsp;tsv,&nbsp;csv,&nbsp;xlsx.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+file_name:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Name&nbsp;of&nbsp;the&nbsp;file.<br>
+file_type:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Type&nbsp;of&nbsp;the&nbsp;file&nbsp;('sbtab'&nbsp;or&nbsp;'sbml').<br>
+&nbsp;<br>
+Returns:&nbsp;Bool<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Boolean&nbsp;flag&nbsp;indicating&nbsp;if&nbsp;the&nbsp;given&nbsp;file&nbsp;extension&nbsp;corresponds&nbsp;to&nbsp;the&nbsp;given&nbsp;file&nbsp;type.</tt></dd></dl>
+ <dl><dt><a name="-xlsx_to_tsv"><strong>xlsx_to_tsv</strong></a>(file_object, f<font color="#909090">='web'</font>)</dt><dd><tt>Converts&nbsp;xlsx&nbsp;SBtab&nbsp;file&nbsp;to&nbsp;tsv&nbsp;format.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+file_object:&nbsp;xlsx&nbsp;file&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBtab&nbsp;table&nbsp;as&nbsp;xlsx&nbsp;file&nbsp;object.<br>
+f:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;indicating&nbsp;how&nbsp;the&nbsp;file&nbsp;object&nbsp;is&nbsp;represented&nbsp;('web'&nbsp;for&nbsp;online&nbsp;file&nbsp;handling,&nbsp;otherwise&nbsp;normal&nbsp;file&nbsp;handling)<br>
+&nbsp;<br>
+Returns:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBtab&nbsp;table&nbsp;as&nbsp;tsv&nbsp;string.</tt></dd></dl>
+ <dl><dt><a name="-xml_to_html"><strong>xml_to_html</strong></a>(sbml_file)</dt><dd><tt>Generates&nbsp;HTML&nbsp;view&nbsp;of&nbsp;XML&nbsp;(SBML)&nbsp;file.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+sbml_file:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBML&nbsp;file&nbsp;in&nbsp;string&nbsp;representation.<br>
+&nbsp;<br>
+Returns:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBML&nbsp;file&nbsp;as&nbsp;HTML&nbsp;view.</tt></dd></dl>
+</td></tr></table>
+</body></html>

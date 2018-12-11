@@ -1,0 +1,449 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module SBtab</title>
+<meta charset="utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>SBtab</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/timo/Desktop/projects/SBtab/python/SBtab.py">/home/timo/Desktop/projects/SBtab/python/SBtab.py</a></font></td></tr></table>
+    <p><tt>SBtab&nbsp;is&nbsp;a&nbsp;table&nbsp;format&nbsp;for&nbsp;Systems&nbsp;Biology.&nbsp;It&nbsp;can&nbsp;store&nbsp;different&nbsp;kinds<br>
+of&nbsp;data.&nbsp;The&nbsp;<a href="#SBtabTable">SBtabTable</a>&nbsp;and&nbsp;<a href="#SBtabDocument">SBtabDocument</a>&nbsp;classes&nbsp;allow&nbsp;the&nbsp;storage,<br>
+manipulation,&nbsp;and&nbsp;removal&nbsp;of&nbsp;data&nbsp;from&nbsp;the&nbsp;tables.<br>
+&nbsp;<br>
+See&nbsp;specification&nbsp;for&nbsp;further&nbsp;information.</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#7799ee">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="white" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#7799ee"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+  <td width="100%"><table width="100%" summary="list"><tr>
+	<td width="20%" valign=top><a href="misc.html">misc</a><br>
+	<td width="20%" valign=top>csv<br></td>
+	<td width="20%" valign=top>datetime<br></td>
+	<td width="20%" valign=top>logging<br></td>
+	<td width="20%" valign=top>re<br></td>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#7799ee">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="white" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#7799ee"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="SBtab.html#SBtabDocument">SBtabDocument</a>
+</font></dt><dt><font face="helvetica, arial"><a href="SBtab.html#SBtabTable">SBtabTable</a>
+</font></dt><dt><font face="helvetica, arial"><a href="exceptions.html#Exception">exceptions.Exception</a>(<a href="exceptions.html#BaseException">exceptions.BaseException</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="SBtab.html#SBtabError">SBtabError</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="SBtabDocument">class <strong>SBtabDocument</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>The&nbsp;SBtab&nbsp;document&nbsp;class&nbsp;can&nbsp;consist&nbsp;of&nbsp;one&nbsp;or&nbsp;more&nbsp;SBtab&nbsp;Table&nbsp;objects<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="SBtabDocument-__init__"><strong>__init__</strong></a>(self, name, sbtab_init<font color="#909090">=None</font>, filename<font color="#909090">=None</font>)</dt><dd><tt>Creates&nbsp;<a href="#SBtabDocument">SBtabDocument</a>&nbsp;with&nbsp;an&nbsp;optional&nbsp;SBtab&nbsp;table&nbsp;object.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+name:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Name&nbsp;for&nbsp;the&nbsp;SBtab&nbsp;document.<br>
+sbtab_init:&nbsp;str&nbsp;|&nbsp;SBtab.<a href="#SBtabTable">SBtabTable</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;Initial&nbsp;SBtab&nbsp;table&nbsp;as&nbsp;either&nbsp;string&nbsp;or&nbsp;SBtab&nbsp;table&nbsp;object<br>
+filename:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;sbtab_init&nbsp;is&nbsp;string,&nbsp;also&nbsp;provide&nbsp;a&nbsp;fiename.</tt></dd></dl>
+
+<dl><dt><a name="SBtabDocument-add_sbtab"><strong>add_sbtab</strong></a>(self, sbtab)</dt><dd><tt>Adds&nbsp;an&nbsp;SBtab&nbsp;Table&nbsp;object&nbsp;to&nbsp;the&nbsp;SBtab&nbsp;Document.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+sbtab:&nbsp;SBtab.<a href="#SBtabTable">SBtabTable</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBtab&nbsp;table&nbsp;object&nbsp;to&nbsp;be&nbsp;added&nbsp;to&nbsp;the&nbsp;document.</tt></dd></dl>
+
+<dl><dt><a name="SBtabDocument-add_sbtab_string"><strong>add_sbtab_string</strong></a>(self, sbtab_string, filename)</dt><dd><tt>Adds&nbsp;one&nbsp;or&nbsp;multiple&nbsp;SBtab&nbsp;files&nbsp;as&nbsp;a&nbsp;string.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+sbtab_string:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;One&nbsp;string&nbsp;holding&nbsp;one&nbsp;or&nbsp;more&nbsp;SBtab&nbsp;tables.<br>
+filename:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Name&nbsp;of&nbsp;the&nbsp;given&nbsp;SBtab.</tt></dd></dl>
+
+<dl><dt><a name="SBtabDocument-change_attribute"><strong>change_attribute</strong></a>(self, attribute, value)</dt><dd><tt>Changes&nbsp;the&nbsp;value&nbsp;of&nbsp;an&nbsp;SBtab&nbsp;attribute.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+attribute:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Attribute&nbsp;from&nbsp;the&nbsp;SBtab&nbsp;document&nbsp;object's&nbsp;declaration&nbsp;row.<br>
+value:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Value&nbsp;for&nbsp;the&nbsp;attribute.</tt></dd></dl>
+
+<dl><dt><a name="SBtabDocument-check_type_validity"><strong>check_type_validity</strong></a>(self, ttype)</dt><dd><tt>Checks&nbsp;if&nbsp;the&nbsp;given&nbsp;table&nbsp;type&nbsp;is&nbsp;supported&nbsp;by&nbsp;default.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+ttype:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Table&nbsp;type&nbsp;to&nbsp;be&nbsp;tested.<br>
+&nbsp;<br>
+Returns:&nbsp;Bool<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Flag&nbsp;that&nbsp;indicates&nbsp;if&nbsp;the&nbsp;given&nbsp;table&nbsp;type&nbsp;is&nbsp;supported&nbsp;by&nbsp;default.</tt></dd></dl>
+
+<dl><dt><a name="SBtabDocument-get_attribute"><strong>get_attribute</strong></a>(self, attribute)</dt><dd><tt>Returns&nbsp;the&nbsp;value&nbsp;of&nbsp;an&nbsp;SBtab&nbsp;attribute.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+attribute:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Attribute&nbsp;from&nbsp;the&nbsp;SBtab&nbsp;document&nbsp;object's&nbsp;declaration&nbsp;row.<br>
+&nbsp;<br>
+Returns:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Value&nbsp;of&nbsp;the&nbsp;requested&nbsp;attribute.</tt></dd></dl>
+
+<dl><dt><a name="SBtabDocument-get_custom_doc_information"><strong>get_custom_doc_information</strong></a>(self, attribute_name, test_row<font color="#909090">=None</font>)</dt><dd><tt>Retrieves&nbsp;the&nbsp;value&nbsp;of&nbsp;a&nbsp;doc&nbsp;attribute&nbsp;in&nbsp;the&nbsp;SBtab&nbsp;document&nbsp;object's&nbsp;declaration&nbsp;row.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+attribute_name:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;Name&nbsp;of&nbsp;the&nbsp;requested&nbsp;attribute.<br>
+&nbsp;<br>
+Returns:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;Value&nbsp;of&nbsp;the&nbsp;requested&nbsp;attribute.</tt></dd></dl>
+
+<dl><dt><a name="SBtabDocument-get_sbtab_by_id"><strong>get_sbtab_by_id</strong></a>(self, name)</dt><dd><tt>Returns&nbsp;SBtab&nbsp;table&nbsp;object&nbsp;by&nbsp;given&nbsp;ID.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+name:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;TableID&nbsp;of&nbsp;a&nbsp;SBtab&nbsp;table&nbsp;object.<br>
+&nbsp;<br>
+Returns:&nbsp;SBtab.<a href="#SBtabTable">SBtabTable</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBtab&nbsp;table&nbsp;object&nbsp;of&nbsp;requested&nbsp;ID.</tt></dd></dl>
+
+<dl><dt><a name="SBtabDocument-get_sbtab_by_name"><strong>get_sbtab_by_name</strong></a>(self, name)</dt><dd><tt>Returns&nbsp;SBtab&nbsp;table&nbsp;object&nbsp;by&nbsp;given&nbsp;name.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+name:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Name&nbsp;of&nbsp;SBtab&nbsp;table&nbsp;to&nbsp;be&nbsp;returned.<br>
+&nbsp;<br>
+Returns:&nbsp;SBtab.<a href="#SBtabTable">SBtabTable</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBtab&nbsp;table&nbsp;object&nbsp;of&nbsp;requested&nbsp;name.</tt></dd></dl>
+
+<dl><dt><a name="SBtabDocument-get_sbtab_by_type"><strong>get_sbtab_by_type</strong></a>(self, ttype)</dt><dd><tt>Returns&nbsp;list&nbsp;of&nbsp;SBtab&nbsp;objects&nbsp;by&nbsp;given&nbsp;table&nbsp;type.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+ttype:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Supported&nbsp;SBtab&nbsp;table&nbsp;type.<br>
+&nbsp;<br>
+Returns:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;SBtab.<a href="#SBtabTable">SBtabTable</a>&nbsp;objects&nbsp;of&nbsp;the&nbsp;requested&nbsp;table&nbsp;type.</tt></dd></dl>
+
+<dl><dt><a name="SBtabDocument-remove_sbtab_by_name"><strong>remove_sbtab_by_name</strong></a>(self, name)</dt><dd><tt>Removes&nbsp;SBtab&nbsp;Table&nbsp;from&nbsp;SBtab&nbsp;Document.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+name:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Name&nbsp;of&nbsp;the&nbsp;SBtab&nbsp;table&nbsp;to&nbsp;be&nbsp;removed.</tt></dd></dl>
+
+<dl><dt><a name="SBtabDocument-set_date"><strong>set_date</strong></a>(self, date)</dt><dd><tt>Sets&nbsp;date&nbsp;of&nbsp;the&nbsp;document.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+date:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Date&nbsp;of&nbsp;the&nbsp;SBtab&nbsp;document.</tt></dd></dl>
+
+<dl><dt><a name="SBtabDocument-set_doc_row"><strong>set_doc_row</strong></a>(self, new_doc_row)</dt><dd><tt>Sets&nbsp;a&nbsp;new&nbsp;SBtab&nbsp;document&nbsp;declaration&nbsp;row.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+new_doc_row:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;New&nbsp;SBtab&nbsp;document&nbsp;declaration&nbsp;row</tt></dd></dl>
+
+<dl><dt><a name="SBtabDocument-set_doc_type"><strong>set_doc_type</strong></a>(self, doc_type)</dt><dd><tt>Sets&nbsp;the&nbsp;type&nbsp;of&nbsp;the&nbsp;document.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+doc_type:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Type&nbsp;of&nbsp;the&nbsp;SBtab&nbsp;document.</tt></dd></dl>
+
+<dl><dt><a name="SBtabDocument-set_name"><strong>set_name</strong></a>(self, name)</dt><dd><tt>Sets&nbsp;name&nbsp;of&nbsp;SBtab&nbsp;document.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+name:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Name&nbsp;for&nbsp;the&nbsp;SBtab&nbsp;document.</tt></dd></dl>
+
+<dl><dt><a name="SBtabDocument-set_version"><strong>set_version</strong></a>(self, version)</dt><dd><tt>Sets&nbsp;SBtabVersion&nbsp;of&nbsp;the&nbsp;document.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+version:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Version&nbsp;number&nbsp;of&nbsp;SBtab&nbsp;document.</tt></dd></dl>
+
+<dl><dt><a name="SBtabDocument-to_str"><strong>to_str</strong></a>(self)</dt><dd><tt>Returns&nbsp;SBtab&nbsp;Document&nbsp;as&nbsp;one&nbsp;string.<br>
+&nbsp;<br>
+Returns:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBtab.<a href="#SBtabDocument">SBtabDocument</a>&nbsp;as&nbsp;string&nbsp;representation.</tt></dd></dl>
+
+<dl><dt><a name="SBtabDocument-unset_attribute"><strong>unset_attribute</strong></a>(self, attribute)</dt><dd><tt>Removes&nbsp;attribute&nbsp;from&nbsp;SBtab&nbsp;document&nbsp;object's&nbsp;declaration&nbsp;row.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+attribute:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Attribute&nbsp;that&nbsp;shall&nbsp;be&nbsp;removed.</tt></dd></dl>
+
+<dl><dt><a name="SBtabDocument-write"><strong>write</strong></a>(self, filename<font color="#909090">=None</font>)</dt><dd><tt>Writes&nbsp;<a href="#SBtabDocument">SBtabDocument</a>&nbsp;to&nbsp;hard&nbsp;disk.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+filename:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Name&nbsp;for&nbsp;the&nbsp;output&nbsp;file.</tt></dd></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="SBtabError">class <strong>SBtabError</strong></a>(<a href="exceptions.html#Exception">exceptions.Exception</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Base&nbsp;class&nbsp;for&nbsp;errors&nbsp;in&nbsp;the&nbsp;SBtab&nbsp;class.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="SBtab.html#SBtabError">SBtabError</a></dd>
+<dd><a href="exceptions.html#Exception">exceptions.Exception</a></dd>
+<dd><a href="exceptions.html#BaseException">exceptions.BaseException</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="SBtabError-__init__"><strong>__init__</strong></a>(self, message)</dt></dl>
+
+<dl><dt><a name="SBtabError-__str__"><strong>__str__</strong></a>(self)</dt></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="exceptions.html#Exception">exceptions.Exception</a>:<br>
+<dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of type object&gt;<dd><tt>T.<a href="#SBtabError-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;object&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
+
+<hr>
+Methods inherited from <a href="exceptions.html#BaseException">exceptions.BaseException</a>:<br>
+<dl><dt><a name="SBtabError-__delattr__"><strong>__delattr__</strong></a>(...)</dt><dd><tt>x.<a href="#SBtabError-__delattr__">__delattr__</a>('name')&nbsp;&lt;==&gt;&nbsp;del&nbsp;x.name</tt></dd></dl>
+
+<dl><dt><a name="SBtabError-__getattribute__"><strong>__getattribute__</strong></a>(...)</dt><dd><tt>x.<a href="#SBtabError-__getattribute__">__getattribute__</a>('name')&nbsp;&lt;==&gt;&nbsp;x.name</tt></dd></dl>
+
+<dl><dt><a name="SBtabError-__getitem__"><strong>__getitem__</strong></a>(...)</dt><dd><tt>x.<a href="#SBtabError-__getitem__">__getitem__</a>(y)&nbsp;&lt;==&gt;&nbsp;x[y]</tt></dd></dl>
+
+<dl><dt><a name="SBtabError-__getslice__"><strong>__getslice__</strong></a>(...)</dt><dd><tt>x.<a href="#SBtabError-__getslice__">__getslice__</a>(i,&nbsp;j)&nbsp;&lt;==&gt;&nbsp;x[i:j]<br>
+&nbsp;<br>
+Use&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
+
+<dl><dt><a name="SBtabError-__reduce__"><strong>__reduce__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="SBtabError-__repr__"><strong>__repr__</strong></a>(...)</dt><dd><tt>x.<a href="#SBtabError-__repr__">__repr__</a>()&nbsp;&lt;==&gt;&nbsp;repr(x)</tt></dd></dl>
+
+<dl><dt><a name="SBtabError-__setattr__"><strong>__setattr__</strong></a>(...)</dt><dd><tt>x.<a href="#SBtabError-__setattr__">__setattr__</a>('name',&nbsp;value)&nbsp;&lt;==&gt;&nbsp;x.name&nbsp;=&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="SBtabError-__setstate__"><strong>__setstate__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="SBtabError-__unicode__"><strong>__unicode__</strong></a>(...)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="exceptions.html#BaseException">exceptions.BaseException</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+</dl>
+<dl><dt><strong>args</strong></dt>
+</dl>
+<dl><dt><strong>message</strong></dt>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="SBtabTable">class <strong>SBtabTable</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#SBtabTable">SBtabTable</a>&nbsp;(version&nbsp;1.0.0&nbsp;24/12/2018)<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="SBtabTable-__init__"><strong>__init__</strong></a>(self, table_string, filename)</dt><dd><tt>Creates&nbsp;SBtab&nbsp;table&nbsp;object&nbsp;from&nbsp;string.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+table&nbsp;:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;One&nbsp;SBtab&nbsp;string&nbsp;from&nbsp;read&nbsp;file.<br>
+filename&nbsp;:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Filename&nbsp;with&nbsp;extension.</tt></dd></dl>
+
+<dl><dt><a name="SBtabTable-add_column"><strong>add_column</strong></a>(self, column_list, position<font color="#909090">=None</font>)</dt><dd><tt>Adds&nbsp;a&nbsp;column&nbsp;to&nbsp;the&nbsp;table,&nbsp;if&nbsp;position&nbsp;is&nbsp;None&nbsp;at&nbsp;the&nbsp;end&nbsp;of&nbsp;it.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+column_list&nbsp;:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;strings,&nbsp;containing&nbsp;the&nbsp;entries&nbsp;of&nbsp;the&nbsp;new&nbsp;column.<br>
+position&nbsp;:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Position&nbsp;of&nbsp;new&nbsp;column&nbsp;in&nbsp;the&nbsp;table,&nbsp;0&nbsp;is&nbsp;right.</tt></dd></dl>
+
+<dl><dt><a name="SBtabTable-add_row"><strong>add_row</strong></a>(self, row_list, position<font color="#909090">=None</font>)</dt><dd><tt>Adds&nbsp;a&nbsp;row&nbsp;to&nbsp;the&nbsp;table,&nbsp;if&nbsp;postion&nbsp;is&nbsp;None&nbsp;at&nbsp;the&nbsp;end&nbsp;of&nbsp;it.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+row_list&nbsp;:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;strings,&nbsp;containing&nbsp;the&nbsp;entries&nbsp;of&nbsp;the&nbsp;new&nbsp;row.<br>
+position&nbsp;:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Position&nbsp;of&nbsp;new&nbsp;row&nbsp;in&nbsp;the&nbsp;table,&nbsp;0&nbsp;is&nbsp;on&nbsp;top.</tt></dd></dl>
+
+<dl><dt><a name="SBtabTable-change_attribute"><strong>change_attribute</strong></a>(self, attribute, value)</dt><dd><tt>Changes&nbsp;the&nbsp;value&nbsp;of&nbsp;an&nbsp;SBtab&nbsp;attribute.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+attribute&nbsp;:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Attribute&nbsp;from&nbsp;the&nbsp;SBtab&nbsp;object's&nbsp;declaration&nbsp;row.<br>
+value:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Value&nbsp;that&nbsp;the&nbsp;attribute&nbsp;should&nbsp;take.</tt></dd></dl>
+
+<dl><dt><a name="SBtabTable-change_value"><strong>change_value</strong></a>(self, row, column, new)</dt><dd><tt>Changes&nbsp;a&nbsp;single&nbsp;value&nbsp;in&nbsp;the&nbsp;SBtab&nbsp;table&nbsp;by&nbsp;position&nbsp;in&nbsp;the&nbsp;table.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+row&nbsp;:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Number&nbsp;of&nbsp;rows&nbsp;in&nbsp;the&nbsp;table.&nbsp;First&nbsp;row&nbsp;is&nbsp;number&nbsp;1.<br>
+column&nbsp;:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Number&nbsp;of&nbsp;columns&nbsp;in&nbsp;the&nbsp;table.&nbsp;First&nbsp;column&nbsp;is&nbsp;number&nbsp;1.<br>
+new&nbsp;:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;New&nbsp;entry.</tt></dd></dl>
+
+<dl><dt><a name="SBtabTable-change_value_by_name"><strong>change_value_by_name</strong></a>(self, name, column_name, new)</dt><dd><tt>Changes&nbsp;single&nbsp;value&nbsp;in&nbsp;the&nbsp;SBtab&nbsp;by&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;column<br>
+and&nbsp;of&nbsp;the&nbsp;first&nbsp;row&nbsp;entry.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+row&nbsp;:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Name&nbsp;of&nbsp;the&nbsp;entry&nbsp;in&nbsp;the&nbsp;ID&nbsp;column.<br>
+column&nbsp;:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Name&nbsp;of&nbsp;the&nbsp;column&nbsp;(with&nbsp;'!').<br>
+new&nbsp;:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;New&nbsp;entry.</tt></dd></dl>
+
+<dl><dt><a name="SBtabTable-create_list"><strong>create_list</strong></a>(self)</dt><dd><tt>Creates&nbsp;a&nbsp;list&nbsp;object&nbsp;of&nbsp;the&nbsp;SBtab&nbsp;table&nbsp;object.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;<br>
+Returns:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;containing&nbsp;of&nbsp;SBtab&nbsp;content:&nbsp;[declaration&nbsp;row,&nbsp;columns,&nbsp;value_rows]</tt></dd></dl>
+
+<dl><dt><a name="SBtabTable-get_attribute"><strong>get_attribute</strong></a>(self, attribute)</dt><dd><tt>Returns&nbsp;the&nbsp;value&nbsp;of&nbsp;an&nbsp;SBtab&nbsp;attribute.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+attribute&nbsp;:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Attribute&nbsp;from&nbsp;the&nbsp;SBtab&nbsp;object's&nbsp;declaration&nbsp;row.<br>
+&nbsp;<br>
+Returns:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Value&nbsp;of&nbsp;the&nbsp;requested&nbsp;attribute.</tt></dd></dl>
+
+<dl><dt><a name="SBtabTable-remove_column"><strong>remove_column</strong></a>(self, position)</dt><dd><tt>Removes&nbsp;column&nbsp;from&nbsp;the&nbsp;table.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+position&nbsp;:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Position&nbsp;of&nbsp;column&nbsp;to&nbsp;be&nbsp;removed.&nbsp;Sarting&nbsp;with&nbsp;1.</tt></dd></dl>
+
+<dl><dt><a name="SBtabTable-remove_row"><strong>remove_row</strong></a>(self, position)</dt><dd><tt>Removes&nbsp;one&nbsp;row&nbsp;from&nbsp;the&nbsp;table.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+position&nbsp;:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Position&nbsp;of&nbsp;row&nbsp;to&nbsp;be&nbsp;removed.&nbsp;Starting&nbsp;with&nbsp;1.</tt></dd></dl>
+
+<dl><dt><a name="SBtabTable-to_data_frame"><strong>to_data_frame</strong></a>(self)</dt><dd><tt>Exports&nbsp;SBtab&nbsp;table&nbsp;object&nbsp;as&nbsp;pandas&nbsp;dataframe.<br>
+&nbsp;<br>
+Returns:&nbsp;pandas.DataFrame<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBtab&nbsp;table&nbsp;object&nbsp;as&nbsp;pandas&nbsp;dataframe.</tt></dd></dl>
+
+<dl><dt><a name="SBtabTable-to_str"><strong>to_str</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;SBtab&nbsp;table&nbsp;as&nbsp;a&nbsp;string.<br>
+&nbsp;<br>
+Returns:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;SBtab&nbsp;table&nbsp;in&nbsp;form&nbsp;of&nbsp;a&nbsp;string.</tt></dd></dl>
+
+<dl><dt><a name="SBtabTable-transpose_table"><strong>transpose_table</strong></a>(self)</dt><dd><tt>Transposes&nbsp;SBtab&nbsp;table.&nbsp;Switches&nbsp;columns&nbsp;and&nbsp;rows.<br>
+&nbsp;<br>
+Returns:&nbsp;SBtab.<a href="#SBtabTable">SBtabTable</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBtab&nbsp;object&nbsp;with&nbsp;transposed&nbsp;content.</tt></dd></dl>
+
+<dl><dt><a name="SBtabTable-unset_attribute"><strong>unset_attribute</strong></a>(self, attribute)</dt><dd><tt>Removes&nbsp;an&nbsp;attribute&nbsp;from&nbsp;SBtab&nbsp;declaration&nbsp;row.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+attribute&nbsp;:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Attribute&nbsp;that&nbsp;shall&nbsp;be&nbsp;removed&nbsp;from&nbsp;the&nbsp;SBtab&nbsp;object's&nbsp;declaration&nbsp;row.</tt></dd></dl>
+
+<dl><dt><a name="SBtabTable-write"><strong>write</strong></a>(self, filename)</dt><dd><tt>Writes&nbsp;SBtab&nbsp;to&nbsp;hard&nbsp;disk.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+filename:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Name&nbsp;for&nbsp;the&nbsp;output&nbsp;file.</tt></dd></dl>
+
+<hr>
+Static methods defined here:<br>
+<dl><dt><a name="SBtabTable-from_data_frame"><strong>from_data_frame</strong></a>(df, table_id, table_type, table_name<font color="#909090">=''</font>, document_name<font color="#909090">=''</font>, document<font color="#909090">=''</font>, unit<font color="#909090">=''</font>, sbtab_version<font color="#909090">='1.0'</font>)</dt><dd><tt>Creates&nbsp;SBtab&nbsp;table&nbsp;object&nbsp;from&nbsp;pandas&nbsp;dataframe.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+df&nbsp;:&nbsp;pandas.DataFrame<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Dataframe&nbsp;of&nbsp;the&nbsp;Python&nbsp;library&nbsp;pandas.<br>
+table_id:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Mandatory&nbsp;table&nbsp;ID&nbsp;for&nbsp;the&nbsp;SBtab&nbsp;object.<br>
+table_type:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Mandatory&nbsp;table&nbsp;type&nbsp;for&nbsp;the&nbsp;SBtab&nbsp;object.<br>
+table_name:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional&nbsp;table&nbsp;name&nbsp;for&nbsp;the&nbsp;SBtab&nbsp;object.<br>
+document_name:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional&nbsp;document&nbsp;name&nbsp;for&nbsp;the&nbsp;SBtab&nbsp;object.<br>
+document:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional&nbsp;document&nbsp;for&nbsp;the&nbsp;SBtab&nbsp;object.<br>
+unit:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional&nbsp;unit&nbsp;for&nbsp;an&nbsp;SBtab&nbsp;TableType&nbsp;Quantity.<br>
+sbtab_version:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Optional&nbsp;SBtab&nbsp;Version.<br>
+&nbsp;<br>
+Returns:&nbsp;SBtab.<a href="#SBtabTable">SBtabTable</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBtab&nbsp;table&nbsp;object&nbsp;created&nbsp;from&nbsp;pandas&nbsp;dataframe.</tt></dd></dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-read_csv"><strong>read_csv</strong></a>(filepath, document_name, xlsx<font color="#909090">=False</font>)</dt><dd><tt>Reads&nbsp;an&nbsp;SBtab&nbsp;file;&nbsp;it&nbsp;can&nbsp;be&nbsp;csv,&nbsp;but&nbsp;also&nbsp;tsv.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+filepath:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Path&nbsp;to&nbsp;the&nbsp;file&nbsp;that&nbsp;shall&nbsp;be&nbsp;read.<br>
+document_name:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;name&nbsp;for&nbsp;the&nbsp;document&nbsp;to&nbsp;be&nbsp;created.<br>
+xlsx:&nbsp;Bool<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Boolean&nbsp;flag&nbsp;that&nbsp;indicates&nbsp;if&nbsp;the&nbsp;file&nbsp;is&nbsp;in&nbsp;xlsx&nbsp;format.<br>
+&nbsp;<br>
+Returns:&nbsp;SBtab.<a href="#SBtabDocument">SBtabDocument</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBtab&nbsp;document&nbsp;which&nbsp;is&nbsp;created&nbsp;from&nbsp;the&nbsp;given&nbsp;file.</tt></dd></dl>
+</td></tr></table>
+</body></html>
