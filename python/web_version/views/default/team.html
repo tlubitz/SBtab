@@ -1,0 +1,101 @@
+{{extend 'layout2.html'}}
+
+{{block title}}
+<title>SBtab - Team</title>
+{{end}}
+
+{{block dynamic_nav}}
+<li class="nav-item">
+  <a class="nav-link" href="https://www.sbtab.net/sbtab/default/gettingstarted.html">Getting started</a>
+</li>
+<li class="nav-item dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="Click to see SBtab Online Tools">
+    Online Tools
+  </a>
+  <ul class="dropdown-menu">
+    <li>
+      <a href="https://www.sbtab.net/sbtab/default/validator.html">Validator</a>
+    </li>
+    <li>
+      <a href="https://www.sbtab.net/sbtab/default/converter.html">SBML converter</a>
+    </li>
+    <li>
+      <a href="https://www.sbtab.net/sbtab/default/def_files.html">Customize SBtab</a>
+    </li>
+  </ul>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="https://www.sbtab.net/sbtab/default/documentation.html">Documentation</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="https://www.sbtab.net/sbtab/default/downloads.html">Download</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="https://www.sbtab.net/sbtab/default/team.html">Contact<span class="sr-only">(current)</span></a>
+</li>
+{{end}}
+
+{{block center}}
+<header>
+  <div class="container-fluid bg-1 text-center">
+    <div class="jumbotron" align="center">
+      <h1><small>The SBtab Team</small></h1>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container-fluid bg-3 text-center">
+    <div class="row" align="left">
+      <div class="col-sm-3"></div>
+      <div class="col-sm-6 textblock">
+	<ul class="list-group" style="padding-bottom:50px">
+	  <li class="list-group-item">
+	    <a href="https://www.metabolic-economics.de/liebermeister/index.html">Wolfram Liebermeister</a> (INRA Jouy-en-Josas)	
+	  </li>
+	  <li class="list-group-item">
+	    <a href="mailto:timo.lubitz@gmail.com">Timo Lubitz</a> (Humboldt University Berlin)
+	  </li>
+	  <li class="list-group-item">
+	    Elad Noor (ETH Zürich)
+	  </li>
+	  <li class="list-group-item">
+	    Frank T. Bergmann (Heidelberg University)
+	  </li>
+	</ul>
+	
+	<p style="width:100% !important;text-align:left;">We are grateful to our colleagues who contributed ideas to the SBtab
+	  format: <br>Jens Hahn, Dagmar Waltemath, Hans-Michael Kaltenbach, Dirk Wiesenthal,
+	  Jannis Uhlendorf, Anne Goelzer, Jörg Büscher, Avi Flamholz,
+	  Edda Klipp, Phillipp Schmidt, and Matthias König.
+	</p>
+      </div>
+      <div class="col-sm-3"></div>
+    </div>
+  </div>
+
+  <div class="container-fluid bg-4 text-center">
+    <div class="row" align="left">
+      <div class="col-sm-3"></div>
+      <div class="col-sm-6 textblockleft">	
+	<article>
+	  <h2>Citing SBtab</h2>
+	  <p>If you are using SBtab, please cite our corresponding publication: <br>
+	  <i>Lubitz T., Hahn J., Bergmann F.T., Noor E., Klipp E., Liebermeister W.
+	    (2016), SBtab: A flexible table format for data exchange in systems
+	    biology,
+	      <a href="http://bioinformatics.oxfordjournals.org/content/early/2016/04/08/bioinformatics.btw179.abstract?keytype=ref&ijkey=xiEXADxtPPlY9uz">  Bioinformatics (2016)</a>
+	      </i>
+	  </p>
+	</article>
+      </div>
+      <div class="col-sm-3"></div>
+    </div>
+  </div>
+
+  
+</main>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+{{end}}

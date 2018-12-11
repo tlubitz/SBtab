@@ -1,0 +1,80 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="author" content="Timo Lubitz">
+    <meta name="description"  content="SBtab Website">
+    <meta name="application-name" content="{{=request.application}}" />
+    
+    <!-- this is required for responsiveness -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- add bootstrap CSS; normalize for JS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link href="/sbtab/static/css/bootstrap.css" rel="stylesheet">  <!-- Lumen Layout --> 
+    <link rel="stylesheet" type="text/css" href="/sbtab/static/css/sbtab.css">  <!-- Custom Layout -->
+    <link rel="icon" type="image/png" href="/sbtab/static/images/sbtab_favicon.png">
+  </head>
+
+  <body>
+   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <a class="navbar-brand" href="https://www.sbtab.net">
+	<img class="sb" src="/sbtab/static/images/sbtab-logo.png" alt="SBtab Logo" style="width:80px"></a>
+      
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" style="">
+	<span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" id="navbarColor01">
+	<ul class="navbar-nav mr-auto">
+	  {{block dynamic_nav}}
+	  <li class="nav-item">
+            <a class="nav-link" href="https://www.sbtab.net">Home</a>
+	  </li>
+	  <li class="nav-item">
+            <a class="nav-link" href="https://www.sbtab.net/sbtab/default/introduction.html">Getting started <span class="sr-only">(current)</span></a>
+	  </li>
+	  <li class="nav-item">
+            <a class="nav-link" href="https://www.sbtab.net/sbtab/default/specification.html">Specification</a>
+	  </li>
+	  <li class="nav-item">
+            <a class="nav-link" href="https://www.sbtab.net/sbtab/default/validator.html">Validator</a>
+	  </li>
+	  <li class="nav-item">
+            <a class="nav-link" href="https://www.sbtab.net/sbtab/default/converter.html">SBML</a>
+	  </li>
+	  <li class="nav-item">
+            <a class="nav-link" href="https://www.sbtab.net/sbtab/default/def_files.html">Customize SBtab</a>
+	  </li>
+	  <li class="nav-item">
+            <a class="nav-link" href="https://www.sbtab.net/sbtab/default/code.html">Code</a>
+	  </li>
+	  <li class="nav-item">
+            <a class="nav-link" href="https://www.sbtab.net/sbtab/default/troubles.html">Troubleshooting</a>
+	  </li>
+	  <li class="nav-item">
+            <a class="nav-link" href="https://www.sbtab.net/sbtab/default/team.html">Contact</a>
+	  </li>
+	  {{end}}
+	</ul>
+      </div>
+    </nav>
+
+   <header>
+      <div class="container-fluid bg-1 text-center" style="padding-top:50px">
+	<h2><small>TitlePlaceholder</small></h2>
+      </div>
+   </header>
+   
+   <div class="container-fluid bg-1 text-center" style="padding-top:30px;">
+     <main>
+       <!-- This is where the content is put in -->
+     </main>
+   </div>
+
+   <hr>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </body>
+</html>

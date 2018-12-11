@@ -1,0 +1,224 @@
+{{extend 'layout2.html'}}
+
+{{block title}}
+<title>SBtab - Downloads</title>
+{{end}}
+
+{{block dynamic_nav}}
+<li class="nav-item">
+  <a class="nav-link" href="https://www.sbtab.net/sbtab/default/gettingstarted.html">Getting started</a>
+</li>
+<li class="nav-item dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="Click to see SBtab Online Tools">
+    Online Tools
+  </a>
+  <ul class="dropdown-menu">
+    <li>
+      <a href="https://www.sbtab.net/sbtab/default/validator.html">Validator</a>
+    </li>
+    <li>
+      <a href="https://www.sbtab.net/sbtab/default/converter.html">SBML converter</a>
+    </li>
+    <li>
+      <a href="https://www.sbtab.net/sbtab/default/def_files.html">Customize SBtab</a>
+    </li>
+  </ul>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="https://www.sbtab.net/sbtab/default/documentation.html">Documentation</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="https://www.sbtab.net/sbtab/default/downloads.html">Download<span class="sr-only">(current)</span></a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="https://www.sbtab.net/sbtab/default/team.html">Contact</a>
+</li>
+{{end}}
+
+{{block center}}
+<header>
+  <div class="container-fluid bg-1 text-center">
+    <div class="jumbotron" align="center">
+      <h1><small>Downloads</small></h1>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container-fluid bg-3 text-center">
+    <div class="row" align="left">
+      <div class="col-sm-3"></div>
+      <div class="col-sm-6 textblockleft">
+	
+	<article>
+	  <h2>SBtab format specification</h2>
+	  <p>
+	    <ul class="list-group">
+	      <li class="list-group-item">
+		<a href="https://www.sbtab.net/sbtab/static/documents/SBtab_1.0_Specification.pdf">SBtab version 1.0</a>
+	      </li>
+	      <li class="list-group-item">
+		<a href="https://www.sbtab.net/sbtab/static/documents/SBtab_0.9_Specification.pdf">SBtab version 0.9</a>
+	      </li>
+	      <li class="list-group-item">
+		<a href="https://www.sbtab.net/sbtab/static/documents/SBtab_0.8_Specification.pdf">SBtab version 0.8</a>
+	      </li>
+	    </ul>
+	  </p>
+	  <p>A specification for the current version of SBtab can also be found on <a href="http://arxiv.org/abs/1502.01463">arxiv.org</a>.</p>
+	</article>
+      </div>
+      <div class="col-sm-3"></div>
+    </div>
+  </div>
+
+  <div class="container-fluid bg-4 text-center">
+    <div class="row" align="left">
+      <div class="col-sm-3"></div>
+      <div class="col-sm-6 textblockleft">
+	<article>
+	  <h2>Definition of SBtab table types</h2>
+	  <p>The definition of all predefined SBtab table types, their corresponding columns and contents,
+	    can be found in the <a href="https://www.sbtab.net/sbtab/static/documents/definitions.tsv">definitions.tsv</a>.
+	    This file can also be employed if you want to define an individual table type for types of data
+	    that SBtab does not cover so far. Simply download the definitions, add your table type and the
+	    columns to the end of the file, and upload it on the
+	    <a href="https://www.sbtab.net/sbtab/default/def_files.html">SBtab customiser</a>. Then, you can
+	    validate SBtab files whether they adhere to your individual table type definition on the
+	    <a href="https://www.sbtab.net/sbtab/default/validator.html">SBtab validator</a>.
+	  </p>
+	</article>
+      </div>
+      <div class="col-sm-3"></div>
+    </div>
+  </div>
+
+  <div class="container-fluid bg-3 text-center">
+    <div class="row" align="left">
+      <div class="col-sm-3"></div>
+      <div class="col-sm-6 textblockleft">
+
+	<h1>SBtab Example Files</h1>
+	
+	<article>
+	  <p>
+	    <strong>Example 1:</strong>
+	    The first two reactions of yeast
+	    glycolysis. Entire model in one file:
+	  </p>
+	  
+	  <ol>
+	    <li>
+	      <a href="https://www.sbtab.net/sbtab/static/sbtab-example-files/BIOMD0000000061.tsv">BIOMD0000000061.tsv</a>
+	    </li>
+	  </ol>
+	  <p style="width:580;">Tables in separate files:</p>
+	  <ol >
+	    <li>
+	      <a href="https://www.sbtab.net/sbtab/static/sbtab-example-files/BIOMD0000000061_Compartment.tsv">BIOMD0000000061_Compartment.tsv</a>
+	    </li>
+	    <li>
+	      <a href="https://www.sbtab.net/sbtab/static/sbtab-example-files/BIOMD0000000061_Compound.tsv">BIOMD0000000061_Compound.tsv</a>
+	    </li>
+	    <li>
+	      <a href="https://www.sbtab.net/sbtab/static/sbtab-example-files/BIOMD0000000061_Enzyme.tsv">BIOMD0000000061_Enzyme.tsv</a>
+	    </li>
+	    <li>
+	      <a href="https://www.sbtab.net/sbtab/static/sbtab-example-files/BIOMD0000000061_Quantity-concentration.tsv">BIOMD0000000061_Quantity-concentration.tsv</a>
+	    </li>
+	    <li>
+	      <a href="https://www.sbtab.net/sbtab/static/sbtab-example-files/BIOMD0000000061_Quantity-parameters.tsv">BIOMD0000000061_Quantity-parameters.tsv</a>
+	    </li>
+	    <li>
+	      <a href="https://www.sbtab.net/sbtab/static/sbtab-example-files/BIOMD0000000061_Reaction.tsv">BIOMD0000000061_Reaction.tsv</a>
+	    </li>
+	  </ol>
+	  <p>The two reactions stem from a model of yeast
+	    glycolysis, published in Hynne et al. (2001), Full-scale model of
+	    glycolysis in Saccharomyces cerevisiae.  Biophys. Chem.  (1-2):
+	    121-163).  The original SBML file has been retrieved from
+	    <a href="https://www.ebi.ac.uk/biomodels-main/BIOMD0000000061">
+	      Biomodels Database</a> and automatically been converted into SBtab tables.
+	  </p>
+	</article>
+
+	<article>
+	  <p>
+	    <strong>Example 2:</strong>
+	    Structural model of the Lac Operon
+	  </p>
+	  <ol>
+	    <li>
+	      <a href="https://www.sbtab.net/sbtab/static/sbtab-example-files/LacOperon_Gene.tsv">LacOperon_Gene.tsv</a>
+	    </li>
+	    <li>
+	      <a href="https://www.sbtab.net/sbtab/static/sbtab-example-files/LacOperon_Regulator.tsv">LacOperon_Regulator.tsv</a>
+	    </li>
+	  </ol>
+	</article>
+
+	<article>
+	  <p>
+	    <strong>Example 3:</strong>
+	    Structure of the feed-forward loop
+	  </p>
+	  <ol>
+	    <li>
+	      <a href="https://www.sbtab.net/sbtab/static/sbtab-example-files/Feed-forward-loop_Relationship.tsv">Feed-forward-loop_Relationship.tsv</a>
+	    </li>
+	  </ol>
+	</article>
+
+	<article>
+	  <p>
+	    <strong>Example 4:</strong>
+	    Standard Gibbs free energies of reactions for chemical 
+	    reactions listed in the KEGG database. The values have been computed using the  
+	    <a href="http://equilibrator.weizmann.ac.il/">eQuilibrator</a> web
+	    tool.
+	  </p>
+	  <ol>
+	    <li>
+	      <a href="https://www.sbtab.net/sbtab/static/sbtab-example-files/kegg_reactions_CC_ph7.0.tsv">kegg_reactions_CC_ph7.0.tsv</a>
+	    </li>
+	  </ol>
+	</article>
+
+	<article>
+	  <p>
+	    <strong>Example 5:</strong>
+	    Yeast transcriptional interactions, adopted from 
+	    <a href="http://bioinformatics.oxfordjournals.org/content/24/11/1349.full#ref-16">Chang et al. (2008)</a>
+	  </p>
+	  <ol>
+	    <li>
+	      <a href="https://www.sbtab.net/sbtab/static/sbtab-example-files/yeast_transcription_network_chang_2008.tsv">yeast_transcription_network_chang_2008.tsv</a>
+	    </li>
+	  </ol>
+	</article>
+
+	<article>
+	  <p>
+	    <strong>Example 6:</strong>
+	    Example tables appearing in the 
+	    <a href="https://www.sbtab.net/sbtab/default/specification.html">SBtab specification</a>
+	  </p>
+	  <ol>
+	    <li>
+	      <a href="https://www.sbtab.net/sbtab/static/sbtab-example-files/SBtab_specification_example_tables.tsv">SBtab_specification_example_tables.tsv</a>
+	    </li>
+	  </ol>
+	</article>
+	
+      </div>
+      <div class="col-sm-3"></div>
+    </div>
+  </div>
+
+
+  
+</main>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+{{end}}

@@ -1,0 +1,575 @@
+{{extend 'layout2.html'}}
+
+{{block title}}
+<title>SBtab - Getting Started</title>
+{{end}}
+
+{{block dynamic_nav}}
+<li class="nav-item">
+  <a class="nav-link" href="https://www.sbtab.net/sbtab/default/gettingstarted.html">Getting started<span class="sr-only">(current)</span></a>
+</li>
+<li class="nav-item dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="Click to see SBtab Online Tools">
+    Online Tools
+  </a>
+  <ul class="dropdown-menu">
+    <li>
+      <a href="https://www.sbtab.net/sbtab/default/validator.html">Validator</a>
+    </li>
+    <li>
+      <a href="https://www.sbtab.net/sbtab/default/converter.html">SBML converter</a>
+    </li>
+    <li>
+      <a href="https://www.sbtab.net/sbtab/default/def_files.html">Customize SBtab</a>
+    </li>
+  </ul>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="https://www.sbtab.net/sbtab/default/documentation.html">Documentation</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="https://www.sbtab.net/sbtab/default/downloads.html">Download</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="https://www.sbtab.net/sbtab/default/team.html">Contact</a>
+</li>
+{{end}}
+
+{{block center}}
+<header>
+  <div class="container-fluid bg-1 text-center">
+    <div class="jumbotron" align="center">
+      <h1><small>Getting Started</small></h1>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container-fluid bg-3 text-center">
+    <div class="row" align="left">
+      <div class="col-sm-3"></div>
+      <div class="col-sm-6 textblockleft">
+
+	
+	<article>
+	  <h2>What is SBtab and how does it look like?</h2>
+	  <p>
+	    SBtab is a set of conventions and rules for data tables
+	    and spreadsheet files, facilitating the exchange of data in Systems
+	    Biology. These cumbersome words may easily be explained by looking at
+	    a simple example. SBtab tables can hold all sorts of data; our example
+	    contains kinetic quantities:
+	  </p>
+	  <table class="table table-hover" border=1>
+	    <thead>
+	      <tr>
+		<th scope="col" colspan="6" bgcolor="lightgrey">!!SBtab TableID='kp_1' TableType='Quantity' TableName='Kinetic constants' SBtabVersion='1.0'</th>
+	      </tr>
+	      <tr bgcolor="#EDEDED">
+		<th scope="col">!ID</th>
+		<th scope="col">!QuantityType</th>
+		<th scope="col">!Reaction:SBML:reaction:id</th>
+		<th scope="col">!Compound:SBML:species:id</th>
+		<th scope="col">!Mean</th>
+		<th scope="col">!Unit</th>
+	      </tr>
+	    </thead>
+	    <tbody bgcolor=white>
+	      <tr>
+		<td>scp1</td>
+		<td>standard chemical potential</td>
+		<td></td>
+		<td>F6P</td>
+		<td>-1380	</td>
+		<td>kJ/mol</td>
+	      </tr>
+	      <tr>
+		<td>scp2</td>
+		<td>standard chemical potential</td>
+		<td></td>
+		<td>FBP</td>
+		<td>-2206	</td>
+		<td>kJ/mol</td>
+	      </tr>
+	      <tr>
+		<td>kcrf1</td>
+		<td>substrate catalytic rate constant</td>
+		<td></td>
+		<td>R04779</td>
+		<td>0.02</td>
+		<td>1/s</td>
+	      </tr>
+	      <tr>
+		<td>kcrr1</td>
+		<td>product catalytic rate constant</td>
+		<td></td>
+		<td>R04779</td>
+		<td>0.01</td>
+		<td>1/s</td>
+	      </tr>
+	      <tr>
+		<td>kmc1</td>
+		<td>Michaelis constant</td>
+		<td>FBP</td>
+		<td>R04779</td>
+		<td>0.5</td>
+		<td>mM</td>
+	      </tr>
+	      <tr>
+		<td>kmc2</td>
+		<td>Michaelis constant</td>
+		<td>ATP</td>
+		<td>R04779</td>
+		<td>0.5</td>
+		<td>mM</td>
+	      </tr>
+	      <tr>
+		<td>kmc3</td>
+		<td>Michaelis constant</td>
+		<td>ADP</td>
+		<td>R04779</td>
+		<td>0.1</td>
+		<td>mM</td>
+	      </tr>	    
+	      <tr>
+		<td>kic1</td>
+		<td>inhibitory constant</td>
+		<td>ATP</td>
+		<td>R04779</td>
+		<td>1</td>
+		<td>mM</td>
+	      </tr>
+	    </tbody>
+	  </table>
+	  <p>
+	    Let us have a detailled look at the table. <strong>The first row is SBtabs declaration row</strong>. It is
+	    always preceded by <code>!!SBtab</code>, which is followed by a set of attributes. Some
+	    attributes are mandatory, others are optional. Mandatory attributes are <code>TableID</code>
+	    (defining a unique identifier of the table, which is important in documents consisting of
+	    more than one SBtab Table) and <code>TableType</code> (defining the type of data, which is
+	    contained in the SBtab Table). Optional attributes include an arbitrary <code>TableName</code>
+	    and the <code>SBtabVersion</code>, which defines the syntax version of SBtab that the table
+	    adheres to. For more information on these matters and more optional attributes please see the
+	    <a href="https://www.sbtab.net/sbtab/static/documents/SBtab_1.0_Specification.pdf">SBtab specification</a>.
+	  </p>
+	  <p>
+	    <strong>The second row holds the column names</strong>. These names are preceded by an exclamation mark, which
+	    makes them controlled SBtab columns. The
+	    <a href="https://www.sbtab.net/sbtab/default/validator.html">SBtab validator tool</a> can evaluate the syntax of
+	    controlled columns, which can be very useful (e.g. if the column <code>!ID</code> is not unique
+	    or if column <code>!Mean</code> holds non-numeric characters, both of which
+	    can lead to errors when employing SBtab Tables in software tools).
+	  </p>
+	  <p>
+	    <strong>All rows from three onwards are value rows</strong> and they hold the actual content
+	    of the SBtab Table. In our example, we see here entries for kinetic constants (remember the
+	    attribute <code>TableType</code> from the declaration row, which says <code>Quantity</code>).
+	    The content of these rows is rather self-explaining, so we just browse through them:
+	    The <code>!ID</code> column holds an arbitrary identifier that must be unique within
+	    the SBtab Table and must not holds special characters (such as '#'). <code>!QuantityType</code>
+	    defines the type of quantity that is described, while <code>!Reaction:SBML:reaction:id</code>
+	    and <code>!Compound:SBML:species:id</code> directly link the entries to elements of a possible
+	    SBML model that belongs to the SBtab Table. Finally, <code>!Mean</code> and <code>!Unit</code>
+	    provide the numeric value and unit for the quantity.
+	  </p>
+	  <p>
+	    Equipped with this knowledge, you will be able to read and write all SBtab files. They
+	    will only differ in their attributes, column names, and value rows, all according to
+	    the sort of data that is contained in the SBtab.
+	  </p>
+	</article>
+      </div>
+      <div class="col-sm-2"></div>
+    </div>
+  </div>
+
+  <div class="container-fluid bg-4 text-center">
+    <div class="row" align="left">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8 textblockleft">
+	<article>
+	  
+	  <h2>Why should I use SBtab in the first place?</h2>
+	    <figure style="margin-bottom:30px;text-align:right;">
+	      <img width="50%" src="../static/images/logos.png" alt="SBtab Application Options" style="border-style:solid;border-width: 2px;float:right;margin:20px;">
+	    </figure>
+	  <p>
+	    Data tables in the form of spreadsheet or
+	    delimited text files are the most popular data format in Systems
+	    Biology. However, they are often not sufficiently structured and
+	    they lack clear naming conventions that are required for
+	    modelling.<br>
+	    SBtab is an attempt to establish easy-to-use
+	    formats that are both flexible and clearly structured. It
+	    comprises defined table types for different kinds of data; syntax
+	    rules for usage of names, shortnames, and database identifiers
+	    used for annotation; and standardised formulae for reaction
+	    stoichiometries. Furthermore, SBtab enables users to easily define
+	    their own table types to customise SBtab for different types of
+	    data.<br>
+	    Using SBtab does not only ease a controlled exchange of
+	    data, but it also enables the integration of data into
+	    software tools and modelling workflows. Since SBtab can
+	    be converted to established modelling format
+	    <a href="http://sbml.org/Main_Page">SBML</a> and vice versa, it serves
+	    as input and output format of a multitude of software
+	    tools and applications. But also SBtab itself is employed
+	    as exchange format of tools and repositories
+	    (such as <a href="https://www.kimosys.org/">KiMoSys</a> and
+	    <a href="http://equilibrator.weizmann.ac.il/">eQuilibrator</a>).
+	  </p>
+	</article>
+      </div>
+      <div class="col-sm-2"></div>
+    </div>
+  </div>
+  
+  <div class="container-fluid bg-3 text-center">
+    <div class="row" align="left">
+      <div class="col-sm-3"></div>
+      <div class="col-sm-6 textblockleft">
+	<article>
+	  <h2>How can I practically generate an SBtab file?</h2>
+	  <figure style="margin-bottom:30px;text-align:right;">
+	      <img width="40%" src="../static/images/logos_editors.png" alt="SBtab Creation Options" style="border-style:solid;border-width: 2px;float:left;margin:20px;">
+	    </figure>
+	  <p>
+	    This is the easiest part: You can write SBtab tables with every
+	    text editor (such as Notepad or Word) or spreadsheet tool (such
+	    as MS Excel or LibreOffice). <br>
+	    If you use a plain text editor,
+	    you can employ commas, semicolons, or tabs as content delimiters.
+	    Then you save the file as either .csv format (if you have used
+	    commas or semicolons as delimiters) or .tsv format (if you used tabs).
+	    We recommend using tabs and saving in .tsv format.<br>
+	    If you want to use a spreadsheet tool instead, the columns are
+	    separated automatically and you can choose the delimiter and file
+	    format upon saving the file. Delimiters and formats are analogous
+	    to what is explained in the previous paragraph. <br>
+	    If this explanation was too abstract for your taste, you will
+	    find many example files in our
+	    <a href="https://www.sbtab.net/sbtab/default/downloads.html">Download section</a>.
+	  </p>
+	</article>
+      </div>
+      <div class="col-sm-2"></div>
+    </div>
+  </div>
+		
+  <div class="container-fluid bg-4 text-center">
+    <div class="row" align="left">
+      <div class="col-sm-3"></div>
+      <div class="col-sm-6 textblockleft">
+
+	
+	<article style="padding-bottom:0px;">
+	  <h2>SBtab files describing biochemical network models</h2>
+	  <p>
+	    If you want to convert an SBtab table or even an SBtab document
+	    (consisting of possibly many SBtab tables) to SBML, the SBtabs
+	    need to contain data that can be translated to a biochemical
+	    network model. The most crucial SBtab table types employed for
+	    the conversion are <code>Reaction</code>, <code>Compound</code>,
+	    <code>Compartment</code>, and <code>Quantity</code> (there are more;
+	    but this is beyond the scope of this Getting Started section. You
+	    can read about it in the <a href="https://www.sbtab.net/sbtab/default/documentation.html">Documentation Section</a>.). <br>
+	    Again, the concept is best understood by looking at an example.
+	    We will have a look at a small system consisting of two reactions
+	    R1 and R2.	    
+	  </p>
+	</article>
+
+	<article>
+	    <table class="table table-hover" border=1>
+	    <thead>
+	      <tr>
+		<th scope="col" colspan="4" bgcolor="lightgrey">!!SBtab TableID="" TableType="Reaction" SBtabVersion="0.9.1"</th>
+	      </tr>
+	      <tr bgcolor="#EDEDED">
+		<th scope="col">!ID</th>
+		<th scope="col">!ReactionFormula</th>
+		<th scope="col">!Identifiers:kegg.reaction</th>
+		<th scope="col">!GeneName</th>
+	      </tr>
+	    </thead>
+	    <tbody bgcolor=white>
+	      <tr>
+		<td>R1</td>
+		<td>ATP + F6P &lt;=&gt; ADP + F16P</td>
+		<td>R00658</td>
+		<td>pfk</td>
+	      </tr>
+	      <tr>
+		<td>R2</td>
+		<td>F16P + H2O &lt;=&gt; F6P + Pi</td>
+		<td>R01015</td>
+		<td>fbp</td>
+	      </tr>
+	    </tbody>
+	  </table>
+
+
+	  <table class="table table-hover"  border=1>
+	    <thead>
+	      <tr>
+		<th scope="col" colspan="4" bgcolor="lightgrey">!!SBtab TableType="Compound" SBtabVersion="0.9.1"</th>
+	      </tr>
+	      <tr bgcolor="#EDEDED">
+		<th scope="col">!ID</th>
+		<th scope="col">!Name</th>
+		<th scope="col">!InitialConcentration</th>
+		<th scope="col">!Location</th>
+	      </tr>
+	    </thead>
+	    <tbody bgcolor=white>
+	      <tr>
+		<td>F6P</td>
+		<td>Fructose-6-phosphate</td>
+		<td>0.1</td>
+		<td>cytosol</td>
+	      </tr>
+	      <tr>
+		<td>ATP</td>
+		<td>ATP</td>
+		<td>0.2</td>
+		<td>cytosol</td>
+	      </tr>
+	      <tr>
+		<td>ADP</td>
+		<td>ADP</td>
+		<td>1.1</td>
+		<td>cytosol</td>
+	      </tr>
+	      <tr>
+		<td>F16P</td>
+		<td>Fructose-1,6-bisphosphate</td>
+		<td>1.2</td>
+		<td>cytosol</td>
+	      </tr>
+	      <tr>
+		<td>H2O</td>
+		<td>Water</td>
+		<td>10.0</td>
+		<td>cytosol</td>
+	      </tr>
+	      <tr>
+		<td>Pi</td>
+		<td>Inorganic phosphate</td>
+		<td>2.1</td>
+		<td>cytosol</td>
+	      </tr>
+	      <tr>
+		<td>PEP</td>
+		<td>Phosphoenolpyruvate</td>
+		<td>3.3</td>
+		<td>cytosol</td>
+	      </tr>
+	      <tr>
+		<td>AMP</td>
+		<td>AMP</td>
+		<td>2.1</td>
+		<td>cytosol</td>
+	      </tr>
+	    </tbody>
+	  </table>
+
+	  <table class="table table-hover" border=1>
+	    <thead>
+	      <tr>
+		<th scope="col" colspan="2" bgcolor="lightgrey">!!SBtab TableType="Compartment" SBtabVersion="0.9.1"</th>
+	      </tr>
+	      <tr bgcolor="#EDEDED">
+		<th scope="col">!ID</th>
+		<th scope="col">!Size</th>
+	      </tr>
+	    </thead>
+	    <tbody bgcolor=white>
+	      <tr>
+		<td>extracellular</td>
+		<td>2.0</td>
+	      </tr>
+	      <tr>
+		<td>cytosol</td>
+		<td>1.0</td>
+	      </tr>
+	    </tbody>
+	  </table>
+	</article>
+
+	<article>
+	  <h2>What does the  example show?</h2>
+	  <p>
+	    With the SBtab syntax knowledge acquired above, we can identify three
+	    SBtab tables, each starting with a declaration row (<code>!!SBtab</code>),
+	    and holding different columns and value rows. Each SBtab is responsible
+	    for providing a certain kind of information. The first one (<code>TableType='Reaction'</code>)
+	    enlists reaction data, the second table (<code>TableType='Compound'</code>)
+	    holds all species of the model, and the third SBtab finally contains
+	    the model compartments. Note here that only few columns in each table
+	    are mandatory (such as <code>!ID</code>), while many others are optional
+	    (such as <code>!GeneName</code> in the reaction table). An overview of
+	    supported table types and their corresponding columns (mandatory and
+	    optional) can be found in the
+	    <a href="https://www.sbtab.net/sbtab/static/documents/SBtab_1.0_Specification.pdf">SBtab specification</a>.
+	  </p>
+	</article>
+      </div>
+      <div class="col-sm-2"></div>
+    </div>
+  </div>
+
+  <div class="container-fluid bg-3 text-center">
+    <div class="row" align="left">
+      <div class="col-sm-3"></div>
+      <div class="col-sm-6 textblockleft">
+	<article>
+	  <h2>How can I validate the syntax of my SBtab files?</h2>
+	  <p>
+	    One of the main purposes of SBtab is to make data automatically processable
+	    by software tools and applications. Therefore, it is of utmost importance
+	    to adhere to the correct syntax. This is not always trivial and can become tedious
+	    with growing complexity of the provided data. The
+	    <a href="https://www.sbtab.net/sbtab/default/validator">SBtab Online Validator</a>
+	    can be employed to assess the validity of your SBtab files.
+	    Simply click on the "Online Tools" link in the navigation bar and choose "Validator":
+
+	    <figure style="margin-bottom:30px;text-align:center;">
+	      <a href="../static/images/validator_example_01.png" target="_blank">
+		<img width="80%" src="../static/images/validator_example_01.png" alt="SBtab Tutorial SBML Validator" style="border-style: solid;border-width: 2px;">
+	      </a>
+	      <figcaption style="font-style:italic;">
+		Choose "Validator" from the "Online Tools" (click on image to enlarge).
+	      </figcaption>
+	    </figure>
+	  </p>
+	  <p>
+	    You can either provide them as separate SBtab tables or as one
+	    SBtab document consisting of >=1 tables. Next, each SBtab is listed
+	    separately in the interface and its syntax can be validated by clicking
+	    the corresponding <code>Validate</code> button. If any invalidities
+	    occur, warning and error messages will be issued on the bottom of the
+	    page. These messages are separated in file validation (is the file
+	    valid, e.g. the format and encryption) and file content validation
+	    (e.g. are all mandatory attributes set and do the column names correspond
+	    to the given table type).
+	    <figure style="margin-bottom:30px;text-align:center;">
+	      <a href="../static/images/validator_example_02.png" target="_blank">
+		<img width="80%" src="../static/images/validator_example_02.png" alt="SBtab Tutorial SBML Validator" style="border-style: solid;border-width: 2px;">
+	      </a>
+	      <figcaption style="font-style:italic;">
+		Choose an SBtab file to validate and see warning/error messages on the bottom of the page (click on image to enlarge).
+	      </figcaption>
+	    </figure>
+	  </p>
+	</article>
+      </div>
+      <div class="col-sm-2"></div>
+    </div>
+  </div>
+  
+  <div class="container-fluid bg-4 text-center">
+    <div class="row" align="left">
+      <div class="col-sm-3"></div>
+      <div class="col-sm-6 textblockleft">
+	<article>
+	  <h2>How do I convert SBtabs to SBML?</h2>
+	  <p>
+	    The SBtab files can be uploaded to the
+	    <a href="https://www.sbtab.net/sbtab/default/converter">SBML Online Converter</a>.
+	    Simply click on "Online Tools" link in the navigation bar and choose "SBML Converter":
+	  </p>
+	    <figure style="margin-bottom:30px;text-align:center;">
+	      <a href="../static/images/conversion_example_01.png" target="_blank">
+		<img width="80%" src="../static/images/conversion_example_01.png" alt="SBtab Tutorial SBML Converter" style="border-style: solid;border-width: 2px;">
+	      </a>
+	      <figcaption style="font-style:italic;">
+		Choose "SBML Converter" from the "Online Tools" (click on image to enlarge).
+	      </figcaption>
+	    </figure>
+
+	  
+	  <p>
+	    You can either provide them as separate SBtab tables or as one
+	    SBtab document with >=1 tables. Only SBtabs with model information
+	    can be translated to SBML (i.e. SBtabs with the table types Compartment,
+	    Reaction, Compound, Quantity, Layout, and FbcObjective). If you have
+	    submitted more than one SBtabs (as in the screenshot below), you can
+	    either convert these into seperate SBML files by using the Convert to
+	    SBML buttons next to the file name or you can convert all SBtabs into
+	    one SBML file via the Convert to SBML button on the top of the list
+	    (grey area).
+	  </p>
+	    <figure style="margin-bottom:30px;text-align:center;">
+	      <a href="../static/images/conversion_example_02.png" target="_blank">
+		<img width="80%" src="../static/images/conversion_example_02.png" alt="SBtab Tutorial SBML Converter" style="border-style: solid;border-width: 2px;">
+	      </a>
+	      <figcaption style="font-style:italic;">
+		Convert SBtab files to one SBML model file (click on image to enlarge).
+	      </figcaption>
+	    </figure>
+	  <p>
+	    If warnings occurred during the conversion process, these are issued
+	    on the bottom of the page in red lettering. We recommend to validate
+	    your SBtab files prior to conversion. The conversion from
+	    SBML to SBtab works analogously to the other direction.
+	  </p>
+	</article>
+      </div>
+      <div class="col-sm-2"></div>
+    </div>
+  </div>
+    
+  <div class="container-fluid bg-3 text-center">
+    <div class="row" align="left">
+      <div class="col-sm-3"></div>
+      <div class="col-sm-6 textblockleft">
+	<article>
+	  <h2>How can I customise SBtab to my individual needs?</h2>
+	  <p>
+	    SBtab files can contain various sorts of data. The attribute
+	    <code>TableType</code> in the SBtab declaration row declares the
+	    type of data that is contained in the table (and thus, which
+	    columns are allowed and the content they may hold). The list of
+	    predefined table types is long and can be found in the
+	    <a href="https://www.sbtab.net/sbtab/static/documents/SBtab_1.0_Specification.pdf">SBtab specification</a>.
+	    We provide the supported table types to our software tools in form
+	    of the <a href="https://www.sbtab.net/sbtab/static/documents/definitions.tsv">definitions.tsv</a>.
+	    If you want to use SBtab to exchange a kind of data that is not contained
+	    in our list of table types, you can create your own TableType and add
+	    it to the default definitions file. Then, you can upload your definitions.tsv
+	    in the <a href="https://www.sbtab.net/sbtab/default/converter">SBtab customiser</a>.
+	  </p>
+	    <figure style="margin-bottom:30px;text-align:center;">
+	      <a href="../static/images/customiser_example_01.png" target="_blank">
+		<img width="80%" src="../static/images/customiser_example_01.png" alt="SBtab Tutorial Customiser" style="border-style: solid;border-width: 2px;">
+	      </a>
+	      <figcaption style="font-style:italic;">
+		Choose "Customise SBtab" from the "Online Tools" (click on image to enlarge).
+	      </figcaption>
+	    </figure>
+	  <p>
+	    When you have uploaded your customised definitions file, you can upload your
+	    SBtab files in the SBtab validator and check if they adhere to your individualised
+	    table definitions.
+	  </p>
+	</article>
+      </div>
+      <div class="col-sm-2"></div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+  
+</main>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+{{end}}
+
+
+
