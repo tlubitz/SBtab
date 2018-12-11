@@ -1,15 +1,17 @@
+#!/usr/bin/env python
 """
 SBML2SBtab Converter
 ====================
 
-Python script that converts an SBML file to SBtab file/s.
+A converter for SBML files to SBtab file/s.
 
 See specification for further information.
 """
-#!/usr/bin/env python
-import re, libsbml, numpy
-try: import SBtab
-except: from . import SBtab
+import re
+import libsbml
+import numpy
+try: from . import SBtab
+except: import SBtab
 import sys
 
 #Rule and Event not updated yet (later. no priority atm)
@@ -34,13 +36,13 @@ class SBMLDocument:
     '''
     def __init__(self, sbml_model, filename):
         '''
-        Initalizes SBtab document, checks it for SBtabs
+        Initalizes SBML document.
 
         Parameters
         ----------
-        sbml_model : libsbml model object
+        sbml_model: libsbml.Model
             SBML model as libsbml object.
-        filename : str
+        filename: str
             Filename with extension.
         '''
         self.model = sbml_model
@@ -53,7 +55,11 @@ class SBMLDocument:
 
     def convert_to_sbtab(self):
         '''
-        Generates the SBtab files.
+        Generates the SBtab files from the SBML document.
+
+        Returns: (SBtab.SBtabDocument, list)
+            SBtab document with SBtab tables that contain the content of the SBML model.
+            A list of warnings that may be issued during the conversion process.
         '''
         self.warnings = []
         sbtab_doc = SBtab.SBtabDocument(self.filename)

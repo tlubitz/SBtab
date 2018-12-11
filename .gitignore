@@ -5,6 +5,8 @@ pypi_installer/dist/
 pypi_installer/sbtab.egg-info/
 
 python/extended_core2.tsv
+python/web_version/errors
+python/web_version/sessions
 python/hynne.xml
 python/single_test.tsv
 python/ts.tsv
@@ -15,3 +17,4 @@ sbtab_examples/example.xlsx
 sbtab_examples/mm.xlsx
 sbtab_examples/models.tgz
 sbtab-matlab
+transition.xlsx
