@@ -3,7 +3,7 @@
 SBtab Validator
 ===============
 
-Python script that validates SBtab files
+Validator for SBtab files.
 
 See specification for further information.
 """
@@ -32,7 +32,7 @@ class SBtabError(Exception):
 
 class ValidateTable:
     '''
-    Validates SBtab file and SBtab object.
+    Validates SBtabTable object.
     '''
     def __init__(self, sbtab, def_table=None):
         '''
@@ -40,12 +40,10 @@ class ValidateTable:
 
         Parameters
         ----------
-        table: SBtab object
-            SBtab data file as SBtab object
-        sbtab_name: str
-            File path of the SBtab data file
-        def_table: SBtab object
-            SBtab definition table as SBtab object
+        sbtab: SBtab.SBtabTable
+            SBtab data file as SBtab table object.
+        def_table: SBtab.SBtabTable
+            SBtab definition table as SBtab table object.
         '''
         # initialize warning string
         self.warnings = []
@@ -279,6 +277,9 @@ class ValidateTable:
     def return_output(self):
         '''
         Returns the warnings from the validation process.
+
+        Returns: list
+            List of warnings of the validator in string representation.
         '''
         return self.warnings
 
@@ -291,10 +292,13 @@ class ValidateDocument:
         '''
         Initialises validator and starts check for file and table format.
 
+
         Parameters
         ----------
-        sbtab_doc:
-            SBtabDocument object
+        sbtab_doc: SBtab.SBtabDocument
+            SBtab data file as SBtab table object.
+        def_table: SBtab.SBtabTable
+            SBtab definition table as SBtab table object.
         '''
         self.sbtab_doc = sbtab_doc
         self.sbtab_def = def_table
@@ -302,7 +306,10 @@ class ValidateDocument:
 
     def validate_document(self):
         '''
-        validate SBtabDocument
+        Validates SBtabDocument.
+
+        Returns: list
+            List of lists with warnings for each of the SBtab tables comprised in the SBtab document.
         '''
         warnings = []
         for sbtab in self.sbtab_doc.sbtabs:
@@ -315,7 +322,7 @@ class ValidateDocument:
             warnings.append(warnings_s)
             
         return warnings
-    
+
 
 if __name__ == '__main__':
 

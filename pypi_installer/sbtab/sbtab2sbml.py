@@ -1,8 +1,10 @@
 """
-SBtab2SBML
-==========
+SBtab2SBML Converter
+====================
 
-Python script that converts SBtab file/s to SBML.
+A converter for SBtab Documents to SBML.
+
+See specification for further details.
 """
 #!/usr/bin/env python
 import re
@@ -57,6 +59,15 @@ class SBtabDocument:
     def convert_to_sbml(self, sbml_version):
         '''
         Generates the SBML file using the provided SBtab file/s.
+
+        Parameters
+        ----------
+        sbtab : SBtab Document object
+           SBtab Document Class.
+
+        Returns: list
+           The first element of the list is the SBML file in string representation.
+           The second element of the list is a list of warnings in string representation.
         '''
         # initialize SBML document
         if 'FbcObjective' in self.sbtab_doc.type_to_sbtab.keys() or 'Gene' in self.sbtab_doc.type_to_sbtab.keys():

@@ -1,15 +1,17 @@
+#!/usr/bin/env python
 """
 SBML2SBtab Converter
 ====================
 
-Python script that converts an SBML file to SBtab file/s.
+A converter for SBML files to SBtab file/s.
 
 See specification for further information.
 """
-#!/usr/bin/env python
-import re, libsbml, numpy
-try: import SBtab
-except: from . import SBtab
+import re
+import libsbml
+import numpy
+try: from . import SBtab
+except: import SBtab
 import sys
 
 #Rule and Event not updated yet (later. no priority atm)
@@ -34,13 +36,13 @@ class SBMLDocument:
     '''
     def __init__(self, sbml_model, filename):
         '''
-        Initalizes SBtab document, checks it for SBtabs
+        Initalizes SBML document.
 
         Parameters
         ----------
-        sbml_model : libsbml model object
+        sbml_model: libsbml.Model
             SBML model as libsbml object.
-        filename : str
+        filename: str
             Filename with extension.
         '''
         self.model = sbml_model
@@ -53,22 +55,30 @@ class SBMLDocument:
 
     def convert_to_sbtab(self):
         '''
-        Generates the SBtab files.
+        Generates the SBtab files from the SBML document.
+
+        Returns: (SBtab.SBtabDocument, list)
+            SBtab document with SBtab tables that contain the content of the SBML model.
+            A list of warnings that may be issued during the conversion process.
         '''
         self.warnings = []
         sbtab_doc = SBtab.SBtabDocument(self.filename)
-        doc_row = "!!!SBtab SBtabVersion='1.0' Document='%s' Name='%s'" % (self.model.getId(), self.model.getId())
+        doc_row = "!!!SBtab Document='%s' Name='%s' SBtabVersion='1.0'" % (self.model.getId(), self.model.getId())
         sbtab_doc.set_doc_row(doc_row)
         
         try:
             fbc = self.model.getPlugin('fbc')
             if fbc: self.fbc = True
         except: pass
-        
+
+        # the layout test needs to be a bit deeper than fbc, since
+        # a form of the layout plugin also exists in ancient versions
+        # of SBML2.x
         try:
-            layout = self.model.getPlugin('layout')
-            if layout: self.layout = True
-        except: pass        
+            layout = self.model.getPlugin('layout').getLayout(0)
+            layout_id = layout.getId()
+            if layout_id: self.layout = True
+        except: pass
 
         for table_type in supported_table_types:
             try:
@@ -108,8 +118,8 @@ class SBMLDocument:
         build a compartment SBtab
         '''
         # header row
-        sbtab_compartment  = '!!SBtab TableID="compartment" SBtabVersion="1.0" Document="%s" TableT'\
-                             'ype="Compartment" TableName="Compartment"'\
+        sbtab_compartment  = '!!SBtab TableID="compartment" Document="%s" TableT'\
+                             'ype="Compartment" TableName="Compartment" SBtabVersion="1.0"'\
                              '\n' % self.filename
         # columns
         columns = ['!ID', '!Name', '!Size', '!Unit', '!SBOTerm']
@@ -164,8 +174,8 @@ class SBMLDocument:
         build a compound SBtab
         '''
         # header row
-        sbtab_compound = '!!SBtab TableID="compound" SBtabVersion="1.0" Document="%s" TableType='\
-                         '"Compound" TableName="Compound"\n' % self.filename
+        sbtab_compound = '!!SBtab TableID="compound" Document="%s" TableType='\
+                         '"Compound" TableName="Compound" SBtabVersion="1.0"\n' % self.filename
 
         # columns
         columns = ['!ID', '!Name', '!Location', '!IsConstant',
@@ -236,7 +246,7 @@ class SBMLDocument:
         if len(self.model.getListOfEvents()) == 0:
             return False
             
-        event    = [['!!SBtab TableID="event" SBtabVersion="1.0" Document="'+self.filename.rstrip('.xml')+'" TableType="Event" TableName="Event"'],['']]
+        event    = [['!!SBtab TableID="event" Document="'+self.filename.rstrip('.xml')+'" TableType="Event" TableName="Event" SBtabVersion="1.0"'],['']]
         header   = ['!Event','!Name','!Assignments','!Trigger','!SBOterm','!Delay','!UseValuesFromTriggerTime']
         identifiers  = []
         column2ident = {}
@@ -300,7 +310,7 @@ class SBMLDocument:
         if len(self.model.getListOfRules()) == 0:
             return False
             
-        rule     = [['!!SBtab TableID="rule" SBtabVersion="1.0" Document="'+self.filename.rstrip('.xml')+'" TableType="Rule" TableName="Rule"'],['']]
+        rule     = [['!!SBtab TableID="rule" Document="'+self.filename.rstrip('.xml')+'" TableType="Rule" TableName="Rule" SBtabVersion="1.0"'],['']]
         header   = ['!Rule','!Name','!Formula','!Unit']
         identifiers  = []
         column2ident = {}
@@ -345,8 +355,8 @@ class SBMLDocument:
         active_obj = fbc_plugin.getActiveObjectiveId()
 
         # header row
-        sbtab_fbc = '!!SBtab TableID="fbcobj" SBtabVersion="1.0" Document="%s" TableType='\
-                    '"FbcObjective" TableName="FBC Objective"\n' % self.filename
+        sbtab_fbc = '!!SBtab TableID="fbcobj" Document="%s" TableType='\
+                    '"FbcObjective" TableName="FBC Objective" SBtabVersion="1.0"\n' % self.filename
 
         # columns
         columns = ['!ID', '!Name', '!Type', '!Active', '!Objective']
@@ -382,8 +392,8 @@ class SBMLDocument:
         layout = self.model.getPlugin('layout').getLayout(0)
 
         # header row
-        sbtab_layout = '!!SBtab TableID="layout" SBtabVersion="1.0" Document="%s" TableType='\
-                       '"Layout" TableName="SBML Layout"\n' % self.filename
+        sbtab_layout = '!!SBtab TableID="layout" Document="%s" TableType='\
+                       '"Layout" TableName="SBML Layout" SBtabVersion="1.0"\n' % self.filename
 
         # columns
         columns = ['!ID', '!Name', '!ModelEntity', '!SBML:compartment:id', '!SBML:reaction:id',
@@ -533,8 +543,8 @@ class SBMLDocument:
         fbc_plugin = self.model.getPlugin('fbc')
 
         # header row
-        sbtab_fbc_gene = '!!SBtab TableID="gene" SBtabVersion="1.0" Document="%s" TableType='\
-                         '"Gene" TableName="FBC Gene"\n' % self.filename
+        sbtab_fbc_gene = '!!SBtab TableID="gene" Document="%s" TableType='\
+                         '"Gene" TableName="FBC Gene" SBtabVersion="1.0"\n' % self.filename
 
         # columns
         columns = ['!ID', '!SBML:fbc:ID', '!SBML:fbc:Name', '!SBML:fbc:GeneProduct','!SBML:fbc:Label']
@@ -628,8 +638,8 @@ class SBMLDocument:
         build a reaction SBtab
         '''
         # header row
-        sbtab_reaction = '!!SBtab TableID="reaction" SBtabVersion="1.0" Document="%s" TableType='\
-                         '"Reaction" TableName="Reaction"\n' % self.filename
+        sbtab_reaction = '!!SBtab TableID="reaction" Document="%s" TableType='\
+                         '"Reaction" TableName="Reaction" SBtabVersion="1.0"\n' % self.filename
 
         # columns
         columns = ['!ID', '!Name', '!ReactionFormula', '!Location',
@@ -728,8 +738,8 @@ class SBMLDocument:
         if not parameters: return False
 
         # header row        
-        sbtab_quantity = '!!SBtab TableID="quantity" SBtabVersion="1.0" Document="%s" TableType='\
-                         '"Quantity" TableName="Quantity"\n' % self.filename
+        sbtab_quantity = '!!SBtab TableID="quantity" Document="%s" TableType='\
+                         '"Quantity" TableName="Quantity" SBtabVersion="1.0"\n' % self.filename
         # columns
         columns = ['!ID', '!Parameter:SBML:parameter:id', '!Value',
                    '!Unit', '!Type', '!SBOTerm']
