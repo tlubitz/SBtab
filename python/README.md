@@ -6,6 +6,7 @@ Here, we show you how to use SBtab in your own Python code. If you have question
 <ul>
     <li>python3</li>
     <li>libsbml (SBML manipulation for python)</li>
+    <li>openpyxl (I/O of xlsx files)</li>
     <li>numpy (numerical operations for python)</li>
     <li>scipy (numerical operations for python)</li>
  </ul>
@@ -89,6 +90,10 @@ Here, we show you how to use SBtab in your own Python code. If you have question
     Cd = sbml2sbtab.SBMLDocument(model, 'hynne.xml')
     (Sd,warnings) = Cd.convert_to_sbtab()
 ```
+<h3>Python API</h3>
+The API for the Python modules can be found in the directory <i>SBtab/python/api_documentation/</i>.
+
+
 <h3>The scripts can also be called from commandline</h3>
 
 Validate a single SBtab file:
