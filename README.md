@@ -31,6 +31,8 @@ SBtab comes along with software tools which can be employed in 3 different ways:
   on the usage.
   
   </li>
+  
+---
 
 <li><b>As a Python3 package (pip installer)</b><br>
   
@@ -54,14 +56,19 @@ SBtab comes along with software tools which can be employed in 3 different ways:
   
   </li>
   
+  ---
+  
 <li><b>From the commandline (for experienced users)</b><br>
+  
+  ![Python Logo](https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg)
+  
   You can employ the SBtab commandline tools from the directory
   SBtab/python. To use this option,
   you will have to install the required packages on your own and put
   the Python modules to their according directory. Details on the usage
   of the commandline tools you can find in the directory SBtab/python.
   
-  ![Python Logo](https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg)
+  
   
 </li>
 </ol>
