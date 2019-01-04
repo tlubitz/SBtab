@@ -1,7 +1,7 @@
 SBtab - Table format for Systems Biology
 ========================================
 Python code and example files by
-<b>Timo Lubitz, Jens Hahn, Elad Noor, Frank Bergmann (2018)</b>.
+<b>Timo Lubitz, Elad Noor, Jens Hahn, Frank Bergmann (2018)</b>.
 
 Data tables in the form of spreadsheets or delimited text files are the most utilised data format in Systems Biology. However, they are often not sufficiently structured and lack clear naming conventions
 that would be required for modelling. We propose the <b>SBtab</b> format as an attempt to establish an
