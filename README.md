@@ -60,7 +60,9 @@ SBtab comes along with software tools which can be employed in 3 different ways:
   you will have to install the required packages on your own and put
   the Python modules to their according directory. Details on the usage
   of the commandline tools you can find in the directory SBtab/python.
-  ![Pip Installer Logo](https://github.com/tlubitz/SBtab/blob/master/python/web_version/static/images/logo_pypi.png)
+  
+  ![Python Logo](https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg)
+  
 </li>
 </ol>
 
