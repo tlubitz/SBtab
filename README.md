@@ -11,18 +11,21 @@ for annotation; and standardised formulae for reaction stoichiometries. Predefin
 used to define biochemical network models and the biochemical constants therein. The user can also
 define own table types, adjusting SBtab to other types of data.
 
-The SBtab specification can be found on the [SBtab homepage](https://www.sbtab.net/sbtab/default/specification.html).
-
-SBtab comes along with software tools which can be employed in 3 different ways:
+The SBtab specification can be found on the [SBtab homepage](https://www.sbtab.net/sbtab/default/downloads.html#spec). The homepage also provides various information on example files, frequently asked questions, online tools, and tutorials.
 
 ---
+
+SBtab comes along with software tools which can be employed in 3 different ways:
 
 <ol>
 <li><b>In the online interface</b><br>
   You can use the software tools that come with SBtab in the convenient online interface
-  on https://www.sbtab.net. The page is built with the Python web framework web2py. If you want to run
+  on https://www.sbtab.net. The page is built with the Python web framework web2py.
+  
+  If you want to run
   the web2py application on your own home server, you can download it from this
-  repository's directory SBtab/python/web_version.
+  repository's directory SBtab/python/web_version. Change to this directory to find more information
+  on the usage.
   </li>
 
 <li><b>As a Python3 package (pip installer)</b><br>
