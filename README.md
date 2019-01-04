@@ -26,6 +26,7 @@ SBtab comes along with software tools which can be employed in 3 different ways:
   the web2py application on your own home server, you can download it from this
   repository's directory SBtab/python/web_version. Change to this directory to find more information
   on the usage.
+  ![SBtab online](https://github.com/tlubitz/SBtab/sbtab_screen.png)
   </li>
 
 <li><b>As a Python3 package (pip installer)</b><br>
