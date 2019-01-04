@@ -45,6 +45,7 @@ SBtab comes along with software tools which can be employed in 3 different ways:
   **Please note that the directory SBtab/pypi_installer only holds the files for the
   pip installer build up and is not required at all for users that want to
   employ SBtab.**
+  ![Pip Installer Logo](https://github.com/tlubitz/SBtab/blob/master/python/web_version/static/images/logo_pypi.png)
   </li>
   
 <li><b>From the commandline (for experienced users)</b><br>
@@ -53,6 +54,7 @@ SBtab comes along with software tools which can be employed in 3 different ways:
   you will have to install the required packages on your own and put
   the Python modules to their according directory. Details on the usage
   of the commandline tools you can find in the directory SBtab/python.
+  ![Pip Installer Logo](https://github.com/tlubitz/SBtab/blob/master/python/web_version/static/images/logo_pypi.png)
 </li>
 </ol>
 
