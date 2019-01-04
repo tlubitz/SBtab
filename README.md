@@ -18,7 +18,7 @@ The SBtab specification can be found on the [SBtab homepage](https://www.sbtab.n
 SBtab comes along with software tools which can be employed in 3 different ways:
 
 <ol>
-<li><b>In the online interface</b><br>
+<li><b>In the online interface or as home server version</b><br>
   You can use the software tools that come with SBtab in the convenient online interface
   on https://www.sbtab.net. The page is built with the Python web framework web2py.
   
@@ -30,27 +30,28 @@ SBtab comes along with software tools which can be employed in 3 different ways:
 
 <li><b>As a Python3 package (pip installer)</b><br>
   The tools can be employed as a Python3 package. It needs to be installed via
-  pypi. Please type on your commandline<br><br>
+  [pypi](https://pypi.org/project/sbtab/). Please type on your commandline<br><br>
     
   > sudo pip3 install sbtab
   
-  You will then be able to import sbtab into your Python3 modules by adding
+  You will then be able to import the SBtab library into your Python3 modules by adding
   
   > import sbtab
   
-  to them. See the specification for detailed usage of this package. You will
-  also find information in the repository directory SBtab/python/. **Please
-  note that the directory SBtab/pypi_installer only holds the files for the
+  to them. See the code examples in this repository's directory SBtab/python. Also, you
+  will find further information on the usage in the [SBtab specification](https://www.sbtab.net/sbtab/default/downloads.html#spec).
+  
+  **Please note that the directory SBtab/pypi_installer only holds the files for the
   pip installer build up and is not required at all for users that want to
   employ SBtab.**
   </li>
   
-<li><b>From the command line (for experienced users)</b><br>
-  You can employ the command line tools which you find in the directory
+<li><b>From the commandline (for experienced users)</b><br>
+  You can employ the SBtab commandline tools from the directory
   SBtab/python. To use this option,
   you will have to install the required packages on your own and put
   the Python modules to their according directory. Details on the usage
-  of the command line tools you can find in the directory SBtab/python.
+  of the commandline tools you can find in the directory SBtab/python.
 </li>
 </ol>
 
@@ -58,25 +59,28 @@ SBtab comes along with software tools which can be employed in 3 different ways:
 
 The SBtab repository consists of the following directories and contents:
 
+<b>R</b><br>
+SBtab interface for the language [R](https://www.r-project.org/). See directory for details on the usage.
+
 <b>definition table:</b><br>
 Default definitions of predefined SBtab table types.
 
 <b>excel:</b><br>
-windows installer and source code for the excel add-in (copyright Frank T. Bergmann).
+Windows installer and source code for the excel add-in (courtesy of Frank T. Bergmann). Works for SBtab version 1.0 and the .xls format.
 
 <b>sbtab examples:</b><br>
-example SBtab files.
+Example SBtab files. These files can also be found including explanatory words in the [online SBtab Download Section](https://www.sbtab.net/sbtab/default/downloads.html)
 
 <b>python:</b>
 <ul>
-<li>source scripts and command line python modules, including validator and converter to and from SBML (copyright Timo Lubitz).</li>
+<li>Source scripts and commandline Python3 modules, including a file and object validator, and a converter to and from SBML.</li>
 
-<li><b>documentation:</b><br>
-HTML documentation of the SBtab repository and source code (copyright Timo Lubitz & Jens Hahn).</li>
+<li><b>Documentation:</b><br>
+HTML pydoc documentation of the SBtab interface and source code.</li>
 
-<li><b>sqlite interface:</b><br>
-Python interface for querying SQLite database via SBtab (copyright Elad Noor).</li>
+<li><b>SQLite interface:</b><br>
+Python interface for querying SQLite databases via SBtab (courtesy of Elad Noor).</li>
 
 <li><b>web2py:</b><br>
-Web2py server files for the SBtab online tools. Can be run locally and offline if required (copyright Massimo Di Pierro (web2py) and Timo Lubitz (SBtab application))</li>
+[Web2py](http://www.web2py.com) server files for the SBtab online tools. Can be run locally and offline if required.</li>
 </ul>
