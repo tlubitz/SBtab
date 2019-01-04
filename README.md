@@ -19,6 +19,7 @@ SBtab comes along with software tools which can be employed in 3 different ways:
 
 <ol>
 <li><b>In the online interface or as home server version</b><br>
+  ![SBtab online](https://github.com/tlubitz/SBtab/blob/master/sbtab_screen.png)
   You can use the software tools that come with SBtab in the convenient online interface
   on https://www.sbtab.net. The page is built with the Python web framework web2py.
   
@@ -26,10 +27,11 @@ SBtab comes along with software tools which can be employed in 3 different ways:
   the web2py application on your own home server, you can download it from this
   repository's directory SBtab/python/web_version. Change to this directory to find more information
   on the usage.
-  ![SBtab online](https://github.com/tlubitz/SBtab/blob/master/sbtab_screen.png)
+  
   </li>
 
 <li><b>As a Python3 package (pip installer)</b><br>
+  ![Pip Installer Logo](https://github.com/tlubitz/SBtab/blob/master/python/web_version/static/images/logo_pypi.png)
   The tools can be employed as a Python3 package. It needs to be installed via
   [pypi](https://pypi.org/project/sbtab/). Please type on your commandline<br><br>
     
@@ -45,7 +47,7 @@ SBtab comes along with software tools which can be employed in 3 different ways:
   **Please note that the directory SBtab/pypi_installer only holds the files for the
   pip installer build up and is not required at all for users that want to
   employ SBtab.**
-  ![Pip Installer Logo](https://github.com/tlubitz/SBtab/blob/master/python/web_version/static/images/logo_pypi.png)
+  
   </li>
   
 <li><b>From the commandline (for experienced users)</b><br>
