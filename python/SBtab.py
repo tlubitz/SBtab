@@ -930,7 +930,7 @@ class SBtabDocument:
                 self.type_to_sbtab[sbtab.table_type] = tabs
             else:
                 self.type_to_sbtab[sbtab.table_type] = [sbtab]
-
+            
             self._get_doc_row_attributes()
             return True
 
@@ -958,21 +958,22 @@ class SBtabDocument:
         except:
             raise SBtabError('The SBtab file could not be read properly.')
 
+        # here, we find a possible doc row
+        for row in sbtab_string.split('\n'):
+            if row.startswith('!!!'):
+                self.doc_row = self._dequote(row)
+                break
+            elif row.startswith('"!!!'):
+                rm1 = row.replace('""', '#')
+                rm2 = rm1.replace('"','')
+                self.doc_row = self._dequote(rm2.replace('#', '"'))
+                break
+        
         # if there are more than one SBtabs, cut them in single SBtabs
         try:
             if sbtab_amount > 1:
                 sbtab_strings = misc.split_sbtabs(sbtab_string)
                 for i, sbtab_s in enumerate(sbtab_strings):
-                    # here, we find a possible doc row
-                    if sbtab_s.startswith('!!!'):
-                        self.doc_row = self._dequote(sbtab_s)
-                        continue
-                    elif sbtab_s.startswith('"!!!'):
-                        rm1 = sbtab_s.replace('""', '#')
-                        rm2 = rm1.replace('"','')
-                        self.doc_row = self._dequote(rm2.replace('#', '"'))
-                        continue
-                    # then, go on with the cut SBtabs
                     name_single = str(i) + '_' + self.filename
                     sbtab_single = SBtabTable(sbtab_s, name_single)
                     logging.debug('name = %s, type = %s' % (sbtab_single.table_name, sbtab_single.table_type))

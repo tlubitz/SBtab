@@ -113,7 +113,7 @@ def split_sbtabs(sbtab_strings):
     counter = 1
     
     for row in sbtab_strings.split('\n'):
-        if row.startswith('!!!'): continue
+        if row.startswith('!!!') or row.startswith('"!!!'): continue
         if row.startswith('!!'):
             if sbtab_string == '':
                 sbtab_string = row + '\n'
