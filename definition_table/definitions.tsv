@@ -356,3 +356,13 @@ Stoichiometry	Column	ReactionStoichiometry	False	string	Stoichiometry of the rea
 Substrate	Column	ReactionStoichiometry	True	string	Identifier shortname of a substrate
 Product	Column	ReactionStoichiometry	True	string	Identifier shortname of a product
 Location	Column	ReactionStoichiometry	True	string	Compartment in which the reaction occurs
+RowNumber	Column	SparseMatrixOrdered	False	integer	Number of row
+ColumnNumber	Column	SparseMatrixOrdered	False	integer	Number of column
+Value	Column	SparseMatrixOrdered	False	float	Value
+RowID	Column	SparseMatrix	False	string	Row identifier
+ColumnID	Column	SparseMatrix	False	string	Column identifier
+Value	Column	SparseMatrix	False	float	Value
+RowID	Column	SparseMatrixRow	False	string	Row identifier
+RowString	Column	SparseMatrixRow	False	string	JSON string describing all elements in the row
+ColumnID	Column	SparseMatrixColumn	False	string	Column identifier
+ColumnString	Column	SparseMatrixColumn	False	string	JSON string describing all elements in the column
