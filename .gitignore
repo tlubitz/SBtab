@@ -16,5 +16,6 @@ sbtab_examples/e_coli_core.xml
 sbtab_examples/example.xlsx
 sbtab_examples/mm.xlsx
 sbtab_examples/models.tgz
-sbtab-matlab
+sbtab_matlab
+sbtab_spec
 transition.xlsx
