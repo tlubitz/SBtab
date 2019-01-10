@@ -351,3 +351,8 @@ SBML:width	Column	Layout	False	float	Width of the element
 SBML:height	Column	Layout	False	float	Height of the element
 SBML:text	Column	Layout	False	string	Text label of the element
 SBML:speciesRole	Column	Layout	False	string	Role of the species in the reaction (Reactant, Product)
+ID	Column	ReactionStoichiometry	True	string	Identifier shortname of the reaction
+Stoichiometry	Column	ReactionStoichiometry	False	string	Stoichiometry of the reaction
+Substrate	Column	ReactionStoichiometry	True	string	Identifier shortname of a substrate
+Product	Column	ReactionStoichiometry	True	string	Identifier shortname of a product
+Location	Column	ReactionStoichiometry	True	string	Compartment in which the reaction occurs
