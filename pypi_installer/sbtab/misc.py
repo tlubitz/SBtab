@@ -4,11 +4,11 @@ A collection of useful tools and functions for the manipulation of SBtab tables 
 '''
 import re
 import string
-#import libsbml
+import libsbml
 import numpy
-#import scipy
-#import scipy.linalg
-#import scipy.optimize
+import scipy
+import scipy.linalg
+import scipy.optimize
 import random
 import copy
 import math

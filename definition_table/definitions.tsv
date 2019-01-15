@@ -339,7 +339,7 @@ Type	Column	FbcObjective	False	string	Type of objective in FBC package
 Active	Column	FbcObjective	False	Boolean	Flag indicating if the objective is active
 Objective	Column	FbcObjective	False	string	FBC objective as sum of coefficients times reaction IDs
 ID	Column	Layout	False	string	Unique identifier of layout package
-Name	Column	Layout	False	float	Name of layout in plugin
+Name	Column	Layout	False	string	Name of layout in plugin
 ModelEntity	Column	Layout	False	string	Declares the SBML model entity
 SBML:compartment:id	Column	Layout	False	string	SBML identifier of the compartment
 SBML:reaction:id	Column	Layout	False	string	SBML identifier of the reaction
