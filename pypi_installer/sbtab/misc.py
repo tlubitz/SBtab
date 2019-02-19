@@ -113,22 +113,25 @@ def split_sbtabs(sbtab_strings):
     counter = 1
     
     for row in sbtab_strings.split('\n'):
-        if row.startswith('!!!'): continue
+        if row.startswith('!!!') or row.startswith('"!!!'): continue
         if row.startswith('!!'):
             if sbtab_string == '':
                 sbtab_string = row + '\n'
                 continue
             else:
                 try:
-                    sbtabs.append(sbtab_string)
+                    if sbtab_string.startswith('!!SBtab'):
+                        sbtabs.append(sbtab_string)
+                        counter += 1
                     sbtab_string = row + '\n'
-                    counter += 1
                 except:
                     print('Warning: Could not write SBtab %s' % counter)
                     counter += 1
         else:
             sbtab_string += row + '\n'
-    sbtabs.append(sbtab_string) 
+
+    if sbtab_string.startswith('!!SBtab'):
+        sbtabs.append(sbtab_string)
                     
     return sbtabs
 

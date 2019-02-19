@@ -120,15 +120,18 @@ def split_sbtabs(sbtab_strings):
                 continue
             else:
                 try:
-                    sbtabs.append(sbtab_string)
+                    if sbtab_string.startswith('!!SBtab'):
+                        sbtabs.append(sbtab_string)
+                        counter += 1
                     sbtab_string = row + '\n'
-                    counter += 1
                 except:
                     print('Warning: Could not write SBtab %s' % counter)
                     counter += 1
         else:
             sbtab_string += row + '\n'
-    sbtabs.append(sbtab_string) 
+
+    if sbtab_string.startswith('!!SBtab'):
+        sbtabs.append(sbtab_string)
                     
     return sbtabs
 
