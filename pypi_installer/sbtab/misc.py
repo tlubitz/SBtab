@@ -246,9 +246,9 @@ def sbtab_to_html(sbtab, filename=None, mode='sbtab_online'):
             return False
     elif mode == 'standalone':
         html_template = False
-        try_paths = ['template_standalone.html',
-                     os.path.join(os.path.dirname(__file__), '../template_standalone.html'),
-                     os.path.join(os.path.dirname(__file__), 'template_standalone.html')]
+        try_paths = ['html_templates/template_standalone.html',                     
+                     os.path.join(os.path.dirname(__file__), '../html_templates/template_standalone.html'),
+                     os.path.join(os.path.dirname(__file__), 'html_templates/template_standalone.html')]
         for path in try_paths:
             try:
                 html = open(path, 'r')
