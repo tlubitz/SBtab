@@ -98,25 +98,25 @@ The API for the Python modules can be found in the directory <i>SBtab/python/api
 
 Validate a single SBtab file:
 
-> python3 cl_validator.py path_to_your_sbtab.tsv
+> python3 sbtab_validator.py path_to_your_sbtab.tsv
 
 Validate a single SBtab file and provide a definitions file:
 
-> python3 cl_validator.py path_to_your_sbtab.tsv --sbtab_definitions path_to_your_definitions.tsv
+> python3 sbtab_validator.py path_to_your_sbtab.tsv --sbtab_definitions path_to_your_definitions.tsv
 
 Validate a document of SBtab files (optionally provide defintions.tsv as above):
 
-> python3 cl_validator.py path_to_your_sbtab.tsv -d
+> python3 sbtab_validator.py path_to_your_sbtab.tsv -d
 
 Convert an SBtab file to SBML (the SBML file will be written to the current directory):
 
-> python3 cl_sbtab2sbml.py path_to_your_sbtab.tsv --version 31
+> python3 sbtab_sbtab2sbml.py path_to_your_sbtab.tsv --version 31
 
 ...where "--version 31" stands for SBML Level 3 Version 1. Also possible is "--version 24". Default is "31".
 
 Convert an SBML file to SBtab (the SBtab Document will be written to the current directory):
 
-> python3 cl_sbml2sbtab.py path_to_your_sbml.xml
+> python3 sbtab_sbml2sbtab.py path_to_your_sbml.xml
 
 If you are encountering trouble with any of the above, please file a bug report in Github. You can also feel free to file feature requests in the same manner.
 
