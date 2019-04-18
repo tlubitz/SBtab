@@ -20,7 +20,7 @@ SBtab comes along with software tools which can be employed in 3 different ways:
 <ol>
 <li><b>In the online interface or as home server version</b><br>
   
-  ![SBtab online](https://github.com/tlubitz/SBtab/blob/master/sbtab_screen.png)
+  ![SBtab online](https://github.com/tlubitz/SBtab/blob/master/documentation/sbtab_screen.png)
   
   You can use the software tools that come with SBtab in the convenient online interface
   on https://www.sbtab.net. The page is built with the Python web framework web2py.
