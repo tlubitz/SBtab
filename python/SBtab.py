@@ -500,6 +500,17 @@ class SBtabTable():
             except:
                 raise SBtabError('Attribute value %s could not be replaced in the header.' % attribute)
 
+    def change_filename(self, new_name):
+        '''
+        Changes the filename of the SBtab.
+
+        Parameters
+        ----------
+        new_name: str
+            New name for the SBtab object.
+        '''
+        self.filename = new_name
+            
     def unset_attribute(self, attribute):
         '''
         Removes an attribute from SBtab declaration row.
