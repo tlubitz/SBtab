@@ -178,9 +178,10 @@ def sbtab_to_html(sbtab, filename=None, mode='sbtab_online'):
         html = '<table class="table-striped">'
 
         # header row
-        html += '<tr><th colspan="%s">%s</th></tr>' % (len(sbtab.columns), sbtab.header_row)
+        html += '<thead><tr><th colspan="%s">%s</th></tr></thead>' % (len(sbtab.columns), sbtab.header_row)
 
         # columns
+        html += '<tbody>'
         html += '<tr style="line-height:2;">'
         for col in sbtab.columns:
             try: title = col2description[col[1:]]
@@ -229,7 +230,7 @@ def sbtab_to_html(sbtab, filename=None, mode='sbtab_online'):
             html += '</tr>'
 
         # close table
-        html += '</table>'
+        html += '</tbody></table>'
 
         return html
     
