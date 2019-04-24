@@ -1,5 +1,5 @@
 !!SBtab TableID='def_table' SBtabVersion='1.0' TableType='Definition' TableName='Allowed_types'					
-!ComponentName	!ComponentType	!IsPartOf	!linksShortname	!Format	!Description
+!ComponentName	!ComponentType	!IsPartOf	!isShortname	!Format	!Description
 Comment	Column	Reaction	False	string	Comment
 ReferenceName	Column	Reaction	False	string	Reference title, authors, etc. (as free text)
 ReferencePubMed	Column	Reaction	False	string	Reference PubMed ID
@@ -335,22 +335,22 @@ Literature:Identifiers:pubmed	Column	rxnconReactionList	False	string	Pubmed ID
 Comment	Column	rxnconReactionList	False	string	Comment
 ID	Column	FbcObjective	False	string	Unique identifier of objective in FBC package
 Name	Column	FbcObjective	False	string	Name of objective in FBC package
-Type	Column	FbcObjective	False	string	Type of objective in FBC package
-Active	Column	FbcObjective	False	Boolean	Flag indicating if the objective is active
-Objective	Column	FbcObjective	False	string	FBC objective as sum of coefficients times reaction IDs
+SBML:fbc:type	Column	FbcObjective	False	string	Type of objective in FBC package
+SBML:fbc:active	Column	FbcObjective	False	Boolean	Flag indicating if the objective is active
+SBML:fbc:objective	Column	FbcObjective	False	string	FBC objective as sum of coefficients times reaction IDs
 ID	Column	Layout	False	string	Unique identifier of layout package
 Name	Column	Layout	False	string	Name of layout in plugin
-ModelEntity	Column	Layout	False	string	Declares the SBML model entity
-SBML:compartment:id	Column	Layout	False	string	SBML identifier of the compartment
-SBML:reaction:id	Column	Layout	False	string	SBML identifier of the reaction
-SBML:species:id	Column	Layout	False	string	SBML identifier of the species
-CurveSegment	Column	Layout	False	string	Type of curve segment (Start, End, BasePoints)
-SBML:X	Column	Layout	False	float	Coordinate on X axis
-SBML:Y	Column	Layout	False	float	Coordinate on Y axis
-SBML:width	Column	Layout	False	float	Width of the element
-SBML:height	Column	Layout	False	float	Height of the element
-SBML:text	Column	Layout	False	string	Text label of the element
-SBML:speciesRole	Column	Layout	False	string	Role of the species in the reaction (Reactant, Product)
+SBML:layout:modelEntity	Column	Layout	False	string	Declares the SBML model entity
+SBML:layout:compartment:id	Column	Layout	False	string	SBML identifier of the compartment
+SBML:layout:reaction:id	Column	Layout	False	string	SBML identifier of the reaction
+SBML:layout:species:id	Column	Layout	False	string	SBML identifier of the species
+SBML:layout:curveSegment	Column	Layout	False	string	Type of curve segment (Start, End, BasePoints)
+SBML:layout:X	Column	Layout	False	float	Coordinate on X axis
+SBML:layout:Y	Column	Layout	False	float	Coordinate on Y axis
+SBML:layout:width	Column	Layout	False	float	Width of the element
+SBML:layout:height	Column	Layout	False	float	Height of the element
+SBML:layout:text	Column	Layout	False	string	Text label of the element
+SBML:layout:speciesRole	Column	Layout	False	string	Role of the species in the reaction (Reactant, Product)
 ID	Column	ReactionStoichiometry	True	string	Identifier shortname of the reaction
 Stoichiometry	Column	ReactionStoichiometry	False	string	Stoichiometry of the reaction
 Substrate	Column	ReactionStoichiometry	True	string	Identifier shortname of a substrate

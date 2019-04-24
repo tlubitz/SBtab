@@ -369,7 +369,7 @@ def find_descriptions(def_file, table_type):
     for row in def_file.value_rows:
         if row[def_file.columns_dict['!IsPartOf']] == table_type:
             col2description[row[def_file.columns_dict['!ComponentName']]] = row[def_file.columns_dict['!Description']]
-            col2link['!'+row[def_file.columns_dict['!ComponentName']]] = row[def_file.columns_dict['!linksShortname']]
+            col2link['!'+row[def_file.columns_dict['!ComponentName']]] = row[def_file.columns_dict['!isShortname']]
 
     return (col2description, col2link)
 

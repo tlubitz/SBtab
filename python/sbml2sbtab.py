@@ -359,7 +359,7 @@ class SBMLDocument:
                     '"FbcObjective" TableName="FBC Objective" SBtabVersion="1.0"\n' % self.filename
 
         # columns
-        columns = ['!ID', '!Name', '!Type', '!Active', '!Objective']
+        columns = ['!ID', '!Name', '!SBML:fbc:type', '!SBML:fbc:active', '!SBML:fbc:objective']
             
         sbtab_fbc += '\t'.join(columns) + '\n'
 
@@ -396,9 +396,9 @@ class SBMLDocument:
                        '"Layout" TableName="SBML Layout" SBtabVersion="1.0"\n' % self.filename
 
         # columns
-        columns = ['!ID', '!Name', '!ModelEntity', '!SBML:compartment:id', '!SBML:reaction:id',
-                   '!SBML:species:id', '!CurveSegment',
-                   '!SBML:X', '!SBML:Y', '!SBML:width', '!SBML:height']
+        columns = ['!ID', '!Name', '!SBML:layout:modelEntity', '!SBML:layout:compartment:id', '!SBML:layout:reaction:id',
+                   '!SBML:layout:species:id', '!SBML:layout:curveSegment',
+                   '!SBML:layout:X', '!SBML:layout:Y', '!SBML:layout:width', '!SBML:layout:height']
         sbtab_layout += '\t'.join(columns) + '\n'
 
         # value rows
@@ -547,7 +547,7 @@ class SBMLDocument:
                          '"Gene" TableName="FBC Gene" SBtabVersion="1.0"\n' % self.filename
 
         # columns
-        columns = ['!ID', '!SBML:fbc:ID', '!SBML:fbc:Name', '!SBML:fbc:GeneProduct','!SBML:fbc:Label']
+        columns = ['!ID', '!SBML:fbc:ID', '!SBML:fbc:Name', '!SBML:fbc:geneProduct','!SBML:fbc:label']
             
         sbtab_fbc_gene += '\t'.join(columns) + '\n'
 
