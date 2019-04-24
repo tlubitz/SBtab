@@ -139,7 +139,7 @@ class TestMiscFunctions(unittest.TestCase):
         self.assertIn('!ComponentName', sbtab_def.columns)
         self.assertIn('!ComponentType', sbtab_def.columns)
         self.assertIn('!IsPartOf', sbtab_def.columns)
-        self.assertIn('!linksShortname', sbtab_def.columns)
+        self.assertIn('!isShortname', sbtab_def.columns)
         self.assertIn('!Format', sbtab_def.columns)
         self.assertIn('!Description', sbtab_def.columns)
         self.assertGreater(len(sbtab_def.value_rows), 1)
