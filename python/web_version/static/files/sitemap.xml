@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://www.sbtab.net/</loc>
+  <lastmod>2019-01-16T15:21:54+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://www.sbtab.net/sbtab/default/gettingstarted.html</loc>
+  <lastmod>2019-01-16T15:21:54+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.sbtab.net/sbtab/default/validator.html</loc>
+  <lastmod>2019-01-16T15:21:54+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.sbtab.net/sbtab/default/converter.html</loc>
+  <lastmod>2019-01-16T15:21:54+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.sbtab.net/sbtab/default/def_files.html</loc>
+  <lastmod>2019-01-16T15:21:54+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.sbtab.net/sbtab/default/documentation.html</loc>
+  <lastmod>2019-01-16T15:21:54+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.sbtab.net/sbtab/default/downloads.html</loc>
+  <lastmod>2019-01-16T15:21:54+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.sbtab.net/sbtab/default/team.html</loc>
+  <lastmod>2019-01-16T15:21:54+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.sbtab.net/sbtab/static/documents/SBtab_1.0_Specification.pdf</loc>
+  <lastmod>2018-05-25T06:37:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.sbtab.net/sbtab/default/validator</loc>
+  <lastmod>2019-01-16T15:21:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.sbtab.net/sbtab/default/converter</loc>
+  <lastmod>2019-01-16T15:21:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.sbtab.net/sbtab/static/files/validator_manual.pdf</loc>
+  <lastmod>2018-05-25T06:37:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.sbtab.net/sbtab/static/files/converter_manual.pdf</loc>
+  <lastmod>2018-05-25T06:37:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.sbtab.net/sbtab/default/show_sbtab_def/0</loc>
+  <lastmod>2019-01-16T15:21:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.sbtab.net/sbtab/static/documents/SBtab_0.9_Specification.pdf</loc>
+  <lastmod>2018-05-25T06:37:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.sbtab.net/sbtab/static/documents/SBtab_0.8_Specification.pdf</loc>
+  <lastmod>2018-05-25T06:37:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.sbtab.net/sbtab/default/index.html</loc>
+  <lastmod>2019-01-16T15:21:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+
+</urlset>
