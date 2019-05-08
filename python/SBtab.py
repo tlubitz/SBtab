@@ -1034,7 +1034,10 @@ class SBtabDocument:
                              ' establish supported table types.')
         
         if ttype in supported_types: return True
-        else: raise SBtabError('The table type %s is not supported.' % ttype)
+        else:
+            #raise SBtabError('The table type %s is not supported.' % ttype)
+            print('The table type %s is not supported.' % ttype)
+            return True
 
     def _get_doc_row_attributes(self):
         '''
