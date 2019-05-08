@@ -1,15 +1,17 @@
+#!/usr/bin/env python
 """
 SBML2SBtab Converter
 ====================
 
-Python script that converts an SBML file to SBtab file/s.
+A converter for SBML files to SBtab file/s.
 
 See specification for further information.
 """
-#!/usr/bin/env python
-import re, libsbml, numpy
-try: import SBtab
-except: from . import SBtab
+import re
+import libsbml
+import numpy
+try: from . import SBtab
+except: import SBtab
 import sys
 
 #Rule and Event not updated yet (later. no priority atm)
@@ -34,13 +36,13 @@ class SBMLDocument:
     '''
     def __init__(self, sbml_model, filename):
         '''
-        Initalizes SBtab document, checks it for SBtabs
+        Initalizes SBML document.
 
         Parameters
         ----------
-        sbml_model : libsbml model object
+        sbml_model: libsbml.Model
             SBML model as libsbml object.
-        filename : str
+        filename: str
             Filename with extension.
         '''
         self.model = sbml_model
@@ -53,7 +55,11 @@ class SBMLDocument:
 
     def convert_to_sbtab(self):
         '''
-        Generates the SBtab files.
+        Generates the SBtab files from the SBML document.
+
+        Returns: (SBtab.SBtabDocument, list)
+            SBtab document with SBtab tables that contain the content of the SBML model.
+            A list of warnings that may be issued during the conversion process.
         '''
         self.warnings = []
         sbtab_doc = SBtab.SBtabDocument(self.filename)
@@ -353,7 +359,7 @@ class SBMLDocument:
                     '"FbcObjective" TableName="FBC Objective" SBtabVersion="1.0"\n' % self.filename
 
         # columns
-        columns = ['!ID', '!Name', '!Type', '!Active', '!Objective']
+        columns = ['!ID', '!Name', '!SBML:fbc:type', '!SBML:fbc:active', '!SBML:fbc:objective']
             
         sbtab_fbc += '\t'.join(columns) + '\n'
 
@@ -390,9 +396,9 @@ class SBMLDocument:
                        '"Layout" TableName="SBML Layout" SBtabVersion="1.0"\n' % self.filename
 
         # columns
-        columns = ['!ID', '!Name', '!ModelEntity', '!SBML:compartment:id', '!SBML:reaction:id',
-                   '!SBML:species:id', '!CurveSegment',
-                   '!SBML:X', '!SBML:Y', '!SBML:width', '!SBML:height']
+        columns = ['!ID', '!Name', '!SBML:layout:modelEntity', '!SBML:layout:compartment:id', '!SBML:layout:reaction:id',
+                   '!SBML:layout:species:id', '!SBML:layout:curveSegment',
+                   '!SBML:layout:X', '!SBML:layout:Y', '!SBML:layout:width', '!SBML:layout:height']
         sbtab_layout += '\t'.join(columns) + '\n'
 
         # value rows
@@ -541,7 +547,7 @@ class SBMLDocument:
                          '"Gene" TableName="FBC Gene" SBtabVersion="1.0"\n' % self.filename
 
         # columns
-        columns = ['!ID', '!SBML:fbc:ID', '!SBML:fbc:Name', '!SBML:fbc:GeneProduct','!SBML:fbc:Label']
+        columns = ['!ID', '!SBML:fbc:ID', '!SBML:fbc:Name', '!SBML:fbc:geneProduct','!SBML:fbc:label']
             
         sbtab_fbc_gene += '\t'.join(columns) + '\n'
 

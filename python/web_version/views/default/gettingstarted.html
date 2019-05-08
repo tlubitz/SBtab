@@ -39,6 +39,7 @@
 <header>
   <div class="container-fluid bg-1 text-center">
     <div class="jumbotron" align="center">
+      <img class="show-mobile" src="/sbtab/static/images/sbtab-logo.png" alt="SBtab Logo">
       <h1><small>Getting Started</small></h1>
     </div>
   </div>
@@ -50,7 +51,6 @@
       <div class="col-sm-3"></div>
       <div class="col-sm-6 textblockleft">
 
-	
 	<article>
 	  <h2>What is SBtab and how does it look like?</h2>
 	  <p>
@@ -60,7 +60,15 @@
 	    a simple example. SBtab tables can hold all sorts of data; our example
 	    contains kinetic quantities:
 	  </p>
-	  <table class="table table-hover" border=1>
+	  <div class="show-mobile">
+	    <p style="color:red;font-style:italic;">
+	      Please be aware that SBtab is a table-based format and tables
+	      are difficult to display on mobile. Please visit our page with
+	      a desktop computer to see the SBtab tables.
+	    </p>
+	  </div>
+	  
+	  <table class="table table-hover hide-mobile" border=1>
 	    <thead>
 	      <tr>
 		<th scope="col" colspan="6" bgcolor="lightgrey">!!SBtab TableID='kp_1' TableType='Quantity' TableName='Kinetic constants' SBtabVersion='1.0'</th>

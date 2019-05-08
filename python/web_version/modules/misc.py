@@ -1,4 +1,7 @@
 #!/usr/bin/python
+'''
+A collection of useful tools and functions for the manipulation of SBtab tables and SBtab documents.
+'''
 import re
 import string
 import libsbml
@@ -16,7 +19,15 @@ except: import SBtab
 
 def count_tabs(sbtab_string):
     '''
-    count how many SBtabs are in in this string
+    Counts how many SBtabs are in in a given string.
+
+    Parameters
+    ----------
+    sbtab_string: str
+        SBtab table or tables in string representation.
+        
+    Returns: int
+        Amount of SBtab tables in given string.
     '''
     counter = 0
     for row in sbtab_string.split('\n'):
@@ -27,9 +38,19 @@ def count_tabs(sbtab_string):
 
 def validate_file_extension(file_name, file_type):
     '''
-    returns Boolean to evaluate if the file has the correct extension:
+    Returns Boolean flag to evaluate if the file has the correct extension:
     sbml => xml
-    sbtab => tsv, csv, xlsx
+    sbtab => tsv, csv, xlsx.
+
+    Parameters
+    ----------
+    file_name: str
+        Name of the file.
+    file_type: str
+        Type of the file ('sbtab' or 'sbml').
+
+    Returns: Bool
+        Boolean flag indicating if the given file extension corresponds to the given file type.
     '''
     # check extension for sbml file
     if file_type == 'sbml' and file_name[-3:] == 'xml': return True
@@ -49,7 +70,15 @@ def validate_file_extension(file_name, file_type):
 
 def check_delimiter(sbtab_file):
     '''
-    determine the delimiter of the tabular file
+    Determines the delimiter of the SBtab table
+
+    Parameters
+    ----------
+    sbtab_file: str
+        SBtab table in string representation.
+
+    Returns: str
+        Delimiter of the SBtab table ('\t', ',', or ';')
     '''
     sep = False
 
@@ -69,37 +98,60 @@ def check_delimiter(sbtab_file):
 
 def split_sbtabs(sbtab_strings):
     '''
-    cuts an large SBtab string in single SBtab strings if necessary
+    Cuts one SBtab string in single SBtab strings if necessary.
+
+    Parameters
+    ----------
+    sbtab_strings: str
+        SBtab table or tables in string representation.
+
+    Returns: list
+        List of SBtab tables in string representation.
     '''
     sbtabs = []
     sbtab_string = ''
     counter = 1
     
     for row in sbtab_strings.split('\n'):
+        if row.startswith('!!!') or row.startswith('"!!!'): continue
         if row.startswith('!!'):
             if sbtab_string == '':
                 sbtab_string = row + '\n'
                 continue
             else:
                 try:
-                    sbtabs.append(sbtab_string)
+                    if sbtab_string.startswith('!!SBtab'):
+                        sbtabs.append(sbtab_string)
+                        counter += 1
                     sbtab_string = row + '\n'
-                    counter += 1
                 except:
                     print('Warning: Could not write SBtab %s' % counter)
                     counter += 1
         else:
             sbtab_string += row + '\n'
-    sbtabs.append(sbtab_string) 
+
+    if sbtab_string.startswith('!!SBtab'):
+        sbtabs.append(sbtab_string)
                     
     return sbtabs
 
 
 def sbtab_to_html(sbtab, filename=None, mode='sbtab_online'):
     '''
-    generates html view out of sbtab object
-    'mode' can be 'sbtab_online' for generating HTML for the SBtab homepage or
-    'standalone' for generating HTML as a standalone page
+    Generates html view out of SBtab table or SBtab document object.
+
+    Parameters
+    ----------
+    sbtab: SBtab.SBtabTable | SBtab.SBtabDocument
+        Either SBtab table object or SBtab document object.
+    filename: str
+        File name of the SBtab table.
+    mode: str
+        Defines the type of HTML to be generated ('sbtab_online' for the SBtab online
+        interface or 'standalone' for a sole HTML page without online binding).
+
+    Returns: str
+        SBtab object as HTML string.
     '''
     def _is_float(value):
         '''
@@ -126,9 +178,10 @@ def sbtab_to_html(sbtab, filename=None, mode='sbtab_online'):
         html = '<table class="table-striped">'
 
         # header row
-        html += '<tr><th colspan="%s">%s</th></tr>' % (len(sbtab.columns), sbtab.header_row)
+        html += '<thead><tr><th colspan="%s">%s</th></tr></thead>' % (len(sbtab.columns), sbtab.header_row)
 
         # columns
+        html += '<tbody>'
         html += '<tr style="line-height:2;">'
         for col in sbtab.columns:
             try: title = col2description[col[1:]]
@@ -177,7 +230,7 @@ def sbtab_to_html(sbtab, filename=None, mode='sbtab_online'):
             html += '</tr>'
 
         # close table
-        html += '</table>'
+        html += '</tbody></table>'
 
         return html
     
@@ -185,20 +238,46 @@ def sbtab_to_html(sbtab, filename=None, mode='sbtab_online'):
     # read in header and footer from HTML template
     if mode == 'sbtab_online':
         p = os.path.join(os.path.dirname(__file__), '../modules/template_sbtab_online.html')
-        html_template = open(p, 'r').read()
+        try:
+            html = open(p, 'r')
+            html_template = html.read()
+            html.close()
+        except:
+            print('HTML template was not found.')
+            return False
     elif mode == 'standalone':
-        html_template = open('template_standalone.html', 'r').read()
+        html_template = False
+        try_paths = ['html_templates/template_standalone.html',                     
+                     os.path.join(os.path.dirname(__file__), '../html_templates/template_standalone.html'),
+                     os.path.join(os.path.dirname(__file__), 'html_templates/template_standalone.html')]
+        for path in try_paths:
+            try:
+                html = open(path, 'r')
+                html_template = html.read()
+                html.close()
+            except: pass
+        if not html_template:
+            print('HTML template was not found.')
+            return False
     else:
         print('Invalid mode %s. Please use either "sbtab_online" or "standalone".' % mode)
+        return False
 
     try:
         header = re.search('(<html lang="en">.*<main>)', html_template, re.DOTALL).group(0)
         footer = re.search('(</main>.*</html>)', html_template, re.DOTALL).group(0)
     except:
         print('Cannot read required template.html.')
+        return False
 
     html = header
 
+    try:
+        ot = sbtab.object_type
+    except:
+        print('You have not provided a valid SBtab object as input.')
+        return False
+    
     # replace title placeholder with actual title
     html = html.replace('TitlePlaceholder',sbtab.filename)
 
@@ -211,9 +290,9 @@ def sbtab_to_html(sbtab, filename=None, mode='sbtab_online'):
     elif sbtab.object_type == 'doc':
         for sbtab in sbtab.sbtabs:
             html += _build_main(sbtab, sbtab_def) + '<br><hr>'
-       
     else:
         print('The given SBtab object is invalid.')
+        return False
             
     html += footer
     
@@ -222,7 +301,15 @@ def sbtab_to_html(sbtab, filename=None, mode='sbtab_online'):
 
 def open_definitions_file(_path=None):
     '''
-    open the SBtab definitions file, which can be in several locations
+    Opens the SBtab definitions file, which can be in several locations.
+
+    Parameters
+    ----------
+    _path: str
+        Optional path to the definitions.tsv.
+
+    Returns: SBtab.SBtabTable
+        SBtab definitions file as SBtabTable object.        
     '''
     sbtab_def = False
     
@@ -243,10 +330,39 @@ def open_definitions_file(_path=None):
 
     return sbtab_def
 
+            
+def extract_supported_table_types():
+    '''
+    Extracts all allowed SBtab table types from the definitions file.
+
+    Returns: list
+        List of supported SBtab table types.
+    '''
+    sbtab_def = open_definitions_file()
+    
+    supported_types = []
+    for row in sbtab_def.value_rows:
+        t = row[sbtab_def.columns_dict['!IsPartOf']]
+        if t not in supported_types:
+            supported_types.append(t)
+
+    return supported_types
+
 
 def find_descriptions(def_file, table_type):
     '''
-    preprocesses the definition file in order to enable some nice mouseover effects for the known column names
+    Preprocesses the definitions file in order to enable some nice mouseover effects for the known column names.
+
+    Parameters
+    ----------
+    def_file: SBtab.SBtabTable
+        Definitions file as SBtab table object.
+    table_type: str
+        SBtab table type for which the descriptions shall be extracted.
+
+    Returns: (dict, dict)
+        Two dictionaries that link the column name to its description and to a Bool flag indicating if it
+        is a shortname identifier possibly linking to another SBtab table.
     '''
     col2description = {}
     col2link = {}
@@ -254,14 +370,24 @@ def find_descriptions(def_file, table_type):
     for row in def_file.value_rows:
         if row[def_file.columns_dict['!IsPartOf']] == table_type:
             col2description[row[def_file.columns_dict['!ComponentName']]] = row[def_file.columns_dict['!Description']]
-            col2link['!'+row[def_file.columns_dict['!ComponentName']]] = row[def_file.columns_dict['!linksShortname']]
+            col2link['!'+row[def_file.columns_dict['!ComponentName']]] = row[def_file.columns_dict['!isShortname']]
 
-    return (col2description,col2link)
+    return (col2description, col2link)
 
 
 def xlsx_to_tsv(file_object, f='web'):
     '''
-    convert xlsx SBtab file to tsv format
+    Converts xlsx SBtab file to tsv format.
+
+    Parameters
+    ----------
+    file_object: xlsx file object
+        SBtab table as xlsx file object.
+    f: str
+        String indicating how the file object is represented ('web' for online file handling, otherwise normal file handling)
+    
+    Returns: str
+        SBtab table as tsv string.
     '''
     import openpyxl
     from io import BytesIO
@@ -286,7 +412,15 @@ def xlsx_to_tsv(file_object, f='web'):
 
 def tab_to_xlsx(sbtab_object):
     '''
-    converts SBtab object to xlsx file object
+    Converts SBtab object to xlsx file object.
+
+    Parameters
+    ----------
+    sbtab_object: SBtab.SBtabTable
+        SBtab table object.
+
+    Returns: xlsx file object
+        SBtab table as xlsx file object.
     '''
     import openpyxl
 
@@ -300,14 +434,24 @@ def tab_to_xlsx(sbtab_object):
 
     wb.save('transition.xlsx')
     
-    fileobject = open('transition.xlsx','rb')
+    f = open('transition.xlsx','rb')
+    fileobject = f.read()
+    f.close()
 
-    return fileobject.read()
+    return fileobject
 
 
 def xml_to_html(sbml_file):
     '''
-    generates html view out of xml file
+    Generates HTML view of XML (SBML) file.
+
+    Parameters
+    ----------
+    sbml_file: str
+        SBML file in string representation.
+
+    Returns: str
+        SBML file as HTML view.
     '''
     old_sbml = sbml_file.split('\n')
     new_sbml = '<xmp>'
@@ -317,17 +461,3 @@ def xml_to_html(sbml_file):
 
     return new_sbml
 
-            
-def extract_supported_table_types():
-    '''
-    extracts all allowed SBtab TableTypes from the definition file
-    '''
-    sbtab_def = open_definitions_file()
-    
-    supported_types = []
-    for row in sbtab_def.value_rows:
-        t = row[sbtab_def.columns_dict['!IsPartOf']]
-        if t not in supported_types:
-            supported_types.append(t)
-
-    return supported_types

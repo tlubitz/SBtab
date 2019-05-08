@@ -40,6 +40,7 @@
 <header>
   <div class="container-fluid bg-1 text-center">
     <div class="jumbotron" align="center">
+      <img class="show-mobile" src="/sbtab/static/images/sbtab-logo.png" alt="SBtab Logo">
       <h1><small>Documentation</small></h1>
     </div>
   </div>
@@ -63,7 +64,7 @@
 	    SBtab table types and the corresponding columns and contents. <br>
 	    Next to the SBtab specification details, we offer several software tools for the handling of SBtab. These tools
 	    can be used online, as Python3, R, or Matlab programming code or as commandline tools. See the
-	    <a href="employ">SBtab employment options</a> for more details. Also, visit the
+	    <a href="#employ">SBtab employment options</a> for more details. Also, visit the
 	    <a href="https://github.com/tlubitz/SBtab">SBtab Github page</a> if you are interested in the source code or want to
 	    contribute to the project.<br>
 	    If you encounter any problems with SBtab or its tools, please consult our Section <a href="#faq">Frequently Asked Questions</a>.
@@ -106,7 +107,7 @@
 	  <h2>Definition of SBtab table types</h2>
 	  <p>The definition of all predefined SBtab table types, their corresponding columns and contents,
 	    can be found in the <a href="https://www.sbtab.net/sbtab/static/documents/definitions.tsv">definitions.tsv</a>.
-	    This file can also be employed if you want to define an individual table type for types of data
+	    Besides the table type information, this file can also be employed if you want to define an individual table type for types of data
 	    that SBtab does not cover so far. Simply download the definitions, add your table type and the
 	    columns to the end of the file, and upload it on the
 	    <a href="https://www.sbtab.net/sbtab/default/def_files.html">SBtab customiser</a>. Then, you can
@@ -170,8 +171,9 @@
 	  <p>
 	    Python users can install SBtab functionality under Linux systems
 	    in form of a <a href="https://pypi.org/project/sbtab/">pip3 package</a>.
-	    Simply type <code>sudo pip3 install sbtab</code>
-	    in your commandline and the package will be installed. Then, you
+	    First, <a href="https://pip.pypa.io/en/stable/installing/">install pip</a>
+	    on your system, if it is not already installed. Next, simply type <code>sudo pip3 install sbtab</code>
+	    in your commandline and the package will be installed. Finally, you
 	    can import the package in your Python3 scripts via
 	    <code>import sbtab</code>. More information can be found on
 	    the <a href="https://github.com/tlubitz/SBtab">SBtab Github page</a>.
@@ -281,7 +283,14 @@
 	    SBtab table of a corresponding table type <code>Quantity</code> or <code>Reaction</code>.
 	    A very small example SBtab table is depicted below.
 	  </p>
-	  <figure style="margin-bottom:30px;text-align:right;">
+	  <div class="show-mobile">
+	    <p style="color:red;font-style:italic;">
+	      Please be aware that SBtab is a table-based format and tables
+	      are difficult to display on mobile. Please visit our page with
+	      a desktop computer to see the SBtab tables.
+	    </p>
+	  </div>	  
+	  <figure class="hide-mobile" style="margin-bottom:30px;text-align:right;">
 	    <img width="95%" src="../static/images/example_sbtab_table.png" alt="SBtab Logo" style="margin:20px;">
 	  </figure>
 	  <p>
@@ -301,7 +310,14 @@
 	    document, which can e.g. link an entry from a compound SBtab to the reaction
 	    formula of a reaction SBtab. See the small example SBtab document depicted below.
 	  </p>
-	  <figure style="margin-bottom:30px;text-align:right;">
+	  <div class="show-mobile">
+	    <p style="color:red;font-style:italic;">
+	      Please be aware that SBtab is a table-based format and tables
+	      are difficult to display on mobile. Please visit our page with
+	      a desktop computer to see the SBtab tables.
+	    </p>
+	  </div>
+	  <figure class="hide-mobile" style="margin-bottom:30px;text-align:right;">
 	    <img width="95%" src="../static/images/example_sbtab_document.png" alt="SBtab Logo" style="margin:20px;">
 	  </figure>
 	  <p>
@@ -391,12 +407,11 @@
 	  <p>
 	    SBtab tables are normal data tables
 	    (spreadsheets or delimited text files), but to enable an easy
-	    exchange of data, the tables themselves, in particular column
-	    titles, need to respect certain rules. You can make your own table
+	    exchange of data, these tables need to respect certain rules. You can make your own table
 	    files SBtab-compliant by a number of small changes:
 	    <ol>
 	      <li>Choose an SBtab table type appropriate for your specific kind of data
-		(for a list of predefined table types, see the SBtab specification).</li> 
+		(for a list of predefined table types, see the <a href="#spec">SBtab specification</a>).</li> 
 	      <li>Insert a declaration line (starting with "!!SBtab") as the first line
 		of your table and declare the table type by an attribute "TableType='x'"
 		in the same line, where 'x' corresponds to a valid table type.</li>
@@ -405,7 +420,8 @@
 		identifier (which must be unique for each table in a SBtab document
 		consisting of more than one table).
 	      </li>
-	      <li>Unique identifers must be given in a
+	      <li>The second row after the declaration row is the row with
+		the column titles. Unique identifiers must be given in a
 		column "!ID". The elements in this column serve as shortnames,
 		to be referenced in other tables, and must therefore be unique
 		(e.g., unique gene names). It is good practise to make the "!ID"
@@ -418,6 +434,10 @@
 		for your table type, which columns you want to use. Each column
 		must be preceded with an exclamation mark "!" and its content
 		must adhere to the data format given in the definitions file.
+		You can also add individual columns that are not part of the
+		SBtab predefined table type. If you do so, simply omit the "!"
+		at the beginning of the column header. Then, the column is part
+		of your SBtab but its content will be ignored by SBtab software tools.
 	      </li>
 	      <li>In columns containing biological annotations (e.g., database
 		identifiers for chemical compounds), use column names as described
@@ -427,60 +447,106 @@
 		If you want to create a whole SBtab document instead of a single
 		SBtab table, please make sure to be consistent in the usage of
 		shortnames and be careful that all IDs are unique within the whole
-		document.
+		document. You will further need to begin your document with a document
+		declaration row preceded with "!!!SBtab" and followed by the
+		document attributes.
 	      </li>
 	    </ol>
-	  <p>To check your SBtab files for correct syntax, 
-	    use the <a href="https://www.sbtab.net/sbtab/default/validator">online validator</a>.
+	  <p>If you are still unsure about aforementioned points, we suggest you
+	    have a look at our numerous example files in the
+	    <a href="https://www.sbtab.net/sbtab/default/downloads.html">Download Section</a>.
+	    In the end, to check your SBtab files for correct syntax, 
+	    you can use the <a href="https://www.sbtab.net/sbtab/default/validator">online validator</a>.
 	  </p>
 	</article>
 	
 	<article>
 	  <h2>I cannot upload and/or convert my SBML file to SBtab.</h2>
 	  <p>
-	    The SBML to SBtab converter requires SBML code Level 2, Version 4, or higher. Please make sure that your SBML file has the correct file extension (.xml or .sbml) and if this not helps, consult the <a href="http://sbml.org/validator">online SBML validator</a> to ensure that your file is valid SBML.
+	    The SBML to SBtab converter requires SBML code Level 2, Version 4, or higher.
+	    Please make sure that your SBML file has the correct file extension (.xml or .sbml)
+	    and if this does not help, consult the <a href="http://sbml.org/validator">online SBML validator</a>
+	    to ensure that your file is valid SBML.
 	  </p>
 	</article>
 	
 	<article>
 	  <h2>My SBtab file cannot be uploaded.</h2>
 	  <p>
-	    SBtab files can be uploaded as long as they have the right file extension. Possible extensions are .csv, .tsv, .xls. However, if you still cannot upload your SBtab file, please consult the SBtab example files that are provided in the <a href="https://www.sbtab.net/sbtab/default/downloads.html">Files Section</a>.
+	    SBtab files can be uploaded as long as they have the right file extension.
+	    Possible extensions are .csv, .tsv, .xlsx. We recommend the usage of .tsv.
+	    However, if you still cannot upload
+	    your SBtab file, please consult the SBtab example files that are provided in the
+	    <a href="https://www.sbtab.net/sbtab/default/downloads.html">Files Section</a>.
 	  </p>
 	</article>
 	
 	<article>
 	  <h2>When I open my SBtab file with Excel or LibreOffice, the columns are not separated correctly.</h2>
 	  <p>
-	    This can happen when the spreadsheet tool does not identify the delimiter of the file correctly. Some version of LibreOffice cannot deal with tsv files; in this case it suffices to rename your file extension from tsv to csv and then it works. In any case, all tools offer the possibility to choose the delimiter for the columns. This happens usually on startup of the software (LibreOffice) or can be chosen via the Text Import Wizard (MS Excel).
+	    This can happen when the spreadsheet tool does not identify the delimiter of the file correctly.
+	    Some version of LibreOffice cannot deal with tsv files; in this case it suffices to rename
+	    your file extension from tsv to csv and then it works. In any case, all tools offer the
+	    possibility to choose the delimiter for the columns. This happens usually on startup of
+	    the software (LibreOffice) or can be chosen via the Text Import Wizard (MS Excel).
 	  </p>
 	</article>
 	
 	<article>
 	  <h2>My SBtab file cannot be converted to SBML.</h2>
 	  <p>
-	    Note that not *all* SBtab files can be converted to SBML, they need to contain model structure information. Thus, the conversion requires at least a Reaction or Compound SBtab file. Of course, combinations are feasible, as long as one of these mandatory files is provided. If the conversion still does not work, try and validate the files you are using on the <a href="https://www.sbtab.net/sbtab/default/validator.html">SBtab validator page</a>. If there is no validation warning, but the conversion still does not work, please look at the <a href="https://www.sbtab.net/sbtab/default/downloads.html">SBtab example files</a> and consult the specification. Oftentimes, it can be helpful to view the SBtab file with a text editor instead of Excel/Open Office; this enables the user to see the file completely unformatted and identify possible problems.
+	    Note that not *all* SBtab files can be converted to SBML, they need to contain
+	    model structure information. Thus, the conversion requires at least a Reaction
+	    or Compound SBtab file. Of course, combinations are feasible, as long as one of
+	    these mandatory files is provided. If the conversion still does not work, try
+	    and validate the files you are using on the
+	    <a href="https://www.sbtab.net/sbtab/default/validator.html">SBtab validator page</a>.
+	    If there is no validation warning, but the conversion still does not work,
+	    please look at the
+	    <a href="https://www.sbtab.net/sbtab/default/downloads.html">SBtab example files</a>
+	    and consult the <a href="spec">specification</a>. Oftentimes, it can be helpful to view the SBtab file
+	    with a text editor instead of Excel/Open Office; this enables the user to see the
+	    file completely unformatted and identify possible problems.
 	  </p>
 	</article>
 	
 	<article>
 	  <h2>The Excel add-in cannot be installed properly.</h2>
 	  <p>
-	    This can have several reasons. First, verify that all required pre-requisites are fulfilled for the add-in to work (see <a href="https://www.sbtab.net/sbtab/default/documentation.html">add-in page</a>). Then, in Excel you can edit the "SBtab settings" in the SBtab add-in menu. Click the button and make sure that the paths are set correctly: the Python interpreter should be set to the installation directory "xlSBtab/python/python.exe" and the SBtab path should be set to "xlSBtab/SBtab/scripts". The installation directory xlSBtab can usually be found in "/Program Files/" or "/Program Files (x86)/", depending on your system.
+	    This can have several reasons. First, verify that all required pre-requisites
+	    are fulfilled for the add-in to work (see
+	    <a href="https://github.com/tlubitz/SBtab/tree/master/excel">xlSBtab add-in page</a>).
+	    Then, in Excel you can edit the "SBtab settings" in the SBtab add-in menu.
+	    Click the button and make sure that the paths are set correctly: the Python
+	    interpreter should be set to the installation directory "xlSBtab/python/python.exe"
+	    and the SBtab path should be set to "xlSBtab/SBtab/scripts". The installation
+	    directory xlSBtab can usually be found in "/Program Files/" or "/Program Files (x86)/",
+	    depending on your system.
 	  </p>
 	</article>
 	
 	<article>
 	  <h2>I converted SBtab to SBML, but the SBML is invalid.</h2>
 	  <p>
-	    During the conversion from SBtab to SBML, kinetic laws from the SBtab file can be converted to SBML code. This is a complex process and the kinetic laws provided by the user are not checked for causality: If the user provides erroneous laws, the resulting SBML file will be invalid. The same scenario holds for rules (algebraic, rate, or assignment). In future, SBtab will also comprise validity checks of kinetic laws and rules in SBtabs, but currently this is not the case. By using the <a href="http://sbml.org/validator">SBML online validator</a>, you can always find out which other invalidities an SBML file might hold.
+	    During the conversion from SBtab to SBML, kinetic laws from the SBtab file can be
+	    converted to SBML code. This is a complex process and the kinetic laws provided
+	    by the user are not checked for causality: If the user provides erroneous laws,
+	    the resulting SBML file will be invalid. The same scenario holds for rules
+	    (algebraic, rate, or assignment). In future, SBtab will also comprise validity
+	    checks of kinetic laws and rules in SBtabs, but currently this is not the case.
+	    By using the <a href="http://sbml.org/validator">SBML online validator</a>, you
+	    can always find out which other invalidities an SBML file might hold.
 	  </p>
 	</article>
 	
 	<article>
 	  <h2>There seems to be a chaos in the submitted SBtab and SBML files in my browser session.</h2>
 	  <p>
-	    This can happen from time to time while extensive uploading and downloading of files from the server side. Simply click on this <a href="https://www.sbtab.net/sbtab/default/clearsession">clear</a> link to clear all files from your current session and start new.
+	    This can happen from time to time while extensive uploading and downloading of files
+	    from the server side. Simply click on this
+	    <a href="https://www.sbtab.net/sbtab/default/clearsession">clear session</a>
+	    link to clear all files from your current session and start new. Note that currently
+	    uploaded files will be lost from the session.
 	  </p>
 	</article>
       </div>

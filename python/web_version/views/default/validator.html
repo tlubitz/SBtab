@@ -40,6 +40,7 @@
 <header>
   <div class="container-fluid bg-1 text-center">
     <div class="jumbotron" align="center">
+      <img class="show-mobile" src="/sbtab/static/images/sbtab-logo.png" alt="SBtab Logo">      
       <h1><small>SBtab Online Validator</small></h1>
     </div>
   </div>
@@ -55,6 +56,13 @@
 	  <p>
 	    Information on the SBtab validator can be found in the <a href="../static/files/validator_manual.pdf">manual</a>.
 	  </p>
+	  
+	  {{if DEF_FILE_NAME:}}
+	  <p>
+	    The definition file <strong>{{=DEF_FILE_NAME}}</strong> is used for validation.
+	  </p>
+	  {{pass}}
+	  
 	  
 	  {{=UPL_FORM}}
 	  
@@ -154,12 +162,6 @@
 	  <div style="text-align:left;width:100%;">
 	    &bull;  {{=WARNINGS[0]}}
 	  </div>
-	  
-	  {{if DEF_FILE_NAME:}}
-	  <div style="text-align:left;width:100%;">
-	    The definition file <strong>{{=DEF_FILE_NAME}}</strong> is used for validation.
-	  </div>
-	  {{pass}}
 
 	  {{else:}}
 	  <div style="text-align:left;width:100%;">

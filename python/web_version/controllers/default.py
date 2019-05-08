@@ -133,13 +133,16 @@ def validator():
                 session.sbtab_docnames.append(filename)
                 for i, sbtab_string in enumerate(sbtab_strings):
                     name_single = filename[:-4] + str(i) + filename[-4:]
-                    if name_single not in session.sbtab_filenames:
-                        sbtab = SBtab.SBtabTable(sbtab_string, name_single)
+                    sbtab = SBtab.SBtabTable(sbtab_string, name_single)
+                    new_name = filename[:-4] + '_' + sbtab.table_id + filename[-4:]
+                    sbtab.change_filename(new_name)
+                    if new_name not in session.sbtab_filenames:
                         sbtab_doc.add_sbtab(sbtab)
                         session.sbtabs.append(sbtab)
                         session.types.append(sbtab.table_type)
-                        session.sbtab_filenames.append(name_single)
-                        session.name2doc[name_single] = filename
+                        session.sbtab_filenames.append(new_name)
+                        session.name2doc[new_name] = filename
+
                     else:
                         session.warnings_val.append('The SBtab %s is duplicate.' % sbtab.filename)
                         redirect(URL(''))
@@ -300,14 +303,19 @@ def converter():
                 sbtab_doc = SBtab.SBtabDocument(filename)
                 session.sbtab_docnames.append(filename)
                 for i, sbtab_string in enumerate(sbtab_strings):
+
                     name_single = filename[:-4] + str(i) + filename[-4:]
-                    if name_single not in session.sbtab_filenames:
-                        sbtab = SBtab.SBtabTable(sbtab_string, name_single)
+                    sbtab = SBtab.SBtabTable(sbtab_string, name_single)
+                    new_name = filename[:-4] + '_' + sbtab.table_id + filename[-4:]
+                    sbtab.change_filename(new_name)
+
+                    if new_name not in session.sbtab_filenames:
                         sbtab_doc.add_sbtab(sbtab)
                         session.sbtabs.append(sbtab)
-                        session.sbtab_filenames.append(name_single)
                         session.types.append(sbtab.table_type)
-                        session.name2doc[name_single] = filename
+                        session.sbtab_filenames.append(new_name)
+                        session.name2doc[new_name] = filename
+
                     else:
                         session.warnings_con.append('The SBtab %s is duplicate.' % sbtab.filename)
                         redirect(URL(''))

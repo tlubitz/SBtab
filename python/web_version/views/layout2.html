@@ -4,74 +4,76 @@
     <meta name="author" content="Timo Lubitz">
     <meta name="description"  content="SBtab Website">
     <meta name="application-name" content="{{=request.application}}" />
+    <meta name="google-site-verification" content="EZvlOROpzXa5Hkt7XsuLtx16Cvh7337osVmbD7Jg2AE" />
     
     <!-- this is required for responsiveness -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- add bootstrap CSS; normalize for JS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
-    <link href="/sbtab/static/css/bootstrap.css" rel="stylesheet">  <!-- Lumen Layout --> 
+    <link href="/sbtab/static/css/bootstrap.css" rel="stylesheet">  <!-- Lumen Layout -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/sbtab/static/css/sbtab.css">  <!-- Custom Layout -->
+    
     {{block title}}
     {{end}}
     <link rel="icon" type="image/png" href="/sbtab/static/images/sbtab_favicon.png">
   </head>
 
   <body>
-    <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-dark bg-primary">
-      <div class="nav-container">
+    
+	    <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-dark bg-primary">
+	      <div class="nav-container">
 	
-	<a class="navbar-brand" href="https://www.sbtab.net">
-	  <img class="sb" src="/sbtab/static/images/sbtab-logo.png" alt="SBtab Logo">
-	</a>      
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-	  <span class="navbar-toggler-icon"></span>
-	</button>
+		<a class="navbar-brand" href="https://www.sbtab.net">
+		  <img class="sb" src="/sbtab/static/images/sbtab-logo.png" alt="SBtab Logo">
+		</a>
+	
+		<div class="my_mobile_nav">
+		  <button type="button" class="navbar-toggler collapsed nav-btn" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+		</div>
       
-	<div class="nav right" style="right:20px;position: absolute;">
-	  <ul class="navbar-nav mr-auto">
-	    {{block dynamic_nav}}
-	    <li class="nav-item">
-	      <a class="nav-link" href="https://www.sbtab.net/sbtab/default/introduction.html">Getting started</a>
-	    </li>
-	    <li class="nav-item dropdown">
-	      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="Click to see SBtab Online Tools">
-		Online Tools
-	      </a>
-	      <ul class="dropdown-menu">
-		<li>
-		  <a href="https://www.sbtab.net/sbtab/default/validator.html">Validator</a>
-		</li>
-		<li>
-		  <a href="https://www.sbtab.net/sbtab/default/converter.html">SBML converter</a>
-		</li>
-		<li>
-		  <a href="https://www.sbtab.net/sbtab/default/def_files.html">Customize SBtab</a>
-		</li>
-	      </ul>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link" href="https://www.sbtab.net/sbtab/default/documentation.html">Documentation</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link" href="https://www.sbtab.net/sbtab/default/download.html">Download</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link" href="https://www.sbtab.net/sbtab/default/team.html">Contact</a>
-	    </li>
-	    {{end}}
-	  </ul>
-	  <!--
-	      <form class="form-inline my-2 my-lg-0">
-		<input class="form-control mr-sm-2" type="text" placeholder="Search">
-		<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-	      </form>
-	      -->
-	</div>
-      </div>
-    </nav>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="right:20px;position: absolute;">
+		  <ul class="navbar-nav mr-auto">
+		    {{block dynamic_nav}}
+		    <li class="nav-item">
+		      <a class="nav-link" href="https://www.sbtab.net/sbtab/default/introduction.html">Getting started</a>
+		    </li>
+		    <li class="nav-item dropdown">
+		      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="Click to see SBtab Online Tools">
+			Online Tools
+		      </a>
+		      <ul class="dropdown-menu">
+			<li>
+			  <a href="https://www.sbtab.net/sbtab/default/validator.html">Validator</a>
+			</li>
+			<li>
+			  <a href="https://www.sbtab.net/sbtab/default/converter.html">SBML converter</a>
+			</li>
+			<li>
+			  <a href="https://www.sbtab.net/sbtab/default/def_files.html">Customize SBtab</a>
+			</li>
+		      </ul>
+		    </li>
+		    <li class="nav-item">
+		      <a class="nav-link" href="https://www.sbtab.net/sbtab/default/documentation.html">Documentation</a>
+		    </li>
+		    <li class="nav-item">
+		      <a class="nav-link" href="https://www.sbtab.net/sbtab/default/download.html">Download</a>
+		    </li>
+		    <li class="nav-item">
+		      <a class="nav-link" href="https://www.sbtab.net/sbtab/default/team.html">Contact</a>
+		    </li>
+		    {{end}}
+		  </ul>
+		</div>
+	      </div>
+	    </nav>
+
+
 
     <div style="text-align:center;">
     {{block center}}
@@ -86,17 +88,20 @@
   {{if response.google_analytics_id:}}
   <script src="{{=URL('static','js/analytics.min.js')}}"></script>
   <script type="text/javascript">
-  analytics.initialize({
+    analytics.initialize({
     'Google Analytics':{trackingId:'{{=response.google_analytics_id}}'} 
-  });</script>
+    });</script>
   {{pass}}
   <script src="{{=URL('static','js/share.js',vars=dict(static=URL('static','images')))}}"></script>
   <script type="text/javascript">
     function help_click(div, txt) { if (div.innerHTML == "") div.innerHTML = "<br/>   " + txt; else div.innerHTML = ""; }
   </script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="{{=URL('static','js/bootstrap.min.js')}}"></script>
+
+
   <script src="{{=URL('static','js/web2py_bootstrap.js')}}"></script>
+  <!--<script src="{{=URL('static','js/bootstrap.min.js')}}"></script>-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 </body>
 </html>
 

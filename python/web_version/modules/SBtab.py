@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 '''
-SBtab
-=====
-SBtab is a uniforming table format and designed for the use in
-Systems Biology. Furthermore, it is a useful format to import stored
-information into Python objects to process and manipulate it.
+SBtab is a table format for Systems Biology. It can store different kinds
+of data. The SBtabTable and SBtabDocument classes allow the storage,
+manipulation, and removal of data from the tables.
 
 See specification for further information.
 '''
@@ -13,14 +11,24 @@ import csv
 import datetime
 from io import StringIO
 import logging
-try:
-    from . import misc
-except:
-    import misc
+try: from . import misc
+except: import misc
 
 def read_csv(filepath, document_name, xlsx=False):
     '''
-    read in an SBtab file; it can be csv, but also tsv.
+    Reads an SBtab file; it can be csv, but also tsv.
+
+    Parameters
+    ----------
+    filepath: str
+        Path to the file that shall be read.
+    document_name: str
+        A name for the document to be created.
+    xlsx: Bool
+        Boolean flag that indicates if the file is in xlsx format.
+
+    Returns: SBtab.SBtabDocument
+        SBtab document which is created from the given file.    
     '''
     sbtab_file = False
     
@@ -57,16 +65,16 @@ class SBtabError(Exception):
 
 class SBtabTable():
     '''
-    SBtabTable (version 0.9.0 06/10/2010)
+    SBtabTable (version 1.0.0 24/12/2018)
     '''
     def __init__(self, table_string, filename):
         '''
-        Creates SBtab Python object from tablib object.
+        Creates SBtab table object from string.
 
         Parameters
         ----------
         table : str
-            Containing one SBtab, uncut. Directly from f.read().
+            One SBtab string from read file.
         filename : str
             Filename with extension.
         '''
@@ -334,9 +342,9 @@ class SBtabTable():
         '''
         bring consistency in the multifarious quotation mark problems
         '''
-        stupid_quotes = ['\xe2\x80\x9d', '\xe2\x80\x98', '\xe2\x80\x99', '”',
+        stupid_quotes = ['\xe2\x80\x9d', '\xe2\x80\x98', '\xe2\x80\x99',
                          '\xe2\x80\x9b', '\xe2\x80\x9c', '\xe2\x80\x9f', '"',
-                         '\xe2\x80\xb2', '\xe2\x80\xb3', '\xe2\x80\xb4', '‘',
+                         '\xe2\x80\xb2', '\xe2\x80\xb3', '\xe2\x80\xb4',
                          '\xe2\x80\xb5', '\xe2\x80\xb6', '\xe2\x80\xb7']
 
         for squote in stupid_quotes:
@@ -457,8 +465,10 @@ class SBtabTable():
     # Here, the SBtab API starts
     def to_str(self):
         '''
-        sometimes the file is required as a string (e. g. for
-        writing files to harddisk; return string
+        Returns the SBtab table as a string.
+
+        Returns: str
+            The SBtab table in form of a string.
         '''
         table_string = [self.header_row]
         table_string.append('\t'.join(self.columns))
@@ -470,7 +480,14 @@ class SBtabTable():
     
     def change_attribute(self, attribute, value):
         '''
-        change the value of an SBtab attribute
+        Changes the value of an SBtab attribute.
+
+        Parameters
+        ----------
+        attribute : str
+            Attribute from the SBtab object's declaration row.
+        value: str
+            Value that the attribute should take.
         '''
         att_value_new = "%s='%s'" % (attribute, value)
 
@@ -483,9 +500,25 @@ class SBtabTable():
             except:
                 raise SBtabError('Attribute value %s could not be replaced in the header.' % attribute)
 
+    def change_filename(self, new_name):
+        '''
+        Changes the filename of the SBtab.
+
+        Parameters
+        ----------
+        new_name: str
+            New name for the SBtab object.
+        '''
+        self.filename = new_name
+            
     def unset_attribute(self, attribute):
         '''
-        remove attribute from header row
+        Removes an attribute from SBtab declaration row.
+
+        Parameters
+        ----------
+        attribute : str
+            Attribute that shall be removed from the SBtab object's declaration row.
         '''
         obligatory_attributes = ['TableType', 'TableID']
         if attribute in obligatory_attributes:
@@ -502,7 +535,15 @@ class SBtabTable():
             
     def get_attribute(self, attribute):
         '''
-        get the value of an SBtab attribute
+        Returns the value of an SBtab attribute.
+
+        Parameters
+        ----------
+        attribute : str
+            Attribute from the SBtab object's declaration row.
+
+        Returns: str
+            Value of the requested attribute.
         '''
         try:
             value = re.search("%s='([^']*)'" % attribute, self.header_row).group(1)
@@ -512,7 +553,7 @@ class SBtabTable():
     
     def change_value(self, row, column, new):
         '''
-        Change single value in the SBtab table by position in the table.
+        Changes a single value in the SBtab table by position in the table.
 
         Parameters
         ----------
@@ -538,7 +579,7 @@ class SBtabTable():
         
     def change_value_by_name(self, name, column_name, new):
         '''
-        Change singe value in the SBtab by name of column
+        Changes single value in the SBtab by the name of the column
         and of the first row entry.
 
         Parameters
@@ -546,7 +587,7 @@ class SBtabTable():
         row : str
             Name of the entry in the ID column.
         column : str
-            Name of the column (with '!')
+            Name of the column (with '!').
         new : str
             New entry.
         '''
@@ -568,7 +609,10 @@ class SBtabTable():
 
     def create_list(self):
         '''
-        Creates a list object of the SBtab Python object.
+        Creates a list object of the SBtab table object.            
+
+        Returns: list
+            List containing of SBtab content: [declaration row, columns, value_rows]
         '''
         # Create new list
         sbtab_list = []
@@ -583,7 +627,7 @@ class SBtabTable():
 
     def add_row(self, row_list, position=None):
         '''
-        Adds row to the table, if postion is None at the end of it.
+        Adds a row to the table, if postion is None at the end of it.
 
         Parameters
         ----------
@@ -615,7 +659,7 @@ class SBtabTable():
 
     def remove_row(self, position):
         '''
-        Removes row from the table
+        Removes one row from the table.
 
         Parameters
         ----------
@@ -696,7 +740,12 @@ class SBtabTable():
 
     def write(self, filename):
         '''
-        write SBtab to hard disk
+        Writes SBtab to hard disk.
+
+        Parameters
+        ----------
+        filename: str
+            Name for the output file.
         '''
         if type(filename) != str:
             raise SBtabError('Please provide a filename as string.')
@@ -722,6 +771,9 @@ class SBtabTable():
     def transpose_table(self):
         '''
         Transposes SBtab table. Switches columns and rows.
+
+        Returns: SBtab.SBtabTable
+            SBtab object with transposed content.
         '''
         # Initialize new table data
         trans_columns = []
@@ -758,7 +810,10 @@ class SBtabTable():
     
     def to_data_frame(self):
         '''
-        Exports SBtab table object as pandas dataframe
+        Exports SBtab table object as pandas dataframe.
+
+        Returns: pandas.DataFrame
+            SBtab table object as pandas dataframe.
         '''
         try:
             import pandas as pd
@@ -776,6 +831,31 @@ class SBtabTable():
     def from_data_frame(df, table_id, table_type, table_name='',
                         document_name='', document='', unit='',
                         sbtab_version='1.0'):
+        '''
+        Creates SBtab table object from pandas dataframe.
+
+        Parameters
+        ----------
+        df : pandas.DataFrame
+            Dataframe of the Python library pandas.
+        table_id: str
+            Mandatory table ID for the SBtab object.
+        table_type: str
+            Mandatory table type for the SBtab object.
+        table_name: str
+            Optional table name for the SBtab object.
+        document_name: str
+            Optional document name for the SBtab object.
+        document: str
+            Optional document for the SBtab object.
+        unit: str
+            Optional unit for an SBtab TableType Quantity.
+        sbtab_version: str
+            Optional SBtab Version.
+
+        Returns: SBtab.SBtabTable
+            SBtab table object created from pandas dataframe.
+        '''        
         table_string = StringIO()
         csv_writer = csv.writer(table_string, delimiter=',')
 
@@ -803,7 +883,16 @@ class SBtabDocument:
     '''
     def __init__(self, name, sbtab_init=None, filename=None):
         '''
-        simple initialisation of SBtabDocument with an optional SBtab Table object
+        Creates SBtabDocument with an optional SBtab table object.
+
+        Parameters
+        ----------
+        name: str
+            Name for the SBtab document.
+        sbtab_init: str | SBtab.SBtabTable
+            Initial SBtab table as either string or SBtab table object
+        filename: str
+            If sbtab_init is string, also provide a fiename.            
         '''
         self.name = name
         self.filename = filename
@@ -827,7 +916,12 @@ class SBtabDocument:
         
     def add_sbtab(self, sbtab):
         '''
-        add an SBtab Table object to the SBtab Document
+        Adds an SBtab Table object to the SBtab Document.
+
+        Parameters
+        ----------
+        sbtab: SBtab.SBtabTable
+            SBtab table object to be added to the document.
         '''
         if not self.filename:
             self.filename = sbtab.filename
@@ -847,13 +941,20 @@ class SBtabDocument:
                 self.type_to_sbtab[sbtab.table_type] = tabs
             else:
                 self.type_to_sbtab[sbtab.table_type] = [sbtab]
-
+            
             self._get_doc_row_attributes()
             return True
 
     def add_sbtab_string(self, sbtab_string, filename):
         '''
-        add one or multiple SBtab files as string
+        Adds one or multiple SBtab files as a string.
+
+        Parameters
+        ----------
+        sbtab_string: str
+            One string holding one or more SBtab tables.
+        filename: str
+            Name of the given SBtab.
         '''
         # set filename if not given
         if not filename:
@@ -868,21 +969,22 @@ class SBtabDocument:
         except:
             raise SBtabError('The SBtab file could not be read properly.')
 
+        # here, we find a possible doc row
+        for row in sbtab_string.split('\n'):
+            if row.startswith('!!!'):
+                self.doc_row = self._dequote(row)
+                break
+            elif row.startswith('"!!!'):
+                rm1 = row.replace('""', '#')
+                rm2 = rm1.replace('"','')
+                self.doc_row = self._dequote(rm2.replace('#', '"'))
+                break
+        
         # if there are more than one SBtabs, cut them in single SBtabs
         try:
             if sbtab_amount > 1:
                 sbtab_strings = misc.split_sbtabs(sbtab_string)
                 for i, sbtab_s in enumerate(sbtab_strings):
-                    # here, we find a possible doc row
-                    if sbtab_s.startswith('!!!'):
-                        self.doc_row = self._dequote(sbtab_s)
-                        continue
-                    elif sbtab_s.startswith('"!!!'):
-                        rm1 = sbtab_s.replace('""', '#')
-                        rm2 = rm1.replace('"','')
-                        self.doc_row = self._dequote(rm2.replace('#', '"'))
-                        continue
-                    # then, go on with the cut SBtabs
                     name_single = str(i) + '_' + self.filename
                     sbtab_single = SBtabTable(sbtab_s, name_single)
                     logging.debug('name = %s, type = %s' % (sbtab_single.table_name, sbtab_single.table_type))
@@ -897,12 +999,12 @@ class SBtabDocument:
             
     def _dequote(self, row):
         '''
-        bring consistency in the multifarious quotation mark problems
+        Brings consistency in the multifarious quotation mark problems
         '''
         stupid_quotes = ['"', '\xe2\x80\x9d', '\xe2\x80\x98', '\xe2\x80\x99',
                          '\xe2\x80\x9b', '\xe2\x80\x9c', '\xe2\x80\x9f',
                          '\xe2\x80\xb2', '\xe2\x80\xb3', '\xe2\x80\xb4',
-                         '\xe2\x80\xb5', '\xe2\x80\xb6', '\xe2\x80\xb7', '”']
+                         '\xe2\x80\xb5', '\xe2\x80\xb6', '\xe2\x80\xb7']
 
         for squote in stupid_quotes:
             try: row = row.replace(squote, "'")
@@ -914,8 +1016,16 @@ class SBtabDocument:
 
     def check_type_validity(self, ttype):
         '''
-        only certain table types are valid; this function checks if the
-        given one is
+        Checks if the given table type is supported by default.
+
+        Parameters
+        ----------
+        ttype: str
+            Table type to be tested.
+
+        Returns: Bool
+            Flag that indicates if the given table type is supported by default.
+
         '''
         try:
             supported_types = misc.extract_supported_table_types()
@@ -924,11 +1034,14 @@ class SBtabDocument:
                              ' establish supported table types.')
         
         if ttype in supported_types: return True
-        else: raise SBtabError('The table type %s is not supported.' % ttype)
+        else:
+            #raise SBtabError('The table type %s is not supported.' % ttype)
+            print('The table type %s is not supported.' % ttype)
+            return True
 
     def _get_doc_row_attributes(self):
         '''
-        read content of the !!!-document declaration row
+        Reads content of the !!!-document declaration row.
         '''
         now = datetime.datetime.now()
         self.date = '-'.join([str(now.year),str(now.month),str(now.day)])
@@ -957,7 +1070,14 @@ class SBtabDocument:
 
     def change_attribute(self, attribute, value):
         '''
-        change the value of an SBtab attribute
+        Changes the value of an SBtab attribute.
+
+        Parameters
+        ----------
+        attribute: str
+            Attribute from the SBtab document object's declaration row.
+        value: str
+            Value for the attribute.
         '''
         try:
             att_value_new = "%s='%s'" % (attribute, value)
@@ -975,7 +1095,12 @@ class SBtabDocument:
 
     def unset_attribute(self, attribute):
         '''
-        remove attribute from doc row
+        Removes attribute from SBtab document object's declaration row.
+
+        Parameters
+        ----------
+        attribute: str
+            Attribute that shall be removed.
         '''
         obligatory_attributes = ['Document']
         if attribute in obligatory_attributes:
@@ -992,7 +1117,15 @@ class SBtabDocument:
             
     def get_attribute(self, attribute):
         '''
-        get the value of an SBtab attribute
+        Returns the value of an SBtab attribute.
+        
+        Parameters
+        ----------
+        attribute: str
+            Attribute from the SBtab document object's declaration row.
+
+        Returns: str
+            Value of the requested attribute.
         '''
         try:
             value = re.search("%s='([^']*)'" % attribute, self.doc_row).group(1)
@@ -1002,7 +1135,12 @@ class SBtabDocument:
             
     def set_version(self, version):
         '''
-        set SBtabVersion of the document
+        Sets SBtabVersion of the document.
+
+        Parameters
+        ----------
+        version: str
+            Version number of SBtab document.            
         '''
         try:
             self.version = version
@@ -1011,7 +1149,12 @@ class SBtabDocument:
             
     def set_date(self, date):
         '''
-        set date of the document
+        Sets date of the document.
+
+        Parameters
+        ----------
+        date: str
+            Date of the SBtab document.
         '''
         try:
             self.date = date
@@ -1020,7 +1163,12 @@ class SBtabDocument:
             
     def set_doc_type(self, doc_type):
         '''
-        set doc_type of the document
+        Sets the type of the document.
+
+        Parameters
+        ----------
+        doc_type: str
+            Type of the SBtab document.
         '''
         try:
             self.doc_type = doc_type
@@ -1029,7 +1177,12 @@ class SBtabDocument:
                     
     def remove_sbtab_by_name(self, name):
         '''
-        remove SBtab Table from SBtab Document
+        Removes SBtab Table from SBtab Document.
+
+        Parameters
+        ----------
+        name: str
+            Name of the SBtab table to be removed.
         '''
         for i, sbtab in enumerate(self.sbtabs):
             if sbtab.table_name == name:
@@ -1045,38 +1198,73 @@ class SBtabDocument:
         
                 self.type_to_sbtab[sbtab.table_type] = tabs
                 break
+            
         return True
 
     def get_sbtab_by_name(self, name):
         '''
-        return sbtab by given name
+        Returns SBtab table object by given name.
+
+        Parameters
+        ----------
+        name: str
+            Name of SBtab table to be returned.
+
+        Returns: SBtab.SBtabTable
+            SBtab table object of requested name.
         '''
         try: return self.name_to_sbtab[name]
         except: return None
 
     def get_sbtab_by_id(self, name):
         '''
-        return sbtab by given ID
+        Returns SBtab table object by given ID.
+
+        Parameters
+        ----------
+        name: str
+            TableID of a SBtab table object.
+
+        Returns: SBtab.SBtabTable
+            SBtab table object of requested ID.
         '''
         try: return self.id_to_sbtab[name]
         except: return None        
 
     def get_sbtab_by_type(self, ttype):
         '''
-        returns list of sbtab objects by given table type
+        Returns list of SBtab objects by given table type.
+
+        Parameters
+        ----------
+        ttype: str
+            Supported SBtab table type.
+
+        Returns: list
+            List of SBtab.SBtabTable objects of the requested table type.
         '''
         try: return self.type_to_sbtab[ttype]
         except: return None
 
     def set_name(self, name):
         '''
-        set name of SBtab Document
+        Sets name of SBtab document.
+
+        Parameters
+        ----------
+        name: str
+            Name for the SBtab document.
         '''
         self.name = name
 
     def write(self, filename=None):
         '''
-        write SBtabDocument to hard disk
+        Writes SBtabDocument to hard disk.
+
+        Parameters
+        ----------
+        filename: str
+            Name for the output file.
         '''
         if not filename: filename = self.filename
         
@@ -1101,7 +1289,10 @@ class SBtabDocument:
 
     def to_str(self):
         '''
-        returns SBtab Document as one large string
+        Returns SBtab Document as one string.
+
+        Returns: str
+            SBtab.SBtabDocument as string representation.
         '''
         sbtab_document = self.doc_row + '\n'
         for sbtab in self.sbtabs:
@@ -1111,12 +1302,15 @@ class SBtabDocument:
     
     def get_custom_doc_information(self, attribute_name, test_row=None):
         '''
-        Retrieves the value of a doc attribute in the doc line
+        Retrieves the value of a doc attribute in the SBtab document object's declaration row.
 
         Parameters
         ----------
-        attribute_name : str
-           Name of the table attribute.
+        attribute_name: str
+           Name of the requested attribute.
+
+        Returns: str
+           Value of the requested attribute.
         '''
         if test_row: doc_row = test_row
         else: doc_row = self.doc_row
@@ -1131,7 +1325,12 @@ class SBtabDocument:
 
     def set_doc_row(self, new_doc_row):
         '''
-        set a new doc row
+        Sets a new SBtab document declaration row.
+
+        Parameters
+        ----------
+        new_doc_row: str
+            New SBtab document declaration row
         '''
         if not new_doc_row.startswith('!!!SBtab'):
             raise SBtabError('A doc row needs to be preceded with "!!!SBtab".')
