@@ -293,7 +293,7 @@ Unit	Column	Measurement	False	string	Measurement unit
 ValueType	Column	Measurement	False	string	Type of value (mean, standard deviation, etc)
 Description	Column	Measurement	False	string	Description of data value
 QuantityType	Column	QuantityInfo	False	string	QuantityType (e.g. from SBO)
-Symbol	Column	QuantityInfo	False	symbol	Symbol for the quantity type
+Symbol	Column	QuantityInfo	False	string	Symbol for the quantity type
 Unit	Column	QuantityInfo	False	string	Unit for the Median value
 Constant	Column	QuantityInfo	False	string	Is this value constant
 Element	Column	QuantityInfo	False	string	A related element
