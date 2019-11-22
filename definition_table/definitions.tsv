@@ -7,7 +7,7 @@ ReferenceDOI	Column	Reaction	False	string	Reference DOI
 Description	Column	Reaction	False	string	Description of the row element
 Modifier	Column	Reaction	True	string	Modifier of this reaction
 Name	Column	Reaction	False	string	Entity name
-MiriamAnnotations	Column	Reaction	False	string	Entity ID
+MiriamAnnotation	Column	Reaction	False	string	Entity ID
 Type	Column	Reaction	False	string	Biochemical type of entity
 Symbol	Column	Reaction	False	string	Short symbol (e.g. gene symbol)
 PositionX	Column	Reaction	False	float	x coordinate for graphical display
@@ -48,7 +48,7 @@ ReferencePubMed	Column	Compound	False	string	Reference PubMed ID
 ReferenceDOI	Column	Compound	False	string	Reference DOI
 Description	Column	Compound	False	string	Description of the row element
 Name	Column	Compound	False	string	Entity name
-MiriamAnnotations	Column	Compound	False	string	Entity ID
+MiriamAnnotation	Column	Compound	False	string	Entity ID
 Type	Column	Compound	False	string	Biochemical type of entity
 Symbol	Column	Compound	False	string	Short symbol (e.g. gene symbol)
 PositionX	Column	Compound	False	float	x coordinate for graphical display
@@ -78,7 +78,7 @@ ReferencePubMed	Column	Enzyme	False	string	Reference PubMed ID
 ReferenceDOI	Column	Enzyme	False	string	Reference DOI
 Description	Column	Enzyme	False	string	Description of the row element
 Name	Column	Enzyme	False	string	Entity name
-MiriamAnnotations	Column	Enzyme	False	string	Entity ID
+MiriamAnnotation	Column	Enzyme	False	string	Entity ID
 Type	Column	Enzyme	False	string	Biochemical type of entity
 Symbol	Column	Enzyme	False	string	Short symbol (e.g. gene symbol)
 PositionX	Column	Enzyme	False	float	x coordinate for graphical display
@@ -97,7 +97,7 @@ ReferencePubMed	Column	Protein	False	string	Reference PubMed ID
 ReferenceDOI	Column	Protein	False	string	Reference DOI
 Description	Column	Protein	False	string	Description of the row element
 Name	Column	Protein	False	string	Entity name
-MiriamAnnotations	Column	Protein	False	string	Entity ID
+MiriamAnnotation	Column	Protein	False	string	Entity ID
 Type	Column	Protein	False	string	Biochemical type of entity
 Symbol	Column	Protein	False	string	Short symbol (e.g. gene symbol)
 PositionX	Column	Protein	False	float	x coordinate for graphical display
@@ -112,7 +112,7 @@ ReferencePubMed	Column	Compartment	False	string	Reference PubMed ID
 ReferenceDOI	Column	Compartment	False	string	Reference DOI
 Description	Column	Compartment	False	string	Description of the row element
 Name	Column	Compartment	False	string	Entity name
-MiriamAnnotations	Column	Compartment	False	string	Entity ID
+MiriamAnnotation	Column	Compartment	False	string	Entity ID
 Type	Column	Compartment	False	string	Biochemical type of entity
 Symbol	Column	Compartment	False	string	Short symbol (e.g. gene symbol)
 PositionX	Column	Compartment	False	float	x coordinate for graphical display
@@ -131,7 +131,7 @@ ReferencePubMed	Column	Quantity	False	string	Reference PubMed ID
 ReferenceDOI	Column	Quantity	False	string	Reference DOI
 Description	Column	Quantity	False	string	Description of the row element
 Name	Column	Quantity	False	string	Entity name
-MiriamAnnotations	Column	Quantity	False	string	Entity ID
+MiriamAnnotation	Column	Quantity	False	string	Entity ID
 Type	Column	Quantity	False	string	Biochemical type of entity
 Symbol	Column	Quantity	False	string	Short symbol (e.g. gene symbol)
 PositionX	Column	Quantity	False	float	x coordinate for graphical display
@@ -193,7 +193,7 @@ ReferencePubMed	Column	Regulator	False	string	Reference PubMed ID
 ReferenceDOI	Column	Regulator	False	string	Reference DOI
 Description	Column	Regulator	False	string	Description of the row element
 Name	Column	Regulator	False	string	Entity name
-MiriamAnnotations	Column	Regulator	False	string	Entity ID
+MiriamAnnotation	Column	Regulator	False	string	Entity ID
 Type	Column	Regulator	False	string	Biochemical type of entity
 Symbol	Column	Regulator	False	string	Short symbol (e.g. gene symbol)
 PositionX	Column	Regulator	False	float	x coordinate for graphical display
@@ -210,7 +210,7 @@ ReferencePubMed	Column	Gene	False	string	Reference PubMed ID
 ReferenceDOI	Column	Gene	False	string	Reference DOI
 Description	Column	Gene	False	string	Description of the row element
 Name	Column	Gene	False	string	Entity name
-MiriamAnnotations	Column	Gene	False	string	Entity ID
+MiriamAnnotation	Column	Gene	False	string	Entity ID
 Type	Column	Gene	False	string	Biochemical type of entity
 Symbol	Column	Gene	False	string	Short symbol (e.g. gene symbol)
 PositionX	Column	Gene	False	float	x coordinate for graphical display
@@ -247,7 +247,7 @@ ReferencePubMed	Column	QuantityMatrix	False	string	Reference PubMed ID
 ReferenceDOI	Column	QuantityMatrix	False	string	Reference DOI
 Description	Column	QuantityMatrix	False	string	Description of the row element
 Name	Column	QuantityMatrix	False	string	Entity name
-MiriamAnnotations	Column	QuantityMatrix	False	string	Entity ID
+MiriamAnnotation	Column	QuantityMatrix	False	string	Entity ID
 Type	Column	QuantityMatrix	False	string	Biochemical type of entity
 Symbol	Column	QuantityMatrix	False	string	Short symbol (e.g. gene symbol)
 PositionX	Column	QuantityMatrix	False	float	x coordinate for graphical display
