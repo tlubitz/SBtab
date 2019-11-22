@@ -58,6 +58,8 @@ SBML:species:id	Column	Compound	False	string	SBML species ID of the entity
 SBML:speciestype:id	Column	Compound	False	string	SBML speciestype ID of the entity
 InitialValue	Column	Compound	False	float	Initial amount or concentration
 InitialConcentration	Column	Compound	False	float	Initial amount or concentration
+HasOnlySubstanceUnits	Column	Compound	False	Boolean	SBML species attribute hasOnlySubstanceUnits
+BoundaryCondition	Column	Compound	False	Boolean	SBML species attribute boundaryCondition
 Unit	Column	Compound	False	string	Unit for initial value
 Location	Column	Compound	True	string	Compartment for localised entities
 State	Column	Compound	False	string	State of the entity
@@ -121,6 +123,7 @@ ID	Column	Compartment	False	string	Compartment shortname
 SBML:compartment:id	Column	Compartment	False	string	SBML compartment ID
 OuterCompartment	Column	Compartment	True	string	Surrounding compartment (short)
 OuterCompartment:SBML:compartment:id	Column	Compartment	False	string	Surrounding compartment (name)
+IsConstant	Column	Compartment	True	Boolean	Compartment fixed size
 Size	Column	Compartment	False	float	Compartment size
 Unit	Column	Compartment	False	string	Physical unit
 SBOTerm	Column	Compartment	False	string	SBO term of the entity
@@ -152,6 +155,7 @@ Sign	Column	Quantity	False	{+,-,0}	Sign
 ProbDist	Column	Quantity	False	string	Probability distribution
 SBML:parameter:id	Column	Quantity	True	string	Parameter ID in SBML file
 Unit	Column	Quantity	False	string	Physical unit
+IsConstant	Column	Quantity	True	Boolean	Parameter with constant value
 Scale	Column	Quantity	False	string	Scale (e.g. logarithm)
 Time	Column	Quantity	False	float	Time value
 TimePoint	Column	Quantity	False	string	Time point name or identifier
