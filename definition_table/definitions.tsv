@@ -17,6 +17,7 @@ SBML:reaction:id	Column	Reaction	False	string	SBML ID of reaction
 ReactionFormula	Column	Reaction	True	string	Reaction formula
 Location	Column	Reaction	True	string	Compartment for localised reaction
 Enzyme	Column	Reaction	True	string	Enzyme catalysing the reaction
+Regulator	Column	Reaction	True	string	Regulator controlling the reaction
 Model	Column	Reaction	False	string	Model(s) in which the reaction is involved
 Pathway	Column	Reaction	False	string	Pathway(s) in which the reaction is involved
 SubreactionOf	Column	Reaction	True	string	Mark as subreaction of a (lumped) reaction
@@ -123,7 +124,7 @@ ID	Column	Compartment	False	string	Compartment shortname
 SBML:compartment:id	Column	Compartment	False	string	SBML compartment ID
 OuterCompartment	Column	Compartment	True	string	Surrounding compartment (short)
 OuterCompartment:SBML:compartment:id	Column	Compartment	False	string	Surrounding compartment (name)
-IsConstant	Column	Compartment	True	Boolean	Compartment fixed size
+IsConstant	Column	Compartment	False	Boolean	Compartment fixed size
 Size	Column	Compartment	False	float	Compartment size
 Unit	Column	Compartment	False	string	Physical unit
 SBOTerm	Column	Compartment	False	string	SBO term of the entity
@@ -356,6 +357,7 @@ SBML:layout:height	Column	Layout	False	float	Height of the element
 SBML:layout:text	Column	Layout	False	string	Text label of the element
 SBML:layout:speciesRole	Column	Layout	False	string	Role of the species in the reaction (Reactant, Product)
 ID	Column	ReactionStoichiometry	True	string	Identifier shortname of the reaction
+Reaction	Column	ReactionStoichiometry	False	string	Reaction ID
 Stoichiometry	Column	ReactionStoichiometry	False	string	Stoichiometry of the reaction
 Substrate	Column	ReactionStoichiometry	True	string	Identifier shortname of a substrate
 Product	Column	ReactionStoichiometry	True	string	Identifier shortname of a product
