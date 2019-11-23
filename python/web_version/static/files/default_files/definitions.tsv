@@ -7,7 +7,7 @@ ReferenceDOI	Column	Reaction	False	string	Reference DOI
 Description	Column	Reaction	False	string	Description of the row element
 Modifier	Column	Reaction	True	string	Modifier of this reaction
 Name	Column	Reaction	False	string	Entity name
-MiriamAnnotations	Column	Reaction	False	string	Entity ID
+MiriamAnnotation	Column	Reaction	False	string	Entity ID
 Type	Column	Reaction	False	string	Biochemical type of entity
 Symbol	Column	Reaction	False	string	Short symbol (e.g. gene symbol)
 PositionX	Column	Reaction	False	float	x coordinate for graphical display
@@ -17,6 +17,7 @@ SBML:reaction:id	Column	Reaction	False	string	SBML ID of reaction
 ReactionFormula	Column	Reaction	True	string	Reaction formula
 Location	Column	Reaction	True	string	Compartment for localised reaction
 Enzyme	Column	Reaction	True	string	Enzyme catalysing the reaction
+Regulator	Column	Reaction	True	string	Regulator controlling the reaction
 Model	Column	Reaction	False	string	Model(s) in which the reaction is involved
 Pathway	Column	Reaction	False	string	Pathway(s) in which the reaction is involved
 SubreactionOf	Column	Reaction	True	string	Mark as subreaction of a (lumped) reaction
@@ -48,7 +49,7 @@ ReferencePubMed	Column	Compound	False	string	Reference PubMed ID
 ReferenceDOI	Column	Compound	False	string	Reference DOI
 Description	Column	Compound	False	string	Description of the row element
 Name	Column	Compound	False	string	Entity name
-MiriamAnnotations	Column	Compound	False	string	Entity ID
+MiriamAnnotation	Column	Compound	False	string	Entity ID
 Type	Column	Compound	False	string	Biochemical type of entity
 Symbol	Column	Compound	False	string	Short symbol (e.g. gene symbol)
 PositionX	Column	Compound	False	float	x coordinate for graphical display
@@ -58,6 +59,8 @@ SBML:species:id	Column	Compound	False	string	SBML species ID of the entity
 SBML:speciestype:id	Column	Compound	False	string	SBML speciestype ID of the entity
 InitialValue	Column	Compound	False	float	Initial amount or concentration
 InitialConcentration	Column	Compound	False	float	Initial amount or concentration
+HasOnlySubstanceUnits	Column	Compound	False	Boolean	SBML species attribute hasOnlySubstanceUnits
+BoundaryCondition	Column	Compound	False	Boolean	SBML species attribute boundaryCondition
 Unit	Column	Compound	False	string	Unit for initial value
 Location	Column	Compound	True	string	Compartment for localised entities
 State	Column	Compound	False	string	State of the entity
@@ -78,7 +81,7 @@ ReferencePubMed	Column	Enzyme	False	string	Reference PubMed ID
 ReferenceDOI	Column	Enzyme	False	string	Reference DOI
 Description	Column	Enzyme	False	string	Description of the row element
 Name	Column	Enzyme	False	string	Entity name
-MiriamAnnotations	Column	Enzyme	False	string	Entity ID
+MiriamAnnotation	Column	Enzyme	False	string	Entity ID
 Type	Column	Enzyme	False	string	Biochemical type of entity
 Symbol	Column	Enzyme	False	string	Short symbol (e.g. gene symbol)
 PositionX	Column	Enzyme	False	float	x coordinate for graphical display
@@ -97,7 +100,7 @@ ReferencePubMed	Column	Protein	False	string	Reference PubMed ID
 ReferenceDOI	Column	Protein	False	string	Reference DOI
 Description	Column	Protein	False	string	Description of the row element
 Name	Column	Protein	False	string	Entity name
-MiriamAnnotations	Column	Protein	False	string	Entity ID
+MiriamAnnotation	Column	Protein	False	string	Entity ID
 Type	Column	Protein	False	string	Biochemical type of entity
 Symbol	Column	Protein	False	string	Short symbol (e.g. gene symbol)
 PositionX	Column	Protein	False	float	x coordinate for graphical display
@@ -112,7 +115,7 @@ ReferencePubMed	Column	Compartment	False	string	Reference PubMed ID
 ReferenceDOI	Column	Compartment	False	string	Reference DOI
 Description	Column	Compartment	False	string	Description of the row element
 Name	Column	Compartment	False	string	Entity name
-MiriamAnnotations	Column	Compartment	False	string	Entity ID
+MiriamAnnotation	Column	Compartment	False	string	Entity ID
 Type	Column	Compartment	False	string	Biochemical type of entity
 Symbol	Column	Compartment	False	string	Short symbol (e.g. gene symbol)
 PositionX	Column	Compartment	False	float	x coordinate for graphical display
@@ -121,6 +124,7 @@ ID	Column	Compartment	False	string	Compartment shortname
 SBML:compartment:id	Column	Compartment	False	string	SBML compartment ID
 OuterCompartment	Column	Compartment	True	string	Surrounding compartment (short)
 OuterCompartment:SBML:compartment:id	Column	Compartment	False	string	Surrounding compartment (name)
+IsConstant	Column	Compartment	False	Boolean	Compartment fixed size
 Size	Column	Compartment	False	float	Compartment size
 Unit	Column	Compartment	False	string	Physical unit
 SBOTerm	Column	Compartment	False	string	SBO term of the entity
@@ -131,7 +135,7 @@ ReferencePubMed	Column	Quantity	False	string	Reference PubMed ID
 ReferenceDOI	Column	Quantity	False	string	Reference DOI
 Description	Column	Quantity	False	string	Description of the row element
 Name	Column	Quantity	False	string	Entity name
-MiriamAnnotations	Column	Quantity	False	string	Entity ID
+MiriamAnnotation	Column	Quantity	False	string	Entity ID
 Type	Column	Quantity	False	string	Biochemical type of entity
 Symbol	Column	Quantity	False	string	Short symbol (e.g. gene symbol)
 PositionX	Column	Quantity	False	float	x coordinate for graphical display
@@ -152,6 +156,7 @@ Sign	Column	Quantity	False	{+,-,0}	Sign
 ProbDist	Column	Quantity	False	string	Probability distribution
 SBML:parameter:id	Column	Quantity	True	string	Parameter ID in SBML file
 Unit	Column	Quantity	False	string	Physical unit
+IsConstant	Column	Quantity	True	Boolean	Parameter with constant value
 Scale	Column	Quantity	False	string	Scale (e.g. logarithm)
 Time	Column	Quantity	False	float	Time value
 TimePoint	Column	Quantity	False	string	Time point name or identifier
@@ -162,8 +167,10 @@ Location	Column	Quantity	True	string	Compartment (shortname)
 Location:SBML:compartment:id	Column	Quantity	False	string	SBML ID of compartment
 Compound	Column	Quantity	True	string	Related compound (shortname)
 Compound:SBML:species:id	Column	Quantity	False	string	SBML ID of compound
+Compound:Identifiers:kegg:compound	Column	Quantity	False	string	KEGG ID of compound
 Reaction	Column	Quantity	True	string	Related reaction (shortname)
 Reaction:SBML:reaction:id	Column	Quantity	False	string	SBML ID of reaction
+Reaction:Identifiers:kegg:reaction	Column	Quantity	False	string	KEGG ID of reaction
 Enyzme	Column	Quantity	True	string	Related enzyme (shortname)
 Enyzme:SBML:species:id	Column	Quantity	False	string	SBML ID of enzyme
 Enyzme:SBML:parameter:id	Column	Quantity	False	string	SBML ID of enzyme
@@ -193,7 +200,7 @@ ReferencePubMed	Column	Regulator	False	string	Reference PubMed ID
 ReferenceDOI	Column	Regulator	False	string	Reference DOI
 Description	Column	Regulator	False	string	Description of the row element
 Name	Column	Regulator	False	string	Entity name
-MiriamAnnotations	Column	Regulator	False	string	Entity ID
+MiriamAnnotation	Column	Regulator	False	string	Entity ID
 Type	Column	Regulator	False	string	Biochemical type of entity
 Symbol	Column	Regulator	False	string	Short symbol (e.g. gene symbol)
 PositionX	Column	Regulator	False	float	x coordinate for graphical display
@@ -210,7 +217,7 @@ ReferencePubMed	Column	Gene	False	string	Reference PubMed ID
 ReferenceDOI	Column	Gene	False	string	Reference DOI
 Description	Column	Gene	False	string	Description of the row element
 Name	Column	Gene	False	string	Entity name
-MiriamAnnotations	Column	Gene	False	string	Entity ID
+MiriamAnnotation	Column	Gene	False	string	Entity ID
 Type	Column	Gene	False	string	Biochemical type of entity
 Symbol	Column	Gene	False	string	Short symbol (e.g. gene symbol)
 PositionX	Column	Gene	False	float	x coordinate for graphical display
@@ -247,7 +254,7 @@ ReferencePubMed	Column	QuantityMatrix	False	string	Reference PubMed ID
 ReferenceDOI	Column	QuantityMatrix	False	string	Reference DOI
 Description	Column	QuantityMatrix	False	string	Description of the row element
 Name	Column	QuantityMatrix	False	string	Entity name
-MiriamAnnotations	Column	QuantityMatrix	False	string	Entity ID
+MiriamAnnotation	Column	QuantityMatrix	False	string	Entity ID
 Type	Column	QuantityMatrix	False	string	Biochemical type of entity
 Symbol	Column	QuantityMatrix	False	string	Short symbol (e.g. gene symbol)
 PositionX	Column	QuantityMatrix	False	float	x coordinate for graphical display
@@ -293,7 +300,7 @@ Unit	Column	Measurement	False	string	Measurement unit
 ValueType	Column	Measurement	False	string	Type of value (mean, standard deviation, etc)
 Description	Column	Measurement	False	string	Description of data value
 QuantityType	Column	QuantityInfo	False	string	QuantityType (e.g. from SBO)
-Symbol	Column	QuantityInfo	False	symbol	Symbol for the quantity type
+Symbol	Column	QuantityInfo	False	string	Symbol for the quantity type
 Unit	Column	QuantityInfo	False	string	Unit for the Median value
 Constant	Column	QuantityInfo	False	string	Is this value constant
 Element	Column	QuantityInfo	False	string	A related element
@@ -352,6 +359,7 @@ SBML:layout:height	Column	Layout	False	float	Height of the element
 SBML:layout:text	Column	Layout	False	string	Text label of the element
 SBML:layout:speciesRole	Column	Layout	False	string	Role of the species in the reaction (Reactant, Product)
 ID	Column	ReactionStoichiometry	True	string	Identifier shortname of the reaction
+Reaction	Column	ReactionStoichiometry	False	string	Reaction ID
 Stoichiometry	Column	ReactionStoichiometry	False	string	Stoichiometry of the reaction
 Substrate	Column	ReactionStoichiometry	True	string	Identifier shortname of a substrate
 Product	Column	ReactionStoichiometry	True	string	Identifier shortname of a product

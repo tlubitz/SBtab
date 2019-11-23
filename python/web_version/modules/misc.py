@@ -136,7 +136,7 @@ def split_sbtabs(sbtab_strings):
     return sbtabs
 
 
-def sbtab_to_html(sbtab, filename=None, mode='sbtab_online'):
+def sbtab_to_html(sbtab, filename=None, mode='sbtab_online', template = [], put_links = True, title_string='', show_header_row = True, show_table_name = False, show_table_text = False, definitions_file=''):
     '''
     Generates html view out of SBtab table or SBtab document object.
 
@@ -177,17 +177,29 @@ def sbtab_to_html(sbtab, filename=None, mode='sbtab_online'):
         # start main
         html = '<table class="table-striped">'
 
+        # table name
+        if show_table_name:
+            html += '<center><h2>%s</h2></center>' % (sbtab.get_attribute('TableName'))
+
+        if show_table_text:
+            if len(sbtab.get_attribute('Text')):
+                html += '<center><p>%s</p></center>' % (sbtab.get_attribute('Text'))
+
         # header row
-        html += '<thead><tr><th colspan="%s">%s</th></tr></thead>' % (len(sbtab.columns), sbtab.header_row)
+        #html += '<thead><tr><th colspan="%s">%s</th></tr></thead>' % (len(sbtab.columns), sbtab.header_row)
+        if show_header_row:
+            html += '<h4>%s</h4>' % (sbtab.header_row)
 
         # columns
-        html += '<tbody>'
+        html += '<thead>'
         html += '<tr style="line-height:2;">'
         for col in sbtab.columns:
             try: title = col2description[col[1:]]
             except: title = ''
             html += '<th title="%s">%s</th>' % (title, col)
         html += '</tr>'
+        html += '</thead>'
+        html += '<tbody>'
 
         # value rows
         for row in sbtab.value_rows:
@@ -203,7 +215,7 @@ def sbtab_to_html(sbtab, filename=None, mode='sbtab_online'):
                             html += '<td>'
                             split_column = col.split(' ')
                             for element in split_column:
-                                if element not in no_link and not _is_float(element):
+                                if element not in no_link and not _is_float(element) and put_links:
                                     html += '<a href="#%s">%s</a> ' % (element, element)
                                 else:
                                     html += element + ' '
@@ -249,7 +261,8 @@ def sbtab_to_html(sbtab, filename=None, mode='sbtab_online'):
         html_template = False
         try_paths = ['html_templates/template_standalone.html',                     
                      os.path.join(os.path.dirname(__file__), '../html_templates/template_standalone.html'),
-                     os.path.join(os.path.dirname(__file__), 'html_templates/template_standalone.html')]
+                     os.path.join(os.path.dirname(__file__), 'html_templates/template_standalone.html'),
+                     template]
         for path in try_paths:
             try:
                 html = open(path, 'r')
@@ -279,11 +292,17 @@ def sbtab_to_html(sbtab, filename=None, mode='sbtab_online'):
         return False
     
     # replace title placeholder with actual title
-    html = html.replace('TitlePlaceholder',sbtab.filename)
+    if len(title_string):
+        html = html.replace('TitlePlaceholder',title_string)
+    else:
+        html = html.replace('TitlePlaceholder',sbtab.filename)
 
     # read in definitions file for nice mouse over
-    sbtab_def = open_definitions_file()
-   
+    if mode == 'standalone' and len(definitions_file):
+        sbtab_def = open_definitions_file(definitions_file)
+    else:
+        sbtab_def = open_definitions_file()
+        
     # now build the html file
     if sbtab.object_type == 'table':
         html += _build_main(sbtab, sbtab_def)

@@ -1,5 +1,5 @@
 !!SBtab TableID='t_02' SBtabVersion='1.1' Document='Hynne_2001' TableType='Compound' TableName='Compound'							
-!ID	!Name	!Location	!Charge	!IsConstant	!SBOTerm	!Unit	!Compound:Identifiers:sbo.kegg
+!ID	!Name	!Location	!Charge	!IsConstant	!SBOTerm	!Unit	!Identifiers:sbo.kegg
 GlcX	GlcX	extracellular	0	False	SBO:0000299	mM	C00031
 Glc	Glc	cytosol	0	False	SBO:0000299	mM	C00031
 ATP	ATP	cytosol	0	False	SBO:0000299	mM	C00002
