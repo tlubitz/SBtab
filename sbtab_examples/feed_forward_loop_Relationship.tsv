@@ -1,4 +1,4 @@
-!!SBtab TableID='t_01' SBtabVersion='1.1' Document='Boolean_example' TableType='Relationship' TableName='Relationship'					
+!!SBtab TableID='t_01' SBtabVersion='1.1' Document='Boolean_example' TableType='Relation' TableName='Relation'					
 !ID	!From	!To	!Value	!IsSymmetric	!Sign
 R1	A	B	1	False	+
 R2	B	C	1	False	+
