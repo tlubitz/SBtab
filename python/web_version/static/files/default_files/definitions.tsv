@@ -294,6 +294,9 @@ Stoichiometry	Column	StoichiometricMatrix	False	string	Stoichiometric coefficien
 Substrate	Column	StoichiometricMatrix	True	string	Substrate of the reaction
 Product	Column	StoichiometricMatrix	True	string	Product of the reaction
 Location	Column	StoichiometricMatrix	True	string	Compartment for localised reaction
+Element	Column	Position	False	string	Element displayed
+PositionX	Column	Position	False	float	x coordinate for graphical display
+PositionY	Column	Position	False	float	y coordinate for graphical display
 Sample	Column	Measurement	False	string	Measurement value shortname
 Time	Column	Measurement	False	string	Time at which measurement was taken
 Unit	Column	Measurement	False	string	Measurement unit
