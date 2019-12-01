@@ -828,8 +828,8 @@ class SBtabTable():
             raise SBtabError('Pandas dataframe could not be built.')
 
     @staticmethod
-    def from_data_frame(df, table_id, table_type, table_name='',
-                        document_name='', document='', unit='',
+    def from_data_frame(df, table_id, table_type, table_name=None,
+                        document_name=None, document=None, unit=None,
                         sbtab_version='1.0'):
         '''
         Creates SBtab table object from pandas dataframe.
@@ -862,18 +862,21 @@ class SBtabTable():
         header = [('TableID', table_id),
                   ('TableType', table_type),
                   ('TableName', table_name or table_id),
-                  ('DocumentName', document_name),
-                  ('Document', document),
-                  ('Unit', unit),
                   ('SBtabVersion', sbtab_version)]
-        
+        if document_name:
+            header += [('DocumentName', document_name)]
+        if document:
+            header += [('Document', document)]
+        if unit:
+            header += [('Unit', unit)]
+
         header_strings = ['!!SBtab'] + list(map(lambda x: "%s='%s'" % x, header))
-        
+
         csv_writer.writerow([' '.join(header_strings)] + [''] * (df.shape[1]-1))
         csv_writer.writerow(map(lambda s: '!' + s, df.columns))
         csv_writer.writerows([row.tolist() for _, row in df.iterrows()])
         table_string.flush()
-        
+
         return SBtabTable(table_string.getvalue(), 'unnamed_sbtab.tsv')
 
     
