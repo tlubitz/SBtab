@@ -29,7 +29,6 @@ def sbtab2html_wrapper(sbtab, multiple, output, template, links, pageheader, def
     '''
     commandline wrapper for sbtab_to_html function
     '''
-    print(pageheader)
     # open and create SBtab
     try:
         f = open(sbtab, 'r').read()

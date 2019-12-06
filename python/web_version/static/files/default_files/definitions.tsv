@@ -294,6 +294,9 @@ Stoichiometry	Column	StoichiometricMatrix	False	string	Stoichiometric coefficien
 Substrate	Column	StoichiometricMatrix	True	string	Substrate of the reaction
 Product	Column	StoichiometricMatrix	True	string	Product of the reaction
 Location	Column	StoichiometricMatrix	True	string	Compartment for localised reaction
+Element	Column	Position	False	string	Element displayed
+PositionX	Column	Position	False	float	x coordinate for graphical display
+PositionY	Column	Position	False	float	y coordinate for graphical display
 Sample	Column	Measurement	False	string	Measurement value shortname
 Time	Column	Measurement	False	string	Time at which measurement was taken
 Unit	Column	Measurement	False	string	Measurement unit
@@ -318,8 +321,8 @@ SBMLElementType	Column	QuantityInfo	False	string	Corresponding SBML element
 Abbreviation	Column	QuantityInfo	False	string	Abbreviation of quantity type
 ID	Column	QuantityInfo	False	string	Abbreviation of quantity type
 MatrixInfo	Column	QuantityInfo	False	string	Information on the matrix production
-Option	Column	PbConfig	False	string	Which option is addressed
-Value	Column	PbConfig	False	string	What value is the option set to
+Option	Column	Config	False	string	Which option is addressed
+Value	Column	Config	False	string	What value is the option set to
 UID:Contingency	Column	rxnconContingencyList	False	integer	ID for contingency
 Target	Column	rxnconContingencyList	True	string	Contingency target
 Contingency	Column	rxnconContingencyList	True	string	Contingency type

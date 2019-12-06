@@ -1,4 +1,4 @@
-!!SBtab TableType="QuantityData" Version="0.1" Level="1.0" TableName="PFK Result"
+!!SBtab TableType='QuantityData' Version='0.1' Level='1.0' TableName='PFK Result'
 !QuantityType	!SBML:reaction:id	!SBML:species:id	!Mode	!Value	!Std	!Unit	!Provenance	!Type	!Source
 standard chemical potential	None	enzyme_R04779_c	-877.128823387	-877.128823387	480.842256677	kJ/mol	Balanced parameter value	Basic	None
 standard chemical potential	None	beta_D_fructofuranose_1_6_bisphosphate_c	-2191.91903371	-2191.91903371	30.2323043166	kJ/mol	Balanced parameter value	Basic	None

@@ -1,4 +1,4 @@
-!!SBtab TableType="QuantityData" Version="0.1" Level="1.0" TableName="Teusink Result"
+!!SBtab TableType='QuantityData' Version='0.1' Level='1.0' TableName='Teusink Result'
 !QuantityType	!SBML:reaction:id	!SBML:species:id	!Mode	!Value	!Std	!Unit	!Provenance	!Type	!Source
 standard chemical potential	None	P	-28.5985069616	-28.5985069616	4.78985001704	kJ/mol	Balanced parameter value	Basic	None
 standard chemical potential	None	Glyc	-1057.01720762	-1057.01720762	12.3993167401	kJ/mol	Balanced parameter value	Basic	None
