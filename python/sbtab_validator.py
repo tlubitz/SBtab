@@ -82,7 +82,7 @@ if __name__ == '__main__':
 
     parser.add_argument('sbtab', help='Path to an SBtab file.')
     parser.add_argument('--sbtab_definitions', help='Path to an SBtab definitions file.')
-    parser.add_argument('-d', '--document', help='Flag to create an SBtab Document instead of SBtab Table.', action='store_true')
+    parser.add_argument('-d', '--document', help='Flag to validate an SBtab Document instead of SBtab Table.', action='store_true')
     parser.add_argument('-v', '--verbose', help='Flag to display script messages.', action='store_true')
 
     args = parser.parse_args()
