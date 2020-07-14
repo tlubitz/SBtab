@@ -62,14 +62,16 @@ def validator_wrapper(args):
         try:
             validate_doc = validatorSBtab.ValidateDocument(sbtab_doc, sbtab_def)
             warnings = validate_doc.validate_document()
-            print(warnings)
+            for warning in warnings:
+                print(warning)
         except:
             raise SBtabError('SBtab Document %s could not be validated.' % args.document_name)
     else:
         try:
             validate_table = validatorSBtab.ValidateTable(sbtab, sbtab_def)
             warnings = validate_table.return_output()
-            print(warnings)
+            for warning in warnings:
+                print(warning)
         except:
             raise SBtabError('SBtab Table %s could not be validated.' % args.sbtab)
     
@@ -82,7 +84,6 @@ if __name__ == '__main__':
     parser.add_argument('--sbtab_definitions', help='Path to an SBtab definitions file.')
     parser.add_argument('-d', '--document', help='Flag to create an SBtab Document instead of SBtab Table.', action='store_true')
     parser.add_argument('-v', '--verbose', help='Flag to display script messages.', action='store_true')
-
 
     args = parser.parse_args()
 
