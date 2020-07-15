@@ -321,8 +321,8 @@ SBMLElementType	Column	QuantityInfo	False	string	Corresponding SBML element
 Abbreviation	Column	QuantityInfo	False	string	Abbreviation of quantity type
 ID	Column	QuantityInfo	False	string	Abbreviation of quantity type
 MatrixInfo	Column	QuantityInfo	False	string	Information on the matrix production
-Option	Column	Config	False	string	Which option is addressed
-Value	Column	Config	False	string	What value is the option set to
+Option	Column	Options	False	string	Which option is addressed
+Value	Column	Options	False	string	What value is the option set to
 UID:Contingency	Column	rxnconContingencyList	False	integer	ID for contingency
 Target	Column	rxnconContingencyList	True	string	Contingency target
 Contingency	Column	rxnconContingencyList	True	string	Contingency type

@@ -991,7 +991,7 @@ class SBtabDocument:
                     name_single = str(i) + '_' + self.filename
                     sbtab_single = SBtabTable(sbtab_s, name_single)
                     logging.debug('name = %s, type = %s' % (sbtab_single.table_name, sbtab_single.table_type))
-                    self.add_sbtab(sbtab_single)
+                    self.add_sbtab(sbtab_single) #
             else:
                 sbtab = SBtabTable(sbtab_string, filename)
                 self.add_sbtab(sbtab)
@@ -1035,11 +1035,11 @@ class SBtabDocument:
         except:
             raise SBtabError('The definition file could not be found to'\
                              ' establish supported table types.')
-        
+
         if ttype in supported_types: return True
         else:
-            #raise SBtabError('The table type %s is not supported.' % ttype)
-            print('The table type %s is not supported.' % ttype)
+            raise SBtabError('The table type %s is not supported.' % ttype)
+            #print('The table type %s is not supported.' % ttype)
             return True
 
     def _get_doc_row_attributes(self):
