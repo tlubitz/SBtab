@@ -46,6 +46,8 @@ class SBtabDocument:
            SBtab Document Class.
         '''
         self.sbtab_doc = sbtab_doc
+        if len(self.sbtab_doc.sbtabs) == 0:
+            raise ConversionError('The given SBtab Object cannot be converted. It is empty.')
         self.filename = sbtab_doc.name
         self.warnings = []
         self.model_ids = []

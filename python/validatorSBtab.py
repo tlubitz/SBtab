@@ -49,7 +49,9 @@ class ValidateTable:
         self.warnings = []
         # define self variables
         self.sbtab = sbtab
-        self.filename = sbtab.filename
+        try: self.filename = sbtab.filename
+        except: raise SBtabError('The SBtab object cannot be validated. Please set the filename first and try again.')
+
         # read definition table
         self.read_definition(def_table)
 
@@ -61,7 +63,8 @@ class ValidateTable:
             self.allowed_columns[table_type] = [row[0] for row in self.definitions[2:][0] if row[2] == table_type]
 
         # check file format and header row
-        self.check_general_format()
+        try: self.check_general_format()
+        except: raise SBtabError('The SBtab object cannot be validated. Please add content to it first and try again.')
         self.column2format = {}
         defs = self.definitions[2]
 
@@ -301,8 +304,10 @@ class ValidateDocument:
             SBtab definition table as SBtab table object.
         '''
         self.sbtab_doc = sbtab_doc
+        if len(self.sbtab_doc.sbtabs) == 0:
+            raise SBtabError('This SBtab Document cannot be validated. It is empty.')
         self.sbtab_def = def_table
-        #self.validate_document()
+        # self.validate_document()
 
     def validate_document(self):
         '''

@@ -915,6 +915,7 @@ class SBtabDocument:
             If sbtab_init is string, also provide a fiename.            
         '''
         if filename: self.filename = filename
+        else: self.filename = None
         self.sbtabs = []
         self.id_to_sbtab = {}
         self.name_to_sbtab = {}
@@ -932,7 +933,7 @@ class SBtabDocument:
         if name:
             self.name = name
             self._get_doc_row_attributes()
-        else: self.name = False
+        else: self.name = None
             
         self.object_type = 'doc'
         
