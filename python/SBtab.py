@@ -67,7 +67,7 @@ class SBtabTable():
     '''
     SBtabTable (version 1.0.0 24/12/2018)
     '''
-    def __init__(self, table_string, filename):
+    def __init__(self, table_string = None, filename = None):
         '''
         Creates SBtab table object from string.
 
@@ -78,22 +78,23 @@ class SBtabTable():
         filename : str
             Filename with extension.
         '''
-        self.filename = filename
-        self.table_string = table_string
+        if filename:
+            self.filename = filename
+            # validate file extension
+            self._validate_extension()
 
-        # validate file extension
-        self._validate_extension()
+        if table_string:
+            self.table_string = table_string
+            # validate singular SBtab
+            self._singular()
 
-        # validate singular SBtab
-        self._singular()
+            # process string
+            self.delimiter = misc.check_delimiter(table_string)
+            self.preprocess = self._preprocess_table_string(table_string)
+            self.table = self._cut_table_string(self.preprocess)
 
-        # process string
-        self.delimiter = misc.check_delimiter(table_string)
-        self.preprocess = self._preprocess_table_string(table_string)
-        self.table = self._cut_table_string(self.preprocess)
-
-        # Initialise table
-        self._initialize_table()
+            # Initialise table
+            self._initialize_table()
 
         self.object_type = 'table'
 
@@ -500,16 +501,32 @@ class SBtabTable():
             except:
                 raise SBtabError('Attribute value %s could not be replaced in the header.' % attribute)
 
-    def change_filename(self, new_name):
+    def set_filename(self, filename):
         '''
-        Changes the filename of the SBtab.
+        Sets the filename of the SBtab.
 
         Parameters
         ----------
         new_name: str
             New name for the SBtab object.
         '''
-        self.filename = new_name
+        self.filename = filename
+
+    def add_sbtab_string(self, sbtab_string):
+        '''
+        Sets the content of the SBtab Table in form of a string
+        '''
+        self.table_string = sbtab_string
+        # validate singular SBtab
+        self._singular()
+
+        # process string
+        self.delimiter = misc.check_delimiter(sbtab_string)
+        self.preprocess = self._preprocess_table_string(sbtab_string)
+        self.table = self._cut_table_string(self.preprocess)
+
+        # Initialise table
+        self._initialize_table()
             
     def unset_attribute(self, attribute):
         '''
@@ -884,7 +901,7 @@ class SBtabDocument:
     '''
     The SBtab document class can consist of one or more SBtab Table objects
     '''
-    def __init__(self, name, sbtab_init=None, filename=None):
+    def __init__(self, name = None, sbtab_init = None, filename = None):
         '''
         Creates SBtabDocument with an optional SBtab table object.
 
@@ -897,8 +914,7 @@ class SBtabDocument:
         filename: str
             If sbtab_init is string, also provide a fiename.            
         '''
-        self.name = name
-        self.filename = filename
+        if filename: self.filename = filename
         self.sbtabs = []
         self.id_to_sbtab = {}
         self.name_to_sbtab = {}
@@ -912,8 +928,11 @@ class SBtabDocument:
             self.add_sbtab_string(sbtab_init, filename)
         elif sbtab_init:
             self.add_sbtab(sbtab_init)
-        else:
+        
+        if name:
+            self.name = name
             self._get_doc_row_attributes()
+        else: self.name = False
             
         self.object_type = 'doc'
         
@@ -960,12 +979,11 @@ class SBtabDocument:
             Name of the given SBtab.
         '''
         # set filename if not given
-        if not filename:
-            sbtab_count = len(self.sbtabs)
-            filename = 'unnamed_sbtab_%s.tsv'%(str(sbtab_count))
+        sbtab_count = len(self.sbtabs)
+        filename = 'unnamed_sbtab_%s.tsv'%(str(sbtab_count))
 
-        if not self.filename:
-            self.filename = filename
+        if not self.filename: self.filename = filename
+        if not self.name: self.name = filename
 
         # see if there are more than one SBtabs in the string
         try: sbtab_amount = misc.count_tabs(sbtab_string)
@@ -1248,6 +1266,17 @@ class SBtabDocument:
         '''
         try: return self.type_to_sbtab[ttype]
         except: return None
+
+    def set_filename(self, filename):
+        '''
+        Sets filename of SBtab document.
+
+        Parameters
+        ----------
+        name: str
+            Filename for the SBtab document.
+        '''
+        self.filename = filename
 
     def set_name(self, name):
         '''
