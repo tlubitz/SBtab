@@ -306,13 +306,30 @@ class SBtabTable():
                 if str(entry).startswith('!!!'):
                     doc_row = row
                     doc_row_dq = self._dequote(doc_row)
+
+                    # determine if this is an SBtab or ObjTables Document
+                    if '!!!ObjTables' in doc_row_dq:
+                        self.document_format = 'ObjTables'
+                    elif '!!!SBtab' in doc_row_dq:
+                        self.document_format = 'SBtab'
+                    else: self.document_format = None 
+
                     return doc_row_dq
                 elif str(entry).startswith('"!!!'):
                     rm1 = row.replace('""', '#')
                     rm2 = row.remove('"')
                     doc_row = rm2.replace('#', '"')
                     doc_row_dq = self._dequote(doc_row)
+                    
+                    # determine if this is an SBtab or ObjTables Document
+                    if '!!!ObjTables' in doc_row_dq:
+                        self.document_format = 'ObjTables'
+                    elif '!!!SBtab' in doc_row_dq:
+                        self.document_format = 'SBtab'
+                    else: self.document_format = None 
+
                     return doc_row_dq
+        
     
     def _get_header_row(self):
         '''
@@ -337,6 +354,16 @@ class SBtabTable():
             validator to check format or have a look in the specification!''')
 
         header_row_dq = self._dequote(header_row)
+
+        # determine if this is an SBtab or ObjTables Document
+        if '!!ObjTables' in header_row_dq:
+            self.table_format = 'ObjTables'
+        elif '!!SBtab' in header_row_dq:
+            self.table_format = 'SBtab'
+        else:
+            raise SBtabError('''This is not a valid SBtab table, please use
+            validator to check format or have a look in the specification!''')
+
         return header_row_dq
             
     def _dequote(self, row):
@@ -379,8 +406,13 @@ class SBtabTable():
                 self.header_row = self.header_row.replace(self.delimiter,'').strip() + " TableID='%s'" % table_id
         
         # Save table type, otherwise raise error
-        try: table_type = self._get_custom_table_information('TableType')
-        except: raise SBtabError('The TableType of the SBtab is not defined!')
+        try:
+            if self.table_format == 'SBtab':
+                table_type = self._get_custom_table_information('TableType')
+            elif self.table_format == 'ObjTables':
+                table_type = self._get_custom_table_information('class')
+        except:
+            raise SBtabError('The TableType of the SBtab is not defined!')
 
         # Save table name, otherwise create name
         try: table_name = self._get_custom_table_information('TableName')
@@ -416,12 +448,13 @@ class SBtabTable():
            Name of the table attribute.
         '''
         if re.search("%s='([^']*)'" % attribute_name,
-                     self.header_row) is not None:
+                    self.header_row) is not None:
             return re.search("%s='([^']*)'" % attribute_name,
-                             self.header_row).group(1)
+                            self.header_row).group(1)
         else:
             raise SBtabError('''The %s of the SBtab is
                                 not defined!''' % attribute_name)
+
 
     def _get_columns(self):
         '''
@@ -922,18 +955,19 @@ class SBtabDocument:
         self.type_to_sbtab = {}
         self.sbtab_filenames = []
         self.doc_row = False
-
+        
+        if name:
+            self.name = name
+            self._get_doc_row_attributes()
+        else: self.name = None
+        
         # if there is an initial sbtab given, see if it is
         # a string or an SBtab object
         if sbtab_init and type(sbtab_init) == str:
             self.add_sbtab_string(sbtab_init, filename)
         elif sbtab_init:
             self.add_sbtab(sbtab_init)
-        
-        if name:
-            self.name = name
-            self._get_doc_row_attributes()
-        else: self.name = None
+
             
         self.object_type = 'doc'
         
@@ -1001,6 +1035,16 @@ class SBtabDocument:
                 rm2 = rm1.replace('"','')
                 self.doc_row = self._dequote(rm2.replace('#', '"'))
                 break
+            else:
+                self.doc_row = None
+                self.document_format = None
+        
+        # determine if this is an SBtab or ObjTables Document
+        if self.doc_row:
+            if '!!!ObjTables' in self.doc_row:
+                self.document_format = 'ObjTables'
+            elif '!!!SBtab' in self.doc_row:
+                self.document_format = 'SBtab'
         
         # if there are more than one SBtabs, cut them in single SBtabs
         try:
@@ -1010,7 +1054,7 @@ class SBtabDocument:
                     name_single = str(i) + '_' + self.filename
                     sbtab_single = SBtabTable(sbtab_s, name_single)
                     logging.debug('name = %s, type = %s' % (sbtab_single.table_name, sbtab_single.table_type))
-                    self.add_sbtab(sbtab_single) #
+                    self.add_sbtab(sbtab_single)
             else:
                 sbtab = SBtabTable(sbtab_string, filename)
                 self.add_sbtab(sbtab)
