@@ -1,0 +1,27 @@
+!!ObjTables schema='SBtab' type='Data' tableFormat='row' class='Compound' name='Compound' date='2020-07-07 22:05:34' objTablesVersion='1.0.1' document='BIOMD0000000061'							
+!Name	!ID	!InitialConcentration	!Location	!Charge	!IsConstant	!Identifiers:kegg.compound	!HasOnlySubstanceUnits
+Extracellular glucose	GlcX	6.7	extracellular	0	FALSE	C00293	FALSE
+Cytosolic glucose	Glc	0.573074	cytosol	0	FALSE	C00293	FALSE
+ATP	ATP	2.1	cytosol	0	FALSE	C00002	FALSE
+Glucose-6-Phosphate	G6P	4.2	cytosol	0	FALSE	C00092	FALSE
+ADP	ADP	1.5	cytosol	0	FALSE	C00008	FALSE
+Fructose-6-Phosphate	F6P	0.49	cytosol	0	FALSE	C00085	FALSE
+Fructose 1,6-bisphosphate	FBP	4.64	cytosol	0	FALSE	C00354	FALSE
+Glyceraldehyde 3-phosphate	GAP	0.115	cytosol	0	FALSE	C00118	FALSE
+Dihydroxyacetone phosphate	DHAP	2.95	cytosol	0	FALSE	C00111	FALSE
+NAD	NAD	0.65	cytosol	0	FALSE	C00003	FALSE
+1,3-Bisphosphoglycerate	BPG	0.00027	cytosol	0	FALSE	C00236	FALSE
+NADH	NADH	0.33	cytosol	0	FALSE	C00004	FALSE
+Phosphoenolpyruvate	PEP	0.04	cytosol	0	FALSE	C00074	FALSE
+Pyruvate	Pyr	8.7	cytosol	0	FALSE	C00022	FALSE
+Acetaldehyde	ACA	1.48153	cytosol	0	FALSE	C00084	FALSE
+	EtOH	19.2379	cytosol	0	FALSE	C00469	FALSE
+Extracellular ethanol	EtOHX	16.4514	extracellular	0	FALSE	C000469	FALSE
+Glycerol	Glyc	4.196	cytosol	0	FALSE	C00116	FALSE
+Extracellular glycerol	GlycX	1.68478	extracellular	0	FALSE	C00116	FALSE
+Extracellular acetaldehyde	ACAX	1.28836	extracellular	0	FALSE	C00084	FALSE
+Extracellular cyanide	CNX	5.20358	extracellular	0	FALSE	C00177	FALSE
+AMP	AMP	0.33	cytosol	0	FALSE	C00020	FALSE
+	P	0	extracellular	0	FALSE		FALSE
+Mixed flow cyanide 	CNX0	5.6	extracellular	0	FALSE	C00177	FALSE
+Mixed flow glucose	GlcX0	24	extracellular	0	FALSE	C00293	FALSE

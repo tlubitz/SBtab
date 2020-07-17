@@ -31,7 +31,7 @@ def count_tabs(sbtab_string):
     '''
     counter = 0
     for row in sbtab_string.split('\n'):
-        if row.startswith('!!SBtab'):
+        if row.startswith('!!SBtab') or row.startswith('!!ObjTables'):
             counter += 1
     return counter
 
@@ -120,7 +120,7 @@ def split_sbtabs(sbtab_strings):
                 continue
             else:
                 try:
-                    if sbtab_string.startswith('!!SBtab'):
+                    if sbtab_string.startswith('!!SBtab') or sbtab_string.startswith('!!ObjTables'):
                         sbtabs.append(sbtab_string)
                         counter += 1
                     sbtab_string = row + '\n'
@@ -130,7 +130,7 @@ def split_sbtabs(sbtab_strings):
         else:
             sbtab_string += row + '\n'
 
-    if sbtab_string.startswith('!!SBtab'):
+    if sbtab_string.startswith('!!SBtab') or sbtab_string.startswith('!!ObjTables'):
         sbtabs.append(sbtab_string)
                     
     return sbtabs

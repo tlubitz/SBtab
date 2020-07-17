@@ -1,0 +1,132 @@
+!!!ObjTables schema='SBtab' objTablesVersion='1.0.1' date='2020-07-07 22:05:34'
+!!ObjTables schema='SBtab' type='Data' tableFormat='row' class='Compartment' name='Compartment' date='2020-07-07 22:05:34' objTablesVersion='1.0.1' document='BIOMD0000000061'	
+!ID	!Size
+extracellular	1
+cytosol	1
+
+!!ObjTables schema='SBtab' type='Data' tableFormat='row' class='Compound' name='Compound' date='2020-07-07 22:05:34' objTablesVersion='1.0.1' document='BIOMD0000000061'							
+!Name	!ID	!InitialConcentration	!Location	!Charge	!IsConstant	!Identifiers:kegg.compound	!HasOnlySubstanceUnits
+Extracellular glucose	GlcX	6.7	extracellular	0	FALSE	C00293	FALSE
+Cytosolic glucose	Glc	0.573074	cytosol	0	FALSE	C00293	FALSE
+ATP	ATP	2.1	cytosol	0	FALSE	C00002	FALSE
+Glucose-6-Phosphate	G6P	4.2	cytosol	0	FALSE	C00092	FALSE
+ADP	ADP	1.5	cytosol	0	FALSE	C00008	FALSE
+Fructose-6-Phosphate	F6P	0.49	cytosol	0	FALSE	C00085	FALSE
+Fructose 1,6-bisphosphate	FBP	4.64	cytosol	0	FALSE	C00354	FALSE
+Glyceraldehyde 3-phosphate	GAP	0.115	cytosol	0	FALSE	C00118	FALSE
+Dihydroxyacetone phosphate	DHAP	2.95	cytosol	0	FALSE	C00111	FALSE
+NAD	NAD	0.65	cytosol	0	FALSE	C00003	FALSE
+1,3-Bisphosphoglycerate	BPG	0.00027	cytosol	0	FALSE	C00236	FALSE
+NADH	NADH	0.33	cytosol	0	FALSE	C00004	FALSE
+Phosphoenolpyruvate	PEP	0.04	cytosol	0	FALSE	C00074	FALSE
+Pyruvate	Pyr	8.7	cytosol	0	FALSE	C00022	FALSE
+Acetaldehyde	ACA	1.48153	cytosol	0	FALSE	C00084	FALSE
+Ethanol	EtOH	19.2379	cytosol	0	FALSE	C00469	FALSE
+Extracellular ethanol	EtOHX	16.4514	extracellular	0	FALSE	C000469	FALSE
+Glycerol	Glyc	4.196	cytosol	0	FALSE	C00116	FALSE
+Extracellular glycerol	GlycX	1.68478	extracellular	0	FALSE	C00116	FALSE
+Extracellular acetaldehyde	ACAX	1.28836	extracellular	0	FALSE	C00084	FALSE
+Extracellular cyanide	CNX	5.20358	extracellular	0	FALSE	C00177	FALSE
+AMP	AMP	0.33	cytosol	0	FALSE	C00020	FALSE
+Phophorus	P	0	extracellular	0	FALSE		FALSE
+Mixed flow cyanide 	CNX0	5.6	extracellular	0	FALSE	C00177	FALSE
+Mixed flow glucose	GlcX0	24	extracellular	0	FALSE	C00293	FALSE
+
+!!ObjTables schema='SBtab' type='Data' tableFormat='row' class='Reaction' name='Reaction' date='2020-07-07 22:05:34' objTablesVersion='1.0.1' document='BIOMD0000000061'													
+!Name	!ID	!ReactionFormula	!IsComplete	!IsReversible	!IsInEquilibrium	!IsExchangeReaction	!IsNonEnzymatic	!KineticLaw	!BuildReaction	!BuildEnzyme	!BuildEnzymeProduction	!Identifiers:ec-code	!Regulator
+Glucose Mixed flow to extracellular medium	vinGlc	GlcX0 <=> GlcX	FALSE	TRUE	FALSE	FALSE	FALSE	extracellular * k0 * (GlcX0 - GlcX)	FALSE	FALSE	FALSE		
+Glucose uptake	vGlcTrans	GlcX <=> 59.0 Glc	FALSE	TRUE	FALSE	FALSE	FALSE	extracellular * V2f / Yvol * (GlcX / K2Glc / (1 + GlcX / K2Glc + (P2 * (GlcX / K2Glc) + 1) / (P2 * (Glc / K2Glc) + 1) * (1 + Glc / K2Glc + G6P / K2IG6P + Glc * G6P / (K2Glc * K2IIG6P)))) - cytosol * V2r / Yvol * (Glc / K2Glc / (1 + Glc / K2Glc + (P2 * (Glc / K2Glc) + 1) / (P2 * (GlcX / K2Glc) + 1) * (1 + GlcX / K2Glc) + G6P / K2IG6P + Glc * G6P / (K2Glc * K2IIG6P)))	FALSE	FALSE	FALSE		G6P
+Hexokinase	vHK	ATP + Glc <=> G6P + ADP	FALSE	TRUE	FALSE	FALSE	FALSE	cytosol * V3m * ATP * Glc / (K3DGlc * K3ATP + K3Glc * ATP + K3ATP * Glc + Glc * ATP)	FALSE	FALSE	FALSE	2.7.1.2	
+Phosphoglucoisomerase	vPGI	G6P <=> F6P	FALSE	TRUE	FALSE	FALSE	FALSE	cytosol * (V4f * G6P / (K4G6P + G6P + K4G6P / K4F6P * F6P) - V4r * (F6P / K4eq) / (K4G6P + G6P + K4G6P / K4F6P * F6P))	FALSE	FALSE	FALSE	5.3.1.9	
+Phosphofructokinase	vPFK	F6P + ATP <=> FBP + ADP	FALSE	TRUE	FALSE	FALSE	FALSE	cytosol * (V5m * pow(F6P, 2) / (K5 * (1 + kappa5 * (ATP / AMP) * (ATP / AMP)) + pow(F6P, 2)))	FALSE	FALSE	FALSE	2.7.1.11	AMP
+Aldolase	vALD	FBP <=> GAP + DHAP	FALSE	TRUE	FALSE	FALSE	FALSE	cytosol * (V6f * FBP / (K6FBP + FBP + GAP * K6DHAP * V6f / (K6eq * V6f * ratio6) + DHAP * K6GAP * V6f / (K6eq * V6f * ratio6) + FBP * GAP / K6IGAP + GAP * DHAP * V6f / (K6eq * V6f * ratio6)) - V6f * GAP * DHAP / K6eq / (K6FBP + FBP + GAP * K6DHAP * V6f / (K6eq * V6f * ratio6) + DHAP * K6GAP * V6f / (K6eq * V6f * ratio6) + FBP * GAP / K6IGAP + GAP * DHAP * V6f / (K6eq * V6f * ratio6)))	FALSE	FALSE	FALSE	4.1.2.13	
+Triosephosphate isomerase	vTIM	DHAP <=> GAP	FALSE	TRUE	FALSE	FALSE	FALSE	cytosol * (V7f * DHAP / (K7DHAP + DHAP + K7DHAP / K7GAP * GAP) - V7r * (GAP / K7eq) / (K7DHAP + DHAP + K7DHAP / K7GAP * GAP))	FALSE	FALSE	FALSE	5.3.1.1	
+Glyceraldehyde 3-phosphate dehydrogenase	vGAPDH	GAP + NAD <=> NADH + BPG	FALSE	TRUE	FALSE	FALSE	FALSE	cytosol * (V8f * GAP * NAD / K8GAP / K8NAD / ((1 + GAP / K8GAP + BPG / K8BPG) * (1 + NAD / K8NAD + NADH / K8NADH)) - V8r * BPG * NADH / K8eq / K8GAP / K8NAD / ((1 + GAP / K8GAP + BPG / K8BPG) * (1 + NAD / K8NAD + NADH / K8NADH)))	FALSE	FALSE	FALSE	1.2.1.12	
+Phosphoenolpyruvate synthesis	vlpPEP	BPG + ADP <=> PEP + ATP	FALSE	TRUE	FALSE	FALSE	FALSE	cytosol * (k9f * BPG * ADP - k9r * PEP * ATP)	FALSE	FALSE	FALSE	4.2.1.11	
+Pyruvate kinase	vPK	ADP + PEP <=> Pyr + ATP	FALSE	TRUE	FALSE	FALSE	FALSE	cytosol * (V10m * ADP * PEP / ((K10PEP + PEP) * (K10ADP + ADP)))	FALSE	FALSE	FALSE	2.7.1.40	
+Pyruvate decarboxylase	vPDC	Pyr <=> ACA	FALSE	TRUE	FALSE	FALSE	FALSE	cytosol * (V11m * Pyr / (K11 + Pyr))	FALSE	FALSE	FALSE	4.1.1.1	
+Alcohol dehydrogenase	vADH	NADH + ACA <=> NAD + EtOH	FALSE	TRUE	FALSE	FALSE	FALSE	cytosol * (V12m * ACA * NADH / ((K12NADH + NADH) * (K12ACA + ACA)))	FALSE	FALSE	FALSE	1.1.1.1	
+Ethanol out	vdifEtOH	59.0 EtOH <=> EtOHX	FALSE	TRUE	FALSE	FALSE	FALSE	k13 / Yvol * (cytosol * EtOH - extracellular * EtOHX)	FALSE	FALSE	FALSE		
+Ethanol flow	voutEtOH	EtOHX <=> P	FALSE	TRUE	FALSE	FALSE	FALSE	extracellular * k0 * EtOHX	FALSE	FALSE	FALSE		
+Glycerol synthesis	vlpGlyc	DHAP + NADH <=> Glyc + NAD	FALSE	TRUE	FALSE	FALSE	FALSE	cytosol * (V15m * DHAP / (K15DHAP * (1 + K15INADH / NADH * (1 + NAD / K15INAD)) + DHAP * (1 + K15NADH / NADH * (1 + NAD / K15INAD))))	FALSE	FALSE	FALSE	1.1.1.6	
+Glycerol out	vdifGlyc	59.0 Glyc <=> GlycX	FALSE	TRUE	FALSE	FALSE	FALSE	k16 / Yvol * (cytosol * Glyc - extracellular * GlycX)	FALSE	FALSE	FALSE		
+Glycerol flow	voutGlyc	GlycX <=> P	FALSE	TRUE	FALSE	FALSE	FALSE	extracellular * k0 * GlycX	FALSE	FALSE	FALSE		
+Acetaldehyde out	vdifACA	59.0 ACA <=> ACAX	FALSE	TRUE	FALSE	FALSE	FALSE	k18 / Yvol * (cytosol * ACA - extracellular * ACAX)	FALSE	FALSE	FALSE		
+Acetaldehyde flow	voutACA	ACAX <=> P	FALSE	TRUE	FALSE	FALSE	FALSE	extracellular * k0 * ACAX	FALSE	FALSE	FALSE		
+Cyanide-Acetaldehyde flow	vlacto	CNX + ACAX <=> P	FALSE	TRUE	FALSE	FALSE	FALSE	extracellular * k20 * ACAX * CNX	FALSE	FALSE	FALSE		
+Cyanide flow	vinCN	CNX0 <=> CNX	FALSE	TRUE	FALSE	FALSE	FALSE	extracellular * k0 * (CNX0 - CNX)	FALSE	FALSE	FALSE		
+Storage	vstorage	ATP + G6P <=> ADP	FALSE	TRUE	FALSE	FALSE	FALSE	cytosol * k22 * ATP * G6P	FALSE	FALSE	FALSE		
+ATP consumption	vconsum	ATP <=> ADP	FALSE	TRUE	FALSE	FALSE	FALSE	cytosol * k23 * ATP	FALSE	FALSE	FALSE		
+Adenylate kinase	vAK	ATP + AMP <=> 2.0 ADP	FALSE	TRUE	FALSE	FALSE	FALSE	cytosol * (k24f * AMP * ATP - k24r * pow(ADP, 2))	FALSE	FALSE	FALSE	2.7.4.3	
+
+!!ObjTables schema='SBtab' type='Data' tableFormat='row' class='Quantity' name='Quantity' date='2020-07-07 22:05:34' objTablesVersion='1.0.1' document='BIOMD0000000061'						
+!Description	!ID	!Value	!Sign	!SBML:parameter:id	!Unit	!UseAsPriorInformation
+local parameter	k0_vinGlc	0.048	0	k0	min_inverse	FALSE
+local parameter	V2f_vGlcTrans	1014.96	0	V2f	mM_per_minute	FALSE
+local parameter	Yvol_vGlcTrans	59	0	Yvol	dimensionless	FALSE
+local parameter	K2Glc_vGlcTrans	1.7	0	K2Glc	mM	FALSE
+local parameter	P2_vGlcTrans	1	0	P2	dimensionless	FALSE
+local parameter	K2IG6P_vGlcTrans	1.2	0	K2IG6P	mM	FALSE
+local parameter	K2IIG6P_vGlcTrans	7.2	0	K2IIG6P	mM	FALSE
+local parameter	V2r_vGlcTrans	1014.96	0	V2r	mM_per_minute	FALSE
+local parameter	V3m_vHK	51.7547	0	V3m	mM_per_minute	FALSE
+local parameter	K3DGlc_vHK	0.37	0	K3DGlc	mM	FALSE
+local parameter	K3ATP_vHK	0.1	0	K3ATP	mM	FALSE
+local parameter	K3Glc_vHK	0	0	K3Glc	mM	FALSE
+local parameter	V4f_vPGI	496.042	0	V4f	mM_per_minute	FALSE
+local parameter	K4G6P_vPGI	0.8	0	K4G6P	mM	FALSE
+local parameter	K4F6P_vPGI	0.15	0	K4F6P	mM	FALSE
+local parameter	V4r_vPGI	496.042	0	V4r	mM_per_minute	FALSE
+local parameter	K4eq_vPGI	0.13	0	K4eq	dimensionless	FALSE
+local parameter	V5m_vPFK	45.4327	0	V5m	mM_per_minute	FALSE
+local parameter	K5_vPFK	0.021	0	K5	mM_squared	FALSE
+local parameter	kappa5_vPFK	0.15	0	kappa5	dimensionless	FALSE
+local parameter	V6f_vALD	2207.82	0	V6f	mM_per_minute	FALSE
+local parameter	K6FBP_vALD	0.3	0	K6FBP	mM	FALSE
+local parameter	K6DHAP_vALD	2	0	K6DHAP	mM	FALSE
+local parameter	K6eq_vALD	0.081	0	K6eq	mM	FALSE
+local parameter	ratio6_vALD	5	0	ratio6	dimensionless	FALSE
+local parameter	K6GAP_vALD	4	0	K6GAP	mM	FALSE
+local parameter	K6IGAP_vALD	10	0	K6IGAP	mM	FALSE
+local parameter	V7f_vTIM	116.365	0	V7f	mM_per_minute	FALSE
+local parameter	K7DHAP_vTIM	1.23	0	K7DHAP	mM	FALSE
+local parameter	K7GAP_vTIM	1.27	0	K7GAP	mM	FALSE
+local parameter	V7r_vTIM	116.365	0	V7r	mM_per_minute	FALSE
+local parameter	K7eq_vTIM	0.055	0	K7eq	dimensionless	FALSE
+local parameter	V8f_vGAPDH	833.858	0	V8f	mM_per_minute	FALSE
+local parameter	K8GAP_vGAPDH	0.6	0	K8GAP	mM	FALSE
+local parameter	K8NAD_vGAPDH	0.1	0	K8NAD	mM	FALSE
+local parameter	K8BPG_vGAPDH	0.01	0	K8BPG	mM	FALSE
+local parameter	K8NADH_vGAPDH	0.06	0	K8NADH	mM	FALSE
+local parameter	V8r_vGAPDH	833.858	0	V8r	mM_per_minute	FALSE
+local parameter	K8eq_vGAPDH	0.0055	0	K8eq	dimensionless	FALSE
+local parameter	k9f_vlpPEP	443866	0	k9f	mM_inverse_min_inverse	FALSE
+local parameter	k9r_vlpPEP	1528.62	0	k9r	mM_inverse_min_inverse	FALSE
+local parameter	V10m_vPK	343.096	0	V10m	mM_per_minute	FALSE
+local parameter	K10PEP_vPK	0.2	0	K10PEP	mM	FALSE
+local parameter	K10ADP_vPK	0.17	0	K10ADP	mM	FALSE
+local parameter	V11m_vPDC	53.1328	0	V11m	mM_per_minute	FALSE
+local parameter	K11_vPDC	0.3	0	K11	mM	FALSE
+local parameter	V12m_vADH	89.8023	0	V12m	mM_per_minute	FALSE
+local parameter	K12NADH_vADH	0.1	0	K12NADH	mM	FALSE
+local parameter	K12ACA_vADH	0.71	0	K12ACA	mM	FALSE
+local parameter	k13_vdifEtOH	16.72	0	k13	min_inverse	FALSE
+local parameter	Yvol_vdifEtOH	59	0	Yvol	dimensionless	FALSE
+local parameter	k0_voutEtOH	0.048	0	k0	min_inverse	FALSE
+local parameter	V15m_vlpGlyc	81.4797	0	V15m	mM_per_minute	FALSE
+local parameter	K15DHAP_vlpGlyc	25	0	K15DHAP	mM	FALSE
+local parameter	K15INADH_vlpGlyc	0.034	0	K15INADH	mM	FALSE
+local parameter	K15INAD_vlpGlyc	0.13	0	K15INAD	mM	FALSE
+local parameter	K15NADH_vlpGlyc	0.13	0	K15NADH	mM	FALSE
+local parameter	k16_vdifGlyc	1.9	0	k16	min_inverse	FALSE
+local parameter	Yvol_vdifGlyc	59	0	Yvol	dimensionless	FALSE
+local parameter	k0_voutGlyc	0.048	0	k0	min_inverse	FALSE
+local parameter	k18_vdifACA	24.7	0	k18	min_inverse	FALSE
+local parameter	Yvol_vdifACA	59	0	Yvol	dimensionless	FALSE
+local parameter	k0_voutACA	0.048	0	k0	min_inverse	FALSE
+local parameter	k20_vlacto	0.00283828	0	k20	mM_inverse_min_inverse	FALSE
+local parameter	k0_vinCN	0.048	0	k0	min_inverse	FALSE
+local parameter	k22_vstorage	2.25932	0	k22	mM_inverse_min_inverse	FALSE
+local parameter	k23_vconsum	3.2076	0	k23	min_inverse	FALSE
+local parameter	k24f_vAK	432.9	0	k24f	mM_inverse_min_inverse	FALSE
+local parameter	k24r_vAK	133.333	0	k24r	mM_inverse_min_inverse	FALSE

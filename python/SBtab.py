@@ -1045,7 +1045,7 @@ class SBtabDocument:
                 self.document_format = 'ObjTables'
             elif '!!!SBtab' in self.doc_row:
                 self.document_format = 'SBtab'
-        
+
         # if there are more than one SBtabs, cut them in single SBtabs
         try:
             if sbtab_amount > 1:

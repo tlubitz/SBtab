@@ -46,12 +46,18 @@ def converter_sbml2sbtab_wrapper(args):
     # create converter class
     try:
         converter = sbml2sbtab.SBMLDocument(sbml.getModel(), args.sbml)
-        (sbtab_doc, warnings) = converter.convert_to_sbtab()
+        (sbtab_doc, objtables_doc, warnings) = converter.convert_to_sbtab()
         print(warnings)
         p = open('sbtab.tsv','w')
+        p.write(sbtab_doc.doc_row+'\n')
         for sbtab in sbtab_doc.sbtabs:        
             p.write(sbtab.to_str()+'\n\n')
-        p.close()            
+        p.close()
+        p = open('objtables.tsv','w')
+        p.write(objtables_doc.doc_row+'\n')
+        for objtable in objtables_doc.sbtabs:        
+            p.write(objtable.to_str()+'\n\n')
+        p.close()
     except:
         raise SBtabError('SBML Document %s could not be converted to SBtab.' % args.sbml)
 

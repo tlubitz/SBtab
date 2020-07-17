@@ -45,7 +45,7 @@ class TestSBMLConversion(unittest.TestCase):
 
             # get SBtab document
             conversion_object = sbml2sbtab.SBMLDocument(sbml_doc.getModel(), self.sbml_names[i])
-            (sbtab_doc, warnings) = conversion_object.convert_to_sbtab()
+            (sbtab_doc, objtables_doc, warnings) = conversion_object.convert_to_sbtab()
 
             # check general attributes of sbtab_doc
             self.assertIsNotNone(sbtab_doc)

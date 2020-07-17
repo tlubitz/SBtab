@@ -1,0 +1,26 @@
+!!ObjTables schema='SBtab' type='Data' tableFormat='row' class='Reaction' name='Reaction' date='2020-07-07 22:05:34' objTablesVersion='1.0.1' document='BIOMD0000000061'													
+!Name	!ID	!ReactionFormula	!IsComplete	!IsReversible	!IsInEquilibrium	!IsExchangeReaction	!IsNonEnzymatic	!KineticLaw	!BuildReaction	!BuildEnzyme	!BuildEnzymeProduction	!Identifiers:ec-code	!Regulator
+Glucose Mixed flow to extracellular medium	vinGlc	GlcX0 <=> GlcX	FALSE	TRUE	FALSE	FALSE	FALSE	extracellular * k0 * (GlcX0 - GlcX)	FALSE	FALSE	FALSE		
+Glucose uptake	vGlcTrans	GlcX <=> 59.0 Glc	FALSE	TRUE	FALSE	FALSE	FALSE	extracellular * V2f / Yvol * (GlcX / K2Glc / (1 + GlcX / K2Glc + (P2 * (GlcX / K2Glc) + 1) / (P2 * (Glc / K2Glc) + 1) * (1 + Glc / K2Glc + G6P / K2IG6P + Glc * G6P / (K2Glc * K2IIG6P)))) - cytosol * V2r / Yvol * (Glc / K2Glc / (1 + Glc / K2Glc + (P2 * (Glc / K2Glc) + 1) / (P2 * (GlcX / K2Glc) + 1) * (1 + GlcX / K2Glc) + G6P / K2IG6P + Glc * G6P / (K2Glc * K2IIG6P)))	FALSE	FALSE	FALSE		G6P
+Hexokinase	vHK	ATP + Glc <=> G6P + ADP	FALSE	TRUE	FALSE	FALSE	FALSE	cytosol * V3m * ATP * Glc / (K3DGlc * K3ATP + K3Glc * ATP + K3ATP * Glc + Glc * ATP)	FALSE	FALSE	FALSE	2.7.1.2	
+Phosphoglucoisomerase	vPGI	G6P <=> F6P	FALSE	TRUE	FALSE	FALSE	FALSE	cytosol * (V4f * G6P / (K4G6P + G6P + K4G6P / K4F6P * F6P) - V4r * (F6P / K4eq) / (K4G6P + G6P + K4G6P / K4F6P * F6P))	FALSE	FALSE	FALSE	5.3.1.9	
+Phosphofructokinase	vPFK	F6P + ATP <=> FBP + ADP	FALSE	TRUE	FALSE	FALSE	FALSE	cytosol * (V5m * pow(F6P, 2) / (K5 * (1 + kappa5 * (ATP / AMP) * (ATP / AMP)) + pow(F6P, 2)))	FALSE	FALSE	FALSE	2.7.1.11	AMP
+Aldolase	vALD	FBP <=> GAP + DHAP	FALSE	TRUE	FALSE	FALSE	FALSE	cytosol * (V6f * FBP / (K6FBP + FBP + GAP * K6DHAP * V6f / (K6eq * V6f * ratio6) + DHAP * K6GAP * V6f / (K6eq * V6f * ratio6) + FBP * GAP / K6IGAP + GAP * DHAP * V6f / (K6eq * V6f * ratio6)) - V6f * GAP * DHAP / K6eq / (K6FBP + FBP + GAP * K6DHAP * V6f / (K6eq * V6f * ratio6) + DHAP * K6GAP * V6f / (K6eq * V6f * ratio6) + FBP * GAP / K6IGAP + GAP * DHAP * V6f / (K6eq * V6f * ratio6)))	FALSE	FALSE	FALSE	4.1.2.13	
+Triosephosphate isomerase	vTIM	DHAP <=> GAP	FALSE	TRUE	FALSE	FALSE	FALSE	cytosol * (V7f * DHAP / (K7DHAP + DHAP + K7DHAP / K7GAP * GAP) - V7r * (GAP / K7eq) / (K7DHAP + DHAP + K7DHAP / K7GAP * GAP))	FALSE	FALSE	FALSE	5.3.1.1	
+Glyceraldehyde 3-phosphate dehydrogenase	vGAPDH	GAP + NAD <=> NADH + BPG	FALSE	TRUE	FALSE	FALSE	FALSE	cytosol * (V8f * GAP * NAD / K8GAP / K8NAD / ((1 + GAP / K8GAP + BPG / K8BPG) * (1 + NAD / K8NAD + NADH / K8NADH)) - V8r * BPG * NADH / K8eq / K8GAP / K8NAD / ((1 + GAP / K8GAP + BPG / K8BPG) * (1 + NAD / K8NAD + NADH / K8NADH)))	FALSE	FALSE	FALSE	1.2.1.12	
+Phosphoenolpyruvate synthesis	vlpPEP	BPG + ADP <=> PEP + ATP	FALSE	TRUE	FALSE	FALSE	FALSE	cytosol * (k9f * BPG * ADP - k9r * PEP * ATP)	FALSE	FALSE	FALSE	4.2.1.11	
+Pyruvate kinase	vPK	ADP + PEP <=> Pyr + ATP	FALSE	TRUE	FALSE	FALSE	FALSE	cytosol * (V10m * ADP * PEP / ((K10PEP + PEP) * (K10ADP + ADP)))	FALSE	FALSE	FALSE	2.7.1.40	
+Pyruvate decarboxylase	vPDC	Pyr <=> ACA	FALSE	TRUE	FALSE	FALSE	FALSE	cytosol * (V11m * Pyr / (K11 + Pyr))	FALSE	FALSE	FALSE	4.1.1.1	
+Alcohol dehydrogenase	vADH	NADH + ACA <=> NAD + EtOH	FALSE	TRUE	FALSE	FALSE	FALSE	cytosol * (V12m * ACA * NADH / ((K12NADH + NADH) * (K12ACA + ACA)))	FALSE	FALSE	FALSE	1.1.1.1	
+Ethanol out	vdifEtOH	59.0 EtOH <=> EtOHX	FALSE	TRUE	FALSE	FALSE	FALSE	k13 / Yvol * (cytosol * EtOH - extracellular * EtOHX)	FALSE	FALSE	FALSE		
+Ethanol flow	voutEtOH	EtOHX <=> P	FALSE	TRUE	FALSE	FALSE	FALSE	extracellular * k0 * EtOHX	FALSE	FALSE	FALSE		
+Glycerol synthesis	vlpGlyc	DHAP + NADH <=> Glyc + NAD	FALSE	TRUE	FALSE	FALSE	FALSE	cytosol * (V15m * DHAP / (K15DHAP * (1 + K15INADH / NADH * (1 + NAD / K15INAD)) + DHAP * (1 + K15NADH / NADH * (1 + NAD / K15INAD))))	FALSE	FALSE	FALSE	1.1.1.6	
+Glycerol out	vdifGlyc	59.0 Glyc <=> GlycX	FALSE	TRUE	FALSE	FALSE	FALSE	k16 / Yvol * (cytosol * Glyc - extracellular * GlycX)	FALSE	FALSE	FALSE		
+Glycerol flow	voutGlyc	GlycX <=> P	FALSE	TRUE	FALSE	FALSE	FALSE	extracellular * k0 * GlycX	FALSE	FALSE	FALSE		
+Acetaldehyde out	vdifACA	59.0 ACA <=> ACAX	FALSE	TRUE	FALSE	FALSE	FALSE	k18 / Yvol * (cytosol * ACA - extracellular * ACAX)	FALSE	FALSE	FALSE		
+Acetaldehyde flow	voutACA	ACAX <=> P	FALSE	TRUE	FALSE	FALSE	FALSE	extracellular * k0 * ACAX	FALSE	FALSE	FALSE		
+Cyanide-Acetaldehyde flow	vlacto	CNX + ACAX <=> P	FALSE	TRUE	FALSE	FALSE	FALSE	extracellular * k20 * ACAX * CNX	FALSE	FALSE	FALSE		
+Cyanide flow	vinCN	CNX0 <=> CNX	FALSE	TRUE	FALSE	FALSE	FALSE	extracellular * k0 * (CNX0 - CNX)	FALSE	FALSE	FALSE		
+Storage	vstorage	ATP + G6P <=> ADP	FALSE	TRUE	FALSE	FALSE	FALSE	cytosol * k22 * ATP * G6P	FALSE	FALSE	FALSE		
+ATP consumption	vconsum	ATP <=> ADP	FALSE	TRUE	FALSE	FALSE	FALSE	cytosol * k23 * ATP	FALSE	FALSE	FALSE		
+Adenylate kinase	vAK	ATP + AMP <=> 2.0 ADP	FALSE	TRUE	FALSE	FALSE	FALSE	cytosol * (k24f * AMP * ATP - k24r * pow(ADP, 2))	FALSE	FALSE	FALSE	2.7.4.3	
