@@ -91,8 +91,9 @@ Here, we show you how to use SBtab in your own Python code. If you have question
     model = doc.getModel()
     
     # convert model to SBtab Document Sd
+    # (Od is an ObjTable Document in SBtab format)
     Cd = sbml2sbtab.SBMLDocument(model, 'hynne.xml')
-    (Sd,warnings) = Cd.convert_to_sbtab()
+    (Sd, Od, warnings) = Cd.convert_to_sbtab()
 ```
 <h3>Python API</h3>
 The API for the Python modules can be found in the directory <i>SBtab/python/api_documentation/</i>.
