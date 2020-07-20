@@ -342,7 +342,8 @@ def open_definitions_file(_path=None):
     for path in try_paths:
         try:
             def_file = open(path, 'r')
-            sbtab_def = SBtab.SBtabTable(def_file.read(), 'definitions.tsv')
+            file_content = def_file.read()
+            sbtab_def = SBtab.SBtabTable(file_content, 'definitions.tsv')
             def_file.close()
             break
         except: pass
@@ -350,6 +351,26 @@ def open_definitions_file(_path=None):
     return sbtab_def
 
             
+def check_obj(file_string):
+    '''
+    Tests a file string if it is SBtab or ObjTables format.
+
+    Parameters
+    ----------
+    file_string: str
+        Content of a read file.
+
+    Returns: Boolean
+        True if ObjTables
+        False if SBtab
+    '''
+    objTables = False
+    for row in file_string:
+        if row.startswith('!!!ObjTables') or row.startswith('!!ObjTables'):
+            objTables = True
+    return objTables
+
+
 def extract_supported_table_types():
     '''
     Extracts all allowed SBtab table types from the definitions file.

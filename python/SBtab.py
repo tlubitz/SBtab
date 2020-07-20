@@ -84,17 +84,7 @@ class SBtabTable():
             self._validate_extension()
 
         if table_string:
-            self.table_string = table_string
-            # validate singular SBtab
-            self._singular()
-
-            # process string
-            self.delimiter = misc.check_delimiter(table_string)
-            self.preprocess = self._preprocess_table_string(table_string)
-            self.table = self._cut_table_string(self.preprocess)
-
-            # Initialise table
-            self._initialize_table()
+            self.add_sbtab_string(table_string)
 
         self.object_type = 'table'
 
@@ -119,7 +109,7 @@ class SBtabTable():
         '''
         header_row_count = 0
         for row in self.table_string.split('\n'):
-            if row.startswith('!!SBtab'):
+            if row.startswith('!!SBtab') or row.startswith('!!ObjTables'):
                 header_row_count += 1
 
         if header_row_count > 1:
@@ -355,6 +345,7 @@ class SBtabTable():
 
         header_row_dq = self._dequote(header_row)
 
+
         # determine if this is an SBtab or ObjTables Document
         if '!!ObjTables' in header_row_dq:
             self.table_format = 'ObjTables'
@@ -454,7 +445,6 @@ class SBtabTable():
         else:
             raise SBtabError('''The %s of the SBtab is
                                 not defined!''' % attribute_name)
-
 
     def _get_columns(self):
         '''
@@ -1409,7 +1399,7 @@ class SBtabDocument:
         new_doc_row: str
             New SBtab document declaration row
         '''
-        if not new_doc_row.startswith('!!!SBtab'):
+        if not new_doc_row.startswith('!!!SBtab') or not new_doc_row.startswith('!!!ObjTables'):
             raise SBtabError('A doc row needs to be preceded with "!!!SBtab".')
 
         if 'Document=' not in new_doc_row:

@@ -41,11 +41,15 @@ def validator_wrapper(args):
             sbtab_doc = SBtab.SBtabDocument('validation_document', f, args.sbtab)
         except:
             raise SBtabError('SBtab Document %s could not be created.' % args.document_name)
+        if sbtab_doc.table_format == 'ObjTables':
+            raise SBtabError('This tool does not validate ObjTables files; please use the online validator at https://www.objtables.org/app.')
     else:
         try:
             sbtab = SBtab.SBtabTable(f, args.sbtab)
         except:
             raise SBtabError('SBtab Table %s could not be created.' % args.sbtab)
+        if sbtab.table_format == 'ObjTables':
+            raise SBtabError('This tool does not validate ObjTables files; please use the online validator at https://www.objtables.org/app.')
 
     # if definitions file is given create SBtab object
     if args.sbtab_definitions:
