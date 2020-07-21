@@ -79,9 +79,7 @@ class SBtabTable():
             Filename with extension.
         '''
         if filename:
-            self.filename = filename
-            # validate file extension
-            self._validate_extension()
+            self.set_filename(filename)
 
         if table_string:
             self.add_sbtab_string(table_string)
@@ -459,9 +457,7 @@ class SBtabTable():
                     break
 
         # Get column positions
-        columns = {}
-        for i, column in enumerate(column_names):
-            columns[column] = i
+        columns = dict(map(reversed, enumerate(column_names)))
 
         return column_names, columns
 
@@ -534,6 +530,8 @@ class SBtabTable():
             New name for the SBtab object.
         '''
         self.filename = filename
+        # validate file extension
+        self._validate_extension()
 
     def add_sbtab_string(self, sbtab_string):
         '''
@@ -868,9 +866,16 @@ class SBtabTable():
             raise SBtabError('Pandas dataframe could not be built.')
 
     @staticmethod
-    def from_data_frame(df, table_id, table_type, table_name=None,
-                        document_name=None, document=None, unit=None,
-                        sbtab_version='1.0'):
+    def from_data_frame(
+        df,
+        table_id,
+        table_type,
+        table_name=None,
+        document_name=None,
+        document=None,
+        unit=None,
+        sbtab_version='1.0'
+    ) -> "SBtabTable":
         '''
         Creates SBtab table object from pandas dataframe.
 
@@ -895,29 +900,35 @@ class SBtabTable():
 
         Returns: SBtab.SBtabTable
             SBtab table object created from pandas dataframe.
-        '''        
-        table_string = StringIO()
-        csv_writer = csv.writer(table_string, delimiter=',')
+        '''
+        sbtab = SBtabTable()
 
-        header = [('TableID', table_id),
-                  ('TableType', table_type),
-                  ('TableName', table_name or table_id),
-                  ('SBtabVersion', sbtab_version)]
+        sbtab.table_id = table_id
+        sbtab.table_type = table_type
+        sbtab.table_name = table_name or table_id
+        sbtab.table_document = document
+        sbtab.table_version = sbtab_version
+        
+        header = [('TableID', sbtab.table_id),
+                  ('TableType', sbtab.table_type),
+                  ('TableName', sbtab.table_name),
+                  ('SBtabVersion', sbtab.table_version)]
         if document_name:
             header += [('DocumentName', document_name)]
         if document:
-            header += [('Document', document)]
+            header += [('Document', sbtab.table_document)]
         if unit:
             header += [('Unit', unit)]
-
         header_strings = ['!!SBtab'] + list(map(lambda x: "%s='%s'" % x, header))
+        
+        sbtab.doc_row = None
+        sbtab.header_row = [' '.join(header_strings)] + [''] * (df.shape[1]-1)
+        
+        sbtab.columns = df.columns.tolist()
+        sbtab.columns_dict = dict(map(reversed, enumerate(df.columns)))
+        sbtab.value_rows = df.values.tolist()
 
-        csv_writer.writerow([' '.join(header_strings)] + [''] * (df.shape[1]-1))
-        csv_writer.writerow(map(lambda s: '!' + s, df.columns))
-        csv_writer.writerows([row.tolist() for _, row in df.iterrows()])
-        table_string.flush()
-
-        return SBtabTable(table_string.getvalue(), 'unnamed_sbtab.tsv')
+        return sbtab
 
     
 class SBtabDocument:
