@@ -12,6 +12,10 @@ python/single_test.tsv
 python/ts.tsv
 python/current_tests
 python/layout_test
+python/sbml.xml
+python/test.py
+definition_table/definitions_old.tsv
+
 sbtab_examples/e_coli_core.xml
 sbtab_examples/example.xlsx
 sbtab_examples/mm.xlsx

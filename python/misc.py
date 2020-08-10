@@ -216,7 +216,8 @@ def sbtab_to_html(sbtab, filename=None, mode='sbtab_online', template = [], put_
                             split_column = col.split(' ')
                             for element in split_column:
                                 if element not in no_link and not _is_float(element) and put_links:
-                                    html += '<a href="#%s">%s</a> ' % (element, element)
+                                    #html += '<a href="#%s">%s</a> ' % (element, element)    #internal links
+                                    html += element
                                 else:
                                     html += element + ' '
                             html += '</td>'

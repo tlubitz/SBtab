@@ -741,7 +741,7 @@ class SBMLDocument:
         if not parameters: return False
 
         # header row        
-        sbtab_quantity = '!!SBtab TableID="quantity" Document="%s" TableType='\
+        sbtab_quantity = '!!SBtab TableID="parameter" Document="%s" TableType='\
                          '"Quantity" TableName="Quantity" SBtabVersion="1.0"\n' % self.filename
         # columns
         columns = ['!ID', '!Parameter:SBML:parameter:id', '!Value',
