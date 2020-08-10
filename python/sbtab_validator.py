@@ -41,7 +41,7 @@ def validator_wrapper(args):
             sbtab_doc = SBtab.SBtabDocument('validation_document', f, args.sbtab)
         except:
             raise SBtabError('SBtab Document %s could not be created.' % args.document_name)
-        if sbtab_doc.table_format == 'ObjTables':
+        if sbtab_doc.document_format == 'ObjTables':
             raise SBtabError('This tool does not validate ObjTables files; please use the online validator at https://www.objtables.org/app.')
     else:
         try:
@@ -66,8 +66,14 @@ def validator_wrapper(args):
         try:
             validate_doc = validatorSBtab.ValidateDocument(sbtab_doc, sbtab_def)
             warnings = validate_doc.validate_document()
-            for warning in warnings:
-                print(warning)
+            for sbtab in warnings:
+                print(sbtab[0])
+                if len(sbtab[1]) == 0:
+                    print('No Warnings')
+                else:
+                    for warning in sbtab[1]:
+                        print(warning)
+                print('\n\n')
         except:
             raise SBtabError('SBtab Document %s could not be validated.' % args.document_name)
     else:

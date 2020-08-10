@@ -968,7 +968,6 @@ class SBtabDocument:
             self.add_sbtab_string(sbtab_init, filename)
         elif sbtab_init:
             self.add_sbtab(sbtab_init)
-
             
         self.object_type = 'doc'
         

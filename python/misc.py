@@ -382,8 +382,8 @@ def extract_supported_table_types():
     
     supported_types = []
     for row in sbtab_def.value_rows:
-        t = row[sbtab_def.columns_dict['!IsPartOf']]
-        if t not in supported_types:
+        t = row[sbtab_def.columns_dict['!Parent']]
+        if t not in supported_types and t != 'SBtab':
             supported_types.append(t)
 
     return supported_types
@@ -408,9 +408,9 @@ def find_descriptions(def_file, table_type):
     col2link = {}
 
     for row in def_file.value_rows:
-        if row[def_file.columns_dict['!IsPartOf']] == table_type:
-            col2description[row[def_file.columns_dict['!ComponentName']]] = row[def_file.columns_dict['!Description']]
-            col2link['!'+row[def_file.columns_dict['!ComponentName']]] = row[def_file.columns_dict['!isShortname']]
+        if row[def_file.columns_dict['!Parent']] == table_type:
+            col2description[row[def_file.columns_dict['!Name']]] = row[def_file.columns_dict['!Description']]
+            col2link['!'+row[def_file.columns_dict['!Name']]] = row[def_file.columns_dict['!isShortname']]
 
     return (col2description, col2link)
 
