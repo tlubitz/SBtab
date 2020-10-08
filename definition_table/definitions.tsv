@@ -158,7 +158,7 @@ Min	Column	Quantity	False	Float	Lower bound
 Max	Column	Quantity	False	Float	Upper bound
 Median	Column	Quantity	False	Float	Median
 GeometricMean	Column	Quantity	False	Float	Geometric mean
-Sign	Column	Quantity	False	Enum(‘+’,’-’,’0’)	Sign
+Sign	Column	Quantity	False	Enum('+','-','0')	Sign
 ProbDist	Column	Quantity	False	String	Probability distribution
 SBML:parameter:id	Column	Quantity	True	String	Parameter ID in SBML file
 Unit	Column	Quantity	False	String	Physical unit
@@ -284,7 +284,7 @@ Min	Column	QuantityMatrix	False	Float	Lower bound
 Max	Column	QuantityMatrix	False	Float	Upper bound
 Median	Column	QuantityMatrix	False	Float	Median
 GeometricMean	Column	QuantityMatrix	False	Float	Geometric mean
-Sign	Column	QuantityMatrix	False	Enum(‘+’,’-’,’0’)	Sign
+Sign	Column	QuantityMatrix	False	Enum('+','-','0')	Sign
 ProbDist	Column	QuantityMatrix	False	String	Probability distribution
 SBML:parameter:id	Column	QuantityMatrix	True	String	Parameter ID in SBML file
 Unit	Column	QuantityMatrix	False	String	Physical unit

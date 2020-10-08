@@ -1409,7 +1409,7 @@ class SBtabDocument:
         new_doc_row: str
             New SBtab document declaration row
         '''
-        if not new_doc_row.startswith('!!!SBtab') or not new_doc_row.startswith('!!!ObjTables'):
+        if not new_doc_row.startswith('!!!SBtab') and not new_doc_row.startswith('!!!ObjTables'):
             raise SBtabError('A doc row needs to be preceded with "!!!SBtab".')
 
         if 'Document=' not in new_doc_row:
