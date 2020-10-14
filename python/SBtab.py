@@ -1371,7 +1371,7 @@ class SBtabDocument:
         Returns: str
             SBtab.SBtabDocument as string representation.
         '''
-        sbtab_document = self.doc_row + '\n'
+        sbtab_document = self.doc_row + '\r\n'
         for sbtab in self.sbtabs:
             sbtab_document += sbtab.to_str() + '\n\n'
 
