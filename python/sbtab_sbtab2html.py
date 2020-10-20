@@ -45,7 +45,9 @@ def sbtab2html_wrapper(sbtab, multiple, output, template, links, pageheader, def
     # count given tabs and prepare file name w/o path
     if output is not None:
         outfile_dir, outfile_file = os.path.split(output)
-        if not os.path.exists(outfile_dir):
+        if len(outfile_dir)==0:
+            outfile_dir = '.'
+        elif not os.path.exists(outfile_dir):
             os.mkdir(outfile_dir)
         outfile_file=os.path.splitext(outfile_file)[0]
         name_pre[0] = outfile_file
@@ -99,13 +101,12 @@ if __name__ == '__main__':
 
     parser.add_argument('sbtab', help='Path to an SBtab file.')
     parser.add_argument('-m', '--multiple', help='Flag to create multiple HTML files', action='store_false')
-    parser.add_argument('-o', '--output', help='Output directory', default = [])
+    parser.add_argument('-o', '--output', help='Output directory', default = None)
     parser.add_argument('-t', '--template', help='Template file, to be used instead of default HTML template', default=[])
     parser.add_argument('-v', '--verbose', help='Flag to display script messages', action='store_true')
     parser.add_argument('-l', '--links', help='Flag to put links automatically', action='store_true')
-    parser.add_argument('-p', '--pageheader', help='Page title string to be shown on HTML page', default=[])
+    parser.add_argument('-p', '--pageheader', help='Page title string to be shown on HTML page', default='')
     parser.add_argument('-d', '--definitions_file', help='Path to custom definitions file', default=[])
 
     args = parser.parse_args()
-
     sbtab2html_wrapper(args.sbtab, args.multiple, args.output, args.template, args.links, args.pageheader, args.definitions_file)
