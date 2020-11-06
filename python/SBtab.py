@@ -1113,11 +1113,11 @@ class SBtabDocument:
         self.date = '-'.join([str(now.year),str(now.month),str(now.day)])
 
         if not self.doc_row:
-            self.doc_row = "!!!SBtab Document='%s' SBtabVersion='1.0' Date='%s'" % (self.name, self.date)
+            self.doc_row = "!!!SBtab DocumentName='%s' SBtabVersion='1.0' Date='%s'" % (self.name, self.date)
         else:
             # save document name, otherwise raise error
             # (overrides name given at document initialisation)
-            try: self.name = self.get_custom_doc_information('Document')
+            try: self.name = self.get_custom_doc_information('DocumentName')
             except: pass
 
             # save SBtabVersion
@@ -1168,7 +1168,7 @@ class SBtabDocument:
         attribute: str
             Attribute that shall be removed.
         '''
-        obligatory_attributes = ['Document']
+        obligatory_attributes = ['DocumentName']
         if attribute in obligatory_attributes:
             raise SBtabError('Attribute %s cannot be removed as it is obligatory.' % attribute)
         
@@ -1412,8 +1412,8 @@ class SBtabDocument:
         if not new_doc_row.startswith('!!!SBtab') and not new_doc_row.startswith('!!!ObjTables'):
             raise SBtabError('A doc row needs to be preceded with "!!!SBtab".')
 
-        if 'Document=' not in new_doc_row:
-            raise SBtabError('A doc row needs to define the Document attribute.')
+        if 'DocumentName=' not in new_doc_row:
+            raise SBtabError('A doc row needs to define the DocumentName attribute.')
 
         self.doc_row = new_doc_row
         self._get_doc_row_attributes()

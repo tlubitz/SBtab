@@ -59,7 +59,7 @@ vconsum	ATP consumption	ATP <=> ADP		cytosol * k23 * ATP	True
 vAK	Adenylate kinase	ATP + AMP <=> 2.0 ADP		cytosol * (k24f * AMP * ATP - k24r * pow(ADP, 2))	True	2.7.4.3								
 														
 !!SBtab TableID="t_id_04" TableName='Parameter balancing configuration file' TableType='Options'														
-!Option	!Value													
+!ID	!Value													
 use_pseudos	True													
 pH	7													
 Temperature	300													

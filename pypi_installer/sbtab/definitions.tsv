@@ -194,6 +194,8 @@ UseAsPriorInformation	Column	Quantity	False	Boolean	Use as prior information
 SBMLElement	Column	Quantity	False	string	SBML element
 Abbreviation	Column	Quantity	False	string	Abbreviation
 MatrixInfo	Column	Quantity	False	string	Matrix build up information
+ID	Column	Config	string	Which option is addressed
+Value	Column	Config	string	What value is the option set to
 Comment	Column	Regulator	False	string	Comment
 ReferenceName	Column	Regulator	False	string	Reference title, authors, etc. (as free text)
 ReferencePubMed	Column	Regulator	False	string	Reference PubMed ID
