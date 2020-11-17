@@ -986,7 +986,8 @@ class SBtabDocument:
             SBtab table object to be added to the document.
         '''
         if not self.filename:
-            self.filename = sbtab.filename
+            try: self.filename = sbtab.filename
+            except: self.filename = None
 
         if sbtab.table_id in self.id_to_sbtab.keys():
             raise SBtabError('A table with the ID %s is already in the document. Table IDs need to be unique within one document.' % sbtab.table_id)
