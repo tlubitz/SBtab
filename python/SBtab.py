@@ -927,7 +927,7 @@ class SBtabTable():
         header_strings = ['!!SBtab'] + list(map(lambda x: "%s='%s'" % x, header))
         
         sbtab.doc_row = None
-        sbtab.header_row = [' '.join(header_strings)] + [''] * (df.shape[1]-1)
+        sbtab.header_row = ' '.join(header_strings)
         
         sbtab.columns = df.columns.tolist()
         sbtab.columns_dict = dict(map(reversed, enumerate(df.columns)))
@@ -1107,7 +1107,6 @@ class SBtabDocument:
         if ttype in supported_types: return True
         else:
             raise SBtabError('The table type %s is not supported.' % ttype)
-            #print('The table type %s is not supported.' % ttype)
             return True
 
     def _get_doc_row_attributes(self):
