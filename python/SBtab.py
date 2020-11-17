@@ -78,8 +78,8 @@ class SBtabTable():
         filename : str
             Filename with extension.
         '''
-        if filename:
-            self.set_filename(filename)
+        if filename: self.set_filename(filename)
+        else: self.filename = None
 
         if table_string:
             self.add_sbtab_string(table_string)
@@ -986,8 +986,7 @@ class SBtabDocument:
             SBtab table object to be added to the document.
         '''
         if not self.filename:
-            try: self.filename = sbtab.filename
-            except: self.filename = None
+            self.filename = sbtab.filename
 
         if sbtab.table_id in self.id_to_sbtab.keys():
             raise SBtabError('A table with the ID %s is already in the document. Table IDs need to be unique within one document.' % sbtab.table_id)
