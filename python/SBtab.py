@@ -274,7 +274,8 @@ class SBtabTable():
          self.table_type,
          self.table_name,
          self.table_document,
-         self.table_version) = self._get_table_information()
+         self.table_version,
+         self.standard_concentration) = self._get_table_information()
 
         # Read the columns of the table
         (self.columns, self.columns_dict) = self._get_columns()
@@ -417,6 +418,10 @@ class SBtabTable():
         try: table_version = self._get_custom_table_information('SBtabVersion')
         except: table_version = None
 
+        # save table version, otherwise return None
+        try: standard_concentration = self._get_custom_table_information('StandardConcentration')
+        except: standard_concentration = None
+
         # save date
         try: self.date = self._get_custom_table_information('Date')
         except:
@@ -425,7 +430,7 @@ class SBtabTable():
             if 'Date=' not in self.header_row:
                 self.header_row = self.header_row.replace(self.delimiter,'') + " Date='%s'" % self.date
                 
-        return table_id, table_type, table_name, table_document, table_version
+        return table_id, table_type, table_name, table_document, table_version, standard_concentration
 
     def _get_custom_table_information(self, attribute_name):
         '''

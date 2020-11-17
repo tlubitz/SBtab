@@ -1,4 +1,4 @@
-!!SBtab TableName='YeastTranscriptionalRegulation' TableType='Relation' SBtabVersion='0.9.1'		
+!!SBtab TableName='YeastTranscriptionalRegulation' TableType='Relation' SBtabVersion='0.9.1' TableID='YTR'		
 !From	!To	!Relation
 ABF1	YAL041W	Binds
 ABF1	YAL042W	Binds

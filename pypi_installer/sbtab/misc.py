@@ -31,7 +31,7 @@ def count_tabs(sbtab_string):
     '''
     counter = 0
     for row in sbtab_string.split('\n'):
-        if row.startswith('!!SBtab'):
+        if row.startswith('!!SBtab') or row.startswith('!!ObjTables'):
             counter += 1
     return counter
 
@@ -120,7 +120,7 @@ def split_sbtabs(sbtab_strings):
                 continue
             else:
                 try:
-                    if sbtab_string.startswith('!!SBtab'):
+                    if sbtab_string.startswith('!!SBtab') or sbtab_string.startswith('!!ObjTables'):
                         sbtabs.append(sbtab_string)
                         counter += 1
                     sbtab_string = row + '\n'
@@ -130,7 +130,7 @@ def split_sbtabs(sbtab_strings):
         else:
             sbtab_string += row + '\n'
 
-    if sbtab_string.startswith('!!SBtab'):
+    if sbtab_string.startswith('!!SBtab') or sbtab_string.startswith('!!ObjTables'):
         sbtabs.append(sbtab_string)
                     
     return sbtabs
@@ -216,7 +216,8 @@ def sbtab_to_html(sbtab, filename=None, mode='sbtab_online', template = [], put_
                             split_column = col.split(' ')
                             for element in split_column:
                                 if element not in no_link and not _is_float(element) and put_links:
-                                    html += '<a href="#%s">%s</a> ' % (element, element)
+                                    #html += '<a href="#%s">%s</a> ' % (element, element)    #internal links
+                                    html += element
                                 else:
                                     html += element + ' '
                             html += '</td>'
@@ -342,7 +343,8 @@ def open_definitions_file(_path=None):
     for path in try_paths:
         try:
             def_file = open(path, 'r')
-            sbtab_def = SBtab.SBtabTable(def_file.read(), 'definitions.tsv')
+            file_content = def_file.read()
+            sbtab_def = SBtab.SBtabTable(file_content, 'definitions.tsv')
             def_file.close()
             break
         except: pass
@@ -350,6 +352,26 @@ def open_definitions_file(_path=None):
     return sbtab_def
 
             
+def check_obj(file_string):
+    '''
+    Tests a file string if it is SBtab or ObjTables format.
+
+    Parameters
+    ----------
+    file_string: str
+        Content of a read file.
+
+    Returns: Boolean
+        True if ObjTables
+        False if SBtab
+    '''
+    objTables = False
+    for row in file_string:
+        if row.startswith('!!!ObjTables') or row.startswith('!!ObjTables'):
+            objTables = True
+    return objTables
+
+
 def extract_supported_table_types():
     '''
     Extracts all allowed SBtab table types from the definitions file.
@@ -361,8 +383,8 @@ def extract_supported_table_types():
     
     supported_types = []
     for row in sbtab_def.value_rows:
-        t = row[sbtab_def.columns_dict['!IsPartOf']]
-        if t not in supported_types:
+        t = row[sbtab_def.columns_dict['!Parent']]
+        if t not in supported_types and t != 'SBtab':
             supported_types.append(t)
 
     return supported_types
@@ -387,9 +409,9 @@ def find_descriptions(def_file, table_type):
     col2link = {}
 
     for row in def_file.value_rows:
-        if row[def_file.columns_dict['!IsPartOf']] == table_type:
-            col2description[row[def_file.columns_dict['!ComponentName']]] = row[def_file.columns_dict['!Description']]
-            col2link['!'+row[def_file.columns_dict['!ComponentName']]] = row[def_file.columns_dict['!isShortname']]
+        if row[def_file.columns_dict['!Parent']] == table_type:
+            col2description[row[def_file.columns_dict['!Name']]] = row[def_file.columns_dict['!Description']]
+            col2link['!'+row[def_file.columns_dict['!Name']]] = row[def_file.columns_dict['!isShortname']]
 
     return (col2description, col2link)
 
