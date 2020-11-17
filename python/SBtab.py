@@ -78,8 +78,8 @@ class SBtabTable():
         filename : str
             Filename with extension.
         '''
-        if filename:
-            self.set_filename(filename)
+        if filename: self.set_filename(filename)
+        else: self.filename = None
 
         if table_string:
             self.add_sbtab_string(table_string)
