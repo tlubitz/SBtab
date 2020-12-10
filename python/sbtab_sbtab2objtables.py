@@ -29,7 +29,7 @@ class SBtabError(Exception):
 # NOTE THAT THE FOLLOWING FUNCTION IS CODE DUPLICATED FROM sbml2sbtab.py
 # IT WOULD BE BETTER TO HAVE ONE CENTRAL COPY OF THIS FUNCTION!
 
-def create_obj_tables_doc(sbtab_doc):
+def create_obj_tables_doc(sbtab_doc, sbtab_def):
     '''
     make a copy of the SBtab doc in form of an
     ObjTables doc
@@ -80,9 +80,19 @@ def converter_sbtab2objtables_wrapper(args):
     except:
         raise SBtabError('SBtab Document %s could not be created.' % args.sbtab)
 
+    # if definitions file is given create SBtab object
+    if args.definitions_file:
+        try:
+            d = open(args.definitions_file, 'r').read()
+            sbtab_def = SBtab.SBtabTable(d, args.definitions_file)
+        except:
+            raise SBtabError('The definitions file %s could not be found.' % args.definitions_file)
+    else:
+        sbtab_def = None
+
     # create converter class
     try:
-        objtables_doc = create_obj_tables_doc(sbtab_doc)
+        objtables_doc = create_obj_tables_doc(sbtab_doc, sbtab_def)
         if len(args.outfile)>0:
             outfile = args.outfile
         else:
@@ -101,6 +111,7 @@ if __name__ == '__main__':
 
     parser.add_argument('sbtab', help='Path to SBtab input file.')
     parser.add_argument('-o', '--outfile', help='Path to ObjTables output file.', default=[])
+    parser.add_argument('-y','--definitions_file', help='Path to an SBtab definitions file.')
 
     args = parser.parse_args()
 

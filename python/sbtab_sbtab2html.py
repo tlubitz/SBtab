@@ -25,16 +25,17 @@ class SBtabError(Exception):
     def __str__(self):
         return self.message
 
-def sbtab2html_wrapper(sbtab, multiple, output, template, links, pageheader, definitions_file,show_table_text=True):
+def sbtab2html_wrapper(sbtab, multiple, output, template, links, pageheader, definitions_file=None, show_table_text=True):
     '''
     commandline wrapper for sbtab_to_html function
     '''
+
     # open and create SBtab
     try:
         f = open(sbtab, 'r').read()
     except:
         raise SBtabError('SBtab file %s could not be found.' % sbtab)
-
+    
     # count given tabs and prepare file name w/o path
     tab_amount = misc.count_tabs(f)
     if '/' in sbtab:
@@ -61,14 +62,14 @@ def sbtab2html_wrapper(sbtab, multiple, output, template, links, pageheader, def
 
     if multiple:
         try:
-            sbtab_doc = SBtab.SBtabDocument('sbtab_doc_prelim', f, sbtab)
+            sbtab_doc = SBtab.SBtabDocument('sbtab_doc_prelim', f, sbtab, definitions_file = definitions_file)
             for tab in sbtab_doc.sbtabs:
                 if len(file_basename):
                     name = outfile_dir + '/' + file_basename + '_' + tab.table_id + '.html'
                 else:
                     name = outfile_dir + '/' + tab.table_id + '.html'
                 try:
-                    write_html(tab, name, template, links, pageheader, definitions_file,show_table_text=show_table_text)
+                    write_html(tab, name, template, links, pageheader, definitions_file, show_table_text)
                 except:
                     raise SBtabError('The HTML file %s could not be created.' % name)
         except:
@@ -81,7 +82,7 @@ def sbtab2html_wrapper(sbtab, multiple, output, template, links, pageheader, def
             else:
                 sbtab = SBtab.SBtabTable(f, sbtab)
                 name = outfile_dir + '/' + file_basename + '.html'
-            write_html(sbtab, name, template, links, pageheader, definitions_file,show_table_text=show_table_text)
+            write_html(sbtab, name, template, links, pageheader, definitions_file,show_table_text)
         except:
             raise SBtabError('The HTML file could not be created.')
 
@@ -100,13 +101,21 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Convert SBtab files into HTML')
 
     parser.add_argument('sbtab', help='Path to an SBtab file.')
+    parser.add_argument('-y', '--definitions_file', help='Path to an SBtab definitions file.')
     parser.add_argument('-m', '--multiple', help='Flag to create multiple HTML files', action='store_false')
-    parser.add_argument('-o', '--output', help='Output directory', default = None)
+    parser.add_argument('-r', '--output', help='Output directory', default = None)
     parser.add_argument('-t', '--template', help='Template file, to be used instead of default HTML template', default=[])
     parser.add_argument('-v', '--verbose', help='Flag to display script messages', action='store_true')
     parser.add_argument('-l', '--links', help='Flag to put links automatically', action='store_true')
     parser.add_argument('-p', '--pageheader', help='Page title string to be shown on HTML page', default='')
-    parser.add_argument('-d', '--definitions_file', help='Path to custom definitions file', default=[])
 
-    args = parser.parse_args()
-    sbtab2html_wrapper(args.sbtab, args.multiple, args.output, args.template, args.links, args.pageheader, args.definitions_file)
+    args             = parser.parse_args()
+    sbtab            = args.sbtab
+    multiple         = args.multiple
+    output           = args.output
+    template         = args.template
+    links            = args.links
+    pageheader       = args.pageheader
+    definitions_file = args.definitions_file
+    
+    sbtab2html_wrapper(sbtab, multiple, output, template, links, pageheader, definitions_file)

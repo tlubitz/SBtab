@@ -52,12 +52,12 @@ def validator_wrapper(args):
             raise SBtabError('This tool does not validate ObjTables files; please use the online validator at https://www.objtables.org/app.')
 
     # if definitions file is given create SBtab object
-    if args.sbtab_definitions:
+    if args.definitions_file:
         try:
-            d = open(args.sbtab_definitions, 'r').read()
-            sbtab_def = SBtab.SBtabTable(d, args.sbtab_definitions)
+            d = open(args.definitions_file, 'r').read()
+            sbtab_def = SBtab.SBtabTable(d, args.definitions_file)
         except:
-            raise SBtabError('The definitions file %s could not be found.' % args.sbtab_definitions)
+            raise SBtabError('The definitions file %s could not be found.' % args.definitions_file)
     else:
         sbtab_def = None
 
@@ -91,11 +91,10 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     parser.add_argument('sbtab', help='Path to an SBtab file.')
-    parser.add_argument('--sbtab_definitions', help='Path to an SBtab definitions file.')
+    parser.add_argument('-y', '--definitions_file', help='Path to an SBtab definitions file.')
     parser.add_argument('-d', '--document', help='Flag to validate an SBtab Document instead of SBtab Table.', action='store_true')
     parser.add_argument('-v', '--verbose', help='Flag to display script messages.', action='store_true')
 
     args = parser.parse_args()
 
     validator_wrapper(args)
-

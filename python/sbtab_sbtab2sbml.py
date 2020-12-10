@@ -80,7 +80,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     parser.add_argument('sbtab', help='Path to SBtab input file.')
-    parser.add_argument('-v', '--version', help='SBML version.')
+    parser.add_argument('-w', '--version', help='SBML version.')
     parser.add_argument('-o', '--outfile', help='Path to SBtab output file.', default=[])
 
     args = parser.parse_args()

@@ -36,6 +36,9 @@ def converter_sbml2sbtab_wrapper(args):
         f = open(args.sbml, 'r').read()
     except:
         raise SBtabError('SBML file %s could not be found.' % args.sbml)
+
+    if len(args.outfile)==0:
+        args.outfile = "outfile.tsv"
     
     try:
         reader = libsbml.SBMLReader()
@@ -72,7 +75,7 @@ def converter_sbml2sbtab_wrapper(args):
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
-
+    
     parser.add_argument('sbml', help='Path to SBML input file.')
     parser.add_argument('-o', '--outfile', help='Path to SBtab output file.', default=[])
     parser.add_argument('-j', '--objtables', help='Write output file in ObjTables (instead of SBtab) format.', action='store_true' )
