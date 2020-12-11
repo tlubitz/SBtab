@@ -58,8 +58,8 @@ vstorage	Storage	ATP + G6P <=> ADP		cytosol * k22 * ATP * G6P	True
 vconsum	ATP consumption	ATP <=> ADP		cytosol * k23 * ATP	True									
 vAK	Adenylate kinase	ATP + AMP <=> 2.0 ADP		cytosol * (k24f * AMP * ATP - k24r * pow(ADP, 2))	True	2.7.4.3								
 														
-!!SBtab TableName='Parameter balancing configuration file' TableType='Config' Date='2018-04-18'
-!Option	!Value
+!!SBtab TableName='Parameter balancing configuration file' TableType='Config' Date='2018-04-18' TableID='ConfigurePB'
+!ID	!Value
 use_pseudo_values	True
 ph	7
 temperature	298.15
@@ -72,7 +72,7 @@ default_activation	complete
 model_name	outputname
 boundary_values	ignore												
 														
-!!SBtab TableName='Parameter prior' TableType='Quantity' Date='2018-04-18'															
+!!SBtab TableName='Parameter prior' TableType='QuantityInfo' Date='2018-04-18' TableID='PriorTable'															
 !QuantityType	!Unit	!BiologicalElement	!MathematicalType	!PriorMedian	!PriorStd	!PriorGeometricStd	!LowerBound	!UpperBound	!DataStd	!Symbol	!PhysicalType	!Dependence	!UseAsPriorInformation	!SBMLElement 	!Abbreviation	!MatrixInfo
 standard chemical potential	kJ/mol	Species	Additive	-880	1500		-3000	2000	10	mu0	Thermodynamic	Basic	1	Global parameter 	scp	[I_species, 0, 0, 0, 0, 0, 0, 0]
 catalytic rate constant geometric mean	1/s	Reaction	Multiplicative	10		100	0.0000001	10000	100	KV	Kinetic	Basic	1	Local parameter	kcrg	[0, I_reaction, 0, 0, 0, 0, 0, 0]

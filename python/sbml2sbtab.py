@@ -64,7 +64,7 @@ class SBMLDocument:
         '''
         self.warnings = []
         sbtab_doc = SBtab.SBtabDocument(self.filename)
-        doc_row = "!!!SBtab Document='%s' Name='%s' SBtabVersion='1.0'" % (self.model.getId(), self.model.getId())
+        doc_row = "!!!SBtab DocumentName='%s' Name='%s' SBtabVersion='1.0'" % (self.model.getId(), self.model.getId())
         sbtab_doc.set_doc_row(doc_row)
         
         try:

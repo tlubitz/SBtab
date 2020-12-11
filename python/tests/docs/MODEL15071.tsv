@@ -1,4 +1,4 @@
-"!!!SBtab SBtabVersion=""1.0"" Document=""test_compartment.tsv"" Date=""2018-10-15"""										
+"!!!SBtab SBtabVersion=""1.0"" DocumentName=""test_compartment.tsv"" Date=""2018-10-15"""										
 !!SBtab TableID='t_id_01' SBtabVersion='1.0' Document='test' TableType='Compartment' TableName='Compartment' Date='2018-10-15'										
 !ID	!Name	!Size	!Unit	!SBOTerm						
 c	cytosol	nan								

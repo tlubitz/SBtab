@@ -15,6 +15,7 @@ PositionX	Column	Reaction	False	Float	x coordinate for graphical display
 PositionY	Column	Reaction	False	Float	y coordinate for graphical display
 ID	Column	Reaction	False	String	Reaction shortname
 SBML:reaction:id	Column	Reaction	False	String	SBML ID of reaction
+Reaction	Column	Reaction	False	String	SBML ID of reaction
 ReactionFormula	Column	Reaction	True	String	Reaction formula
 Location	Column	Reaction	True	String	Compartment for localised reaction
 Enzyme	Column	Reaction	True	String	Enzyme catalysing the reaction
@@ -58,6 +59,7 @@ PositionX	Column	Compound	False	Float	x coordinate for graphical display
 PositionY	Column	Compound	False	Float	y coordinate for graphical display
 ID	Column	Compound	False	String	Compound shortname
 SBML:species:id	Column	Compound	False	String	SBML species ID of the entity
+Compound	Column	Compound	False	String	SBML species ID of the entity
 SBML:speciestype:id	Column	Compound	False	String	SBML speciestype ID of the entity
 InitialValue	Column	Compound	False	Float	Initial amount or concentration
 InitialConcentration	Column	Compound	False	Float	Initial amount or concentration
@@ -188,6 +190,7 @@ Identifiers	Column	Quantity	False	String	Annotation of the entity
 BiologicalElement	Column	Quantity	False	String	Biological element
 MathematicalType	Column	Quantity	False	String	Mathematical type
 DataGeometricStd	Column	Quantity	False	Float	Data geometric standard error
+GeometricStd	Column	Quantity	False	Float	Data geometric standard error
 PriorMedian	Column	Quantity	False	Float	Prior Median
 PriorStd	Column	Quantity	False	Float	Prior Std
 PriorGeometricStd	Column	Quantity	False	Float	Prior Geometric Std
@@ -402,3 +405,5 @@ RowString	Column	SparseMatrixRow	False	String	JSON String describing all element
 SparseMatrixColumn	Table	SBtab	False	Table	SBtab SparseMatrixColumn Table
 ColumnID	Column	SparseMatrixColumn	False	String	Column identifier
 ColumnString	Column	SparseMatrixColumn	False	String	JSON String describing all elements in the column
+ID	Column	Config	False	string	Which option is addressed
+Value	Column	Config	False	string	What value is the option set to

@@ -78,8 +78,8 @@ class SBtabTable():
         filename : str
             Filename with extension.
         '''
-        if filename:
-            self.set_filename(filename)
+        if filename: self.set_filename(filename)
+        else: self.filename = None
 
         if table_string:
             self.add_sbtab_string(table_string)
@@ -274,7 +274,8 @@ class SBtabTable():
          self.table_type,
          self.table_name,
          self.table_document,
-         self.table_version) = self._get_table_information()
+         self.table_version,
+         self.standard_concentration) = self._get_table_information()
 
         # Read the columns of the table
         (self.columns, self.columns_dict) = self._get_columns()
@@ -417,6 +418,10 @@ class SBtabTable():
         try: table_version = self._get_custom_table_information('SBtabVersion')
         except: table_version = None
 
+        # save table version, otherwise return None
+        try: standard_concentration = self._get_custom_table_information('StandardConcentration')
+        except: standard_concentration = None
+
         # save date
         try: self.date = self._get_custom_table_information('Date')
         except:
@@ -425,7 +430,7 @@ class SBtabTable():
             if 'Date=' not in self.header_row:
                 self.header_row = self.header_row.replace(self.delimiter,'') + " Date='%s'" % self.date
                 
-        return table_id, table_type, table_name, table_document, table_version
+        return table_id, table_type, table_name, table_document, table_version, standard_concentration
 
     def _get_custom_table_information(self, attribute_name):
         '''
@@ -922,7 +927,7 @@ class SBtabTable():
         header_strings = ['!!SBtab'] + list(map(lambda x: "%s='%s'" % x, header))
         
         sbtab.doc_row = None
-        sbtab.header_row = [' '.join(header_strings)] + [''] * (df.shape[1]-1)
+        sbtab.header_row = ' '.join(header_strings)
         
         sbtab.columns = df.columns.tolist()
         sbtab.columns_dict = dict(map(reversed, enumerate(df.columns)))
@@ -1112,11 +1117,11 @@ class SBtabDocument:
         self.date = '-'.join([str(now.year),str(now.month),str(now.day)])
 
         if not self.doc_row:
-            self.doc_row = "!!!SBtab Document='%s' SBtabVersion='1.0' Date='%s'" % (self.name, self.date)
+            self.doc_row = "!!!SBtab DocumentName='%s' SBtabVersion='1.0' Date='%s'" % (self.name, self.date)
         else:
             # save document name, otherwise raise error
             # (overrides name given at document initialisation)
-            try: self.name = self.get_custom_doc_information('Document')
+            try: self.name = self.get_custom_doc_information('DocumentName')
             except: pass
 
             # save SBtabVersion
@@ -1167,7 +1172,7 @@ class SBtabDocument:
         attribute: str
             Attribute that shall be removed.
         '''
-        obligatory_attributes = ['Document']
+        obligatory_attributes = ['DocumentName']
         if attribute in obligatory_attributes:
             raise SBtabError('Attribute %s cannot be removed as it is obligatory.' % attribute)
         
@@ -1411,8 +1416,8 @@ class SBtabDocument:
         if not new_doc_row.startswith('!!!SBtab') and not new_doc_row.startswith('!!!ObjTables'):
             raise SBtabError('A doc row needs to be preceded with "!!!SBtab".')
 
-        if 'Document=' not in new_doc_row:
-            raise SBtabError('A doc row needs to define the Document attribute.')
+        if 'DocumentName=' not in new_doc_row:
+            raise SBtabError('A doc row needs to define the DocumentName attribute.')
 
         self.doc_row = new_doc_row
         self._get_doc_row_attributes()

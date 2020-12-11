@@ -1,4 +1,4 @@
-!!!SBtab SBtabVersion="1.0" Document="extended_core_compartment.tsv"
+!!!SBtab SBtabVersion="1.0" DocumentName="extended_core_compartment.tsv"
 !!SBtab TableID='t_id_01' SBtabVersion='1.0' Document='extended_core' TableType='Compartment' TableName='Compartment'
 !ID	!Name	!Size	!Unit	!SBOTerm
 c	Cytoplasm	nan		

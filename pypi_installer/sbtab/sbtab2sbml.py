@@ -46,6 +46,8 @@ class SBtabDocument:
            SBtab Document Class.
         '''
         self.sbtab_doc = sbtab_doc
+        if len(self.sbtab_doc.sbtabs) == 0:
+            raise ConversionError('The given SBtab Object cannot be converted. It is empty.')
         self.filename = sbtab_doc.name
         self.warnings = []
         self.model_ids = []
@@ -53,6 +55,7 @@ class SBtabDocument:
         self.parameters_global = []
         self.gene_products = []
         self.unit_definitions = []
+        self.unit_mM = False
         self.fbc = False
         self.layout = False
 
@@ -741,12 +744,13 @@ class SBtabDocument:
                             sp = self.new_model.createSpecies()
                             sp.setId(str(educt))
                             sp.setName(str(educt))
+                            sp.setConstant(False)
                             sp.setBoundaryCondition(False)
                             sp.setHasOnlySubstanceUnits(False)                            
                             if compartment: sp.setCompartment(compartment)
                             elif self.def_comp_set:
                                 sp.setCompartment('Default_Compartment')
-                            self.species_list.append(educt)
+                            self.species_list.append(sp.getId())
                             self.model_ids.append(sp.getId())
                     products = self.reaction2reactants[reaction][1]
                     for product in products:
@@ -762,7 +766,7 @@ class SBtabDocument:
                             if compartment: sp.setCompartment(compartment)
                             elif self.def_comp_set:
                                 sp.setCompartment('Default_Compartment')
-                            self.species_list.append(product)
+                            self.species_list.append(sp.getId())
                             self.model_ids.append(sp.getId())
 
             #if compartments are given for the reactions and these compartments are not built yet:
@@ -967,7 +971,7 @@ class SBtabDocument:
                         # need to be initialised manually
                         parameter_names = self.extract_parameters_from_formula(react.getKineticLaw().getMath())
                         for p in parameter_names:
-                            if p not in self.parameters_global and p not in self.parameters_local:
+                            if p not in self.parameters_global and p not in self.parameters_local and p not in self.species_list:
                                 self.create_parameter(p)
 
                         #for erraneous laws: remove them
@@ -1254,7 +1258,7 @@ class SBtabDocument:
         Extracts the information from the Quantity SBtab and writes it to the model.
         '''
         sbtabs_quantity = self.sbtab_doc.type_to_sbtab['Quantity']
-        
+
         for sbtab_quantity in sbtabs_quantity:
             self.check_id(sbtab_quantity)
             for row in sbtab_quantity.value_rows:

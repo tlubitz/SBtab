@@ -1,4 +1,4 @@
-!!!SBtab Document='BIOMD0000000061'
+!!!SBtab DocumentName='BIOMD0000000061'
 !!SBtab TableID='t_01' SBtabVersion='1.1' Document='BIOMD0000000061' TableType='Reaction' TableName='Reaction'
 !ID	!Name	!ReactionFormula	!Regulator	!KineticLaw	!IsReversible	!Identifiers:ec-code
 vinGlc	Glucose Mixed flow to extracellular medium	GlcX0 <=> GlcX		extracellular * k0 * (GlcX0 - GlcX)	True
