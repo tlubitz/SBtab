@@ -109,13 +109,13 @@ if __name__ == '__main__':
     parser.add_argument('-l', '--links', help='Flag to put links automatically', action='store_true')
     parser.add_argument('-p', '--pageheader', help='Page title string to be shown on HTML page', default='')
 
-    args             = parser.parse_args()
-    sbtab            = args.sbtab
-    multiple         = args.multiple
-    output           = args.output
-    template         = args.template
-    links            = args.links
-    pageheader       = args.pageheader
+    args = parser.parse_args()
+    sbtab = args.sbtab
+    multiple = args.multiple
+    output = args.output
+    template = args.template
+    links = args.links
+    pageheader = args.pageheader
     definitions_file = args.definitions_file
     
     sbtab2html_wrapper(sbtab, multiple, output, template, links, pageheader, definitions_file)

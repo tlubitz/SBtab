@@ -967,7 +967,7 @@ class SBtabDocument:
         if sbtab_init and type(sbtab_init) == str:
             self.add_sbtab_string(sbtab_init, filename, definitions_file)
         elif sbtab_init:
-            self.add_sbtab(sbtab_init, None, definitions_file)
+            self.add_sbtab(sbtab_init, definitions_file)
             
         self.object_type = 'doc'
         

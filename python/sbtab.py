@@ -36,7 +36,6 @@ except:
     import sbtab_objtables2sbtab
     import sbtab_sbtab2html
     import sbtab_validator
-
     
 import argparse
 
