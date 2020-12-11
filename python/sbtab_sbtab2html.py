@@ -25,7 +25,7 @@ class SBtabError(Exception):
     def __str__(self):
         return self.message
 
-def sbtab2html_wrapper(sbtab, multiple, output, template, links, pageheader, definitions_file=None, show_table_text=True):
+def sbtab2html_wrapper(sbtab, multiple, output, template, links, pageheader, definitions_file=None, show_table_text=True, show_units=False):
     '''
     commandline wrapper for sbtab_to_html function
     '''
@@ -69,7 +69,7 @@ def sbtab2html_wrapper(sbtab, multiple, output, template, links, pageheader, def
                 else:
                     name = outfile_dir + '/' + tab.table_id + '.html'
                 try:
-                    write_html(tab, name, template, links, pageheader, definitions_file, show_table_text)
+                    write_html(tab, name, template, links, pageheader, definitions_file, show_table_text, show_units)
                 except:
                     raise SBtabError('The HTML file %s could not be created.' % name)
         except:
@@ -82,15 +82,15 @@ def sbtab2html_wrapper(sbtab, multiple, output, template, links, pageheader, def
             else:
                 sbtab = SBtab.SBtabTable(f, sbtab)
                 name = outfile_dir + '/' + file_basename + '.html'
-            write_html(sbtab, name, template, links, pageheader, definitions_file,show_table_text)
+            write_html(sbtab, name, template, links, pageheader, definitions_file, show_table_text, show_units)
         except:
             raise SBtabError('The HTML file could not be created.')
 
-def write_html(sbtab, name, template, links, pageheader, definitions_file, show_table_text=True):
+def write_html(sbtab, name, template, links, pageheader, definitions_file, show_table_text=True, show_units=False):
     '''
     calls the sbtab_to_html function and writes the HTML to disk
     '''
-    html = misc.sbtab_to_html(sbtab, mode='standalone',template=template, put_links = links, title_string=pageheader, show_header_row=False, show_table_name=True, show_table_text=show_table_text, definitions_file = definitions_file)
+    html = misc.sbtab_to_html(sbtab, mode='standalone',template=template, put_links = links, title_string=pageheader, show_header_row=False, show_table_name=True, show_table_text=show_table_text, show_units=show_units, definitions_file = definitions_file)
     h = open(name, 'w')
     h.write(html)
     h.close()
