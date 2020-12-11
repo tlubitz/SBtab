@@ -182,8 +182,12 @@ def sbtab_to_html(sbtab, filename=None, mode='sbtab_online', template = [], put_
             html += '<center><h2>%s</h2></center>' % (sbtab.get_attribute('TableName'))
 
         if show_table_text:
-            if len(sbtab.get_attribute('Text')):
-                html += '<center><p>%s</p></center>' % (sbtab.get_attribute('Text'))
+            try:
+                if len(sbtab.get_attribute('Text')):
+                    html += '<center><p>%s</p></center>' % (sbtab.get_attribute('Text'))
+            except:
+                #no "text" attribute is given; no problem
+                pass
 
         # header row
         #html += '<thead><tr><th colspan="%s">%s</th></tr></thead>' % (len(sbtab.columns), sbtab.header_row)
@@ -299,7 +303,7 @@ def sbtab_to_html(sbtab, filename=None, mode='sbtab_online', template = [], put_
         html = html.replace('TitlePlaceholder',sbtab.filename)
 
     # read in definitions file for nice mouse over
-    if mode == 'standalone' and len(definitions_file):
+    if mode == 'standalone' and definitions_file is not None:
         sbtab_def = open_definitions_file(definitions_file)
     else:
         sbtab_def = open_definitions_file()
@@ -372,21 +376,20 @@ def check_obj(file_string):
     return objTables
 
 
-def extract_supported_table_types():
+def extract_supported_table_types(definitions_file=None):
     '''
     Extracts all allowed SBtab table types from the definitions file.
 
     Returns: list
         List of supported SBtab table types.
     '''
-    sbtab_def = open_definitions_file()
+    sbtab_def = open_definitions_file(definitions_file)
     
     supported_types = []
     for row in sbtab_def.value_rows:
         t = row[sbtab_def.columns_dict['!Parent']]
         if t not in supported_types and t != 'SBtab':
             supported_types.append(t)
-
     return supported_types
 
 

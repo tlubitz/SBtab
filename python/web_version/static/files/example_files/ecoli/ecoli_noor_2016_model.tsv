@@ -481,7 +481,7 @@ flux	MDH_R00342	R00342	0.0602
 flux	PPC_R00345	R00345	-0.2114			
 %						
 !!SBtab DocumentName='E. coli central carbon metabolism - unbalanced kinetic data' TableName='ConcentrationConstraint' TableType='Quantity' Unit='mM' SBtabVersion='1.0'						
-!QuantityType	!Compound	!Compound:Identifiers:kegg.compound	!Concentration:Min	!Concentration:Max		
+!QuantityType	!Compound	!Compound:Identifiers:kegg.compound	!Min	!Max		
 concentration	_S__Malate	C00149	0.001	10		
 concentration	Acetyl_CoA	C00024	0.001	10		
 concentration	Fumarate	C00122	0.001	10		
