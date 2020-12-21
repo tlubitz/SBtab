@@ -125,8 +125,10 @@ class SBtabTable():
 
         for row in table_string.split('\n'):
             row = self._dequote(row)
+            row = row.replace("=''","X@X")
             while "''" in row:
                 row = row.replace("''","'")
+            row = row.replace("X@X", "=''")
             row.replace("%s,%s" % (self.delimiter,self.delimiter),
                         "%s%s" % (self.delimiter,self.delimiter))
             table_string_prep += row +'\n'
@@ -1043,7 +1045,7 @@ class SBtabDocument:
             else:
                 self.doc_row = None
                 self.document_format = None
-        
+
         # determine if this is an SBtab or ObjTables Document
         if self.doc_row:
             if '!!!ObjTables' in self.doc_row:
