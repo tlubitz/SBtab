@@ -115,7 +115,7 @@ v43	ATP/ADP carrier	ATP <=> ATP_cyt		MATRIX * (V * v43_AAC * ATP / (K + ATP))	Fa
 v39	malate dehydrogenase (oxaloacetate-decarboxylating) (NADP+)	Mal_cyt + NADP_cyt <=> NADPH_cyt + PYR_cyt		CYTOPLASM * (v39_MDH * Kcat * Mal_cyt * NADP_cyt / ((Kmal + Mal_cyt) * (Knadp + NADP_cyt)))	True	1.1.1.40								
 v44	malate dehydrogenase (oxaloacetate-decarboxylating) (NADP+)	Mal + NADP_p <=> NADPH + Pyr		MATRIX * (v44_MDH * Kcat * Mal / (Km + Mal))	True	1.1.1.40								
 														
-!!SBtab TableName='Parameter prior' TableType='QuantityInfo' Date='2018-04-18' TableID='PriorTable'															
+!!SBtab TableName='Parameter prior' TableType='QuantityInfo' Date='2018-04-18' TableID='PriorTable'
 !QuantityType	!Unit	!BiologicalElement	!MathematicalType	!PriorMedian	!PriorStd	!PriorGeometricStd	!LowerBound	!UpperBound	!DataStd	!Symbol	!PhysicalType	!Dependence	!UseAsPriorInformation	!SBMLElement 	!Abbreviation	!MatrixInfo
 standard chemical potential	kJ/mol	Species	Additive	-880	1500		-3000	2000	10	mu0	Thermodynamic	Basic	1	Global parameter 	scp	[I_species, 0, 0, 0, 0, 0, 0, 0]
 catalytic rate constant geometric mean	1/s	Reaction	Multiplicative	10		100	0.0000001	10000	100	KV	Kinetic	Basic	1	Local parameter	kcrg	[0, I_reaction, 0, 0, 0, 0, 0, 0]

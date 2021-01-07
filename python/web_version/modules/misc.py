@@ -31,7 +31,7 @@ def count_tabs(sbtab_string):
     '''
     counter = 0
     for row in sbtab_string.split('\n'):
-        if row.startswith('!!SBtab'):
+        if row.startswith('!!SBtab') or row.startswith('!!ObjTables'):
             counter += 1
     return counter
 
@@ -120,7 +120,7 @@ def split_sbtabs(sbtab_strings):
                 continue
             else:
                 try:
-                    if sbtab_string.startswith('!!SBtab'):
+                    if sbtab_string.startswith('!!SBtab') or sbtab_string.startswith('!!ObjTables'):
                         sbtabs.append(sbtab_string)
                         counter += 1
                     sbtab_string = row + '\n'
@@ -130,13 +130,13 @@ def split_sbtabs(sbtab_strings):
         else:
             sbtab_string += row + '\n'
 
-    if sbtab_string.startswith('!!SBtab'):
+    if sbtab_string.startswith('!!SBtab') or sbtab_string.startswith('!!ObjTables'):
         sbtabs.append(sbtab_string)
                     
     return sbtabs
 
 
-def sbtab_to_html(sbtab, filename=None, mode='sbtab_online', template = [], put_links = True, title_string='', show_header_row = True, show_table_name = False, show_table_text = False, definitions_file=''):
+def sbtab_to_html(sbtab, filename=None, mode='sbtab_online', template = [], put_links = True, title_string='', show_header_row = True, show_table_name = False, show_table_text = False, show_units = False, definitions_file=''):
     '''
     Generates html view out of SBtab table or SBtab document object.
 
@@ -181,9 +181,25 @@ def sbtab_to_html(sbtab, filename=None, mode='sbtab_online', template = [], put_
         if show_table_name:
             html += '<center><h2>%s</h2></center>' % (sbtab.get_attribute('TableName'))
 
+        unit_string = ''
+        if show_units:
+            try:
+                if len(sbtab.get_attribute('Unit')):
+                    unit_string = 'Units: ' + sbtab.get_attribute('Unit')
+            except:
+                #no "unit" attribute is given; no problem
+                pass
+
         if show_table_text:
-            if len(sbtab.get_attribute('Text')):
-                html += '<center><p>%s</p></center>' % (sbtab.get_attribute('Text'))
+            try:
+                if len(sbtab.get_attribute('Text')):
+                    text_string = sbtab.get_attribute('Text')
+                    html += '<center><p>' + text_string + ' ' + unit_string + '</p></center>'
+                    #html += '<center><p>%s</p></center>' % (sbtab.get_attribute('Text'))
+            except:
+                #no "text" attribute is given; no problem
+                pass
+
 
         # header row
         #html += '<thead><tr><th colspan="%s">%s</th></tr></thead>' % (len(sbtab.columns), sbtab.header_row)
@@ -216,7 +232,8 @@ def sbtab_to_html(sbtab, filename=None, mode='sbtab_online', template = [], put_
                             split_column = col.split(' ')
                             for element in split_column:
                                 if element not in no_link and not _is_float(element) and put_links:
-                                    html += '<a href="#%s">%s</a> ' % (element, element)
+                                    #html += '<a href="#%s">%s</a> ' % (element, element)    #internal links
+                                    html += element
                                 else:
                                     html += element + ' '
                             html += '</td>'
@@ -298,7 +315,7 @@ def sbtab_to_html(sbtab, filename=None, mode='sbtab_online', template = [], put_
         html = html.replace('TitlePlaceholder',sbtab.filename)
 
     # read in definitions file for nice mouse over
-    if mode == 'standalone' and len(definitions_file):
+    if mode == 'standalone' and definitions_file is not None:
         sbtab_def = open_definitions_file(definitions_file)
     else:
         sbtab_def = open_definitions_file()
@@ -342,7 +359,8 @@ def open_definitions_file(_path=None):
     for path in try_paths:
         try:
             def_file = open(path, 'r')
-            sbtab_def = SBtab.SBtabTable(def_file.read(), 'definitions.tsv')
+            file_content = def_file.read()
+            sbtab_def = SBtab.SBtabTable(file_content, 'definitions.tsv')
             def_file.close()
             break
         except: pass
@@ -350,21 +368,40 @@ def open_definitions_file(_path=None):
     return sbtab_def
 
             
-def extract_supported_table_types():
+def check_obj(file_string):
+    '''
+    Tests a file string if it is SBtab or ObjTables format.
+
+    Parameters
+    ----------
+    file_string: str
+        Content of a read file.
+
+    Returns: Boolean
+        True if ObjTables
+        False if SBtab
+    '''
+    objTables = False
+    for row in file_string:
+        if row.startswith('!!!ObjTables') or row.startswith('!!ObjTables'):
+            objTables = True
+    return objTables
+
+
+def extract_supported_table_types(definitions_file=None):
     '''
     Extracts all allowed SBtab table types from the definitions file.
 
     Returns: list
         List of supported SBtab table types.
     '''
-    sbtab_def = open_definitions_file()
+    sbtab_def = open_definitions_file(definitions_file)
     
     supported_types = []
     for row in sbtab_def.value_rows:
-        t = row[sbtab_def.columns_dict['!IsPartOf']]
-        if t not in supported_types:
+        t = row[sbtab_def.columns_dict['!Parent']]
+        if t not in supported_types and t != 'SBtab':
             supported_types.append(t)
-
     return supported_types
 
 
@@ -387,9 +424,9 @@ def find_descriptions(def_file, table_type):
     col2link = {}
 
     for row in def_file.value_rows:
-        if row[def_file.columns_dict['!IsPartOf']] == table_type:
-            col2description[row[def_file.columns_dict['!ComponentName']]] = row[def_file.columns_dict['!Description']]
-            col2link['!'+row[def_file.columns_dict['!ComponentName']]] = row[def_file.columns_dict['!isShortname']]
+        if row[def_file.columns_dict['!Parent']] == table_type:
+            col2description[row[def_file.columns_dict['!Name']]] = row[def_file.columns_dict['!Description']]
+            col2link['!'+row[def_file.columns_dict['!Name']]] = row[def_file.columns_dict['!isShortname']]
 
     return (col2description, col2link)
 

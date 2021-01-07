@@ -963,6 +963,7 @@ class SBtabDocument:
         self.type_to_sbtab = {}
         self.sbtab_filenames = []
         self.doc_row = False
+        self.document_format = None
         
         if name:
             self.name = name

@@ -136,7 +136,7 @@ def split_sbtabs(sbtab_strings):
     return sbtabs
 
 
-def sbtab_to_html(sbtab, filename=None, mode='sbtab_online', template = [], put_links = True, title_string='', show_header_row = True, show_table_name = False, show_table_text = False, definitions_file=''):
+def sbtab_to_html(sbtab, filename=None, mode='sbtab_online', template = [], put_links = True, title_string='', show_header_row = True, show_table_name = False, show_table_text = False, show_units = False, definitions_file=''):
     '''
     Generates html view out of SBtab table or SBtab document object.
 
@@ -181,9 +181,25 @@ def sbtab_to_html(sbtab, filename=None, mode='sbtab_online', template = [], put_
         if show_table_name:
             html += '<center><h2>%s</h2></center>' % (sbtab.get_attribute('TableName'))
 
+        unit_string = ''
+        if show_units:
+            try:
+                if len(sbtab.get_attribute('Unit')):
+                    unit_string = 'Units: ' + sbtab.get_attribute('Unit')
+            except:
+                #no "unit" attribute is given; no problem
+                pass
+
         if show_table_text:
-            if len(sbtab.get_attribute('Text')):
-                html += '<center><p>%s</p></center>' % (sbtab.get_attribute('Text'))
+            try:
+                if len(sbtab.get_attribute('Text')):
+                    text_string = sbtab.get_attribute('Text')
+                    html += '<center><p>' + text_string + ' ' + unit_string + '</p></center>'
+                    #html += '<center><p>%s</p></center>' % (sbtab.get_attribute('Text'))
+            except:
+                #no "text" attribute is given; no problem
+                pass
+
 
         # header row
         #html += '<thead><tr><th colspan="%s">%s</th></tr></thead>' % (len(sbtab.columns), sbtab.header_row)
@@ -299,7 +315,7 @@ def sbtab_to_html(sbtab, filename=None, mode='sbtab_online', template = [], put_
         html = html.replace('TitlePlaceholder',sbtab.filename)
 
     # read in definitions file for nice mouse over
-    if mode == 'standalone' and len(definitions_file):
+    if mode == 'standalone' and definitions_file is not None:
         sbtab_def = open_definitions_file(definitions_file)
     else:
         sbtab_def = open_definitions_file()
@@ -372,21 +388,20 @@ def check_obj(file_string):
     return objTables
 
 
-def extract_supported_table_types():
+def extract_supported_table_types(definitions_file=None):
     '''
     Extracts all allowed SBtab table types from the definitions file.
 
     Returns: list
         List of supported SBtab table types.
     '''
-    sbtab_def = open_definitions_file()
+    sbtab_def = open_definitions_file(definitions_file)
     
     supported_types = []
     for row in sbtab_def.value_rows:
         t = row[sbtab_def.columns_dict['!Parent']]
         if t not in supported_types and t != 'SBtab':
             supported_types.append(t)
-
     return supported_types
 
 

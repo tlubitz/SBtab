@@ -6,8 +6,6 @@ try: from . import misc
 except: import misc
 try: from . import SBtab
 except: import SBtab
-try: from . import tablibIO
-except: import tablibIO
 try: from . import validatorSBtab
 except: import validatorSBtab
 try: from . import sbtab2sbml

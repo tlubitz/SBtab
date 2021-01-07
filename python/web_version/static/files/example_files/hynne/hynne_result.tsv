@@ -1,4 +1,4 @@
-!!SBtab TableType='QuantityData' Version='0.1' Level='1.0' TableName='Hynne Results'
+!!SBtab TableType="QuantityData" Version="0.1" Level="1.0" TableName="Hynne Results"
 !QuantityType	!SBML:reaction:id	!SBML:species:id	!Mode	!Value	!Std	!Unit	!Provenance	!Type	!Source
 standard chemical potential	None	GlcX	-959.483198095	-959.483198095	35.1079178955	kJ/mol	Balanced parameter value	Basic	None
 standard chemical potential	None	EtOHX	-890.378693874	-890.378693874	18.0245002945	kJ/mol	Balanced parameter value	Basic	None
