@@ -80,7 +80,7 @@ def check_delimiter(sbtab_file):
     Returns: str
         Delimiter of the SBtab table ('\t', ',', or ';')
     '''
-    sep = False
+    sep = '\t'   # default separator
 
     try:
         for row in sbtab_file.split('\n'):
