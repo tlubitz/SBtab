@@ -477,7 +477,7 @@ enzyme cost weight	MDH_R00342	R00342	0.73067916
 enzyme cost weight	PPC_R00345	R00345	2.0679157				
 %							
 !!SBtab DocumentName='E. coli central carbon metabolism - balanced parameters' TableName='ConcentrationConstraint' TableType='Quantity' Unit='mM' SBtabVersion='1.0'							
-!QuantityType	!Compound	!Compound:Identifiers:kegg.compound	!Concentration:Min	!Concentration:Max			
+!QuantityType	!Compound	!Compound:Identifiers:kegg.compound	!Min	!Max			
 concentration	_S__Malate	C00149	0.001	10			
 concentration	Acetyl_CoA	C00024	0.001	10			
 concentration	Fumarate	C00122	0.001	10			

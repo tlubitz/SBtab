@@ -35,8 +35,10 @@ Here, we show you how to use SBtab in your own Python code. If you have question
     file_content = sbtab_file.read()
     sbtab_file.close()
 
-    # create an SBtab Table Object St
-    St = SBtab.SBtabTable(file_content, file_name)
+    # create an SBtab Table Object St and add filename and content
+    St = SBtab.SBtabTable()
+    St.set_filename(file_name)
+    St.add_sbtab_string(file_content)
 ``` 
 <h3>Alternatively, create an SBtab Document (recommended for larger documents with >1 tables)</h3>
     
@@ -48,10 +50,12 @@ Here, we show you how to use SBtab in your own Python code. If you have question
     sbtab_file.close()
 
     # create an SBtab Document Object Sd
-    Sd = SBtab.SBtabDocument('your_document_name', file_content, file_name)
-    # you can also create an empty SBtab Document by
-    # omitting the file_content and file_name.
-    # you can add SBtab tables or strings to the document
+    Sd = SBtab.SBtabDocument()
+    Sd.set_filename(file_name)
+    Sd.set_name('My_SBtab_Document')
+    Sd.add_sbtab_string(file_content)
+    
+    # you can add further SBtab tables or strings to the document
     # by using the functions add_sbtab() or add_sbtab_string(), respectively.
 ``` 
 
@@ -73,7 +77,7 @@ Here, we show you how to use SBtab in your own Python code. If you have question
 ```python
     # see generation of SBtab Document Sd above
     Cd = sbtab2sbml.SBtabDocument(Sd)
-    (sbml,warnings) = Cd.convert_to_sbml('31')
+    (sbml, warnings) = Cd.convert_to_sbml('31')
     # ...where '31' is the SBML Level/Version 3.1
 ```
 <h3>Convert SBML to SBtab Document</h3>
@@ -81,14 +85,15 @@ Here, we show you how to use SBtab in your own Python code. If you have question
 ```python
     # read SBML model
     import libsbml
-    f = open('hynne.xml','r').read()
+    f = open('hynne.xml', 'r').read()
     reader = libsbml.SBMLReader()
     doc = reader.readSBMLFromString(f)
     model = doc.getModel()
     
     # convert model to SBtab Document Sd
+    # (Od is an ObjTable Document in SBtab format)
     Cd = sbml2sbtab.SBMLDocument(model, 'hynne.xml')
-    (Sd,warnings) = Cd.convert_to_sbtab()
+    (Sd, Od, warnings) = Cd.convert_to_sbtab()
 ```
 <h3>Python API</h3>
 The API for the Python modules can be found in the directory <i>SBtab/python/api_documentation/</i>.

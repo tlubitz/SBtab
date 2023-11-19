@@ -2,11 +2,11 @@
 tablib.dictionary.sbtab_dict
 ~~~~~~~~~~~~~
 A wrapper object for handling an SBtab with multiple tables using
-a dictinoary.
+a dictionary.
 Also, includes methods for I/O between SQLite and SBtab.
 """
 # -*- coding: utf-8 -*-
-import SBtabTools 
+import misc
 from SBtab import SBtabTable, SBtabError
 import tablib
 import tablibIO
@@ -27,7 +27,7 @@ class SBtabDict(dict):
     @staticmethod
     def FromSBtab(fpath):
         spreadsheet_file = tablibIO.loadTSV(fpath, False)
-        m = SBtabTools.oneOrMany(spreadsheet_file)
+        m = misc.split_sbtabs(spreadsheet_file)
         sbtab_list = [SBtabTable(dset, fpath) for dset in m]
         sbtab_dict = SBtabDict(sbtab_list)
         sbtab_dict.fpath = fpath

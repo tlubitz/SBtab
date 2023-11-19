@@ -485,7 +485,7 @@ concentration of enzyme	FUM_R01082	R01082	0.0015986991
 concentration of enzyme	MDH_R00342	R00342	0.024144199			
 %						
 !!SBtab SBtabVersion='0.8' TableName='ConcentrationConstraint' TableType='Quantity' Unit='mM'						
-!QuantityType	!Compound	!Compound:Identifiers:kegg.compound	!Concentration:Min	!Concentration:Max		
+!QuantityType	!Compound	!Compound:Identifiers:kegg.compound	!Min	!Max		
 concentration	_S__Malate	C00149	0.001	10		
 concentration	Acetyl_CoA	C00024	0.001	10		
 concentration	Fumarate	C00122	0.001	10		

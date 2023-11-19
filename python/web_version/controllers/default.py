@@ -73,7 +73,6 @@ def validator():
     filename = None
     output = []
 
-
     # load the definition file which is required for validation
     if not session.definition_file:
         try:
@@ -130,12 +129,15 @@ def validator():
             try:
                 sbtab_strings = misc.split_sbtabs(sbtab_file)
                 sbtab_doc = SBtab.SBtabDocument(filename)
+                if sbtab_doc.document_format == 'ObjTables':
+                    session.warnings_val.append('This SBtab validator cannot be used for ObjTables files.')
+                    redirect(URL(''))
                 session.sbtab_docnames.append(filename)
                 for i, sbtab_string in enumerate(sbtab_strings):
                     name_single = filename[:-4] + str(i) + filename[-4:]
                     sbtab = SBtab.SBtabTable(sbtab_string, name_single)
                     new_name = filename[:-4] + '_' + sbtab.table_id + filename[-4:]
-                    sbtab.change_filename(new_name)
+                    sbtab.set_filename(new_name)
                     if new_name not in session.sbtab_filenames:
                         sbtab_doc.add_sbtab(sbtab)
                         session.sbtabs.append(sbtab)
@@ -144,7 +146,7 @@ def validator():
                         session.name2doc[new_name] = filename
 
                     else:
-                        session.warnings_val.append('The SBtab %s is duplicate.' % sbtab.filename)
+                        session.warnings_val.append('The SBtab %s is duplicate. The document cannot be validated. All TableIDs in a document need to be unique.' % sbtab.filename)
                         redirect(URL(''))
             except:
                 session.warnings_val.append('The SBtab Document object could not be created properly.')
@@ -152,6 +154,9 @@ def validator():
         else:
             try:
                 sbtab = SBtab.SBtabTable(sbtab_file, filename)
+                if sbtab.table_format == 'ObjTables':
+                    session.warnings_val.append('This SBtab validator cannot be used for ObjTables files.')
+                    redirect(URL(''))
                 session.sbtabs.append(sbtab)
                 session.sbtab_filenames.append(sbtab.filename)
                 session.types.append(sbtab.table_type)
@@ -241,12 +246,6 @@ def converter():
     if not session.definition_file:
         try:
             sbtab_def = misc.open_definitions_file(os.path.dirname(os.path.abspath(__file__)) + '/../static/files/default_files/definitions.tsv')
-            #def_path = os.path.dirname(os.path.abspath(__file__)) + '/../static/files/default_files/definitions.tsv'
-            #def_file_open = open(def_path)
-            #def_file_open = open('/sbtab/static/files/default_files/definitions.tsv') # deprecated?
-            #def_file = def_file_open.read()
-            #definition_name = 'definitions.tsv'
-            #sbtab_def = SBtab.SBtabTable(def_file, definition_name)
             session.definition_file = sbtab_def
             session.definition_file_name = sbtab_def.filename
         except:
@@ -303,12 +302,10 @@ def converter():
                 sbtab_doc = SBtab.SBtabDocument(filename)
                 session.sbtab_docnames.append(filename)
                 for i, sbtab_string in enumerate(sbtab_strings):
-
                     name_single = filename[:-4] + str(i) + filename[-4:]
                     sbtab = SBtab.SBtabTable(sbtab_string, name_single)
                     new_name = filename[:-4] + '_' + sbtab.table_id + filename[-4:]
-                    sbtab.change_filename(new_name)
-
+                    sbtab.set_filename(new_name)
                     if new_name not in session.sbtab_filenames:
                         sbtab_doc.add_sbtab(sbtab)
                         session.sbtabs.append(sbtab)
@@ -414,7 +411,6 @@ def converter():
                                                 'ady been uploaded. Please rename'\
                                                 ' your SBtab file/s before SBML c'\
                                                 'reation.' % filename_new)
-            redirect(URL(''))
         except:
             session.warnings_con.append('The conversion of SBtab %s to SBML was n'\
                                         'ot successful.' % sbtab.filename)
@@ -540,12 +536,15 @@ def converter():
             reader = libsbml.SBMLReader()
             sbml_model = reader.readSBMLFromString(session.sbmls[int(request.vars.c2sbtab_button)])
             filename = session.sbml_filenames[int(request.vars.c2sbtab_button)]
+
             # convert SBML to SBtab Document
-            ConvSBMLClass = sbml2sbtab.SBMLDocument(sbml_model.getModel(),filename)
-            (sbtab_doc, session.warnings_con) = ConvSBMLClass.convert_to_sbtab()
+            ConvSBMLClass = sbml2sbtab.SBMLDocument(sbml_model.getModel(), filename)
+            (sbtab_doc, objtables_doc, session.warnings_con) = ConvSBMLClass.convert_to_sbtab()
+
             if sbtab_doc.sbtabs == []:
                 session.warnings_con = ['The SBML file seems to be invalid and could not be converted to SBtab.']
                 redirect(URL(''))
+
             # append generated SBtabs to session variables
             for sbtab in sbtab_doc.sbtabs:
                 if 'sbtabs' not in session:
@@ -564,6 +563,7 @@ def converter():
                         if sbtab_doc.name not in session.sbtab_docnames:
                             session.sbtab_docnames.append(sbtab_doc.name)
                         session.types.append(sbtab.table_type)
+
         except:
             session.warnings_con = ['The SBML file seems to be invalid and could not be converted to SBtab.']
             redirect(URL(''))
@@ -607,12 +607,6 @@ def def_files():
     if not session.definition_file:
         try:
             sbtab_def = misc.open_definitions_file(os.path.dirname(os.path.abspath(__file__)) + '/../static/files/default_files/definitions.tsv')
-            #def_path = os.path.dirname(os.path.abspath(__file__)) + '/../static/files/default_files/definitions.tsv'
-            #def_file_open = open(def_path)
-            #def_file_open = open('/sbtab/static/files/default_files/definitions.tsv')
-            #def_file = def_file_open.read()
-            #definition_name = 'definitions.tsv'
-            #sbtab_def = SBtab.SBtabTable(def_file, definition_name)
             session.definition_file = sbtab_def
             session.definition_file_def = copy.deepcopy(sbtab_def)
             session.definition_file_name = sbtab_def.filename
@@ -740,8 +734,8 @@ def show_sbtab():
     '''
     try: sbtab = session.sbtabs[int(request.args(0))]
     except: return 'There is something wrong with this SBtab file. It cannot be loaded properly.'
-
-    try: return misc.sbtab_to_html(sbtab)
+    return misc.sbtab_to_html(sbtab, session.definition_file)
+    try: return misc.sbtab_to_html(sbtab, session.definition_file)
     except: return 'There is something wrong with this SBtab file. It cannot be loaded properly.'
 
 

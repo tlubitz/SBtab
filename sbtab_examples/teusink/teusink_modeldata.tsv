@@ -52,8 +52,8 @@ vADH	Alcohol dehydrogenase	ACE + NADH <=> NAD + ETOH		-cytosol * (VmADH / (KiADH
 vG3PDH	Glycerol 3-phosphate dehydrogenase	TRIO + NADH <=> NAD + GLY		cytosol * VmG3PDH / (KmG3PDHDHAP * KmG3PDHNADH) * (1 / (1 + KeqTPI) * TRIO * NADH - GLY * NAD / KeqG3PDH) / ((1 + 1 / (1 + KeqTPI) * TRIO / KmG3PDHDHAP + GLY / KmG3PDHGLY) * (1 + NADH / KmG3PDHNADH + NAD / KmG3PDHNAD))	False	1.1.1.8								
 vATP	ATPase activity	P <=>	ATP	cytosol * KATPASE * ATP	True	3.6.1.3								
 														
-!!SBtab TableID='t_id_05' TableName='Parameter balancing configuration file' TableType='PbConfig' Date='2018-04-18'
-!Option	!Value
+!!SBtab TableName='Parameter balancing configuration file' TableType='Config' Date='2018-04-18' TableID='ConfigurePB'
+!ID	!Value
 use_pseudo_values	True
 ph	7
 temperature	298.15
@@ -66,7 +66,7 @@ default_activation	complete
 model_name	outputname
 boundary_values	ignore
 
-!!SBtab TableID='t_id_06' TableName='Parameter prior' TableType='Quantity' Date='2018-04-18'															
+!!SBtab TableID='PriorTable' TableName='Parameter prior' TableType='QuantityInfo' Date='2018-04-18'															
 !QuantityType	!Unit	!BiologicalElement	!MathematicalType	!PriorMedian	!PriorStd	!PriorGeometricStd	!LowerBound	!UpperBound	!DataStd	!Symbol	!PhysicalType	!Dependence	!UseAsPriorInformation	!SBMLElement 	!Abbreviation	!MatrixInfo
 standard chemical potential	kJ/mol	Species	Additive	-880	1500		-3000	2000	10	mu0	Thermodynamic	Basic	1	Global parameter 	scp	[I_species, 0, 0, 0, 0, 0, 0, 0]
 catalytic rate constant geometric mean	1/s	Reaction	Multiplicative	10		100	0.0000001	10000	100	KV	Kinetic	Basic	1	Local parameter	kcrg	[0, I_reaction, 0, 0, 0, 0, 0, 0]

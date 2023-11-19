@@ -1,4 +1,4 @@
-!!!SBtab Document='BIOMD0000000064' SBtabVersion='1.0'
+!!!SBtab DocumentName='BIOMD0000000064' SBtabVersion='1.0'
 !!SBtab TableID='t_id_01' SBtabVersion='1.0' Document='BIOMD0000000064' TableType='Compartment' TableName='Compartment'
 !ID,!Size
 extracellular,1

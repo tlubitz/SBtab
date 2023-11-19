@@ -58,8 +58,8 @@ vstorage	Storage	ATP + G6P <=> ADP		cytosol * k22 * ATP * G6P	True
 vconsum	ATP consumption	ATP <=> ADP		cytosol * k23 * ATP	True									
 vAK	Adenylate kinase	ATP + AMP <=> 2.0 ADP		cytosol * (k24f * AMP * ATP - k24r * pow(ADP, 2))	True	2.7.4.3								
 														
-!!SBtab TableID="t_id_04" TableName='Parameter balancing configuration file' TableType='PbConfig'														
-!Option	!Value													
+!!SBtab TableID="t_id_04" TableName='Parameter balancing configuration file' TableType='Options'														
+!ID	!Value													
 use_pseudos	True													
 pH	7													
 Temperature	300													

@@ -1,4 +1,4 @@
-!!!SBtab SBtabVersion='1.0' Document='TestModel' Name='TestModel' Date='2018-11-23'
+!!!SBtab SBtabVersion='1.0' DocumentName='TestModel' Name='TestModel' Date='2018-11-23'
 !!SBtab TableID='compartment' SBtabVersion='1.0' Document='layout' TableType='Compartment' TableName='Compartment' Date='2018-11-23'
 !ID	!Name	!Size	!Unit	!SBOTerm
 Compartment_1	Compartment_1	nan		

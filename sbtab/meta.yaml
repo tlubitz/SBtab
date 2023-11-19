@@ -1,0 +1,38 @@
+{% set name = "sbtab" %}
+{% set version = "0.9.75" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  sha256: ce4fec65f75ca12ad7d1eb472033bd7ff6c657170ef038a12017304493344045
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . -vv"
+
+requirements:
+  host:
+    - pip
+    - python
+  run:
+    - python
+
+test:
+  imports:
+    - sbtab
+
+about:
+  home: "https://www.sbtab.net"
+  license: MIT
+  license_family: MIT
+  license_file: 
+  summary: "SBtab - Standardised Data Tables for Systems Biology"
+  doc_url: 
+  dev_url: 
+
+extra:
+  recipe-maintainers:
+    - tlubitz

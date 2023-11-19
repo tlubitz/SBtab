@@ -10,6 +10,7 @@ See specification for further information.
 import re
 import libsbml
 import numpy
+import copy
 try: from . import SBtab
 except: import SBtab
 import sys
@@ -63,7 +64,7 @@ class SBMLDocument:
         '''
         self.warnings = []
         sbtab_doc = SBtab.SBtabDocument(self.filename)
-        doc_row = "!!!SBtab Document='%s' Name='%s' SBtabVersion='1.0'" % (self.model.getId(), self.model.getId())
+        doc_row = "!!!SBtab DocumentName='%s' Name='%s' SBtabVersion='1.0'" % (self.model.getId(), self.model.getId())
         sbtab_doc.set_doc_row(doc_row)
         
         try:
@@ -111,7 +112,9 @@ class SBMLDocument:
             except:
                 self.warnings.append('Could not generate SBtab Layout.')
 
-        return (sbtab_doc, self.warnings)
+        obj_tables_doc = self.create_obj_tables_doc(sbtab_doc)
+
+        return (sbtab_doc, obj_tables_doc, self.warnings)
 
     def compartment_sbtab(self):
         '''
@@ -738,7 +741,7 @@ class SBMLDocument:
         if not parameters: return False
 
         # header row        
-        sbtab_quantity = '!!SBtab TableID="quantity" Document="%s" TableType='\
+        sbtab_quantity = '!!SBtab TableID="parameter" Document="%s" TableType='\
                          '"Quantity" TableName="Quantity" SBtabVersion="1.0"\n' % self.filename
         # columns
         columns = ['!ID', '!Parameter:SBML:parameter:id', '!Value',
@@ -874,5 +877,27 @@ class SBMLDocument:
                     sumformula += product.getSpecies()
 
         return sumformula
-        
+    
+    def create_obj_tables_doc(self, sbtab_doc):
+        '''
+        make a copy of the SBtab doc in form of an
+        ObjTables doc
+        '''
+        obj_tables_doc = copy.deepcopy(sbtab_doc)
 
+        obj_tables_doc.document_format = 'ObjTables'
+        obj_tables_doc.doc_row = obj_tables_doc.doc_row.replace('SBtab', 'ObjTables')
+        obj_tables_doc.change_attribute('schema', 'SBtab')
+        obj_tables_doc.change_attribute('objTablesVersion', '1.0.1')
+
+        for sbtab in obj_tables_doc.sbtabs:
+            sbtab.table_format = 'ObjTables'
+            sbtab.header_row = sbtab.header_row.replace('!!SBtab', '!!ObjTables')
+            sbtab.change_attribute('schema', 'SBtab')
+            sbtab.change_attribute('type', 'Data')
+            sbtab.change_attribute('tableFormat', 'row')
+            sbtab.change_attribute('class', sbtab.table_type)
+            sbtab.change_attribute('name', sbtab.table_name)
+            sbtab.change_attribute('objTablesVersion', '1.0.1')
+
+        return obj_tables_doc

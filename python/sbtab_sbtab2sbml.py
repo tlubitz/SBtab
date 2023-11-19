@@ -41,26 +41,35 @@ def converter_sbtab2sbml_wrapper(args):
     except:
         raise SBtabError('SBtab Document %s could not be created.' % args.sbtab)
 
+    if len(args.outfile)>0:
+        outfile = args.outfile
+    else:
+        outfile = 'sbml.xml'
+
     # create converter class
     if args.version:
         if args.version != '31' and args.version != '24':
-            raise SBtabError('SBtab to SBML conversion does currently only support SBML Level and Version 24 and 31.')
+            raise SBtabError('SBtab to SBML conversion does currently only support SBML Level and Version 2.4 and 3.1.')
         
         try:
             converter = sbtab2sbml.SBtabDocument(sbtab_doc)
             (sbml, warnings) = converter.convert_to_sbml(args.version)
-            print(warnings)
-            p = open('sbml.xml','w')
+            if len(warnings)>0:
+                print('Warnings:')
+                print(warnings)
+            p = open(outfile,'w')
             p.write(sbml)
-            p.close()            
+            p.close()
         except:
             raise SBtabError('SBtab Document %s could not be converted to SBML.' % args.sbtab)
     else:
         try:
             converter = sbtab2sbml.SBtabDocument(sbtab_doc)
             (sbml, warnings) = converter.convert_to_sbml('31')
-            print(warnings)
-            p = open('sbml.xml','w')
+            if len(warnings)>0:
+                print('Warnings:')
+                print(warnings)
+            p = open(outfile,'w')
             p.write(sbml)
             p.close()    
         except:
@@ -70,8 +79,9 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('sbtab', help='Path to an SBtab file.')
-    parser.add_argument('--version', help='Path to an SBtab file.')
+    parser.add_argument('sbtab', help='Path to SBtab input file.')
+    parser.add_argument('-w', '--version', help='SBML version.')
+    parser.add_argument('-o', '--outfile', help='Path to SBtab output file.', default=[])
 
     args = parser.parse_args()
 

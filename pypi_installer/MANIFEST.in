@@ -1,3 +1,4 @@
 # Include the data files
 recursive-include sbtab *
 recursive-include sbtab/sbtab_examples *
+include LICENSE
