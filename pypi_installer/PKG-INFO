@@ -14,4 +14,4 @@ Classifier: Development Status :: 4 - Beta
 Classifier: Intended Audience :: Developers
 Classifier: Topic :: Software Development
 Classifier: Programming Language :: Python :: 3.0
-Requires-Python: >=3.0
+Requires-Python: >=3.7

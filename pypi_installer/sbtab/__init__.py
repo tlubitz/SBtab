@@ -5,5 +5,6 @@ from . import sbtab2html
 from . import SBtab
 from . import validatorSBtab
 
-from pkg_resources import resource_string
-__version__ = resource_string(__name__, 'VERSION').decode("utf-8")
+from importlib import resources
+__version__ = resources.files(__name__).joinpath("VERSION").read_text(
+    encoding="utf-8").strip()
